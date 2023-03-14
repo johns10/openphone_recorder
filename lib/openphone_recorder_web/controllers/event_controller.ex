@@ -4,8 +4,6 @@ defmodule OpenphoneRecorderWeb.EventController do
   alias OpenphoneRecorder.Events
   alias OpenphoneRecorder.Events.Event
 
-  @signing_secret "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
-
   action_fallback OpenphoneRecorderWeb.FallbackController
 
   def index(conn, _params) do
@@ -44,17 +42,18 @@ defmodule OpenphoneRecorderWeb.EventController do
   end
 
   defp request_valid?(conn) do
+    signing_secret = Application.get_env(:openphone_recorder, :signing_secret)
     incoming_signature = get_req_header(conn, "openphone-signature") |> Enum.at(0)
     [_, _, timestamp, provided_digest] = String.split(incoming_signature, ";")
     body = Map.get(conn.assigns, :raw_body) |> Enum.join()
 
     signed_data = "#{timestamp}.#{body}"
-    signing_key_bytes = Base.decode64!(@signing_secret)
+    signing_key_bytes = Base.decode64!(signing_secret)
 
     hmac_digest =
       :crypto.mac(:hmac, :sha256, signing_key_bytes, signed_data)
       |> Base.encode64()
 
-    hmac_digest == incoming_signature
+    provided_digest == hmac_digest
   end
 end

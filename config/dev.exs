@@ -63,7 +63,9 @@ config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :openphone_recorder, dev_routes: true
+config :openphone_recorder,
+  dev_routes: true,
+  signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
