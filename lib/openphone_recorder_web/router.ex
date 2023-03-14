@@ -3,10 +3,16 @@ defmodule OpenphoneRecorderWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+    plug :cache_body
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, {OpenphoneRecorderWeb.Layouts, :root}
     plug :put_secure_browser_headers
+  end
+
+  def cache_body(conn, opts) do
+    {:ok, body, conn} = Plug.Conn.read_body(conn, opts)
+    update_in(conn.assigns[:raw_body], &[body | &1 || []])
   end
 
   pipeline :api do
