@@ -3,6 +3,7 @@ defmodule OpenphoneRecorderWeb.EventController do
 
   alias OpenphoneRecorder.Events
   alias OpenphoneRecorder.Events.Event
+  alias OpenphoneRecorder.Events.Signature
 
   action_fallback OpenphoneRecorderWeb.FallbackController
 
@@ -12,11 +13,11 @@ defmodule OpenphoneRecorderWeb.EventController do
   end
 
   def create(conn, event_params) do
-    with true <- request_valid?(conn),
-         {:ok, %Event{}} <- Events.create_event(event_params) do
+    with {:ok, _signature} <- validate_request(conn),
+         {:ok, %Event{} = event} <- Events.create_event(event_params) do
       conn
       |> put_status(:created)
-      |> send_resp(:no_content, "")
+      |> render(:show, event: event)
     end
   end
 
@@ -28,7 +29,7 @@ defmodule OpenphoneRecorderWeb.EventController do
   def update(conn, %{"id" => id, "event" => event_params}) do
     event = Events.get_event!(id)
 
-    with true <- request_valid?(conn),
+    with {:ok, _signature} <- validate_request(conn),
          {:ok, %Event{} = event} <- Events.update_event(event, event_params) do
       render(conn, :show, event: event)
     end
@@ -38,22 +39,15 @@ defmodule OpenphoneRecorderWeb.EventController do
     event = Events.get_event!(id)
 
     with {:ok, %Event{}} <- Events.delete_event(event) do
+      send_resp(conn, :no_content, "")
     end
   end
 
-  defp request_valid?(conn) do
-    signing_secret = Application.get_env(:openphone_recorder, :signing_secret)
-    incoming_signature = get_req_header(conn, "openphone-signature") |> Enum.at(0)
-    [_, _, timestamp, provided_digest] = String.split(incoming_signature, ";")
+  defp validate_request(conn) do
+    secret = Application.get_env(:openphone_recorder, :signing_secret)
+    incoming_signature = get_req_header(conn, "openphone-signature") |> Enum.at(0) || ""
     body = Map.get(conn.assigns, :raw_body) |> Enum.join()
 
-    signed_data = "#{timestamp}.#{body}"
-    signing_key_bytes = Base.decode64!(signing_secret)
-
-    hmac_digest =
-      :crypto.mac(:hmac, :sha256, signing_key_bytes, signed_data)
-      |> Base.encode64()
-
-    provided_digest == hmac_digest
+    Signature.validate(incoming_signature, body, secret)
   end
 end
