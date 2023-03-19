@@ -2,6 +2,7 @@ defmodule OpenphoneRecorder.EventsTest do
   use OpenphoneRecorder.DataCase
 
   alias OpenphoneRecorder.Events
+  alias OpenphoneRecorder.OpenphoneFixtures
 
   describe "events" do
     alias OpenphoneRecorder.Events.Event
@@ -54,6 +55,38 @@ defmodule OpenphoneRecorder.EventsTest do
     test "change_event/1 returns a event changeset" do
       event = event_fixture()
       assert %Ecto.Changeset{} = Events.change_event(event)
+    end
+
+    alias OpenphoneRecorder.Events.Openphone
+
+    test "projects call completed" do
+      assert %Openphone.CallCompleted{} =
+               OpenphoneFixtures.call_completed()
+               |> Events.cast_event()
+    end
+
+    test "projects call ringing" do
+      assert %Openphone.CallRinging{} =
+               OpenphoneFixtures.call_ringing()
+               |> Events.cast_event()
+    end
+
+    test "projects call recording completed" do
+      assert %Openphone.CallRecordingCompleted{} =
+               OpenphoneFixtures.call_recording_completed()
+               |> Events.cast_event()
+    end
+
+    test "projects message received" do
+      assert %Openphone.MessageReceived{} =
+               OpenphoneFixtures.message_received()
+               |> Events.cast_event()
+    end
+
+    test "projects message delivered" do
+      assert %Openphone.MessageDelivered{} =
+               OpenphoneFixtures.message_delivered()
+               |> Events.cast_event()
     end
   end
 end
