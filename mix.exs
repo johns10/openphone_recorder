@@ -56,6 +56,7 @@ defmodule OpenphoneRecorder.MixProject do
       {:ecto_phone_number, "~> 0.4"},
       {:httpoison, "~> 2.1"},
       {:mox, "~> 1.0", only: :test},
+      {:briefly, "~> 0.4"}
     ]
   end
 
