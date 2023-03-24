@@ -53,7 +53,9 @@ defmodule OpenphoneRecorder.MixProject do
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:inflex, "~> 2.0.0"},
       {:uuid, "~> 1.1"},
-      {:ecto_phone_number, "~> 0.4"}
+      {:ecto_phone_number, "~> 0.4"},
+      {:httpoison, "~> 2.1"},
+      {:mox, "~> 1.0", only: :test},
     ]
   end
 
