@@ -24,6 +24,10 @@ defmodule OpenphoneRecorderWeb.Router do
 
     get "/", PageController, :home
     resources "/events", EventController, except: [:new, :edit]
+
+    live "/conversations", ConversationLive.Index, :index
+
+    live "/conversations/:id", ConversationLive.Show, :show
   end
 
   scope "/api", OpenphoneRecorderWeb do
