@@ -1,0 +1,14 @@
+defmodule OpenphoneRecorder.Repo.Migrations.CreateParticipants do
+  use Ecto.Migration
+
+  def change do
+    create table(:participants) do
+      add :conversation_id, references(:conversations, on_delete: :nothing, type: :uuid)
+      add :phone_number_id, references(:conversations, on_delete: :nothing, type: :uuid)
+
+      timestamps()
+    end
+
+    create unique_index(:participants, [:conversation_id, :phone_number_id])
+  end
+end
