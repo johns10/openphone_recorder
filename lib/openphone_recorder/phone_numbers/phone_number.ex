@@ -16,7 +16,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
     phone_number
     |> cast(attrs, [:external_id, :phone_number, :source])
     |> cast_id()
-    |> validate_required([:external_id, :phone_number, :source])
+    |> validate_required([:phone_number, :source])
   end
 
   defp cast_id(changeset) do
