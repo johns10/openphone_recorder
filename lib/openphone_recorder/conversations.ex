@@ -16,6 +16,16 @@ defmodule OpenphoneRecorder.Conversations do
     |> Repo.insert()
   end
 
+  def upsert_conversation(attrs \\ %{}) do
+    %Conversation{}
+    |> Conversation.changeset(attrs)
+    |> Repo.insert(
+      on_conflict: :nothing,
+      conflict_target: :id,
+      returning: true
+    )
+  end
+
   def delete_conversation(%Conversation{} = conversation) do
     Repo.delete(conversation)
   end

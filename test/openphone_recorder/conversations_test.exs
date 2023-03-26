@@ -20,6 +20,16 @@ defmodule OpenphoneRecorder.ConversationsTest do
       assert Conversations.get_conversation!(conversation.id) == conversation
     end
 
+    test "upsert_conversation/1 with valid data creates a conversation" do
+      valid_attrs = %{external_id: "asd08hlaihdoih", source: :openphone}
+      old_converation = conversation_fixture(%{external_id: "asd08hlaihdoih", source: :openphone})
+
+      assert {:ok, %Conversation{} = conversation} =
+               Conversations.upsert_conversation(valid_attrs)
+
+      assert conversation.external_id == old_converation.external_id
+    end
+
     test "create_conversation/1 with valid data creates a conversation" do
       valid_attrs = %{external_id: "asd08hlaihdoih", source: :openphone}
 
