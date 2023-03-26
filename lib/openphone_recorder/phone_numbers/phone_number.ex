@@ -20,12 +20,18 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   end
 
   defp cast_id(changeset) do
-    case get_change(changeset, :phone_number) do
+    case get_field(changeset, :id) do
       nil ->
-        changeset
+        case get_change(changeset, :phone_number) do
+          nil ->
+            changeset
 
-      phone_number ->
-        put_change(changeset, :id, UUID.uuid5(nil, to_string(phone_number)))
+          phone_number ->
+            put_change(changeset, :id, UUID.uuid5(nil, to_string(phone_number)))
+        end
+
+      _ ->
+        changeset
     end
   end
 end

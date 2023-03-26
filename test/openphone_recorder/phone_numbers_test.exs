@@ -33,6 +33,28 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
       assert phone_number.source == :openphone
     end
 
+    test "upsert_phone_number/1 with valid data does nothing" do
+      valid_attrs = %{
+        external_id: "some external_id",
+        phone_number: "12566589999",
+        source: :openphone
+      }
+
+      old_phone_number =
+        phone_number_fixture(
+          valid_attrs = %{
+            external_id: "some external_id 2",
+            phone_number: "12566583459",
+            source: :openphone
+          }
+        )
+
+      assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
+      assert phone_number.external_id == "some external_id 2"
+      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_583_459}
+      assert phone_number.source == :openphone
+    end
+
     test "create_phone_number/1 on an existing phone number raises properly" do
       valid_attrs = %{
         external_id: "some external_id",

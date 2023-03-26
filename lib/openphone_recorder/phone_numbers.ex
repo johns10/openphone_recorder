@@ -16,6 +16,16 @@ defmodule OpenphoneRecorder.PhoneNumbers do
     |> Repo.insert()
   end
 
+  def upsert_phone_number(attrs \\ %{}) do
+    %PhoneNumber{}
+    |> PhoneNumber.changeset(attrs)
+    |> Repo.insert(
+      on_conflict: :nothing,
+      conflict_target: :id,
+      returning: true
+    )
+  end
+
   def update_phone_number(%PhoneNumber{} = phone_number, attrs) do
     phone_number
     |> PhoneNumber.changeset(attrs)
