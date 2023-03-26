@@ -9,7 +9,6 @@ defmodule OpenphoneRecorder.OpenaiTest do
     test "creates a transcription" do
       {:ok, response} =
         Openai.create_transcript(%{file: Path.expand("./test/support/fixtures/hello.mp3")})
-        |> IO.inspect()
     end
   end
 end
