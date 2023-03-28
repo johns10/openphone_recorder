@@ -10,5 +10,8 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreatePhoneNumbers do
 
       timestamps()
     end
+
+    create unique_index(:phone_numbers, [:id])
+    create unique_index(:phone_numbers, [:external_id, :source])
   end
 end
