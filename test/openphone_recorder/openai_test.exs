@@ -7,7 +7,7 @@ defmodule OpenphoneRecorder.OpenaiTest do
     @tag :integration
 
     test "creates a transcription" do
-      {:ok, response} =
+      {:ok, _response} =
         Openai.create_transcript(%{file: Path.expand("./test/support/fixtures/hello.mp3")})
     end
   end

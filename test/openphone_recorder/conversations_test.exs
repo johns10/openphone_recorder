@@ -33,8 +33,7 @@ defmodule OpenphoneRecorder.ConversationsTest do
     test "create_conversation/1 with valid data creates a conversation" do
       valid_attrs = %{external_id: "asd08hlaihdoih", source: :openphone}
 
-      assert {:ok, %Conversation{} = conversation} =
-               Conversations.create_conversation(valid_attrs)
+      assert {:ok, %Conversation{}} = Conversations.create_conversation(valid_attrs)
     end
 
     test "create_conversation/1 with invalid data returns error changeset" do
