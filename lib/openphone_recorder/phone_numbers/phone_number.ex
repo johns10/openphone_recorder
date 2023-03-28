@@ -17,6 +17,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
     |> cast(attrs, [:external_id, :phone_number, :source])
     |> cast_id()
     |> validate_required([:phone_number, :source])
+    |> unique_constraint([:id], name: :phone_numbers_pkey)
   end
 
   defp cast_id(changeset) do
