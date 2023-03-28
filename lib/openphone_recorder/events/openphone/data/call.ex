@@ -24,6 +24,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Call do
   def changeset(call, attrs) do
     call
     |> cast(attrs, [
+      :id,
       :from,
       :to,
       :direction,
@@ -38,6 +39,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Call do
     |> cast_embed(:voicemail, with: &Media.changeset/2)
     |> cast_embed(:media, with: &Media.changeset/2)
     |> validate_required([
+      :id,
       :from,
       :to,
       :direction,
