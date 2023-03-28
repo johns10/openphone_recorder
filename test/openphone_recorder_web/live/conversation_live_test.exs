@@ -4,8 +4,6 @@ defmodule OpenphoneRecorderWeb.ConversationLiveTest do
   import Phoenix.LiveViewTest
   import OpenphoneRecorder.ConversationsFixtures
 
-  @create_attrs %{external_id: "asd08hlaihdoih", source: :openphone}
-
   defp create_conversation(_) do
     conversation = conversation_fixture()
     %{conversation: conversation}

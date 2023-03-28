@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.ParticipantsTest do
 
     import OpenphoneRecorder.ParticipantsFixtures
 
-    @invalid_attrs %{conversation_id: "asdfasdf", phone_number_id: "oishgoih"}
+    @invalid_attrs %{conversation_id: Ecto.UUID.generate(), phone_number_id: Ecto.UUID.generate()}
 
     test "list_participants/0 returns all participants" do
       participant = participant_fixture()
@@ -23,7 +23,7 @@ defmodule OpenphoneRecorder.ParticipantsTest do
     test "create_participant/1 with valid data creates a participant" do
       valid_attrs = %{}
 
-      assert {:ok, %Participant{} = participant} = Participants.create_participant(valid_attrs)
+      assert {:ok, %Participant{}} = Participants.create_participant(valid_attrs)
     end
 
     test "create_participant/1 with invalid data returns error changeset" do
@@ -34,8 +34,7 @@ defmodule OpenphoneRecorder.ParticipantsTest do
       participant = participant_fixture()
       update_attrs = %{}
 
-      assert {:ok, %Participant{} = participant} =
-               Participants.update_participant(participant, update_attrs)
+      assert {:ok, %Participant{}} = Participants.update_participant(participant, update_attrs)
     end
 
     test "update_participant/2 with invalid data returns error changeset" do
