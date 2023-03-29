@@ -1,6 +1,7 @@
 defmodule OpenphoneRecorder.Calls.Call do
   use Ecto.Schema
   import Ecto.Changeset
+  alias OpenphoneRecorder.Statements.Statement
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
@@ -8,7 +9,9 @@ defmodule OpenphoneRecorder.Calls.Call do
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :utc_datetime
     field :completed_at, :utc_datetime
-    field :conversation_id, :id
+    field :conversation_id, :binary_id
+    
+    has_many :statements, Statement
 
     timestamps()
   end
@@ -16,7 +19,7 @@ defmodule OpenphoneRecorder.Calls.Call do
   @doc false
   def changeset(call, attrs) do
     call
-    |> cast(attrs, [:source, :external_id])
+    |> cast(attrs, [:source, :external_id, :answered_at, :completed_at, :conversation_id])
     |> validate_required([:source, :external_id])
     |> cast_id()
     |> unique_constraint([:id], name: :calls_pkey)
