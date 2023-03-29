@@ -1,5 +1,48 @@
 defmodule OpenphoneRecorder.HTTPFixtures do
-  def openai_speech(_attrs \\ %{}) do
+  def openai_speech(attrs \\ %{})
+
+  def openai_speech(%{response_format: "json"}) do
+    {:ok,
+     %HTTPoison.Response{
+       status_code: 200,
+       body: "{\"text\":\"Hellloメ\"}",
+       headers: [
+         {"Date", "Wed, 29 Mar 2023 11:20:58 GMT"},
+         {"Content-Type", "application/json"},
+         {"Content-Length", "20"},
+         {"Connection", "keep-alive"},
+         {"Openai-Organization", "user-5x8uzxoc4fqkgcgg4tmmuuru"},
+         {"Openai-Processing-Ms", "1277"},
+         {"Openai-Version", "2020-10-01"},
+         {"Strict-Transport-Security", "max-age=15724800; includeSubDomains"},
+         {"X-Ratelimit-Limit-Requests", "60"},
+         {"X-Ratelimit-Remaining-Requests", "59"},
+         {"X-Ratelimit-Reset-Requests", "1s"},
+         {"X-Request-Id", "1bcd49da7f537b002b3f2e6693b836b0"}
+       ],
+       request_url: "https://api.openai.com/v1/audio/transcriptions",
+       request: %HTTPoison.Request{
+         method: :post,
+         url: "https://api.openai.com/v1/audio/transcriptions",
+         headers: [
+           {"Authorization", "Bearer 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"},
+           {"Content-Type", "multipart/form-data"}
+         ],
+         body:
+           {:multipart,
+            [
+              {"model", "whisper-1"},
+              {"response_format", "json"},
+              {:file,
+               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello.mp3"}
+            ]},
+         params: %{},
+         options: []
+       }
+     }}
+  end
+
+  def openai_speech(_attrs) do
     {:ok,
      %HTTPoison.Response{
        status_code: 200,

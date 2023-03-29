@@ -6,5 +6,5 @@ defmodule OpenphoneRecorder.Openai do
       "Authorization" => "Bearer #{Application.get_env(:openphone_recorder, :openai_api_key)}"
     }
 
-  defdelegate create_transcript(attrs), to: OpenphoneRecorder.Openai.Transcript
+  defdelegate create_transcript(attrs, opts \\ []), to: OpenphoneRecorder.Openai.Transcript
 end
