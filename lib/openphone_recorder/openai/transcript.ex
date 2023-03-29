@@ -9,6 +9,7 @@ defmodule OpenphoneRecorder.Openai.Transcript do
     {:multipart,
      [
        {"model", "whisper-1"},
+       {"response_format", "verbose_json"},
        {:file, file}
      ]}
   end
