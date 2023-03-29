@@ -41,13 +41,17 @@ defmodule OpenphoneRecorder.Calls.Call do
     end
   end
 
-  def cast_openphone_call(%OpenphoneRecorder.Events.Openphone.Data.Call{
-        id: external_id,
-        answered_at: answered_at,
-        completed_at: completed_at
-      }) do
+  def cast_openphone_call(
+        %OpenphoneRecorder.Events.Openphone.Data.Call{
+          id: external_id,
+          answered_at: answered_at,
+          completed_at: completed_at
+        },
+        conversation_id
+      ) do
     %{
       external_id: external_id,
+      conversation_id: conversation_id,
       answered_at: answered_at,
       completed_at: completed_at,
       source: :openphone
