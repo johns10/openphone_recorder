@@ -18,7 +18,7 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
           "direction": "incoming",
           "media": [],
           "voicemail": {
-            "url": "https://m.openph.one/static/15ad4740be6048e4a80efb268d347482.mp3",
+            "url": "https://storage.googleapis.com/opstatics/a1e0818a737e40258d59b9b400e1dbdd.mp3",
             "type": "audio/mpeg",
             "duration": 7
           },
