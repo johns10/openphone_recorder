@@ -17,13 +17,24 @@ defmodule OpenphoneRecorder.Calls do
   end
 
   def upsert_call(attrs \\ %{}) do
-    %Call{}
-    |> Call.changeset(attrs)
-    |> Repo.insert(
-      on_conflict: :nothing,
-      conflict_target: :id,
-      returning: true
-    )
+    changeset =
+      %Call{}
+      |> Call.changeset(attrs)
+
+    changeset
+    |> Repo.insert()
+    |> case do
+      {:error, %{errors: [id: {"has already been taken", _}]}} ->
+        call =
+          changeset
+          |> Ecto.Changeset.get_field(:id)
+          |> get_call!()
+
+        {:ok, call}
+
+      success ->
+        success
+    end
   end
 
   def update_call(%Call{} = call, attrs) do

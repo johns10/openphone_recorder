@@ -17,13 +17,24 @@ defmodule OpenphoneRecorder.Conversations do
   end
 
   def upsert_conversation(attrs \\ %{}) do
-    %Conversation{}
-    |> Conversation.changeset(attrs)
-    |> Repo.insert(
-      on_conflict: :nothing,
-      conflict_target: :id,
-      returning: true
-    )
+    changeset =
+      %Conversation{}
+      |> Conversation.changeset(attrs)
+
+    changeset
+    |> Repo.insert()
+    |> case do
+      {:error, %{errors: [id: {"has already been taken", _}]}} ->
+        conversation =
+          changeset
+          |> Ecto.Changeset.get_field(:id)
+          |> get_conversation!()
+
+        {:ok, conversation}
+
+      success ->
+        success
+    end
   end
 
   def delete_conversation(%Conversation{} = conversation) do

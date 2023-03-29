@@ -21,7 +21,7 @@ defmodule OpenphoneRecorder.Participants do
     |> Participant.changeset(attrs)
     |> Repo.insert(
       on_conflict: :nothing,
-      conflict_target: :id,
+      conflict_target: [:conversation_id, :phone_number_id],
       returning: true
     )
   end

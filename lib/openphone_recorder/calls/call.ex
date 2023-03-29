@@ -19,6 +19,7 @@ defmodule OpenphoneRecorder.Calls.Call do
     |> cast(attrs, [:source, :external_id])
     |> validate_required([:source, :external_id])
     |> cast_id()
+    |> unique_constraint([:id], name: :calls_pkey)
   end
 
   defp cast_id(changeset) do

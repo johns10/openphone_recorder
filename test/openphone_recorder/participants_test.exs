@@ -7,6 +7,8 @@ defmodule OpenphoneRecorder.ParticipantsTest do
     alias OpenphoneRecorder.Participants.Participant
 
     import OpenphoneRecorder.ParticipantsFixtures
+    import OpenphoneRecorder.ConversationsFixtures
+    import OpenphoneRecorder.PhoneNumbersFixtures
 
     @invalid_attrs %{conversation_id: Ecto.UUID.generate(), phone_number_id: Ecto.UUID.generate()}
 
@@ -44,6 +46,23 @@ defmodule OpenphoneRecorder.ParticipantsTest do
                Participants.update_participant(participant, @invalid_attrs)
 
       assert participant == Participants.get_participant!(participant.id)
+    end
+
+    test "upsert_participant/1 does nothing" do
+      phone_number = phone_number_fixture()
+      conversation = conversation_fixture()
+
+      attrs = %{
+        phone_number_id: phone_number.id,
+        conversation_id: conversation.id
+      }
+
+      Participants.create_participant(attrs)
+
+      assert {:ok, participant = %Participant{}} = Participants.upsert_participant(attrs)
+
+      assert participant.phone_number_id == phone_number.id
+      assert participant.conversation_id == conversation.id
     end
 
     test "delete_participant/1 deletes the participant" do

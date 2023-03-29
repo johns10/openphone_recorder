@@ -47,6 +47,13 @@ defmodule OpenphoneRecorder.CallsTest do
       assert call == Calls.get_call!(call.id)
     end
 
+    test "upsert_call/2 doesn't overwrite the record" do
+      valid_attrs = %{external_id: "some external_id", source: :openphone}
+      call = call_fixture(valid_attrs)
+      assert {:ok, %Call{}} = Calls.upsert_call(valid_attrs)
+      assert call == Calls.get_call!(call.id)
+    end
+
     test "delete_call/1 deletes the call" do
       call = call_fixture()
       assert {:ok, %Call{}} = Calls.delete_call(call)

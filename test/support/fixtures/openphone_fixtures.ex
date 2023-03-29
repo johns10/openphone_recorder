@@ -69,7 +69,9 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
-  def call_recording_completed() do
+  def call_recording_completed(attrs \\ %{}) do
+    id = Map.get(attrs, :id, "ACbaee66e137f0467dbed5ad4bc8d60800")
+
     """
     {
       "id": "EVda6e196255814311aaac1983005fa2d9",
@@ -79,7 +81,7 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
       "type": "call.recording.completed",
       "data": {
         "object": {
-          "id": "AC0d3b9011efa041d78c864019ad9e948c",
+          "id": "#{id}",
           "object": "call",
           "from": "+18005550100",
           "to": "+18885550101",

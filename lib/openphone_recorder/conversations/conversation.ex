@@ -14,6 +14,7 @@ defmodule OpenphoneRecorder.Conversations.Conversation do
     conversation
     |> cast(attrs, [:source, :external_id])
     |> cast_id()
+    |> unique_constraint([:id], name: :conversations_pkey)
     |> validate_required([:source, :external_id])
   end
 

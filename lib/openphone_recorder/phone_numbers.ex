@@ -17,13 +17,24 @@ defmodule OpenphoneRecorder.PhoneNumbers do
   end
 
   def upsert_phone_number(attrs \\ %{}) do
-    %PhoneNumber{}
-    |> PhoneNumber.changeset(attrs)
-    |> Repo.insert(
-      on_conflict: :nothing,
-      conflict_target: :id,
-      returning: true
-    )
+    changeset =
+      %PhoneNumber{}
+      |> PhoneNumber.changeset(attrs)
+
+    changeset
+    |> Repo.insert()
+    |> case do
+      {:error, %{errors: [id: {"has already been taken", _}]}} ->
+        phone_number =
+          changeset
+          |> Ecto.Changeset.get_field(:id)
+          |> get_phone_number!()
+
+        {:ok, phone_number}
+
+      success ->
+        success
+    end
   end
 
   def update_phone_number(%PhoneNumber{} = phone_number, attrs) do
