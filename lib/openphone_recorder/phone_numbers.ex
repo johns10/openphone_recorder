@@ -25,12 +25,17 @@ defmodule OpenphoneRecorder.PhoneNumbers do
     |> Repo.insert()
     |> case do
       {:error, %{errors: [id: {"has already been taken", _}]}} ->
-        phone_number =
-          changeset
-          |> Ecto.Changeset.get_field(:id)
-          |> get_phone_number!()
+        changeset
+        |> Ecto.Changeset.get_field(:id)
+        |> get_phone_number!()
+        |> case do
+          %{external_id: nil} = phone_number ->
+            attrs = %{external_id: Ecto.Changeset.get_change(changeset, :external_id)}
+            update_phone_number(phone_number, attrs)
 
-        {:ok, phone_number}
+          phone_number ->
+            {:ok, phone_number}
+        end
 
       success ->
         success

@@ -33,29 +33,46 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
       assert phone_number.source == :openphone
     end
 
-    # I'm commenting this test. It fails.
-    # It doesn't update the record, but it also doesn't update the struct.
-    # It
-    # test "upsert_phone_number/1 with valid data does nothing" do
-    #   valid_attrs = %{
-    #     external_id: "some updated external_id",
-    #     phone_number: "12566589999",
-    #     source: :openphone
-    #   }
+    test "upsert_phone_number/1 with valid data does nothing" do
+      valid_attrs = %{
+        external_id: "some updated external_id",
+        phone_number: "12566589999",
+        source: :openphone
+      }
 
-    #   old_phone_number =
-    #     phone_number_fixture(%{
-    #       external_id: "some external_id",
-    #       phone_number: "12566589999",
-    #       source: :openphone
-    #     })
+      old_phone_number =
+        phone_number_fixture(%{
+          external_id: "some external_id",
+          phone_number: "12566589999",
+          source: :openphone
+        })
 
-    #   assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
-    #   PhoneNumbers.list_phone_numbers() |> IO.inspect()
-    #   assert phone_number.external_id == old_phone_number.external_id
-    #   assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_589_999}
-    #   assert phone_number.source == :openphone
-    # end
+      assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
+      PhoneNumbers.list_phone_numbers()
+      assert phone_number.external_id == old_phone_number.external_id
+      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_589_999}
+      assert phone_number.source == :openphone
+    end
+
+    test "upsert_phone_number/1 when there is no external id updates external id" do
+      valid_attrs = %{
+        external_id: "some updated external_id",
+        phone_number: "12566589999",
+        source: :openphone
+      }
+
+      phone_number_fixture(%{
+        external_id: nil,
+        phone_number: "12566589999",
+        source: :openphone
+      })
+
+      assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
+      PhoneNumbers.list_phone_numbers()
+      assert phone_number.external_id == valid_attrs.external_id
+      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_589_999}
+      assert phone_number.source == :openphone
+    end
 
     test "create_phone_number/1 on an existing phone number raises properly" do
       valid_attrs = %{
