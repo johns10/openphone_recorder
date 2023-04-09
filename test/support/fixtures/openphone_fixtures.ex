@@ -176,7 +176,12 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
-  def contact_created() do
+  def contact_created(attrs \\ %{}) do
+    phone_numbers =
+      Map.get(attrs, :phone_numbers, [])
+      |> Enum.map(&%{phone_number: &1})
+      |> Jason.encode!()
+
     """
     {
       "id": "EVdefd85c2c3b740429cf28ade5b69bcba",
@@ -190,11 +195,7 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
           "object": "contact",
           "name": "Smarmy Buttwipe",
           "direction": "outgoing",
-          "phone_numbers": [
-            {
-              "phone_number": "+12566581234"
-            }
-          ],
+          "phone_numbers": #{phone_numbers},
           "createdAt": "2022-01-23T17:05:45.195Z",
           "userId": "USu5AsEHuQ"
         }

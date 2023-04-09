@@ -6,6 +6,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
   import Mox
   import OpenphoneRecorder.HTTPFixtures
 
+  alias OpenphoneRecorder.PhoneNumbers
   alias OpenphoneRecorder.Contacts.Contact
   alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
   alias OpenphoneRecorder.Calls.Call
@@ -99,12 +100,9 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
                   %PhoneNumber{phone_number: %EctoPhoneNumber{e164: 12_566_581_234}}
                 ]
               }} =
-               OpenphoneFixtures.contact_created()
+               OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
                |> Events.cast_event()
                |> Projector.apply()
-    end
-
-    test "updates a phone numbers other shit when it was created on a contact" do
     end
 
     test "assigns an existing phone number to a contact" do
