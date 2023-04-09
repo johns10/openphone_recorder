@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
   schema "statements" do
     field :content, :string
     field :occurred_at, :utc_datetime
-    field :type, Ecto.Enum, values: [:call, :voicemail, :sms]
+    field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
     field :participant_id, :id
     

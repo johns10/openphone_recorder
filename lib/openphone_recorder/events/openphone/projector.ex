@@ -1,13 +1,18 @@
 defmodule OpenphoneRecorder.Events.Openphone.Projector do
+  @moduledoc """
+  Here is some test markdown
+  """
   require Logger
 
   alias OpenphoneRecorder.Statements
+  alias OpenphoneRecorder.Statements.Statement
   alias OpenphoneRecorder.HTTP
   alias OpenphoneRecorder.PhoneNumbers
   alias OpenphoneRecorder.Conversations
   alias OpenphoneRecorder.Participants
   alias OpenphoneRecorder.Calls
   alias OpenphoneRecorder.Openai
+  alias OpenphoneRecorder.Audio
 
   alias OpenphoneRecorder.Events.Openphone.CallCompleted
   alias OpenphoneRecorder.Events.Openphone.CallRinging
@@ -17,39 +22,66 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   alias OpenphoneRecorder.Events.Openphone.MessageDelivered
 
   alias OpenphoneRecorder.Events.Openphone.Data.Call
+  alias OpenphoneRecorder.Events.Openphone.Data.Message
   alias OpenphoneRecorder.Events.Openphone.Data.Media
 
   def apply(%CallRinging{data: openphone_call}) do
-    with {:ok, call} <- prepare_model(openphone_call) do
+    with {:ok, data} <- prepare_model(openphone_call),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
 
   def apply(%CallCompleted{data: openphone_call}) do
-    with {:ok, call} <- prepare_model(openphone_call) do
+    with {:ok, data} <- prepare_model(openphone_call),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         {:ok, call} <- Calls.upsert_call(call_attrs),
+         {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, data.from_participant) do
       {:ok, call}
     end
   end
 
   def apply(%CallRecordingCompleted{data: openphone_call}) do
-    with {:ok, call} <- prepare_model(openphone_call) do
+    with {:ok, data} <- prepare_model(openphone_call),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         {:ok, call} <- Calls.upsert_call(call_attrs),
+         {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data) do
       {:ok, call}
     end
   end
 
   def apply(%MessageReceived{data: message}) do
-    with {:ok, conversation} <- prepare_model(message) do
-      IO.inspect(conversation)
+    with {:ok, data} <- prepare_model(message) do
+      %{
+        conversation_id: data.conversation.id,
+        occurred_at: message.created_at,
+        type: :message,
+        content: message.body,
+        participant_id: data.from_participant.id
+      }
+      |> Statements.create_statement()
     end
   end
 
-  def prepare_model(
-        %Call{
-          to: to_phone_number,
-          from: from_phone_number,
-          conversation_id: external_conversation_id
-        } = openphone_call
-      ) do
+  def apply(%MessageDelivered{data: message}) do
+    with {:ok, data} <- prepare_model(message) do
+      %{
+        conversation_id: data.conversation.id,
+        occurred_at: message.created_at,
+        type: :message,
+        content: message.body,
+        participant_id: data.to_participant.id
+      }
+      |> Statements.create_statement()
+    end
+  end
+
+  def prepare_model(%{
+        to: to_phone_number,
+        from: from_phone_number,
+        conversation_id: external_conversation_id
+      }) do
     from_phone_number_attrs = %{
       phone_number: from_phone_number,
       source: :openphone
@@ -73,15 +105,17 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
              conversation_id: conversation.id,
              phone_number_id: from_phone_number.id
            }),
-         {:ok, _} <-
+         {:ok, to_participant} <-
            Participants.upsert_participant(%{
              conversation_id: conversation.id,
              phone_number_id: to_phone_number.id
-           }),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, conversation.id),
-         {:ok, call} <- Calls.upsert_call(call_attrs),
-         {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, from_participant) do
-      {:ok, call}
+           }) do
+      {:ok,
+       %{
+         from_participant: from_participant,
+         to_participant: to_participant,
+         conversation: conversation
+       }}
     end
   end
 
@@ -94,8 +128,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     with {:ok, path} = Briefly.create(extname: ".mp3"),
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(url),
          :ok <- File.write(path, body),
-         {:ok, %{status_code: 200, body: body}} <-
-           Openai.create_transcript(%{file: path}),
+         {:ok, %{status_code: 200, body: body}} <- Openai.create_transcript(%{file: path}),
          {:ok, %{"text" => text, "duration" => duration}} <-
            Jason.decode(body) do
       %{
@@ -120,6 +153,70 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   end
 
   defp maybe_transcribe_voicemail(_openphone_call, call, _participant), do: {:ok, call}
+
+  defp maybe_transcribe_call_recording(
+         call,
+         %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
+         %{from_participant: from_participant, to_participant: to_participant}
+       )
+       when duration > 0 do
+    with {:ok, path} = Briefly.create(extname: ".mp3"),
+         {:ok, %{status_code: 200, body: body}} <- HTTP.get(media_url),
+         :ok <- File.write(path, body),
+         {:ok, %{left: left, right: right}} <- Audio.split(path),
+         {:ok, %{status_code: 200, body: left_body}} <- Openai.create_transcript(%{file: left}),
+         {:ok, %{status_code: 200, body: right_body}} <- Openai.create_transcript(%{file: right}),
+         {:ok, %{"duration" => duration, "segments" => left_segments}} <- Jason.decode(left_body),
+         {:ok, %{"segments" => right_segments}} <- Jason.decode(right_body) do
+      now =
+        NaiveDateTime.utc_now()
+        |> NaiveDateTime.truncate(:second)
+
+      attrs =
+        (right_segments ++ left_segments)
+        |> Enum.map(fn segment ->
+          %{
+            occurred_at:
+              call.completed_at
+              |> DateTime.add(-1 * floor(duration), :second)
+              |> DateTime.add(floor(segment["start"]), :second)
+              |> DateTime.truncate(:second),
+            type: :call,
+            content: segment["text"],
+            participant_id: from_participant.id,
+            call_id: call.id,
+            inserted_at: now,
+            updated_at: now
+          }
+        end)
+
+      changesets = Enum.map(attrs, &Statements.change_statement(%Statement{}, &1))
+
+      changeset_errors =
+        changesets
+        |> Enum.reduce([], fn changeset, acc ->
+          Ecto.Changeset.apply_action(changeset, :insert)
+          |> case do
+            {:ok, _} -> acc
+            {:error, changeset} -> [changeset | acc]
+          end
+        end)
+
+      case changeset_errors do
+        [_ | _] = changeset_errors ->
+          {:error, %{statements: changeset_errors}}
+
+        list when list == [] ->
+          {_result_count, statements} =
+            OpenphoneRecorder.Repo.insert_all(Statement, attrs, returning: true)
+
+          {:ok, Map.put(call, :statements, Enum.sort_by(statements, & &1.occurred_at))}
+      end
+    end
+  end
+
+  defp maybe_transcribe_call_recording(_openphone_call, call, _from_participant, _to_participant),
+    do: {:ok, call}
 
   defp cast_milliseconds(seconds), do: (seconds * 100) |> floor()
 end
