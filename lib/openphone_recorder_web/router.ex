@@ -26,8 +26,14 @@ defmodule OpenphoneRecorderWeb.Router do
     resources "/events", EventController, except: [:new, :edit]
 
     live "/conversations", ConversationLive.Index, :index
-
     live "/conversations/:id", ConversationLive.Show, :show
+
+    live "/contacts", ContactLive.Index, :index
+    live "/contacts/new", ContactLive.Index, :new
+    live "/contacts/:id/edit", ContactLive.Index, :edit
+
+    live "/contacts/:id", ContactLive.Show, :show
+    live "/contacts/:id/show/edit", ContactLive.Show, :edit
   end
 
   scope "/api", OpenphoneRecorderWeb do
