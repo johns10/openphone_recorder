@@ -20,6 +20,7 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     |> cast(attrs, [:full_name, :external_id, :source])
     |> cast_id()
     |> validate_required([:full_name, :source])
+    |> cast_assoc(:phone_numbers)
   end
 
   defp cast_id(changeset) do
@@ -39,5 +40,19 @@ defmodule OpenphoneRecorder.Contacts.Contact do
       _ ->
         changeset
     end
+  end
+
+  def cast_openphone_contact(%OpenphoneRecorder.Events.Openphone.Data.Contact{
+        id: external_id,
+        name: name,
+        phone_numbers: phone_numbers
+      }) do
+    %{
+      phone_numbers:
+        Enum.map(phone_numbers, &%{source: :openphone, phone_number: &1.phone_number}),
+      external_id: external_id,
+      source: :openphone,
+      full_name: name
+    }
   end
 end

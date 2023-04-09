@@ -13,6 +13,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   alias OpenphoneRecorder.Calls
   alias OpenphoneRecorder.Openai
   alias OpenphoneRecorder.Audio
+  alias OpenphoneRecorder.Contacts
 
   alias OpenphoneRecorder.Events.Openphone.CallCompleted
   alias OpenphoneRecorder.Events.Openphone.CallRinging
@@ -20,6 +21,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
 
   alias OpenphoneRecorder.Events.Openphone.MessageReceived
   alias OpenphoneRecorder.Events.Openphone.MessageDelivered
+
+  alias OpenphoneRecorder.Events.Openphone.ContactCreated
 
   alias OpenphoneRecorder.Events.Openphone.Data.Call
   alias OpenphoneRecorder.Events.Openphone.Data.Media
@@ -61,6 +64,13 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     with {:ok, data} <- prepare_model(message),
          statement_attrs <- Statement.cast_openphone_message(message, data.conversation.id) do
       Statements.upsert_statement(statement_attrs)
+    end
+  end
+
+  def apply(%ContactCreated{data: contact}) do
+    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact),
+         {:ok, contact} <- Contacts.create_contact(contact_attrs) do
+      {:ok, contact}
     end
   end
 
