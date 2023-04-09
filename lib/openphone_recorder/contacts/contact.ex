@@ -20,7 +20,6 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     |> cast(attrs, [:full_name, :external_id, :source])
     |> cast_id()
     |> validate_required([:full_name, :source])
-    |> cast_assoc(:phone_numbers)
   end
 
   defp cast_id(changeset) do

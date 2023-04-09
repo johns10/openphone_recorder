@@ -17,11 +17,14 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   @doc false
   def changeset(phone_number, attrs) do
     phone_number
-    |> cast(attrs, [:external_id, :phone_number, :source])
+    |> cast(attrs, [:external_id, :contact_id, :phone_number, :source])
     |> cast_id()
     |> validate_required([:phone_number, :source])
+    |> foreign_key_constraint(:contact_id)
     |> unique_constraint([:id], name: :phone_numbers_pkey)
   end
+
+  def id(phone_number), do: UUID.uuid5(nil, to_string(phone_number))
 
   defp cast_id(changeset) do
     case get_field(changeset, :id) do
@@ -31,7 +34,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
             changeset
 
           phone_number ->
-            put_change(changeset, :id, UUID.uuid5(nil, to_string(phone_number)))
+            put_change(changeset, :id, id(phone_number))
         end
 
       _ ->

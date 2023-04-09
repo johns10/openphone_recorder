@@ -69,8 +69,12 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
 
   def apply(%ContactCreated{data: contact}) do
     with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact),
-         {:ok, contact} <- Contacts.create_contact(contact_attrs) do
-      {:ok, contact}
+         {:ok, contact} <- Contacts.create_contact(contact_attrs),
+         phone_number_attrs <-
+           Enum.map(contact_attrs.phone_numbers, &Map.put(&1, :contact_id, contact.id)),
+         {:ok, %{phone_numbers: phone_numbers}} <-
+           PhoneNumbers.upsert_all_phone_numbers(phone_number_attrs) do
+      {:ok, Map.put(contact, :phone_numbers, phone_numbers)}
     end
   end
 

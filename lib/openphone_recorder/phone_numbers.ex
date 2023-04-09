@@ -16,6 +16,19 @@ defmodule OpenphoneRecorder.PhoneNumbers do
     |> Repo.insert()
   end
 
+  def upsert_all_phone_numbers(attrs) do
+    attrs
+    |> Enum.reduce({:ok, %{phone_numbers: [], changesets: []}}, fn attrs, {status, acc} ->
+      case upsert_phone_number(attrs) do
+        {:ok, phone_number} ->
+          {status, %{acc | phone_numbers: [phone_number | acc.phone_numbers]}}
+
+        {:error, changeset} ->
+          {:error, %{acc | changesets: [changeset | acc.changesets]}}
+      end
+    end)
+  end
+
   def upsert_phone_number(attrs \\ %{}) do
     changeset =
       %PhoneNumber{}
