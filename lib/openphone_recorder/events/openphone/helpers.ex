@@ -2,12 +2,16 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
   import Ecto.Changeset
   alias OpenphoneRecorder.Events.Openphone.Data.Call
   alias OpenphoneRecorder.Events.Openphone.Data.Message
+  alias OpenphoneRecorder.Events.Openphone.Data.Contact
+
   alias OpenphoneRecorder.Events.Openphone.CallCompleted
   alias OpenphoneRecorder.Events.Openphone.CallRinging
   alias OpenphoneRecorder.Events.Openphone.CallRecordingCompleted
 
   alias OpenphoneRecorder.Events.Openphone.MessageReceived
   alias OpenphoneRecorder.Events.Openphone.MessageDelivered
+
+  alias OpenphoneRecorder.Events.Openphone.ContactCreated
 
   @call_schemas [
     CallCompleted,
@@ -20,12 +24,18 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
     MessageDelivered
   ]
 
+  @contact_schemas [
+    ContactCreated
+  ]
+
   def cast_module_name("call.completed"), do: CallCompleted
   def cast_module_name("call.ringing"), do: CallRinging
   def cast_module_name("call.recording.completed"), do: CallRecordingCompleted
 
   def cast_module_name("message.delivered"), do: MessageDelivered
   def cast_module_name("message.received"), do: MessageReceived
+
+  def cast_module_name("contact.created"), do: ContactCreated
 
   def changeset(event, params \\ %{})
 
@@ -40,6 +50,13 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
     event
     |> cast(params, [:id, :object, :api_version, :created_at])
     |> cast_embed(:data, with: &Message.changeset/2)
+    |> validate_required([:id, :object, :api_version, :created_at])
+  end
+
+  def changeset(%schema{} = event, params) when schema in @contact_schemas do
+    event
+    |> cast(params, [:id, :object, :api_version, :created_at])
+    |> cast_embed(:data, with: &Contact.changeset/2)
     |> validate_required([:id, :object, :api_version, :created_at])
   end
 
