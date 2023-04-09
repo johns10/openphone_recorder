@@ -175,4 +175,32 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
     """
     |> Jason.decode!()
   end
+
+  def contact_created() do
+    """
+    {
+      "id": "EVdefd85c2c3b740429cf28ade5b69bcba",
+      "object": "event",
+      "apiVersion": "v2",
+      "createdAt": "2022-01-23T17:05:56.220Z",
+      "type": "contact.created",
+      "data": {
+        "object": {
+          "id": "ACcdcc2668c4134c3cbfdacb9e273cac6f",
+          "object": "contact",
+          "name": "Smarmy Buttwipe",
+          "direction": "outgoing",
+          "phone_numbers": [
+            {
+              "phone_number": "+12566581234"
+            }
+          ],
+          "createdAt": "2022-01-23T17:05:45.195Z",
+          "userId": "USu5AsEHuQ"
+        }
+      }
+    }
+    """
+    |> Jason.decode!()
+  end
 end
