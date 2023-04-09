@@ -122,7 +122,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
         content: text,
         occurred_at:
           call.completed_at
-          |> DateTime.add(-1 * cast_milliseconds(duration), :millisecond),
+          |> DateTime.add(-1 * cast_microseconds(duration), :microsecond),
         type: :voicemail,
         conversation_id: call.conversation_id,
         participant_id: participant.id,
@@ -155,9 +155,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
          {:ok, %{status_code: 200, body: right_body}} <- Openai.create_transcript(%{file: right}),
          {:ok, %{"duration" => duration, "segments" => left_segments}} <- Jason.decode(left_body),
          {:ok, %{"segments" => right_segments}} <- Jason.decode(right_body) do
-      now =
-        NaiveDateTime.utc_now()
-        |> NaiveDateTime.truncate(:second)
+      now = DateTime.utc_now()
 
       attrs =
         (right_segments ++ left_segments)
@@ -165,9 +163,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
           %{
             occurred_at:
               call.completed_at
-              |> DateTime.add(-1 * floor(duration), :second)
-              |> DateTime.add(floor(segment["start"]), :second)
-              |> DateTime.truncate(:second),
+              |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
+              |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
             type: :call,
             content: segment["text"],
             participant_id: from_participant.id,
@@ -205,5 +202,5 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp maybe_transcribe_call_recording(_openphone_call, call, _from_participant, _to_participant),
     do: {:ok, call}
 
-  defp cast_milliseconds(seconds), do: (seconds * 100) |> floor()
+  defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
 end

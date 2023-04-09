@@ -5,14 +5,14 @@ defmodule OpenphoneRecorder.Statements.Statement do
 
   schema "statements" do
     field :content, :string
-    field :occurred_at, :utc_datetime
+    field :occurred_at, :utc_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
     field :participant_id, :id
 
     belongs_to :call, Call, type: :binary_id
 
-    timestamps()
+    timestamps(type: :utc_datetime_usec)
   end
 
   @doc false

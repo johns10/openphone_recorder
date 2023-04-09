@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Message do
     field :direction, :string
     field :body, :string
     field :status, :string
-    field :created_at, :naive_datetime_usec
+    field :created_at, :utc_datetime_usec
     field :user_id, :string
     field :phone_number_id, :string
     field :conversation_id, :string
