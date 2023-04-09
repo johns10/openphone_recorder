@@ -6,8 +6,6 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Media do
     field :url, :string
     field :type, :string
     field :duration, :integer
-
-    timestamps()
   end
 
   def changeset(voicemail, attrs) do
