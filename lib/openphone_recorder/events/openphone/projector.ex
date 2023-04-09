@@ -199,7 +199,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     end
   end
 
-  defp maybe_transcribe_call_recording(_openphone_call, call, _from_participant, _to_participant),
+  defp maybe_transcribe_call_recording(_openphone_call, call, _participants),
     do: {:ok, call}
 
   defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
