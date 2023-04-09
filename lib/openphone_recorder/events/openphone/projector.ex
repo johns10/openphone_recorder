@@ -22,7 +22,6 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   alias OpenphoneRecorder.Events.Openphone.MessageDelivered
 
   alias OpenphoneRecorder.Events.Openphone.Data.Call
-  alias OpenphoneRecorder.Events.Openphone.Data.Message
   alias OpenphoneRecorder.Events.Openphone.Data.Media
 
   def apply(%CallRinging{data: openphone_call}) do
@@ -52,28 +51,16 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   end
 
   def apply(%MessageReceived{data: message}) do
-    with {:ok, data} <- prepare_model(message) do
-      %{
-        conversation_id: data.conversation.id,
-        occurred_at: message.created_at,
-        type: :message,
-        content: message.body,
-        participant_id: data.from_participant.id
-      }
-      |> Statements.create_statement()
+    with {:ok, data} <- prepare_model(message),
+         statement_attrs <- Statement.cast_openphone_message(message, data.conversation.id) do
+      Statements.create_statement(statement_attrs)
     end
   end
 
   def apply(%MessageDelivered{data: message}) do
-    with {:ok, data} <- prepare_model(message) do
-      %{
-        conversation_id: data.conversation.id,
-        occurred_at: message.created_at,
-        type: :message,
-        content: message.body,
-        participant_id: data.to_participant.id
-      }
-      |> Statements.create_statement()
+    with {:ok, data} <- prepare_model(message),
+         statement_attrs <- Statement.cast_openphone_message(message, data.conversation.id) do
+      Statements.create_statement(statement_attrs)
     end
   end
 
