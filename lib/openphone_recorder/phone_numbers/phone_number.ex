@@ -1,12 +1,15 @@
 defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
+  alias OpenphoneRecorder.Contacts.Contact
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "phone_numbers" do
     field :external_id, :string
     field :phone_number, EctoPhoneNumber
     field :source, Ecto.Enum, values: [:openphone]
+
+    belongs_to :contact, Contact, type: :binary_id
 
     timestamps()
   end

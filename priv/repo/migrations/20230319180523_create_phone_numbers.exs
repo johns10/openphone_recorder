@@ -8,10 +8,13 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreatePhoneNumbers do
       add :phone_number, :string
       add :source, :string
 
+      add :contact_id, references(:contacts, on_delete: :nothing, type: :uuid)
+
       timestamps()
     end
 
     create unique_index(:phone_numbers, [:id])
     create unique_index(:phone_numbers, [:external_id, :source])
+    create index(:phone_numbers, [:contact_id])
   end
 end
