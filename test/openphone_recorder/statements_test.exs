@@ -21,7 +21,13 @@ defmodule OpenphoneRecorder.StatementsTest do
     end
 
     test "create_statement/1 with valid data creates a statement" do
-      valid_attrs = %{content: "some content", occurred_at: ~U[2023-03-28 10:21:00Z], type: :call}
+      valid_attrs = %{
+        external_id: "some external_id",
+        source: :openphone,
+        content: "some content",
+        occurred_at: ~U[2023-03-28 10:21:00Z],
+        type: :call
+      }
 
       assert {:ok, %Statement{} = statement} = Statements.create_statement(valid_attrs)
       assert statement.content == "some content"

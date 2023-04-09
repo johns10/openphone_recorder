@@ -2,7 +2,8 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateStatements do
   use Ecto.Migration
 
   def change do
-    create table(:statements) do
+    create table(:statements, primary_key: false) do
+      add :id, :uuid, primary_key: true
       add :source, :string
       add :external_id, :string
       add :content, :string

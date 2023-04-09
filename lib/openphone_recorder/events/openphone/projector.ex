@@ -136,7 +136,9 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
         type: :voicemail,
         conversation_id: call.conversation_id,
         participant_id: participant.id,
-        call_id: call.id
+        call_id: call.id,
+        source: :transcription,
+        external_id: nil
       }
       |> Statements.create_statement()
       |> case do
@@ -180,7 +182,9 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
             participant_id: from_participant.id,
             call_id: call.id,
             inserted_at: now,
-            updated_at: now
+            updated_at: now,
+            source: :transcription,
+            id: UUID.uuid4()
           }
         end)
 

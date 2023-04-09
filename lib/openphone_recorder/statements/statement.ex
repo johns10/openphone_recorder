@@ -3,7 +3,10 @@ defmodule OpenphoneRecorder.Statements.Statement do
   import Ecto.Changeset
   alias OpenphoneRecorder.Calls.Call
 
+  @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
+    field :external_id, :string
+    field :source, Ecto.Enum, values: [:openphone, :transcription]
     field :content, :string
     field :occurred_at, :utc_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
@@ -18,10 +21,20 @@ defmodule OpenphoneRecorder.Statements.Statement do
   @doc false
   def changeset(statement, attrs) do
     statement
-    |> cast(attrs, [:content, :occurred_at, :type, :conversation_id, :participant_id, :call_id])
+    |> cast(attrs, [
+      :external_id,
+      :source,
+      :content,
+      :occurred_at,
+      :type,
+      :conversation_id,
+      :participant_id,
+      :call_id
+    ])
     |> foreign_key_constraint(:conversation_id)
     |> foreign_key_constraint(:participant_id)
     |> foreign_key_constraint(:call_id)
+    |> cast_id()
     |> validate_required([:content, :occurred_at, :type])
   end
 
@@ -34,6 +47,9 @@ defmodule OpenphoneRecorder.Statements.Statement do
         case {source, external_id} do
           {:openphone, external_id} when is_atom(source) and is_binary(external_id) ->
             put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+
+          {:transcription, nil} ->
+            put_change(changeset, :id, UUID.uuid4())
 
           _ ->
             add_error(changeset, :id, "insufficient args to generate id")
