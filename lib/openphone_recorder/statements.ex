@@ -16,6 +16,27 @@ defmodule OpenphoneRecorder.Statements do
     |> Repo.insert()
   end
 
+  def upsert_statement(attrs \\ %{}) do
+    changeset =
+      %Statement{}
+      |> Statement.changeset(attrs)
+
+    changeset
+    |> Repo.insert()
+    |> case do
+      {:error, %{errors: [id: {"has already been taken", _}]}} ->
+        statement =
+          changeset
+          |> Ecto.Changeset.get_field(:id)
+          |> get_statement!()
+
+        {:ok, statement}
+
+      success ->
+        success
+    end
+  end
+
   def update_statement(%Statement{} = statement, attrs) do
     statement
     |> Statement.changeset(attrs)

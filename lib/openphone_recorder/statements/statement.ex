@@ -25,6 +25,25 @@ defmodule OpenphoneRecorder.Statements.Statement do
     |> validate_required([:content, :occurred_at, :type])
   end
 
+  defp cast_id(changeset) do
+    case get_field(changeset, :id) do
+      nil ->
+        external_id = get_change(changeset, :external_id)
+        source = get_change(changeset, :source)
+
+        case {source, external_id} do
+          {:openphone, external_id} when is_atom(source) and is_binary(external_id) ->
+            put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+
+          _ ->
+            add_error(changeset, :id, "insufficient args to generate id")
+        end
+
+      _ ->
+        changeset
+    end
+  end
+
   def cast_openphone_message(
         %OpenphoneRecorder.Events.Openphone.Data.Message{
           id: external_id,
