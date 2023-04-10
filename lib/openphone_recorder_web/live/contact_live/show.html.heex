@@ -9,14 +9,20 @@
 </.header>
 
 <.list>
-  <:item title="Full name"><%= @contact.full_name %></:item>
+  <:item title="Full name"><%= @contact.first_name %></:item>
+  <:item title="Full name"><%= @contact.last_name %></:item>
   <:item title="External"><%= @contact.external_id %></:item>
   <:item title="Source"><%= @contact.source %></:item>
 </.list>
 
 <.back navigate={~p"/contacts"}>Back to contacts</.back>
 
-<.modal :if={@live_action == :edit} id="contact-modal" show on_cancel={JS.patch(~p"/contacts/#{@contact}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="contact-modal"
+  show
+  on_cancel={JS.patch(~p"/contacts/#{@contact}")}
+>
   <.live_component
     module={OpenphoneRecorderWeb.ContactLive.FormComponent}
     id={@contact.id}

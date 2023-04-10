@@ -1,20 +1,22 @@
 defmodule OpenphoneRecorder.Events.Openphone.Data.Contact do
   use Ecto.Schema
   import Ecto.Changeset
-  alias OpenphoneRecorder.Events.Openphone.Data.PhoneNumber
+  alias OpenphoneRecorder.Events.Openphone.Data.Field
 
   @primary_key false
   embedded_schema do
     field :id, :string
-    field :name, :string
-    field :created_at, :utc_datetime_usec
+    field :first_name, :string
+    field :last_name, :string
+    field :company, :string
+    field :role, :string
 
-    embeds_many :phone_numbers, PhoneNumber
+    embeds_many :fields, Field
   end
 
   def changeset(voicemail, attrs) do
     voicemail
-    |> cast(attrs, [:id, :name, :created_at])
-    |> cast_embed(:phone_numbers, with: &PhoneNumber.changeset/2)
+    |> cast(attrs, [:id, :first_name, :last_name, :company, :role])
+    |> cast_embed(:fields, with: &Field.changeset/2)
   end
 end

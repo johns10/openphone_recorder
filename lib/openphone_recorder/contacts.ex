@@ -26,6 +26,9 @@ defmodule OpenphoneRecorder.Contacts do
         |> Ecto.Changeset.get_field(:id)
         |> get_contact!()
         |> update_contact(attrs)
+
+      {:ok, _} = result ->
+        result
     end
   end
 

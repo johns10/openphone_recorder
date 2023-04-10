@@ -92,38 +92,6 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
     end
   end
 
-  describe "ContactCreated" do
-    test "creates a contact with phone numbers" do
-      assert {:ok,
-              %Contact{
-                id: contact_id,
-                phone_numbers: [
-                  %PhoneNumber{
-                    contact_id: contact_id,
-                    phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
-                  }
-                ]
-              }} =
-               OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
-               |> Events.cast_event()
-               |> Projector.apply()
-    end
-
-    test "assigns an existing phone number to a contact" do
-      %{id: id, phone_number: %{e164: phone_number}} = phone_number_fixture()
-
-      assert {:ok,
-              %Contact{
-                phone_numbers: [
-                  %PhoneNumber{id: ^id, phone_number: %EctoPhoneNumber{e164: ^phone_number}}
-                ]
-              }} =
-               OpenphoneFixtures.contact_created(%{phone_numbers: ["#{phone_number}"]})
-               |> Events.cast_event()
-               |> Projector.apply()
-    end
-  end
-
   describe "ContactUpdated" do
     test "creates a contact when it doesn't exist" do
       assert {:ok,
@@ -136,13 +104,13 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
                   }
                 ]
               }} =
-               OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
+               OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
                |> Events.cast_event()
                |> Projector.apply()
     end
 
     test "adds a phone number to an existing contact" do
-      OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
+      OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
       |> Events.cast_event()
       |> Projector.apply()
 

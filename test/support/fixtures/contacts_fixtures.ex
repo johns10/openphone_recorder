@@ -12,7 +12,8 @@ defmodule OpenphoneRecorder.ContactsFixtures do
       attrs
       |> Enum.into(%{
         external_id: "some external_id",
-        full_name: "some full_name",
+        first_name: "some updated first_name",
+        last_name: "some updated last_name",
         source: :openphone
       })
       |> OpenphoneRecorder.Contacts.create_contact()

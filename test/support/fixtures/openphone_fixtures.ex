@@ -176,56 +176,76 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
-  def contact_created(attrs \\ %{}) do
-    phone_numbers =
-      Map.get(attrs, :phone_numbers, [])
-      |> Enum.map(&%{phone_number: &1})
-      |> Jason.encode!()
-
-    """
-    {
-      "id": "EVdefd85c2c3b740429cf28ade5b69bcba",
-      "object": "event",
-      "apiVersion": "v2",
-      "createdAt": "2022-01-23T17:05:56.220Z",
-      "type": "contact.created",
-      "data": {
-        "object": {
-          "id": "ACcdcc2668c4134c3cbfdacb9e273cac6f",
-          "object": "contact",
-          "name": "Smarmy Buttwipe",
-          "direction": "outgoing",
-          "phone_numbers": #{phone_numbers},
-          "createdAt": "2022-01-23T17:05:45.195Z",
-          "userId": "USu5AsEHuQ"
-        }
-      }
-    }
-    """
-    |> Jason.decode!()
-  end
-
   def contact_updated(attrs \\ %{}) do
     phone_numbers =
       Map.get(attrs, :phone_numbers, [])
-      |> Enum.map(&%{phone_number: &1})
-      |> Jason.encode!()
+      |> Enum.map(&%{value: &1, name: "Phone", type: "phone-number"})
+
+    fields = [
+      %{
+        name: "Email",
+        type: "email",
+        value: nil
+      },
+      %{
+        name: "Prop1",
+        type: "string",
+        value: "Value12"
+      }
+    ]
 
     """
     {
-      "id": "EVdefd85c2c3b740429cf28ade5b69bcba",
+      "id": "EVe844e47e9fa4494d9acfa1144839ed94",
       "object": "event",
-      "apiVersion": "v2",
-      "createdAt": "2022-01-23T17:05:56.220Z",
+      "createdAt": "2022-01-24T19:44:09.579Z",
+      "apiVersion": "v3",
       "type": "contact.updated",
       "data": {
         "object": {
-          "id": "ACcdcc2668c4134c3cbfdacb9e273cac6f",
+          "id": "CT61eeff33f3b14cfe6358cb52",
           "object": "contact",
-          "name": "Smarmy Buttwipe",
-          "direction": "outgoing",
-          "phone_numbers": #{phone_numbers},
-          "createdAt": "2022-01-23T17:05:45.195Z",
+          "firstName": "Jane",
+          "lastName": "Smith",
+          "company": "Comp Inc",
+          "role": "Agent",
+          "pictureUrl": null,
+          "fields": #{Jason.encode!(phone_numbers ++ fields)},
+          "notes": [
+            {
+              "text": "@USu5AsEHuQ mynote 🙂",
+              "enrichment": {
+                "taggedIds": {
+                  "groupIds": [],
+                  "userIds": [
+                    "USu5AsEHuQ"
+                  ],
+                  "orgIds": []
+                },
+                "tokens": {
+                  "USu5AsEHuQ": {
+                    "token": "USu5AsEHuQ",
+                    "replacement": "Chris Scott",
+                    "type": "mention",
+                    "locations": [
+                      {
+                        "startIndex": 1,
+                        "endIndex": 11
+                      }
+                    ]
+                  }
+                }
+              },
+              "createdAt": "2022-01-24T19:35:38.323Z",
+              "updatedAt": "2022-01-24T19:35:38.323Z",
+              "userId": "USu5AsEHuQ"
+            }
+          ],
+          "sharedWith": [
+            "USu5AsEHuQ"
+          ],
+          "createdAt": "2022-01-24T19:35:38.318Z",
+          "updatedAt": "2022-01-24T19:44:09.565Z",
           "userId": "USu5AsEHuQ"
         }
       }

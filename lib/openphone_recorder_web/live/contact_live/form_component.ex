@@ -19,7 +19,10 @@ defmodule OpenphoneRecorderWeb.ContactLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:full_name]} type="text" label="Full name" />
+        <.input field={@form[:first_name]} type="text" label="Full name" />
+        <.input field={@form[:last_name]} type="text" label="Full name" />
+        <.input field={@form[:company]} type="text" label="Full name" />
+        <.input field={@form[:role]} type="text" label="Full name" />
         <.input field={@form[:external_id]} type="text" label="External" />
         <.input
           field={@form[:source]}

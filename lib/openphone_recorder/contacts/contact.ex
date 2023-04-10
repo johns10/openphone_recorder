@@ -6,7 +6,10 @@ defmodule OpenphoneRecorder.Contacts.Contact do
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "contacts" do
     field :external_id, :string
-    field :full_name, :string
+    field :first_name, :string
+    field :last_name, :string
+    field :company, :string
+    field :role, :string
     field :source, Ecto.Enum, values: [:openphone, :user]
 
     has_many :phone_numbers, PhoneNumber
@@ -17,9 +20,9 @@ defmodule OpenphoneRecorder.Contacts.Contact do
   @doc false
   def changeset(contact, attrs) do
     contact
-    |> cast(attrs, [:full_name, :external_id, :source])
+    |> cast(attrs, [:first_name, :last_name, :company, :role, :external_id, :source])
     |> cast_id()
-    |> validate_required([:full_name, :source])
+    |> validate_required([:source])
     |> unique_constraint([:id], name: :contacts_pkey)
   end
 
@@ -44,15 +47,21 @@ defmodule OpenphoneRecorder.Contacts.Contact do
 
   def cast_openphone_contact(%OpenphoneRecorder.Events.Openphone.Data.Contact{
         id: external_id,
-        name: name,
-        phone_numbers: phone_numbers
+        first_name: first_name,
+        last_name: last_name,
+        fields: fields
       }) do
+    phone_numbers =
+      fields
+      |> Enum.filter(&(&1.type == :phone_number))
+      |> Enum.map(&%{source: :openphone, phone_number: &1.value})
+
     %{
-      phone_numbers:
-        Enum.map(phone_numbers, &%{source: :openphone, phone_number: &1.phone_number}),
+      phone_numbers: phone_numbers,
       external_id: external_id,
       source: :openphone,
-      full_name: name
+      first_name: first_name,
+      last_name: last_name
     }
   end
 end

@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.ContactsTest do
 
     import OpenphoneRecorder.ContactsFixtures
 
-    @invalid_attrs %{external_id: nil, full_name: nil, source: nil}
+    @invalid_attrs %{external_id: nil, first_name: nil, source: nil}
 
     test "list_contacts/0 returns all contacts" do
       contact = contact_fixture()
@@ -23,13 +23,15 @@ defmodule OpenphoneRecorder.ContactsTest do
     test "create_contact/1 with valid data creates a contact" do
       valid_attrs = %{
         external_id: "some external_id",
-        full_name: "some full_name",
+        first_name: "some first_name",
+        last_name: "some last_name",
         source: :openphone
       }
 
       assert {:ok, %Contact{} = contact} = Contacts.create_contact(valid_attrs)
       assert contact.external_id == "some external_id"
-      assert contact.full_name == "some full_name"
+      assert contact.first_name == "some first_name"
+      assert contact.last_name == "some last_name"
       assert contact.source == :openphone
     end
 
@@ -40,20 +42,23 @@ defmodule OpenphoneRecorder.ContactsTest do
     test "upsert_contact/2 doesn't overwrite the record" do
       create_attrs = %{
         external_id: "some external_id",
-        full_name: "some full_name",
+        first_name: "some first_name",
+        last_name: "some last_name",
         source: :openphone
       }
 
       update_attrs = %{
         external_id: "some external_id",
-        full_name: "some updated full_name",
+        first_name: "some updated first_name",
+        last_name: "some updated last_name",
         source: :openphone
       }
 
       contact = contact_fixture(create_attrs)
       assert {:ok, %Contact{}} = Contacts.upsert_contact(update_attrs)
       contact = Contacts.get_contact!(contact.id)
-      assert contact.full_name == update_attrs.full_name
+      assert contact.first_name == update_attrs.first_name
+      assert contact.last_name == update_attrs.last_name
       assert contact.external_id == create_attrs.external_id
     end
 
@@ -62,13 +67,15 @@ defmodule OpenphoneRecorder.ContactsTest do
 
       update_attrs = %{
         external_id: "some updated external_id",
-        full_name: "some updated full_name",
+        first_name: "some updated first_name",
+        last_name: "some updated last_name",
         source: :openphone
       }
 
       assert {:ok, %Contact{} = contact} = Contacts.update_contact(contact, update_attrs)
       assert contact.external_id == "some updated external_id"
-      assert contact.full_name == "some updated full_name"
+      assert contact.first_name == "some updated first_name"
+      assert contact.last_name == "some updated last_name"
       assert contact.source == :openphone
     end
 

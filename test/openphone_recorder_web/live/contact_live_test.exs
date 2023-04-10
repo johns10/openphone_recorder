@@ -4,13 +4,19 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   import Phoenix.LiveViewTest
   import OpenphoneRecorder.ContactsFixtures
 
-  @create_attrs %{external_id: "", full_name: "some full_name", source: :user}
-  @update_attrs %{
+  @create_attrs %{
     external_id: "",
-    full_name: "some updated full_name",
+    first_name: "some first_name",
+    last_name: "some last_name",
     source: :user
   }
-  @invalid_attrs %{external_id: nil, full_name: nil, source: nil}
+  @update_attrs %{
+    external_id: "",
+    first_name: "some updated first_name",
+    last_name: "some updated last_name",
+    source: :user
+  }
+  @invalid_attrs %{external_id: nil, first_name: nil, last_name: nil, source: nil}
 
   defp create_contact(_) do
     contact = contact_fixture()
@@ -47,7 +53,8 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
 
       html = render(index_live)
       assert html =~ "Contact created successfully"
-      assert html =~ "some full_name"
+      assert html =~ "some first_name"
+      assert html =~ "some last_name"
     end
 
     test "updates contact in listing", %{conn: conn, contact: contact} do
@@ -70,7 +77,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
 
       html = render(index_live)
       assert html =~ "Contact updated successfully"
-      assert html =~ "some updated full_name"
+      assert html =~ "some updated last_name"
     end
 
     test "deletes contact in listing", %{conn: conn, contact: contact} do
@@ -111,7 +118,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
 
       html = render(show_live)
       assert html =~ "Contact updated successfully"
-      assert html =~ "some updated full_name"
+      assert html =~ "some updated last_name"
     end
   end
 end
