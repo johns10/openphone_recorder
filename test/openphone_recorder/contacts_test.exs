@@ -21,7 +21,11 @@ defmodule OpenphoneRecorder.ContactsTest do
     end
 
     test "create_contact/1 with valid data creates a contact" do
-      valid_attrs = %{external_id: "some external_id", full_name: "some full_name", source: :openphone}
+      valid_attrs = %{
+        external_id: "some external_id",
+        full_name: "some full_name",
+        source: :openphone
+      }
 
       assert {:ok, %Contact{} = contact} = Contacts.create_contact(valid_attrs)
       assert contact.external_id == "some external_id"
@@ -33,9 +37,34 @@ defmodule OpenphoneRecorder.ContactsTest do
       assert {:error, %Ecto.Changeset{}} = Contacts.create_contact(@invalid_attrs)
     end
 
+    test "upsert_contact/2 doesn't overwrite the record" do
+      create_attrs = %{
+        external_id: "some external_id",
+        full_name: "some full_name",
+        source: :openphone
+      }
+
+      update_attrs = %{
+        external_id: "some external_id",
+        full_name: "some updated full_name",
+        source: :openphone
+      }
+
+      contact = contact_fixture(create_attrs)
+      assert {:ok, %Contact{}} = Contacts.upsert_contact(update_attrs)
+      contact = Contacts.get_contact!(contact.id)
+      assert contact.full_name == update_attrs.full_name
+      assert contact.external_id == create_attrs.external_id
+    end
+
     test "update_contact/2 with valid data updates the contact" do
       contact = contact_fixture()
-      update_attrs = %{external_id: "some updated external_id", full_name: "some updated full_name", source: :openphone}
+
+      update_attrs = %{
+        external_id: "some updated external_id",
+        full_name: "some updated full_name",
+        source: :openphone
+      }
 
       assert {:ok, %Contact{} = contact} = Contacts.update_contact(contact, update_attrs)
       assert contact.external_id == "some updated external_id"

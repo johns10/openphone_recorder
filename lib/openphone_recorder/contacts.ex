@@ -16,6 +16,20 @@ defmodule OpenphoneRecorder.Contacts do
     |> Repo.insert()
   end
 
+  def upsert_contact(attrs \\ %{}) do
+    %Contact{}
+    |> Contact.changeset(attrs)
+    |> Repo.insert()
+    |> case do
+      {:error, %{errors: [id: {"has already been taken", _}]} = changeset} ->
+        changeset
+        |> Ecto.Changeset.get_field(:id)
+        |> get_contact!()
+        |> IO.inspect()
+        |> update_contact(attrs)
+    end
+  end
+
   def update_contact(%Contact{} = contact, attrs) do
     contact
     |> Contact.changeset(attrs)
