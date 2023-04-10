@@ -12,6 +12,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
   alias OpenphoneRecorder.Events.Openphone.MessageDelivered
 
   alias OpenphoneRecorder.Events.Openphone.ContactCreated
+  alias OpenphoneRecorder.Events.Openphone.ContactUpdated
 
   @call_schemas [
     CallCompleted,
@@ -25,7 +26,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
   ]
 
   @contact_schemas [
-    ContactCreated
+    ContactCreated,
+    ContactUpdated
   ]
 
   def cast_module_name("call.completed"), do: CallCompleted
@@ -36,6 +38,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Helpers do
   def cast_module_name("message.received"), do: MessageReceived
 
   def cast_module_name("contact.created"), do: ContactCreated
+  def cast_module_name("contact.updated"), do: ContactUpdated
 
   def changeset(event, params \\ %{})
 

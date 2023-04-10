@@ -123,4 +123,42 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
                |> Projector.apply()
     end
   end
+
+  describe "ContactUpdated" do
+    test "creates a contact when it doesn't exist" do
+      assert {:ok,
+              %Contact{
+                id: contact_id,
+                phone_numbers: [
+                  %PhoneNumber{
+                    contact_id: contact_id,
+                    phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
+                  }
+                ]
+              }} =
+               OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
+               |> Events.cast_event()
+               |> Projector.apply()
+    end
+
+    test "adds a phone number to an existing contact" do
+      OpenphoneFixtures.contact_created(%{phone_numbers: ["12566581234"]})
+      |> Events.cast_event()
+      |> Projector.apply()
+
+      assert {:ok,
+              %Contact{
+                id: contact_id,
+                phone_numbers: [
+                  %PhoneNumber{
+                    contact_id: contact_id,
+                    phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
+                  }
+                ]
+              }} =
+               OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
+               |> Events.cast_event()
+               |> Projector.apply()
+    end
+  end
 end
