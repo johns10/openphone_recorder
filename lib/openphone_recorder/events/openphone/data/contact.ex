@@ -1,7 +1,6 @@
 defmodule OpenphoneRecorder.Events.Openphone.Data.Contact do
   use Ecto.Schema
   import Ecto.Changeset
-  alias OpenphoneRecorder.Events.Openphone.Data.Field
 
   @primary_key false
   embedded_schema do

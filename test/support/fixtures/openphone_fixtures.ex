@@ -254,24 +254,7 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
   #   |> Jason.decode!()
   # end
 
-  def contact_updated(attrs \\ %{}) do
-    phone_numbers =
-      Map.get(attrs, :phone_numbers, [])
-      |> Enum.map(&%{value: &1, name: "Phone", type: "phone-number"})
-
-    fields = [
-      %{
-        name: "Email",
-        type: "email",
-        value: nil
-      },
-      %{
-        name: "Prop1",
-        type: "string",
-        value: "Value12"
-      }
-    ]
-
+  def contact_updated(_attrs \\ %{}) do
     """
     {
       "apiVersion": "v3",

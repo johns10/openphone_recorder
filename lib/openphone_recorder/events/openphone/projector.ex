@@ -144,7 +144,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
         source: :transcription,
         external_id: nil
       }
-      |> Statements.create_statement()
+      |> Statements.upsert_statement()
       |> case do
         {:ok, statement} ->
           {:ok, Map.put(call, :statements, [statement])}
@@ -160,7 +160,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp maybe_transcribe_call_recording(
          call,
          %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
-         %{from_participant: from_participant, to_participant: to_participant}
+         %{from_participant: from_participant}
        )
        when duration > 0 do
     with {:ok, path} = Briefly.create(extname: ".mp3"),
