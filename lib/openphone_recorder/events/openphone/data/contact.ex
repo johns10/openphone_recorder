@@ -11,12 +11,11 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Contact do
     field :company, :string
     field :role, :string
 
-    embeds_many :fields, Field
+    field :fields, :map
   end
 
   def changeset(voicemail, attrs) do
     voicemail
-    |> cast(attrs, [:id, :first_name, :last_name, :company, :role])
-    |> cast_embed(:fields, with: &Field.changeset/2)
+    |> cast(attrs, [:id, :first_name, :last_name, :company, :role, :fields])
   end
 end

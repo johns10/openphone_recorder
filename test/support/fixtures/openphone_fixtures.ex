@@ -176,6 +176,84 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
+  # def contact_updated_old(attrs \\ %{}) do
+  #   phone_numbers =
+  #     Map.get(attrs, :phone_numbers, [])
+  #     |> Enum.map(&%{value: &1, name: "Phone", type: "phone-number"})
+
+  #   fields = [
+  #     %{
+  #       name: "Email",
+  #       type: "email",
+  #       value: nil
+  #     },
+  #     %{
+  #       name: "Prop1",
+  #       type: "string",
+  #       value: "Value12"
+  #     }
+  #   ]
+
+  #   """
+  #   {
+  #     "id": "EVe844e47e9fa4494d9acfa1144839ed94",
+  #     "object": "event",
+  #     "createdAt": "2022-01-24T19:44:09.579Z",
+  #     "apiVersion": "v3",
+  #     "type": "contact.updated",
+  #     "data": {
+  #       "object": {
+  #         "id": "CT61eeff33f3b14cfe6358cb52",
+  #         "object": "contact",
+  #         "firstName": "Jane",
+  #         "lastName": "Smith",
+  #         "company": "Comp Inc",
+  #         "role": "Agent",
+  #         "pictureUrl": null,
+  #         "fields": #{Jason.encode!(phone_numbers ++ fields)},
+  #         "notes": [
+  #           {
+  #             "text": "@USu5AsEHuQ mynote 🙂",
+  #             "enrichment": {
+  #               "taggedIds": {
+  #                 "groupIds": [],
+  #                 "userIds": [
+  #                   "USu5AsEHuQ"
+  #                 ],
+  #                 "orgIds": []
+  #               },
+  #               "tokens": {
+  #                 "USu5AsEHuQ": {
+  #                   "token": "USu5AsEHuQ",
+  #                   "replacement": "Chris Scott",
+  #                   "type": "mention",
+  #                   "locations": [
+  #                     {
+  #                       "startIndex": 1,
+  #                       "endIndex": 11
+  #                     }
+  #                   ]
+  #                 }
+  #               }
+  #             },
+  #             "createdAt": "2022-01-24T19:35:38.323Z",
+  #             "updatedAt": "2022-01-24T19:35:38.323Z",
+  #             "userId": "USu5AsEHuQ"
+  #           }
+  #         ],
+  #         "sharedWith": [
+  #           "USu5AsEHuQ"
+  #         ],
+  #         "createdAt": "2022-01-24T19:35:38.318Z",
+  #         "updatedAt": "2022-01-24T19:44:09.565Z",
+  #         "userId": "USu5AsEHuQ"
+  #       }
+  #     }
+  #   }
+  #   """
+  #   |> Jason.decode!()
+  # end
+
   def contact_updated(attrs \\ %{}) do
     phone_numbers =
       Map.get(attrs, :phone_numbers, [])
@@ -196,59 +274,26 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
 
     """
     {
-      "id": "EVe844e47e9fa4494d9acfa1144839ed94",
-      "object": "event",
-      "createdAt": "2022-01-24T19:44:09.579Z",
       "apiVersion": "v3",
-      "type": "contact.updated",
+      "createdAt": "2023-03-30T22:32:12.339Z",
       "data": {
         "object": {
-          "id": "CT61eeff33f3b14cfe6358cb52",
+          "clientId": "81b91794-7604-4731-8aab-0cfc5ce44449",
+          "createdAt": "2023-03-30T22:32:12.319Z",
+          "fields": {"Phone": "+12566581234"},
+          "firstName": "Jayson",
+          "id": "CT64260c5cd1c90ca558ff6edb",
+          "lastName": "",
+          "notes": [],
           "object": "contact",
-          "firstName": "Jane",
-          "lastName": "Smith",
-          "company": "Comp Inc",
-          "role": "Agent",
-          "pictureUrl": null,
-          "fields": #{Jason.encode!(phone_numbers ++ fields)},
-          "notes": [
-            {
-              "text": "@USu5AsEHuQ mynote 🙂",
-              "enrichment": {
-                "taggedIds": {
-                  "groupIds": [],
-                  "userIds": [
-                    "USu5AsEHuQ"
-                  ],
-                  "orgIds": []
-                },
-                "tokens": {
-                  "USu5AsEHuQ": {
-                    "token": "USu5AsEHuQ",
-                    "replacement": "Chris Scott",
-                    "type": "mention",
-                    "locations": [
-                      {
-                        "startIndex": 1,
-                        "endIndex": 11
-                      }
-                    ]
-                  }
-                }
-              },
-              "createdAt": "2022-01-24T19:35:38.323Z",
-              "updatedAt": "2022-01-24T19:35:38.323Z",
-              "userId": "USu5AsEHuQ"
-            }
-          ],
-          "sharedWith": [
-            "USu5AsEHuQ"
-          ],
-          "createdAt": "2022-01-24T19:35:38.318Z",
-          "updatedAt": "2022-01-24T19:44:09.565Z",
-          "userId": "USu5AsEHuQ"
+          "sharedWith": ["USh6vAGqVi", "OR60CD87vA", "GRkhNXRGuN"],
+          "updatedAt": "2023-03-30T22:32:12.319Z",
+          "userId": "USh6vAGqVi"
         }
-      }
+      },
+      "id": "EVe1cb0b9c96a34a239fc8cdfd9085863b",
+      "object": "event",
+      "type": "contact.updated"
     }
     """
     |> Jason.decode!()

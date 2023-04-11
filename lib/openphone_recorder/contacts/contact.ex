@@ -51,10 +51,7 @@ defmodule OpenphoneRecorder.Contacts.Contact do
         last_name: last_name,
         fields: fields
       }) do
-    phone_numbers =
-      fields
-      |> Enum.filter(&(&1.type == :phone_number))
-      |> Enum.map(&%{source: :openphone, phone_number: &1.value})
+    phone_numbers = cast_phone_numbers(fields["phone"])
 
     %{
       phone_numbers: phone_numbers,
@@ -64,4 +61,12 @@ defmodule OpenphoneRecorder.Contacts.Contact do
       last_name: last_name
     }
   end
+
+  defp cast_phone_numbers(phone_number) when is_binary(phone_number),
+    do: [cast_phone_number(phone_number)]
+
+  defp cast_phone_numbers(phone_numbers) when is_list(phone_numbers),
+    do: Enum.map(phone_numbers, &cast_phone_number/1)
+
+  defp cast_phone_number(phone_number), do: %{phone_number: phone_number, source: :openphone}
 end
