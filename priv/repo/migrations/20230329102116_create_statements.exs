@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateStatements do
       add :id, :uuid, primary_key: true
       add :source, :string
       add :external_id, :string
-      add :content, :string
+      add :content, :text
       add :occurred_at, :utc_datetime_usec
       add :type, :string
       add :conversation_id, references(:conversations, on_delete: :nothing, type: :uuid)
