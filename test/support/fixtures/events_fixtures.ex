@@ -11,7 +11,8 @@ defmodule OpenphoneRecorder.EventsFixtures do
     {:ok, event} =
       attrs
       |> Enum.into(%{
-        payload: %{}
+        payload: %{},
+        processed: false
       })
       |> OpenphoneRecorder.Events.create_event()
 

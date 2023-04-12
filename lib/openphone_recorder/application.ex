@@ -17,9 +17,8 @@ defmodule OpenphoneRecorder.Application do
       # Start Finch
       {Finch, name: OpenphoneRecorder.Finch},
       # Start the Endpoint (http/https)
-      OpenphoneRecorderWeb.Endpoint
-      # Start a worker by calling: OpenphoneRecorder.Worker.start_link(arg)
-      # {OpenphoneRecorder.Worker, arg}
+      OpenphoneRecorderWeb.Endpoint,
+      {OpenphoneRecorder.Events.Consumer, %{count: 0, delay: 60000, subscribed: []}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

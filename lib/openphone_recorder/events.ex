@@ -7,6 +7,10 @@ defmodule OpenphoneRecorder.Events do
     Repo.all(Event)
   end
 
+  def list_unprocessed_events do
+    Repo.all(from e in Event, where: e.processed == false, limit: 2)
+  end
+
   def get_event!(id), do: Repo.get!(Event, id)
 
   def create_event(attrs \\ %{}) do
