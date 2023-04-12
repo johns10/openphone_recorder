@@ -4,6 +4,7 @@ defmodule OpenphoneRecorder.Events.Event do
 
   schema "events" do
     field :payload, :map
+    field :processed, :boolean
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule OpenphoneRecorder.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:payload])
+    |> cast(attrs, [:payload, :processed])
     |> validate_required([:payload])
   end
 end
