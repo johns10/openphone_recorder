@@ -7,7 +7,8 @@ defmodule OpenphoneRecorder.Events.Consumer do
   @default_state %{timer: nil, delay: 60000, subscribed: [], count: 0}
 
   def start_link(opts) do
-    GenServer.start_link(__MODULE__, Map.merge(@default_state, opts), name: __MODULE__)
+    name = Map.get(opts, __MODULE__)
+    GenServer.start_link(__MODULE__, Map.merge(@default_state, opts), name: name)
   end
 
   def set_count(count) do
@@ -16,6 +17,10 @@ defmodule OpenphoneRecorder.Events.Consumer do
 
   def set_delay(delay) do
     GenServer.call(__MODULE__, {:set_delay, delay})
+  end
+
+  def set_subscriber(pid) do
+    GenServer.call(__MODULE__, {:set_subscriber, pid})
   end
 
   @impl true
@@ -29,10 +34,14 @@ defmodule OpenphoneRecorder.Events.Consumer do
     {:reply, count, Map.put(state, :count, count), {:continue, :next}}
   end
 
-  @impl true
-  def handle_call({:set_delay, count}, _from, %{timer: timer} = state) do
+  def handle_call({:set_delay, delay}, _from, %{timer: timer} = state) do
     Process.cancel_timer(timer)
-    {:reply, count, Map.put(state, :count, count), {:continue, :schedule_next_run}}
+    {:reply, delay, Map.put(state, :delay, delay), {:continue, :schedule_next_run}}
+  end
+
+  def handle_call({:set_subscriber, pid}, _from, %{subscribed: subscribed} = state) do
+    state = Map.put(state, :subscribed, [pid | subscribed])
+    {:reply, subscribed, state}
   end
 
   @impl true
