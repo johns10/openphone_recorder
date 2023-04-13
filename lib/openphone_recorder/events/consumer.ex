@@ -4,10 +4,10 @@ defmodule OpenphoneRecorder.Events.Consumer do
   alias OpenphoneRecorder.Events
   require Logger
 
-  @default_state %{timer: nil}
+  @default_state %{timer: nil, delay: 60000, subscribed: [], count: 0}
 
   def start_link(opts) do
-    GenServer.start_link(__MODULE__, Map.merge(@default_state, opts))
+    GenServer.start_link(__MODULE__, Map.merge(@default_state, opts), name: __MODULE__)
   end
 
   def set_count(count) do

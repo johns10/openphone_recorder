@@ -18,7 +18,7 @@ defmodule OpenphoneRecorder.Application do
       {Finch, name: OpenphoneRecorder.Finch},
       # Start the Endpoint (http/https)
       OpenphoneRecorderWeb.Endpoint,
-      {OpenphoneRecorder.Events.Consumer, %{count: 0, delay: 60000, subscribed: []}}
+      {OpenphoneRecorder.Events.Consumer, %{delay: 100}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
