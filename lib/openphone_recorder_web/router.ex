@@ -23,7 +23,8 @@ defmodule OpenphoneRecorderWeb.Router do
   scope "/", OpenphoneRecorderWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", IndexLive.Index, :index
+
     resources "/events", EventController, except: [:new, :edit]
 
     live "/conversations", ConversationLive.Index, :index

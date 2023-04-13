@@ -1,0 +1,21 @@
+<.header>
+  Listing Conversations
+  <:actions>
+    <.link patch={~p"/conversations/new"}>
+      <.button>New Conversation</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="conversations"
+  rows={@streams.conversations}
+  row_click={fn {_id, conversation} -> JS.navigate(~p"/conversations/#{conversation}") end}
+>
+  <:action :let={{_id, conversation}}>
+    <div class="sr-only">
+      <.link navigate={~p"/conversations/#{conversation}"}>Show</.link>
+    </div>
+  </:action>
+  <:col :let={{_id, conversation}} label="source"><%= conversation.source %></:col>
+</.table>
