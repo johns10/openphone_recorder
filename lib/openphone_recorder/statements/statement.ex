@@ -35,7 +35,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
     |> foreign_key_constraint(:participant_id)
     |> foreign_key_constraint(:call_id)
     |> cast_id()
-    |> validate_required([:content, :occurred_at, :type])
+    |> validate_required([:occurred_at, :type])
     |> unique_constraint([:id], name: :statements_pkey)
   end
 
