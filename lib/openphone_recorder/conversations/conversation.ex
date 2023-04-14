@@ -1,11 +1,16 @@
 defmodule OpenphoneRecorder.Conversations.Conversation do
   use Ecto.Schema
   import Ecto.Changeset
+  alias OpenphoneRecorder.Participants.Participant
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone]
+
+    has_many :participants, Participant
+    has_many :phone_numbers, through: [:participants, :phone_number]
+    has_many :contacts, through: [:phone_numbers, :contact]
     timestamps()
   end
 
