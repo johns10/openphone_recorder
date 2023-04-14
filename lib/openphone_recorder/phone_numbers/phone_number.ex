@@ -9,15 +9,13 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
     field :phone_number, EctoPhoneNumber
     field :source, Ecto.Enum, values: [:openphone]
 
-    belongs_to :contact, Contact, type: :binary_id
-
     timestamps()
   end
 
   @doc false
   def changeset(phone_number, attrs) do
     phone_number
-    |> cast(attrs, [:external_id, :contact_id, :phone_number, :source])
+    |> cast(attrs, [:external_id, :phone_number, :source])
     |> cast_id()
     |> validate_required([:phone_number, :source])
     |> foreign_key_constraint(:contact_id)

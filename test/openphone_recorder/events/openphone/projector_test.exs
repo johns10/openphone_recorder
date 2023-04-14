@@ -96,10 +96,8 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
     test "creates a contact when it doesn't exist" do
       assert {:ok,
               %Contact{
-                id: contact_id,
                 phone_numbers: [
                   %PhoneNumber{
-                    contact_id: contact_id,
                     phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
                   }
                 ]
@@ -116,10 +114,8 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
       assert {:ok,
               %Contact{
-                id: contact_id,
                 phone_numbers: [
                   %PhoneNumber{
-                    contact_id: contact_id,
                     phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
                   }
                 ]

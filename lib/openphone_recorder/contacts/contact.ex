@@ -1,7 +1,7 @@
 defmodule OpenphoneRecorder.Contacts.Contact do
   use Ecto.Schema
   import Ecto.Changeset
-  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
+  alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "contacts" do
@@ -12,7 +12,8 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     field :role, :string
     field :source, Ecto.Enum, values: [:openphone, :user]
 
-    has_many :phone_numbers, PhoneNumber
+    has_many :contact_phone_numbers, ContactPhoneNumber
+    has_many :phone_numbers, through: [:contact_phone_numbers, :phone_number]
 
     timestamps()
   end

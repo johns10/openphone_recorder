@@ -8,7 +8,12 @@ defmodule OpenphoneRecorder.Contacts do
     Repo.all(Contact)
   end
 
-  def get_contact!(id), do: Repo.get!(Contact, id)
+  def get_contact!(id, opts \\ []) do
+    preload = Keyword.get(opts, :preload, [])
+
+    from(c in Contact, preload: ^preload)
+    |> Repo.get!(id)
+  end
 
   def create_contact(attrs \\ %{}) do
     %Contact{}
