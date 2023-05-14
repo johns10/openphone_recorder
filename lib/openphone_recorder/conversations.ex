@@ -4,8 +4,12 @@ defmodule OpenphoneRecorder.Conversations do
 
   alias OpenphoneRecorder.Conversations.Conversation
 
-  def list_conversations do
-    Repo.all(Conversation)
+  def list_conversations(opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, nil)
+
+    Conversation
+    |> maybe_preload(preloads)
+    |> Repo.all()
   end
 
   def get_conversation!(id), do: Repo.get!(Conversation, id)
@@ -43,5 +47,11 @@ defmodule OpenphoneRecorder.Conversations do
 
   def change_conversation(%Conversation{} = conversation, attrs \\ %{}) do
     Conversation.changeset(conversation, attrs)
+  end
+
+  defp maybe_preload(query, nil), do: query
+  defp maybe_preload(query, preloads) do
+    query
+    |> preload(^preloads)
   end
 end
