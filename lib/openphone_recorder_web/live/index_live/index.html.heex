@@ -7,15 +7,24 @@
   </:actions>
 </.header>
 
-<.table
-  id="conversations"
-  rows={@streams.conversations}
-  row_click={fn {_id, conversation} -> JS.navigate(~p"/conversations/#{conversation}") end}
->
-  <:action :let={{_id, conversation}}>
-    <div class="sr-only">
-      <.link navigate={~p"/conversations/#{conversation}"}>Show</.link>
-    </div>
-  </:action>
-  <:col :let={{_id, conversation}} label="source"><%= conversation.source %></:col>
-</.table>
+<div class="flex flex-row flex-grow">
+  <div class="flex flex-col border-r-2 border-accent">
+    <%= for {_id, conversation} <- @streams.conversations do %>
+      <.conversation conversation={conversation} />
+    <% end %>
+  </div>
+  <div class="flex flex-col">
+    <.table
+      id="conversations"
+      rows={@streams.conversations}
+      row_click={fn {_id, conversation} -> JS.navigate(~p"/conversations/#{conversation}") end}
+    >
+      <:action :let={{_id, conversation}}>
+        <div class="sr-only">
+          <.link navigate={~p"/conversations/#{conversation}"}>Show</.link>
+        </div>
+      </:action>
+      <:col :let={{_id, conversation}} label="source"><%= conversation.source %></:col>
+    </.table>
+  </div>
+</div>

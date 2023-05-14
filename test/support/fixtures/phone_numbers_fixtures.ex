@@ -12,7 +12,7 @@ defmodule OpenphoneRecorder.PhoneNumbersFixtures do
       attrs
       |> Enum.into(%{
         external_id: Ecto.UUID.generate(),
-        phone_number: "1256" <> Faker.Phone.EnUs.exchange_code() <> Faker.Phone.EnUs.subscriber_number() |> IO.inspect(),
+        phone_number: "1256" <> Faker.Phone.EnUs.exchange_code() <> Faker.Phone.EnUs.subscriber_number(),
         source: :openphone
       })
       |> OpenphoneRecorder.PhoneNumbers.create_phone_number()

@@ -1,0 +1,17 @@
+<style>
+  body {
+    min-height: 100vh;
+    min-height: -moz-available;
+    min-height: -webkit-fill-available;
+    min-height: fill-available;
+  }
+
+  html {
+    height: fill-available;
+    height: -webkit-fill-available;
+  }
+</style>
+ <div max_width="full" class="container overflow-auto h-full max-w-full flex-grow flex flex-col">
+  <.flash_group flash={@flash} />
+  <%= @inner_content %>
+</div>

@@ -5,7 +5,6 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   import Mox
   import OpenphoneRecorder.HTTPFixtures
-  import OpenphoneRecorder.PhoneNumbersFixtures
 
   alias OpenphoneRecorder.Contacts.Contact
   alias OpenphoneRecorder.PhoneNumbers.PhoneNumber

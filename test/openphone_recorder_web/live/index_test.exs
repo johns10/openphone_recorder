@@ -15,12 +15,13 @@ defmodule OpenphoneRecorderWeb.IndexLive.IndexTest do
     conversation = conversation_fixture()
     phone_number = phone_number_fixture()
     participant = participant_fixture(%{conversation_id: conversation.id})
+    %{conversation: conversation, phone_number: phone_number, participant: participant}
   end
 
   describe "Index" do
-    setup [:create_conversation]
+    setup [:fixture]
 
-    test "lists all conversations", %{conn: conn, conversation: conversation} do
+    test "lists all conversations", %{conn: conn} do
       {:ok, _index_live, html} = live(conn, ~p"/conversations")
 
       assert html =~ "Listing Conversations"
