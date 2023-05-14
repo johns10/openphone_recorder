@@ -25,6 +25,13 @@ defmodule OpenphoneRecorderWeb.ContactLive.FormComponent do
         <.input field={@form[:role]} type="text" label="Role" />
         <.input field={@form[:external_id]} type="text" label="External" />
         <.input
+          field={@form[:relationship]}
+          type="select"
+          label="relationship"
+          prompt="Choose a value"
+          options={Ecto.Enum.values(OpenphoneRecorder.Contacts.Contact, :relationship)}
+        />
+        <.input
           field={@form[:source]}
           type="select"
           label="Source"
