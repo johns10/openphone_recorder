@@ -11,6 +11,7 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     field :company, :string
     field :role, :string
     field :source, Ecto.Enum, values: [:openphone, :user]
+    field :relationship, Ecto.Enum, values: [:primary, :internal, :external]
 
     has_many :contact_phone_numbers, ContactPhoneNumber
     has_many :phone_numbers, through: [:contact_phone_numbers, :phone_number]
@@ -21,7 +22,7 @@ defmodule OpenphoneRecorder.Contacts.Contact do
   @doc false
   def changeset(contact, attrs) do
     contact
-    |> cast(attrs, [:first_name, :last_name, :company, :role, :external_id, :source])
+    |> cast(attrs, [:first_name, :last_name, :company, :role, :external_id, :source, :relationship])
     |> cast_id()
     |> validate_required([:source])
     |> unique_constraint([:id], name: :contacts_pkey)

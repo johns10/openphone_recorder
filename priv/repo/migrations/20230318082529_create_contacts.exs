@@ -10,6 +10,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateContacts do
       add :role, :string
       add :external_id, :string
       add :source, :string
+      add :relationship, :string
 
       timestamps()
     end
