@@ -25,7 +25,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
          method: :post,
          url: "https://api.openai.com/v1/audio/transcriptions",
          headers: [
-           {"Authorization", "Bearer"},
+           {"Authorization", "Bearer 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"},
            {"Content-Type", "multipart/form-data"}
          ],
          body:
@@ -67,7 +67,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
          method: :post,
          url: "https://api.openai.com/v1/audio/transcriptions",
          headers: [
-           {"Authorization", "Bearer"},
+           {"Authorization", "Bearer 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"},
            {"Content-Type", "multipart/form-data"}
          ],
          body:
@@ -109,7 +109,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
          method: :post,
          url: "https://api.openai.com/v1/audio/transcriptions",
          headers: [
-           {"Authorization", "Bearer"},
+           {"Authorization", "Bearer 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"},
            {"Content-Type", "multipart/form-data"}
          ],
          body:
@@ -151,7 +151,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
          method: :post,
          url: "https://api.openai.com/v1/audio/transcriptions",
          headers: [
-           {"Authorization", "Bearer"},
+           {"Authorization", "Bearer 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"},
            {"Content-Type", "multipart/form-data"}
          ],
          body:
@@ -193,7 +193,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
          method: :post,
          url: "https://api.openai.com/v1/audio/transcriptions",
          headers: [
-           {"Authorization", "Bearer"},
+           {"Authorization", "Bearer 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"},
            {"Content-Type", "multipart/form-data"}
          ],
          body:
