@@ -12,6 +12,21 @@ defmodule OpenphoneRecorder.Conversations do
     |> Repo.all()
   end
 
+  def list_conversation_summary do
+    from(c in Conversation)
+    |> join(:left, [c], p in assoc(c, :participants), as: :participants)
+    |> join(:left, [participants: p], pn in assoc(p, :phone_number), as: :phone_number)
+    |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers), as: :contact_phone_numbers)
+    |> join(:left, [contact_phone_numbers: cpn], c in assoc(cpn, :contact), as: :contacts)
+    |> order_by([contacts: c], [desc: fragment("CASE 'relationship' when 'primary' then 1 when 'internal' then 2 when 'external' then 3 end")])
+    |> order_by([contact_phone_numbers: cpn], [desc: fragment("CASE when 'contact_id' is NULL then 1 when 'contact_id' is not null then 2 end")])
+    |> preload(
+      [participants: p, phone_number: pn, contacts: c],
+      participants: {p, phone_number: {pn, contacts: c}}
+    )
+    |> Repo.all()
+  end
+
   def get_conversation!(id), do: Repo.get!(Conversation, id)
 
   def create_conversation(attrs \\ %{}) do
