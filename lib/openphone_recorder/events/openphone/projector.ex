@@ -56,14 +56,14 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
 
   def apply(%MessageReceived{data: message}) do
     with {:ok, data} <- prepare_model(message),
-         statement_attrs <- Statement.cast_openphone_message(message, data.conversation.id) do
+         statement_attrs <- Statement.cast_openphone_message(message, data) do
       Statements.upsert_statement(statement_attrs)
     end
   end
 
   def apply(%MessageDelivered{data: message}) do
     with {:ok, data} <- prepare_model(message),
-         statement_attrs <- Statement.cast_openphone_message(message, data.conversation.id) do
+         statement_attrs <- Statement.cast_openphone_message(message, data) do
       Statements.upsert_statement(statement_attrs)
     end
   end

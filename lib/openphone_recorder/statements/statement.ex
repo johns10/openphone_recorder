@@ -67,9 +67,13 @@ defmodule OpenphoneRecorder.Statements.Statement do
           created_at: occurred_at,
           body: body
         },
-        conversation_id
+       %{
+        conversation: %{id: conversation_id},
+        from_participant: %{id: participant_id}
+       }
       ) do
     %{
+      participant_id: participant_id,
       conversation_id: conversation_id,
       external_id: external_id,
       occurred_at: occurred_at,
