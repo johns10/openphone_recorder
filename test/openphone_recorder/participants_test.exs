@@ -61,6 +61,7 @@ defmodule OpenphoneRecorder.ParticipantsTest do
 
       assert {:ok, participant = %Participant{}} = Participants.upsert_participant(attrs)
 
+      assert participant.id != nil
       assert participant.phone_number_id == phone_number.id
       assert participant.conversation_id == conversation.id
     end

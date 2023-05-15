@@ -16,14 +16,17 @@ defmodule OpenphoneRecorder.Participants do
     |> Repo.insert()
   end
 
+  @duplicate_participant_error [conversation_id: {"has already been taken", [constraint: :unique, constraint_name: "participants_conversation_id_phone_number_id_index"]}]
+
   def upsert_participant(attrs \\ %{}) do
     %Participant{}
     |> Participant.changeset(attrs)
-    |> Repo.insert(
-      on_conflict: :nothing,
-      conflict_target: [:conversation_id, :phone_number_id],
-      returning: true
-    )
+    |> Repo.insert()
+    |> case do
+      {:ok, _} = result -> result
+      {:error, %{changes: changes, errors: @duplicate_participant_error}} ->
+        {:ok, Repo.get_by(Participant, changes)}
+    end
   end
 
   def update_participant(%Participant{} = participant, attrs) do
