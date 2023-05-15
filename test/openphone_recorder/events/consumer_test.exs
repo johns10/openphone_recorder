@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.Consumer do
 
   describe "Consumer" do
     setup do
-      attrs = %{delay: 1000, subscribed: [self()], name: Ecto.UUID.generate()}
+      attrs = %{delay: 1000, subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
       consumer = start_supervised!({Consumer, attrs})
 
       Ecto.Adapters.SQL.Sandbox.allow(Repo, self(), consumer)
