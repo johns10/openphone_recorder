@@ -7,8 +7,9 @@ defmodule OpenphoneRecorder.Events.Consumer do
   @default_state %{timer: nil, delay: 60000, subscribed: [], count: 0}
 
   def start_link(opts) do
-    name = Map.get(opts, __MODULE__)
-    GenServer.start_link(__MODULE__, Map.merge(@default_state, opts), name: name)
+    name = Map.get(opts, :name, __MODULE__)
+    state = Map.merge(@default_state, opts)
+    GenServer.start_link(__MODULE__, state, [name: name])
   end
 
   def set_count(count) do
