@@ -134,8 +134,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(url),
          :ok <- File.write(path, body),
          {:ok, %{status_code: 200, body: body}} <- Openai.create_transcript(%{file: path}),
-         {:ok, %{"text" => text, "duration" => duration}} <-
-           Jason.decode(body) do
+         {:ok, %{"text" => text, "duration" => duration}} <- Jason.decode(body) do
       %{
         content: text,
         occurred_at:
