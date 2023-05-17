@@ -24,6 +24,7 @@ defmodule OpenphoneRecorderWeb.Router do
     pipe_through :browser
 
     live "/", IndexLive.Index, :index
+    live "/conversation/:conversation_id", IndexLive.Index, :index
 
     resources "/events", EventController, except: [:new, :edit]
 

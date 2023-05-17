@@ -1,30 +1,20 @@
 <.header>
   Listing Conversations
-  <:actions>
-    <.link patch={~p"/conversations/new"}>
-      <.button>New Conversation</.button>
-    </.link>
-  </:actions>
 </.header>
 
-<div class="flex flex-row flex-grow">
-  <div class="flex flex-col border-r-2 border-accent">
+<div class="flex flex-row flex-grow overflow-hidden">
+  <div class="flex flex-col border-r-2 border-accent overflow-y-scroll min-w-fit">
     <%= for {_id, conversation} <- @streams.conversations do %>
       <.conversation conversation={conversation} />
     <% end %>
   </div>
   <div class="flex flex-col">
-    <.table
-      id="conversations"
-      rows={@streams.conversations}
-      row_click={fn {_id, conversation} -> JS.navigate(~p"/conversations/#{conversation}") end}
-    >
-      <:action :let={{_id, conversation}}>
-        <div class="sr-only">
-          <.link navigate={~p"/conversations/#{conversation}"}>Show</.link>
+    <%= for {_id, statement} <- @streams.statements do %>
+      <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
+        <div class="chat-bubble">
+          <%= statement.content %>
         </div>
-      </:action>
-      <:col :let={{_id, conversation}} label="source"><%= conversation.source %></:col>
-    </.table>
+      </div>
+    <% end %>
   </div>
 </div>

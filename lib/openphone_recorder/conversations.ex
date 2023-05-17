@@ -32,7 +32,13 @@ defmodule OpenphoneRecorder.Conversations do
     |> Repo.all()
   end
 
-  def get_conversation!(id), do: Repo.get!(Conversation, id)
+  def get_conversation!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, nil)
+
+    Conversation
+    |> maybe_preload(preloads)
+    |> Repo.get!(id)
+  end
 
   def create_conversation(attrs \\ %{}) do
     %Conversation{}
