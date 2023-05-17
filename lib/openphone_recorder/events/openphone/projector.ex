@@ -126,7 +126,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
 
   defp maybe_transcribe_voicemail(
          %Call{voicemail: %Media{duration: duration, type: "audio/mpeg", url: url}},
-         call,
+         %Calls.Call{conversation_id: conversation_id} = call,
          participant
        )
        when duration > 0 do
@@ -141,7 +141,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
           call.completed_at
           |> DateTime.add(-1 * cast_microseconds(duration), :microsecond),
         type: :voicemail,
-        conversation_id: call.conversation_id,
+        conversation_id: conversation_id,
         participant_id: participant.id,
         call_id: call.id,
         source: :transcription,
@@ -161,40 +161,18 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp maybe_transcribe_voicemail(_openphone_call, call, _participant), do: {:ok, call}
 
   defp maybe_transcribe_call_recording(
-         call,
+        %Calls.Call{conversation_id: conversation_id} = call,
          %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
-         %{from_participant: from_participant}
+         %{from_participant: from_participant, to_participant: to_participant}
        )
        when duration > 0 do
     with {:ok, path} = Briefly.create(extname: ".mp3"),
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(media_url),
          :ok <- File.write(path, body),
          {:ok, %{left: left, right: right}} <- Audio.split(path),
-         {:ok, %{status_code: 200, body: left_body}} <- Openai.create_transcript(%{file: left}),
-         {:ok, %{status_code: 200, body: right_body}} <- Openai.create_transcript(%{file: right}),
-         {:ok, %{"duration" => duration, "segments" => left_segments}} <- Jason.decode(left_body),
-         {:ok, %{"segments" => right_segments}} <- Jason.decode(right_body) do
-      now = DateTime.utc_now()
-
-      attrs =
-        (right_segments ++ left_segments)
-        |> Enum.map(fn segment ->
-          %{
-            occurred_at:
-              call.completed_at
-              |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
-              |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
-            type: :call,
-            content: segment["text"],
-            participant_id: from_participant.id,
-            call_id: call.id,
-            inserted_at: now,
-            updated_at: now,
-            source: :transcription,
-            id: UUID.uuid4()
-          }
-        end)
-
+         {:ok, left_attrs} <- transcribe_file(left, from_participant, call, conversation_id),
+         {:ok, right_attrs} <- transcribe_file(right, to_participant, call, conversation_id) do
+      attrs = left_attrs ++ right_attrs
       changesets = Enum.map(attrs, &Statements.change_statement(%Statement{}, &1))
 
       changeset_errors =
@@ -224,4 +202,31 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     do: {:ok, call}
 
   defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
+
+  defp transcribe_file(file, participant, call, conversation_id) do
+    with {:ok, %{status_code: 200, body: body}} <- Openai.create_transcript(%{file: file}),
+      {:ok, %{"duration" => duration, "segments" => segments}} <- Jason.decode(body) do
+      now = DateTime.utc_now()
+
+      {:ok,
+      segments
+      |> Enum.map(fn segment ->
+        %{
+          occurred_at:
+            call.completed_at
+            |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
+            |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
+          type: :call,
+          content: segment["text"],
+          participant_id: participant.id,
+          conversation_id: conversation_id,
+          call_id: call.id,
+          inserted_at: now,
+          updated_at: now,
+          source: :transcription,
+          id: UUID.uuid4()
+        }
+      end)}
+    end
+  end
 end
