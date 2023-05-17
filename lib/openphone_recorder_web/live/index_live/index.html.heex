@@ -3,7 +3,7 @@
 </.header>
 
 <div class="flex flex-row flex-grow overflow-hidden">
-  <div class="flex flex-col border-r-2 border-accent overflow-y-scroll min-w-fit">
+  <div class="flex flex-col overflow-y-scroll min-w-fit">
     <%= for {_id, conversation} <- @streams.conversations do %>
       <.conversation conversation={conversation} />
     <% end %>
