@@ -1,5 +1,5 @@
 defmodule OpenphoneRecorderWeb.IndexLive.Components do
-  use Phoenix.Component
+  use OpenphoneRecorderWeb, :html
   alias OpenphoneRecorder.Conversations.Conversation
 
 
@@ -7,12 +7,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
 
   def conversation(assigns) do
     ~H"""
-    <a
-      href="#"
-      class="w-full px-4 py-2 hover:bg-base-200"
-      phx-click="select-conversation"
-      phx-value-conversation-id={@conversation.id}
-    >
+    <a href={~p"/conversation/#{@conversation}"} class="w-full px-4 py-2 hover:bg-base-200">
       <.participants participants={@conversation.participants} />
     </a>
     """
