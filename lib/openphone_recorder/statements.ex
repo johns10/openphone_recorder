@@ -6,9 +6,11 @@ defmodule OpenphoneRecorder.Statements do
 
   def list_statements(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
+    order_by = Keyword.get(opts, :order_by, [])
 
     Statement
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> maybe_order_by_occurred_at(order_by[:occurred_at])
     |> Repo.all()
   end
 
@@ -20,6 +22,13 @@ defmodule OpenphoneRecorder.Statements do
   defp maybe_filter_by_conversation_id(query, conversation_id) do
     query
     |> where([s], s.conversation_id == ^conversation_id)
+  end
+
+  defp maybe_order_by_occurred_at(query, nil), do: query
+
+  defp maybe_order_by_occurred_at(query, occurred_at) do
+    query
+    |> order_by([s], s.occurred_at)
   end
 
   def create_statement(attrs \\ %{}) do

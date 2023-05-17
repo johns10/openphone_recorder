@@ -28,7 +28,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
   defp apply_action(socket, :index, %{"conversation_id" => conversation_id}) do
     conversation = Conversations.get_conversation!(conversation_id, preloads: @default_preloads)
-    statements = Statements.list_statements(filters: [conversation_id: conversation_id])
+    statements = Statements.list_statements(filters: [conversation_id: conversation_id], order_by: [occurred_at: :desc])
 
     conversation.participants
     |> participant_sides
