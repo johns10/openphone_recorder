@@ -16,7 +16,6 @@ defmodule OpenphoneRecorder.Statements do
 
   def get_statement!(id), do: Repo.get!(Statement, id)
 
-
   defp maybe_filter_by_conversation_id(query, nil), do: query
 
   defp maybe_filter_by_conversation_id(query, conversation_id) do
@@ -26,7 +25,7 @@ defmodule OpenphoneRecorder.Statements do
 
   defp maybe_order_by_occurred_at(query, nil), do: query
 
-  defp maybe_order_by_occurred_at(query, occurred_at) do
+  defp maybe_order_by_occurred_at(query, _occurred_at) do
     query
     |> order_by([s], s.occurred_at)
   end

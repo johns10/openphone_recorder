@@ -1,7 +1,6 @@
 defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
-  alias OpenphoneRecorder.Contacts.Contact
   alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
 
   @primary_key {:id, :binary_id, autogenerate: false}
