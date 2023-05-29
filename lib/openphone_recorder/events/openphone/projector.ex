@@ -12,7 +12,6 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   alias OpenphoneRecorder.Conversations
   alias OpenphoneRecorder.Participants
   alias OpenphoneRecorder.Calls
-  alias OpenphoneRecorder.Openai
   alias OpenphoneRecorder.Audio
   alias OpenphoneRecorder.Contacts
 
@@ -130,11 +129,13 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
          participant
        )
        when duration > 0 do
+    opts = [model: "whisper-1", response_format: "verbose_json"]
+
     with {:ok, path} = Briefly.create(extname: ".mp3"),
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(url),
          :ok <- File.write(path, body),
-         {:ok, %{status_code: 200, body: body}} <- Openai.create_transcript(%{file: path}),
-         {:ok, %{"text" => text, "duration" => duration}} <- Jason.decode(body) do
+         {:ok, duration} <- Audio.duration(path),
+         {:ok, %{text: text}} <- OpenAI.audio_transcription(path, opts) do
       %{
         content: text,
         occurred_at:
@@ -161,7 +162,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp maybe_transcribe_voicemail(_openphone_call, call, _participant), do: {:ok, call}
 
   defp maybe_transcribe_call_recording(
-        %Calls.Call{conversation_id: conversation_id} = call,
+         %Calls.Call{conversation_id: conversation_id} = call,
          %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
          %{from_participant: from_participant, to_participant: to_participant}
        )
@@ -204,29 +205,31 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
 
   defp transcribe_file(file, participant, call, conversation_id) do
-    with {:ok, %{status_code: 200, body: body}} <- Openai.create_transcript(%{file: file}),
-      {:ok, %{"duration" => duration, "segments" => segments}} <- Jason.decode(body) do
+    opts = [model: "whisper-1", response_format: "verbose_json"]
+
+    with {:ok, %{duration: duration, segments: segments}} <-
+           OpenAI.audio_transcription(file, opts) do
       now = DateTime.utc_now()
 
       {:ok,
-      segments
-      |> Enum.map(fn segment ->
-        %{
-          occurred_at:
-            call.completed_at
-            |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
-            |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
-          type: :call,
-          content: segment["text"],
-          participant_id: participant.id,
-          conversation_id: conversation_id,
-          call_id: call.id,
-          inserted_at: now,
-          updated_at: now,
-          source: :transcription,
-          id: UUID.uuid4()
-        }
-      end)}
+       segments
+       |> Enum.map(fn segment ->
+         %{
+           occurred_at:
+             call.completed_at
+             |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
+             |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
+           type: :call,
+           content: segment["text"],
+           participant_id: participant.id,
+           conversation_id: conversation_id,
+           call_id: call.id,
+           inserted_at: now,
+           updated_at: now,
+           source: :transcription,
+           id: UUID.uuid4()
+         }
+       end)}
     end
   end
 end

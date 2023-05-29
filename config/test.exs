@@ -36,3 +36,6 @@ config :phoenix, :plug_init_mode, :runtime
 config :openphone_recorder,
   dev_routes: true,
   signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
+
+config :exvcr,
+  global_mock: true

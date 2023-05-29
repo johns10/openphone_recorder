@@ -22,7 +22,7 @@ end
 
 case System.get_env("OPENAI_API_KEY") do
   nil -> nil
-  key -> config :openphone_recorder, :openai_api_key, key
+  key -> config :openai, api_key: key
 end
 
 if config_env() == :prod do

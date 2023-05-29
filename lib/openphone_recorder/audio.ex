@@ -6,4 +6,7 @@ defmodule OpenphoneRecorder.Audio do
 
   @impl true
   def split(file_name), do: provider().split(file_name)
+
+  @impl true
+  def duration(file_name), do: provider().duration(file_name)
 end

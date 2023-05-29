@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Consumer do
   alias OpenphoneRecorder.Events
   alias OpenphoneRecorder.Events.Consumer
 
-  @default_timeout 200
+  @default_timeout 500
 
   describe "Consumer" do
     setup do

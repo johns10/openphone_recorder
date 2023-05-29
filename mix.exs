@@ -40,7 +40,7 @@ defmodule OpenphoneRecorder.MixProject do
       {:phoenix_live_view, "~> 0.18.16"},
       {:phoenix_live_dashboard, "~> 0.7.2"},
       {:swoosh, "~> 1.3"},
-      {:finch, "~> 0.13"},
+      {:finch, "~> 0.16"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
@@ -51,13 +51,15 @@ defmodule OpenphoneRecorder.MixProject do
       {:ecto_phone_number, "~> 0.4"},
       {:httpoison, "~> 2.1"},
       {:briefly, "~> 0.4"},
+      {:openai, "~> 0.5.2"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false},
       {:mox, "~> 1.0", only: :test},
       {:floki, ">= 0.30.0", only: :test},
-      {:faker, "~> 0.17", only: :test}
+      {:faker, "~> 0.17", only: :test},
+      {:exvcr, "~> 0.11", only: :test}
     ]
   end
 
