@@ -23,4 +23,26 @@ defmodule OpenphoneRecorder.Audio.Provider do
         {:error, "FFMPEG Execution failed"}
     end
   end
+
+  def duration(filename) do
+    System.cmd("ffprobe", [
+      filename,
+      "-show_entries",
+      "format=duration",
+      "-v",
+      "quiet",
+      "-of",
+      "csv=p=0"
+    ])
+    |> case do
+      {duration, 0} when is_binary(duration) ->
+        {:ok,
+         duration
+         |> String.replace("\n", "")
+         |> String.to_float()}
+
+      {_, 1} ->
+        {:error, "ffprobe execution failed"}
+    end
+  end
 end
