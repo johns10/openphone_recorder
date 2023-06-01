@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.StatementsFixtures do
     {:ok, statement} =
       attrs
       |> Enum.into(%{
-        external_id: "some external_id",
+        external_id: Ecto.UUID.generate(),
         source: :openphone,
         content: "some content",
         occurred_at: ~U[2023-03-28 10:21:00Z],
