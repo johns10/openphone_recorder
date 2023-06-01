@@ -37,6 +37,13 @@ defmodule OpenphoneRecorderWeb.Router do
 
     live "/contacts/:id", ContactLive.Show, :show
     live "/contacts/:id/show/edit", ContactLive.Show, :edit
+
+    live "/summarizers", SummarizerLive.Index, :index
+    live "/summarizers/new", SummarizerLive.Index, :new
+    live "/summarizers/:id/edit", SummarizerLive.Index, :edit
+
+    live "/summarizers/:id", SummarizerLive.Show, :show
+    live "/summarizers/:id/show/edit", SummarizerLive.Show, :edit
   end
 
   scope "/api", OpenphoneRecorderWeb do
