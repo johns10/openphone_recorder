@@ -3,6 +3,49 @@ defmodule OpenphoneRecorder.StatementsTest do
 
   alias OpenphoneRecorder.Statements
 
+  describe "statement summaries" do
+    alias OpenphoneRecorder.Statements.Statement
+    import OpenphoneRecorder.StatementsFixtures
+    import OpenphoneRecorder.ParticipantsFixtures
+    import OpenphoneRecorder.ConversationsFixtures
+    import OpenphoneRecorder.SummariesFixtures
+    import OpenphoneRecorder.StatementSummariesFixtures
+    import OpenphoneRecorder.SummarizersFixtures
+
+    test "list_statements/1 returns unsummarized statements" do
+      conversation = conversation_fixture()
+      participant = participant_fixture()
+      participant_two = participant_fixture()
+      summarizer = summarizer_fixture()
+      summary = summary_fixture(%{summarizer_id: summarizer.id})
+
+      summarized =
+        statement_fixture(%{
+          external_id: Ecto.UUID.generate(),
+          participant_id: participant.id,
+          conversation_id: conversation.id,
+          summary_id: summary.id
+        })
+
+      unsummarized =
+        statement_fixture(%{
+          external_id: Ecto.UUID.generate(),
+          participant_id: participant_two.id,
+          conversation_id: conversation.id
+        })
+
+      statement_summary_fixture(%{statement_id: summarized.id, summary_id: summary.id})
+
+      assert [unsummarized] ==
+               Statements.list_statements(
+                 filters: [
+                   conversation_id: conversation.id,
+                   not_summarizer_id: summarizer.id
+                 ]
+               )
+    end
+  end
+
   describe "statements" do
     alias OpenphoneRecorder.Statements.Statement
 
@@ -43,6 +86,7 @@ defmodule OpenphoneRecorder.StatementsTest do
 
     test "update_statement/2 with valid data updates the statement" do
       statement = statement_fixture(%{participant_id: participant_fixture().id})
+
       update_attrs = %{
         content: "some updated content",
         occurred_at: ~U[2023-03-29 10:21:00Z],

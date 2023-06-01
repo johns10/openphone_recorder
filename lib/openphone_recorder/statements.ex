@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.Statements do
     Statement
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
-    |> maybe_filter_by_nil_summary_id(filters[:nil_summary_id])
+    |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> Repo.all()
   end
 
@@ -24,12 +24,13 @@ defmodule OpenphoneRecorder.Statements do
     |> where([s], s.conversation_id == ^conversation_id)
   end
 
-  defp maybe_filter_by_nil_summary_id(query, true) do
-    query
-    |> where([s], is_nil(s.summary_id))
-  end
+  defp maybe_filter_by_not_summarizer_id(query, nil), do: query
 
-  defp maybe_filter_by_nil_summary_id(query, _), do: query
+  defp maybe_filter_by_not_summarizer_id(query, summarizer_id) do
+    query
+    |> join(:left, [s], sum in assoc(s, :summaries), as: :sum)
+    |> where([sum: s], s.summarizer_id != ^summarizer_id or is_nil(s.summarizer_id))
+  end
 
   defp maybe_order_by_occurred_at(query, nil), do: query
 

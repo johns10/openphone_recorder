@@ -2,6 +2,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.Calls.Call
+  alias OpenphoneRecorder.StatementSummaries.StatementSummary
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
@@ -14,6 +15,9 @@ defmodule OpenphoneRecorder.Statements.Statement do
     field :participant_id, :id
 
     belongs_to :call, Call, type: :binary_id
+
+    has_many :statement_summaries, StatementSummary
+    has_many :summaries, through: [:statement_summaries, :summary]
 
     timestamps(type: :utc_datetime_usec)
   end
