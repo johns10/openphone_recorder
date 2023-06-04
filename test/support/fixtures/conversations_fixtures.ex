@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.ConversationsFixtures do
     {:ok, conversation} =
       attrs
       |> Enum.into(%{
-        external_id: "asd08hlaihdoih",
+        external_id: Ecto.UUID.generate(),
         source: :openphone
       })
       |> OpenphoneRecorder.Conversations.create_conversation()
