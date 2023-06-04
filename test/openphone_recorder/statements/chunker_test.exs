@@ -1,14 +1,9 @@
 defmodule OpenphoneRecorder.Statements.ChunkerTest do
   use ExUnit.Case
+  import OpenphoneRecorder.TimestampFixtures
   alias OpenphoneRecorder.Statements.Statement
   alias OpenphoneRecorder.Statements.Chunker
 
-  def ten_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-10 * 60)
-  def thirty_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-30 * 60)
-  def forty_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-40 * 60)
-  def twenty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-20 * 60 * 60)
-  def fifty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-50 * 60 * 60)
-  def sixty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-60 * 60 * 60)
   def prompt(string), do: "Here's the prompt #{string}"
 
   describe "integration" do
