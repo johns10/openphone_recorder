@@ -1,14 +1,26 @@
 defmodule OpenphoneRecorder.Tokens do
   alias OpenphoneRecorder.Statements.Statement
 
+  def max_text_percentage_count(opts \\ []) do
+    max_token_count = Keyword.get(opts, :max_tokens, 4096)
+    prompt_fun = Keyword.fetch!(opts, :prompt_fun)
+    prompt = prompt_fun.("")
+
+    prompt_count = count(prompt)
+
+    percentage_reduction = Keyword.get(opts, :percentage_reduction, 0.25)
+
+    ((max_token_count - prompt_count) / (1 / percentage_reduction + 1))
+    |> floor()
+  end
+
   def max_text_count(opts \\ []) do
     max_token_count = Keyword.get(opts, :max_tokens, 4096)
-    margin = Keyword.get(opts, :margin, 0)
     prompt_fun = Keyword.fetch!(opts, :prompt_fun)
     prompt = prompt_fun.("")
     prompt_count = count(prompt)
 
-    max_token_count - prompt_count - margin
+    max_token_count - prompt_count
   end
 
   def count(statements) when is_list(statements),
