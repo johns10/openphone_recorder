@@ -2,8 +2,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
   use OpenphoneRecorderWeb, :html
   alias OpenphoneRecorder.Conversations.Conversation
 
-
-  attr :conversation, Conversation, default: nil
+  attr(:conversation, Conversation, default: nil)
 
   def conversation(assigns) do
     ~H"""
@@ -31,11 +30,11 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
     """
   end
 
-  def participant(%{participant: %{phone_number: %{contacts: [contact]}}, class: class}),
+  def participant(%{participant: %{value: %{contacts: [contact]}}, class: class}),
     do: render_contact(%{contact: contact, class: class})
 
-  def participant(%{participant: %{phone_number: phone_number}, class: class}),
-    do: render_phone_number(%{phone_number: phone_number, class: class})
+  def participant(%{participant: %{value: phone_number}, class: class}),
+    do: render_phone_number(%{value: phone_number, class: class})
 
   def render_contact(assigns) do
     ~H"""
@@ -45,7 +44,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
 
   def render_phone_number(assigns) do
     ~H"""
-    <span class={@class}><%= @phone_number.phone_number |> to_string() %></span>
+    <span class={@class}><%= @phone_number.value |> to_string() %></span>
     """
   end
 end

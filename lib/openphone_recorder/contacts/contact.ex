@@ -70,5 +70,5 @@ defmodule OpenphoneRecorder.Contacts.Contact do
   defp cast_phone_numbers(phone_numbers) when is_list(phone_numbers),
     do: Enum.map(phone_numbers, &cast_phone_number/1)
 
-  defp cast_phone_number(phone_number), do: %{phone_number: phone_number, source: :openphone}
+  defp cast_phone_number(phone_number), do: %{value: phone_number, source: :openphone}
 end

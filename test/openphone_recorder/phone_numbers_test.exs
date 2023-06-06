@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
 
     import OpenphoneRecorder.PhoneNumbersFixtures
 
-    @invalid_attrs %{external_id: nil, phone_number: nil, source: nil}
+    @invalid_attrs %{external_id: nil, value: nil, source: nil}
 
     test "list_phone_numbers/0 returns all phone_numbers" do
       phone_number = phone_number_fixture()
@@ -23,67 +23,67 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
     test "create_phone_number/1 with valid data creates a phone_number" do
       valid_attrs = %{
         external_id: "some external_id",
-        phone_number: "12566583456",
+        value: "12566583456",
         source: :openphone
       }
 
       assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.create_phone_number(valid_attrs)
       assert phone_number.external_id == "some external_id"
-      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_583_456}
+      assert phone_number.value == %EctoPhoneNumber{e164: 12_566_583_456}
       assert phone_number.source == :openphone
     end
 
     test "upsert_phone_number/1 with valid data does nothing" do
       valid_attrs = %{
         external_id: "some updated external_id",
-        phone_number: "12566589999",
+        value: "12566589999",
         source: :openphone
       }
 
       old_phone_number =
         phone_number_fixture(%{
           external_id: "some external_id",
-          phone_number: "12566589999",
+          value: "12566589999",
           source: :openphone
         })
 
       assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
       PhoneNumbers.list_phone_numbers()
       assert phone_number.external_id == old_phone_number.external_id
-      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_589_999}
+      assert phone_number.value == %EctoPhoneNumber{e164: 12_566_589_999}
       assert phone_number.source == :openphone
     end
 
     test "upsert_phone_number/1 when there is no external id updates external id" do
       valid_attrs = %{
         external_id: "some updated external_id",
-        phone_number: "12566589999",
+        value: "12566589999",
         source: :openphone
       }
 
       phone_number_fixture(%{
         external_id: nil,
-        phone_number: "12566589999",
+        value: "12566589999",
         source: :openphone
       })
 
       assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.upsert_phone_number(valid_attrs)
       PhoneNumbers.list_phone_numbers()
       assert phone_number.external_id == valid_attrs.external_id
-      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_589_999}
+      assert phone_number.value == %EctoPhoneNumber{e164: 12_566_589_999}
       assert phone_number.source == :openphone
     end
 
     test "create_phone_number/1 on an existing phone number raises properly" do
       valid_attrs = %{
         external_id: "some external_id",
-        phone_number: "12566583456",
+        value: "12566583456",
         source: :openphone
       }
 
       assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.create_phone_number(valid_attrs)
       assert phone_number.external_id == "some external_id"
-      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_583_456}
+      assert phone_number.value == %EctoPhoneNumber{e164: 12_566_583_456}
       assert phone_number.source == :openphone
     end
 
@@ -96,7 +96,7 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
 
       update_attrs = %{
         external_id: "some updated external_id",
-        phone_number: "12566583457",
+        value: "12566583457",
         source: :openphone
       }
 
@@ -104,7 +104,7 @@ defmodule OpenphoneRecorder.PhoneNumbersTest do
                PhoneNumbers.update_phone_number(phone_number, update_attrs)
 
       assert phone_number.external_id == "some updated external_id"
-      assert phone_number.phone_number == %EctoPhoneNumber{e164: 12_566_583_457}
+      assert phone_number.value == %EctoPhoneNumber{e164: 12_566_583_457}
       assert phone_number.source == :openphone
     end
 

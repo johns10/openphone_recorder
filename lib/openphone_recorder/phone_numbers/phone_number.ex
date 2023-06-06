@@ -2,11 +2,12 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
+  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "phone_numbers" do
     field :external_id, :string
-    field :phone_number, EctoPhoneNumber
+    field :value, EctoPhoneNumber
     field :source, Ecto.Enum, values: [:openphone]
 
     has_many :contact_phone_numbers, ContactPhoneNumber
@@ -18,9 +19,9 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   @doc false
   def changeset(phone_number, attrs) do
     phone_number
-    |> cast(attrs, [:external_id, :phone_number, :source])
+    |> cast(attrs, [:external_id, :value, :source])
     |> cast_id()
-    |> validate_required([:phone_number, :source])
+    |> validate_required([:value, :source])
     |> foreign_key_constraint(:contact_id)
     |> unique_constraint([:id], name: :phone_numbers_pkey)
   end
@@ -30,7 +31,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   defp cast_id(changeset) do
     case get_field(changeset, :id) do
       nil ->
-        case get_change(changeset, :phone_number) do
+        case get_change(changeset, :value) do
           nil ->
             changeset
 

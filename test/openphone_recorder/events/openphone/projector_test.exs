@@ -84,7 +84,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
               %Contact{
                 phone_numbers: [
                   %PhoneNumber{
-                    phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
+                    value: %EctoPhoneNumber{e164: 12_566_581_234}
                   }
                 ]
               }} =
@@ -102,7 +102,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
               %Contact{
                 phone_numbers: [
                   %PhoneNumber{
-                    phone_number: %EctoPhoneNumber{e164: 12_566_581_234}
+                    value: %EctoPhoneNumber{e164: 12_566_581_234}
                   }
                 ]
               }} =

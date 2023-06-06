@@ -87,12 +87,12 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
         conversation_id: external_conversation_id
       }) do
     from_phone_number_attrs = %{
-      phone_number: from_phone_number,
+      value: from_phone_number,
       source: :openphone
     }
 
     to_phone_number_attrs = %{
-      phone_number: to_phone_number,
+      value: to_phone_number,
       source: :openphone
     }
 
