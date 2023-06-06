@@ -3,6 +3,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
   import Ecto.Changeset
   alias OpenphoneRecorder.Calls.Call
   alias OpenphoneRecorder.StatementSummaries.StatementSummary
+  alias OpenphoneRecorder.Participants.Participant
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
@@ -12,8 +13,8 @@ defmodule OpenphoneRecorder.Statements.Statement do
     field :occurred_at, :utc_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
-    field :participant_id, :id
-
+    
+    belongs_to :participant, Participant, type: :binary_id
     belongs_to :call, Call, type: :binary_id
 
     has_many :statement_summaries, StatementSummary
@@ -86,4 +87,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
       content: body
     }
   end
+
+  def render_for_prompt(%__MODULE__{content: content, participant: participant}),
+    do: "#{Participant.render_for_prompt(participant)}: #{content}"
 end

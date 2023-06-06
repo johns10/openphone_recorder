@@ -64,6 +64,9 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     }
   end
 
+  def render_for_prompt(%__MODULE__{first_name: first_name, last_name: last_name}),
+    do: "#{first_name} #{last_name}"
+
   defp cast_phone_numbers(phone_number) when is_binary(phone_number),
     do: [cast_phone_number(phone_number)]
 

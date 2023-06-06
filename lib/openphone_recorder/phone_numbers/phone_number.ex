@@ -2,7 +2,6 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
-  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
   alias OpenphoneRecorder.Contacts.Contact
 
   @primary_key {:id, :binary_id, autogenerate: false}
@@ -45,4 +44,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
         changeset
     end
   end
+
+  def render_for_prompt(%__MODULE__{contact: contact}), do: Contact.render_for_prompt(contact)
+  def render_for_prompt(%__MODULE__{contact: nil, value: value}), do: "#{value}"
 end
