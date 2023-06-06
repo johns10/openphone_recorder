@@ -13,8 +13,8 @@ defmodule OpenphoneRecorder.Statements.Statement do
     field :occurred_at, :utc_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
-    
-    belongs_to :participant, Participant, type: :binary_id
+
+    belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
 
     has_many :statement_summaries, StatementSummary
