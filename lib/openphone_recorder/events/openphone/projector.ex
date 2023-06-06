@@ -72,14 +72,18 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   def apply(%ContactUpdated{data: contact}) do
     with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact),
          {:ok, contact} <- Contacts.upsert_contact(contact_attrs),
+         phone_number_attrs <- phone_number_attrs(contact_attrs.phone_numbers, contact),
          {:ok, %{phone_numbers: phone_numbers}} <-
-           PhoneNumbers.upsert_all_phone_numbers(contact_attrs.phone_numbers),
+           PhoneNumbers.upsert_all_phone_numbers(phone_number_attrs),
          cpn_attrs <- Enum.map(phone_numbers, &%{phone_number_id: &1.id, contact_id: contact.id}),
          {:ok, %{contact_phone_numbers: _contact_phone_numbers}} <-
            ContactPhoneNumbers.get_or_insert_all_contact_phone_number(cpn_attrs) do
       {:ok, Contacts.get_contact!(contact.id, preload: [:phone_numbers])}
     end
   end
+
+  defp phone_number_attrs(phone_numbers, %{id: id}),
+    do: Enum.map(phone_numbers, &Map.put(&1, :contact_id, id))
 
   def prepare_model(%{
         to: to_phone_number,
