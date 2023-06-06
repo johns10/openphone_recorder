@@ -1,7 +1,11 @@
 defmodule OpenphoneRecorder.Statements.Chunker do
+  @behaviour OpenphoneRecorder.Statements.Chunker.Behaviour
   alias OpenphoneRecorder.Tokens
 
   @eighteen_hours 18 * 60 * 60
+
+  @impl true
+  def prompt_fun(chunk_style), do: impl(chunk_style).prompt_fun()
 
   def chunk(statements, opts) do
     [statements]
@@ -110,4 +114,6 @@ defmodule OpenphoneRecorder.Statements.Chunker do
 
   def add_to_current(%{current: current, queue: [head | _]} = acc),
     do: Map.put(acc, :current, [head | current])
+
+  defp impl(:temporal), do: OpenphoneRecorder.Statements.Chunker.Temporal
 end
