@@ -4,7 +4,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
   alias OpenphoneRecorder.Statements.Statement
   alias OpenphoneRecorder.Statements.Chunker
 
-  def prompt(string), do: "Here's the prompt #{string}"
+  def prompt(string, opts \\ []), do: "Here's the prompt #{string}"
 
   describe "integration" do
     test "works" do
@@ -20,7 +20,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1, chunk2, chunk3, chunk4] =
         queue
-        |> Chunker.chunk(max_tokens: 50, prompt_fun: &prompt/1)
+        |> Chunker.chunk(max_tokens: 50, prompt_fun: &prompt/2)
 
       assert Enum.count(chunks) == 4
       assert Enum.count(chunk1) == 2
@@ -79,7 +79,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1] =
         Chunker.acc(queue)
-        |> Chunker.token_count_chunks(max_tokens: 60, prompt_fun: &prompt/1)
+        |> Chunker.token_count_chunks(max_tokens: 60, prompt_fun: &prompt/2)
 
       assert Enum.count(chunks) == 1
       assert Enum.count(chunk1) == 3
@@ -95,7 +95,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1, chunk2] =
         Chunker.acc(queue)
-        |> Chunker.token_count_chunks(max_tokens: 50, prompt_fun: &prompt/1)
+        |> Chunker.token_count_chunks(max_tokens: 50, prompt_fun: &prompt/2)
 
       assert Enum.count(chunks) == 2
       assert Enum.count(chunk1) == 1
