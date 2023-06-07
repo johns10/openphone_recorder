@@ -7,11 +7,13 @@ defmodule OpenphoneRecorder.Statements do
   def list_statements(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
     order_by = Keyword.get(opts, :order_by, [])
+    preloads = Keyword.get(opts, :preloads, [])
 
     Statement
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
+    |> preload(^preloads)
     |> Repo.all()
   end
 

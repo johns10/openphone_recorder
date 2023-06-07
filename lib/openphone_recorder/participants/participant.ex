@@ -21,6 +21,9 @@ defmodule OpenphoneRecorder.Participants.Participant do
     |> foreign_key_constraint(:phone_number_id)
   end
 
+  def render_for_prompt(%__MODULE__{phone_number: nil}),
+    do: raise("Cannot render participant without associated contact info")
+
   def render_for_prompt(%__MODULE__{phone_number: phone_number}),
     do: PhoneNumber.render_for_prompt(phone_number)
 end

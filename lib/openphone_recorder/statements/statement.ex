@@ -89,5 +89,5 @@ defmodule OpenphoneRecorder.Statements.Statement do
   end
 
   def render_for_prompt(%__MODULE__{content: content, participant: participant}),
-    do: "#{Participant.render_for_prompt(participant)}: #{content}"
+    do: ~s(#{Participant.render_for_prompt(participant)}: #{content}\n)
 end

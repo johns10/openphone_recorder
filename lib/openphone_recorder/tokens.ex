@@ -23,7 +23,7 @@ defmodule OpenphoneRecorder.Tokens do
   def count(statements) when is_list(statements),
     do: statements |> Enum.reduce(0, fn statement, acc -> acc + count(statement) end)
 
-  def count(%Statement{content: content}), do: count(content)
+  def count(%Statement{} = statement), do: statement |> Statement.render_for_prompt() |> count()
 
   def count(string) do
     string

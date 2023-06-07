@@ -45,6 +45,6 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
     end
   end
 
-  def render_for_prompt(%__MODULE__{contact: contact}), do: Contact.render_for_prompt(contact)
   def render_for_prompt(%__MODULE__{contact: nil, value: value}), do: "#{value}"
+  def render_for_prompt(%__MODULE__{contact: contact}), do: Contact.render_for_prompt(contact)
 end
