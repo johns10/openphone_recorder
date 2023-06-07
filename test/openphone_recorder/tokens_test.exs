@@ -9,7 +9,7 @@ defmodule OpenphoneRecorder.TokensTest do
                Tokens.max_text_output_count(
                  max_tokens: 100,
                  margin: 0,
-                 prompt_fun: fn text, _opts -> "#{text}" end
+                 chunk_style: :test
                )
     end
   end

@@ -119,4 +119,5 @@ defmodule OpenphoneRecorder.Statements.Chunker do
     do: Map.put(acc, :current, [head | current])
 
   defp impl(:temporal), do: OpenphoneRecorder.Statements.Chunker.Temporal
+  defp impl(:test), do: OpenphoneRecorder.Statements.Chunker.Test
 end
