@@ -4,11 +4,15 @@ defmodule OpenphoneRecorder.StatementsFixtures do
   def statements_fixture(content, attrs \\ %{}) do
     participant_one = Map.get(attrs, :participant_one, participant_fixture())
     participant_two = Map.get(attrs, :participant_two, participant_fixture())
+    occurred_at = Map.get(attrs, :occurred_at, DateTime.now!("Etc/UTC"))
 
     [head | tail] =
       content
       |> Enum.map(&%{content: &1})
       |> Enum.map(&Map.merge(&1, attrs))
+      |> Enum.with_index(fn attrs, index ->
+        Map.put(attrs, :occurred_at, DateTime.add(occurred_at, index))
+      end)
       |> Enum.map_every(2, fn attrs -> Map.put(attrs, :participant_id, participant_one.id) end)
 
     tail =
@@ -55,6 +59,33 @@ defmodule OpenphoneRecorder.StatementsFixtures do
       "I have no doubt you'll conquer that bathtub cleaning mission. Just remember, the end result will be worth it. You'll have a gleaming tub to relax in afterward.",
       "You're right! It'll be like my own personal spa retreat. Thanks for the encouragement. I'll grab my cleaning supplies and embark on this epic cleaning adventure.",
       "Good luck, my friend! May the power of unicorn tears and pixie dust be with you."
+    ]
+  end
+
+  def sink_cleaning_contant() do
+    [
+      "Hey, have you noticed how dirty the sink has become? It's in desperate need of cleaning.",
+      "Yeah, you're right. It's been a while since we last gave it a thorough cleaning. I think it's time to roll up our sleeves and tackle it.",
+      "Definitely! So, where do we start? Should we remove everything from the sink first?",
+      "Good idea. Let's clear out any dishes, utensils, or anything else that's in there. We want to have a clear space to work with.",
+      "Alright, I'll take care of that. What should we use to clean the sink? Do you have any specific cleaning products in mind?",
+      "I think a multipurpose cleaner or a mild dish soap should do the trick. We don't want anything too abrasive that could damage the sink's surface. Also, grab a sponge or a non-abrasive scrub brush.",
+      "Great. I'll gather those supplies while you clear out the sink. Now, should we wet the sink first or apply the cleaner directly?",
+      "It's best to wet the sink first to help the cleaner spread evenly. So, turn on the faucet and let the water run over the surface.",
+      "Okay, got it.",
+      "While the sink is wet, go ahead and apply the cleaner or dish soap. Make sure to cover the entire surface, including the sides and the drain.",
+      "Done! Now, should I start scrubbing?",
+      "Yes, go ahead. Use the sponge or scrub brush to gently scrub the sink in circular motions. Pay extra attention to any stains or stubborn spots.",
+      "Alright, I'll scrub it thoroughly. Should I rinse the sink after scrubbing?",
+      "Absolutely. Rinse the sink with warm water, making sure to remove all the cleaner or soap residue. It's important to rinse it well to avoid leaving any chemical residue behind.",
+      "Got it.",
+      "Wow, it's already looking much better!",
+      "Yes, it's amazing what a little cleaning can do. Now, take a dry cloth or paper towels and wipe the sink dry. This will help prevent any water spots or streaks from forming.",
+      "Will do.",
+      "There, all done! The sink looks as good as new.",
+      "Great job! It's so satisfying to have a clean and sparkling sink. Let's try to maintain it regularly so it doesn't get dirty like this again.",
+      "Agreed! We'll make it a habit to clean it regularly from now on. Thanks for your help and guidance.",
+      "You're welcome! It was a team effort. Remember, a clean sink is not only hygienic but also adds a touch of freshness to the whole kitchen."
     ]
   end
 end
