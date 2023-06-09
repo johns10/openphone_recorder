@@ -36,9 +36,14 @@ defmodule OpenphoneRecorder.Statements do
 
   defp maybe_order_by_occurred_at(query, nil), do: query
 
-  defp maybe_order_by_occurred_at(query, _occurred_at) do
+  defp maybe_order_by_occurred_at(query, :desc) do
     query
-    |> order_by([s], s.occurred_at)
+    |> order_by([s], desc: s.occurred_at)
+  end
+
+  defp maybe_order_by_occurred_at(query, :asc) do
+    query
+    |> order_by([s], asc: s.occurred_at)
   end
 
   def create_statement(attrs \\ %{}) do
