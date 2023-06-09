@@ -8,7 +8,6 @@ defmodule OpenphoneRecorder.TokensTest do
       assert 20 ==
                Tokens.max_text_output_count(
                  max_tokens: 100,
-                 margin: 0,
                  chunk_style: :test
                )
     end
