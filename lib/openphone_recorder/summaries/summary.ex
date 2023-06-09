@@ -5,6 +5,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "summaries" do
+    field :title, :string
     field :content, :string
     field :params, :map
     field :type, Ecto.Enum, values: [:temporal, :topical]
@@ -19,8 +20,8 @@ defmodule OpenphoneRecorder.Summaries.Summary do
   @doc false
   def changeset(summary, attrs) do
     summary
-    |> cast(attrs, [:content, :type, :params, :summarizer_id])
-    |> validate_required([:content, :type, :params])
+    |> cast(attrs, [:title, :content, :type, :params, :summarizer_id])
+    |> validate_required([:content, :type])
     |> foreign_key_constraint(:summarizer_id)
   end
 end

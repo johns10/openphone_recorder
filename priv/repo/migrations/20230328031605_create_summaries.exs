@@ -4,6 +4,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummaries do
   def change do
     create table(:summaries, primary_key: false) do
       add :id, :uuid, primary_key: true
+      add :title, :string
       add :content, :text
       add :type, :string
       add :params, :map
