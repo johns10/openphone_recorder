@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Statements.Chunker.Temporal do
     |> Tokens.count()
   end
 
-  def prompt_fun(text, opts) do
+  def prompt(text, opts) do
     max_text_output = Tokens.max_text_output_count(opts)
     prompt_text(text, max_text_output)
   end
