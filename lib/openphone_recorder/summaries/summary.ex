@@ -2,6 +2,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.Summarizers.Summarizer
+  alias OpenphoneRecorder.StatementSummaries.StatementSummary
 
   @primary_key {:id, :binary_id, autogenerate: true}
   schema "summaries" do
@@ -13,6 +14,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
     field :level, :integer
 
     belongs_to :summarizer, Summarizer
+    has_many :statement_summaries, StatementSummary
 
     timestamps()
   end

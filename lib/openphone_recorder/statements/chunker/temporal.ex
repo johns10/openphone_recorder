@@ -18,14 +18,15 @@ defmodule OpenphoneRecorder.Statements.Chunker.Temporal do
     Second, write a summary of the following conversation.
     Remove any irrelevant information and filler words.
     The summary should be no longer than #{max_text_output} words.
+    \"\"\"#{text}\"\"\"
 
     Return your answer in the following format:
     Title | Summary
-    For Example:
+    e.g
     Why Artificial Intelligence is Good | AI can make humans more productive by automating many repetitive processes.
+    Home Hygeine is important | Keeping a clean and tidy home can improve your health by reducing the dust particles you breathe, and reducing your exposure to harmful bacteria.
 
     TITLE AND SUMMARY:
-    \"\"\"#{text}\"\"\"
     """
   end
 end

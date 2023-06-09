@@ -39,3 +39,7 @@ config :openphone_recorder,
 
 config :exvcr,
   global_mock: true
+
+config :openai,
+  api_key: System.get_env("OPENAI_API_KEY"),
+  http_options: [recv_timeout: 10 * 60 * 1000]
