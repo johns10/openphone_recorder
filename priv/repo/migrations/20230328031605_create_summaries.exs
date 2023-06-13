@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummaries do
       add :id, :uuid, primary_key: true
       add :title, :string
       add :content, :text
-      add :type, :string
+      add :chunker, :string
       add :params, :map
       add :level, :integer
       add :summarizer_id, references(:summarizers, on_delete: :nothing)

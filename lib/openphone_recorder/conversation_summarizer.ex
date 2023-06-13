@@ -53,7 +53,7 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
       Summaries.create_summary(%{
         title: String.trim(title),
         content: String.trim(summary),
-        type: opts[:chunk_style],
+        chunker: opts[:chunk_style],
         level: 1,
         summarizer_id: summarizer.id
       })
@@ -63,7 +63,7 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
             Enum.map(statements, fn statement ->
               {:ok, statement_summary} =
                 StatementSummaries.create_statement_summary(%{
-                  type: opts[:chunk_style],
+                  chunker: opts[:chunk_style],
                   level: 1,
                   statement_id: statement.id,
                   summary_id: summary.id
