@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.SummariesTest do
 
     import OpenphoneRecorder.SummariesFixtures
 
-    @invalid_attrs %{content: nil, params: nil, chunker: nil}
+    @invalid_attrs %{content: nil, params: nil}
 
     test "list_summaries/0 returns all summaries" do
       summary = summary_fixture()
@@ -21,12 +21,11 @@ defmodule OpenphoneRecorder.SummariesTest do
     end
 
     test "create_summary/1 with valid data creates a summary" do
-      valid_attrs = %{content: "some content", params: %{}, chunker: :temporal}
+      valid_attrs = %{content: "some content", params: %{}}
 
       assert {:ok, %Summary{} = summary} = Summaries.create_summary(valid_attrs)
       assert summary.content == "some content"
       assert summary.params == %{}
-      assert summary.chunker == :temporal
     end
 
     test "create_summary/1 with invalid data returns error changeset" do
@@ -35,12 +34,11 @@ defmodule OpenphoneRecorder.SummariesTest do
 
     test "update_summary/2 with valid data updates the summary" do
       summary = summary_fixture()
-      update_attrs = %{content: "some updated content", params: %{}, chunker: :topical}
+      update_attrs = %{content: "some updated content", params: %{}}
 
       assert {:ok, %Summary{} = summary} = Summaries.update_summary(summary, update_attrs)
       assert summary.content == "some updated content"
       assert summary.params == %{}
-      assert summary.chunker == :topical
     end
 
     test "update_summary/2 with invalid data returns error changeset" do

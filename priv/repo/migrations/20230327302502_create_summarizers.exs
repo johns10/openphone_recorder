@@ -4,6 +4,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummarizers do
   def change do
     create table(:summarizers) do
       add :prompt, :string
+      add :chunker, :string
 
       timestamps()
     end

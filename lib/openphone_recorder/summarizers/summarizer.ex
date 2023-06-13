@@ -4,6 +4,7 @@ defmodule OpenphoneRecorder.Summarizers.Summarizer do
 
   schema "summarizers" do
     field :prompt, :string
+    field :chunker, Ecto.Enum, values: [:temporal, :topical]
 
     timestamps()
   end
@@ -11,7 +12,7 @@ defmodule OpenphoneRecorder.Summarizers.Summarizer do
   @doc false
   def changeset(summarizer, attrs) do
     summarizer
-    |> cast(attrs, [:prompt])
+    |> cast(attrs, [:prompt, :chunker])
     |> validate_required([:prompt])
   end
 end
