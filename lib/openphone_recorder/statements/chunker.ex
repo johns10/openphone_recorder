@@ -5,10 +5,10 @@ defmodule OpenphoneRecorder.Statements.Chunker do
   @eighteen_hours 18 * 60 * 60
 
   @impl true
-  def prompt(chunk_style, text, opts), do: impl(chunk_style).prompt(text, opts)
+  def prompt(chunker, text, opts), do: impl(chunker).prompt(text, opts)
 
   @impl true
-  def prompt_count(chunk_style, opts), do: impl(chunk_style).prompt_count(opts)
+  def prompt_count(chunker, opts), do: impl(chunker).prompt_count(opts)
 
   def chunk(statements, opts) do
     [statements]

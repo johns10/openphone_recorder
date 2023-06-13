@@ -28,7 +28,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1, chunk2, chunk3, chunk4] =
         queue
-        |> Chunker.chunk(max_tokens: 50, chunk_style: :test)
+        |> Chunker.chunk(max_tokens: 50, chunker: :test)
 
       assert Enum.count(chunks) == 4
       assert Enum.count(chunk1) == 2
@@ -93,7 +93,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1] =
         Chunker.acc(queue)
-        |> Chunker.token_count_chunks(max_tokens: 60, chunk_style: :test)
+        |> Chunker.token_count_chunks(max_tokens: 60, chunker: :test)
 
       assert Enum.count(chunks) == 1
       assert Enum.count(chunk1) == 3
@@ -111,7 +111,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
       chunks =
         [chunk1, chunk2] =
         Chunker.acc(queue)
-        |> Chunker.token_count_chunks(max_tokens: 50, chunk_style: :test)
+        |> Chunker.token_count_chunks(max_tokens: 50, chunker: :test)
 
       assert Enum.count(chunks) == 2
       assert Enum.count(chunk1) == 1

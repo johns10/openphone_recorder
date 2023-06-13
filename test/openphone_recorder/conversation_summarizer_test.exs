@@ -42,7 +42,7 @@ defmodule OpenphoneRecorder.ConversationSummarizerTest do
         [summary_one, summary_two] =
           ConversationSummarizer.apply(conversation, summarizer,
             percentage_reduction: 0.25,
-            chunk_style: :temporal,
+            chunker: :temporal,
             max_tokens: 4096
           )
 

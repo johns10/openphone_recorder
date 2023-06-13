@@ -27,7 +27,7 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
       ],
       order_by: [occurred_at: :desc]
     )
-    |> Chunker.chunk(chunk_style: :temporal)
+    |> Chunker.chunk(chunker: :temporal)
     |> create_first_layer_summaries(summarizer, opts)
   end
 
@@ -53,7 +53,7 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
       Summaries.create_summary(%{
         title: String.trim(title),
         content: String.trim(summary),
-        chunker: opts[:chunk_style],
+        chunker: opts[:chunker],
         level: 1,
         summarizer_id: summarizer.id
       })
@@ -63,7 +63,7 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
             Enum.map(statements, fn statement ->
               {:ok, statement_summary} =
                 StatementSummaries.create_statement_summary(%{
-                  chunker: opts[:chunk_style],
+                  chunker: opts[:chunker],
                   level: 1,
                   statement_id: statement.id,
                   summary_id: summary.id
