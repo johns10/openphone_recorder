@@ -11,6 +11,8 @@ defmodule OpenphoneRecorder.Summaries.Summary do
     field :params, :map
     field :summary_id, :id
     field :level, :integer
+    field :from, :utc_datetime_usec
+    field :to, :utc_datetime_usec
 
     belongs_to :summarizer, Summarizer
     has_many :statement_summaries, StatementSummary
@@ -21,7 +23,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
   @doc false
   def changeset(summary, attrs) do
     summary
-    |> cast(attrs, [:title, :content, :params, :summarizer_id])
+    |> cast(attrs, [:title, :content, :params, :summarizer_id, :from, :to])
     |> validate_required([:content])
     |> foreign_key_constraint(:summarizer_id)
   end

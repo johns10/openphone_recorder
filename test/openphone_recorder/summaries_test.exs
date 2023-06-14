@@ -15,6 +15,12 @@ defmodule OpenphoneRecorder.SummariesTest do
       assert Summaries.list_summaries() == [summary]
     end
 
+    test "list_summaries/1 returns summaries before date" do
+      old_summary = summary_fixture(%{to: DateTime.utc_now() |> DateTime.add(-10000)})
+      new_summary = summary_fixture(%{to: DateTime.utc_now() |> DateTime.add(10000)})
+      assert Summaries.list_summaries(filters: [before: DateTime.utc_now()]) == [old_summary]
+    end
+
     test "get_summary!/1 returns the summary with given id" do
       summary = summary_fixture()
       assert Summaries.get_summary!(summary.id) == summary
