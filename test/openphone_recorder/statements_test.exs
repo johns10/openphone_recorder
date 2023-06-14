@@ -44,6 +44,27 @@ defmodule OpenphoneRecorder.StatementsTest do
                  ]
                )
     end
+
+    test "list_statements/1 returns statements that occurred before a given date" do
+      statement_fixture(%{
+        participant_id: participant_fixture().id,
+        occurred_at: DateTime.utc_now()
+      })
+
+      old_statement =
+        statement_fixture(%{
+          participant_id: participant_fixture().id,
+          occurred_at: DateTime.utc_now() |> DateTime.add(-24 * 60 * 60)
+        })
+
+      today = DateTime.utc_now() |> DateTime.to_date()
+
+      assert Statements.list_statements(
+               filters: [
+                 before: DateTime.new!(today, ~T[00:00:00], "Etc/UTC")
+               ]
+             ) == [old_statement]
+    end
   end
 
   describe "statements" do
