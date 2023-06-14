@@ -16,12 +16,13 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "works" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: ten_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: thirty_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: forty_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: twenty_hours_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: fifty_hours_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: sixty_hours_ago()}
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: yesterday()},
+          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
+          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
+          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -31,7 +32,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
         |> Chunker.chunk(max_tokens: 50, chunker: :test)
 
       assert Enum.count(chunks) == 4
-      assert Enum.count(chunk1) == 2
+      assert Enum.count(chunk1) == 3
       assert Enum.count(chunk2) == 1
       assert Enum.count(chunk3) == 1
       assert Enum.count(chunk4) == 2
@@ -42,9 +43,9 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "chunks together" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: ten_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: thirty_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: forty_minutes_ago()}
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -60,11 +61,11 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "chunks apart" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: ten_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: thirty_minutes_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: twenty_hours_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: fifty_hours_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: sixty_hours_ago()}
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: two_days_ago()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 

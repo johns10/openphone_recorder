@@ -2,8 +2,6 @@ defmodule OpenphoneRecorder.Statements.Chunker do
   @behaviour OpenphoneRecorder.Statements.Chunker.Behaviour
   alias OpenphoneRecorder.Tokens
 
-  @eighteen_hours 18 * 60 * 60
-
   @impl true
   def prompt(chunker, text, opts), do: impl(chunker).prompt(text, opts)
 
@@ -20,18 +18,17 @@ defmodule OpenphoneRecorder.Statements.Chunker do
 
   def acc(statements), do: %{queue: statements, current: [], done: []}
 
-  def temporal_chunks(%{queue: queue, done: done}, _) when queue == [], do: done
+  def temporal_chunks(%{queue: queue, done: done}, _) when queue == [],
+    do: done
 
   def temporal_chunks(%{queue: [head, next | _]} = acc, opts) do
-    time_gap = Keyword.get(opts, :time_gap, @eighteen_hours)
-
-    case DateTime.diff(head.occurred_at, next.occurred_at) do
-      time when time <= time_gap ->
+    case DateTime.to_date(head.occurred_at) == DateTime.to_date(next.occurred_at) do
+      true ->
         acc
         |> add_to_current()
         |> shift_queue(1)
 
-      time when time > time_gap ->
+      false ->
         acc
         |> complete_current()
         |> shift_queue(1)
