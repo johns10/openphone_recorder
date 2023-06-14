@@ -5,12 +5,9 @@ defmodule OpenphoneRecorder.ConversationSummarizerTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   describe "conversation summarizer" do
-    alias OpenphoneRecorder.Statements.Statement
     import OpenphoneRecorder.StatementsFixtures
     import OpenphoneRecorder.ParticipantsFixtures
     import OpenphoneRecorder.ConversationsFixtures
-    import OpenphoneRecorder.SummariesFixtures
-    import OpenphoneRecorder.StatementSummariesFixtures
     import OpenphoneRecorder.SummarizersFixtures
     import OpenphoneRecorder.PhoneNumbersFixtures
     import OpenphoneRecorder.ContactsFixtures

@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
   alias OpenphoneRecorder.Participants.Participant
   alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
 
-  def prompt(string, opts \\ []), do: "Here's the prompt #{string}"
+  def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 
   def participant() do
     %Participant{phone_number: %PhoneNumber{contact: nil}}

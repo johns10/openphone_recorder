@@ -5,4 +5,21 @@ defmodule OpenphoneRecorder.TimestampFixtures do
   def twenty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-20 * 60 * 60)
   def fifty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-50 * 60 * 60)
   def sixty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-60 * 60 * 60)
+
+  def yesterday(), do: DateTime.utc_now() |> DateTime.add(-24 * 60 * 60)
+  def two_days_ago(), do: DateTime.utc_now() |> DateTime.add(-48 * 60 * 60)
+  def three_days_ago(), do: DateTime.utc_now() |> DateTime.add(-72 * 60 * 60)
+  def ten_days_ago(), do: DateTime.utc_now() |> DateTime.add(-240 * 60 * 60)
+
+  def months_ago(n), do: Enum.reduce(1..n, nil, fn _, acc -> month_ago(acc) end)
+
+  defp month_ago(%Date{day: day} = date \\ Date.utc_today()) do
+    days = max(day, Date.add(date, -day).day)
+
+    Date.add(date, -days)
+    |> Date.to_gregorian_days()
+    |> Kernel.*(86400)
+    |> Kernel.+(86399)
+    |> DateTime.from_gregorian_seconds()
+  end
 end
