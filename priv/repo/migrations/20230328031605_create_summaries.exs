@@ -9,8 +9,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummaries do
       add :params, :map
       add :level, :integer
       add :conversation_summarizer_id, references(:conversation_summarizers, on_delete: :nothing)
-      add :from, :utc_datetime_usec
-      add :to, :utc_datetime_usec
+      add :tsrange, :tsrange
 
       timestamps()
     end
