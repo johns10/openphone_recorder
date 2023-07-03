@@ -5,11 +5,13 @@ defmodule OpenphoneRecorder.Summaries do
   alias OpenphoneRecorder.Summaries.Summary
 
   def list_summaries(opts \\ []) do
+    order_by = Keyword.get(opts, :order_by, [])
     preload = Keyword.get(opts, :preload, [])
     filters = Keyword.get(opts, :filters, [])
 
     Summary
     |> maybe_filter_by_before(filters[:before])
+    |> order_by_lower(order_by[:tsrange_lower])
     |> preload(^preload)
     |> Repo.all()
   end
@@ -18,8 +20,16 @@ defmodule OpenphoneRecorder.Summaries do
 
   defp maybe_filter_by_before(query, before) do
     query
-    |> where([s], s.to < ^before)
+    |> where([s], fragment("upper(?)", s.tsrange) < ^before)
   end
+
+  defp order_by_lower(query, nil), do: query
+
+  defp order_by_lower(query, :asc),
+    do: order_by(query, [s], asc: fragment("lower(?)", s.tsrange))
+
+  defp order_by_lower(query, :desc),
+    do: order_by(query, [s], desc: fragment("lower(?)", s.tsrange))
 
   def get_summary!(id), do: Repo.get!(Summary, id)
 

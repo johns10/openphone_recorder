@@ -15,9 +15,40 @@ defmodule OpenphoneRecorder.SummariesTest do
       assert Summaries.list_summaries() == [summary]
     end
 
+    test "list_summaries/1 returns summaries ordered by tsrange" do
+      range_1 =
+        PgRanges.TsRange.new(
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-5),
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-3)
+        )
+
+      range_2 =
+        PgRanges.TsRange.new(
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-2),
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-1)
+        )
+
+      sum_1 = summary_fixture(%{tsrange: range_1})
+      sum_2 = summary_fixture(%{tsrange: range_2})
+
+      assert Summaries.list_summaries(order_by: [tsrange_lower: :desc]) == [sum_2, sum_1]
+    end
+
     test "list_summaries/1 returns summaries before date" do
-      old_summary = summary_fixture(%{to: DateTime.utc_now() |> DateTime.add(-10000)})
-      new_summary = summary_fixture(%{to: DateTime.utc_now() |> DateTime.add(10000)})
+      old_range =
+        PgRanges.TsRange.new(
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-20000),
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000)
+        )
+
+      future_range =
+        PgRanges.TsRange.new(
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(10000),
+          NaiveDateTime.utc_now() |> NaiveDateTime.add(20000)
+        )
+
+      old_summary = summary_fixture(%{tsrange: old_range})
+      new_summary = summary_fixture(%{tsrange: future_range})
       assert Summaries.list_summaries(filters: [before: DateTime.utc_now()]) == [old_summary]
     end
 
