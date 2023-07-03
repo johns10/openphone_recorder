@@ -7,13 +7,13 @@ defmodule OpenphoneRecorder.Calls.Call do
   schema "calls" do
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone]
-    field :answered_at, :utc_datetime_usec
-    field :completed_at, :utc_datetime_usec
+    field :answered_at, :naive_datetime_usec
+    field :completed_at, :naive_datetime_usec
     field :conversation_id, :binary_id
 
     has_many :statements, Statement
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

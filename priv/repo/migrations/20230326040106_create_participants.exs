@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateParticipants do
       add :conversation_id, references(:conversations, on_delete: :nothing, type: :uuid)
       add :phone_number_id, references(:phone_numbers, on_delete: :nothing, type: :uuid)
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
 
     create unique_index(:participants, [:conversation_id, :phone_number_id])

@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.ConversationSummarizers.ConversationSummarizer do
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :summarizer, Summarizer
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

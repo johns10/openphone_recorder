@@ -10,9 +10,9 @@ defmodule OpenphoneRecorder.Events.Openphone.Data.Call do
     field :to, :string
     field :direction, :string
     field :status, :string
-    field :created_at, :utc_datetime_usec
-    field :answered_at, :utc_datetime_usec
-    field :completed_at, :utc_datetime_usec
+    field :created_at, :naive_datetime_usec
+    field :answered_at, :naive_datetime_usec
+    field :completed_at, :naive_datetime_usec
     field :user_id, :string
     field :phone_number_id, :string
     field :conversation_id, :string

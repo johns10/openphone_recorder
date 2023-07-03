@@ -49,7 +49,7 @@ defmodule OpenphoneRecorder.SummariesTest do
 
       old_summary = summary_fixture(%{tsrange: old_range})
       new_summary = summary_fixture(%{tsrange: future_range})
-      assert Summaries.list_summaries(filters: [before: DateTime.utc_now()]) == [old_summary]
+      assert Summaries.list_summaries(filters: [before: NaiveDateTime.utc_now()]) == [old_summary]
     end
 
     test "get_summary!/1 returns the summary with given id" do

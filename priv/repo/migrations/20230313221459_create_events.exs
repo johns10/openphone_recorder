@@ -5,7 +5,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateEvents do
     create table(:events) do
       add :payload, :map
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
   end
 end

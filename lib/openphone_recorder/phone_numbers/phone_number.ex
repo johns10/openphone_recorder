@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.PhoneNumbers.PhoneNumber do
     has_many :contact_phone_numbers, ContactPhoneNumber
     has_many :contacts, through: [:contact_phone_numbers, :contact]
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

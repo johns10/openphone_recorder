@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.Conversations.Conversation do
     has_many :participants, Participant
     has_many :phone_numbers, through: [:participants, :phone_number]
     has_many :contacts, through: [:phone_numbers, :contact]
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

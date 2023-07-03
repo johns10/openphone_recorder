@@ -10,7 +10,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone, :transcription]
     field :content, :string
-    field :occurred_at, :utc_datetime_usec
+    field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
 
@@ -20,7 +20,7 @@ defmodule OpenphoneRecorder.Statements.Statement do
     has_many :statement_summaries, StatementSummary
     has_many :summaries, through: [:statement_summaries, :summary]
 
-    timestamps(type: :utc_datetime_usec)
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

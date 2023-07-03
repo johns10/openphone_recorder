@@ -17,7 +17,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
     belongs_to :conversation_summarizer, ConversationSummarizer
     has_many :statement_summaries, StatementSummary
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

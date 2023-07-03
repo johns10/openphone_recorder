@@ -56,20 +56,20 @@ defmodule OpenphoneRecorder.StatementsTest do
     test "list_statements/1 returns statements that occurred before a given date" do
       statement_fixture(%{
         participant_id: participant_fixture().id,
-        occurred_at: DateTime.utc_now()
+        occurred_at: NaiveDateTime.utc_now()
       })
 
       old_statement =
         statement_fixture(%{
           participant_id: participant_fixture().id,
-          occurred_at: DateTime.utc_now() |> DateTime.add(-24 * 60 * 60)
+          occurred_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-24 * 60 * 60)
         })
 
-      today = DateTime.utc_now() |> DateTime.to_date()
+      today = NaiveDateTime.utc_now() |> NaiveDateTime.to_date()
 
       assert Statements.list_statements(
                filters: [
-                 before: DateTime.new!(today, ~T[00:00:00], "Etc/UTC")
+                 before: NaiveDateTime.new!(today, ~T[00:00:00])
                ]
              ) == [old_statement]
     end
@@ -105,7 +105,7 @@ defmodule OpenphoneRecorder.StatementsTest do
 
       assert {:ok, %Statement{} = statement} = Statements.create_statement(valid_attrs)
       assert statement.content == "some content"
-      assert statement.occurred_at == ~U[2023-03-28 10:21:00.000000Z]
+      assert statement.occurred_at == ~N[2023-03-28 10:21:00.000000Z]
       assert statement.type == :call
     end
 
@@ -126,7 +126,7 @@ defmodule OpenphoneRecorder.StatementsTest do
                Statements.update_statement(statement, update_attrs)
 
       assert statement.content == "some updated content"
-      assert statement.occurred_at == ~U[2023-03-29 10:21:00.000000Z]
+      assert statement.occurred_at == ~N[2023-03-29 10:21:00.000000Z]
       assert statement.type == :voicemail
     end
 

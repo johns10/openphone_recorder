@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummaries do
       add :conversation_summarizer_id, references(:conversation_summarizers, on_delete: :nothing)
       add :tsrange, :tsrange
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
   end
 end

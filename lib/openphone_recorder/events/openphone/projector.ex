@@ -144,7 +144,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
         content: text,
         occurred_at:
           call.completed_at
-          |> DateTime.add(-1 * cast_microseconds(duration), :microsecond),
+          |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond),
         type: :voicemail,
         conversation_id: conversation_id,
         participant_id: participant.id,
@@ -213,7 +213,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
 
     with {:ok, %{duration: duration, segments: segments}} <-
            OpenAI.audio_transcription(file, opts) do
-      now = DateTime.utc_now()
+      now = NaiveDateTime.utc_now()
 
       {:ok,
        segments
@@ -221,8 +221,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
          %{
            occurred_at:
              call.completed_at
-             |> DateTime.add(-1 * cast_microseconds(duration), :microsecond)
-             |> DateTime.add(cast_microseconds(segment["start"]), :microsecond),
+             |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond)
+             |> NaiveDateTime.add(cast_microseconds(segment["start"]), :microsecond),
            type: :call,
            content: segment["text"],
            participant_id: participant.id,

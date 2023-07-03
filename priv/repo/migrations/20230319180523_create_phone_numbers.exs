@@ -9,7 +9,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreatePhoneNumbers do
       add :source, :string
       add :contact_id, references(:contacts, on_delete: :nothing, type: :uuid)
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
 
     create unique_index(:phone_numbers, [:id])

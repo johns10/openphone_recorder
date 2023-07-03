@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.StatementSummaries.StatementSummary do
     belongs_to :statement, Statement, type: :binary_id
     belongs_to :summary, Summary, type: :binary_id
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

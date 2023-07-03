@@ -16,13 +16,21 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     has_many :contact_phone_numbers, ContactPhoneNumber
     has_many :phone_numbers, through: [:contact_phone_numbers, :phone_number]
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false
   def changeset(contact, attrs) do
     contact
-    |> cast(attrs, [:first_name, :last_name, :company, :role, :external_id, :source, :relationship])
+    |> cast(attrs, [
+      :first_name,
+      :last_name,
+      :company,
+      :role,
+      :external_id,
+      :source,
+      :relationship
+    ])
     |> cast_id()
     |> validate_required([:source])
     |> unique_constraint([:id], name: :contacts_pkey)

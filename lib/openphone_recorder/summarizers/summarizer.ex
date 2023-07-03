@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Summarizers.Summarizer do
     field :prompt, :string
     field :chunker, Ecto.Enum, values: [:temporal, :topical]
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false

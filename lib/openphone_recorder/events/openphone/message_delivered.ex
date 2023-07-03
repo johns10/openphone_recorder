@@ -7,7 +7,7 @@ defmodule OpenphoneRecorder.Events.Openphone.MessageDelivered do
     field :id, :string
     field :object, :string
     field :api_version, :string
-    field :created_at, :utc_datetime_usec
+    field :created_at, :naive_datetime_usec
     embeds_one :data, Message
   end
 end

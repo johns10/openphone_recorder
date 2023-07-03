@@ -16,9 +16,9 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "works" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
           %Statement{content: Faker.Lorem.sentence(20), occurred_at: yesterday()},
           %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
           %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
@@ -43,9 +43,9 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "chunks together" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()}
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -61,8 +61,8 @@ defmodule OpenphoneRecorder.Statements.ChunkerTest do
     test "chunks apart" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: DateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: DateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
           %Statement{content: Faker.Lorem.sentence(20), occurred_at: two_days_ago()},
           %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()},
           %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()}

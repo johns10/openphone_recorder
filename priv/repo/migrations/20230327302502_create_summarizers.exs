@@ -6,7 +6,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateSummarizers do
       add :prompt, :string
       add :chunker, :string
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
   end
 end

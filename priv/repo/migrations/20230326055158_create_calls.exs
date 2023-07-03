@@ -6,11 +6,11 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateCalls do
       add :id, :uuid, primary_key: true
       add :source, :string
       add :external_id, :string
-      add :answered_at, :utc_datetime_usec
-      add :completed_at, :utc_datetime_usec
+      add :answered_at, :naive_datetime_usec
+      add :completed_at, :naive_datetime_usec
       add :conversation_id, references(:conversations, on_delete: :nothing, type: :uuid)
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
 
     create index(:calls, [:conversation_id])

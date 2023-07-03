@@ -4,14 +4,14 @@ defmodule OpenphoneRecorder.StatementsFixtures do
   def statements_fixture(content, attrs \\ %{}) do
     participant_one = Map.get(attrs, :participant_one, participant_fixture())
     participant_two = Map.get(attrs, :participant_two, participant_fixture())
-    occurred_at = Map.get(attrs, :occurred_at, DateTime.now!("Etc/UTC"))
+    occurred_at = Map.get(attrs, :occurred_at, NaiveDateTime.utc_now())
 
     [head | tail] =
       content
       |> Enum.map(&%{content: &1})
       |> Enum.map(&Map.merge(&1, attrs))
       |> Enum.with_index(fn attrs, index ->
-        Map.put(attrs, :occurred_at, DateTime.add(occurred_at, index))
+        Map.put(attrs, :occurred_at, NaiveDateTime.add(occurred_at, index))
       end)
       |> Enum.map_every(2, fn attrs -> Map.put(attrs, :participant_id, participant_one.id) end)
 

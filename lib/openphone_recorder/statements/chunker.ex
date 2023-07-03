@@ -22,7 +22,7 @@ defmodule OpenphoneRecorder.Statements.Chunker do
     do: done
 
   def temporal_chunks(%{queue: [head, next | _]} = acc, opts) do
-    case DateTime.to_date(head.occurred_at) == DateTime.to_date(next.occurred_at) do
+    case NaiveDateTime.to_date(head.occurred_at) == NaiveDateTime.to_date(next.occurred_at) do
       true ->
         acc
         |> add_to_current()

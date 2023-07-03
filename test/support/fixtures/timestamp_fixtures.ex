@@ -1,18 +1,18 @@
 defmodule OpenphoneRecorder.TimestampFixtures do
-  def ten_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-10 * 60)
-  def thirty_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-30 * 60)
-  def forty_minutes_ago(), do: DateTime.utc_now() |> DateTime.add(-40 * 60)
-  def twenty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-20 * 60 * 60)
-  def forty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-40 * 60 * 60)
-  def fifty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-50 * 60 * 60)
-  def sixty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-60 * 60 * 60)
-  def eighty_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-80 * 60 * 60)
-  def hundred_hours_ago(), do: DateTime.utc_now() |> DateTime.add(-100 * 60 * 60)
+  def ten_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10 * 60)
+  def thirty_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30 * 60)
+  def forty_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-40 * 60)
+  def twenty_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-20 * 60 * 60)
+  def forty_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-40 * 60 * 60)
+  def fifty_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-50 * 60 * 60)
+  def sixty_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-60 * 60 * 60)
+  def eighty_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-80 * 60 * 60)
+  def hundred_hours_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-100 * 60 * 60)
 
-  def yesterday(), do: DateTime.utc_now() |> DateTime.add(-24 * 60 * 60)
-  def two_days_ago(), do: DateTime.utc_now() |> DateTime.add(-48 * 60 * 60)
-  def three_days_ago(), do: DateTime.utc_now() |> DateTime.add(-72 * 60 * 60)
-  def ten_days_ago(), do: DateTime.utc_now() |> DateTime.add(-240 * 60 * 60)
+  def yesterday(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-24 * 60 * 60)
+  def two_days_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-48 * 60 * 60)
+  def three_days_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-72 * 60 * 60)
+  def ten_days_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-240 * 60 * 60)
 
   def months_ago(n), do: Enum.reduce(1..n, nil, fn _, acc -> month_ago(acc) end)
 
@@ -23,6 +23,6 @@ defmodule OpenphoneRecorder.TimestampFixtures do
     |> Date.to_gregorian_days()
     |> Kernel.*(86400)
     |> Kernel.+(86399)
-    |> DateTime.from_gregorian_seconds()
+    |> NaiveDateTime.from_gregorian_seconds()
   end
 end

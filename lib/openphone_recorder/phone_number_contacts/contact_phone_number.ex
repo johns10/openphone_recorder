@@ -8,7 +8,7 @@ defmodule OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber do
     belongs_to :phone_number, PhoneNumber, type: :binary_id
     belongs_to :contact, Contact, type: :binary_id
 
-    timestamps()
+    timestamps(type: :naive_datetime_usec)
   end
 
   @doc false
