@@ -1,7 +1,7 @@
 defmodule OpenphoneRecorder.Summaries.Summary do
   use Ecto.Schema
   import Ecto.Changeset
-  alias OpenphoneRecorder.Summarizers.Summarizer
+  alias OpenphoneRecorder.ConversationSummarizers.ConversationSummarizer
   alias OpenphoneRecorder.StatementSummaries.StatementSummary
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
     field :from, :utc_datetime_usec
     field :to, :utc_datetime_usec
 
-    belongs_to :summarizer, Summarizer
+    belongs_to :conversation_summarizer, ConversationSummarizer
     has_many :statement_summaries, StatementSummary
 
     timestamps()
@@ -23,7 +23,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
   @doc false
   def changeset(summary, attrs) do
     summary
-    |> cast(attrs, [:title, :content, :params, :summarizer_id, :from, :to])
+    |> cast(attrs, [:title, :content, :params, :conversation_summarizer_id, :from, :to])
     |> validate_required([:content])
     |> foreign_key_constraint(:summarizer_id)
   end

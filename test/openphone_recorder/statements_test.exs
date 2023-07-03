@@ -11,13 +11,21 @@ defmodule OpenphoneRecorder.StatementsTest do
     import OpenphoneRecorder.SummariesFixtures
     import OpenphoneRecorder.StatementSummariesFixtures
     import OpenphoneRecorder.SummarizersFixtures
+    import OpenphoneRecorder.ConversationSummarizersFixtures
 
     test "list_statements/1 returns unsummarized statements" do
       conversation = conversation_fixture()
       participant = participant_fixture()
       participant_two = participant_fixture()
       summarizer = summarizer_fixture()
-      summary = summary_fixture(%{summarizer_id: summarizer.id})
+
+      conversation_summarizer =
+        conversation_summarizer_fixture(%{
+          conversation_id: conversation.id,
+          summarizer_id: summarizer.id
+        })
+
+      summary = summary_fixture(%{conversation_summarizer_id: conversation_summarizer.id})
 
       summarized =
         statement_fixture(%{
@@ -27,14 +35,14 @@ defmodule OpenphoneRecorder.StatementsTest do
           summary_id: summary.id
         })
 
+      statement_summary_fixture(%{statement_id: summarized.id, summary_id: summary.id})
+
       unsummarized =
         statement_fixture(%{
           external_id: Ecto.UUID.generate(),
           participant_id: participant_two.id,
           conversation_id: conversation.id
         })
-
-      statement_summary_fixture(%{statement_id: summarized.id, summary_id: summary.id})
 
       assert [unsummarized] ==
                Statements.list_statements(
