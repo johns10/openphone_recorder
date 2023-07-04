@@ -28,10 +28,10 @@ defmodule OpenphoneRecorder.SummariesTest do
           NaiveDateTime.utc_now() |> NaiveDateTime.add(-1)
         )
 
-      sum_1 = summary_fixture(%{tsrange: range_1})
-      sum_2 = summary_fixture(%{tsrange: range_2})
+      sum_1 = summary_fixture(%{summary_interval: range_1})
+      sum_2 = summary_fixture(%{summary_interval: range_2})
 
-      assert Summaries.list_summaries(order_by: [tsrange_lower: :desc]) == [sum_2, sum_1]
+      assert Summaries.list_summaries(order_by: [summary_interval_lower: :desc]) == [sum_2, sum_1]
     end
 
     test "list_summaries/1 returns summaries before date" do
@@ -47,8 +47,8 @@ defmodule OpenphoneRecorder.SummariesTest do
           NaiveDateTime.utc_now() |> NaiveDateTime.add(20000)
         )
 
-      old_summary = summary_fixture(%{tsrange: old_range})
-      new_summary = summary_fixture(%{tsrange: future_range})
+      old_summary = summary_fixture(%{summary_interval: old_range})
+      new_summary = summary_fixture(%{summary_interval: future_range})
       assert Summaries.list_summaries(filters: [before: NaiveDateTime.utc_now()]) == [old_summary]
     end
 

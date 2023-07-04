@@ -12,7 +12,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
     field :params, :map
     field :summary_id, :id
     field :level, :integer
-    field :tsrange, TsRange
+    field :summary_interval, TsRange
 
     belongs_to :conversation_summarizer, ConversationSummarizer
     has_many :statement_summaries, StatementSummary
@@ -23,7 +23,7 @@ defmodule OpenphoneRecorder.Summaries.Summary do
   @doc false
   def changeset(summary, attrs) do
     summary
-    |> cast(attrs, [:title, :content, :params, :conversation_summarizer_id, :tsrange])
+    |> cast(attrs, [:title, :content, :params, :conversation_summarizer_id, :summary_interval])
     |> validate_required([:content])
     |> foreign_key_constraint(:summarizer_id)
   end
