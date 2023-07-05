@@ -1,6 +1,8 @@
 defmodule OpenphoneRecorder.Statements.Chunker do
   @behaviour OpenphoneRecorder.Statements.Chunker.Behaviour
+
   alias OpenphoneRecorder.Tokens
+  alias OpenphoneRecorder.Chunker.Queue
 
   @impl true
   def prompt(chunker, text, opts), do: impl(chunker).prompt(text, opts)
@@ -10,13 +12,11 @@ defmodule OpenphoneRecorder.Statements.Chunker do
 
   def chunk(statements, opts) do
     [statements]
-    |> Enum.map(&(acc(&1) |> temporal_chunks(opts)))
+    |> Enum.map(&(Queue.acc(&1) |> temporal_chunks(opts)))
     |> Enum.reduce([], fn list, acc -> acc ++ list end)
-    |> Enum.map(&(acc(&1) |> token_count_chunks(opts)))
+    |> Enum.map(&(Queue.acc(&1) |> token_count_chunks(opts)))
     |> Enum.reduce([], fn list, acc -> acc ++ list end)
   end
-
-  def acc(statements), do: %{queue: statements, current: [], done: []}
 
   def temporal_chunks(%{queue: queue, done: done}, _) when queue == [],
     do: done
@@ -25,28 +25,28 @@ defmodule OpenphoneRecorder.Statements.Chunker do
     case NaiveDateTime.to_date(head.occurred_at) == NaiveDateTime.to_date(next.occurred_at) do
       true ->
         acc
-        |> add_to_current()
-        |> shift_queue(1)
+        |> Queue.add_to_current()
+        |> Queue.shift_queue(1)
 
       false ->
         acc
-        |> complete_current()
-        |> shift_queue(1)
+        |> Queue.complete_current()
+        |> Queue.shift_queue(1)
     end
     |> temporal_chunks(opts)
   end
 
   def temporal_chunks(acc, opts) do
     acc
-    |> complete_current()
-    |> shift_queue(1)
+    |> Queue.complete_current()
+    |> Queue.shift_queue(1)
     |> temporal_chunks(opts)
   end
 
   def token_count_chunks(%{queue: queue, current: current} = acc, _)
       when queue == [] and length(current) > 0 do
     acc
-    |> complete_current()
+    |> Queue.complete_current()
     |> Map.get(:done)
   end
 
@@ -62,14 +62,14 @@ defmodule OpenphoneRecorder.Statements.Chunker do
     |> case do
       false ->
         acc
-        |> add_to_current()
-        |> shift_queue(1)
+        |> Queue.add_to_current()
+        |> Queue.shift_queue(1)
 
       true ->
         acc
-        |> complete_current()
-        |> put_current([next])
-        |> shift_queue(2)
+        |> Queue.complete_current()
+        |> Queue.put_current([next])
+        |> Queue.shift_queue(2)
     end
     |> token_count_chunks(opts)
   end
@@ -83,37 +83,16 @@ defmodule OpenphoneRecorder.Statements.Chunker do
     |> case do
       false ->
         acc
-        |> add_to_current()
-        |> shift_queue(1)
+        |> Queue.add_to_current()
+        |> Queue.shift_queue(1)
 
       true ->
         acc
-        |> complete_current()
-        |> shift_queue(1)
+        |> Queue.complete_current()
+        |> Queue.shift_queue(1)
     end
     |> token_count_chunks(opts)
   end
-
-  def shift_queue(%{queue: [_ | tail]} = acc, 1), do: Map.put(acc, :queue, tail)
-  def shift_queue(%{queue: [_, _ | tail]} = acc, 2), do: Map.put(acc, :queue, tail)
-  def shift_queue(acc, _), do: acc
-
-  defp complete_current(%{done: done, queue: [head | _], current: current} = acc),
-    do:
-      acc
-      |> Map.put(:done, [[head | current] | done])
-      |> Map.put(:current, [])
-
-  defp complete_current(%{done: done, queue: [], current: current} = acc),
-    do:
-      acc
-      |> Map.put(:done, [current | done])
-      |> Map.put(:current, [])
-
-  defp put_current(acc, current), do: Map.put(acc, :current, current)
-
-  def add_to_current(%{current: current, queue: [head | _]} = acc),
-    do: Map.put(acc, :current, [head | current])
 
   defp impl(:temporal), do: OpenphoneRecorder.Statements.Chunker.Temporal
   defp impl(:test), do: OpenphoneRecorder.Statements.Chunker.Test

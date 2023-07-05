@@ -15,9 +15,9 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cmpl-7RBEORZAUDZzRO7Xm9MKdSRKAd6w2\",\n  \"object\": \"text_completion\",\n  \"created\": 1686712384,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning the Kitchen Sink | Jane Fonda and John Smith discussed the importance of cleaning the kitchen sink regularly. They agreed to make it a habit and Jane suggested using a multipurpose cleaner or mild dish soap, a sponge or non-abrasive scrub brush, and to wet the sink first. John cleared out the sink and then applied the cleaner, scrubbed it in circular motions, and rinsed it with warm water. Finally, he wiped the sink dry to prevent water spots or streaks from forming.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 755,\n    \"completion_tokens\": 105,\n    \"total_tokens\": 860\n  }\n}\n",
+      "body": "{\n  \"id\": \"cmpl-7YRxJWzOWHnecH0VIpIxt3hgK0Etp\",\n  \"object\": \"text_completion\",\n  \"created\": 1688444969,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning the Kitchen Sink | Jane Fonda and John Smith discussed the importance of cleaning the kitchen sink regularly. They agreed to make it a habit and Jane suggested using a multipurpose cleaner or mild dish soap, a sponge or non-abrasive scrub brush, and to wet the sink first. John cleared out the sink and then applied the cleaner, scrubbed it in circular motions, and rinsed it with warm water. Finally, he wiped the sink dry to prevent water spots or streaks from forming.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 755,\n    \"completion_tokens\": 105,\n    \"total_tokens\": 860\n  }\n}\n",
       "headers": {
-        "Date": "Wed, 14 Jun 2023 03:13:13 GMT",
+        "Date": "Tue, 04 Jul 2023 04:29:44 GMT",
         "Content-Type": "application/json",
         "Content-Length": "836",
         "Connection": "keep-alive",
@@ -25,7 +25,7 @@
         "Cache-Control": "no-cache, must-revalidate",
         "openai-model": "text-davinci-003",
         "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
-        "openai-processing-ms": "8908",
+        "openai-processing-ms": "14934",
         "openai-version": "2020-10-01",
         "strict-transport-security": "max-age=15724800; includeSubDomains",
         "x-ratelimit-limit-requests": "3000",
@@ -34,10 +34,10 @@
         "x-ratelimit-remaining-tokens": "249199",
         "x-ratelimit-reset-requests": "20ms",
         "x-ratelimit-reset-tokens": "192ms",
-        "x-request-id": "59b8ea18177d53b4d78c5024d2ddeeb7",
+        "x-request-id": "c70f3cb6b2d10e8278418e05e8567b48",
         "CF-Cache-Status": "DYNAMIC",
         "Server": "cloudflare",
-        "CF-RAY": "7d6f652fdadaa1e7-YYZ",
+        "CF-RAY": "7e14a0a21b0ba1fe-YYZ",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "status_code": 200,
@@ -60,17 +60,17 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cmpl-7RBEXdbjMOLCwQZGES3uun7nOurn3\",\n  \"object\": \"text_completion\",\n  \"created\": 1686712393,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning a Bathtub: Tips from an Expert | Jane Fonda encourages John Smith to tackle his bathtub cleaning mission with unicorn tears and pixie dust. She advises him to be patient and persistent, to let the cleaner sit for a while, and to wear gloves and follow instructions carefully. John plans to use a secret formula made from organic unicorn tears and enchanted pixie dust, and to scrub with a toothbrush until the tub shines like a diamond. Jane reminds him to ventilate the bathroom and to be careful with online claims.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 700,\n    \"completion_tokens\": 109,\n    \"total_tokens\": 809\n  }\n}\n",
+      "body": "{\n  \"id\": \"cmpl-7YRxYpb4x49r2ZGynPdDz1aN5uhU4\",\n  \"object\": \"text_completion\",\n  \"created\": 1688444984,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning a Bathtub: Tips from an Expert | Jane Fonda encourages John Smith to tackle his bathtub cleaning mission with unicorn tears and pixie dust. She advises him to be patient and persistent, to let the cleaner sit for a while, and to wear gloves and follow instructions carefully. She also suggests opening windows and turning on a fan to avoid passing out from the fumes. John plans to use a secret formula made from organic unicorn tears and enchanted pixie dust, and to scrub the tub with a toothbrush until it shines like a diamond.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 700,\n    \"completion_tokens\": 111,\n    \"total_tokens\": 811\n  }\n}\n",
       "headers": {
-        "Date": "Wed, 14 Jun 2023 03:13:28 GMT",
+        "Date": "Tue, 04 Jul 2023 04:30:01 GMT",
         "Content-Type": "application/json",
-        "Content-Length": "882",
+        "Content-Length": "896",
         "Connection": "keep-alive",
         "access-control-allow-origin": "*",
         "Cache-Control": "no-cache, must-revalidate",
         "openai-model": "text-davinci-003",
         "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
-        "openai-processing-ms": "15543",
+        "openai-processing-ms": "16802",
         "openai-version": "2020-10-01",
         "strict-transport-security": "max-age=15724800; includeSubDomains",
         "x-ratelimit-limit-requests": "3000",
@@ -79,10 +79,55 @@
         "x-ratelimit-remaining-tokens": "249199",
         "x-ratelimit-reset-requests": "20ms",
         "x-ratelimit-reset-tokens": "192ms",
-        "x-request-id": "2005d55a4f75946dff8cc7e5f8441503",
+        "x-request-id": "972159d6fa8b9781d6d0c55a347468d0",
         "CF-Cache-Status": "DYNAMIC",
         "Server": "cloudflare",
-        "CF-RAY": "7d6f65689ca5a1e7-YYZ",
+        "CF-RAY": "7e14a1013948a1fe-YYZ",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "{\"max_tokens\":801,\"model\":\"text-davinci-003\",\"prompt\":\"First, give the following text an informative title.\\n\\nSecond, write a summary of the following conversation.\\nRemove any irrelevant information and filler words.\\nThe summary should be no longer than 801 words.\\n\\\"\\\"\\\" Jane Fonda and John Smith discussed the importance of cleaning the kitchen sink regularly. They agreed to make it a habit and Jane suggested using a multipurpose cleaner or mild dish soap, a sponge or non-abrasive scrub brush, and to wet the sink first. John cleared out the sink and then applied the cleaner, scrubbed it in circular motions, and rinsed it with warm water. Finally, he wiped the sink dry to prevent water spots or streaks from forming.\\n Jane Fonda and John Smith discussed the importance of cleaning the kitchen sink regularly. They agreed to make it a habit and Jane suggested using a multipurpose cleaner or mild dish soap, a sponge or non-abrasive scrub brush, and to wet the sink first. John cleared out the sink and then applied the cleaner, scrubbed it in circular motions, and rinsed it with warm water. Finally, he wiped the sink dry to prevent water spots or streaks from forming.\\n Jane Fonda encourages John Smith to tackle his bathtub cleaning mission with unicorn tears and pixie dust. She advises him to be patient and persistent, to let the cleaner sit for a while, and to wear gloves and follow instructions carefully. She also suggests opening windows and turning on a fan to avoid passing out from the fumes. John plans to use a secret formula made from organic unicorn tears and enchanted pixie dust, and to scrub the tub with a toothbrush until it shines like a diamond.\\n\\\"\\\"\\\"\\n\\nReturn your answer in the following format:\\nTitle | Summary\\ne.g\\nWhy Artificial Intelligence is Good | AI can make humans more productive by automating many repetitive processes.\\nHome Hygeine is important | Keeping a clean and tidy home can improve your health by reducing the dust particles you breathe, and reducing your exposure to harmful bacteria.\\n\\nTITLE AND SUMMARY:\\n\",\"temperature\":0}",
+      "headers": {
+        "Authorization": "Bearer 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",
+        "Content-type": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "recv_timeout": 600000
+      },
+      "request_body": "",
+      "url": "https://api.openai.com/v1/completions"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"cmpl-7YRxpI5BQwHdxAIptP9tZ8wDcZPqD\",\n  \"object\": \"text_completion\",\n  \"created\": 1688445001,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning the Kitchen Sink | Jane Fonda and John Smith discussed the importance of cleaning the kitchen sink regularly. They agreed to make it a habit and Jane suggested using a multipurpose cleaner or mild dish soap, a sponge or non-abrasive scrub brush, and to wet the sink first. John cleared out the sink and then applied the cleaner, scrubbed it in circular motions, and rinsed it with warm water. Finally, he wiped the sink dry to prevent water spots or streaks from forming.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 427,\n    \"completion_tokens\": 105,\n    \"total_tokens\": 532\n  }\n}\n",
+      "headers": {
+        "Date": "Tue, 04 Jul 2023 04:30:19 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "836",
+        "Connection": "keep-alive",
+        "access-control-allow-origin": "*",
+        "Cache-Control": "no-cache, must-revalidate",
+        "openai-model": "text-davinci-003",
+        "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
+        "openai-processing-ms": "17536",
+        "openai-version": "2020-10-01",
+        "strict-transport-security": "max-age=15724800; includeSubDomains",
+        "x-ratelimit-limit-requests": "3000",
+        "x-ratelimit-limit-tokens": "250000",
+        "x-ratelimit-remaining-requests": "2999",
+        "x-ratelimit-remaining-tokens": "249199",
+        "x-ratelimit-reset-requests": "20ms",
+        "x-ratelimit-reset-tokens": "192ms",
+        "x-request-id": "e7a41367e8da01430f1316f494c6aeb4",
+        "CF-Cache-Status": "DYNAMIC",
+        "Server": "cloudflare",
+        "CF-RAY": "7e14a16b2c24a1fe-YYZ",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "status_code": 200,

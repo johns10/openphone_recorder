@@ -1,6 +1,6 @@
 defmodule OpenphoneRecorder.Tokens do
   alias OpenphoneRecorder.Statements.Statement
-  alias OpenphoneRecorder.Statements.Chunker
+  alias OpenphoneRecorder.Chunker
 
   def max_text_output_count(opts \\ []) do
     max_token_count = Keyword.get(opts, :max_tokens, 4096)

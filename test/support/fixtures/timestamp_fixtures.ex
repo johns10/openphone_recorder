@@ -16,7 +16,7 @@ defmodule OpenphoneRecorder.TimestampFixtures do
 
   def months_ago(n), do: Enum.reduce(1..n, nil, fn _, acc -> month_ago(acc) end)
 
-  defp month_ago(%Date{day: day} = date \\ Date.utc_today()) do
+  defp month_ago(%Date{day: day} = date) do
     days = max(day, Date.add(date, -day).day)
 
     Date.add(date, -days)
