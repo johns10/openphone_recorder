@@ -12,7 +12,7 @@ defmodule OpenphoneRecorder.SummarizersFixtures do
       attrs
       |> Enum.into(%{
         prompt: "some prompt",
-        chunker: :temporal
+        chunker: :daily
       })
       |> OpenphoneRecorder.Summarizers.create_summarizer()
 

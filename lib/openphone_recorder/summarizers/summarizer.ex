@@ -4,7 +4,7 @@ defmodule OpenphoneRecorder.Summarizers.Summarizer do
 
   schema "summarizers" do
     field :prompt, :string
-    field :chunker, Ecto.Enum, values: [:temporal, :topical]
+    field :chunker, Ecto.Enum, values: [:daily, :weekly, :topical]
 
     timestamps(type: :naive_datetime_usec)
   end
