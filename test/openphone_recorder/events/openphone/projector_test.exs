@@ -11,10 +11,11 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
   alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
   alias OpenphoneRecorder.Contacts.Contact
 
+  ExVCR.Config.filter_request_headers("Authorization")
+
   setup_all do
     HTTPoison.start()
     Application.put_env(:openphone_recorder, :http_provider, HTTPoison)
-    ExVCR.Config.filter_request_headers("Authorization")
     :ok
   end
 
@@ -49,6 +50,8 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "CallCompleted" do
     test "gets projected to the database properly" do
+      ExVCR.Config.filter_request_headers("Authorization")
+
       use_cassette("call_completed_projection") do
         assert {:ok, %Call{statements: [statement]}} =
                  OpenphoneFixtures.call_completed()
@@ -62,6 +65,8 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "CallRecordingCompleted" do
     test "gets projected to the database properly" do
+      ExVCR.Config.filter_request_headers("Authorization")
+
       use_cassette("call_recording_projection", match_requests_on: [:request_body]) do
         assert {:ok,
                 %Call{
