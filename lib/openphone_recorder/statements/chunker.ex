@@ -10,6 +10,8 @@ defmodule OpenphoneRecorder.Statements.Chunker do
   @impl true
   def prompt_count(chunker, opts), do: impl(chunker).prompt_count(opts)
 
+  def acc(statements), do: %{queue: statements, current: [], done: []}
+
   def chunk(statements, opts) do
     [statements]
     |> Enum.map(&(Queue.acc(&1) |> temporal_chunks(opts)))
