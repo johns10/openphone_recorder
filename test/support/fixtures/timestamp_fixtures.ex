@@ -1,4 +1,5 @@
 defmodule OpenphoneRecorder.TimestampFixtures do
+  alias PgRanges.TsRange
   def ten_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10 * 60)
   def thirty_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30 * 60)
   def forty_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-40 * 60)
@@ -14,6 +15,8 @@ defmodule OpenphoneRecorder.TimestampFixtures do
   def three_days_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-72 * 60 * 60)
   def ten_days_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-240 * 60 * 60)
 
+  def days_ago_range(n), do: Date.utc_today() |> Date.add(-1 * n) |> day_range()
+
   def months_ago(n), do: Enum.reduce(1..n, nil, fn _, acc -> month_ago(acc) end)
 
   defp month_ago(%Date{day: day} = date) do
@@ -24,5 +27,12 @@ defmodule OpenphoneRecorder.TimestampFixtures do
     |> Kernel.*(86400)
     |> Kernel.+(86399)
     |> NaiveDateTime.from_gregorian_seconds()
+  end
+
+  defp day_range(date) do
+    TsRange.new(
+      DateTime.new!(date, ~T[00:00:00]),
+      DateTime.new!(date, ~T[23:59:59])
+    )
   end
 end

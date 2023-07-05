@@ -8,6 +8,7 @@ defmodule OpenphoneRecorder.ChunkerTest do
   alias OpenphoneRecorder.Chunker.TokenCount
   alias OpenphoneRecorder.Participants.Participant
   alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
+  alias OpenphoneRecorder.Summaries.Summary
 
   def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 
@@ -39,6 +40,74 @@ defmodule OpenphoneRecorder.ChunkerTest do
       assert Enum.count(chunk2) == 1
       assert Enum.count(chunk3) == 1
       assert Enum.count(chunk4) == 2
+    end
+  end
+
+  describe "Weekly" do
+    test "chunks together" do
+      day_of_week =
+        Date.utc_today()
+        |> Date.day_of_week()
+
+      queue = [
+        %Summary{
+          content: Faker.Lorem.sentence(15),
+          summary_interval: days_ago_range(day_of_week + 1),
+          time_zone: "Etc/UTC"
+        },
+        %Summary{
+          content: Faker.Lorem.sentence(20),
+          summary_interval: days_ago_range(day_of_week + 2),
+          time_zone: "Etc/UTC"
+        },
+        %Summary{
+          content: Faker.Lorem.sentence(20),
+          summary_interval: days_ago_range(day_of_week + 5),
+          time_zone: "Etc/UTC"
+        }
+      ]
+
+      chunks = [chunk1] = queue |> Chunker.apply(max_tokens: 50, chunkers: [:weekly])
+
+      assert Enum.count(chunks) == 1
+      assert Enum.count(chunk1) == 3
+    end
+
+    test "chunks apart" do
+      day_of_week =
+        Date.utc_today()
+        |> Date.day_of_week()
+
+      queue = [
+        %Summary{
+          content: Faker.Lorem.sentence(15),
+          summary_interval: days_ago_range(day_of_week + 3),
+          time_zone: "Etc/UTC"
+        },
+        %Summary{
+          content: Faker.Lorem.sentence(20),
+          summary_interval: days_ago_range(day_of_week + 4),
+          time_zone: "Etc/UTC"
+        },
+        %Summary{
+          content: Faker.Lorem.sentence(20),
+          summary_interval: days_ago_range(day_of_week + 8),
+          time_zone: "Etc/UTC"
+        },
+        %Summary{
+          content: Faker.Lorem.sentence(20),
+          summary_interval: days_ago_range(day_of_week + 16),
+          time_zone: "Etc/UTC"
+        }
+      ]
+
+      chunks =
+        [chunk1, chunk2, chunk3] = queue |> Chunker.apply(max_tokens: 50, chunkers: [:weekly])
+
+      assert Enum.count(chunks) == 3
+      assert Enum.count(chunk1) == 1
+      assert Enum.count(chunk2) == 1
+      assert Enum.count(chunk3) == 2
     end
   end
 

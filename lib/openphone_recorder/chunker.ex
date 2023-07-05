@@ -15,11 +15,13 @@ defmodule OpenphoneRecorder.Chunker do
     Enum.map(queue, &impl(chunker).chunk_items(Queue.acc(&1), opts))
   end
 
+  @spec prompt(:daily | :test | :token_count | :weekly, any, any) :: any
   def prompt(chunker, text, opts), do: impl(chunker).prompt(text, opts)
 
   def prompt_count(chunker, opts), do: impl(chunker).prompt_count(opts)
 
   defp impl(:daily), do: OpenphoneRecorder.Chunker.Daily
+  defp impl(:weekly), do: OpenphoneRecorder.Chunker.Weekly
   defp impl(:token_count), do: OpenphoneRecorder.Chunker.TokenCount
   defp impl(:test), do: OpenphoneRecorder.Chunker.Test
 end
