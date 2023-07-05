@@ -48,7 +48,7 @@ defmodule OpenphoneRecorder.SummariesTest do
         )
 
       old_summary = summary_fixture(%{summary_interval: old_range})
-      new_summary = summary_fixture(%{summary_interval: future_range})
+      summary_fixture(%{summary_interval: future_range})
       assert Summaries.list_summaries(filters: [before: NaiveDateTime.utc_now()]) == [old_summary]
     end
 

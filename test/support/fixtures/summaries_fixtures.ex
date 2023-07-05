@@ -13,7 +13,7 @@ defmodule OpenphoneRecorder.SummariesFixtures do
       |> Enum.into(%{
         content: "some content",
         params: %{},
-        chunker: :temporal
+        chunker: :daily
       })
       |> OpenphoneRecorder.Summaries.create_summary()
 
