@@ -12,6 +12,7 @@ defmodule OpenphoneRecorder.Summaries do
 
     Summary
     |> maybe_filter_by_before(filters[:before])
+    |> maybe_filter_by_after(filters[:after])
     |> maybe_filter_by_level(filters[:level])
     |> order_by_lower(order_by[:summary_interval_lower])
     |> filter_by_conversation_id(filters[:conversation_id])
@@ -25,6 +26,13 @@ defmodule OpenphoneRecorder.Summaries do
   defp maybe_filter_by_before(query, before) do
     query
     |> where([s], fragment("upper(?)", s.summary_interval) < ^before)
+  end
+
+  defp maybe_filter_by_after(query, nil), do: query
+
+  defp maybe_filter_by_after(query, upper) do
+    query
+    |> where([s], fragment("lower(?)", s.summary_interval) > ^upper)
   end
 
   defp maybe_filter_by_level(query, nil), do: query

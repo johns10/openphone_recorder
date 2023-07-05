@@ -32,7 +32,7 @@ defmodule OpenphoneRecorder.ConversationSummarizersTest do
     end
 
     test "create_conversation_summarizer/1 with valid data creates a conversation_summarizer" do
-      assert {:ok, %ConversationSummarizer{} = conversation_summarizer} =
+      assert {:ok, %ConversationSummarizer{}} =
                ConversationSummarizers.create_conversation_summarizer(valid_attrs())
     end
 
@@ -45,7 +45,7 @@ defmodule OpenphoneRecorder.ConversationSummarizersTest do
       conversation_summarizer = conversation_summarizer_fixture()
       update_attrs = valid_attrs()
 
-      assert {:ok, %ConversationSummarizer{} = conversation_summarizer} =
+      assert {:ok, %ConversationSummarizer{}} =
                ConversationSummarizers.update_conversation_summarizer(
                  conversation_summarizer,
                  update_attrs

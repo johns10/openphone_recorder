@@ -1,0 +1,47 @@
+[
+  {
+    "request": {
+      "body": "{\"max_tokens\":801,\"model\":\"text-davinci-003\",\"prompt\":\"First, give the following text an informative title.\\n\\nSecond, write a summary of the following conversation.\\nRemove any irrelevant information and filler words.\\nThe summary should be no longer than 801 words.\\n\\\"\\\"\\\" John and Jane work together to clean the sink, removing any dishes, utensils, or other items, and using a multipurpose cleaner or mild dish soap with a sponge or non-abrasive scrub brush. They wet the sink first, apply the cleaner, scrub in circular motions, rinse the sink with warm water, and wipe it dry with a cloth or paper towels. The result is a clean and sparkling sink, and a commitment to maintain it regularly.\\n\\\"\\\"\\\"\\n\\nReturn your answer in the following format:\\nTitle | Summary\\ne.g\\nWhy Artificial Intelligence is Good | AI can make humans more productive by automating many repetitive processes.\\nHome Hygeine is important | Keeping a clean and tidy home can improve your health by reducing the dust particles you breathe, and reducing your exposure to harmful bacteria.\\n\\nTITLE AND SUMMARY:\\n\",\"temperature\":0}",
+      "headers": {
+        "Authorization": "Bearer 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",
+        "Content-type": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "recv_timeout": 600000
+      },
+      "request_body": "",
+      "url": "https://api.openai.com/v1/completions"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"cmpl-7Z3BZq0imVyPJ1du5YSNXUahkrlyV\",\n  \"object\": \"text_completion\",\n  \"created\": 1688588081,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning the Sink | John and Jane work together to clean the sink, wetting it first, applying a multipurpose cleaner or mild dish soap, scrubbing in circular motions, rinsing with warm water, and wiping it dry with a cloth or paper towels. The result is a clean and sparkling sink, and a commitment to maintain it regularly.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 224,\n    \"completion_tokens\": 73,\n    \"total_tokens\": 297\n  }\n}\n",
+      "headers": {
+        "Date": "Wed, 05 Jul 2023 20:14:44 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "679",
+        "Connection": "keep-alive",
+        "access-control-allow-origin": "*",
+        "Cache-Control": "no-cache, must-revalidate",
+        "openai-model": "text-davinci-003",
+        "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
+        "openai-processing-ms": "2762",
+        "openai-version": "2020-10-01",
+        "strict-transport-security": "max-age=15724800; includeSubDomains",
+        "x-ratelimit-limit-requests": "3000",
+        "x-ratelimit-limit-tokens": "250000",
+        "x-ratelimit-remaining-requests": "2999",
+        "x-ratelimit-remaining-tokens": "249199",
+        "x-ratelimit-reset-requests": "20ms",
+        "x-ratelimit-reset-tokens": "192ms",
+        "x-request-id": "ebdd82eb33c3c45c02fc4fa2f9e5fe8f",
+        "CF-Cache-Status": "DYNAMIC",
+        "Server": "cloudflare",
+        "CF-RAY": "7e224697e9df5425-YYZ",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

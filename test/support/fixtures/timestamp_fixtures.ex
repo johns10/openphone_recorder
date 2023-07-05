@@ -17,6 +17,22 @@ defmodule OpenphoneRecorder.TimestampFixtures do
 
   def days_ago_range(n), do: Date.utc_today() |> Date.add(-1 * n) |> day_range()
 
+  defp day_range(date) do
+    TsRange.new(
+      DateTime.new!(date, ~T[00:00:00]),
+      DateTime.new!(date, ~T[23:59:59])
+    )
+  end
+
+  def weeks_ago_range(n), do: Date.utc_today() |> Date.add(-1 * 7 * n) |> week_range()
+
+  defp week_range(date) do
+    TsRange.new(
+      DateTime.new!(date, ~T[00:00:00]) |> Timex.beginning_of_week(),
+      DateTime.new!(date, ~T[23:59:59]) |> Timex.end_of_week()
+    )
+  end
+
   def months_ago(n), do: Enum.reduce(1..n, nil, fn _, acc -> month_ago(acc) end)
 
   defp month_ago(%Date{day: day} = date) do
@@ -27,12 +43,5 @@ defmodule OpenphoneRecorder.TimestampFixtures do
     |> Kernel.*(86400)
     |> Kernel.+(86399)
     |> NaiveDateTime.from_gregorian_seconds()
-  end
-
-  defp day_range(date) do
-    TsRange.new(
-      DateTime.new!(date, ~T[00:00:00]),
-      DateTime.new!(date, ~T[23:59:59])
-    )
   end
 end
