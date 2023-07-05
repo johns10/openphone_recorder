@@ -4,7 +4,7 @@ defmodule OpenphoneRecorder.Tokens do
 
   def max_text_output_count(opts \\ []) do
     max_token_count = Keyword.get(opts, :max_tokens, 4096)
-    chunker = Keyword.get(opts, :chunker, :temporal)
+    chunker = Keyword.get(opts, :chunker, :daily)
     prompt_count = Chunker.prompt_count(chunker, opts)
     percentage_reduction = Keyword.get(opts, :percentage_reduction, 0.25)
 
@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.Tokens do
 
   def max_text_count(opts \\ []) do
     max_token_count = Keyword.get(opts, :max_tokens, 4096)
-    chunker = Keyword.get(opts, :chunker, :temporal)
+    chunker = Keyword.get(opts, :chunker, :daily)
     prompt_count = Chunker.prompt_count(chunker, opts)
 
     max_token_count - prompt_count
