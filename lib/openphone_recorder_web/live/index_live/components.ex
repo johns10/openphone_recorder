@@ -30,11 +30,11 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
     """
   end
 
-  def participant(%{participant: %{value: %{contacts: [contact]}}, class: class}),
-    do: render_contact(%{contact: contact, class: class})
+  def participant(%{participant: %{phone_number: %{contact: nil} = phone_number}, class: class}),
+    do: render_phone_number(%{phone_number: phone_number, class: class})
 
-  def participant(%{participant: %{value: phone_number}, class: class}),
-    do: render_phone_number(%{value: phone_number, class: class})
+  def participant(%{participant: %{phone_number: %{contact: contact}}, class: class}),
+    do: render_contact(%{contact: contact, class: class})
 
   def render_contact(assigns) do
     ~H"""
