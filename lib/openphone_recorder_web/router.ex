@@ -26,6 +26,8 @@ defmodule OpenphoneRecorderWeb.Router do
   scope "/", OpenphoneRecorderWeb do
     pipe_through :browser
 
+    get "/", PageController, :home
+
     resources "/events", EventController, except: [:new, :edit]
   end
 
@@ -69,6 +71,20 @@ defmodule OpenphoneRecorderWeb.Router do
   end
 
   scope "/", OpenphoneRecorderWeb do
+    pipe_through [:browser, :require_administrative_user]
+
+    live_session :require_administrative_user,
+      on_mount: [
+        {OpenphoneRecorderWeb.UserAuth, :ensure_authenticated},
+        {OpenphoneRecorderWeb.UserAuth, :ensure_administrator}
+      ] do
+      live "/accounts", AccountLive.Index, :index
+      live "/accounts/new", AccountLive.Index, :new
+      live "/accounts/:id/edit", AccountLive.Index, :edit
+    end
+  end
+
+  scope "/", OpenphoneRecorderWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
@@ -76,7 +92,7 @@ defmodule OpenphoneRecorderWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
-      live "/", IndexLive.Index, :index
+      live "/home", IndexLive.Index, :index
       live "/conversation/:conversation_id", IndexLive.Index, :index
 
       resources "/events", EventController, except: [:new, :edit]
@@ -97,6 +113,9 @@ defmodule OpenphoneRecorderWeb.Router do
 
       live "/summarizers/:id", SummarizerLive.Show, :show
       live "/summarizers/:id/show/edit", SummarizerLive.Show, :edit
+
+      live "/accounts/:id", AccountLive.Show, :show
+      live "/accounts/:id/show/edit", AccountLive.Show, :edit
     end
   end
 

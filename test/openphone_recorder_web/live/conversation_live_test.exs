@@ -10,7 +10,7 @@ defmodule OpenphoneRecorderWeb.ConversationLiveTest do
   end
 
   describe "Index" do
-    setup [:create_conversation]
+    setup [:register_and_log_in_user, :create_conversation]
 
     test "lists all conversations", %{conn: conn} do
       {:ok, _index_live, html} = live(conn, ~p"/conversations")
@@ -20,7 +20,7 @@ defmodule OpenphoneRecorderWeb.ConversationLiveTest do
   end
 
   describe "Show" do
-    setup [:create_conversation]
+    setup [:register_and_log_in_user, :create_conversation]
 
     test "displays conversation", %{conn: conn, conversation: conversation} do
       {:ok, _show_live, html} = live(conn, ~p"/conversations/#{conversation}")

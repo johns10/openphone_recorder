@@ -23,6 +23,16 @@ defmodule OpenphoneRecorder.UsersFixtures do
     user
   end
 
+  def administrator_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Map.merge(%{email: "johns10@gmail.com"})
+      |> valid_user_attributes()
+      |> OpenphoneRecorder.Users.register_user()
+
+    user
+  end
+
   def extract_user_token(fun) do
     {:ok, captured_email} = fun.(&"[TOKEN]#{&1}[TOKEN]")
     [_, token | _] = String.split(captured_email.text_body, "[TOKEN]")

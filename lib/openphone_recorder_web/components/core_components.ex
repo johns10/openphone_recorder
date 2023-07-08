@@ -56,7 +56,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       phx-remove={hide_modal(@id)}
       class="relative z-50 hidden"
     >
-      <div id={"#{@id}-bg"} class="fixed inset-0 bg-zinc-50/90 transition-opacity" aria-hidden="true" />
+      <div id={"#{@id}-bg"} class="fixed inset-0 transition-opacity" aria-hidden="true" />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -73,7 +73,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
               phx-window-keydown={hide_modal(@on_cancel, @id)}
               phx-key="escape"
               phx-click-away={hide_modal(@on_cancel, @id)}
-              class="hidden relative rounded-2xl bg-white p-14 shadow-lg shadow-zinc-700/10 ring-1 ring-zinc-700/10 transition"
+              class="hidden relative rounded-2xl bg-base-200 p-14 shadow-lg shadow-zinc-700/10 ring-1 ring-zinc-700/10 transition"
             >
               <div class="absolute top-6 right-5">
                 <button
@@ -340,13 +340,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <select
-        id={@id}
-        name={@name}
-        class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-zinc-500 focus:border-zinc-500 sm:text-sm"
-        multiple={@multiple}
-        {@rest}
-      >
+      <select id={@id} name={@name} class="select select-bordered w-full" multiple={@multiple} {@rest}>
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
@@ -484,39 +478,27 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       end
 
     ~H"""
-    <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-      <table class="mt-11 w-[40rem] sm:w-full">
-        <thead class="text-left text-[0.8125rem] leading-6 ">
+    <div>
+      <table class="table w-full my-4">
+        <thead>
           <tr>
-            <th :for={col <- @col} class="p-0 pb-4 pr-6 font-normal"><%= col[:label] %></th>
-            <th class="relative p-0 pb-4"><span class="sr-only"><%= gettext("Actions") %></span></th>
+            <th :for={col <- @col}><%= col[:label] %></th>
+            <th><span><%= gettext("Actions") %></span></th>
           </tr>
         </thead>
-        <tbody
-          id={@id}
-          phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 "
-        >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-zinc-50">
+        <tbody id={@id} phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}>
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="hover">
             <td
-              :for={{col, i} <- Enum.with_index(@col)}
+              :for={col <- @col}
               phx-click={@row_click && @row_click.(row)}
-              class={["relative p-0", @row_click && "hover:cursor-pointer"]}
+              class={@row_click && "hover:cursor-pointer"}
             >
-              <div class="block py-4 pr-6">
-                <span class="absolute -inset-y-px right-0 -left-4 group-hover:bg-zinc-50 sm:rounded-l-xl" />
-                <span class={["relative", i == 0 && "font-semibold "]}>
-                  <%= render_slot(col, @row_item.(row)) %>
-                </span>
-              </div>
+              <%= render_slot(col, @row_item.(row)) %>
             </td>
-            <td :if={@action != []} class="relative p-0 w-14">
-              <div class="relative whitespace-nowrap py-4 text-right text-sm font-medium">
-                <span class="absolute -inset-y-px -right-4 left-0 group-hover:bg-zinc-50 sm:rounded-r-xl" />
-                <span :for={action <- @action} class="relative ml-4 font-semibold leading-6  hover:">
-                  <%= render_slot(action, @row_item.(row)) %>
-                </span>
-              </div>
+            <td :if={@action != []}>
+              <span :for={action <- @action} class="mr-4 font-semibold">
+                <%= render_slot(action, @row_item.(row)) %>
+              </span>
             </td>
           </tr>
         </tbody>
@@ -602,9 +584,9 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     """
   end
 
-  attr(:user, OpenphoneRecorder.Users.User, required: true)
+  attr :user, OpenphoneRecorder.Users.User
 
-  def user_dropdown(assigns) do
+  def user_dropdown(%{user: %OpenphoneRecorder.Users.User{}} = assigns) do
     ~H"""
     <div class="dropdown dropdown-end pr-0 mr-0">
       <label tabindex="0" class="btn btn-ghost btn-sm text-[0.8125rem]">
@@ -613,6 +595,20 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
         <li><.link href={~p"/users/settings"}>Settings</.link></li>
         <li><.link href={~p"/users/log_out"} method="delete">Log Out</.link></li>
+      </ul>
+    </div>
+    """
+  end
+
+  def user_dropdown(assigns) do
+    ~H"""
+    <div class="dropdown dropdown-end pr-0 mr-0">
+      <label tabindex="0" class="btn btn-ghost btn-sm text-[0.8125rem]">
+        Sign in
+      </label>
+      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
+        <li><.link href={~p"/users/log_in"}>Log in</.link></li>
+        <li><.link href={~p"/users/register"} method="delete">Register</.link></li>
       </ul>
     </div>
     """

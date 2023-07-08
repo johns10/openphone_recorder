@@ -14,7 +14,7 @@ defmodule OpenphoneRecorderWeb.SummarizerLiveTest do
   end
 
   describe "Index" do
-    setup [:create_summarizer]
+    setup [:register_and_log_in_user, :create_summarizer]
 
     test "lists all summarizers", %{conn: conn, summarizer: summarizer} do
       {:ok, _index_live, html} = live(conn, ~p"/summarizers")
@@ -78,7 +78,7 @@ defmodule OpenphoneRecorderWeb.SummarizerLiveTest do
   end
 
   describe "Show" do
-    setup [:create_summarizer]
+    setup [:register_and_log_in_user, :create_summarizer]
 
     test "displays summarizer", %{conn: conn, summarizer: summarizer} do
       {:ok, _show_live, html} = live(conn, ~p"/summarizers/#{summarizer}")

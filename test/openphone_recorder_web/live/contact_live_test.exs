@@ -24,7 +24,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   end
 
   describe "Index" do
-    setup [:create_contact]
+    setup [:register_and_log_in_user, :create_contact]
 
     test "lists all contacts", %{conn: conn, contact: contact} do
       {:ok, _index_live, html} = live(conn, ~p"/contacts")
@@ -89,7 +89,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   end
 
   describe "Show" do
-    setup [:create_contact]
+    setup [:register_and_log_in_user, :create_contact]
 
     test "displays contact", %{conn: conn, contact: contact} do
       {:ok, _show_live, html} = live(conn, ~p"/contacts/#{contact}")

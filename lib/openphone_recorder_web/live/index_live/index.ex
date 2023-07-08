@@ -4,6 +4,8 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
   use Phoenix.LiveView,
     container: {:div, class: "h-full flex-grow flex flex-col overflow-hidden"}
 
+  on_mount {OpenphoneRecorderWeb.UserAuth, :mount_current_user}
+
   import OpenphoneRecorderWeb.IndexLive.Components
 
   alias OpenphoneRecorder.Conversations
@@ -17,9 +19,12 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
     {:ok,
      socket
+     |> assign(:render, true)
      |> stream(:conversations, conversations)
      |> stream(:statements, []), layout: {OpenphoneRecorderWeb.Layouts, :full_screen}}
   end
+
+  def mount(_params, _session, socket), do: {:ok, assign(socket, :render, false)}
 
   @impl true
   def handle_params(params, _url, socket) do

@@ -49,6 +49,11 @@ defmodule OpenphoneRecorderWeb.ConnCase do
     %{conn: log_in_user(conn, user), user: user}
   end
 
+  def register_and_log_in_administrator(%{conn: conn}) do
+    user = OpenphoneRecorder.UsersFixtures.administrator_fixture()
+    %{conn: log_in_user(conn, user), user: user}
+  end
+
   @doc """
   Logs the given `user` into the `conn`.
 

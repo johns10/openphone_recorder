@@ -155,7 +155,22 @@ defmodule OpenphoneRecorderWeb.UserAuth do
     else
       socket =
         socket
-        |> Phoenix.LiveView.put_flash(:error, "You must log in to access this page.")
+        |> Phoenix.LiveView.put_flash(:error, "You must be logged in to access this page.")
+        |> Phoenix.LiveView.redirect(to: ~p"/users/log_in")
+
+      {:halt, socket}
+    end
+  end
+
+  @administrator_emails ["johns10@gmail.com", "johns10davenport@gmail.com", "em23merr@gmail.com"]
+
+  def on_mount(:ensure_administrator, _params, _session, socket) do
+    if socket.assigns.current_user.email in @administrator_emails do
+      {:cont, socket}
+    else
+      socket =
+        socket
+        |> Phoenix.LiveView.put_flash(:error, "You must be an administrator to access this page.")
         |> Phoenix.LiveView.redirect(to: ~p"/users/log_in")
 
       {:halt, socket}
@@ -205,6 +220,18 @@ defmodule OpenphoneRecorderWeb.UserAuth do
     else
       conn
       |> put_flash(:error, "You must log in to access this page.")
+      |> maybe_store_return_to()
+      |> redirect(to: ~p"/users/log_in")
+      |> halt()
+    end
+  end
+
+  def require_administrative_user(conn, _opts) do
+    if conn.assigns[:current_user].email in @administrator_emails do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must be an administrator to access this page.")
       |> maybe_store_return_to()
       |> redirect(to: ~p"/users/log_in")
       |> halt()
