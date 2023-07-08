@@ -128,7 +128,14 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   end
 
   defp maybe_transcribe_voicemail(
-         %Call{voicemail: %Media{duration: duration, type: "audio/mpeg", url: url}},
+         %Call{
+           voicemail: %Media{
+             duration: duration,
+             type: "audio/mpeg",
+             url: url
+           },
+           created_at: created_at
+         },
          %Calls.Call{conversation_id: conversation_id} = call,
          participant
        )
@@ -143,7 +150,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
       %{
         content: text,
         occurred_at:
-          call.completed_at
+          (call.completed_at || created_at)
           |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond),
         type: :voicemail,
         conversation_id: conversation_id,
