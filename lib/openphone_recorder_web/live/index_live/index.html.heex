@@ -4,17 +4,39 @@
 
 <div class="flex flex-row flex-grow overflow-hidden">
   <div class="flex flex-col overflow-y-scroll min-w-fit">
-    <%= for {_id, conversation} <- @streams.conversations do %>
+    <%= for conversation <- @conversations do %>
       <.conversation conversation={conversation} />
     <% end %>
   </div>
   <div class="flex flex-col">
-    <%= for {_id, statement} <- @streams.statements do %>
-      <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
-        <div class="chat-bubble">
-          <%= statement.content %>
+    <div class="flex flex-row">
+      <.button phx-click="summarize" type="button" class="button">
+        Summarize
+      </.button>
+      <.button phx-click="zoom_out" type="button" class="button">
+        -
+      </.button>
+      <.button phx-click="zoom_in" type="button" class="button">
+        +
+      </.button>
+    </div>
+    <%= if @zoom_level == 0 do %>
+      <%= for statement <- @statements do %>
+        <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
+          <div class="chat-bubble">
+            <%= statement.content %>
+          </div>
         </div>
-      </div>
+      <% end %>
+    <% end %>
+    <%= if(@zoom_level == 1) do %>
+      <%= for summary <- @summaries do %>
+        <div class="chat">
+          <div class="chat-bubble">
+            <%= summary.content %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

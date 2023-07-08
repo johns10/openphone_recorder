@@ -67,12 +67,46 @@ defmodule OpenphoneRecorder.ConversationSummarizerTest do
         [summary_one, summary_two] =
           Summaries.list_summaries(preload: :statement_summaries) |> Enum.sort()
 
-        assert "John Smith and Jane Fonda discuss the best way to clean" <> _ =
-                 summary_one.content
+        assert "Jane Fonda and John Smith discussed the importance of" <> _ = summary_one.content
 
-        assert summary_one.title == "Cleaning a Bathtub with Magic"
-        assert Enum.count(summary_one.statement_summaries) == 18
-        assert Enum.count(summary_two.statement_summaries) == 22
+        assert summary_one.title == "Cleaning the Kitchen Sink"
+        assert Enum.count(summary_one.statement_summaries) == 22
+        assert Enum.count(summary_two.statement_summaries) == 18
+      end
+    end
+
+    test "so many tokens", attrs do
+      %{conversation: conversation, summarizer: summarizer} = attrs
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, forty_hours_ago()))
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      use_cassette("daily_conversation_summaries_over_token_limit",
+        match_requests_on: [:request_body]
+      ) do
+        ConversationSummarizer.create_daily_summaries(conversation, summarizer,
+          percentage_reduction: 0.25,
+          chunker: :daily,
+          max_tokens: 4096
+        )
+        |> IO.inspect()
       end
     end
   end
