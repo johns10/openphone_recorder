@@ -16,18 +16,20 @@ defmodule OpenphoneRecorder.Conversations do
     from(c in Conversation)
     |> join(:left, [c], p in assoc(c, :participants), as: :participants)
     |> join(:left, [participants: p], pn in assoc(p, :phone_number), as: :phone_number)
-    |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers), as: :contact_phone_numbers)
-    |> join(:left, [contact_phone_numbers: cpn], c in assoc(cpn, :contact), as: :contacts)
-    |> order_by(
-      [contacts: c, contact_phone_numbers: cpn],
-      [
-        asc: cpn.contact_id,
-        desc: fragment("CASE 'relationship' when 'primary' then 1 when 'internal' then 2 when 'external' then 3 end")
-      ]
+    |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers),
+      as: :contact_phone_numbers
+    )
+    |> join(:left, [phone_number: pn], c in assoc(pn, :contact), as: :contact)
+    |> order_by([phone_number: pn, contact: contact],
+      asc: contact.id,
+      desc:
+        fragment(
+          "CASE 'relationship' when 'primary' then 1 when 'internal' then 2 when 'external' then 3 end"
+        )
     )
     |> preload(
-      [participants: p, phone_number: pn, contacts: c],
-      participants: {p, phone_number: {pn, contacts: c}}
+      [participants: p, phone_number: pn, contact: c],
+      participants: {p, phone_number: {pn, contact: c}}
     )
     |> Repo.all()
   end
@@ -76,6 +78,7 @@ defmodule OpenphoneRecorder.Conversations do
   end
 
   defp maybe_preload(query, nil), do: query
+
   defp maybe_preload(query, preloads) do
     query
     |> preload(^preloads)
