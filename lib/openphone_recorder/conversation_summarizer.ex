@@ -1,6 +1,8 @@
 defmodule OpenphoneRecorder.ConversationSummarizer do
   require Logger
 
+  alias OpenphoneRecorder.ConversationSummarizers
+  alias OpenphoneRecorder.ConversationSummarizers.ConversationSummarizer
   alias OpenphoneRecorder.Summarizers.Summarizer
   alias OpenphoneRecorder.Statements
   alias OpenphoneRecorder.Statements.Statement
@@ -14,8 +16,11 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
   alias PgRanges.TsRange
 
   def create_daily_summaries(
-        %Conversation{} = conversation,
-        %Summarizer{} = summarizer,
+        %ConversationSummarizer{
+          id: conversation_summarizer_id,
+          conversation: %Conversation{} = conversation,
+          summarizer: %Summarizer{} = summarizer
+        },
         opts \\ []
       ) do
     Statements.list_statements(
@@ -34,16 +39,59 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
       first_statement = Enum.at(statements, 0)
       last_statement = Enum.at(statements, -1)
 
-      text = join_content(statements)
-      prompt = Chunker.prompt(:daily, text, opts)
+      IO.inspect(4096 - Chunker.prompt_count(:daily, []))
 
-      {:ok, text} =
-        create_completion(
-          model: "text-davinci-003",
-          prompt: prompt,
-          max_tokens: Tokens.max_text_output_count(opts),
-          temperature: 0
+      text =
+        statements
+        |> Chunker.apply(
+          chunkers: [:token_count],
+          max_tokens: Tokens.max_text_output_count(chunker: :daily)
         )
+        |> case do
+          [statements] ->
+            context = join_content(statements)
+            prompt = Chunker.prompt(:daily, context, opts)
+
+            {:ok, text} =
+              create_completion(
+                model: "text-davinci-003",
+                prompt: prompt,
+                max_tokens: Tokens.max_text_output_count(opts),
+                temperature: 0
+              )
+
+            text
+
+          chunked_statements ->
+            context =
+              Enum.map(chunked_statements, fn statements ->
+                context = join_content(statements)
+                prompt = Chunker.prompt(:token_count, context, opts)
+
+                {:ok, text} =
+                  create_completion(
+                    model: "text-davinci-003",
+                    prompt: prompt,
+                    max_tokens: Tokens.max_text_output_count(opts),
+                    temperature: 0
+                  )
+
+                text
+              end)
+              |> Enum.join("\n")
+
+            prompt = Chunker.prompt(:daily, context, opts)
+
+            {:ok, text} =
+              create_completion(
+                model: "text-davinci-003",
+                prompt: prompt,
+                max_tokens: Tokens.max_text_output_count(opts),
+                temperature: 0
+              )
+
+            text
+        end
 
       [title, summary] = String.split(text, "|")
 
@@ -60,12 +108,15 @@ defmodule OpenphoneRecorder.ConversationSummarizer do
         level: Summary.daily(),
         summarizer_id: summarizer.id,
         tsrange: range,
-        time_zome: Keyword.get(opts, :timezone, "Etc/UTC")
+        time_zome: Keyword.get(opts, :timezone, "Etc/UTC"),
+        conversation_summarizer_id: conversation_summarizer_id
       }
 
       Summaries.create_summary(summary_attrs)
       |> case do
         {:ok, summary} ->
+          Logger.info("Created summary #{summary.id}")
+
           statement_summaries =
             Enum.map(statements, fn statement ->
               {:ok, statement_summary} =
