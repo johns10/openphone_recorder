@@ -9,7 +9,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
   alias OpenphoneRecorder.Conversations
   alias OpenphoneRecorder.Statements
 
-  @default_preloads [:participants, [participants: [phone_number: :contacts]]]
+  @default_preloads [:participants, [participants: [phone_number: :contact]]]
 
   @impl true
   def mount(_params, _session, socket) do
