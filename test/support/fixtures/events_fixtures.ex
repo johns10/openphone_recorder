@@ -7,10 +7,15 @@ defmodule OpenphoneRecorder.EventsFixtures do
   @doc """
   Generate a event.
   """
+  import OpenphoneRecorder.AccountsFixtures
+
   def event_fixture(attrs \\ %{}) do
+    account_id = Map.get(attrs, :account_id, nil) || account_fixture().id
+
     {:ok, event} =
       attrs
       |> Enum.into(%{
+        account_id: account_id,
         payload: %{},
         processed: false
       })

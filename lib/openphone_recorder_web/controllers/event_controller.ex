@@ -12,9 +12,11 @@ defmodule OpenphoneRecorderWeb.EventController do
     render(conn, :index, events: events)
   end
 
-  def create(conn, event_params) do
+  def create(conn, %{"account_id" => account_id, "event" => event_params}) do
+    params = Map.put(event_params, "account_id", account_id)
+
     with {:ok, _signature} <- validate_request(conn),
-         {:ok, %Event{} = event} <- Events.create_event(event_params) do
+         {:ok, %Event{} = event} <- Events.create_event(params) do
       conn
       |> put_status(:created)
       |> render(:show, event: event)

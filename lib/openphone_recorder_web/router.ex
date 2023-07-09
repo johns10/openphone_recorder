@@ -34,7 +34,11 @@ defmodule OpenphoneRecorderWeb.Router do
   scope "/api", OpenphoneRecorderWeb do
     pipe_through :api
 
-    resources "/events", EventController, except: [:new, :edit]
+    post "/events/:account_id", EventController, :create
+    get "/events/:id", EventController, :show
+    get "/events", EventController, :index
+    put "/events/:id", EventController, :update
+    delete "/events/:id", EventController, :delete
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

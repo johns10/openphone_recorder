@@ -8,6 +8,7 @@ defmodule OpenphoneRecorder.EventsTest do
     alias OpenphoneRecorder.Events.Event
 
     import OpenphoneRecorder.EventsFixtures
+    import OpenphoneRecorder.AccountsFixtures
 
     @invalid_attrs %{payload: nil}
 
@@ -22,7 +23,7 @@ defmodule OpenphoneRecorder.EventsTest do
     end
 
     test "create_event/1 with valid data creates a event" do
-      valid_attrs = %{payload: %{}}
+      valid_attrs = %{payload: %{}, account_id: account_fixture().id}
 
       assert {:ok, %Event{} = event} = Events.create_event(valid_attrs)
       assert event.payload == %{}

@@ -18,7 +18,8 @@ defmodule OpenphoneRecorderWeb.EventJSON do
   defp data(%Event{} = event) do
     %{
       id: event.id,
-      payload: event.payload
+      payload: event.payload,
+      account_id: event.account_id
     }
   end
 end

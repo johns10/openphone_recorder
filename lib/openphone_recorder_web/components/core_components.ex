@@ -613,7 +613,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     """
   end
 
-  attr :user, OpenphoneRecorder.Users.User
+  attr :user, :any
 
   def user_dropdown(%{user: %OpenphoneRecorder.Users.User{}} = assigns) do
     ~H"""

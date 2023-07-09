@@ -85,7 +85,7 @@ defmodule OpenphoneRecorderWeb.AccountUserLive.FormComponent do
         {:noreply, assign(socket, :form_changeset, form_changeset)}
 
       {:user, {:error, %Ecto.Changeset{} = _user_changeset}} ->
-        Loger.warn("Failed to create user")
+        Logger.warn("Failed to create user")
         {:noreply, socket}
 
       e ->

@@ -3,6 +3,7 @@ defmodule OpenphoneRecorder.Accounts.Account do
   import Ecto.Changeset
   alias OpenphoneRecorder.AccountUsers.AccountUser
 
+  @primary_key {:id, :binary_id, autogenerate: true}
   schema "accounts" do
     field :name, :string
     field :plan, Ecto.Enum, values: [:free, :basic, :pro, :enterprise]

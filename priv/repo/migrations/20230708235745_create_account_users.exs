@@ -3,7 +3,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateAccountUsers do
 
   def change do
     create table(:account_users) do
-      add :account_id, references(:accounts, on_delete: :nothing)
+      add :account_id, references(:accounts, on_delete: :nothing, type: :binary_id)
       add :user_id, references(:users, on_delete: :nothing)
 
       timestamps()

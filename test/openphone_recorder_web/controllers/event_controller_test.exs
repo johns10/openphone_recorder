@@ -2,6 +2,7 @@ defmodule OpenphoneRecorderWeb.EventControllerTest do
   use OpenphoneRecorderWeb.ConnCase
 
   import OpenphoneRecorder.EventsFixtures
+  import OpenphoneRecorder.AccountsFixtures
 
   alias OpenphoneRecorder.Events.Event
 
@@ -42,10 +43,12 @@ defmodule OpenphoneRecorderWeb.EventControllerTest do
 
   describe "create event" do
     test "renders event when data is valid", %{conn: conn} do
+      account_id = account_fixture().id
+
       conn =
         conn
         |> sign_request(@create_attrs)
-        |> post(~p"/api/events", event: @create_attrs)
+        |> post(~p"/api/events/#{account_id}", event: @create_attrs)
 
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
@@ -53,7 +56,8 @@ defmodule OpenphoneRecorderWeb.EventControllerTest do
 
       assert %{
                "id" => ^id,
-               "payload" => %{}
+               "payload" => %{"key" => "Value"},
+               "account_id" => ^account_id
              } = json_response(conn, 200)["data"]
     end
 
@@ -99,9 +103,9 @@ defmodule OpenphoneRecorderWeb.EventControllerTest do
       conn = delete(conn, ~p"/api/events/#{event}")
       assert response(conn, 204)
 
-      assert_error_sent 404, fn ->
+      assert_error_sent(404, fn ->
         get(conn, ~p"/api/events/#{event}")
-      end
+      end)
     end
   end
 

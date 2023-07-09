@@ -7,7 +7,7 @@ defmodule OpenphoneRecorder.AccountUsers.AccountUser do
   schema "account_users" do
 
     belongs_to :user, User
-    belongs_to :account, Account
+    belongs_to :account, Account, type: :binary_id
 
     timestamps()
   end
