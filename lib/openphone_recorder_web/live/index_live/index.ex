@@ -61,8 +61,8 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
   end
 
   @impl true
-  def handle_info({_, {:account_picked, _}}, socket) do
-    {:noreply, push_patch(socket, to: "/home")}
+  def handle_info({_, {:account_picked, user_setting}}, socket) do
+    {:noreply, socket |> assign(:user_setting, user_setting)}
   end
 
   defp participant_sides([p1, p2 | tail]) do

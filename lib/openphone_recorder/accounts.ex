@@ -8,6 +8,21 @@ defmodule OpenphoneRecorder.Accounts do
 
   alias OpenphoneRecorder.Accounts.Account
 
+  def authorize(:get_account!, user, account_id) do
+    if user.email in OpenphoneRecorderWeb.UserAuth.administrator_emails() do
+      :ok
+    else
+      account_ids =
+        list_accounts(filters: [user_id: user.id])
+        |> Enum.map(& &1.id)
+
+      if account_id in account_ids, do: :ok, else: :error
+    end
+  end
+
+  def authorize(:update_user_setting, %{id: user_id}, %{user_id: user_id}), do: :ok
+  def authorize(:update_user_setting, _user, _user_setting), do: :error
+
   def list_accounts(opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])
     filters = Keyword.get(opts, :filters, [])

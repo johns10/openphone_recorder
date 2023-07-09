@@ -3,6 +3,7 @@ defmodule OpenphoneRecorderWeb.AccountLiveTest do
 
   import Phoenix.LiveViewTest
   import OpenphoneRecorder.AccountsFixtures
+  import OpenphoneRecorder.AccountUsersFixtures
 
   @create_attrs %{name: "some name", plan: :free}
   @update_attrs %{name: "some updated name", plan: :basic}
@@ -80,14 +81,22 @@ defmodule OpenphoneRecorderWeb.AccountLiveTest do
   describe "Show" do
     setup [:register_and_log_in_user, :create_account]
 
-    test "displays account", %{conn: conn, account: account} do
+    test "doesn't display account without access", %{conn: conn, account: account} do
+      {:error,
+       {:live_redirect, %{flash: %{"error" => "You cannot access this account"}, to: "/home"}}} =
+        live(conn, ~p"/accounts/#{account}")
+    end
+
+    test "displays account with access", %{conn: conn, account: account, user: user} do
+      account_user_fixture(%{user_id: user.id, account_id: account.id})
       {:ok, _show_live, html} = live(conn, ~p"/accounts/#{account}")
 
       assert html =~ "Show Account"
       assert html =~ account.name
     end
 
-    test "updates account within modal", %{conn: conn, account: account} do
+    test "updates account within modal", %{conn: conn, account: account, user: user} do
+      account_user_fixture(%{user_id: user.id, account_id: account.id})
       {:ok, show_live, _html} = live(conn, ~p"/accounts/#{account}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~

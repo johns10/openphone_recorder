@@ -20,14 +20,19 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
     changeset = UserSettings.change_user_setting(user_setting)
 
     account_options =
-      Accounts.list_accounts(filters: [user_id: user.id]) |> Enum.map(&{&1.name, &1.id})
+      Accounts.list_accounts(filters: [user_id: user.id])
+      |> Enum.map(&{&1.name, &1.id})
 
-    accounts =
-      {:ok,
-       socket
-       |> assign(assigns)
-       |> assign(:account_options, account_options)
-       |> assign_form(changeset)}
+    options =
+      if user_setting.selected_account_id,
+        do: account_options,
+        else: [{"None", nil} | account_options]
+
+    {:ok,
+     socket
+     |> assign(assigns)
+     |> assign(:account_options, options)
+     |> assign_form(changeset)}
   end
 
   @impl true

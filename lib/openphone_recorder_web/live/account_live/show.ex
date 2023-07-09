@@ -13,10 +13,21 @@ defmodule OpenphoneRecorderWeb.AccountLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:account, Accounts.get_account!(id, preloads: @preloads))}
+    account = Accounts.get_account!(id, preloads: @preloads)
+
+    case Bodyguard.permit(Accounts, :get_account!, socket.assigns.current_user, id) do
+      :ok ->
+        {:noreply,
+         socket
+         |> assign(:page_title, page_title(socket.assigns.live_action))
+         |> assign(:account, account)}
+
+      {:error, _} ->
+        {:noreply,
+         socket
+         |> push_patch(to: ~p"/home")
+         |> put_flash(:error, "You cannot access this account")}
+    end
   end
 
   @impl true
@@ -24,7 +35,7 @@ defmodule OpenphoneRecorderWeb.AccountLive.Show do
     account_user = AccountUsers.get_account_user!(id)
     {:ok, _} = AccountUsers.delete_account_user(account_user)
     account = socket.assigns.account
-    account_users = account.account_users |> Enum.reject(& &1.id == account_user.id)
+    account_users = account.account_users |> Enum.reject(&(&1.id == account_user.id))
     account = Map.put(account, :account_users, account_users)
 
     {:noreply, assign(socket, :account, account)}

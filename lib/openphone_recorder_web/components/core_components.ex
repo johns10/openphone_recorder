@@ -392,7 +392,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     <select
       id={@id}
       name={@name}
-      class={["select w-full", @errors != [] && "input-error", @class]}
+      class={["select select-bordered w-full", @errors != [] && "input-error", @class]}
       multiple={@multiple}
       {@rest}
     >
