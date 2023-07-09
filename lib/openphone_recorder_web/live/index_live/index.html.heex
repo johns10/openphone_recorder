@@ -16,6 +16,14 @@
     </div>
     <div class="flex flex-col overflow-y-none flex-auto">
       <.user_dropdown user={@current_user} />
+      <.live_component
+        module={OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent}
+        id="account-picker"
+        account_id={@user_setting.selected_account_id}
+        user={@current_user}
+        user_setting={@user_setting}
+        class="px-2"
+      />
     </div>
   </div>
 <% else %>

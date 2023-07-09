@@ -5,7 +5,6 @@ defmodule OpenphoneRecorder.AccountUsers.AccountUser do
   alias OpenphoneRecorder.Accounts.Account
 
   schema "account_users" do
-
     belongs_to :user, User
     belongs_to :account, Account, type: :binary_id
 

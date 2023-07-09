@@ -286,7 +286,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
   attr(:type, :string,
     default: "text",
     values: ~w(checkbox color date datetime-local email file hidden month number password
-               range radio search select tel text textarea time url week raw_input)
+               range radio search select tel text textarea time url week raw_input raw_select)
   )
 
   attr(:field, Phoenix.HTML.FormField,
@@ -384,6 +384,21 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       ]}
       {@rest}
     />
+    """
+  end
+
+  def input(%{type: "raw_select"} = assigns) do
+    ~H"""
+    <select
+      id={@id}
+      name={@name}
+      class={["select w-full", @errors != [] && "input-error", @class]}
+      multiple={@multiple}
+      {@rest}
+    >
+      <option :if={@prompt} value=""><%= @prompt %></option>
+      <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
+    </select>
     """
   end
 

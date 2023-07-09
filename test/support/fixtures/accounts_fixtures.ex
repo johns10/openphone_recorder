@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.AccountsFixtures do
     {:ok, account} =
       attrs
       |> Enum.into(%{
-        name: "some name",
+        name: Faker.Company.name(),
         plan: :free
       })
       |> OpenphoneRecorder.Accounts.create_account()

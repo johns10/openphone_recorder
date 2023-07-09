@@ -60,6 +60,11 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
     |> assign(:conversation, nil)
   end
 
+  @impl true
+  def handle_info({_, {:account_picked, _}}, socket) do
+    {:noreply, push_patch(socket, to: "/home")}
+  end
+
   defp participant_sides([p1, p2 | tail]) do
     [
       {atomize(p1.id), "chat-start"},

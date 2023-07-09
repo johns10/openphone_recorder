@@ -162,6 +162,18 @@ defmodule OpenphoneRecorderWeb.UserAuth do
     end
   end
 
+  def on_mount(:mount_user_setting, _params, _session, socket) do
+    if socket.assigns.current_user do
+      user_setting =
+        %{user_id: socket.assigns.current_user.id}
+        |> OpenphoneRecorder.UserSettings.get_or_insert_user_setting!()
+
+      {:cont, Phoenix.Component.assign(socket, :user_setting, user_setting)}
+    else
+      {:halt, socket}
+    end
+  end
+
   @administrator_emails ["johns10@gmail.com", "johns10davenport@gmail.com", "em23merr@gmail.com"]
 
   def on_mount(:ensure_administrator, _params, _session, socket) do

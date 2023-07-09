@@ -14,6 +14,9 @@ defmodule OpenphoneRecorderWeb.ConnCase do
   by setting `use OpenphoneRecorderWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
+  alias OpenphoneRecorder.AccountUsersFixtures
+  alias OpenphoneRecorder.AccountsFixtures
+  alias OpenphoneRecorder.UserSettingsFixtures
 
   use ExUnit.CaseTemplate
 
@@ -65,5 +68,12 @@ defmodule OpenphoneRecorderWeb.ConnCase do
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
     |> Plug.Conn.put_session(:user_token, token)
+  end
+
+  def user_setup(%{user: user}) do
+    account = AccountsFixtures.account_fixture()
+    AccountUsersFixtures.account_user_fixture(%{user_id: user.id, account_id: account.id})
+    user_setting = UserSettingsFixtures.user_setting_fixture(%{user_id: user.id})
+    %{account: account, user_setting: user_setting}
   end
 end

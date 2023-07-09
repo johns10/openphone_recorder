@@ -10,8 +10,10 @@ defmodule OpenphoneRecorder.Accounts do
 
   def list_accounts(opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])
+    filters = Keyword.get(opts, :filters, [])
 
     Account
+    |> filter_by_user_id(filters[:user_id])
     |> preload(^preloads)
     |> Repo.all()
   end
@@ -22,6 +24,14 @@ defmodule OpenphoneRecorder.Accounts do
     Account
     |> preload(^preloads)
     |> Repo.get!(id)
+  end
+
+  defp filter_by_user_id(query, nil), do: query
+
+  defp filter_by_user_id(query, user_id) do
+    query
+    |> join(:left, [a], user_accounts in assoc(a, :account_users), as: :au)
+    |> where([au: au], au.user_id == ^user_id)
   end
 
   def create_account(attrs \\ %{}) do

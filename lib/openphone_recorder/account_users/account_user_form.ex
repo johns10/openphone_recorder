@@ -4,7 +4,7 @@ defmodule OpenphoneRecorder.AccountUsers.AccountUserForm do
 
   embedded_schema do
     field :email, :string
-    field :account_id, :id
+    field :account_id, :binary_id
 
     timestamps()
   end

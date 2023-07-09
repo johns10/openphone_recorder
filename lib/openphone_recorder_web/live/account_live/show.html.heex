@@ -12,6 +12,8 @@
   <:item title="Openphone Webhook URL"><%= url(~p"/api/events/#{@account.id}") %></:item>
 </.list>
 
+<.header>Account Users</.header>
+
 <.table class="!mb-0" id="account_users" rows={@account.account_users}>
   <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
   <:action :let={account_user}>
