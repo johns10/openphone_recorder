@@ -128,6 +128,8 @@ defmodule OpenphoneRecorderWeb.Router do
       on_mount: [{OpenphoneRecorderWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
+      live "/users/invitation/:token", UserInvitationLive, :edit
+      live "/users/invitation", UserInvitationLive, :new
     end
   end
 end

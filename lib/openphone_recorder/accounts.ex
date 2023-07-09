@@ -8,11 +8,21 @@ defmodule OpenphoneRecorder.Accounts do
 
   alias OpenphoneRecorder.Accounts.Account
 
-  def list_accounts do
-    Repo.all(Account)
+  def list_accounts(opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Account
+    |> preload(^preloads)
+    |> Repo.all()
   end
 
-  def get_account!(id), do: Repo.get!(Account, id)
+  def get_account!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Account
+    |> preload(^preloads)
+    |> Repo.get!(id)
+  end
 
   def create_account(attrs \\ %{}) do
     %Account{}

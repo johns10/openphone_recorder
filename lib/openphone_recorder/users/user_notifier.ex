@@ -38,6 +38,26 @@ defmodule OpenphoneRecorder.Users.UserNotifier do
   end
 
   @doc """
+  Deliver instructions to accept invitation.
+  """
+  def deliver_invitation_instructions(user, url) do
+    deliver(user.email, "Invitation instructions", """
+
+    ==============================
+
+    Hi #{user.email},
+
+    You've been invited to join SME Interviews.
+
+    You can accept the invitation by visiting the URL below:
+
+    #{url}
+
+    ==============================
+    """)
+  end
+
+  @doc """
   Deliver instructions to reset a user password.
   """
   def deliver_reset_password_instructions(user, url) do

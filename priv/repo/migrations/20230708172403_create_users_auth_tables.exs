@@ -8,6 +8,7 @@ defmodule OpenphoneRecorder.Repo.Migrations.CreateUsersAuthTables do
       add :email, :citext, null: false
       add :hashed_password, :string, null: false
       add :confirmed_at, :naive_datetime
+      add :invited_by_user_id, references(:users, on_delete: :nilify_all)
       timestamps()
     end
 

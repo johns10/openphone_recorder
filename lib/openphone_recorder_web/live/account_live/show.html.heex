@@ -1,6 +1,5 @@
 <.header>
-  Account <%= @account.id %>
-  <:subtitle>This is a account record from your database.</:subtitle>
+  <%= @account.plan |> Atom.to_string() |> String.capitalize() %> Account <%= @account.name %>
   <:actions>
     <.link patch={~p"/accounts/#{@account}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit account</.button>
@@ -8,10 +7,25 @@
   </:actions>
 </.header>
 
-<.list>
-  <:item title="Name"><%= @account.name %></:item>
-  <:item title="Plan"><%= @account.plan %></:item>
-</.list>
+  <.table
+    class="!mb-0"
+    id="account_users"
+    rows={@account.account_users}
+  >
+    <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
+    <:action :let={account_user}>
+      <.link to="#" phx_click="delete-account-user" phx_value_id={account_user.id}>Remove</.link>
+    </:action>
+  </.table>
+
+  <.live_component
+    module={OpenphoneRecorderWeb.AccountUserLive.FormComponent}
+    id="account-user-form"
+    account_id={@account.id}
+    patch={~p"/accounts/#{@account}"}
+    current_user={@current_user}
+    account_user={%OpenphoneRecorder.AccountUsers.AccountUser{}}
+  />
 
 <.back navigate={~p"/accounts"}>Back to accounts</.back>
 

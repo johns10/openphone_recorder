@@ -256,8 +256,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-lg bg-zinc-900 hover:bg-zinc-700 py-2 px-3",
-        "text-sm font-semibold leading-6 text-white active:text-white/80",
+        "btn phx-submit-loading:opacity-75",
         @class
       ]}
       {@rest}
@@ -287,7 +286,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
   attr(:type, :string,
     default: "text",
     values: ~w(checkbox color date datetime-local email file hidden month number password
-               range radio search select tel text textarea time url week)
+               range radio search select tel text textarea time url week raw_input)
   )
 
   attr(:field, Phoenix.HTML.FormField,
@@ -297,6 +296,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
   attr(:errors, :list, default: [])
   attr(:checked, :boolean, doc: "the checked flag for checkbox inputs")
   attr(:prompt, :string, default: nil, doc: "the prompt for select inputs")
+  attr(:class, :string, default: nil)
   attr(:options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2")
   attr(:multiple, :boolean, default: false, doc: "the multiple flag for select inputs")
   attr(:rest, :global, include: ~w(autocomplete cols disabled form max maxlength min minlength
@@ -326,7 +326,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-zinc-300  focus:ring-zinc-900"
+          class="rounded border-zinc-300 focus:ring-zinc-900"
           {@rest}
         />
         <%= @label %>
@@ -367,6 +367,34 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
+    """
+  end
+
+  def input(%{type: "raw_input"} = assigns) do
+    ~H"""
+    <input
+      type={@type}
+      name={@name}
+      id={@id || @name}
+      value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+      class={[
+        "input input-bordered w-full",
+        @errors != [] && "input-error",
+        @class
+      ]}
+      {@rest}
+    />
+    """
+  end
+
+  def input(%{type: "hidden"} = assigns) do
+    ~H"""
+    <input
+      type={@type}
+      name={@name}
+      id={@id || @name}
+      value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+    />
     """
   end
 
@@ -456,6 +484,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
       </.table>
   """
   attr(:id, :string, required: true)
+  attr(:class, :string, default: nil)
   attr(:rows, :list, required: true)
   attr(:row_id, :any, default: nil, doc: "the function for generating the row id")
   attr(:row_click, :any, default: nil, doc: "the function for handling phx-click on each row")
@@ -479,7 +508,7 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
 
     ~H"""
     <div>
-      <table class="table w-full my-4">
+      <table class={["table w-full my-4", @class]}>
         <thead>
           <tr>
             <th :for={col <- @col}><%= col[:label] %></th>

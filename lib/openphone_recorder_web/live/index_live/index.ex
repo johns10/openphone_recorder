@@ -24,8 +24,6 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
      |> stream(:statements, []), layout: {OpenphoneRecorderWeb.Layouts, :full_screen}}
   end
 
-  def mount(_params, _session, socket), do: {:ok, assign(socket, :render, false)}
-
   @impl true
   def handle_params(params, _url, socket) do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}

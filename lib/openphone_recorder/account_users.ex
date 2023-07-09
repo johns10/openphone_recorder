@@ -3,6 +3,7 @@ defmodule OpenphoneRecorder.AccountUsers do
   alias OpenphoneRecorder.Repo
 
   alias OpenphoneRecorder.AccountUsers.AccountUser
+  alias OpenphoneRecorder.AccountUsers.AccountUserForm
 
   def list_account_users do
     Repo.all(AccountUser)
@@ -14,6 +15,16 @@ defmodule OpenphoneRecorder.AccountUsers do
     %AccountUser{}
     |> AccountUser.changeset(attrs)
     |> Repo.insert()
+  end
+
+  def create_preloaded_account_user(attrs \\ %{}) do
+    %AccountUser{}
+    |> AccountUser.changeset(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok, account_user} -> {:ok, Repo.preload(account_user, :user)}
+      error -> error
+    end
   end
 
   def update_account_user(%AccountUser{} = account_user, attrs) do
@@ -28,5 +39,15 @@ defmodule OpenphoneRecorder.AccountUsers do
 
   def change_account_user(%AccountUser{} = account_user, attrs \\ %{}) do
     AccountUser.changeset(account_user, attrs)
+  end
+
+  def create_account_user_form(attrs \\ %{}) do
+    %AccountUserForm{}
+    |> AccountUserForm.changeset(attrs)
+    |> Ecto.Changeset.apply_action(:insert)
+  end
+
+  def change_account_user_form(%AccountUserForm{} = account_user_form, attrs \\ %{}) do
+    AccountUserForm.changeset(account_user_form, attrs)
   end
 end

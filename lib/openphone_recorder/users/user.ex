@@ -7,6 +7,7 @@ defmodule OpenphoneRecorder.Users.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    belongs_to :invited_by_user, __MODULE__
 
     timestamps()
   end
@@ -38,6 +39,23 @@ defmodule OpenphoneRecorder.Users.User do
     user
     |> cast(attrs, [:email, :password])
     |> validate_email(opts)
+    |> validate_password(opts)
+  end
+
+  def invitation_changeset(user, attrs, opts \\[]) do
+    user
+    |> cast(attrs, [:email, :invited_by_user_id, :password])
+    |> validate_password(opts)
+    |> validate_email(opts)
+    |> validate_required(:invited_by_user_id)
+    |> foreign_key_constraint(:invited_by_user_id)
+  end
+
+  def accept_invitation_changeset(user, attrs, opts \\ []) do
+    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+    user
+    |> cast(attrs, [:password])
+    |> put_change(:confirmed_at, now)
     |> validate_password(opts)
   end
 
