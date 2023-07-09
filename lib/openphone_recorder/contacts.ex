@@ -4,8 +4,22 @@ defmodule OpenphoneRecorder.Contacts do
 
   alias OpenphoneRecorder.Contacts.Contact
 
-  def list_contacts do
-    Repo.all(Contact)
+  def authorize(:get_contact!, user, %{account_id: account_id}) do
+    account_ids =
+      OpenphoneRecorder.Accounts.list_accounts(filters: [user_id: user.id])
+      |> Enum.map(& &1.id)
+
+    if account_id in account_ids, do: :ok, else: :error
+  end
+
+  def authorize(:get_contact!, _user, _contact), do: :error
+
+  def list_contacts(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+
+    Contact
+    |> filter_by_account_id(filters[:account_id])
+    |> Repo.all()
   end
 
   def get_contact!(id, opts \\ []) do
@@ -13,6 +27,13 @@ defmodule OpenphoneRecorder.Contacts do
 
     from(c in Contact, preload: ^preload)
     |> Repo.get!(id)
+  end
+
+  defp filter_by_account_id(query, nil), do: query
+
+  defp filter_by_account_id(query, account_id) do
+    query
+    |> where([c], c.account_id == ^account_id)
   end
 
   def create_contact(attrs \\ %{}) do

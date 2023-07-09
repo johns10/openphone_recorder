@@ -85,6 +85,8 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "ContactUpdated" do
     test "creates a contact when it doesn't exist" do
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+
       assert {:ok,
               %Contact{
                 phone_numbers: [
@@ -95,13 +97,15 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
               }} =
                OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
                |> Events.cast_event()
-               |> Projector.apply()
+               |> Projector.apply(account.id)
     end
 
     test "adds a phone number to an existing contact" do
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+
       OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
       |> Events.cast_event()
-      |> Projector.apply()
+      |> Projector.apply(account.id)
 
       assert {:ok,
               %Contact{
@@ -113,7 +117,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
               }} =
                OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
                |> Events.cast_event()
-               |> Projector.apply()
+               |> Projector.apply(account.id)
     end
   end
 end

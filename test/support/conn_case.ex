@@ -73,7 +73,13 @@ defmodule OpenphoneRecorderWeb.ConnCase do
   def user_setup(%{user: user}) do
     account = AccountsFixtures.account_fixture()
     AccountUsersFixtures.account_user_fixture(%{user_id: user.id, account_id: account.id})
-    user_setting = UserSettingsFixtures.user_setting_fixture(%{user_id: user.id})
+
+    user_setting =
+      UserSettingsFixtures.user_setting_fixture(%{
+        user_id: user.id,
+        selected_account_id: account.id
+      })
+
     %{account: account, user_setting: user_setting}
   end
 end

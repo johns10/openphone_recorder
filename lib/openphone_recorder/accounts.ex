@@ -2,6 +2,7 @@ defmodule OpenphoneRecorder.Accounts do
   @moduledoc """
   The Accounts context.
   """
+  @behaviour Bodyguard.Policy
 
   import Ecto.Query, warn: false
   alias OpenphoneRecorder.Repo
@@ -19,9 +20,6 @@ defmodule OpenphoneRecorder.Accounts do
       if account_id in account_ids, do: :ok, else: :error
     end
   end
-
-  def authorize(:update_user_setting, %{id: user_id}, %{user_id: user_id}), do: :ok
-  def authorize(:update_user_setting, _user, _user_setting), do: :error
 
   def list_accounts(opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])

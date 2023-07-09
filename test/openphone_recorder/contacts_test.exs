@@ -22,6 +22,7 @@ defmodule OpenphoneRecorder.ContactsTest do
 
     test "create_contact/1 with valid data creates a contact" do
       valid_attrs = %{
+        account_id: OpenphoneRecorder.AccountsFixtures.account_fixture().id,
         external_id: "some external_id",
         first_name: "some first_name",
         last_name: "some last_name",
@@ -41,6 +42,7 @@ defmodule OpenphoneRecorder.ContactsTest do
 
     test "upsert_contact/2 doesn't overwrite the record" do
       create_attrs = %{
+        account_id: OpenphoneRecorder.AccountsFixtures.account_fixture().id,
         external_id: "some external_id",
         first_name: "some first_name",
         last_name: "some last_name",
@@ -48,6 +50,7 @@ defmodule OpenphoneRecorder.ContactsTest do
       }
 
       update_attrs = %{
+        account_id: OpenphoneRecorder.AccountsFixtures.account_fixture().id,
         external_id: "some external_id",
         first_name: "some updated first_name",
         last_name: "some updated last_name",

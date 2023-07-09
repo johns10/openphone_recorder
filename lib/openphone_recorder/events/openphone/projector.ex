@@ -69,8 +69,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     end
   end
 
-  def apply(%ContactUpdated{data: contact}) do
-    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact),
+  def apply(%ContactUpdated{data: contact}, account_id) do
+    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact, account_id),
          {:ok, contact} <- Contacts.upsert_contact(contact_attrs),
          phone_number_attrs <- phone_number_attrs(contact_attrs.phone_numbers, contact),
          {:ok, %{phone_numbers: phone_numbers}} <-

@@ -11,6 +11,7 @@ defmodule OpenphoneRecorder.ContactsFixtures do
     {:ok, contact} =
       attrs
       |> Enum.into(%{
+        account_id: OpenphoneRecorder.AccountsFixtures.account_fixture().id,
         external_id: Ecto.UUID.generate(),
         first_name: Faker.Person.En.first_name(),
         last_name: Faker.Person.En.last_name(),

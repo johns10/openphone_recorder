@@ -18,19 +18,19 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   }
   @invalid_attrs %{external_id: nil, first_name: nil, last_name: nil, source: nil}
 
-  defp create_contact(_) do
-    contact = contact_fixture()
+  defp create_contact(%{account: account}) do
+    contact = contact_fixture(%{account_id: account.id})
     %{contact: contact}
   end
 
   describe "Index" do
-    setup [:register_and_log_in_user, :create_contact]
+    setup [:register_and_log_in_user, :user_setup, :create_contact]
 
     test "lists all contacts", %{conn: conn, contact: contact} do
       {:ok, _index_live, html} = live(conn, ~p"/contacts")
 
       assert html =~ "Listing Contacts"
-      assert html =~ contact.external_id
+      assert html =~ contact.first_name
     end
 
     test "saves new contact", %{conn: conn} do
@@ -89,7 +89,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   end
 
   describe "Show" do
-    setup [:register_and_log_in_user, :create_contact]
+    setup [:register_and_log_in_user, :user_setup, :create_contact]
 
     test "displays contact", %{conn: conn, contact: contact} do
       {:ok, _show_live, html} = live(conn, ~p"/contacts/#{contact}")

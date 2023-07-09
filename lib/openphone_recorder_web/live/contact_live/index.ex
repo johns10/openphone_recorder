@@ -6,7 +6,13 @@ defmodule OpenphoneRecorderWeb.ContactLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :contacts, Contacts.list_contacts())}
+    contacts =
+      case socket.assigns.user_setting.selected_account_id do
+        nil -> []
+        account_id -> Contacts.list_contacts(filters: [account_id: account_id])
+      end
+
+    {:ok, stream(socket, :contacts, contacts)}
   end
 
   @impl true
@@ -15,9 +21,19 @@ defmodule OpenphoneRecorderWeb.ContactLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Contact")
-    |> assign(:contact, Contacts.get_contact!(id))
+    contact = Contacts.get_contact!(id)
+
+    case Bodyguard.permit(Contacts, :get_contact!, socket.assigns.current_user, contact) do
+      :ok ->
+        socket
+        |> assign(:page_title, "Edit Contact")
+        |> assign(:contact, contact)
+
+      :error ->
+        socket
+        |> push_patch(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this account")
+    end
   end
 
   defp apply_action(socket, :new, _params) do

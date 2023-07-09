@@ -2,6 +2,7 @@ defmodule OpenphoneRecorder.Contacts.Contact do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
+  alias OpenphoneRecorder.Accounts.Account
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "contacts" do
@@ -16,6 +17,8 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     has_many :contact_phone_numbers, ContactPhoneNumber
     has_many :phone_numbers, through: [:contact_phone_numbers, :phone_number]
 
+    belongs_to :account, Account, type: :binary_id
+
     timestamps(type: :naive_datetime_usec)
   end
 
@@ -29,10 +32,12 @@ defmodule OpenphoneRecorder.Contacts.Contact do
       :role,
       :external_id,
       :source,
-      :relationship
+      :relationship,
+      :account_id
     ])
     |> cast_id()
-    |> validate_required([:source])
+    |> validate_required([:source, :account_id])
+    |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :contacts_pkey)
   end
 
@@ -55,12 +60,15 @@ defmodule OpenphoneRecorder.Contacts.Contact do
     end
   end
 
-  def cast_openphone_contact(%OpenphoneRecorder.Events.Openphone.Data.Contact{
-        id: external_id,
-        first_name: first_name,
-        last_name: last_name,
-        fields: fields
-      }) do
+  def cast_openphone_contact(
+        %OpenphoneRecorder.Events.Openphone.Data.Contact{
+          id: external_id,
+          first_name: first_name,
+          last_name: last_name,
+          fields: fields
+        },
+        account_id
+      ) do
     phone_numbers = cast_phone_numbers(fields["phone"])
 
     %{
@@ -68,7 +76,8 @@ defmodule OpenphoneRecorder.Contacts.Contact do
       external_id: external_id,
       source: :openphone,
       first_name: first_name,
-      last_name: last_name
+      last_name: last_name,
+      account_id: account_id
     }
   end
 

@@ -174,9 +174,6 @@ defmodule OpenphoneRecorderWeb.UserAuth do
     end
   end
 
-  def administrator_emails(),
-    do: ["johns10@gmail.com", "johns10davenport@gmail.com", "em23merr@gmail.com"]
-
   def on_mount(:ensure_administrator, _params, _session, socket) do
     if socket.assigns.current_user.email in administrator_emails() do
       {:cont, socket}
@@ -199,6 +196,9 @@ defmodule OpenphoneRecorderWeb.UserAuth do
       {:cont, socket}
     end
   end
+
+  def administrator_emails(),
+    do: ["johns10@gmail.com", "johns10davenport@gmail.com", "em23merr@gmail.com"]
 
   defp mount_current_user(session, socket) do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
@@ -240,7 +240,7 @@ defmodule OpenphoneRecorderWeb.UserAuth do
   end
 
   def require_administrative_user(conn, _opts) do
-    if conn.assigns[:current_user].email in administrator_emails do
+    if conn.assigns[:current_user].email in administrator_emails() do
       conn
     else
       conn

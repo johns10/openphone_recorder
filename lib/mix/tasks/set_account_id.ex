@@ -1,6 +1,7 @@
-defmodule Mix.Tasks.SetEventsAccountId do
+defmodule Mix.Tasks.SetAccountId do
   use Mix.Task
   alias OpenphoneRecorder.Events
+  alias OpenphoneRecorder.Contacts
   alias OpenphoneRecorder.Accounts
 
   def run([account_id]) do
@@ -10,6 +11,11 @@ defmodule Mix.Tasks.SetEventsAccountId do
     Events.list_events()
     |> Enum.each(fn event ->
       Events.update_event(event, %{account_id: account_id})
+    end)
+
+    Contacts.list_contacts()
+    |> Enum.each(fn contact ->
+      Contacts.update_contact(contact, %{account_id: account_id})
     end)
   end
 end
