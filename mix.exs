@@ -55,6 +55,7 @@ defmodule OpenphoneRecorder.MixProject do
       {:openai, "~> 0.5.2"},
       {:decimal, "~> 2.1.1"},
       {:timex, "~> 3.0"},
+      {:bodyguard, "~> 2.4"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
