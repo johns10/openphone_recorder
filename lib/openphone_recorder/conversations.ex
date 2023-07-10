@@ -15,10 +15,12 @@ defmodule OpenphoneRecorder.Conversations do
   def authorize(:get_conversation!, _user, _conversation), do: :error
 
   def list_conversations(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
     preloads = Keyword.get(opts, :preloads, nil)
 
     Conversation
     |> maybe_preload(preloads)
+    |> filter_by_account_id(filters[:account_id])
     |> Repo.all()
   end
 
@@ -50,6 +52,13 @@ defmodule OpenphoneRecorder.Conversations do
     Conversation
     |> maybe_preload(preloads)
     |> Repo.get!(id)
+  end
+
+  defp filter_by_account_id(query, nil), do: query
+
+  defp filter_by_account_id(query, account_id) do
+    query
+    |> where([c], c.account_id == ^account_id)
   end
 
   def create_conversation(attrs \\ %{}) do
