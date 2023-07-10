@@ -12,6 +12,7 @@ defmodule OpenphoneRecorder.ConversationsTest do
     import OpenphoneRecorder.PhoneNumbersFixtures
     import OpenphoneRecorder.ContactsFixtures
     import OpenphoneRecorder.ContactPhoneNumbersFixtures
+    import OpenphoneRecorder.AccountsFixtures
 
     @invalid_attrs %{}
 
@@ -38,7 +39,8 @@ defmodule OpenphoneRecorder.ConversationsTest do
     end
 
     test "list_conversation_summary orders participants with contacts first" do
-      con = conversation_fixture()
+      account = account_fixture()
+      con = conversation_fixture(%{account_id: account.id})
       pn2 = phone_number_fixture()
       pn = phone_number_fixture()
       participant_fixture(%{conversation_id: con.id, phone_number_id: pn.id})
@@ -48,7 +50,7 @@ defmodule OpenphoneRecorder.ConversationsTest do
       pn_id = pn.id
       pn2_id = pn2.id
 
-      [conversation] = Conversations.list_conversation_summary()
+      [conversation] = Conversations.list_conversation_summary(account.id)
 
       assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
                conversation.participants

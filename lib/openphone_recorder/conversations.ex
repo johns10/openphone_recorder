@@ -24,7 +24,7 @@ defmodule OpenphoneRecorder.Conversations do
     |> Repo.all()
   end
 
-  def list_conversation_summary do
+  def list_conversation_summary(account_id) do
     from(c in Conversation)
     |> join(:left, [c], p in assoc(c, :participants), as: :participants)
     |> join(:left, [participants: p], pn in assoc(p, :phone_number), as: :phone_number)
@@ -32,6 +32,7 @@ defmodule OpenphoneRecorder.Conversations do
       as: :contact_phone_numbers
     )
     |> join(:left, [phone_number: pn], c in assoc(pn, :contact), as: :contact)
+    |> where([c], c.account_id == ^account_id)
     |> order_by([phone_number: pn, contact: contact],
       asc: contact.id,
       desc:
@@ -86,6 +87,12 @@ defmodule OpenphoneRecorder.Conversations do
       success ->
         success
     end
+  end
+
+  def update_conversation(%Conversation{} = conversation, attrs) do
+    conversation
+    |> Conversation.changeset(attrs)
+    |> Repo.update()
   end
 
   def delete_conversation(%Conversation{} = conversation) do

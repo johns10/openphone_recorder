@@ -15,7 +15,9 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    conversations = Conversations.list_conversation_summary()
+    conversations =
+      socket.assigns.user_setting.selected_account_id
+      |> Conversations.list_conversation_summary()
 
     {:ok,
      socket
@@ -62,7 +64,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
   @impl true
   def handle_info({_, {:account_picked, user_setting}}, socket) do
-    {:noreply, socket |> assign(:user_setting, user_setting)}
+    {:noreply, socket |> assign(:user_setting, user_setting) |> push_patch(to: ~p"/home")}
   end
 
   defp participant_sides([p1, p2 | tail]) do
