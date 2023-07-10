@@ -1,7 +1,7 @@
 defmodule OpenphoneRecorder.Contacts do
+  @behaviour Bodyguard.Policy
   import Ecto.Query, warn: false
   alias OpenphoneRecorder.Repo
-
   alias OpenphoneRecorder.Contacts.Contact
 
   def authorize(:get_contact!, user, %{account_id: account_id}) do

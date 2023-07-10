@@ -1,8 +1,18 @@
 defmodule OpenphoneRecorder.Conversations do
+  @behaviour Bodyguard.Policy
   import Ecto.Query, warn: false
   alias OpenphoneRecorder.Repo
-
   alias OpenphoneRecorder.Conversations.Conversation
+
+  def authorize(:get_conversation!, user, %{account_id: account_id}) do
+    account_ids =
+      OpenphoneRecorder.Accounts.list_accounts(filters: [user_id: user.id])
+      |> Enum.map(& &1.id)
+
+    if account_id in account_ids, do: :ok, else: :error
+  end
+
+  def authorize(:get_conversation!, _user, _conversation), do: :error
 
   def list_conversations(opts \\ []) do
     preloads = Keyword.get(opts, :preloads, nil)

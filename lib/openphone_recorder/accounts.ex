@@ -1,12 +1,7 @@
 defmodule OpenphoneRecorder.Accounts do
-  @moduledoc """
-  The Accounts context.
-  """
   @behaviour Bodyguard.Policy
-
   import Ecto.Query, warn: false
   alias OpenphoneRecorder.Repo
-
   alias OpenphoneRecorder.Accounts.Account
 
   def authorize(:get_account!, user, account_id) do
