@@ -1,4 +1,5 @@
 defmodule OpenphoneRecorder.ConversationsTest do
+  alias OpenphoneRecorder.AccountsFixtures
   use OpenphoneRecorder.DataCase
 
   alias OpenphoneRecorder.Conversations
@@ -48,7 +49,9 @@ defmodule OpenphoneRecorder.ConversationsTest do
       pn2_id = pn2.id
 
       [conversation] = Conversations.list_conversation_summary()
-      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] = conversation.participants
+
+      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
+               conversation.participants
     end
 
     test "get_conversation!/1 returns the conversation with given id" do
@@ -57,7 +60,12 @@ defmodule OpenphoneRecorder.ConversationsTest do
     end
 
     test "upsert_conversation/1 with valid data creates a conversation" do
-      valid_attrs = %{external_id: "asd08hlaihdoih", source: :openphone}
+      valid_attrs = %{
+        external_id: "asd08hlaihdoih",
+        source: :openphone,
+        account_id: AccountsFixtures.account_fixture().id
+      }
+
       old_converation = conversation_fixture(%{external_id: "asd08hlaihdoih", source: :openphone})
 
       assert {:ok, %Conversation{} = conversation} =
@@ -67,7 +75,11 @@ defmodule OpenphoneRecorder.ConversationsTest do
     end
 
     test "create_conversation/1 with valid data creates a conversation" do
-      valid_attrs = %{external_id: "asd08hlaihdoih", source: :openphone}
+      valid_attrs = %{
+        external_id: "asd08hlaihdoih",
+        source: :openphone,
+        account_id: AccountsFixtures.account_fixture().id
+      }
 
       assert {:ok, %Conversation{}} = Conversations.create_conversation(valid_attrs)
     end

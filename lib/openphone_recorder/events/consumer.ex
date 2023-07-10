@@ -95,7 +95,7 @@ defmodule OpenphoneRecorder.Events.Consumer do
   defp consume_event(event) do
     event.payload
     |> Events.cast_event()
-    |> Projector.apply()
+    |> Projector.apply(event.account_id)
     |> case do
       {:ok, _} ->
         OpenphoneRecorder.Events.update_event(event, %{processed: true})

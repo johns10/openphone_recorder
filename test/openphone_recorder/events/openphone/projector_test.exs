@@ -21,42 +21,49 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "CallRinging" do
     test "gets projected to the database properly" do
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+
       assert {:ok, %Call{}} =
                OpenphoneFixtures.call_ringing()
                |> Events.cast_event()
-               |> Projector.apply()
+               |> Projector.apply(account.id)
     end
   end
 
   describe "MessageReceived" do
     test "projects a received message" do
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+
       use_cassette "vector_create" do
         assert {:ok, %Statement{}} =
                  OpenphoneFixtures.message_received()
                  |> Events.cast_event()
-                 |> Projector.apply()
+                 |> Projector.apply(account.id)
       end
     end
   end
 
   describe "MessageDelivered" do
     test "projects a delivered message" do
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+
       assert {:ok, %Statement{}} =
                OpenphoneFixtures.message_delivered()
                |> Events.cast_event()
-               |> Projector.apply()
+               |> Projector.apply(account.id)
     end
   end
 
   describe "CallCompleted" do
     test "gets projected to the database properly" do
       ExVCR.Config.filter_request_headers("Authorization")
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
 
       use_cassette("call_completed_projection") do
         assert {:ok, %Call{statements: [statement]}} =
                  OpenphoneFixtures.call_completed()
                  |> Events.cast_event()
-                 |> Projector.apply()
+                 |> Projector.apply(account.id)
 
         assert statement.content =~ "Hello, this is Susanna. Hi, Susanna, this is Jen."
       end
@@ -66,6 +73,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
   describe "CallRecordingCompleted" do
     test "gets projected to the database properly" do
       ExVCR.Config.filter_request_headers("Authorization")
+      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
 
       use_cassette("call_recording_projection", match_requests_on: [:request_body]) do
         assert {:ok,
@@ -78,7 +86,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
                 }} =
                  OpenphoneFixtures.call_recording_completed()
                  |> Events.cast_event()
-                 |> Projector.apply()
+                 |> Projector.apply(account.id)
       end
     end
   end
