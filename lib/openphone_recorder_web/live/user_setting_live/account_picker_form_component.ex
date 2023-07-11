@@ -23,7 +23,8 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
         </ul>
       </details>
       <.link
-        class="dropdown-label mr-2 hover:cursor-pointer hidden"
+        class="dropdown-label mr-2 hover:cursor-pointer"
+        style="display: none;"
         href={~p"/accounts/#{@user_setting.selected_account}"}
       >
         <%= @user_setting.selected_account |> Map.get(:name, "") %>

@@ -22,7 +22,7 @@
             <div class="btn btn-ghost btn-sm px-2">
               <.icon name="hero-user" class="w-5 h-5" />
             </div>
-            <div class="dropdown-label mr-2 hidden">
+            <div class="dropdown-label mr-2" style="display: none;">
               <%= @current_user.email %>
             </div>
           </div>
@@ -32,7 +32,6 @@
           <li><.link href={~p"/users/log_out"} method="delete">Log Out</.link></li>
         </ul>
       </div>
-
       <.live_component
         module={OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent}
         id="account-picker"
@@ -41,6 +40,17 @@
         user_setting={@user_setting}
         class="flex-grow"
       />
+      <.link
+        href={~p"/contacts"}
+        class="flex flex-row-reverse items-center justify-items-end hover:cursor-pointer"
+      >
+        <div class="btn btn-ghost btn-sm px-2">
+          <.icon name="hero-book-open" class="w-5 h-5" />
+        </div>
+        <div href={~p"/contacts"} class="dropdown-label mr-2" style="display: none;">
+          Contacts
+        </div>
+      </.link>
       <div
         class="flex-grow"
         phx-click={JS.toggle(to: ".dropdown-label", in: "fade-in-scale", out: "fade-out-scale")}
