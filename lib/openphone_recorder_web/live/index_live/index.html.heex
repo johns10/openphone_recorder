@@ -1,9 +1,9 @@
-<div class="flex flex-col flex-auto overflow-y-scroll min-w-fit">
+<div class="flex flex-col flex-grow overflow-y-scroll min-w-fit">
   <%= for {_id, conversation} <- @streams.conversations do %>
     <.conversation conversation={conversation} />
   <% end %>
 </div>
-<div class="flex flex-col overflow-y-scroll flex-grow-1">
+<div class="flex flex-col overflow-y-scroll flex-grow-1 min-w-[50%]">
   <%= for {_id, statement} <- @streams.statements do %>
     <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
       <div class="chat-bubble">
@@ -11,4 +11,5 @@
       </div>
     </div>
   <% end %>
+  <div class="flex-grow" />
 </div>

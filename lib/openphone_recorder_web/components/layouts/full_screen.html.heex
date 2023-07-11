@@ -15,15 +15,15 @@
 <div max_width="full" class="container overflow-auto h-screen max-w-full flex-grow flex flex-col">
   <.flash_group flash={@flash} />
   <div class="flex flex-row flex-grow overflow-hidden">
-    <div class="flex flex-col space-y-2 overflow-y-none flex-auto">
+    <div class="flex flex-col space-y-2 overflow-y-none flex-grow-0 bg-base-300 p-2">
       <div class="dropdown dropdown-right">
         <label tabindex="0">
-          <div class="flex flex-row items-center justify-items-end hover:cursor-pointer">
-            <div>
-              <%= @current_user.email %>
-            </div>
-            <div class="btn btn-ghost btn-sm px-2 ml-2">
+          <div class="flex flex-row-reverse items-center justify-items-end hover:cursor-pointer">
+            <div class="btn btn-ghost btn-sm px-2">
               <.icon name="hero-user" class="w-5 h-5" />
+            </div>
+            <div class="dropdown-label mr-2 hidden">
+              <%= @current_user.email %>
             </div>
           </div>
         </label>
@@ -40,6 +40,11 @@
         user={@current_user}
         user_setting={@user_setting}
         class="flex-grow"
+      />
+      <div
+        class="flex-grow"
+        phx-click={JS.toggle(to: ".dropdown-label", in: "fade-in-scale", out: "fade-out-scale")}
+        id="sidebar-toggle"
       />
     </div>
     <%= @inner_content %>

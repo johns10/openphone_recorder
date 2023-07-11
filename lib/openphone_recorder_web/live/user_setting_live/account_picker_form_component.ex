@@ -7,9 +7,9 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex flex-row-reverse items-center justify-items-end hover:cursor-pointer">
+    <div class="flex flex-row-reverse items-center justify-items-end">
       <details class="dropdown dropdown-right">
-        <summary class="btn btn-ghost btn-sm px-2 ml-2">
+        <summary class="btn btn-ghost btn-sm px-2">
           <.icon name="hero-user-group" class="w-5 h-5" />
         </summary>
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
@@ -22,9 +22,12 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
           <% end %>
         </ul>
       </details>
-      <div>
+      <.link
+        class="dropdown-label mr-2 hover:cursor-pointer hidden"
+        href={~p"/accounts/#{@user_setting.selected_account}"}
+      >
         <%= @user_setting.selected_account |> Map.get(:name, "") %>
-      </div>
+      </.link>
     </div>
     """
   end
