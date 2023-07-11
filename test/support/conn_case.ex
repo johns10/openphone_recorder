@@ -72,7 +72,6 @@ defmodule OpenphoneRecorderWeb.ConnCase do
 
   def user_setup(%{user: user}) do
     account = AccountsFixtures.account_fixture()
-    AccountUsersFixtures.account_user_fixture(%{user_id: user.id, account_id: account.id})
 
     user_setting =
       UserSettingsFixtures.user_setting_fixture(%{
@@ -81,5 +80,15 @@ defmodule OpenphoneRecorderWeb.ConnCase do
       })
 
     %{account: account, user_setting: user_setting}
+  end
+
+  def permit(%{account: account, user: user}) do
+    account_user =
+      OpenphoneRecorder.AccountUsersFixtures.account_user_fixture(%{
+        user_id: user.id,
+        account_id: account.id
+      })
+
+    %{account_user: account_user}
   end
 end

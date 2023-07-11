@@ -22,7 +22,7 @@ defmodule OpenphoneRecorderWeb.ContactLive.Show do
       {:error, :unauthorized} ->
         {:noreply,
          socket
-         |> push_patch(to: ~p"/home")
+         |> push_navigate(to: ~p"/home")
          |> put_flash(:error, "You cannot access this contact")}
     end
   end

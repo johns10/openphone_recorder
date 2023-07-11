@@ -29,10 +29,10 @@ defmodule OpenphoneRecorderWeb.ContactLive.Index do
         |> assign(:page_title, "Edit Contact")
         |> assign(:contact, contact)
 
-      :error ->
+      {:error, :unauthorized} ->
         socket
-        |> push_patch(to: ~p"/home")
-        |> put_flash(:error, "You cannot access this account")
+        |> push_navigate(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this contact")
     end
   end
 

@@ -6,7 +6,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Components do
 
   def conversation(assigns) do
     ~H"""
-    <a href={~p"/conversation/#{@conversation}"} class="w-full px-4 py-2 hover:bg-base-200">
+    <a href={~p"/conversations/#{@conversation}"} class="w-full px-4 py-2 hover:bg-base-200">
       <.participants participants={@conversation.participants} />
     </a>
     """

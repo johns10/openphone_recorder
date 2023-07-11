@@ -31,29 +31,38 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :index, %{"conversation_id" => conversation_id}) do
+  defp apply_action(socket, :index, %{"id" => conversation_id}) do
+    user = socket.assigns.current_user
     conversation = Conversations.get_conversation!(conversation_id, preloads: @default_preloads)
 
-    statements =
-      Statements.list_statements(
-        filters: [conversation_id: conversation_id],
-        order_by: [occurred_at: :desc]
-      )
+    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
+      :ok ->
+        statements =
+          Statements.list_statements(
+            filters: [conversation_id: conversation_id],
+            order_by: [occurred_at: :desc]
+          )
 
-    conversation.participants
-    |> participant_sides
+        conversation.participants
+        |> participant_sides
 
-    socket =
-      Enum.reduce(socket.assigns.streams.statements, socket, fn statement, acc ->
-        stream_delete(acc, :statements, statement)
-      end)
+        socket =
+          Enum.reduce(socket.assigns.streams.statements, socket, fn statement, acc ->
+            stream_delete(acc, :statements, statement)
+          end)
 
-    Enum.reduce(statements, socket, fn statement, acc ->
-      stream_insert(acc, :statements, statement)
-    end)
-    |> assign(:participant_sides, participant_sides(conversation.participants))
-    |> assign(:page_title, "Listing Conversations")
-    |> assign(:conversation, nil)
+        Enum.reduce(statements, socket, fn statement, acc ->
+          stream_insert(acc, :statements, statement)
+        end)
+        |> assign(:participant_sides, participant_sides(conversation.participants))
+        |> assign(:page_title, "Listing Conversations")
+        |> assign(:conversation, nil)
+
+      {:error, :unauthorized} ->
+        socket
+        |> push_patch(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this conversation")
+    end
   end
 
   defp apply_action(socket, :index, _params) do
@@ -64,7 +73,27 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
   @impl true
   def handle_info({_, {:account_picked, user_setting}}, socket) do
-    {:noreply, socket |> assign(:user_setting, user_setting) |> push_patch(to: ~p"/home")}
+    conversations =
+      user_setting.selected_account_id
+      |> Conversations.list_conversation_summary()
+
+    {:noreply,
+     socket
+     |> replace_conversations(conversations)
+     |> assign(:user_setting, user_setting)
+     |> assign(:conversations, conversations)
+     |> push_patch(to: ~p"/home")}
+  end
+
+  defp replace_conversations(socket, conversations) do
+    socket =
+      Enum.reduce(socket.assigns.streams.conversations, socket, fn conversation, acc ->
+        stream_delete(acc, :conversations, conversations)
+      end)
+
+    Enum.reduce(conversations, socket, fn conversation, acc ->
+      stream_insert(acc, :conversations, conversation)
+    end)
   end
 
   defp participant_sides([p1, p2 | tail]) do

@@ -23,7 +23,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
     %{contact: contact}
   end
 
-  describe "Index" do
+  describe "Index without permission" do
     setup [:register_and_log_in_user, :user_setup, :create_contact]
 
     test "lists all contacts", %{conn: conn, contact: contact} do
@@ -58,6 +58,23 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
     end
 
     test "updates contact in listing", %{conn: conn, contact: contact} do
+      {:error,
+       {:live_redirect, %{flash: %{"error" => "You cannot access this contact"}, to: "/home"}}} =
+        live(conn, ~p"/contacts/#{contact}/edit")
+    end
+
+    test "deletes contact in listing", %{conn: conn, contact: contact} do
+      {:ok, index_live, _html} = live(conn, ~p"/contacts")
+
+      assert index_live |> element("#contacts-#{contact.id} a", "Delete") |> render_click()
+      refute has_element?(index_live, "#contacts-#{contact.id}")
+    end
+  end
+
+  describe "Index with permission" do
+    setup [:register_and_log_in_user, :user_setup, :permit, :create_contact]
+
+    test "updates contact in listing", %{conn: conn, contact: contact} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
 
       assert index_live |> element("#contacts-#{contact.id} a", "Edit") |> render_click() =~
@@ -89,7 +106,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   end
 
   describe "Show" do
-    setup [:register_and_log_in_user, :user_setup, :create_contact]
+    setup [:register_and_log_in_user, :user_setup, :permit, :create_contact]
 
     test "displays contact", %{conn: conn, contact: contact} do
       {:ok, _show_live, html} = live(conn, ~p"/contacts/#{contact}")

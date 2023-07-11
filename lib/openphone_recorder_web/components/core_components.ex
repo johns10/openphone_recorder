@@ -628,22 +628,6 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     """
   end
 
-  attr :user, :any
-
-  def user_dropdown(%{user: %OpenphoneRecorder.Users.User{}} = assigns) do
-    ~H"""
-    <div class="dropdown dropdown-end pr-0 mr-0">
-      <label tabindex="0" class="btn btn-ghost btn-sm text-[0.8125rem]">
-        <%= @user.email %>
-      </label>
-      <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
-        <li><.link href={~p"/users/settings"}>Settings</.link></li>
-        <li><.link href={~p"/users/log_out"} method="delete">Log Out</.link></li>
-      </ul>
-    </div>
-    """
-  end
-
   def user_dropdown(assigns) do
     ~H"""
     <div class="dropdown dropdown-end pr-0 mr-0">

@@ -100,12 +100,9 @@ defmodule OpenphoneRecorderWeb.Router do
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
       live "/home", IndexLive.Index, :index
-      live "/conversation/:conversation_id", IndexLive.Index, :index
+      live "/conversations/:id", IndexLive.Index, :index
 
       resources "/events", EventController, except: [:new, :edit]
-
-      live "/conversations", ConversationLive.Index, :index
-      live "/conversations/:id", ConversationLive.Show, :show
 
       live "/contacts", ContactLive.Index, :index
       live "/contacts/new", ContactLive.Index, :new

@@ -7,10 +7,24 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class={@class}>
-      <.form for={@form} id="account_picker-form" phx-target={@myself} phx-change="save">
-        <.input field={@form[:selected_account_id]} type="raw_select" options={@account_options} />
-      </.form>
+    <div class="flex flex-row-reverse items-center justify-items-end hover:cursor-pointer">
+      <details class="dropdown dropdown-right">
+        <summary class="btn btn-ghost btn-sm px-2 ml-2">
+          <.icon name="hero-user-group" class="w-5 h-5" />
+        </summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
+          <%= for account <- @accounts do %>
+            <li>
+              <.link phx-click="select-account" phx-value-id={account.id} phx-target={@myself}>
+                <%= account.name %>
+              </.link>
+            </li>
+          <% end %>
+        </ul>
+      </details>
+      <div>
+        <%= @user_setting.selected_account |> Map.get(:name, "") %>
+      </div>
     </div>
     """
   end
@@ -19,26 +33,21 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
   def update(%{user_setting: user_setting, user: user} = assigns, socket) do
     changeset = UserSettings.change_user_setting(user_setting)
 
-    account_options =
-      Accounts.list_accounts(filters: [user_id: user.id])
-      |> Enum.map(&{&1.name, &1.id})
-
-    options =
-      if user_setting.selected_account_id,
-        do: account_options,
-        else: [{"None", nil} | account_options]
+    accounts = Accounts.list_accounts(filters: [user_id: user.id])
 
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:account_options, options)
+     |> assign(:accounts, accounts)
      |> assign_form(changeset)}
   end
 
   @impl true
-  def handle_event("save", %{"user_setting" => params}, socket) do
-    case UserSettings.update_user_setting(socket.assigns.user_setting, params) do
+  def handle_event("select-account", %{"id" => id}, socket) do
+    case UserSettings.update_user_setting(socket.assigns.user_setting, %{selected_account_id: id}) do
       {:ok, user_setting} ->
+        user_setting = UserSettings.get_user_setting!(user_setting.id, preload: :selected_account)
+
         notify_parent({:account_picked, user_setting})
 
         {:noreply,

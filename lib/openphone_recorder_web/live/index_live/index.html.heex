@@ -1,42 +1,14 @@
-<%= if @render == true do %>
-  <div class="flex flex-row flex-grow overflow-hidden">
-    <div class="flex flex-col flex-auto overflow-y-scroll min-w-fit">
-      <%= for {_id, conversation} <- @streams.conversations do %>
-        <.conversation conversation={conversation} />
-      <% end %>
-    </div>
-    <div class="flex flex-col overflow-y-scroll flex-grow-1">
-      <%= for {_id, statement} <- @streams.statements do %>
-        <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
-          <div class="chat-bubble">
-            <%= statement.content %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="flex flex-col overflow-y-none flex-auto">
-      <.user_dropdown user={@current_user} />
-      <div class="flex flex-row px-2">
-        <.live_component
-          module={OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent}
-          id="account-picker"
-          account_id={@user_setting.selected_account_id}
-          user={@current_user}
-          user_setting={@user_setting}
-          class="flex-grow"
-        />
-        <%= if @user_setting.selected_account_id do %>
-          <.link href={~p"/accounts/#{@user_setting.selected_account_id}"}>
-            <.button>
-              <.icon name="hero-magnifying-glass" class="w-5 h-5" />
-            </.button>
-          </.link>
-        <% end %>
+<div class="flex flex-col flex-auto overflow-y-scroll min-w-fit">
+  <%= for {_id, conversation} <- @streams.conversations do %>
+    <.conversation conversation={conversation} />
+  <% end %>
+</div>
+<div class="flex flex-col overflow-y-scroll flex-grow-1">
+  <%= for {_id, statement} <- @streams.statements do %>
+    <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
+      <div class="chat-bubble">
+        <%= statement.content %>
       </div>
     </div>
-  </div>
-<% else %>
-  <div class="flex">
-    <.user_dropdown user={nil} />
-  </div>
-<% end %>
+  <% end %>
+</div>
