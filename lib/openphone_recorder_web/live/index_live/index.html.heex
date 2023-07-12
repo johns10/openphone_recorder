@@ -1,42 +1,36 @@
-<.header>
-  Listing Conversations
-</.header>
-
-<div class="flex flex-row flex-grow overflow-hidden">
-  <div class="flex flex-col overflow-y-scroll min-w-fit">
-    <%= for conversation <- @conversations do %>
-      <.conversation conversation={conversation} />
-    <% end %>
+<div class="flex flex-col overflow-y-scroll min-w-fit">
+  <%= for conversation <- @conversations do %>
+    <.conversation conversation={conversation} />
+  <% end %>
+</div>
+<div class="flex flex-col">
+  <div class="flex flex-row">
+    <.button phx-click="summarize" type="button" class="button">
+      Summarize
+    </.button>
+    <.button phx-click="zoom_out" type="button" class="button">
+      -
+    </.button>
+    <.button phx-click="zoom_in" type="button" class="button">
+      +
+    </.button>
   </div>
-  <div class="flex flex-col">
-    <div class="flex flex-row">
-      <.button phx-click="summarize" type="button" class="button">
-        Summarize
-      </.button>
-      <.button phx-click="zoom_out" type="button" class="button">
-        -
-      </.button>
-      <.button phx-click="zoom_in" type="button" class="button">
-        +
-      </.button>
-    </div>
-    <%= if @zoom_level == 0 do %>
-      <%= for statement <- @statements do %>
-        <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
-          <div class="chat-bubble">
-            <%= statement.content %>
-          </div>
+  <%= if @zoom_level == 0 do %>
+    <%= for statement <- @statements do %>
+      <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
+        <div class="chat-bubble">
+          <%= statement.content %>
         </div>
-      <% end %>
+      </div>
     <% end %>
-    <%= if(@zoom_level == 1) do %>
-      <%= for summary <- @summaries do %>
-        <div class="chat">
-          <div class="chat-bubble">
-            <%= summary.content %>
-          </div>
+  <% end %>
+  <%= if(@zoom_level == 1) do %>
+    <%= for summary <- @summaries do %>
+      <div class="chat">
+        <div class="chat-bubble">
+          <%= summary.content %>
         </div>
-      <% end %>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 </div>

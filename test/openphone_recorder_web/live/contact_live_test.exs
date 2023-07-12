@@ -18,19 +18,19 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   }
   @invalid_attrs %{external_id: nil, first_name: nil, last_name: nil, source: nil}
 
-  defp create_contact(_) do
-    contact = contact_fixture()
+  defp create_contact(%{account: account}) do
+    contact = contact_fixture(%{account_id: account.id})
     %{contact: contact}
   end
 
-  describe "Index" do
-    setup [:create_contact]
+  describe "Index without permission" do
+    setup [:register_and_log_in_user, :user_setup, :create_contact]
 
     test "lists all contacts", %{conn: conn, contact: contact} do
       {:ok, _index_live, html} = live(conn, ~p"/contacts")
 
       assert html =~ "Listing Contacts"
-      assert html =~ contact.external_id
+      assert html =~ contact.first_name
     end
 
     test "saves new contact", %{conn: conn} do
@@ -56,6 +56,23 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
       assert html =~ "some first_name"
       assert html =~ "some last_name"
     end
+
+    test "updates contact in listing", %{conn: conn, contact: contact} do
+      {:error,
+       {:live_redirect, %{flash: %{"error" => "You cannot access this contact"}, to: "/home"}}} =
+        live(conn, ~p"/contacts/#{contact}/edit")
+    end
+
+    test "deletes contact in listing", %{conn: conn, contact: contact} do
+      {:ok, index_live, _html} = live(conn, ~p"/contacts")
+
+      assert index_live |> element("#contacts-#{contact.id} a", "Delete") |> render_click()
+      refute has_element?(index_live, "#contacts-#{contact.id}")
+    end
+  end
+
+  describe "Index with permission" do
+    setup [:register_and_log_in_user, :user_setup, :permit, :create_contact]
 
     test "updates contact in listing", %{conn: conn, contact: contact} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
@@ -89,7 +106,7 @@ defmodule OpenphoneRecorderWeb.ContactLiveTest do
   end
 
   describe "Show" do
-    setup [:create_contact]
+    setup [:register_and_log_in_user, :user_setup, :permit, :create_contact]
 
     test "displays contact", %{conn: conn, contact: contact} do
       {:ok, _show_live, html} = live(conn, ~p"/contacts/#{contact}")

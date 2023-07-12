@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.Events do
   def get_event!(id), do: Repo.get!(Event, id)
 
   def create_event(attrs \\ %{}) do
-    %Event{payload: attrs}
+    %Event{}
     |> Event.changeset(attrs)
     |> Repo.insert()
   end

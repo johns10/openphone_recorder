@@ -27,16 +27,16 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   alias OpenphoneRecorder.Events.Openphone.Data.Call
   alias OpenphoneRecorder.Events.Openphone.Data.Media
 
-  def apply(%CallRinging{data: openphone_call}) do
-    with {:ok, data} <- prepare_model(openphone_call),
+  def apply(%CallRinging{data: openphone_call}, account_id) do
+    with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
          {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
 
-  def apply(%CallCompleted{data: openphone_call}) do
-    with {:ok, data} <- prepare_model(openphone_call),
+  def apply(%CallCompleted{data: openphone_call}, account_id) do
+    with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
          {:ok, call} <- Calls.upsert_call(call_attrs),
          {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, data.from_participant) do
@@ -44,8 +44,8 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     end
   end
 
-  def apply(%CallRecordingCompleted{data: openphone_call}) do
-    with {:ok, data} <- prepare_model(openphone_call),
+  def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
+    with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
          {:ok, call} <- Calls.upsert_call(call_attrs),
          {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data) do
@@ -53,24 +53,24 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     end
   end
 
-  def apply(%MessageReceived{data: message}) do
-    with {:ok, data} <- prepare_model(message),
+  def apply(%MessageReceived{data: message}, account_id) do
+    with {:ok, data} <- prepare_model(message, account_id),
          statement_attrs <- Statement.cast_openphone_message(message, data),
          {:ok, statement} <- Statements.upsert_statement(statement_attrs) do
       {:ok, statement}
     end
   end
 
-  def apply(%MessageDelivered{data: message}) do
-    with {:ok, data} <- prepare_model(message),
+  def apply(%MessageDelivered{data: message}, account_id) do
+    with {:ok, data} <- prepare_model(message, account_id),
          statement_attrs <- Statement.cast_openphone_message(message, data),
          {:ok, statement} <- Statements.upsert_statement(statement_attrs) do
       {:ok, statement}
     end
   end
 
-  def apply(%ContactUpdated{data: contact}) do
-    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact),
+  def apply(%ContactUpdated{data: contact}, account_id) do
+    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact, account_id),
          {:ok, contact} <- Contacts.upsert_contact(contact_attrs),
          phone_number_attrs <- phone_number_attrs(contact_attrs.phone_numbers, contact),
          {:ok, %{phone_numbers: phone_numbers}} <-
@@ -85,11 +85,14 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   defp phone_number_attrs(phone_numbers, %{id: id}),
     do: Enum.map(phone_numbers, &Map.put(&1, :contact_id, id))
 
-  def prepare_model(%{
-        to: to_phone_number,
-        from: from_phone_number,
-        conversation_id: external_conversation_id
-      }) do
+  def prepare_model(
+        %{
+          to: to_phone_number,
+          from: from_phone_number,
+          conversation_id: external_conversation_id
+        },
+        account_id
+      ) do
     from_phone_number_attrs = %{
       value: from_phone_number,
       source: :openphone
@@ -101,6 +104,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
     }
 
     conversation_attrs = %{
+      account_id: account_id,
       external_id: external_conversation_id,
       source: :openphone
     }
@@ -128,7 +132,14 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
   end
 
   defp maybe_transcribe_voicemail(
-         %Call{voicemail: %Media{duration: duration, type: "audio/mpeg", url: url}},
+         %Call{
+           voicemail: %Media{
+             duration: duration,
+             type: "audio/mpeg",
+             url: url
+           },
+           created_at: created_at
+         },
          %Calls.Call{conversation_id: conversation_id} = call,
          participant
        )
@@ -143,7 +154,7 @@ defmodule OpenphoneRecorder.Events.Openphone.Projector do
       %{
         content: text,
         occurred_at:
-          call.completed_at
+          (call.completed_at || created_at)
           |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond),
         type: :voicemail,
         conversation_id: conversation_id,

@@ -32,6 +32,7 @@ defmodule OpenphoneRecorder.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:phoenix, "~> 1.7.1"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
@@ -54,6 +55,7 @@ defmodule OpenphoneRecorder.MixProject do
       {:openai, "~> 0.5.2"},
       {:decimal, "~> 2.1.1"},
       {:timex, "~> 3.0"},
+      {:bodyguard, "~> 2.4"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},

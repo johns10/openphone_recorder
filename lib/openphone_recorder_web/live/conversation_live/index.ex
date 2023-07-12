@@ -5,7 +5,11 @@ defmodule OpenphoneRecorderWeb.ConversationLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :conversations, Conversations.list_conversations())}
+    conversations =
+      [filters: [account_id: socket.assigns.user_setting.selected_account_id]]
+      |> Conversations.list_conversations()
+
+    {:ok, stream(socket, :conversations, conversations)}
   end
 
   @impl true

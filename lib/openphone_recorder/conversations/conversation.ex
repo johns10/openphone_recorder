@@ -2,11 +2,14 @@ defmodule OpenphoneRecorder.Conversations.Conversation do
   use Ecto.Schema
   import Ecto.Changeset
   alias OpenphoneRecorder.Participants.Participant
+  alias OpenphoneRecorder.Accounts.Account
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone]
+
+    belongs_to :account, Account, type: :binary_id
 
     has_many :participants, Participant
     has_many :phone_numbers, through: [:participants, :phone_number]
@@ -17,10 +20,11 @@ defmodule OpenphoneRecorder.Conversations.Conversation do
   @doc false
   def changeset(conversation, attrs) do
     conversation
-    |> cast(attrs, [:source, :external_id])
+    |> cast(attrs, [:source, :external_id, :account_id])
     |> cast_id()
+    |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :conversations_pkey)
-    |> validate_required([:source, :external_id])
+    |> validate_required([:source, :external_id, :account_id])
   end
 
   defp cast_id(changeset) do

@@ -10,10 +10,21 @@ defmodule OpenphoneRecorderWeb.ContactLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    {:noreply,
-     socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:contact, Contacts.get_contact!(id))}
+    contact = Contacts.get_contact!(id)
+
+    case Bodyguard.permit(Contacts, :get_contact!, socket.assigns.current_user, contact) do
+      :ok ->
+        {:noreply,
+         socket
+         |> assign(:page_title, page_title(socket.assigns.live_action))
+         |> assign(:contact, contact)}
+
+      {:error, :unauthorized} ->
+        {:noreply,
+         socket
+         |> push_navigate(to: ~p"/home")
+         |> put_flash(:error, "You cannot access this contact")}
+    end
   end
 
   defp page_title(:show), do: "Show Contact"

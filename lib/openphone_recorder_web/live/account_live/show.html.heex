@@ -1,0 +1,49 @@
+<.header>
+  Account <%= @account.name %>
+  <:actions>
+    <.link patch={~p"/accounts/#{@account}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit account</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Plan"><%= @account.plan |> Atom.to_string() |> String.capitalize() %></:item>
+  <:item title="Openphone Webhook URL"><%= url(~p"/api/events/#{@account.id}") %></:item>
+</.list>
+
+<.header>Account Users</.header>
+
+<.table class="!mb-0" id="account_users" rows={@account.account_users}>
+  <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
+  <:action :let={account_user}>
+    <a to="#" phx_click="delete-account-user" phx_value_id={account_user.id}>Remove</a>
+  </:action>
+</.table>
+
+<.live_component
+  module={OpenphoneRecorderWeb.AccountUserLive.FormComponent}
+  id="account-user-form"
+  account_id={@account.id}
+  patch={~p"/accounts/#{@account}"}
+  current_user={@current_user}
+  account_user={%OpenphoneRecorder.AccountUsers.AccountUser{}}
+/>
+
+<.back navigate={~p"/accounts"}>Back to accounts</.back>
+
+<.modal
+  :if={@live_action == :edit}
+  id="account-modal"
+  show
+  on_cancel={JS.patch(~p"/accounts/#{@account}")}
+>
+  <.live_component
+    module={OpenphoneRecorderWeb.AccountLive.FormComponent}
+    id={@account.id}
+    title={@page_title}
+    action={@live_action}
+    account={@account}
+    patch={~p"/accounts/#{@account}"}
+  />
+</.modal>

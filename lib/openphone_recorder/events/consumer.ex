@@ -9,7 +9,7 @@ defmodule OpenphoneRecorder.Events.Consumer do
   def start_link(opts) do
     name = Map.get(opts, :name, __MODULE__)
     state = Map.merge(@default_state, opts)
-    GenServer.start_link(__MODULE__, state, [name: name])
+    GenServer.start_link(__MODULE__, state, name: name)
   end
 
   def set_count(count) do
@@ -81,7 +81,7 @@ defmodule OpenphoneRecorder.Events.Consumer do
 
       [event | _] ->
         Logger.info(
-          "Processing event with additional events in the queue. Will process #{state.count} additional events."
+          "Processing event #{event.id} with additional events in the queue. Will process #{state.count} additional events."
         )
 
         consume_event(event)
@@ -95,10 +95,14 @@ defmodule OpenphoneRecorder.Events.Consumer do
   defp consume_event(event) do
     event.payload
     |> Events.cast_event()
-    |> Projector.apply()
+    |> Projector.apply(event.account_id)
     |> case do
-      {:ok, _} -> OpenphoneRecorder.Events.update_event(event, %{processed: true})
-      error -> error
+      {:ok, _} ->
+        OpenphoneRecorder.Events.update_event(event, %{processed: true})
+
+      {:error, error} ->
+        Logger.error(inspect(error))
+        {:error, error}
     end
   end
 

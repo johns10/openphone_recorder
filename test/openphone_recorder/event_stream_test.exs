@@ -5,6 +5,7 @@ defmodule OpenphoneRecorder.EventStreamTest do
 
   import Mox
   import OpenphoneRecorder.HTTPFixtures
+  import OpenphoneRecorder.AccountsFixtures
 
   alias OpenphoneRecorder.EventStreamFixtures
   alias OpenphoneRecorder.Events
@@ -15,6 +16,8 @@ defmodule OpenphoneRecorder.EventStreamTest do
   @tag :integration
   describe "Stream" do
     test "streams" do
+      account = account_fixture()
+
       OpenphoneRecorder.MockHTTP
       |> expect(:post, 16, fn @transcription_url, _, _, _ -> openai_speech() end)
 
@@ -22,9 +25,9 @@ defmodule OpenphoneRecorder.EventStreamTest do
       |> Enum.take(100)
       |> Enum.map(fn params ->
         assert {:ok, _} =
-          params.payload
-          |> Events.cast_event()
-          |> Projector.apply()
+                 params.payload
+                 |> Events.cast_event()
+                 |> Projector.apply(account.id)
       end)
     end
   end
