@@ -21,7 +21,6 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
 
     {:ok,
      socket
-     |> assign(:render, true)
      |> stream(:conversations, conversations)
      |> stream(:statements, []), layout: {OpenphoneRecorderWeb.Layouts, :full_screen}}
   end
