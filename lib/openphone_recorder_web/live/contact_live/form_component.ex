@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.ContactLive.FormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.ContactLive.FormComponent do
+  use DiscussitWeb, :live_component
 
-  alias OpenphoneRecorder.Contacts
+  alias Discussit.Contacts
 
   @impl true
   def render(assigns) do
@@ -30,14 +30,14 @@ defmodule OpenphoneRecorderWeb.ContactLive.FormComponent do
           type="select"
           label="relationship"
           prompt="Choose a value"
-          options={Ecto.Enum.values(OpenphoneRecorder.Contacts.Contact, :relationship)}
+          options={Ecto.Enum.values(Discussit.Contacts.Contact, :relationship)}
         />
         <.input
           field={@form[:source]}
           type="select"
           label="Source"
           prompt="Choose a value"
-          options={Ecto.Enum.values(OpenphoneRecorder.Contacts.Contact, :source)}
+          options={Ecto.Enum.values(Discussit.Contacts.Contact, :source)}
         />
         <:actions>
           <.button phx-disable-with="Saving...">Save Contact</.button>

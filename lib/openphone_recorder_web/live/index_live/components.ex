@@ -1,6 +1,6 @@
-defmodule OpenphoneRecorderWeb.IndexLive.Components do
-  use OpenphoneRecorderWeb, :html
-  alias OpenphoneRecorder.Conversations.Conversation
+defmodule DiscussitWeb.IndexLive.Components do
+  use DiscussitWeb, :html
+  alias Discussit.Conversations.Conversation
 
   attr(:conversation, Conversation, default: nil)
 

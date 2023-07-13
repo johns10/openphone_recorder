@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.SummarizerLive.Index do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.SummarizerLive.Index do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Summarizers
-  alias OpenphoneRecorder.Summarizers.Summarizer
+  alias Discussit.Summarizers
+  alias Discussit.Summarizers.Summarizer
 
   @impl true
   def mount(_params, _session, socket) do
@@ -33,7 +33,7 @@ defmodule OpenphoneRecorderWeb.SummarizerLive.Index do
   end
 
   @impl true
-  def handle_info({OpenphoneRecorderWeb.SummarizerLive.FormComponent, {:saved, summarizer}}, socket) do
+  def handle_info({DiscussitWeb.SummarizerLive.FormComponent, {:saved, summarizer}}, socket) do
     {:noreply, stream_insert(socket, :summarizers, summarizer)}
   end
 

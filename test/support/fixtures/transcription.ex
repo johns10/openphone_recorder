@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.TranscriptionFixtures do
+defmodule Discussit.TranscriptionFixtures do
   def response() do
     %HTTPoison.Response{
       status_code: 200,
@@ -30,7 +30,7 @@ defmodule OpenphoneRecorder.TranscriptionFixtures do
            [
              {"model", "whisper-1"},
              {:file,
-              "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello.mp3"}
+              "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello.mp3"}
            ]},
         params: %{},
         options: []

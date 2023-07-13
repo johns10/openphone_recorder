@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.AccountsFixtures do
+defmodule Discussit.AccountsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Accounts` context.
+  entities via the `Discussit.Accounts` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.AccountsFixtures do
         name: Faker.Company.name(),
         plan: :free
       })
-      |> OpenphoneRecorder.Accounts.create_account()
+      |> Discussit.Accounts.create_account()
 
     account
   end

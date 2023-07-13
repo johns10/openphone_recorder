@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorderWeb.IndexLive.IndexTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.IndexLive.IndexTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.ConversationsFixtures
-  import OpenphoneRecorder.PhoneNumbersFixtures
-  import OpenphoneRecorder.ParticipantsFixtures
-  import OpenphoneRecorder.AccountsFixtures
-  import OpenphoneRecorder.AccountUsersFixtures
+  import Discussit.ConversationsFixtures
+  import Discussit.PhoneNumbersFixtures
+  import Discussit.ParticipantsFixtures
+  import Discussit.AccountsFixtures
+  import Discussit.AccountUsersFixtures
 
   defp fixture(%{account: account}) do
     conversation = conversation_fixture(%{account_id: account.id})

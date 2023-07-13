@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.UserSessionControllerTest do
-  use OpenphoneRecorderWeb.ConnCase, async: true
+defmodule DiscussitWeb.UserSessionControllerTest do
+  use DiscussitWeb.ConnCase, async: true
 
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
   setup do
     %{user: user_fixture()}
@@ -35,7 +35,7 @@ defmodule OpenphoneRecorderWeb.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_openphone_recorder_web_user_remember_me"]
+      assert conn.resp_cookies["_discussit_web_user_remember_me"]
       assert redirected_to(conn) == ~p"/"
     end
 

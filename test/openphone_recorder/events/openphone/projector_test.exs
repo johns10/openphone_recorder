@@ -1,27 +1,27 @@
-defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
-  use OpenphoneRecorder.DataCase
-  use OpenphoneRecorder.AudioCase
+defmodule Discussit.Events.Openphone.ProjectorTest do
+  use Discussit.DataCase
+  use Discussit.AudioCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
-  alias OpenphoneRecorder.Events.Openphone.Projector
-  alias OpenphoneRecorder.Calls.Call
-  alias OpenphoneRecorder.Statements.Statement
-  alias OpenphoneRecorder.OpenphoneFixtures
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
-  alias OpenphoneRecorder.Contacts.Contact
+  alias Discussit.Events.Openphone.Projector
+  alias Discussit.Calls.Call
+  alias Discussit.Statements.Statement
+  alias Discussit.OpenphoneFixtures
+  alias Discussit.Events
+  alias Discussit.PhoneNumbers.PhoneNumber
+  alias Discussit.Contacts.Contact
 
   ExVCR.Config.filter_request_headers("Authorization")
 
   setup_all do
     HTTPoison.start()
-    Application.put_env(:openphone_recorder, :http_provider, HTTPoison)
+    Application.put_env(:discussit, :http_provider, HTTPoison)
     :ok
   end
 
   describe "CallRinging" do
     test "gets projected to the database properly" do
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       assert {:ok, %Call{}} =
                OpenphoneFixtures.call_ringing()
@@ -32,7 +32,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "MessageReceived" do
     test "projects a received message" do
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       use_cassette "vector_create" do
         assert {:ok, %Statement{}} =
@@ -45,7 +45,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "MessageDelivered" do
     test "projects a delivered message" do
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       assert {:ok, %Statement{}} =
                OpenphoneFixtures.message_delivered()
@@ -57,7 +57,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
   describe "CallCompleted" do
     test "gets projected to the database properly" do
       ExVCR.Config.filter_request_headers("Authorization")
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       use_cassette("call_completed_projection") do
         assert {:ok, %Call{statements: [statement]}} =
@@ -73,15 +73,16 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
   describe "CallRecordingCompleted" do
     test "gets projected to the database properly" do
       ExVCR.Config.filter_request_headers("Authorization")
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       use_cassette("call_recording_projection", match_requests_on: [:request_body]) do
         assert {:ok,
                 %Call{
                   statements: [
-                    %{content: " Hello. Hi, Troy."},
-                    %{content: " Hey, Joe."},
-                    %{content: " Hey, yeah, I talked to Kayla."} | _
+                    %{content: " Thank you."},
+                    %{content: ""},
+                    %{content: " Hello? Hi, Troy. Uh-huh. Okay, perfect. All right. Thank you."}
+                    | _
                   ]
                 }} =
                  OpenphoneFixtures.call_recording_completed()
@@ -93,7 +94,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
 
   describe "ContactUpdated" do
     test "creates a contact when it doesn't exist" do
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       assert {:ok,
               %Contact{
@@ -109,7 +110,7 @@ defmodule OpenphoneRecorder.Events.Openphone.ProjectorTest do
     end
 
     test "adds a phone number to an existing contact" do
-      account = OpenphoneRecorder.AccountsFixtures.account_fixture()
+      account = Discussit.AccountsFixtures.account_fixture()
 
       OpenphoneFixtures.contact_updated(%{phone_numbers: ["12566581234"]})
       |> Events.cast_event()

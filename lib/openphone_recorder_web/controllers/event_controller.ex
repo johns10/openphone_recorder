@@ -1,11 +1,11 @@
-defmodule OpenphoneRecorderWeb.EventController do
-  use OpenphoneRecorderWeb, :controller
+defmodule DiscussitWeb.EventController do
+  use DiscussitWeb, :controller
 
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.Events.Event
-  alias OpenphoneRecorder.Events.Signature
+  alias Discussit.Events
+  alias Discussit.Events.Event
+  alias Discussit.Events.Signature
 
-  action_fallback OpenphoneRecorderWeb.FallbackController
+  action_fallback DiscussitWeb.FallbackController
 
   def index(conn, _params) do
     events = Events.list_events()
@@ -46,7 +46,7 @@ defmodule OpenphoneRecorderWeb.EventController do
   end
 
   defp validate_request(conn) do
-    secret = Application.get_env(:openphone_recorder, :signing_secret)
+    secret = Application.get_env(:discussit, :signing_secret)
     incoming_signature = get_req_header(conn, "openphone-signature") |> Enum.at(0) || ""
     body = Map.get(conn.assigns, :raw_body) |> Enum.join()
 

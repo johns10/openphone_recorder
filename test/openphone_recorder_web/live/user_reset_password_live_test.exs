@@ -1,10 +1,10 @@
-defmodule OpenphoneRecorderWeb.UserResetPasswordLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserResetPasswordLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
 
   setup do
     user = user_fixture()

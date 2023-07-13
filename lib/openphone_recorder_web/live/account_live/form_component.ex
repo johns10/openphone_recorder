@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.AccountLive.FormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.AccountLive.FormComponent do
+  use DiscussitWeb, :live_component
 
-  alias OpenphoneRecorder.Accounts
+  alias Discussit.Accounts
 
   @impl true
   def render(assigns) do
@@ -25,7 +25,7 @@ defmodule OpenphoneRecorderWeb.AccountLive.FormComponent do
           type="select"
           label="Plan"
           prompt="Choose a value"
-          options={Ecto.Enum.values(OpenphoneRecorder.Accounts.Account, :plan)}
+          options={Ecto.Enum.values(Discussit.Accounts.Account, :plan)}
         />
         <:actions>
           <.button phx-disable-with="Saving...">Save Account</.button>

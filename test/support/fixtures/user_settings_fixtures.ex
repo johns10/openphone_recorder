@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.UserSettingsFixtures do
+defmodule Discussit.UserSettingsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.UserSettings` context.
+  entities via the `Discussit.UserSettings` context.
   """
 
   @doc """
@@ -13,7 +13,7 @@ defmodule OpenphoneRecorder.UserSettingsFixtures do
       |> Enum.into(%{
 
       })
-      |> OpenphoneRecorder.UserSettings.create_user_setting()
+      |> Discussit.UserSettings.create_user_setting()
 
     user_setting
   end

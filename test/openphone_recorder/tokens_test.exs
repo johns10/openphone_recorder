@@ -1,6 +1,6 @@
-defmodule OpenphoneRecorder.TokensTest do
+defmodule Discussit.TokensTest do
   use ExUnit.Case
-  alias OpenphoneRecorder.Tokens
+  alias Discussit.Tokens
 
   describe "tokens" do
     test "max_text_percentage_count" do

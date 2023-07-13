@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.PhoneNumbersFixtures do
+defmodule Discussit.PhoneNumbersFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.PhoneNumbers` context.
+  entities via the `Discussit.PhoneNumbers` context.
   """
 
   @doc """
@@ -15,7 +15,7 @@ defmodule OpenphoneRecorder.PhoneNumbersFixtures do
         value: "1256" <> Faker.Phone.EnUs.exchange_code() <> Faker.Phone.EnUs.subscriber_number(),
         source: :openphone
       })
-      |> OpenphoneRecorder.PhoneNumbers.create_phone_number()
+      |> Discussit.PhoneNumbers.create_phone_number()
 
     phone_number
   end

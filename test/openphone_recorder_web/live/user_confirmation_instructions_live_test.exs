@@ -1,11 +1,11 @@
-defmodule OpenphoneRecorderWeb.UserConfirmationInstructionsLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserConfirmationInstructionsLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
-  alias OpenphoneRecorder.Users
-  alias OpenphoneRecorder.Repo
+  alias Discussit.Users
+  alias Discussit.Repo
 
   setup do
     %{user: user_fixture()}

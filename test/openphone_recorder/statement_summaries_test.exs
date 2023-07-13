@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.StatementSummariesTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.StatementSummariesTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.StatementSummaries
+  alias Discussit.StatementSummaries
 
   describe "statement_summaries" do
-    alias OpenphoneRecorder.StatementSummaries.StatementSummary
+    alias Discussit.StatementSummaries.StatementSummary
 
-    import OpenphoneRecorder.StatementSummariesFixtures
+    import Discussit.StatementSummariesFixtures
 
     @invalid_attrs %{participant_id: Ecto.UUID.generate(), summary_id: Ecto.UUID.generate()}
 

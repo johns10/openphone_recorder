@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
+  use DiscussitWeb, :live_component
 
-  alias OpenphoneRecorder.UserSettings
-  alias OpenphoneRecorder.Accounts
+  alias Discussit.UserSettings
+  alias Discussit.Accounts
 
   @impl true
   def render(assigns) do
@@ -22,13 +22,15 @@ defmodule OpenphoneRecorderWeb.UserSettingLive.AccountPickerFormComponent do
           <% end %>
         </ul>
       </details>
-      <.link
-        class="dropdown-label mr-2 hover:cursor-pointer"
-        style="display: none;"
-        href={~p"/accounts/#{@user_setting.selected_account}"}
-      >
-        <%= @user_setting.selected_account |> Map.get(:name, "") %>
-      </.link>
+      <%= if @user_setting.selected_account_id do %>
+        <.link
+          class="dropdown-label mr-2 hover:cursor-pointer"
+          style="display: none;"
+          href={~p"/accounts/#{@user_setting.selected_account_id}"}
+        >
+          <%= @user_setting |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
+        </.link>
+      <% end %>
     </div>
     """
   end

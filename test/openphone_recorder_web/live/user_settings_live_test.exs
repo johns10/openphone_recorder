@@ -1,9 +1,9 @@
-defmodule OpenphoneRecorderWeb.UserSettingsLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserSettingsLiveTest do
+  use DiscussitWeb.ConnCase
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
   describe "Settings page" do
     test "renders settings page", %{conn: conn} do

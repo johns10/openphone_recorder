@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorderWeb.PageController do
-  use OpenphoneRecorderWeb, :controller
+defmodule DiscussitWeb.PageController do
+  use DiscussitWeb, :controller
 
   def home(conn, _params) do
     # The home page is often custom made,

@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.ConversationLiveTest do
-  # use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.ConversationLiveTest do
+  # use DiscussitWeb.ConnCase
 
   # import Phoenix.LiveViewTest
-  # import OpenphoneRecorder.ConversationsFixtures
+  # import Discussit.ConversationsFixtures
 
   # defp create_conversation(_) do
   #   conversation = conversation_fixture()

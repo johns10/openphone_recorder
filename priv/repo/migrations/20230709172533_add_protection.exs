@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.Repo.Migrations.AddProtection do
+defmodule Discussit.Repo.Migrations.AddProtection do
   use Ecto.Migration
 
   def change do

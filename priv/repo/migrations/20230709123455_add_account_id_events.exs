@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.Repo.Migrations.AddAccountIdEvents do
+defmodule Discussit.Repo.Migrations.AddAccountIdEvents do
   use Ecto.Migration
 
   def change do

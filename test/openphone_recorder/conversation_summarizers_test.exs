@@ -1,9 +1,9 @@
-defmodule OpenphoneRecorder.ConversationSummarizersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.ConversationSummarizersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.ConversationSummarizers
-  import OpenphoneRecorder.ConversationsFixtures
-  import OpenphoneRecorder.SummarizersFixtures
+  alias Discussit.ConversationSummarizers
+  import Discussit.ConversationsFixtures
+  import Discussit.SummarizersFixtures
 
   defp valid_attrs() do
     %{
@@ -13,9 +13,9 @@ defmodule OpenphoneRecorder.ConversationSummarizersTest do
   end
 
   describe "conversation_summaries" do
-    alias OpenphoneRecorder.ConversationSummarizers.ConversationSummarizer
+    alias Discussit.ConversationSummarizers.ConversationSummarizer
 
-    import OpenphoneRecorder.ConversationSummarizersFixtures
+    import Discussit.ConversationSummarizersFixtures
 
     @invalid_attrs %{conversation_id: nil, summarizer_id: nil}
 

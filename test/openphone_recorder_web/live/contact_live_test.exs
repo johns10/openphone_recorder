@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.ContactLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.ContactLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.ContactsFixtures
+  import Discussit.ContactsFixtures
 
   @create_attrs %{
     external_id: "",

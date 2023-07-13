@@ -1,12 +1,12 @@
 defmodule Mix.Tasks.SetAccountId do
   use Mix.Task
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.Contacts
-  alias OpenphoneRecorder.Accounts
-  alias OpenphoneRecorder.Conversations
+  alias Discussit.Events
+  alias Discussit.Contacts
+  alias Discussit.Accounts
+  alias Discussit.Conversations
 
   def run([account_id]) do
-    Application.ensure_all_started(:openphone_recorder)
+    Application.ensure_all_started(:discussit)
     if !Accounts.get_account!(account_id), do: raise("Invalid account id")
 
     Events.list_events()

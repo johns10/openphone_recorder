@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.UserSessionController do
-  use OpenphoneRecorderWeb, :controller
+defmodule DiscussitWeb.UserSessionController do
+  use DiscussitWeb, :controller
 
-  alias OpenphoneRecorder.Users
-  alias OpenphoneRecorderWeb.UserAuth
+  alias Discussit.Users
+  alias DiscussitWeb.UserAuth
 
   def create(conn, %{"_action" => "registered"} = params) do
     create(conn, params, "Account created successfully!")

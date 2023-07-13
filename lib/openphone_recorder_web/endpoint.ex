@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorderWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :openphone_recorder
+defmodule DiscussitWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :discussit
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_openphone_recorder_key",
+    key: "_discussit_key",
     signing_salt: "AHYGSUJ4",
     same_site: "Lax"
   ]
@@ -19,9 +19,9 @@ defmodule OpenphoneRecorderWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :openphone_recorder,
+    from: :discussit,
     gzip: false,
-    only: OpenphoneRecorderWeb.static_paths()
+    only: DiscussitWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -29,7 +29,7 @@ defmodule OpenphoneRecorderWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :openphone_recorder
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :discussit
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -42,11 +42,11 @@ defmodule OpenphoneRecorderWeb.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    body_reader: {OpenphoneRecorderWeb.CacheBodyReader, :read_body, []},
+    body_reader: {DiscussitWeb.CacheBodyReader, :read_body, []},
     json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug OpenphoneRecorderWeb.Router
+  plug DiscussitWeb.Router
 end

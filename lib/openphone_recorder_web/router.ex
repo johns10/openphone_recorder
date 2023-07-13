@@ -1,14 +1,14 @@
-defmodule OpenphoneRecorderWeb.Router do
-  use OpenphoneRecorderWeb, :router
+defmodule DiscussitWeb.Router do
+  use DiscussitWeb, :router
 
-  import OpenphoneRecorderWeb.UserAuth
+  import DiscussitWeb.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :cache_body
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {OpenphoneRecorderWeb.Layouts, :root}
+    plug :put_root_layout, {DiscussitWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
@@ -23,7 +23,7 @@ defmodule OpenphoneRecorderWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", OpenphoneRecorderWeb do
+  scope "/", DiscussitWeb do
     pipe_through :browser
 
     get "/", PageController, :home
@@ -31,7 +31,7 @@ defmodule OpenphoneRecorderWeb.Router do
     resources "/events", EventController, except: [:new, :edit]
   end
 
-  scope "/api", OpenphoneRecorderWeb do
+  scope "/api", DiscussitWeb do
     pipe_through :api
 
     post "/events/:account_id", EventController, :create
@@ -42,7 +42,7 @@ defmodule OpenphoneRecorderWeb.Router do
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
-  if Application.compile_env(:openphone_recorder, :dev_routes) do
+  if Application.compile_env(:discussit, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
     # it behind authentication and allow only admins to access it.
     # If your application does not have an admins-only section yet,
@@ -53,18 +53,18 @@ defmodule OpenphoneRecorderWeb.Router do
     scope "/dev" do
       pipe_through :browser
 
-      live_dashboard "/dashboard", metrics: OpenphoneRecorderWeb.Telemetry
+      live_dashboard "/dashboard", metrics: DiscussitWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end
 
   ## Authentication routes
 
-  scope "/", OpenphoneRecorderWeb do
+  scope "/", DiscussitWeb do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     live_session :redirect_if_user_is_authenticated,
-      on_mount: [{OpenphoneRecorderWeb.UserAuth, :redirect_if_user_is_authenticated}] do
+      on_mount: [{DiscussitWeb.UserAuth, :redirect_if_user_is_authenticated}] do
       live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
@@ -74,13 +74,13 @@ defmodule OpenphoneRecorderWeb.Router do
     post "/users/log_in", UserSessionController, :create
   end
 
-  scope "/", OpenphoneRecorderWeb do
+  scope "/", DiscussitWeb do
     pipe_through [:browser, :require_administrative_user]
 
     live_session :require_administrative_user,
       on_mount: [
-        {OpenphoneRecorderWeb.UserAuth, :ensure_authenticated},
-        {OpenphoneRecorderWeb.UserAuth, :ensure_administrator}
+        {DiscussitWeb.UserAuth, :ensure_authenticated},
+        {DiscussitWeb.UserAuth, :ensure_administrator}
       ] do
       live "/accounts", AccountLive.Index, :index
       live "/accounts/new", AccountLive.Index, :new
@@ -88,13 +88,13 @@ defmodule OpenphoneRecorderWeb.Router do
     end
   end
 
-  scope "/", OpenphoneRecorderWeb do
+  scope "/", DiscussitWeb do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
       on_mount: [
-        {OpenphoneRecorderWeb.UserAuth, :ensure_authenticated},
-        {OpenphoneRecorderWeb.UserAuth, :mount_user_setting}
+        {DiscussitWeb.UserAuth, :ensure_authenticated},
+        {DiscussitWeb.UserAuth, :mount_user_setting}
       ] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
@@ -123,13 +123,13 @@ defmodule OpenphoneRecorderWeb.Router do
     end
   end
 
-  scope "/", OpenphoneRecorderWeb do
+  scope "/", DiscussitWeb do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
 
     live_session :current_user,
-      on_mount: [{OpenphoneRecorderWeb.UserAuth, :mount_current_user}] do
+      on_mount: [{DiscussitWeb.UserAuth, :mount_current_user}] do
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
       live "/users/invitation/:token", UserInvitationLive, :edit

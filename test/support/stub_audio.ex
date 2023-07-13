@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorder.StubAudio do
-  @behaviour OpenphoneRecorder.Audio.Behaviour
+defmodule Discussit.StubAudio do
+  @behaviour Discussit.Audio.Behaviour
 
   @impl true
   def split(_),

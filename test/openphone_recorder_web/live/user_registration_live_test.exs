@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.UserRegistrationLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserRegistrationLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
   describe "Registration page" do
     test "renders registration page", %{conn: conn} do

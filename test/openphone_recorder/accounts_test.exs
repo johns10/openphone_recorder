@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.AccountsTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.AccountsTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Accounts
+  alias Discussit.Accounts
 
   describe "accounts" do
-    alias OpenphoneRecorder.Accounts.Account
+    alias Discussit.Accounts.Account
 
-    import OpenphoneRecorder.AccountsFixtures
+    import Discussit.AccountsFixtures
 
     @invalid_attrs %{name: nil, plan: nil}
 

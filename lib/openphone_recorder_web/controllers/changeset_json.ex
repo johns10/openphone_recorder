@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorderWeb.ChangesetJSON do
+defmodule DiscussitWeb.ChangesetJSON do
   @doc """
   Renders changeset errors.
   """
@@ -13,9 +13,9 @@ defmodule OpenphoneRecorderWeb.ChangesetJSON do
     # uncommenting and adjusting the following code:
 
     # if count = opts[:count] do
-    #   Gettext.dngettext(OpenphoneRecorderWeb.Gettext, "errors", msg, msg, count, opts)
+    #   Gettext.dngettext(DiscussitWeb.Gettext, "errors", msg, msg, count, opts)
     # else
-    #   Gettext.dgettext(OpenphoneRecorderWeb.Gettext, "errors", msg, opts)
+    #   Gettext.dgettext(DiscussitWeb.Gettext, "errors", msg, opts)
     # end
 
     Enum.reduce(opts, msg, fn {key, value}, acc ->

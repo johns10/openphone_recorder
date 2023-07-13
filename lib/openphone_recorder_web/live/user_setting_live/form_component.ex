@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.UserSettingLive.FormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.UserSettingLive.FormComponent do
+  use DiscussitWeb, :live_component
 
-  alias OpenphoneRecorder.UserSettings
+  alias Discussit.UserSettings
 
   @impl true
   def render(assigns) do

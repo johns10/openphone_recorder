@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.ConversationLive.Show do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.ConversationLive.Show do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Conversations
+  alias Discussit.Conversations
 
   @impl true
   def mount(_params, _session, socket) do

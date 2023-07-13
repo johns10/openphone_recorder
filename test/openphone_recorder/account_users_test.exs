@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.AccountUsersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.AccountUsersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.AccountUsers
+  alias Discussit.AccountUsers
 
   describe "account_users" do
-    alias OpenphoneRecorder.AccountUsers.AccountUser
+    alias Discussit.AccountUsers.AccountUser
 
-    import OpenphoneRecorder.AccountUsersFixtures
+    import Discussit.AccountUsersFixtures
 
     @invalid_attrs %{account_id: Ecto.UUID.generate(), user_id: Ecto.UUID.generate()}
 

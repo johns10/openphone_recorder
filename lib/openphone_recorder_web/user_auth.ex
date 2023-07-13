@@ -1,16 +1,19 @@
-defmodule OpenphoneRecorderWeb.UserAuth do
-  use OpenphoneRecorderWeb, :verified_routes
+defmodule DiscussitWeb.UserAuth do
+  use DiscussitWeb, :verified_routes
 
   import Plug.Conn
   import Phoenix.Controller
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
+  alias Discussit.UserSettings
+  alias Discussit.Accounts
+  alias Discussit.Accounts.Account
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
   # the token expiry itself in UserToken.
   @max_age 60 * 60 * 24 * 60
-  @remember_me_cookie "_openphone_recorder_web_user_remember_me"
+  @remember_me_cookie "_discussit_web_user_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   @doc """
@@ -75,7 +78,7 @@ defmodule OpenphoneRecorderWeb.UserAuth do
     user_token && Users.delete_user_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      OpenphoneRecorderWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      DiscussitWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn
@@ -130,16 +133,16 @@ defmodule OpenphoneRecorderWeb.UserAuth do
   Use the `on_mount` lifecycle macro in LiveViews to mount or authenticate
   the current_user:
 
-      defmodule OpenphoneRecorderWeb.PageLive do
-        use OpenphoneRecorderWeb, :live_view
+      defmodule DiscussitWeb.PageLive do
+        use DiscussitWeb, :live_view
 
-        on_mount {OpenphoneRecorderWeb.UserAuth, :mount_current_user}
+        on_mount {DiscussitWeb.UserAuth, :mount_current_user}
         ...
       end
 
   Or use the `live_session` of your router to invoke the on_mount callback:
 
-      live_session :authenticated, on_mount: [{OpenphoneRecorderWeb.UserAuth, :ensure_authenticated}] do
+      live_session :authenticated, on_mount: [{DiscussitWeb.UserAuth, :ensure_authenticated}] do
         live "/profile", ProfileLive, :index
       end
   """
@@ -164,9 +167,26 @@ defmodule OpenphoneRecorderWeb.UserAuth do
 
   def on_mount(:mount_user_setting, _params, _session, socket) do
     if socket.assigns.current_user do
-      user_setting =
+      original_user_setting =
         %{user_id: socket.assigns.current_user.id}
-        |> OpenphoneRecorder.UserSettings.get_or_insert_user_setting!()
+        |> Discussit.UserSettings.get_or_insert_user_setting!()
+
+      user_setting =
+        if original_user_setting.selected_account_id == nil do
+          case Accounts.list_accounts(filters: [user_id: original_user_setting.user_id]) do
+            [%Account{id: id} | _] ->
+              {:ok, updated_user_setting} =
+                UserSettings.update_user_setting(original_user_setting, %{selected_account_id: id})
+                |> Discussit.Repo.preload([:selected_account])
+
+              updated_user_setting
+
+            _ ->
+              original_user_setting
+          end
+        else
+          original_user_setting
+        end
 
       {:cont, Phoenix.Component.assign(socket, :user_setting, user_setting)}
     else

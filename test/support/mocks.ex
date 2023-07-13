@@ -1,2 +1,2 @@
-Mox.defmock(OpenphoneRecorder.MockHTTP, for: OpenphoneRecorder.HTTP.Behaviour)
-Mox.defmock(OpenphoneRecorder.MockAudio, for: OpenphoneRecorder.Audio.Behaviour)
+Mox.defmock(Discussit.MockHTTP, for: Discussit.HTTP.Behaviour)
+Mox.defmock(Discussit.MockAudio, for: Discussit.Audio.Behaviour)

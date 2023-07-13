@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.SummarizerLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.SummarizerLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.SummarizersFixtures
+  import Discussit.SummarizersFixtures
 
   @create_attrs %{prompt: "some prompt"}
   @update_attrs %{prompt: "some updated prompt"}

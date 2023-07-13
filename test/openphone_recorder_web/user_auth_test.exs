@@ -1,17 +1,17 @@
-defmodule OpenphoneRecorderWeb.UserAuthTest do
-  use OpenphoneRecorderWeb.ConnCase, async: true
+defmodule DiscussitWeb.UserAuthTest do
+  use DiscussitWeb.ConnCase, async: true
 
   alias Phoenix.LiveView
-  alias OpenphoneRecorder.Users
-  alias OpenphoneRecorderWeb.UserAuth
-  import OpenphoneRecorder.UsersFixtures
+  alias Discussit.Users
+  alias DiscussitWeb.UserAuth
+  import Discussit.UsersFixtures
 
-  @remember_me_cookie "_openphone_recorder_web_user_remember_me"
+  @remember_me_cookie "_discussit_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, OpenphoneRecorderWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, DiscussitWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -66,7 +66,7 @@ defmodule OpenphoneRecorderWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "users_sessions:abcdef-token"
-      OpenphoneRecorderWeb.Endpoint.subscribe(live_socket_id)
+      DiscussitWeb.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)
@@ -164,7 +164,7 @@ defmodule OpenphoneRecorderWeb.UserAuthTest do
       session = conn |> put_session(:user_token, user_token) |> get_session()
 
       socket = %LiveView.Socket{
-        endpoint: OpenphoneRecorderWeb.Endpoint,
+        endpoint: DiscussitWeb.Endpoint,
         assigns: %{__changed__: %{}, flash: %{}}
       }
 
@@ -176,7 +176,7 @@ defmodule OpenphoneRecorderWeb.UserAuthTest do
       session = conn |> get_session()
 
       socket = %LiveView.Socket{
-        endpoint: OpenphoneRecorderWeb.Endpoint,
+        endpoint: DiscussitWeb.Endpoint,
         assigns: %{__changed__: %{}, flash: %{}}
       }
 

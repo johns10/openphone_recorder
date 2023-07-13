@@ -1,6 +1,6 @@
-defmodule OpenphoneRecorder.StatementSummariesFixtures do
-  import OpenphoneRecorder.StatementsFixtures
-  import OpenphoneRecorder.SummariesFixtures
+defmodule Discussit.StatementSummariesFixtures do
+  import Discussit.StatementsFixtures
+  import Discussit.SummariesFixtures
 
   def statement_summary_fixture(attrs \\ %{}) do
     {:ok, statement_summary} =
@@ -9,7 +9,7 @@ defmodule OpenphoneRecorder.StatementSummariesFixtures do
         statement_id: statement_fixture() |> Map.get(:id),
         summary_id: summary_fixture() |> Map.get(:id)
       })
-      |> OpenphoneRecorder.StatementSummaries.create_statement_summary()
+      |> Discussit.StatementSummaries.create_statement_summary()
 
     statement_summary
   end

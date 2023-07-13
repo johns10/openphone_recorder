@@ -1,10 +1,10 @@
-defmodule OpenphoneRecorder.UsersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.UsersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
 
-  import OpenphoneRecorder.UsersFixtures
-  alias OpenphoneRecorder.Users.{User, UserToken}
+  import Discussit.UsersFixtures
+  alias Discussit.Users.{User, UserToken}
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do

@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.PhoneNumbersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.PhoneNumbersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.PhoneNumbers
+  alias Discussit.PhoneNumbers
 
   describe "phone_numbers" do
-    alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
+    alias Discussit.PhoneNumbers.PhoneNumber
 
-    import OpenphoneRecorder.PhoneNumbersFixtures
+    import Discussit.PhoneNumbersFixtures
 
     @invalid_attrs %{external_id: nil, value: nil, source: nil}
 

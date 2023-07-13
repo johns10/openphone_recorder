@@ -1,9 +1,9 @@
-defmodule OpenphoneRecorderWeb.AccountLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.AccountLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.AccountsFixtures
-  import OpenphoneRecorder.AccountUsersFixtures
+  import Discussit.AccountsFixtures
+  import Discussit.AccountUsersFixtures
 
   @create_attrs %{name: "some name", plan: :free}
   @update_attrs %{name: "some updated name", plan: :basic}

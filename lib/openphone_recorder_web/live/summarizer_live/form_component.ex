@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.SummarizerLive.FormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.SummarizerLive.FormComponent do
+  use DiscussitWeb, :live_component
 
-  alias OpenphoneRecorder.Summarizers
+  alias Discussit.Summarizers
 
   @impl true
   def render(assigns) do

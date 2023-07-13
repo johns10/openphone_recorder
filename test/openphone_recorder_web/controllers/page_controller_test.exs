@@ -1,3 +1,3 @@
-defmodule OpenphoneRecorderWeb.PageControllerTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.PageControllerTest do
+  use DiscussitWeb.ConnCase
 end

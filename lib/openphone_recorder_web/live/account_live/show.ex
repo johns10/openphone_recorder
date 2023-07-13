@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.AccountLive.Show do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.AccountLive.Show do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Accounts
-  alias OpenphoneRecorder.AccountUsers
+  alias Discussit.Accounts
+  alias Discussit.AccountUsers
 
   @preloads [account_users: :user]
 

@@ -32,7 +32,7 @@
 
 <.modal :if={@live_action in [:new, :edit]} id="account-modal" show on_cancel={JS.patch(~p"/accounts")}>
   <.live_component
-    module={OpenphoneRecorderWeb.AccountLive.FormComponent}
+    module={DiscussitWeb.AccountLive.FormComponent}
     id={@account.id || :new}
     title={@page_title}
     action={@live_action}

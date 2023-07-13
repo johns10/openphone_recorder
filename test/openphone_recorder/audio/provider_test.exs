@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.Audio.ProviderTest do
+defmodule Discussit.Audio.ProviderTest do
   use ExUnit.Case
-  doctest OpenphoneRecorder.Audio.Provider
-  alias OpenphoneRecorder.Audio.Provider
+  doctest Discussit.Audio.Provider
+  alias Discussit.Audio.Provider
 
   describe "Audio" do
     @tag :integration

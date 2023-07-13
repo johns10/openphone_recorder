@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorderWeb.EventJSON do
-  alias OpenphoneRecorder.Events.Event
+defmodule DiscussitWeb.EventJSON do
+  alias Discussit.Events.Event
 
   @doc """
   Renders a list of events.

@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorderWeb.AccountUserLive.FormComponent do
-  use OpenphoneRecorderWeb, :live_component
+defmodule DiscussitWeb.AccountUserLive.FormComponent do
+  use DiscussitWeb, :live_component
 
   require Logger
 
-  alias OpenphoneRecorder.AccountUsers.AccountUserForm
-  alias OpenphoneRecorder.AccountUsers
-  alias OpenphoneRecorder.Users.User
-  alias OpenphoneRecorder.Users
+  alias Discussit.AccountUsers.AccountUserForm
+  alias Discussit.AccountUsers
+  alias Discussit.Users.User
+  alias Discussit.Users
 
   @impl true
   def render(assigns) do

@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.UserResetPasswordLive do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.UserResetPasswordLive do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
 
   def render(assigns) do
     ~H"""

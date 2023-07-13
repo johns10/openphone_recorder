@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.SummariesTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.SummariesTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Summaries
+  alias Discussit.Summaries
 
   describe "summaries" do
-    alias OpenphoneRecorder.Summaries.Summary
+    alias Discussit.Summaries.Summary
 
-    import OpenphoneRecorder.SummariesFixtures
+    import Discussit.SummariesFixtures
 
     @invalid_attrs %{content: nil, params: nil}
 

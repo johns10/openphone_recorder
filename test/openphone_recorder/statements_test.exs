@@ -1,17 +1,17 @@
-defmodule OpenphoneRecorder.StatementsTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.StatementsTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Statements
+  alias Discussit.Statements
 
   describe "statement summaries" do
-    alias OpenphoneRecorder.Statements.Statement
-    import OpenphoneRecorder.StatementsFixtures
-    import OpenphoneRecorder.ParticipantsFixtures
-    import OpenphoneRecorder.ConversationsFixtures
-    import OpenphoneRecorder.SummariesFixtures
-    import OpenphoneRecorder.StatementSummariesFixtures
-    import OpenphoneRecorder.SummarizersFixtures
-    import OpenphoneRecorder.ConversationSummarizersFixtures
+    alias Discussit.Statements.Statement
+    import Discussit.StatementsFixtures
+    import Discussit.ParticipantsFixtures
+    import Discussit.ConversationsFixtures
+    import Discussit.SummariesFixtures
+    import Discussit.StatementSummariesFixtures
+    import Discussit.SummarizersFixtures
+    import Discussit.ConversationSummarizersFixtures
 
     test "list_statements/1 returns unsummarized statements" do
       conversation = conversation_fixture()
@@ -76,10 +76,10 @@ defmodule OpenphoneRecorder.StatementsTest do
   end
 
   describe "statements" do
-    alias OpenphoneRecorder.Statements.Statement
+    alias Discussit.Statements.Statement
 
-    import OpenphoneRecorder.StatementsFixtures
-    import OpenphoneRecorder.ParticipantsFixtures
+    import Discussit.StatementsFixtures
+    import Discussit.ParticipantsFixtures
 
     @invalid_attrs %{content: nil, occurred_at: nil, type: nil}
 

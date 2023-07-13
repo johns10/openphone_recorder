@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.OpenphoneFixtures do
+defmodule Discussit.OpenphoneFixtures do
   def call_completed(attrs \\ %{}) do
     id = Map.get(attrs, :id, "ACbaee66e137f0467dbed5ad4bc8d60800")
 

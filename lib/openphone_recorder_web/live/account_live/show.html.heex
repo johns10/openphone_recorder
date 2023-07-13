@@ -22,12 +22,12 @@
 </.table>
 
 <.live_component
-  module={OpenphoneRecorderWeb.AccountUserLive.FormComponent}
+  module={DiscussitWeb.AccountUserLive.FormComponent}
   id="account-user-form"
   account_id={@account.id}
   patch={~p"/accounts/#{@account}"}
   current_user={@current_user}
-  account_user={%OpenphoneRecorder.AccountUsers.AccountUser{}}
+  account_user={%Discussit.AccountUsers.AccountUser{}}
 />
 
 <.back navigate={~p"/accounts"}>Back to accounts</.back>
@@ -39,7 +39,7 @@
   on_cancel={JS.patch(~p"/accounts/#{@account}")}
 >
   <.live_component
-    module={OpenphoneRecorderWeb.AccountLive.FormComponent}
+    module={DiscussitWeb.AccountLive.FormComponent}
     id={@account.id}
     title={@page_title}
     action={@live_action}

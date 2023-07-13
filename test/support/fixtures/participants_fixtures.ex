@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.ParticipantsFixtures do
+defmodule Discussit.ParticipantsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Participants` context.
+  entities via the `Discussit.Participants` context.
   """
 
   @doc """
@@ -13,7 +13,7 @@ defmodule OpenphoneRecorder.ParticipantsFixtures do
       |> Enum.into(%{
 
       })
-      |> OpenphoneRecorder.Participants.create_participant()
+      |> Discussit.Participants.create_participant()
 
     participant
   end

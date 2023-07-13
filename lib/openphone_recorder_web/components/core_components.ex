@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorderWeb.CoreComponents do
+defmodule DiscussitWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -11,11 +11,11 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
   use Phoenix.Component
 
   use Phoenix.VerifiedRoutes,
-    endpoint: OpenphoneRecorderWeb.Endpoint,
-    router: OpenphoneRecorderWeb.Router
+    endpoint: DiscussitWeb.Endpoint,
+    router: DiscussitWeb.Router
 
   alias Phoenix.LiveView.JS
-  import OpenphoneRecorderWeb.Gettext
+  import DiscussitWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -711,9 +711,9 @@ defmodule OpenphoneRecorderWeb.CoreComponents do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(OpenphoneRecorderWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(DiscussitWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(OpenphoneRecorderWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(DiscussitWeb.Gettext, "errors", msg, opts)
     end
   end
 

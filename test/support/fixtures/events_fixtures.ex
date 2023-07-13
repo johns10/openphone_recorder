@@ -1,13 +1,13 @@
-defmodule OpenphoneRecorder.EventsFixtures do
+defmodule Discussit.EventsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Events` context.
+  entities via the `Discussit.Events` context.
   """
 
   @doc """
   Generate a event.
   """
-  import OpenphoneRecorder.AccountsFixtures
+  import Discussit.AccountsFixtures
 
   def event_fixture(attrs \\ %{}) do
     account_id = Map.get(attrs, :account_id, nil) || account_fixture().id
@@ -19,7 +19,7 @@ defmodule OpenphoneRecorder.EventsFixtures do
         payload: %{},
         processed: false
       })
-      |> OpenphoneRecorder.Events.create_event()
+      |> Discussit.Events.create_event()
 
     event
   end

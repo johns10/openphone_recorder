@@ -1,10 +1,10 @@
-defmodule OpenphoneRecorder.Consumer do
+defmodule Discussit.Consumer do
   use ExUnit.Case, async: true
-  use OpenphoneRecorder.DataCase
-  import OpenphoneRecorder.EventsFixtures
-  import OpenphoneRecorder.OpenphoneFixtures
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.Events.Consumer
+  use Discussit.DataCase
+  import Discussit.EventsFixtures
+  import Discussit.OpenphoneFixtures
+  alias Discussit.Events
+  alias Discussit.Events.Consumer
 
   @default_timeout 500
 

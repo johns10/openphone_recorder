@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.SummarizerLive.Show do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.SummarizerLive.Show do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Summarizers
+  alias Discussit.Summarizers
 
   @impl true
   def mount(_params, _session, socket) do

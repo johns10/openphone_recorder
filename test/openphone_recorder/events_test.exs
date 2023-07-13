@@ -1,14 +1,14 @@
-defmodule OpenphoneRecorder.EventsTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.EventsTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.OpenphoneFixtures
+  alias Discussit.Events
+  alias Discussit.OpenphoneFixtures
 
   describe "events" do
-    alias OpenphoneRecorder.Events.Event
+    alias Discussit.Events.Event
 
-    import OpenphoneRecorder.EventsFixtures
-    import OpenphoneRecorder.AccountsFixtures
+    import Discussit.EventsFixtures
+    import Discussit.AccountsFixtures
 
     @invalid_attrs %{payload: nil}
 
@@ -58,7 +58,7 @@ defmodule OpenphoneRecorder.EventsTest do
       assert %Ecto.Changeset{} = Events.change_event(event)
     end
 
-    alias OpenphoneRecorder.Events.Openphone
+    alias Discussit.Events.Openphone
 
     test "projects call completed" do
       assert %Openphone.CallCompleted{} =

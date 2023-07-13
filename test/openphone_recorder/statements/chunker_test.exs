@@ -1,10 +1,10 @@
-defmodule OpenphoneRecorder.Statements.ChunkerTest do
+defmodule Discussit.Statements.ChunkerTest do
   use ExUnit.Case
-  import OpenphoneRecorder.TimestampFixtures
-  alias OpenphoneRecorder.Statements.Statement
-  alias OpenphoneRecorder.Statements.Chunker
-  alias OpenphoneRecorder.Participants.Participant
-  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
+  import Discussit.TimestampFixtures
+  alias Discussit.Statements.Statement
+  alias Discussit.Statements.Chunker
+  alias Discussit.Participants.Participant
+  alias Discussit.PhoneNumbers.PhoneNumber
 
   def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 

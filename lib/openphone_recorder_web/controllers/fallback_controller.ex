@@ -1,16 +1,16 @@
-defmodule OpenphoneRecorderWeb.FallbackController do
+defmodule DiscussitWeb.FallbackController do
   @moduledoc """
   Translates controller action results into valid `Plug.Conn` responses.
 
   See `Phoenix.Controller.action_fallback/1` for more details.
   """
-  use OpenphoneRecorderWeb, :controller
+  use DiscussitWeb, :controller
 
   # This clause handles errors returned by Ecto's insert/update/delete.
   def call(conn, {:error, %Ecto.Changeset{} = changeset}) do
     conn
     |> put_status(:unprocessable_entity)
-    |> put_view(json: OpenphoneRecorderWeb.ChangesetJSON)
+    |> put_view(json: DiscussitWeb.ChangesetJSON)
     |> render(:error, changeset: changeset)
   end
 
@@ -18,7 +18,7 @@ defmodule OpenphoneRecorderWeb.FallbackController do
   def call(conn, {:error, :not_found}) do
     conn
     |> put_status(:not_found)
-    |> put_view(html: OpenphoneRecorderWeb.ErrorHTML, json: OpenphoneRecorderWeb.ErrorJSON)
+    |> put_view(html: DiscussitWeb.ErrorHTML, json: DiscussitWeb.ErrorJSON)
     |> render(:"404")
   end
 end

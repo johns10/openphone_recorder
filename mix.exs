@@ -1,9 +1,9 @@
-defmodule OpenphoneRecorder.MixProject do
+defmodule Discussit.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :openphone_recorder,
+      app: :discussit,
       version: "0.1.0",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule OpenphoneRecorder.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {OpenphoneRecorder.Application, []},
+      mod: {Discussit.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

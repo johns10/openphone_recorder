@@ -1,18 +1,18 @@
-defmodule OpenphoneRecorder.ConversationsTest do
-  alias OpenphoneRecorder.AccountsFixtures
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.ConversationsTest do
+  alias Discussit.AccountsFixtures
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Conversations
+  alias Discussit.Conversations
 
   describe "conversations" do
-    alias OpenphoneRecorder.Conversations.Conversation
+    alias Discussit.Conversations.Conversation
 
-    import OpenphoneRecorder.ConversationsFixtures
-    import OpenphoneRecorder.ParticipantsFixtures
-    import OpenphoneRecorder.PhoneNumbersFixtures
-    import OpenphoneRecorder.ContactsFixtures
-    import OpenphoneRecorder.ContactPhoneNumbersFixtures
-    import OpenphoneRecorder.AccountsFixtures
+    import Discussit.ConversationsFixtures
+    import Discussit.ParticipantsFixtures
+    import Discussit.PhoneNumbersFixtures
+    import Discussit.ContactsFixtures
+    import Discussit.ContactPhoneNumbersFixtures
+    import Discussit.AccountsFixtures
 
     @invalid_attrs %{}
 

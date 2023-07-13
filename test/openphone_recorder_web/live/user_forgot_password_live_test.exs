@@ -1,11 +1,11 @@
-defmodule OpenphoneRecorderWeb.UserForgotPasswordLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserForgotPasswordLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
-  alias OpenphoneRecorder.Users
-  alias OpenphoneRecorder.Repo
+  alias Discussit.Users
+  alias Discussit.Repo
 
   describe "Forgot password page" do
     test "renders email page", %{conn: conn} do

@@ -1,15 +1,15 @@
-defmodule OpenphoneRecorderWeb.IndexLive.Index do
-  use OpenphoneRecorderWeb, :html_helpers
+defmodule DiscussitWeb.IndexLive.Index do
+  use DiscussitWeb, :html_helpers
 
   use Phoenix.LiveView,
     container: {:div, class: "h-full flex-grow flex flex-col overflow-hidden"}
 
-  on_mount {OpenphoneRecorderWeb.UserAuth, :mount_current_user}
+  on_mount {DiscussitWeb.UserAuth, :mount_current_user}
 
-  import OpenphoneRecorderWeb.IndexLive.Components
+  import DiscussitWeb.IndexLive.Components
 
-  alias OpenphoneRecorder.Conversations
-  alias OpenphoneRecorder.Statements
+  alias Discussit.Conversations
+  alias Discussit.Statements
 
   @default_preloads [:participants, [participants: [phone_number: :contact]]]
 
@@ -23,7 +23,7 @@ defmodule OpenphoneRecorderWeb.IndexLive.Index do
      socket
      |> assign(:render, true)
      |> stream(:conversations, conversations)
-     |> stream(:statements, []), layout: {OpenphoneRecorderWeb.Layouts, :full_screen}}
+     |> stream(:statements, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true

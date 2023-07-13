@@ -1,16 +1,16 @@
 import Config
 
 # Configure your database
-config :openphone_recorder, OpenphoneRecorder.Repo,
+config :discussit, Discussit.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "openphone_recorder_dev",
+  database: "discussit_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
-config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
+config :discussit, DiscussitWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
@@ -21,16 +21,16 @@ config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
     tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
-config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
+config :discussit, DiscussitWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/openphone_recorder_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/discussit_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
 
-config :openphone_recorder,
+config :discussit,
   dev_routes: true,
   signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
 

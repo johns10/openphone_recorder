@@ -16,7 +16,7 @@
 
 <.modal :if={@live_action == :edit} id="summarizer-modal" show on_cancel={JS.patch(~p"/summarizers/#{@summarizer}")}>
   <.live_component
-    module={OpenphoneRecorderWeb.SummarizerLive.FormComponent}
+    module={DiscussitWeb.SummarizerLive.FormComponent}
     id={@summarizer.id}
     title={@page_title}
     action={@live_action}

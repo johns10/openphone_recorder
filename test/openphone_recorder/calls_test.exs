@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.CallsTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.CallsTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Calls
+  alias Discussit.Calls
 
   describe "calls" do
-    alias OpenphoneRecorder.Calls.Call
+    alias Discussit.Calls.Call
 
-    import OpenphoneRecorder.CallsFixtures
+    import Discussit.CallsFixtures
 
     @invalid_attrs %{external_id: nil, source: nil}
 

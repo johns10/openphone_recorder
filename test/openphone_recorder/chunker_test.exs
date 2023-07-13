@@ -1,14 +1,14 @@
-defmodule OpenphoneRecorder.ChunkerTest do
-  use OpenphoneRecorder.DataCase
-  import OpenphoneRecorder.TimestampFixtures
-  alias OpenphoneRecorder.Statements.Statement
-  alias OpenphoneRecorder.Chunker
-  alias OpenphoneRecorder.Chunker.Queue
-  alias OpenphoneRecorder.Chunker.Daily
-  alias OpenphoneRecorder.Chunker.TokenCount
-  alias OpenphoneRecorder.Participants.Participant
-  alias OpenphoneRecorder.PhoneNumbers.PhoneNumber
-  alias OpenphoneRecorder.Summaries.Summary
+defmodule Discussit.ChunkerTest do
+  use Discussit.DataCase
+  import Discussit.TimestampFixtures
+  alias Discussit.Statements.Statement
+  alias Discussit.Chunker
+  alias Discussit.Chunker.Queue
+  alias Discussit.Chunker.Daily
+  alias Discussit.Chunker.TokenCount
+  alias Discussit.Participants.Participant
+  alias Discussit.PhoneNumbers.PhoneNumber
+  alias Discussit.Summaries.Summary
 
   def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 

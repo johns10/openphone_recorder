@@ -7,17 +7,17 @@
 # General application configuration
 import Config
 
-config :openphone_recorder,
-  ecto_repos: [OpenphoneRecorder.Repo]
+config :discussit,
+  ecto_repos: [Discussit.Repo]
 
 # Configures the endpoint
-config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
+config :discussit, DiscussitWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
-    formats: [html: OpenphoneRecorderWeb.ErrorHTML, json: OpenphoneRecorderWeb.ErrorJSON],
+    formats: [html: DiscussitWeb.ErrorHTML, json: DiscussitWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: OpenphoneRecorder.PubSub,
+  pubsub_server: Discussit.PubSub,
   live_view: [signing_salt: "yIQeoACI"]
 
 # Configures the mailer
@@ -27,7 +27,7 @@ config :openphone_recorder, OpenphoneRecorderWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :openphone_recorder, OpenphoneRecorder.Mailer, adapter: Swoosh.Adapters.Local
+config :discussit, Discussit.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,

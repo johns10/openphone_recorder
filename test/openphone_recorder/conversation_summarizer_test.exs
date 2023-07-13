@@ -1,18 +1,18 @@
-defmodule OpenphoneRecorder.ConversationSummarizerTest do
-  alias OpenphoneRecorder.ConversationSummarizer
-  alias OpenphoneRecorder.Summaries
-  alias OpenphoneRecorder.Summaries.Summary
+defmodule Discussit.ConversationSummarizerTest do
+  alias Discussit.ConversationSummarizer
+  alias Discussit.Summaries
+  alias Discussit.Summaries.Summary
 
-  import OpenphoneRecorder.ParticipantsFixtures
-  import OpenphoneRecorder.ConversationsFixtures
-  import OpenphoneRecorder.SummarizersFixtures
-  import OpenphoneRecorder.PhoneNumbersFixtures
-  import OpenphoneRecorder.ContactsFixtures
-  import OpenphoneRecorder.TimestampFixtures
-  import OpenphoneRecorder.SummariesFixtures
-  import OpenphoneRecorder.ConversationSummarizersFixtures
+  import Discussit.ParticipantsFixtures
+  import Discussit.ConversationsFixtures
+  import Discussit.SummarizersFixtures
+  import Discussit.PhoneNumbersFixtures
+  import Discussit.ContactsFixtures
+  import Discussit.TimestampFixtures
+  import Discussit.SummariesFixtures
+  import Discussit.ConversationSummarizersFixtures
 
-  use OpenphoneRecorder.DataCase
+  use Discussit.DataCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
   defp conversation(_) do
@@ -44,7 +44,7 @@ defmodule OpenphoneRecorder.ConversationSummarizerTest do
 
   describe "conversation summarizer daily summaries" do
     setup [:conversation]
-    import OpenphoneRecorder.StatementsFixtures
+    import Discussit.StatementsFixtures
 
     test "happy path", attrs do
       %{conversation: conversation, summarizer: summarizer} = attrs
@@ -79,7 +79,7 @@ defmodule OpenphoneRecorder.ConversationSummarizerTest do
 
   describe "conversation summarizer weekly summaries" do
     setup [:conversation]
-    import OpenphoneRecorder.StatementsFixtures
+    import Discussit.StatementsFixtures
 
     test "happy path no summaries", attrs do
       %{conversation: conversation, summarizer: summarizer, conversation_summarizer: cs} = attrs

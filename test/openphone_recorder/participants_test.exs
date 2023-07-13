@@ -1,14 +1,14 @@
-defmodule OpenphoneRecorder.ParticipantsTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.ParticipantsTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Participants
+  alias Discussit.Participants
 
   describe "participants" do
-    alias OpenphoneRecorder.Participants.Participant
+    alias Discussit.Participants.Participant
 
-    import OpenphoneRecorder.ParticipantsFixtures
-    import OpenphoneRecorder.ConversationsFixtures
-    import OpenphoneRecorder.PhoneNumbersFixtures
+    import Discussit.ParticipantsFixtures
+    import Discussit.ConversationsFixtures
+    import Discussit.PhoneNumbersFixtures
 
     @invalid_attrs %{conversation_id: Ecto.UUID.generate(), phone_number_id: Ecto.UUID.generate()}
 

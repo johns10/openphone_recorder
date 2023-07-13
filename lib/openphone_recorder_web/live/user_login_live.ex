@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorderWeb.UserLoginLive do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.UserLoginLive do
+  use DiscussitWeb, :live_view
 
   def render(assigns) do
     ~H"""

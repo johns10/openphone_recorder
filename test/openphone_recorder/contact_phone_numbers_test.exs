@@ -1,14 +1,14 @@
-defmodule OpenphoneRecorder.ContactPhoneNumbersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.ContactPhoneNumbersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.ContactPhoneNumbers
+  alias Discussit.ContactPhoneNumbers
 
   describe "contact_phone_numbers" do
-    alias OpenphoneRecorder.ContactPhoneNumbers.ContactPhoneNumber
+    alias Discussit.ContactPhoneNumbers.ContactPhoneNumber
 
-    import OpenphoneRecorder.ContactPhoneNumbersFixtures
-    import OpenphoneRecorder.PhoneNumbersFixtures
-    import OpenphoneRecorder.ContactsFixtures
+    import Discussit.ContactPhoneNumbersFixtures
+    import Discussit.PhoneNumbersFixtures
+    import Discussit.ContactsFixtures
 
     @invalid_attrs %{contact_id: Ecto.UUID.generate()}
 

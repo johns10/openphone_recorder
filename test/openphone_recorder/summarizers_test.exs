@@ -1,12 +1,12 @@
-defmodule OpenphoneRecorder.SummarizersTest do
-  use OpenphoneRecorder.DataCase
+defmodule Discussit.SummarizersTest do
+  use Discussit.DataCase
 
-  alias OpenphoneRecorder.Summarizers
+  alias Discussit.Summarizers
 
   describe "summarizers" do
-    alias OpenphoneRecorder.Summarizers.Summarizer
+    alias Discussit.Summarizers.Summarizer
 
-    import OpenphoneRecorder.SummarizersFixtures
+    import Discussit.SummarizersFixtures
 
     @invalid_attrs %{prompt: nil}
 

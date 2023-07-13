@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.ContactLive.Index do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.ContactLive.Index do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Contacts
-  alias OpenphoneRecorder.Contacts.Contact
+  alias Discussit.Contacts
+  alias Discussit.Contacts.Contact
 
   @impl true
   def mount(_params, _session, socket) do
@@ -49,7 +49,7 @@ defmodule OpenphoneRecorderWeb.ContactLive.Index do
   end
 
   @impl true
-  def handle_info({OpenphoneRecorderWeb.ContactLive.FormComponent, {:saved, contact}}, socket) do
+  def handle_info({DiscussitWeb.ContactLive.FormComponent, {:saved, contact}}, socket) do
     {:noreply, stream_insert(socket, :contacts, contact)}
   end
 

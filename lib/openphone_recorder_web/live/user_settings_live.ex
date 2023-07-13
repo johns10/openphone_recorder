@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.UserSettingsLive do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.UserSettingsLive do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
 
   def render(assigns) do
     ~H"""

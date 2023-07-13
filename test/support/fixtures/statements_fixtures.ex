@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorder.StatementsFixtures do
-  import OpenphoneRecorder.ParticipantsFixtures
+defmodule Discussit.StatementsFixtures do
+  import Discussit.ParticipantsFixtures
 
   def statements_fixture(content, attrs \\ %{}) do
     participant_one = Map.get(attrs, :participant_one, participant_fixture())
@@ -34,7 +34,7 @@ defmodule OpenphoneRecorder.StatementsFixtures do
         type: :call,
         participant_id: participant_fixture() |> Map.get(:id)
       })
-      |> OpenphoneRecorder.Statements.create_statement()
+      |> Discussit.Statements.create_statement()
 
     statement
   end

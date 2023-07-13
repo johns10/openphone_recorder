@@ -1,8 +1,8 @@
-defmodule OpenphoneRecorderWeb.UserLoginLiveTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.UserLoginLiveTest do
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import OpenphoneRecorder.UsersFixtures
+  import Discussit.UsersFixtures
 
   describe "Log in page" do
     test "renders log in page", %{conn: conn} do

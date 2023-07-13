@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.EventStreamFixtures do
+defmodule Discussit.EventStreamFixtures do
   def stream() do
     [
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1,
         payload: %{
           "apiVersion" => "v3",
@@ -30,7 +30,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:40:17],
         updated_at: ~N[2023-03-13 22:40:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2,
         payload: %{
           "apiVersion" => "v3",
@@ -59,7 +59,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:40:39],
         updated_at: ~N[2023-03-13 22:40:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 3,
         payload: %{
           "apiVersion" => "v3",
@@ -89,7 +89,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:42:34],
         updated_at: ~N[2023-03-13 22:42:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 4,
         payload: %{
           "apiVersion" => "v3",
@@ -118,7 +118,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:42:48],
         updated_at: ~N[2023-03-13 22:42:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 5,
         payload: %{
           "apiVersion" => "v3",
@@ -147,7 +147,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:42:52],
         updated_at: ~N[2023-03-13 22:42:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 6,
         payload: %{
           "apiVersion" => "v3",
@@ -176,7 +176,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 22:43:08],
         updated_at: ~N[2023-03-13 22:43:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 7,
         payload: %{
           "apiVersion" => "v3",
@@ -205,7 +205,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:03:46],
         updated_at: ~N[2023-03-13 23:03:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 8,
         payload: %{
           "apiVersion" => "v3",
@@ -234,7 +234,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:08:07],
         updated_at: ~N[2023-03-13 23:08:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 9,
         payload: %{
           "apiVersion" => "v3",
@@ -263,7 +263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:09:57],
         updated_at: ~N[2023-03-13 23:09:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 10,
         payload: %{
           "apiVersion" => "v3",
@@ -292,7 +292,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:20:50],
         updated_at: ~N[2023-03-13 23:20:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 11,
         payload: %{
           "apiVersion" => "v3",
@@ -321,7 +321,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:21:57],
         updated_at: ~N[2023-03-13 23:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 12,
         payload: %{
           "apiVersion" => "v3",
@@ -351,7 +351,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:22:00],
         updated_at: ~N[2023-03-13 23:22:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 13,
         payload: %{
           "apiVersion" => "v3",
@@ -380,7 +380,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:22:30],
         updated_at: ~N[2023-03-13 23:22:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 19,
         payload: %{
           "apiVersion" => "v3",
@@ -411,7 +411,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:50:39],
         updated_at: ~N[2023-03-13 23:50:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 25,
         payload: %{
           "apiVersion" => "v3",
@@ -441,7 +441,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:25:44],
         updated_at: ~N[2023-03-14 00:25:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 33,
         payload: %{
           "apiVersion" => "v3",
@@ -496,7 +496,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:36:07],
         updated_at: ~N[2023-03-14 00:36:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 38,
         payload: %{
           "apiVersion" => "v3",
@@ -526,7 +526,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:00:40],
         updated_at: ~N[2023-03-14 01:00:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 41,
         payload: %{
           "apiVersion" => "v3",
@@ -555,7 +555,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:02:07],
         updated_at: ~N[2023-03-14 01:02:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 49,
         payload: %{
           "apiVersion" => "v3",
@@ -584,7 +584,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:09:45],
         updated_at: ~N[2023-03-14 01:09:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1221,
         payload: %{
           "apiVersion" => "v3",
@@ -613,7 +613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:30:57],
         updated_at: ~N[2023-03-22 19:30:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1222,
         payload: %{
           "apiVersion" => "v3",
@@ -642,7 +642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:31:34],
         updated_at: ~N[2023-03-22 19:31:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1230,
         payload: %{
           "apiVersion" => "v3",
@@ -680,7 +680,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:36:11],
         updated_at: ~N[2023-03-22 19:36:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1235,
         payload: %{
           "apiVersion" => "v3",
@@ -709,7 +709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:44:35],
         updated_at: ~N[2023-03-22 19:44:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 14,
         payload: %{
           "apiVersion" => "v3",
@@ -738,7 +738,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:23:15],
         updated_at: ~N[2023-03-13 23:23:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 27,
         payload: %{
           "apiVersion" => "v3",
@@ -767,7 +767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:26:57],
         updated_at: ~N[2023-03-14 00:26:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 36,
         payload: %{
           "apiVersion" => "v3",
@@ -796,7 +796,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:37:11],
         updated_at: ~N[2023-03-14 00:37:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 43,
         payload: %{
           "apiVersion" => "v3",
@@ -825,7 +825,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:02:26],
         updated_at: ~N[2023-03-14 01:02:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 44,
         payload: %{
           "apiVersion" => "v3",
@@ -854,7 +854,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:03:14],
         updated_at: ~N[2023-03-14 01:03:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 50,
         payload: %{
           "apiVersion" => "v3",
@@ -883,7 +883,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:09:58],
         updated_at: ~N[2023-03-14 01:09:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1223,
         payload: %{
           "apiVersion" => "v3",
@@ -912,7 +912,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:31:48],
         updated_at: ~N[2023-03-22 19:31:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1232,
         payload: %{
           "apiVersion" => "v3",
@@ -941,7 +941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:40:34],
         updated_at: ~N[2023-03-22 19:40:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1236,
         payload: %{
           "apiVersion" => "v3",
@@ -970,7 +970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:45:59],
         updated_at: ~N[2023-03-22 19:45:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1239,
         payload: %{
           "apiVersion" => "v3",
@@ -1001,7 +1001,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:54:44],
         updated_at: ~N[2023-03-22 19:54:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1244,
         payload: %{
           "apiVersion" => "v3",
@@ -1039,7 +1039,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:58:30],
         updated_at: ~N[2023-03-22 19:58:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1250,
         payload: %{
           "apiVersion" => "v3",
@@ -1070,7 +1070,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:09:09],
         updated_at: ~N[2023-03-22 20:09:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 15,
         payload: %{
           "apiVersion" => "v3",
@@ -1099,7 +1099,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:30:03],
         updated_at: ~N[2023-03-13 23:30:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 20,
         payload: %{
           "apiVersion" => "v3",
@@ -1137,7 +1137,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:50:45],
         updated_at: ~N[2023-03-13 23:50:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 28,
         payload: %{
           "apiVersion" => "v3",
@@ -1218,7 +1218,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:34:41],
         updated_at: ~N[2023-03-14 00:34:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 29,
         payload: %{
           "apiVersion" => "v3",
@@ -1298,7 +1298,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:35:12],
         updated_at: ~N[2023-03-14 00:35:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 37,
         payload: %{
           "apiVersion" => "v3",
@@ -1327,7 +1327,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:37:25],
         updated_at: ~N[2023-03-14 00:37:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 45,
         payload: %{
           "apiVersion" => "v3",
@@ -1356,7 +1356,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:03:43],
         updated_at: ~N[2023-03-14 01:03:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 51,
         payload: %{
           "apiVersion" => "v3",
@@ -1385,7 +1385,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:10:06],
         updated_at: ~N[2023-03-14 01:10:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1224,
         payload: %{
           "apiVersion" => "v3",
@@ -1414,7 +1414,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:32:09],
         updated_at: ~N[2023-03-22 19:32:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 16,
         payload: %{
           "apiVersion" => "v3",
@@ -1444,7 +1444,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:48:26],
         updated_at: ~N[2023-03-13 23:48:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 21,
         payload: %{
           "apiVersion" => "v3",
@@ -1474,7 +1474,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:51:04],
         updated_at: ~N[2023-03-13 23:51:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 22,
         payload: %{
           "apiVersion" => "v3",
@@ -1503,7 +1503,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:21:57],
         updated_at: ~N[2023-03-14 00:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 26,
         payload: %{
           "apiVersion" => "v3",
@@ -1533,7 +1533,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:26:40],
         updated_at: ~N[2023-03-14 00:26:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 35,
         payload: %{
           "apiVersion" => "v3",
@@ -1563,7 +1563,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:37:09],
         updated_at: ~N[2023-03-14 00:37:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 42,
         payload: %{
           "apiVersion" => "v3",
@@ -1592,7 +1592,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:02:19],
         updated_at: ~N[2023-03-14 01:02:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 47,
         payload: %{
           "apiVersion" => "v3",
@@ -1621,7 +1621,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:07:23],
         updated_at: ~N[2023-03-14 01:07:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1225,
         payload: %{
           "apiVersion" => "v3",
@@ -1652,7 +1652,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:32:30],
         updated_at: ~N[2023-03-22 19:32:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1226,
         payload: %{
           "apiVersion" => "v3",
@@ -1690,7 +1690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:32:38],
         updated_at: ~N[2023-03-22 19:32:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1233,
         payload: %{
           "apiVersion" => "v3",
@@ -1720,7 +1720,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:42:25],
         updated_at: ~N[2023-03-22 19:42:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1913,
         payload: %{
           "apiVersion" => "v3",
@@ -1749,7 +1749,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:36:42],
         updated_at: ~N[2023-03-31 20:36:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 17,
         payload: %{
           "apiVersion" => "v3",
@@ -1778,7 +1778,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:49:24],
         updated_at: ~N[2023-03-13 23:49:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 23,
         payload: %{
           "apiVersion" => "v3",
@@ -1808,7 +1808,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:22:33],
         updated_at: ~N[2023-03-14 00:22:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 30,
         payload: %{
           "apiVersion" => "v3",
@@ -1888,7 +1888,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:35:28],
         updated_at: ~N[2023-03-14 00:35:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 39,
         payload: %{
           "apiVersion" => "v3",
@@ -1917,7 +1917,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:01:23],
         updated_at: ~N[2023-03-14 01:01:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 46,
         payload: %{
           "apiVersion" => "v3",
@@ -1947,7 +1947,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:04:33],
         updated_at: ~N[2023-03-14 01:04:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 52,
         payload: %{
           "apiVersion" => "v3",
@@ -1976,7 +1976,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:10:28],
         updated_at: ~N[2023-03-14 01:10:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1227,
         payload: %{
           "apiVersion" => "v3",
@@ -2006,7 +2006,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:35:13],
         updated_at: ~N[2023-03-22 19:35:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1228,
         payload: %{
           "apiVersion" => "v3",
@@ -2035,7 +2035,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:35:32],
         updated_at: ~N[2023-03-22 19:35:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1234,
         payload: %{
           "apiVersion" => "v3",
@@ -2064,7 +2064,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:43:17],
         updated_at: ~N[2023-03-22 19:43:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1241,
         payload: %{
           "apiVersion" => "v3",
@@ -2095,7 +2095,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:57:34],
         updated_at: ~N[2023-03-22 19:57:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 18,
         payload: %{
           "apiVersion" => "v3",
@@ -2124,7 +2124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-13 23:49:49],
         updated_at: ~N[2023-03-13 23:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 24,
         payload: %{
           "apiVersion" => "v3",
@@ -2154,7 +2154,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:25:13],
         updated_at: ~N[2023-03-14 00:25:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 31,
         payload: %{
           "apiVersion" => "v3",
@@ -2183,7 +2183,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:35:48],
         updated_at: ~N[2023-03-14 00:35:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 32,
         payload: %{
           "apiVersion" => "v3",
@@ -2263,7 +2263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:35:53],
         updated_at: ~N[2023-03-14 00:35:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 34,
         payload: %{
           "apiVersion" => "v3",
@@ -2292,7 +2292,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 00:36:12],
         updated_at: ~N[2023-03-14 00:36:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 40,
         payload: %{
           "apiVersion" => "v3",
@@ -2322,7 +2322,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:01:54],
         updated_at: ~N[2023-03-14 01:01:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 48,
         payload: %{
           "apiVersion" => "v3",
@@ -2351,7 +2351,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:09:26],
         updated_at: ~N[2023-03-14 01:09:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 53,
         payload: %{
           "apiVersion" => "v3",
@@ -2380,7 +2380,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:10:44],
         updated_at: ~N[2023-03-14 01:10:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 54,
         payload: %{
           "apiVersion" => "v3",
@@ -2409,7 +2409,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:11:34],
         updated_at: ~N[2023-03-14 01:11:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 55,
         payload: %{
           "apiVersion" => "v3",
@@ -2439,7 +2439,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:13:17],
         updated_at: ~N[2023-03-14 01:13:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 56,
         payload: %{
           "apiVersion" => "v3",
@@ -2468,7 +2468,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:13:29],
         updated_at: ~N[2023-03-14 01:13:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 57,
         payload: %{
           "apiVersion" => "v3",
@@ -2497,7 +2497,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:18:00],
         updated_at: ~N[2023-03-14 01:18:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 58,
         payload: %{
           "apiVersion" => "v3",
@@ -2526,7 +2526,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:18:40],
         updated_at: ~N[2023-03-14 01:18:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 59,
         payload: %{
           "apiVersion" => "v3",
@@ -2556,7 +2556,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:20:04],
         updated_at: ~N[2023-03-14 01:20:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 62,
         payload: %{
           "apiVersion" => "v3",
@@ -2586,7 +2586,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:23:27],
         updated_at: ~N[2023-03-14 01:23:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 63,
         payload: %{
           "apiVersion" => "v3",
@@ -2615,7 +2615,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:26:27],
         updated_at: ~N[2023-03-14 01:26:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 64,
         payload: %{
           "apiVersion" => "v3",
@@ -2644,7 +2644,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:29:30],
         updated_at: ~N[2023-03-14 01:29:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 65,
         payload: %{
           "apiVersion" => "v3",
@@ -2673,7 +2673,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:32:37],
         updated_at: ~N[2023-03-14 01:32:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 70,
         payload: %{
           "apiVersion" => "v2",
@@ -2707,7 +2707,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 14:07:22],
         updated_at: ~N[2023-03-14 14:07:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1229,
         payload: %{
           "apiVersion" => "v3",
@@ -2738,7 +2738,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:36:05],
         updated_at: ~N[2023-03-22 19:36:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1231,
         payload: %{
           "apiVersion" => "v3",
@@ -2767,7 +2767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:37:26],
         updated_at: ~N[2023-03-22 19:37:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1237,
         payload: %{
           "apiVersion" => "v3",
@@ -2796,7 +2796,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:46:41],
         updated_at: ~N[2023-03-22 19:46:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 60,
         payload: %{
           "apiVersion" => "v3",
@@ -2826,7 +2826,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:20:29],
         updated_at: ~N[2023-03-14 01:20:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 66,
         payload: %{
           "apiVersion" => "v3",
@@ -2856,7 +2856,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:49:49],
         updated_at: ~N[2023-03-14 01:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 71,
         payload: %{
           "apiVersion" => "v2",
@@ -2890,7 +2890,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 14:07:34],
         updated_at: ~N[2023-03-14 14:07:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1238,
         payload: %{
           "apiVersion" => "v3",
@@ -2919,7 +2919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:48:31],
         updated_at: ~N[2023-03-22 19:48:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1243,
         payload: %{
           "apiVersion" => "v3",
@@ -2950,7 +2950,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:58:24],
         updated_at: ~N[2023-03-22 19:58:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1249,
         payload: %{
           "apiVersion" => "v3",
@@ -2988,7 +2988,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:06:49],
         updated_at: ~N[2023-03-22 20:06:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1257,
         payload: %{
           "apiVersion" => "v3",
@@ -3026,7 +3026,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:18:01],
         updated_at: ~N[2023-03-22 20:18:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1265,
         payload: %{
           "apiVersion" => "v3",
@@ -3064,7 +3064,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:40:28],
         updated_at: ~N[2023-03-22 20:40:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1556,
         payload: %{
           "apiVersion" => "v3",
@@ -3093,7 +3093,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 17:05:47],
         updated_at: ~N[2023-03-26 17:05:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1566,
         payload: %{
           "apiVersion" => "v3",
@@ -3122,7 +3122,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:41:12],
         updated_at: ~N[2023-03-26 23:41:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1578,
         payload: %{
           "apiVersion" => "v3",
@@ -3153,7 +3153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:04:21],
         updated_at: ~N[2023-03-27 16:04:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 61,
         payload: %{
           "apiVersion" => "v3",
@@ -3182,7 +3182,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:21:34],
         updated_at: ~N[2023-03-14 01:21:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 67,
         payload: %{
           "apiVersion" => "v3",
@@ -3212,7 +3212,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:50:49],
         updated_at: ~N[2023-03-14 01:50:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 68,
         payload: %{
           "apiVersion" => "v3",
@@ -3241,7 +3241,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 01:56:44],
         updated_at: ~N[2023-03-14 01:56:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 69,
         payload: %{
           "apiVersion" => "v2",
@@ -3275,7 +3275,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 06:36:00],
         updated_at: ~N[2023-03-14 06:36:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 72,
         payload: %{
           "apiVersion" => "v3",
@@ -3304,7 +3304,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:49:57],
         updated_at: ~N[2023-03-14 15:49:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 73,
         payload: %{
           "apiVersion" => "v3",
@@ -3333,7 +3333,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:50:08],
         updated_at: ~N[2023-03-14 15:50:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 74,
         payload: %{
           "apiVersion" => "v3",
@@ -3363,7 +3363,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:50:19],
         updated_at: ~N[2023-03-14 15:50:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 75,
         payload: %{
           "apiVersion" => "v3",
@@ -3392,7 +3392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:50:28],
         updated_at: ~N[2023-03-14 15:50:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 76,
         payload: %{
           "apiVersion" => "v2",
@@ -3426,7 +3426,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:51:36],
         updated_at: ~N[2023-03-14 15:51:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 77,
         payload: %{
           "apiVersion" => "v3",
@@ -3455,7 +3455,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:51:50],
         updated_at: ~N[2023-03-14 15:51:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 78,
         payload: %{
           "apiVersion" => "v3",
@@ -3484,7 +3484,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:53:28],
         updated_at: ~N[2023-03-14 15:53:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 79,
         payload: %{
           "apiVersion" => "v3",
@@ -3513,7 +3513,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:53:36],
         updated_at: ~N[2023-03-14 15:53:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 80,
         payload: %{
           "apiVersion" => "v3",
@@ -3542,7 +3542,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:58:00],
         updated_at: ~N[2023-03-14 15:58:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 82,
         payload: %{
           "apiVersion" => "v3",
@@ -3571,7 +3571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:02:15],
         updated_at: ~N[2023-03-14 16:02:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 87,
         payload: %{
           "apiVersion" => "v3",
@@ -3600,7 +3600,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:05:23],
         updated_at: ~N[2023-03-14 16:05:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 98,
         payload: %{
           "apiVersion" => "v3",
@@ -3629,7 +3629,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:40:40],
         updated_at: ~N[2023-03-14 16:40:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 106,
         payload: %{
           "apiVersion" => "v3",
@@ -3667,7 +3667,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:15:23],
         updated_at: ~N[2023-03-14 17:15:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1240,
         payload: %{
           "apiVersion" => "v3",
@@ -3705,7 +3705,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:54:50],
         updated_at: ~N[2023-03-22 19:54:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1245,
         payload: %{
           "apiVersion" => "v3",
@@ -3736,7 +3736,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:03:48],
         updated_at: ~N[2023-03-22 20:03:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1251,
         payload: %{
           "apiVersion" => "v3",
@@ -3774,7 +3774,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:09:17],
         updated_at: ~N[2023-03-22 20:09:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1254,
         payload: %{
           "apiVersion" => "v3",
@@ -3805,7 +3805,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:16:10],
         updated_at: ~N[2023-03-22 20:16:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1260,
         payload: %{
           "apiVersion" => "v3",
@@ -3836,7 +3836,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:21:03],
         updated_at: ~N[2023-03-22 20:21:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1633,
         payload: %{
           "apiVersion" => "v3",
@@ -3865,7 +3865,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:13:44],
         updated_at: ~N[2023-03-27 21:13:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 81,
         payload: %{
           "apiVersion" => "v3",
@@ -3895,7 +3895,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 15:58:59],
         updated_at: ~N[2023-03-14 15:58:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 86,
         payload: %{
           "apiVersion" => "v3",
@@ -3925,7 +3925,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:04:57],
         updated_at: ~N[2023-03-14 16:04:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 96,
         payload: %{
           "apiVersion" => "v3",
@@ -3955,7 +3955,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:32:38],
         updated_at: ~N[2023-03-14 16:32:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 97,
         payload: %{
           "apiVersion" => "v3",
@@ -3984,7 +3984,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:35:05],
         updated_at: ~N[2023-03-14 16:35:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 104,
         payload: %{
           "apiVersion" => "v3",
@@ -4015,7 +4015,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:15:04],
         updated_at: ~N[2023-03-14 17:15:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1242,
         payload: %{
           "apiVersion" => "v3",
@@ -4053,7 +4053,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:57:44],
         updated_at: ~N[2023-03-22 19:57:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1248,
         payload: %{
           "apiVersion" => "v3",
@@ -4084,7 +4084,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:06:42],
         updated_at: ~N[2023-03-22 20:06:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1255,
         payload: %{
           "apiVersion" => "v3",
@@ -4122,7 +4122,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:16:18],
         updated_at: ~N[2023-03-22 20:16:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1259,
         payload: %{
           "apiVersion" => "v3",
@@ -4160,7 +4160,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:19:04],
         updated_at: ~N[2023-03-22 20:19:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1262,
         payload: %{
           "apiVersion" => "v3",
@@ -4191,7 +4191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:21:39],
         updated_at: ~N[2023-03-22 20:21:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 83,
         payload: %{
           "apiVersion" => "v3",
@@ -4220,7 +4220,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:03:47],
         updated_at: ~N[2023-03-14 16:03:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 88,
         payload: %{
           "apiVersion" => "v3",
@@ -4250,7 +4250,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:08:36],
         updated_at: ~N[2023-03-14 16:08:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 91,
         payload: %{
           "apiVersion" => "v3",
@@ -4280,7 +4280,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:17:09],
         updated_at: ~N[2023-03-14 16:17:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 93,
         payload: %{
           "apiVersion" => "v3",
@@ -4309,7 +4309,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:23:35],
         updated_at: ~N[2023-03-14 16:23:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 99,
         payload: %{
           "apiVersion" => "v3",
@@ -4339,7 +4339,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:44:54],
         updated_at: ~N[2023-03-14 16:44:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 100,
         payload: %{
           "apiVersion" => "v3",
@@ -4369,7 +4369,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:47:14],
         updated_at: ~N[2023-03-14 16:47:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 105,
         payload: %{
           "apiVersion" => "v3",
@@ -4396,7 +4396,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:15:09],
         updated_at: ~N[2023-03-14 17:15:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 107,
         payload: %{
           "apiVersion" => "v3",
@@ -4426,7 +4426,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:23:06],
         updated_at: ~N[2023-03-14 17:23:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1246,
         payload: %{
           "apiVersion" => "v3",
@@ -4464,7 +4464,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:03:55],
         updated_at: ~N[2023-03-22 20:03:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1247,
         payload: %{
           "apiVersion" => "v3",
@@ -4495,7 +4495,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:05:20],
         updated_at: ~N[2023-03-22 20:05:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1636,
         payload: %{
           "apiVersion" => "v3",
@@ -4524,7 +4524,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:15:12],
         updated_at: ~N[2023-03-27 21:15:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 84,
         payload: %{
           "apiVersion" => "v3",
@@ -4553,7 +4553,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:03:56],
         updated_at: ~N[2023-03-14 16:03:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 89,
         payload: %{
           "apiVersion" => "v3",
@@ -4583,7 +4583,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:11:08],
         updated_at: ~N[2023-03-14 16:11:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 101,
         payload: %{
           "apiVersion" => "v3",
@@ -4613,7 +4613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:51:15],
         updated_at: ~N[2023-03-14 16:51:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 102,
         payload: %{
           "apiVersion" => "v3",
@@ -4642,7 +4642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:59:55],
         updated_at: ~N[2023-03-14 16:59:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 108,
         payload: %{
           "apiVersion" => "v3",
@@ -4672,7 +4672,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:24:47],
         updated_at: ~N[2023-03-14 17:24:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1252,
         payload: %{
           "apiVersion" => "v3",
@@ -4703,7 +4703,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:14:54],
         updated_at: ~N[2023-03-22 20:14:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1258,
         payload: %{
           "apiVersion" => "v3",
@@ -4734,7 +4734,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:18:55],
         updated_at: ~N[2023-03-22 20:18:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1267,
         payload: %{
           "apiVersion" => "v3",
@@ -4772,7 +4772,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:55:47],
         updated_at: ~N[2023-03-22 20:55:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1563,
         payload: %{
           "apiVersion" => "v3",
@@ -4802,7 +4802,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 22:24:13],
         updated_at: ~N[2023-03-26 22:24:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1564,
         payload: %{
           "apiVersion" => "v3",
@@ -4831,7 +4831,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:34:25],
         updated_at: ~N[2023-03-26 23:34:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 85,
         payload: %{
           "apiVersion" => "v3",
@@ -4861,7 +4861,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:04:10],
         updated_at: ~N[2023-03-14 16:04:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 90,
         payload: %{
           "apiVersion" => "v3",
@@ -4890,7 +4890,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:11:33],
         updated_at: ~N[2023-03-14 16:11:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 92,
         payload: %{
           "apiVersion" => "v3",
@@ -4920,7 +4920,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:19:40],
         updated_at: ~N[2023-03-14 16:19:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 94,
         payload: %{
           "apiVersion" => "v3",
@@ -4950,7 +4950,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:25:21],
         updated_at: ~N[2023-03-14 16:25:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 95,
         payload: %{
           "apiVersion" => "v3",
@@ -4979,7 +4979,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 16:28:03],
         updated_at: ~N[2023-03-14 16:28:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 103,
         payload: %{
           "apiVersion" => "v3",
@@ -5009,7 +5009,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:15:01],
         updated_at: ~N[2023-03-14 17:15:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 109,
         payload: %{
           "apiVersion" => "v3",
@@ -5039,7 +5039,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:28:24],
         updated_at: ~N[2023-03-14 17:28:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 110,
         payload: %{
           "apiVersion" => "v3",
@@ -5068,7 +5068,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:30:42],
         updated_at: ~N[2023-03-14 17:30:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 111,
         payload: %{
           "apiVersion" => "v3",
@@ -5099,7 +5099,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:31:52],
         updated_at: ~N[2023-03-14 17:31:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 112,
         payload: %{
           "apiVersion" => "v3",
@@ -5126,7 +5126,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:31:55],
         updated_at: ~N[2023-03-14 17:31:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 113,
         payload: %{
           "apiVersion" => "v3",
@@ -5164,7 +5164,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:32:23],
         updated_at: ~N[2023-03-14 17:32:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 114,
         payload: %{
           "apiVersion" => "v3",
@@ -5194,7 +5194,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:39:32],
         updated_at: ~N[2023-03-14 17:39:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 115,
         payload: %{
           "apiVersion" => "v3",
@@ -5225,7 +5225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:43:43],
         updated_at: ~N[2023-03-14 17:43:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 116,
         payload: %{
           "apiVersion" => "v3",
@@ -5263,7 +5263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:43:57],
         updated_at: ~N[2023-03-14 17:43:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 118,
         payload: %{
           "apiVersion" => "v3",
@@ -5301,7 +5301,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:47:35],
         updated_at: ~N[2023-03-14 17:47:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 119,
         payload: %{
           "apiVersion" => "v3",
@@ -5332,7 +5332,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:51:06],
         updated_at: ~N[2023-03-14 17:51:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 123,
         payload: %{
           "apiVersion" => "v3",
@@ -5362,7 +5362,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:00:03],
         updated_at: ~N[2023-03-14 18:00:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 124,
         payload: %{
           "apiVersion" => "v3",
@@ -5391,7 +5391,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:01:28],
         updated_at: ~N[2023-03-14 18:01:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 125,
         payload: %{
           "apiVersion" => "v3",
@@ -5421,7 +5421,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:03:59],
         updated_at: ~N[2023-03-14 18:03:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 126,
         payload: %{
           "apiVersion" => "v3",
@@ -5450,7 +5450,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:06:50],
         updated_at: ~N[2023-03-14 18:06:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 130,
         payload: %{
           "apiVersion" => "v3",
@@ -5479,7 +5479,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:11:19],
         updated_at: ~N[2023-03-14 18:11:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 131,
         payload: %{
           "apiVersion" => "v3",
@@ -5508,7 +5508,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:14:10],
         updated_at: ~N[2023-03-14 18:14:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 117,
         payload: %{
           "apiVersion" => "v3",
@@ -5539,7 +5539,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:47:28],
         updated_at: ~N[2023-03-14 17:47:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 120,
         payload: %{
           "apiVersion" => "v3",
@@ -5577,7 +5577,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:51:14],
         updated_at: ~N[2023-03-14 17:51:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 132,
         payload: %{
           "apiVersion" => "v3",
@@ -5606,7 +5606,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:14:41],
         updated_at: ~N[2023-03-14 18:14:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 133,
         payload: %{
           "apiVersion" => "v3",
@@ -5635,7 +5635,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:15:23],
         updated_at: ~N[2023-03-14 18:15:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 138,
         payload: %{
           "apiVersion" => "v3",
@@ -5673,7 +5673,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:40:04],
         updated_at: ~N[2023-03-14 18:40:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 144,
         payload: %{
           "apiVersion" => "v3",
@@ -5711,7 +5711,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:42:30],
         updated_at: ~N[2023-03-14 18:42:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 146,
         payload: %{
           "apiVersion" => "v3",
@@ -5749,7 +5749,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:44:01],
         updated_at: ~N[2023-03-14 18:44:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 153,
         payload: %{
           "apiVersion" => "v3",
@@ -5787,7 +5787,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:08:46],
         updated_at: ~N[2023-03-14 19:08:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 158,
         payload: %{
           "apiVersion" => "v3",
@@ -5825,7 +5825,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:11:53],
         updated_at: ~N[2023-03-14 19:11:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 168,
         payload: %{
           "apiVersion" => "v3",
@@ -5855,7 +5855,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:41:18],
         updated_at: ~N[2023-03-14 19:41:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 121,
         payload: %{
           "apiVersion" => "v3",
@@ -5884,7 +5884,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:58:03],
         updated_at: ~N[2023-03-14 17:58:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 122,
         payload: %{
           "apiVersion" => "v3",
@@ -5913,7 +5913,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 17:59:22],
         updated_at: ~N[2023-03-14 17:59:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 127,
         payload: %{
           "apiVersion" => "v3",
@@ -5942,7 +5942,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:07:56],
         updated_at: ~N[2023-03-14 18:07:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 128,
         payload: %{
           "apiVersion" => "v3",
@@ -5971,7 +5971,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:09:48],
         updated_at: ~N[2023-03-14 18:09:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 129,
         payload: %{
           "apiVersion" => "v3",
@@ -6000,7 +6000,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:10:28],
         updated_at: ~N[2023-03-14 18:10:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 134,
         payload: %{
           "apiVersion" => "v3",
@@ -6030,7 +6030,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:26:26],
         updated_at: ~N[2023-03-14 18:26:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 135,
         payload: %{
           "apiVersion" => "v3",
@@ -6105,7 +6105,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:30:03],
         updated_at: ~N[2023-03-14 18:30:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 139,
         payload: %{
           "apiVersion" => "v3",
@@ -6136,7 +6136,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:40:14],
         updated_at: ~N[2023-03-14 18:40:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 145,
         payload: %{
           "apiVersion" => "v3",
@@ -6167,7 +6167,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:43:55],
         updated_at: ~N[2023-03-14 18:43:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 159,
         payload: %{
           "apiVersion" => "v3",
@@ -6196,7 +6196,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:14:04],
         updated_at: ~N[2023-03-14 19:14:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 136,
         payload: %{
           "apiVersion" => "v3",
@@ -6225,7 +6225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:36:10],
         updated_at: ~N[2023-03-14 18:36:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 142,
         payload: %{
           "apiVersion" => "v3",
@@ -6263,7 +6263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:40:46],
         updated_at: ~N[2023-03-14 18:40:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 149,
         payload: %{
           "apiVersion" => "v3",
@@ -6292,7 +6292,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:54:45],
         updated_at: ~N[2023-03-14 18:54:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 151,
         payload: %{
           "apiVersion" => "v3",
@@ -6321,7 +6321,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:05:58],
         updated_at: ~N[2023-03-14 19:05:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 156,
         payload: %{
           "apiVersion" => "v3",
@@ -6350,7 +6350,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:11:33],
         updated_at: ~N[2023-03-14 19:11:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 166,
         payload: %{
           "apiVersion" => "v3",
@@ -6379,7 +6379,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:36:26],
         updated_at: ~N[2023-03-14 19:36:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1253,
         payload: %{
           "apiVersion" => "v3",
@@ -6417,7 +6417,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:15:00],
         updated_at: ~N[2023-03-22 20:15:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1256,
         payload: %{
           "apiVersion" => "v3",
@@ -6448,7 +6448,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:17:54],
         updated_at: ~N[2023-03-22 20:17:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1261,
         payload: %{
           "apiVersion" => "v3",
@@ -6486,7 +6486,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:21:11],
         updated_at: ~N[2023-03-22 20:21:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1568,
         payload: %{
           "apiVersion" => "v3",
@@ -6524,7 +6524,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:43:00],
         updated_at: ~N[2023-03-26 23:43:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1637,
         payload: %{
           "apiVersion" => "v3",
@@ -6555,7 +6555,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:18:57],
         updated_at: ~N[2023-03-27 21:18:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 137,
         payload: %{
           "apiVersion" => "v3",
@@ -6586,7 +6586,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:39:54],
         updated_at: ~N[2023-03-14 18:39:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 143,
         payload: %{
           "apiVersion" => "v3",
@@ -6617,7 +6617,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:42:18],
         updated_at: ~N[2023-03-14 18:42:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 152,
         payload: %{
           "apiVersion" => "v3",
@@ -6648,7 +6648,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:08:30],
         updated_at: ~N[2023-03-14 19:08:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 157,
         payload: %{
           "apiVersion" => "v3",
@@ -6679,7 +6679,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:11:45],
         updated_at: ~N[2023-03-14 19:11:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 167,
         payload: %{
           "apiVersion" => "v3",
@@ -6709,7 +6709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:37:38],
         updated_at: ~N[2023-03-14 19:37:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1263,
         payload: %{
           "apiVersion" => "v3",
@@ -6747,7 +6747,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:21:45],
         updated_at: ~N[2023-03-22 20:21:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1573,
         payload: %{
           "apiVersion" => "v3",
@@ -6776,7 +6776,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:57:04],
         updated_at: ~N[2023-03-26 23:57:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1580,
         payload: %{
           "apiVersion" => "v3",
@@ -6805,7 +6805,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:11:27],
         updated_at: ~N[2023-03-27 16:11:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1588,
         payload: %{
           "apiVersion" => "v3",
@@ -6835,7 +6835,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:45:28],
         updated_at: ~N[2023-03-27 16:45:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1590,
         payload: %{
           "apiVersion" => "v3",
@@ -6864,7 +6864,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:07:37],
         updated_at: ~N[2023-03-27 17:07:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1596,
         payload: %{
           "apiVersion" => "v3",
@@ -6893,7 +6893,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:21:00],
         updated_at: ~N[2023-03-27 17:21:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 140,
         payload: %{
           "apiVersion" => "v3",
@@ -6931,7 +6931,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:40:19],
         updated_at: ~N[2023-03-14 18:40:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 141,
         payload: %{
           "apiVersion" => "v3",
@@ -6962,7 +6962,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:40:37],
         updated_at: ~N[2023-03-14 18:40:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 148,
         payload: %{
           "apiVersion" => "v3",
@@ -6992,7 +6992,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:45:23],
         updated_at: ~N[2023-03-14 18:45:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 150,
         payload: %{
           "apiVersion" => "v3",
@@ -7021,7 +7021,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:00:46],
         updated_at: ~N[2023-03-14 19:00:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 155,
         payload: %{
           "apiVersion" => "v3",
@@ -7050,7 +7050,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:11:01],
         updated_at: ~N[2023-03-14 19:11:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 165,
         payload: %{
           "apiVersion" => "v3",
@@ -7079,7 +7079,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:32:44],
         updated_at: ~N[2023-03-14 19:32:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1264,
         payload: %{
           "apiVersion" => "v3",
@@ -7110,7 +7110,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:40:22],
         updated_at: ~N[2023-03-22 20:40:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1266,
         payload: %{
           "apiVersion" => "v3",
@@ -7141,7 +7141,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:55:39],
         updated_at: ~N[2023-03-22 20:55:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1579,
         payload: %{
           "apiVersion" => "v3",
@@ -7179,7 +7179,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:04:27],
         updated_at: ~N[2023-03-27 16:04:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1584,
         payload: %{
           "apiVersion" => "v3",
@@ -7208,7 +7208,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:31:42],
         updated_at: ~N[2023-03-27 16:31:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1585,
         payload: %{
           "apiVersion" => "v3",
@@ -7237,7 +7237,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:31:55],
         updated_at: ~N[2023-03-27 16:31:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 147,
         payload: %{
           "apiVersion" => "v3",
@@ -7267,7 +7267,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 18:44:36],
         updated_at: ~N[2023-03-14 18:44:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 154,
         payload: %{
           "apiVersion" => "v3",
@@ -7294,7 +7294,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:09:36],
         updated_at: ~N[2023-03-14 19:09:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 164,
         payload: %{
           "apiVersion" => "v3",
@@ -7324,7 +7324,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:30:52],
         updated_at: ~N[2023-03-14 19:30:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 170,
         payload: %{
           "apiVersion" => "v3",
@@ -7362,7 +7362,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:45:03],
         updated_at: ~N[2023-03-14 19:45:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1268,
         payload: %{
           "apiVersion" => "v3",
@@ -7393,7 +7393,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:57:11],
         updated_at: ~N[2023-03-22 20:57:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1275,
         payload: %{
           "apiVersion" => "v3",
@@ -7420,7 +7420,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:24:10],
         updated_at: ~N[2023-03-22 22:24:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1282,
         payload: %{
           "apiVersion" => "v3",
@@ -7449,7 +7449,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 00:39:39],
         updated_at: ~N[2023-03-23 00:39:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1284,
         payload: %{
           "apiVersion" => "v3",
@@ -7479,7 +7479,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 14:52:37],
         updated_at: ~N[2023-03-23 14:52:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1289,
         payload: %{
           "apiVersion" => "v3",
@@ -7510,7 +7510,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:09:58],
         updated_at: ~N[2023-03-23 17:09:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1291,
         payload: %{
           "apiVersion" => "v3",
@@ -7539,7 +7539,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:10:11],
         updated_at: ~N[2023-03-23 17:10:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1586,
         payload: %{
           "apiVersion" => "v3",
@@ -7568,7 +7568,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:43:08],
         updated_at: ~N[2023-03-27 16:43:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 160,
         payload: %{
           "apiVersion" => "v3",
@@ -7599,7 +7599,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:20:54],
         updated_at: ~N[2023-03-14 19:20:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1269,
         payload: %{
           "apiVersion" => "v3",
@@ -7637,7 +7637,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 20:57:19],
         updated_at: ~N[2023-03-22 20:57:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1272,
         payload: %{
           "apiVersion" => "v3",
@@ -7668,7 +7668,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:14:04],
         updated_at: ~N[2023-03-22 22:14:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1278,
         payload: %{
           "apiVersion" => "v3",
@@ -7697,7 +7697,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:28:17],
         updated_at: ~N[2023-03-22 22:28:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1280,
         payload: %{
           "apiVersion" => "v3",
@@ -7726,7 +7726,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 00:38:40],
         updated_at: ~N[2023-03-23 00:38:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1286,
         payload: %{
           "apiVersion" => "v3",
@@ -7757,7 +7757,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:02:31],
         updated_at: ~N[2023-03-23 17:02:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1294,
         payload: %{
           "apiVersion" => "v3",
@@ -7787,7 +7787,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:23:14],
         updated_at: ~N[2023-03-23 17:23:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1298,
         payload: %{
           "apiVersion" => "v3",
@@ -7817,7 +7817,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:39:23],
         updated_at: ~N[2023-03-23 17:39:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1308,
         payload: %{
           "apiVersion" => "v3",
@@ -7855,7 +7855,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:26:02],
         updated_at: ~N[2023-03-23 19:26:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1311,
         payload: %{
           "apiVersion" => "v3",
@@ -7893,7 +7893,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:38:12],
         updated_at: ~N[2023-03-23 19:38:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 161,
         payload: %{
           "apiVersion" => "v3",
@@ -7920,7 +7920,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:21:00],
         updated_at: ~N[2023-03-14 19:21:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1270,
         payload: %{
           "apiVersion" => "v3",
@@ -7951,7 +7951,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 21:00:03],
         updated_at: ~N[2023-03-22 21:00:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1276,
         payload: %{
           "apiVersion" => "v3",
@@ -7982,7 +7982,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:25:06],
         updated_at: ~N[2023-03-22 22:25:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1293,
         payload: %{
           "apiVersion" => "v3",
@@ -8011,7 +8011,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:13:32],
         updated_at: ~N[2023-03-23 17:13:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1399,
         payload: %{
           "apiVersion" => "v3",
@@ -8049,7 +8049,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:59:11],
         updated_at: ~N[2023-03-23 22:59:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1589,
         payload: %{
           "apiVersion" => "v3",
@@ -8079,7 +8079,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:55:17],
         updated_at: ~N[2023-03-27 16:55:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1591,
         payload: %{
           "apiVersion" => "v3",
@@ -8108,7 +8108,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:08:26],
         updated_at: ~N[2023-03-27 17:08:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1597,
         payload: %{
           "apiVersion" => "v3",
@@ -8137,7 +8137,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:21:48],
         updated_at: ~N[2023-03-27 17:21:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1602,
         payload: %{
           "apiVersion" => "v3",
@@ -8166,7 +8166,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:34:51],
         updated_at: ~N[2023-03-27 17:34:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1606,
         payload: %{
           "apiVersion" => "v3",
@@ -8195,7 +8195,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:36:32],
         updated_at: ~N[2023-03-27 17:36:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1615,
         payload: %{
           "apiVersion" => "v3",
@@ -8225,7 +8225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:50:43],
         updated_at: ~N[2023-03-27 17:50:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 162,
         payload: %{
           "apiVersion" => "v3",
@@ -8263,7 +8263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:21:12],
         updated_at: ~N[2023-03-14 19:21:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1271,
         payload: %{
           "apiVersion" => "v3",
@@ -8301,7 +8301,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 21:00:11],
         updated_at: ~N[2023-03-22 21:00:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1277,
         payload: %{
           "apiVersion" => "v3",
@@ -8339,7 +8339,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:25:21],
         updated_at: ~N[2023-03-22 22:25:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1288,
         payload: %{
           "apiVersion" => "v3",
@@ -8368,7 +8368,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:04:28],
         updated_at: ~N[2023-03-23 17:04:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1296,
         payload: %{
           "apiVersion" => "v3",
@@ -8406,7 +8406,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:26:41],
         updated_at: ~N[2023-03-23 17:26:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1301,
         payload: %{
           "apiVersion" => "v3",
@@ -8437,7 +8437,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:55:41],
         updated_at: ~N[2023-03-23 17:55:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1305,
         payload: %{
           "apiVersion" => "v3",
@@ -8468,7 +8468,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:23:34],
         updated_at: ~N[2023-03-23 19:23:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1306,
         payload: %{
           "apiVersion" => "v3",
@@ -8506,7 +8506,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:23:42],
         updated_at: ~N[2023-03-23 19:23:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1314,
         payload: %{
           "apiVersion" => "v3",
@@ -8537,7 +8537,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:50:23],
         updated_at: ~N[2023-03-23 19:50:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1318,
         payload: %{
           "apiVersion" => "v3",
@@ -8575,7 +8575,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:52:26],
         updated_at: ~N[2023-03-23 19:52:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 163,
         payload: %{
           "apiVersion" => "v3",
@@ -8604,7 +8604,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:25:56],
         updated_at: ~N[2023-03-14 19:25:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1273,
         payload: %{
           "apiVersion" => "v3",
@@ -8642,7 +8642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:14:12],
         updated_at: ~N[2023-03-22 22:14:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1279,
         payload: %{
           "apiVersion" => "v3",
@@ -8672,7 +8672,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:36:53],
         updated_at: ~N[2023-03-22 22:36:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1283,
         payload: %{
           "apiVersion" => "v3",
@@ -8701,7 +8701,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 00:40:22],
         updated_at: ~N[2023-03-23 00:40:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1287,
         payload: %{
           "apiVersion" => "v3",
@@ -8739,7 +8739,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:02:39],
         updated_at: ~N[2023-03-23 17:02:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1295,
         payload: %{
           "apiVersion" => "v3",
@@ -8770,7 +8770,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:26:33],
         updated_at: ~N[2023-03-23 17:26:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1299,
         payload: %{
           "apiVersion" => "v3",
@@ -8799,7 +8799,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:40:28],
         updated_at: ~N[2023-03-23 17:40:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1307,
         payload: %{
           "apiVersion" => "v3",
@@ -8830,7 +8830,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:25:51],
         updated_at: ~N[2023-03-23 19:25:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1309,
         payload: %{
           "apiVersion" => "v3",
@@ -8861,7 +8861,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:28:45],
         updated_at: ~N[2023-03-23 19:28:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1315,
         payload: %{
           "apiVersion" => "v3",
@@ -8899,7 +8899,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:50:29],
         updated_at: ~N[2023-03-23 19:50:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1321,
         payload: %{
           "apiVersion" => "v3",
@@ -8930,7 +8930,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:54:06],
         updated_at: ~N[2023-03-23 19:54:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 169,
         payload: %{
           "apiVersion" => "v3",
@@ -8961,7 +8961,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:44:55],
         updated_at: ~N[2023-03-14 19:44:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 171,
         payload: %{
           "apiVersion" => "v3",
@@ -8992,7 +8992,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 19:59:55],
         updated_at: ~N[2023-03-14 19:59:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 172,
         payload: %{
           "apiVersion" => "v3",
@@ -9030,7 +9030,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:00:09],
         updated_at: ~N[2023-03-14 20:00:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 173,
         payload: %{
           "apiVersion" => "v3",
@@ -9057,7 +9057,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:02:53],
         updated_at: ~N[2023-03-14 20:02:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 174,
         payload: %{
           "apiVersion" => "v3",
@@ -9084,7 +9084,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:07:41],
         updated_at: ~N[2023-03-14 20:07:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 175,
         payload: %{
           "apiVersion" => "v3",
@@ -9114,7 +9114,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:10:17],
         updated_at: ~N[2023-03-14 20:10:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 176,
         payload: %{
           "apiVersion" => "v3",
@@ -9145,7 +9145,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:10:41],
         updated_at: ~N[2023-03-14 20:10:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 177,
         payload: %{
           "apiVersion" => "v3",
@@ -9183,7 +9183,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:11:07],
         updated_at: ~N[2023-03-14 20:11:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 178,
         payload: %{
           "apiVersion" => "v3",
@@ -9213,7 +9213,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:12:57],
         updated_at: ~N[2023-03-14 20:12:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 179,
         payload: %{
           "apiVersion" => "v3",
@@ -9244,7 +9244,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:25:03],
         updated_at: ~N[2023-03-14 20:25:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 180,
         payload: %{
           "apiVersion" => "v3",
@@ -9271,7 +9271,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:25:33],
         updated_at: ~N[2023-03-14 20:25:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 189,
         payload: %{
           "apiVersion" => "v3",
@@ -9301,7 +9301,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:46:42],
         updated_at: ~N[2023-03-14 20:46:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 190,
         payload: %{
           "apiVersion" => "v3",
@@ -9332,7 +9332,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:48:40],
         updated_at: ~N[2023-03-14 20:48:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 198,
         payload: %{
           "apiVersion" => "v3",
@@ -9361,7 +9361,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:53:01],
         updated_at: ~N[2023-03-14 20:53:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 200,
         payload: %{
           "apiVersion" => "v3",
@@ -9391,7 +9391,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:53:56],
         updated_at: ~N[2023-03-14 20:53:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 210,
         payload: %{
           "apiVersion" => "v3",
@@ -9421,7 +9421,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:37:39],
         updated_at: ~N[2023-03-14 22:37:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 214,
         payload: %{
           "apiVersion" => "v3",
@@ -9448,7 +9448,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:43:06],
         updated_at: ~N[2023-03-14 22:43:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 219,
         payload: %{
           "apiVersion" => "v3",
@@ -9486,7 +9486,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:49:55],
         updated_at: ~N[2023-03-14 22:49:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 224,
         payload: %{
           "apiVersion" => "v3",
@@ -9515,7 +9515,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:53:35],
         updated_at: ~N[2023-03-14 22:53:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 230,
         payload: %{
           "apiVersion" => "v3",
@@ -9544,7 +9544,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:04:08],
         updated_at: ~N[2023-03-14 23:04:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 231,
         payload: %{
           "apiVersion" => "v3",
@@ -9574,7 +9574,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:05:25],
         updated_at: ~N[2023-03-14 23:05:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 181,
         payload: %{
           "apiVersion" => "v3",
@@ -9612,7 +9612,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:33:07],
         updated_at: ~N[2023-03-14 20:33:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 182,
         payload: %{
           "apiVersion" => "v3",
@@ -9643,7 +9643,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:38:02],
         updated_at: ~N[2023-03-14 20:38:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 191,
         payload: %{
           "apiVersion" => "v3",
@@ -9670,7 +9670,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:48:45],
         updated_at: ~N[2023-03-14 20:48:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 194,
         payload: %{
           "apiVersion" => "v3",
@@ -9699,7 +9699,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:49:54],
         updated_at: ~N[2023-03-14 20:49:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 201,
         payload: %{
           "apiVersion" => "v3",
@@ -9730,7 +9730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:54:48],
         updated_at: ~N[2023-03-14 20:54:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 203,
         payload: %{
           "apiVersion" => "v3",
@@ -9759,7 +9759,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:57:54],
         updated_at: ~N[2023-03-14 20:57:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 207,
         payload: %{
           "apiVersion" => "v3",
@@ -9788,7 +9788,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 21:37:52],
         updated_at: ~N[2023-03-14 21:37:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 212,
         payload: %{
           "apiVersion" => "v3",
@@ -9817,7 +9817,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:41:36],
         updated_at: ~N[2023-03-14 22:41:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 217,
         payload: %{
           "apiVersion" => "v3",
@@ -9847,7 +9847,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:47:01],
         updated_at: ~N[2023-03-14 22:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 223,
         payload: %{
           "apiVersion" => "v3",
@@ -9877,7 +9877,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:53:13],
         updated_at: ~N[2023-03-14 22:53:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 228,
         payload: %{
           "apiVersion" => "v3",
@@ -9906,7 +9906,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:03:26],
         updated_at: ~N[2023-03-14 23:03:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 183,
         payload: %{
           "apiVersion" => "v3",
@@ -9944,7 +9944,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:38:11],
         updated_at: ~N[2023-03-14 20:38:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 184,
         payload: %{
           "apiVersion" => "v3",
@@ -9979,7 +9979,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:38:25],
         updated_at: ~N[2023-03-14 20:38:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 185,
         payload: %{
           "apiVersion" => "v3",
@@ -10009,7 +10009,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:38:28],
         updated_at: ~N[2023-03-14 20:38:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 187,
         payload: %{
           "apiVersion" => "v3",
@@ -10049,7 +10049,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:41:27],
         updated_at: ~N[2023-03-14 20:41:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 192,
         payload: %{
           "apiVersion" => "v3",
@@ -10087,7 +10087,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:48:59],
         updated_at: ~N[2023-03-14 20:48:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 193,
         payload: %{
           "apiVersion" => "v3",
@@ -10116,7 +10116,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:49:49],
         updated_at: ~N[2023-03-14 20:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 196,
         payload: %{
           "apiVersion" => "v3",
@@ -10154,7 +10154,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:51:08],
         updated_at: ~N[2023-03-14 20:51:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 197,
         payload: %{
           "apiVersion" => "v3",
@@ -10184,7 +10184,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:51:52],
         updated_at: ~N[2023-03-14 20:51:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 202,
         payload: %{
           "apiVersion" => "v3",
@@ -10222,7 +10222,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:54:55],
         updated_at: ~N[2023-03-14 20:54:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 186,
         payload: %{
           "apiVersion" => "v3",
@@ -10302,7 +10302,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:41:09],
         updated_at: ~N[2023-03-14 20:41:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 188,
         payload: %{
           "apiVersion" => "v3",
@@ -10331,7 +10331,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:41:32],
         updated_at: ~N[2023-03-14 20:41:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 195,
         payload: %{
           "apiVersion" => "v3",
@@ -10362,7 +10362,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:51:01],
         updated_at: ~N[2023-03-14 20:51:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 199,
         payload: %{
           "apiVersion" => "v3",
@@ -10392,7 +10392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 20:53:06],
         updated_at: ~N[2023-03-14 20:53:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 206,
         payload: %{
           "apiVersion" => "v3",
@@ -10421,7 +10421,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 21:06:31],
         updated_at: ~N[2023-03-14 21:06:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 209,
         payload: %{
           "apiVersion" => "v3",
@@ -10459,7 +10459,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:29:06],
         updated_at: ~N[2023-03-14 22:29:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 215,
         payload: %{
           "apiVersion" => "v3",
@@ -10497,7 +10497,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:43:26],
         updated_at: ~N[2023-03-14 22:43:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 218,
         payload: %{
           "apiVersion" => "v3",
@@ -10528,7 +10528,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:49:49],
         updated_at: ~N[2023-03-14 22:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 222,
         payload: %{
           "apiVersion" => "v3",
@@ -10557,7 +10557,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:52:40],
         updated_at: ~N[2023-03-14 22:52:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 229,
         payload: %{
           "apiVersion" => "v3",
@@ -10586,7 +10586,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:04:02],
         updated_at: ~N[2023-03-14 23:04:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 204,
         payload: %{
           "apiVersion" => "v3",
@@ -10616,7 +10616,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 21:02:44],
         updated_at: ~N[2023-03-14 21:02:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 211,
         payload: %{
           "apiVersion" => "v3",
@@ -10645,7 +10645,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:40:09],
         updated_at: ~N[2023-03-14 22:40:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 216,
         payload: %{
           "apiVersion" => "v3",
@@ -10675,7 +10675,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:44:24],
         updated_at: ~N[2023-03-14 22:44:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 220,
         payload: %{
           "apiVersion" => "v3",
@@ -10704,7 +10704,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:51:11],
         updated_at: ~N[2023-03-14 22:51:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 225,
         payload: %{
           "apiVersion" => "v3",
@@ -10733,7 +10733,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:54:07],
         updated_at: ~N[2023-03-14 22:54:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 233,
         payload: %{
           "apiVersion" => "v3",
@@ -10762,7 +10762,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:09:03],
         updated_at: ~N[2023-03-14 23:09:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 234,
         payload: %{
           "apiVersion" => "v3",
@@ -10792,7 +10792,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:09:26],
         updated_at: ~N[2023-03-14 23:09:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1274,
         payload: %{
           "apiVersion" => "v3",
@@ -10822,7 +10822,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 22:24:04],
         updated_at: ~N[2023-03-22 22:24:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1281,
         payload: %{
           "apiVersion" => "v3",
@@ -10851,7 +10851,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 00:39:13],
         updated_at: ~N[2023-03-23 00:39:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1285,
         payload: %{
           "apiVersion" => "v3",
@@ -10880,7 +10880,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 16:56:40],
         updated_at: ~N[2023-03-23 16:56:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1592,
         payload: %{
           "apiVersion" => "v3",
@@ -10909,7 +10909,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:15:18],
         updated_at: ~N[2023-03-27 17:15:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 205,
         payload: %{
           "apiVersion" => "v3",
@@ -10938,7 +10938,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 21:05:55],
         updated_at: ~N[2023-03-14 21:05:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 208,
         payload: %{
           "apiVersion" => "v3",
@@ -10969,7 +10969,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:29:00],
         updated_at: ~N[2023-03-14 22:29:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 213,
         payload: %{
           "apiVersion" => "v3",
@@ -11000,7 +11000,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:43:01],
         updated_at: ~N[2023-03-14 22:43:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 221,
         payload: %{
           "apiVersion" => "v3",
@@ -11029,7 +11029,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:52:03],
         updated_at: ~N[2023-03-14 22:52:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 227,
         payload: %{
           "apiVersion" => "v3",
@@ -11058,7 +11058,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:59:02],
         updated_at: ~N[2023-03-14 22:59:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 237,
         payload: %{
           "apiVersion" => "v3",
@@ -11088,7 +11088,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:16:02],
         updated_at: ~N[2023-03-14 23:16:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1290,
         payload: %{
           "apiVersion" => "v3",
@@ -11126,7 +11126,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:10:03],
         updated_at: ~N[2023-03-23 17:10:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1292,
         payload: %{
           "apiVersion" => "v3",
@@ -11156,7 +11156,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:13:23],
         updated_at: ~N[2023-03-23 17:13:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1303,
         payload: %{
           "apiVersion" => "v3",
@@ -11186,7 +11186,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:57:04],
         updated_at: ~N[2023-03-23 17:57:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1304,
         payload: %{
           "apiVersion" => "v3",
@@ -11215,7 +11215,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:59:26],
         updated_at: ~N[2023-03-23 17:59:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1313,
         payload: %{
           "apiVersion" => "v3",
@@ -11253,7 +11253,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:39:59],
         updated_at: ~N[2023-03-23 19:39:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 226,
         payload: %{
           "apiVersion" => "v3",
@@ -11283,7 +11283,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 22:56:22],
         updated_at: ~N[2023-03-14 22:56:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 235,
         payload: %{
           "apiVersion" => "v3",
@@ -11312,7 +11312,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:09:57],
         updated_at: ~N[2023-03-14 23:09:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1297,
         payload: %{
           "apiVersion" => "v3",
@@ -11342,7 +11342,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:29:14],
         updated_at: ~N[2023-03-23 17:29:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1300,
         payload: %{
           "apiVersion" => "v3",
@@ -11372,7 +11372,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:41:54],
         updated_at: ~N[2023-03-23 17:41:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1310,
         payload: %{
           "apiVersion" => "v3",
@@ -11403,7 +11403,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:38:05],
         updated_at: ~N[2023-03-23 19:38:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1312,
         payload: %{
           "apiVersion" => "v3",
@@ -11434,7 +11434,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:39:52],
         updated_at: ~N[2023-03-23 19:39:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1319,
         payload: %{
           "apiVersion" => "v3",
@@ -11465,7 +11465,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:52:50],
         updated_at: ~N[2023-03-23 19:52:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1324,
         payload: %{
           "apiVersion" => "v3",
@@ -11496,7 +11496,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:01:26],
         updated_at: ~N[2023-03-23 20:01:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1331,
         payload: %{
           "apiVersion" => "v3",
@@ -11534,7 +11534,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:14:22],
         updated_at: ~N[2023-03-23 20:14:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1332,
         payload: %{
           "apiVersion" => "v3",
@@ -11572,7 +11572,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:14:36],
         updated_at: ~N[2023-03-23 20:14:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 232,
         payload: %{
           "apiVersion" => "v3",
@@ -11602,7 +11602,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:07:45],
         updated_at: ~N[2023-03-14 23:07:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 236,
         payload: %{
           "apiVersion" => "v3",
@@ -11632,7 +11632,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:14:20],
         updated_at: ~N[2023-03-14 23:14:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 238,
         payload: %{
           "apiVersion" => "v3",
@@ -11661,7 +11661,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:16:58],
         updated_at: ~N[2023-03-14 23:16:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 239,
         payload: %{
           "apiVersion" => "v3",
@@ -11690,7 +11690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:30:20],
         updated_at: ~N[2023-03-14 23:30:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 240,
         payload: %{
           "apiVersion" => "v3",
@@ -11720,7 +11720,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:30:34],
         updated_at: ~N[2023-03-14 23:30:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 241,
         payload: %{
           "apiVersion" => "v3",
@@ -11749,7 +11749,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:31:18],
         updated_at: ~N[2023-03-14 23:31:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 242,
         payload: %{
           "apiVersion" => "v3",
@@ -11778,7 +11778,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:31:43],
         updated_at: ~N[2023-03-14 23:31:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 243,
         payload: %{
           "apiVersion" => "v3",
@@ -11808,7 +11808,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:52:04],
         updated_at: ~N[2023-03-14 23:52:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 244,
         payload: %{
           "apiVersion" => "v3",
@@ -11837,7 +11837,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-14 23:55:16],
         updated_at: ~N[2023-03-14 23:55:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 245,
         payload: %{
           "apiVersion" => "v3",
@@ -11866,7 +11866,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 01:34:13],
         updated_at: ~N[2023-03-15 01:34:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 246,
         payload: %{
           "apiVersion" => "v3",
@@ -11895,7 +11895,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 03:30:05],
         updated_at: ~N[2023-03-15 03:30:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 247,
         payload: %{
           "apiVersion" => "v3",
@@ -11925,7 +11925,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 04:05:40],
         updated_at: ~N[2023-03-15 04:05:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 253,
         payload: %{
           "apiVersion" => "v3",
@@ -11954,7 +11954,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:50:02],
         updated_at: ~N[2023-03-15 15:50:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 254,
         payload: %{
           "apiVersion" => "v3",
@@ -11983,7 +11983,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:50:21],
         updated_at: ~N[2023-03-15 15:50:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 260,
         payload: %{
           "apiVersion" => "v3",
@@ -12013,7 +12013,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:04:12],
         updated_at: ~N[2023-03-15 16:04:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 261,
         payload: %{
           "apiVersion" => "v3",
@@ -12044,7 +12044,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:06:09],
         updated_at: ~N[2023-03-15 16:06:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 268,
         payload: %{
           "apiVersion" => "v3",
@@ -12074,7 +12074,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:10:54],
         updated_at: ~N[2023-03-15 16:10:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 271,
         payload: %{
           "apiVersion" => "v3",
@@ -12105,7 +12105,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:17:31],
         updated_at: ~N[2023-03-15 16:17:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 274,
         payload: %{
           "apiVersion" => "v3",
@@ -12135,7 +12135,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:22:03],
         updated_at: ~N[2023-03-15 16:22:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 277,
         payload: %{
           "apiVersion" => "v3",
@@ -12165,7 +12165,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:27:11],
         updated_at: ~N[2023-03-15 16:27:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 285,
         payload: %{
           "apiVersion" => "v3",
@@ -12195,7 +12195,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:54:45],
         updated_at: ~N[2023-03-15 16:54:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 291,
         payload: %{
           "apiVersion" => "v3",
@@ -12225,7 +12225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:18:42],
         updated_at: ~N[2023-03-15 17:18:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 248,
         payload: %{
           "apiVersion" => "v3",
@@ -12254,7 +12254,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:21:37],
         updated_at: ~N[2023-03-15 15:21:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 249,
         payload: %{
           "apiVersion" => "v3",
@@ -12284,7 +12284,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:44:57],
         updated_at: ~N[2023-03-15 15:44:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 250,
         payload: %{
           "apiVersion" => "v3",
@@ -12314,7 +12314,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:48:55],
         updated_at: ~N[2023-03-15 15:48:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 251,
         payload: %{
           "apiVersion" => "v3",
@@ -12343,7 +12343,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:49:13],
         updated_at: ~N[2023-03-15 15:49:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 252,
         payload: %{
           "apiVersion" => "v3",
@@ -12372,7 +12372,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:49:42],
         updated_at: ~N[2023-03-15 15:49:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 255,
         payload: %{
           "apiVersion" => "v3",
@@ -12402,7 +12402,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:50:43],
         updated_at: ~N[2023-03-15 15:50:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 259,
         payload: %{
           "apiVersion" => "v3",
@@ -12440,7 +12440,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:02:56],
         updated_at: ~N[2023-03-15 16:02:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 266,
         payload: %{
           "apiVersion" => "v3",
@@ -12471,7 +12471,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:08:24],
         updated_at: ~N[2023-03-15 16:08:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 267,
         payload: %{
           "apiVersion" => "v3",
@@ -12509,7 +12509,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:08:31],
         updated_at: ~N[2023-03-15 16:08:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 276,
         payload: %{
           "apiVersion" => "v3",
@@ -12538,7 +12538,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:24:22],
         updated_at: ~N[2023-03-15 16:24:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 279,
         payload: %{
           "apiVersion" => "v3",
@@ -12568,7 +12568,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:32:19],
         updated_at: ~N[2023-03-15 16:32:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 256,
         payload: %{
           "apiVersion" => "v3",
@@ -12597,7 +12597,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:50:55],
         updated_at: ~N[2023-03-15 15:50:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 262,
         payload: %{
           "apiVersion" => "v3",
@@ -12635,7 +12635,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:06:17],
         updated_at: ~N[2023-03-15 16:06:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 269,
         payload: %{
           "apiVersion" => "v3",
@@ -12666,7 +12666,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:13:46],
         updated_at: ~N[2023-03-15 16:13:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 272,
         payload: %{
           "apiVersion" => "v3",
@@ -12704,7 +12704,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:17:42],
         updated_at: ~N[2023-03-15 16:17:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 280,
         payload: %{
           "apiVersion" => "v3",
@@ -12734,7 +12734,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:38:25],
         updated_at: ~N[2023-03-15 16:38:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 281,
         payload: %{
           "apiVersion" => "v3",
@@ -12764,7 +12764,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:40:08],
         updated_at: ~N[2023-03-15 16:40:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 282,
         payload: %{
           "apiVersion" => "v3",
@@ -12793,7 +12793,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:42:43],
         updated_at: ~N[2023-03-15 16:42:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 289,
         payload: %{
           "apiVersion" => "v3",
@@ -12823,7 +12823,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:09:10],
         updated_at: ~N[2023-03-15 17:09:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 293,
         payload: %{
           "apiVersion" => "v3",
@@ -12852,7 +12852,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:26:03],
         updated_at: ~N[2023-03-15 17:26:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 297,
         payload: %{
           "apiVersion" => "v3",
@@ -12890,7 +12890,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:32:44],
         updated_at: ~N[2023-03-15 17:32:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 257,
         payload: %{
           "apiVersion" => "v3",
@@ -12919,7 +12919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 15:51:21],
         updated_at: ~N[2023-03-15 15:51:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 263,
         payload: %{
           "apiVersion" => "v3",
@@ -12950,7 +12950,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:07:11],
         updated_at: ~N[2023-03-15 16:07:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 270,
         payload: %{
           "apiVersion" => "v3",
@@ -12988,7 +12988,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:13:54],
         updated_at: ~N[2023-03-15 16:13:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 273,
         payload: %{
           "apiVersion" => "v3",
@@ -13018,7 +13018,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:19:38],
         updated_at: ~N[2023-03-15 16:19:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 283,
         payload: %{
           "apiVersion" => "v3",
@@ -13048,7 +13048,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:47:56],
         updated_at: ~N[2023-03-15 16:47:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 284,
         payload: %{
           "apiVersion" => "v3",
@@ -13077,7 +13077,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:49:07],
         updated_at: ~N[2023-03-15 16:49:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 290,
         payload: %{
           "apiVersion" => "v3",
@@ -13106,7 +13106,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:15:28],
         updated_at: ~N[2023-03-15 17:15:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 294,
         payload: %{
           "apiVersion" => "v3",
@@ -13137,7 +13137,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:27:50],
         updated_at: ~N[2023-03-15 17:27:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 302,
         payload: %{
           "apiVersion" => "v3",
@@ -13175,7 +13175,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:47:01],
         updated_at: ~N[2023-03-15 17:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 311,
         payload: %{
           "apiVersion" => "v3",
@@ -13204,7 +13204,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:09:18],
         updated_at: ~N[2023-03-15 18:09:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 312,
         payload: %{
           "apiVersion" => "v3",
@@ -13233,7 +13233,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:09:23],
         updated_at: ~N[2023-03-15 18:09:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 258,
         payload: %{
           "apiVersion" => "v3",
@@ -13264,7 +13264,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:02:51],
         updated_at: ~N[2023-03-15 16:02:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 264,
         payload: %{
           "apiVersion" => "v3",
@@ -13302,7 +13302,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:07:18],
         updated_at: ~N[2023-03-15 16:07:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 265,
         payload: %{
           "apiVersion" => "v3",
@@ -13331,7 +13331,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:07:25],
         updated_at: ~N[2023-03-15 16:07:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 275,
         payload: %{
           "apiVersion" => "v3",
@@ -13360,7 +13360,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:22:33],
         updated_at: ~N[2023-03-15 16:22:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 278,
         payload: %{
           "apiVersion" => "v3",
@@ -13389,7 +13389,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:28:09],
         updated_at: ~N[2023-03-15 16:28:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 286,
         payload: %{
           "apiVersion" => "v3",
@@ -13418,7 +13418,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:57:16],
         updated_at: ~N[2023-03-15 16:57:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 287,
         payload: %{
           "apiVersion" => "v3",
@@ -13448,7 +13448,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 16:57:25],
         updated_at: ~N[2023-03-15 16:57:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 296,
         payload: %{
           "apiVersion" => "v3",
@@ -13479,7 +13479,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:32:38],
         updated_at: ~N[2023-03-15 17:32:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 299,
         payload: %{
           "apiVersion" => "v3",
@@ -13510,7 +13510,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:46:37],
         updated_at: ~N[2023-03-15 17:46:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 308,
         payload: %{
           "apiVersion" => "v3",
@@ -13548,7 +13548,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:06:48],
         updated_at: ~N[2023-03-15 18:06:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 310,
         payload: %{
           "apiVersion" => "v3",
@@ -13577,7 +13577,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:08:53],
         updated_at: ~N[2023-03-15 18:08:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 288,
         payload: %{
           "apiVersion" => "v3",
@@ -13607,7 +13607,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:00:07],
         updated_at: ~N[2023-03-15 17:00:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 292,
         payload: %{
           "apiVersion" => "v3",
@@ -13636,7 +13636,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:24:52],
         updated_at: ~N[2023-03-15 17:24:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 298,
         payload: %{
           "apiVersion" => "v3",
@@ -13666,7 +13666,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:35:57],
         updated_at: ~N[2023-03-15 17:35:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 304,
         payload: %{
           "apiVersion" => "v3",
@@ -13704,7 +13704,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:55:21],
         updated_at: ~N[2023-03-15 17:55:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 306,
         payload: %{
           "apiVersion" => "v3",
@@ -13734,7 +13734,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:04:05],
         updated_at: ~N[2023-03-15 18:04:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1302,
         payload: %{
           "apiVersion" => "v3",
@@ -13772,7 +13772,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 17:55:50],
         updated_at: ~N[2023-03-23 17:55:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1373,
         payload: %{
           "apiVersion" => "v3",
@@ -13810,7 +13810,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:07:13],
         updated_at: ~N[2023-03-23 22:07:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1593,
         payload: %{
           "apiVersion" => "v3",
@@ -13840,7 +13840,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:18:07],
         updated_at: ~N[2023-03-27 17:18:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1601,
         payload: %{
           "apiVersion" => "v3",
@@ -13867,7 +13867,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:32:48],
         updated_at: ~N[2023-03-27 17:32:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1607,
         payload: %{
           "apiVersion" => "v3",
@@ -13897,7 +13897,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:38:47],
         updated_at: ~N[2023-03-27 17:38:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1926,
         payload: %{
           "apiVersion" => "v3",
@@ -13926,7 +13926,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:54:17],
         updated_at: ~N[2023-03-31 20:54:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 295,
         payload: %{
           "apiVersion" => "v3",
@@ -13964,7 +13964,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:27:57],
         updated_at: ~N[2023-03-15 17:27:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 303,
         payload: %{
           "apiVersion" => "v3",
@@ -13995,7 +13995,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:55:03],
         updated_at: ~N[2023-03-15 17:55:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 305,
         payload: %{
           "apiVersion" => "v3",
@@ -14025,7 +14025,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:57:15],
         updated_at: ~N[2023-03-15 17:57:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 313,
         payload: %{
           "apiVersion" => "v3",
@@ -14055,7 +14055,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:10:11],
         updated_at: ~N[2023-03-15 18:10:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1316,
         payload: %{
           "apiVersion" => "v3",
@@ -14086,7 +14086,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:51:32],
         updated_at: ~N[2023-03-23 19:51:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1320,
         payload: %{
           "apiVersion" => "v3",
@@ -14124,7 +14124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:52:56],
         updated_at: ~N[2023-03-23 19:52:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1325,
         payload: %{
           "apiVersion" => "v3",
@@ -14155,7 +14155,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:02:14],
         updated_at: ~N[2023-03-23 20:02:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1333,
         payload: %{
           "apiVersion" => "v3",
@@ -14184,7 +14184,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:16:13],
         updated_at: ~N[2023-03-23 20:16:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1335,
         payload: %{
           "apiVersion" => "v3",
@@ -14222,7 +14222,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:20:22],
         updated_at: ~N[2023-03-23 20:20:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1341,
         payload: %{
           "apiVersion" => "v3",
@@ -14260,7 +14260,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:25:43],
         updated_at: ~N[2023-03-23 20:25:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 300,
         payload: %{
           "apiVersion" => "v3",
@@ -14298,7 +14298,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:46:42],
         updated_at: ~N[2023-03-15 17:46:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 301,
         payload: %{
           "apiVersion" => "v3",
@@ -14329,7 +14329,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 17:46:57],
         updated_at: ~N[2023-03-15 17:46:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 307,
         payload: %{
           "apiVersion" => "v3",
@@ -14360,7 +14360,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:06:40],
         updated_at: ~N[2023-03-15 18:06:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 309,
         payload: %{
           "apiVersion" => "v3",
@@ -14389,7 +14389,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:08:17],
         updated_at: ~N[2023-03-15 18:08:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 314,
         payload: %{
           "apiVersion" => "v3",
@@ -14420,7 +14420,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:11:01],
         updated_at: ~N[2023-03-15 18:11:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 315,
         payload: %{
           "apiVersion" => "v3",
@@ -14458,7 +14458,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:11:08],
         updated_at: ~N[2023-03-15 18:11:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 316,
         payload: %{
           "apiVersion" => "v3",
@@ -14487,7 +14487,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:11:15],
         updated_at: ~N[2023-03-15 18:11:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 317,
         payload: %{
           "apiVersion" => "v3",
@@ -14517,7 +14517,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:15:49],
         updated_at: ~N[2023-03-15 18:15:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 318,
         payload: %{
           "apiVersion" => "v3",
@@ -14547,7 +14547,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:16:25],
         updated_at: ~N[2023-03-15 18:16:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 319,
         payload: %{
           "apiVersion" => "v3",
@@ -14576,7 +14576,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:17:48],
         updated_at: ~N[2023-03-15 18:17:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 320,
         payload: %{
           "apiVersion" => "v3",
@@ -14607,7 +14607,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:18:52],
         updated_at: ~N[2023-03-15 18:18:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 321,
         payload: %{
           "apiVersion" => "v3",
@@ -14645,7 +14645,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:19:00],
         updated_at: ~N[2023-03-15 18:19:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 330,
         payload: %{
           "apiVersion" => "v3",
@@ -14674,7 +14674,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:31:31],
         updated_at: ~N[2023-03-15 18:31:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 331,
         payload: %{
           "apiVersion" => "v3",
@@ -14705,7 +14705,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:32:03],
         updated_at: ~N[2023-03-15 18:32:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 340,
         payload: %{
           "apiVersion" => "v3",
@@ -14743,7 +14743,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:44:09],
         updated_at: ~N[2023-03-15 18:44:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 356,
         payload: %{
           "apiVersion" => "v3",
@@ -14773,7 +14773,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:43:38],
         updated_at: ~N[2023-03-15 19:43:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 357,
         payload: %{
           "apiVersion" => "v3",
@@ -14803,7 +14803,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:46:13],
         updated_at: ~N[2023-03-15 19:46:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 365,
         payload: %{
           "apiVersion" => "v3",
@@ -14834,7 +14834,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:57:25],
         updated_at: ~N[2023-03-15 19:57:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 370,
         payload: %{
           "apiVersion" => "v3",
@@ -14872,7 +14872,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:00:51],
         updated_at: ~N[2023-03-15 20:00:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 373,
         payload: %{
           "apiVersion" => "v3",
@@ -14901,7 +14901,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:12:03],
         updated_at: ~N[2023-03-15 20:12:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 381,
         payload: %{
           "apiVersion" => "v3",
@@ -14932,7 +14932,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:31:25],
         updated_at: ~N[2023-03-15 20:31:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 322,
         payload: %{
           "apiVersion" => "v3",
@@ -14963,7 +14963,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:20:20],
         updated_at: ~N[2023-03-15 18:20:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 334,
         payload: %{
           "apiVersion" => "v3",
@@ -14993,7 +14993,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:33:41],
         updated_at: ~N[2023-03-15 18:33:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 336,
         payload: %{
           "apiVersion" => "v3",
@@ -15024,7 +15024,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:36:40],
         updated_at: ~N[2023-03-15 18:36:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 342,
         payload: %{
           "apiVersion" => "v3",
@@ -15054,7 +15054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:48:23],
         updated_at: ~N[2023-03-15 18:48:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 354,
         payload: %{
           "apiVersion" => "v3",
@@ -15084,7 +15084,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:42:32],
         updated_at: ~N[2023-03-15 19:42:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 355,
         payload: %{
           "apiVersion" => "v3",
@@ -15111,7 +15111,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:42:35],
         updated_at: ~N[2023-03-15 19:42:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 360,
         payload: %{
           "apiVersion" => "v3",
@@ -15142,7 +15142,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:52:40],
         updated_at: ~N[2023-03-15 19:52:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 363,
         payload: %{
           "apiVersion" => "v3",
@@ -15172,7 +15172,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:53:35],
         updated_at: ~N[2023-03-15 19:53:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 368,
         payload: %{
           "apiVersion" => "v3",
@@ -15201,7 +15201,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:00:18],
         updated_at: ~N[2023-03-15 20:00:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 372,
         payload: %{
           "apiVersion" => "v3",
@@ -15231,7 +15231,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:08:00],
         updated_at: ~N[2023-03-15 20:08:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 323,
         payload: %{
           "apiVersion" => "v3",
@@ -15269,7 +15269,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:20:25],
         updated_at: ~N[2023-03-15 18:20:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 325,
         payload: %{
           "apiVersion" => "v3",
@@ -15299,7 +15299,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:22:20],
         updated_at: ~N[2023-03-15 18:22:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 338,
         payload: %{
           "apiVersion" => "v3",
@@ -15328,7 +15328,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:37:09],
         updated_at: ~N[2023-03-15 18:37:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 341,
         payload: %{
           "apiVersion" => "v3",
@@ -15355,7 +15355,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:45:02],
         updated_at: ~N[2023-03-15 18:45:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 345,
         payload: %{
           "apiVersion" => "v3",
@@ -15384,7 +15384,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:12:43],
         updated_at: ~N[2023-03-15 19:12:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 359,
         payload: %{
           "apiVersion" => "v3",
@@ -15414,7 +15414,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:51:18],
         updated_at: ~N[2023-03-15 19:51:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 362,
         payload: %{
           "apiVersion" => "v3",
@@ -15444,7 +15444,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:53:01],
         updated_at: ~N[2023-03-15 19:53:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 367,
         payload: %{
           "apiVersion" => "v3",
@@ -15482,7 +15482,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:57:36],
         updated_at: ~N[2023-03-15 19:57:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 371,
         payload: %{
           "apiVersion" => "v3",
@@ -15512,7 +15512,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:02:39],
         updated_at: ~N[2023-03-15 20:02:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 378,
         payload: %{
           "apiVersion" => "v3",
@@ -15539,7 +15539,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:28:03],
         updated_at: ~N[2023-03-15 20:28:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 324,
         payload: %{
           "apiVersion" => "v3",
@@ -15569,7 +15569,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:21:16],
         updated_at: ~N[2023-03-15 18:21:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 326,
         payload: %{
           "apiVersion" => "v3",
@@ -15598,7 +15598,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:22:44],
         updated_at: ~N[2023-03-15 18:22:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 335,
         payload: %{
           "apiVersion" => "v3",
@@ -15627,7 +15627,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:33:58],
         updated_at: ~N[2023-03-15 18:33:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 337,
         payload: %{
           "apiVersion" => "v3",
@@ -15665,7 +15665,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:36:48],
         updated_at: ~N[2023-03-15 18:36:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 343,
         payload: %{
           "apiVersion" => "v3",
@@ -15695,7 +15695,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:03:07],
         updated_at: ~N[2023-03-15 19:03:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 347,
         payload: %{
           "apiVersion" => "v3",
@@ -15733,7 +15733,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:14:58],
         updated_at: ~N[2023-03-15 19:14:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 348,
         payload: %{
           "apiVersion" => "v3",
@@ -15764,7 +15764,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:24:07],
         updated_at: ~N[2023-03-15 19:24:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 349,
         payload: %{
           "apiVersion" => "v3",
@@ -15793,7 +15793,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:30:48],
         updated_at: ~N[2023-03-15 19:30:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 350,
         payload: %{
           "apiVersion" => "v3",
@@ -15822,7 +15822,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:31:23],
         updated_at: ~N[2023-03-15 19:31:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 358,
         payload: %{
           "apiVersion" => "v3",
@@ -15852,7 +15852,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:48:01],
         updated_at: ~N[2023-03-15 19:48:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 327,
         payload: %{
           "apiVersion" => "v3",
@@ -15881,7 +15881,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:24:03],
         updated_at: ~N[2023-03-15 18:24:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 328,
         payload: %{
           "apiVersion" => "v3",
@@ -15911,7 +15911,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:29:16],
         updated_at: ~N[2023-03-15 18:29:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 329,
         payload: %{
           "apiVersion" => "v3",
@@ -15941,7 +15941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:29:58],
         updated_at: ~N[2023-03-15 18:29:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 332,
         payload: %{
           "apiVersion" => "v3",
@@ -15979,7 +15979,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:32:10],
         updated_at: ~N[2023-03-15 18:32:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 333,
         payload: %{
           "apiVersion" => "v3",
@@ -16008,7 +16008,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:32:46],
         updated_at: ~N[2023-03-15 18:32:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 339,
         payload: %{
           "apiVersion" => "v3",
@@ -16039,7 +16039,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 18:43:55],
         updated_at: ~N[2023-03-15 18:43:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 344,
         payload: %{
           "apiVersion" => "v3",
@@ -16069,7 +16069,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:06:12],
         updated_at: ~N[2023-03-15 19:06:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 346,
         payload: %{
           "apiVersion" => "v3",
@@ -16100,7 +16100,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:14:51],
         updated_at: ~N[2023-03-15 19:14:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 351,
         payload: %{
           "apiVersion" => "v3",
@@ -16131,7 +16131,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:38:59],
         updated_at: ~N[2023-03-15 19:38:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 352,
         payload: %{
           "apiVersion" => "v3",
@@ -16169,7 +16169,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:39:05],
         updated_at: ~N[2023-03-15 19:39:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 706,
         payload: %{
           "apiVersion" => "v3",
@@ -16198,7 +16198,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:20:28],
         updated_at: ~N[2023-03-17 02:20:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 353,
         payload: %{
           "apiVersion" => "v3",
@@ -16227,7 +16227,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:40:11],
         updated_at: ~N[2023-03-15 19:40:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1317,
         payload: %{
           "apiVersion" => "v3",
@@ -16258,7 +16258,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:52:06],
         updated_at: ~N[2023-03-23 19:52:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1322,
         payload: %{
           "apiVersion" => "v3",
@@ -16296,7 +16296,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:54:13],
         updated_at: ~N[2023-03-23 19:54:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1326,
         payload: %{
           "apiVersion" => "v3",
@@ -16334,7 +16334,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:02:20],
         updated_at: ~N[2023-03-23 20:02:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1334,
         payload: %{
           "apiVersion" => "v3",
@@ -16365,7 +16365,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:20:15],
         updated_at: ~N[2023-03-23 20:20:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1336,
         payload: %{
           "apiVersion" => "v3",
@@ -16396,7 +16396,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:21:39],
         updated_at: ~N[2023-03-23 20:21:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1344,
         payload: %{
           "apiVersion" => "v3",
@@ -16427,7 +16427,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:49:12],
         updated_at: ~N[2023-03-23 20:49:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1348,
         payload: %{
           "apiVersion" => "v3",
@@ -16456,7 +16456,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:57:11],
         updated_at: ~N[2023-03-23 20:57:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1353,
         payload: %{
           "apiVersion" => "v3",
@@ -16486,7 +16486,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:32:59],
         updated_at: ~N[2023-03-23 21:32:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1355,
         payload: %{
           "apiVersion" => "v3",
@@ -16515,7 +16515,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:34:21],
         updated_at: ~N[2023-03-23 21:34:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1363,
         payload: %{
           "apiVersion" => "v3",
@@ -16546,7 +16546,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:39:23],
         updated_at: ~N[2023-03-23 21:39:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 361,
         payload: %{
           "apiVersion" => "v3",
@@ -16584,7 +16584,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:52:48],
         updated_at: ~N[2023-03-15 19:52:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 369,
         payload: %{
           "apiVersion" => "v3",
@@ -16615,7 +16615,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:00:43],
         updated_at: ~N[2023-03-15 20:00:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 374,
         payload: %{
           "apiVersion" => "v3",
@@ -16644,7 +16644,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:14:40],
         updated_at: ~N[2023-03-15 20:14:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 376,
         payload: %{
           "apiVersion" => "v3",
@@ -16673,7 +16673,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:27:46],
         updated_at: ~N[2023-03-15 20:27:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 383,
         payload: %{
           "apiVersion" => "v3",
@@ -16702,7 +16702,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:31:52],
         updated_at: ~N[2023-03-15 20:31:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 384,
         payload: %{
           "apiVersion" => "v3",
@@ -16731,7 +16731,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:32:17],
         updated_at: ~N[2023-03-15 20:32:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 391,
         payload: %{
           "apiVersion" => "v3",
@@ -16760,7 +16760,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:57:18],
         updated_at: ~N[2023-03-15 20:57:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 395,
         payload: %{
           "apiVersion" => "v3",
@@ -16789,7 +16789,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:05:28],
         updated_at: ~N[2023-03-15 21:05:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1323,
         payload: %{
           "apiVersion" => "v3",
@@ -16820,7 +16820,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 19:55:02],
         updated_at: ~N[2023-03-23 19:55:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1327,
         payload: %{
           "apiVersion" => "v3",
@@ -16851,7 +16851,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:04:13],
         updated_at: ~N[2023-03-23 20:04:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1337,
         payload: %{
           "apiVersion" => "v3",
@@ -16889,7 +16889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:21:46],
         updated_at: ~N[2023-03-23 20:21:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 364,
         payload: %{
           "apiVersion" => "v3",
@@ -16919,7 +16919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:54:56],
         updated_at: ~N[2023-03-15 19:54:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 366,
         payload: %{
           "apiVersion" => "v3",
@@ -16946,7 +16946,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 19:57:34],
         updated_at: ~N[2023-03-15 19:57:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 375,
         payload: %{
           "apiVersion" => "v3",
@@ -16976,7 +16976,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:26:29],
         updated_at: ~N[2023-03-15 20:26:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 377,
         payload: %{
           "apiVersion" => "v3",
@@ -17007,7 +17007,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:27:57],
         updated_at: ~N[2023-03-15 20:27:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 385,
         payload: %{
           "apiVersion" => "v3",
@@ -17036,7 +17036,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:37:19],
         updated_at: ~N[2023-03-15 20:37:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 386,
         payload: %{
           "apiVersion" => "v3",
@@ -17065,7 +17065,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:38:30],
         updated_at: ~N[2023-03-15 20:38:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 392,
         payload: %{
           "apiVersion" => "v3",
@@ -17094,7 +17094,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:04:14],
         updated_at: ~N[2023-03-15 21:04:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1328,
         payload: %{
           "apiVersion" => "v3",
@@ -17132,7 +17132,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:04:20],
         updated_at: ~N[2023-03-23 20:04:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1329,
         payload: %{
           "apiVersion" => "v3",
@@ -17163,7 +17163,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:13:34],
         updated_at: ~N[2023-03-23 20:13:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1338,
         payload: %{
           "apiVersion" => "v3",
@@ -17194,7 +17194,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:22:54],
         updated_at: ~N[2023-03-23 20:22:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1342,
         payload: %{
           "apiVersion" => "v3",
@@ -17225,7 +17225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:29:18],
         updated_at: ~N[2023-03-23 20:29:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 379,
         payload: %{
           "apiVersion" => "v3",
@@ -17263,7 +17263,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:28:19],
         updated_at: ~N[2023-03-15 20:28:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 387,
         payload: %{
           "apiVersion" => "v3",
@@ -17293,7 +17293,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:44:31],
         updated_at: ~N[2023-03-15 20:44:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 393,
         payload: %{
           "apiVersion" => "v3",
@@ -17322,7 +17322,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:04:39],
         updated_at: ~N[2023-03-15 21:04:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1330,
         payload: %{
           "apiVersion" => "v3",
@@ -17353,7 +17353,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:14:14],
         updated_at: ~N[2023-03-23 20:14:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1412,
         payload: %{
           "apiVersion" => "v3",
@@ -17382,7 +17382,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:45:24],
         updated_at: ~N[2023-03-23 23:45:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1594,
         payload: %{
           "apiVersion" => "v3",
@@ -17412,7 +17412,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:19:43],
         updated_at: ~N[2023-03-27 17:19:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1600,
         payload: %{
           "apiVersion" => "v3",
@@ -17439,7 +17439,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:32:34],
         updated_at: ~N[2023-03-27 17:32:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1605,
         payload: %{
           "apiVersion" => "v3",
@@ -17468,7 +17468,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:36:02],
         updated_at: ~N[2023-03-27 17:36:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1612,
         payload: %{
           "apiVersion" => "v3",
@@ -17499,7 +17499,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:49:39],
         updated_at: ~N[2023-03-27 17:49:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1617,
         payload: %{
           "apiVersion" => "v3",
@@ -17537,7 +17537,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:52:00],
         updated_at: ~N[2023-03-27 17:52:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1621,
         payload: %{
           "apiVersion" => "v3",
@@ -17566,7 +17566,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:21:18],
         updated_at: ~N[2023-03-27 20:21:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 380,
         payload: %{
           "apiVersion" => "v3",
@@ -17595,7 +17595,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:30:17],
         updated_at: ~N[2023-03-15 20:30:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 388,
         payload: %{
           "apiVersion" => "v3",
@@ -17626,7 +17626,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:47:28],
         updated_at: ~N[2023-03-15 20:47:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 390,
         payload: %{
           "apiVersion" => "v3",
@@ -17656,7 +17656,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:51:49],
         updated_at: ~N[2023-03-15 20:51:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 396,
         payload: %{
           "apiVersion" => "v3",
@@ -17685,7 +17685,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:05:40],
         updated_at: ~N[2023-03-15 21:05:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1339,
         payload: %{
           "apiVersion" => "v3",
@@ -17723,7 +17723,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:23:02],
         updated_at: ~N[2023-03-23 20:23:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1343,
         payload: %{
           "apiVersion" => "v3",
@@ -17761,7 +17761,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:29:25],
         updated_at: ~N[2023-03-23 20:29:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1349,
         payload: %{
           "apiVersion" => "v3",
@@ -17790,7 +17790,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:58:15],
         updated_at: ~N[2023-03-23 20:58:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1352,
         payload: %{
           "apiVersion" => "v3",
@@ -17819,7 +17819,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:32:20],
         updated_at: ~N[2023-03-23 21:32:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1362,
         payload: %{
           "apiVersion" => "v3",
@@ -17848,7 +17848,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:37:19],
         updated_at: ~N[2023-03-23 21:37:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1364,
         payload: %{
           "apiVersion" => "v3",
@@ -17886,7 +17886,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:39:30],
         updated_at: ~N[2023-03-23 21:39:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1369,
         payload: %{
           "apiVersion" => "v3",
@@ -17915,7 +17915,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:42:09],
         updated_at: ~N[2023-03-23 21:42:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 382,
         payload: %{
           "apiVersion" => "v3",
@@ -17953,7 +17953,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:31:31],
         updated_at: ~N[2023-03-15 20:31:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 389,
         payload: %{
           "apiVersion" => "v3",
@@ -17991,7 +17991,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 20:47:42],
         updated_at: ~N[2023-03-15 20:47:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 394,
         payload: %{
           "apiVersion" => "v3",
@@ -18020,7 +18020,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:05:19],
         updated_at: ~N[2023-03-15 21:05:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 397,
         payload: %{
           "apiVersion" => "v3",
@@ -18049,7 +18049,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:06:34],
         updated_at: ~N[2023-03-15 21:06:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 398,
         payload: %{
           "apiVersion" => "v3",
@@ -18080,7 +18080,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:20:11],
         updated_at: ~N[2023-03-15 21:20:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 399,
         payload: %{
           "apiVersion" => "v3",
@@ -18118,7 +18118,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:20:19],
         updated_at: ~N[2023-03-15 21:20:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 400,
         payload: %{
           "apiVersion" => "v3",
@@ -18148,7 +18148,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:21:25],
         updated_at: ~N[2023-03-15 21:21:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 401,
         payload: %{
           "apiVersion" => "v3",
@@ -18177,7 +18177,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:24:04],
         updated_at: ~N[2023-03-15 21:24:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 402,
         payload: %{
           "apiVersion" => "v3",
@@ -18206,7 +18206,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:24:27],
         updated_at: ~N[2023-03-15 21:24:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 403,
         payload: %{
           "apiVersion" => "v3",
@@ -18235,7 +18235,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:24:41],
         updated_at: ~N[2023-03-15 21:24:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 404,
         payload: %{
           "apiVersion" => "v3",
@@ -18264,7 +18264,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:24:43],
         updated_at: ~N[2023-03-15 21:24:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 405,
         payload: %{
           "apiVersion" => "v3",
@@ -18293,7 +18293,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:28:43],
         updated_at: ~N[2023-03-15 21:28:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 413,
         payload: %{
           "apiVersion" => "v3",
@@ -18322,7 +18322,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:45:52],
         updated_at: ~N[2023-03-15 21:45:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 415,
         payload: %{
           "apiVersion" => "v3",
@@ -18351,7 +18351,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:47:47],
         updated_at: ~N[2023-03-15 21:47:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 421,
         payload: %{
           "apiVersion" => "v3",
@@ -18391,7 +18391,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:26:32],
         updated_at: ~N[2023-03-15 22:26:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 426,
         payload: %{
           "apiVersion" => "v3",
@@ -18426,7 +18426,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:28:27],
         updated_at: ~N[2023-03-15 22:28:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 432,
         payload: %{
           "apiVersion" => "v3",
@@ -18455,7 +18455,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:33:42],
         updated_at: ~N[2023-03-15 22:33:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 443,
         payload: %{
           "apiVersion" => "v3",
@@ -18486,7 +18486,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:42:57],
         updated_at: ~N[2023-03-15 23:42:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 447,
         payload: %{
           "apiVersion" => "v3",
@@ -18516,7 +18516,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:56:36],
         updated_at: ~N[2023-03-15 23:56:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 452,
         payload: %{
           "apiVersion" => "v3",
@@ -18545,7 +18545,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:06:53],
         updated_at: ~N[2023-03-16 00:06:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 460,
         payload: %{
           "apiVersion" => "v3",
@@ -18574,7 +18574,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:10:16],
         updated_at: ~N[2023-03-16 00:10:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 464,
         payload: %{
           "apiVersion" => "v3",
@@ -18603,7 +18603,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:14:21],
         updated_at: ~N[2023-03-16 00:14:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 749,
         payload: %{
           "apiVersion" => "v3",
@@ -18632,7 +18632,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:23:58],
         updated_at: ~N[2023-03-17 18:23:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 406,
         payload: %{
           "apiVersion" => "v3",
@@ -18663,7 +18663,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:29:10],
         updated_at: ~N[2023-03-15 21:29:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 407,
         payload: %{
           "apiVersion" => "v3",
@@ -18701,7 +18701,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:29:17],
         updated_at: ~N[2023-03-15 21:29:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 412,
         payload: %{
           "apiVersion" => "v3",
@@ -18730,7 +18730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:45:45],
         updated_at: ~N[2023-03-15 21:45:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 414,
         payload: %{
           "apiVersion" => "v3",
@@ -18759,7 +18759,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:46:51],
         updated_at: ~N[2023-03-15 21:46:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 419,
         payload: %{
           "apiVersion" => "v3",
@@ -18788,7 +18788,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:19:48],
         updated_at: ~N[2023-03-15 22:19:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 425,
         payload: %{
           "apiVersion" => "v3",
@@ -18818,7 +18818,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:28:19],
         updated_at: ~N[2023-03-15 22:28:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 430,
         payload: %{
           "apiVersion" => "v3",
@@ -18847,7 +18847,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:31:54],
         updated_at: ~N[2023-03-15 22:31:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 441,
         payload: %{
           "apiVersion" => "v3",
@@ -18877,7 +18877,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:28:11],
         updated_at: ~N[2023-03-15 23:28:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 446,
         payload: %{
           "apiVersion" => "v3",
@@ -18906,7 +18906,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:54:26],
         updated_at: ~N[2023-03-15 23:54:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 451,
         payload: %{
           "apiVersion" => "v3",
@@ -18935,7 +18935,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:06:29],
         updated_at: ~N[2023-03-16 00:06:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 455,
         payload: %{
           "apiVersion" => "v3",
@@ -18964,7 +18964,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:09:02],
         updated_at: ~N[2023-03-16 00:09:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 470,
         payload: %{
           "apiVersion" => "v3",
@@ -18995,7 +18995,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:31:26],
         updated_at: ~N[2023-03-16 00:31:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 408,
         payload: %{
           "apiVersion" => "v3",
@@ -19024,7 +19024,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:30:19],
         updated_at: ~N[2023-03-15 21:30:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 416,
         payload: %{
           "apiVersion" => "v3",
@@ -19053,7 +19053,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:48:51],
         updated_at: ~N[2023-03-15 21:48:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 422,
         payload: %{
           "apiVersion" => "v3",
@@ -19082,7 +19082,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:27:04],
         updated_at: ~N[2023-03-15 22:27:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 428,
         payload: %{
           "apiVersion" => "v3",
@@ -19112,7 +19112,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:31:03],
         updated_at: ~N[2023-03-15 22:31:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 433,
         payload: %{
           "apiVersion" => "v3",
@@ -19142,7 +19142,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:34:56],
         updated_at: ~N[2023-03-15 22:34:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 444,
         payload: %{
           "apiVersion" => "v3",
@@ -19180,7 +19180,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:43:06],
         updated_at: ~N[2023-03-15 23:43:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 449,
         payload: %{
           "apiVersion" => "v3",
@@ -19209,7 +19209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:05:54],
         updated_at: ~N[2023-03-16 00:05:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 454,
         payload: %{
           "apiVersion" => "v3",
@@ -19239,7 +19239,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:08:07],
         updated_at: ~N[2023-03-16 00:08:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 461,
         payload: %{
           "apiVersion" => "v3",
@@ -19269,7 +19269,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:11:20],
         updated_at: ~N[2023-03-16 00:11:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 465,
         payload: %{
           "apiVersion" => "v3",
@@ -19300,7 +19300,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:18:23],
         updated_at: ~N[2023-03-16 00:18:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 473,
         payload: %{
           "apiVersion" => "v3",
@@ -19329,7 +19329,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:32:22],
         updated_at: ~N[2023-03-16 00:32:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 409,
         payload: %{
           "apiVersion" => "v3",
@@ -19358,7 +19358,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:30:36],
         updated_at: ~N[2023-03-15 21:30:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 410,
         payload: %{
           "apiVersion" => "v3",
@@ -19389,7 +19389,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:40:08],
         updated_at: ~N[2023-03-15 21:40:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 418,
         payload: %{
           "apiVersion" => "v3",
@@ -19418,7 +19418,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:19:24],
         updated_at: ~N[2023-03-15 22:19:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 424,
         payload: %{
           "apiVersion" => "v3",
@@ -19447,7 +19447,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:27:39],
         updated_at: ~N[2023-03-15 22:27:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 427,
         payload: %{
           "apiVersion" => "v3",
@@ -19477,7 +19477,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:30:53],
         updated_at: ~N[2023-03-15 22:30:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 431,
         payload: %{
           "apiVersion" => "v3",
@@ -19506,7 +19506,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:32:59],
         updated_at: ~N[2023-03-15 22:32:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 435,
         payload: %{
           "apiVersion" => "v3",
@@ -19535,7 +19535,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:39:36],
         updated_at: ~N[2023-03-15 22:39:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 440,
         payload: %{
           "apiVersion" => "v3",
@@ -19565,7 +19565,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:25:07],
         updated_at: ~N[2023-03-15 23:25:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 442,
         payload: %{
           "apiVersion" => "v3",
@@ -19595,7 +19595,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:29:42],
         updated_at: ~N[2023-03-15 23:29:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 448,
         payload: %{
           "apiVersion" => "v3",
@@ -19624,7 +19624,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:57:25],
         updated_at: ~N[2023-03-15 23:57:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 453,
         payload: %{
           "apiVersion" => "v3",
@@ -19653,7 +19653,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:07:04],
         updated_at: ~N[2023-03-16 00:07:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 457,
         payload: %{
           "apiVersion" => "v3",
@@ -19682,7 +19682,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:09:35],
         updated_at: ~N[2023-03-16 00:09:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 411,
         payload: %{
           "apiVersion" => "v3",
@@ -19720,7 +19720,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 21:40:15],
         updated_at: ~N[2023-03-15 21:40:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 417,
         payload: %{
           "apiVersion" => "v3",
@@ -19755,7 +19755,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:18:56],
         updated_at: ~N[2023-03-15 22:18:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 420,
         payload: %{
           "apiVersion" => "v3",
@@ -19785,7 +19785,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:20:54],
         updated_at: ~N[2023-03-15 22:20:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 423,
         payload: %{
           "apiVersion" => "v3",
@@ -19821,7 +19821,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:27:06],
         updated_at: ~N[2023-03-15 22:27:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 429,
         payload: %{
           "apiVersion" => "v3",
@@ -19850,7 +19850,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:31:53],
         updated_at: ~N[2023-03-15 22:31:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 434,
         payload: %{
           "apiVersion" => "v3",
@@ -19879,7 +19879,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:37:39],
         updated_at: ~N[2023-03-15 22:37:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 436,
         payload: %{
           "apiVersion" => "v3",
@@ -19908,7 +19908,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:40:02],
         updated_at: ~N[2023-03-15 22:40:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 437,
         payload: %{
           "apiVersion" => "v3",
@@ -19939,7 +19939,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:53:32],
         updated_at: ~N[2023-03-15 22:53:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 438,
         payload: %{
           "apiVersion" => "v3",
@@ -19970,7 +19970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 22:57:36],
         updated_at: ~N[2023-03-15 22:57:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 439,
         payload: %{
           "apiVersion" => "v3",
@@ -20000,7 +20000,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:11:04],
         updated_at: ~N[2023-03-15 23:11:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 445,
         payload: %{
           "apiVersion" => "v3",
@@ -20030,7 +20030,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-15 23:47:45],
         updated_at: ~N[2023-03-15 23:47:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 450,
         payload: %{
           "apiVersion" => "v3",
@@ -20059,7 +20059,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:06:16],
         updated_at: ~N[2023-03-16 00:06:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 456,
         payload: %{
           "apiVersion" => "v3",
@@ -20088,7 +20088,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:09:27],
         updated_at: ~N[2023-03-16 00:09:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 463,
         payload: %{
           "apiVersion" => "v3",
@@ -20118,7 +20118,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:12:23],
         updated_at: ~N[2023-03-16 00:12:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 468,
         payload: %{
           "apiVersion" => "v3",
@@ -20156,7 +20156,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:29:13],
         updated_at: ~N[2023-03-16 00:29:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 475,
         payload: %{
           "apiVersion" => "v3",
@@ -20185,7 +20185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:33:08],
         updated_at: ~N[2023-03-16 00:33:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 480,
         payload: %{
           "apiVersion" => "v3",
@@ -20214,7 +20214,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:38:41],
         updated_at: ~N[2023-03-16 00:38:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 483,
         payload: %{
           "apiVersion" => "v3",
@@ -20243,7 +20243,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:41:04],
         updated_at: ~N[2023-03-16 00:41:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 486,
         payload: %{
           "apiVersion" => "v3",
@@ -20273,7 +20273,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:44:33],
         updated_at: ~N[2023-03-16 00:44:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1340,
         payload: %{
           "apiVersion" => "v3",
@@ -20304,7 +20304,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:25:33],
         updated_at: ~N[2023-03-23 20:25:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 458,
         payload: %{
           "apiVersion" => "v3",
@@ -20334,7 +20334,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:09:59],
         updated_at: ~N[2023-03-16 00:09:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1345,
         payload: %{
           "apiVersion" => "v3",
@@ -20364,7 +20364,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:49:14],
         updated_at: ~N[2023-03-23 20:49:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1350,
         payload: %{
           "apiVersion" => "v3",
@@ -20395,7 +20395,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:59:26],
         updated_at: ~N[2023-03-23 20:59:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1357,
         payload: %{
           "apiVersion" => "v3",
@@ -20433,7 +20433,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:35:09],
         updated_at: ~N[2023-03-23 21:35:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1359,
         payload: %{
           "apiVersion" => "v3",
@@ -20464,7 +20464,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:36:54],
         updated_at: ~N[2023-03-23 21:36:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1366,
         payload: %{
           "apiVersion" => "v3",
@@ -20493,7 +20493,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:40:19],
         updated_at: ~N[2023-03-23 21:40:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1374,
         payload: %{
           "apiVersion" => "v3",
@@ -20524,7 +20524,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:08:23],
         updated_at: ~N[2023-03-23 22:08:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1376,
         payload: %{
           "apiVersion" => "v3",
@@ -20562,7 +20562,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:09:11],
         updated_at: ~N[2023-03-23 22:09:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1382,
         payload: %{
           "apiVersion" => "v3",
@@ -20593,7 +20593,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:16:20],
         updated_at: ~N[2023-03-23 22:16:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1389,
         payload: %{
           "apiVersion" => "v3",
@@ -20628,7 +20628,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:21:57],
         updated_at: ~N[2023-03-23 22:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 459,
         payload: %{
           "apiVersion" => "v3",
@@ -20657,7 +20657,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:10:01],
         updated_at: ~N[2023-03-16 00:10:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1346,
         payload: %{
           "apiVersion" => "v3",
@@ -20688,7 +20688,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:49:49],
         updated_at: ~N[2023-03-23 20:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1354,
         payload: %{
           "apiVersion" => "v3",
@@ -20717,7 +20717,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:34:07],
         updated_at: ~N[2023-03-23 21:34:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1356,
         payload: %{
           "apiVersion" => "v3",
@@ -20748,7 +20748,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:35:03],
         updated_at: ~N[2023-03-23 21:35:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1365,
         payload: %{
           "apiVersion" => "v3",
@@ -20777,7 +20777,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:39:40],
         updated_at: ~N[2023-03-23 21:39:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1370,
         payload: %{
           "apiVersion" => "v3",
@@ -20807,7 +20807,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:42:31],
         updated_at: ~N[2023-03-23 21:42:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1372,
         payload: %{
           "apiVersion" => "v3",
@@ -20838,7 +20838,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:07:05],
         updated_at: ~N[2023-03-23 22:07:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1379,
         payload: %{
           "apiVersion" => "v3",
@@ -20876,7 +20876,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:13:09],
         updated_at: ~N[2023-03-23 22:13:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1385,
         payload: %{
           "apiVersion" => "v3",
@@ -20905,7 +20905,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:19:10],
         updated_at: ~N[2023-03-23 22:19:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1595,
         payload: %{
           "apiVersion" => "v3",
@@ -20935,7 +20935,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:20:45],
         updated_at: ~N[2023-03-27 17:20:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1598,
         payload: %{
           "apiVersion" => "v3",
@@ -20966,7 +20966,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:31:23],
         updated_at: ~N[2023-03-27 17:31:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 462,
         payload: %{
           "apiVersion" => "v3",
@@ -20995,7 +20995,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:12:18],
         updated_at: ~N[2023-03-16 00:12:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 466,
         payload: %{
           "apiVersion" => "v3",
@@ -21033,7 +21033,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:18:33],
         updated_at: ~N[2023-03-16 00:18:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 474,
         payload: %{
           "apiVersion" => "v3",
@@ -21063,7 +21063,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:32:42],
         updated_at: ~N[2023-03-16 00:32:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 479,
         payload: %{
           "apiVersion" => "v3",
@@ -21093,7 +21093,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:38:13],
         updated_at: ~N[2023-03-16 00:38:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1347,
         payload: %{
           "apiVersion" => "v3",
@@ -21120,7 +21120,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:51:29],
         updated_at: ~N[2023-03-23 20:51:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1351,
         payload: %{
           "apiVersion" => "v3",
@@ -21158,7 +21158,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 20:59:53],
         updated_at: ~N[2023-03-23 20:59:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1358,
         payload: %{
           "apiVersion" => "v3",
@@ -21187,7 +21187,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:35:22],
         updated_at: ~N[2023-03-23 21:35:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1360,
         payload: %{
           "apiVersion" => "v3",
@@ -21225,7 +21225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:37:00],
         updated_at: ~N[2023-03-23 21:37:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1368,
         payload: %{
           "apiVersion" => "v3",
@@ -21254,7 +21254,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:42:01],
         updated_at: ~N[2023-03-23 21:42:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1375,
         payload: %{
           "apiVersion" => "v3",
@@ -21285,7 +21285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:09:05],
         updated_at: ~N[2023-03-23 22:09:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 467,
         payload: %{
           "apiVersion" => "v3",
@@ -21316,7 +21316,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:29:06],
         updated_at: ~N[2023-03-16 00:29:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 469,
         payload: %{
           "apiVersion" => "v3",
@@ -21346,7 +21346,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:30:51],
         updated_at: ~N[2023-03-16 00:30:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 476,
         payload: %{
           "apiVersion" => "v3",
@@ -21375,7 +21375,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:33:20],
         updated_at: ~N[2023-03-16 00:33:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 481,
         payload: %{
           "apiVersion" => "v3",
@@ -21404,7 +21404,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:39:29],
         updated_at: ~N[2023-03-16 00:39:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1361,
         payload: %{
           "apiVersion" => "v3",
@@ -21433,7 +21433,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:37:10],
         updated_at: ~N[2023-03-23 21:37:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1396,
         payload: %{
           "apiVersion" => "v3",
@@ -21464,7 +21464,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:58:35],
         updated_at: ~N[2023-03-23 22:58:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1426,
         payload: %{
           "apiVersion" => "v3",
@@ -21502,7 +21502,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:31:58],
         updated_at: ~N[2023-03-24 18:31:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1599,
         payload: %{
           "apiVersion" => "v3",
@@ -21540,7 +21540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:31:37],
         updated_at: ~N[2023-03-27 17:31:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1604,
         payload: %{
           "apiVersion" => "v3",
@@ -21569,7 +21569,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:35:37],
         updated_at: ~N[2023-03-27 17:35:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1611,
         payload: %{
           "apiVersion" => "v3",
@@ -21599,7 +21599,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:49:07],
         updated_at: ~N[2023-03-27 17:49:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1614,
         payload: %{
           "apiVersion" => "v3",
@@ -21637,7 +21637,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:50:08],
         updated_at: ~N[2023-03-27 17:50:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 471,
         payload: %{
           "apiVersion" => "v3",
@@ -21666,7 +21666,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:31:39],
         updated_at: ~N[2023-03-16 00:31:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 477,
         payload: %{
           "apiVersion" => "v3",
@@ -21695,7 +21695,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:33:30],
         updated_at: ~N[2023-03-16 00:33:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 484,
         payload: %{
           "apiVersion" => "v3",
@@ -21724,7 +21724,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:41:51],
         updated_at: ~N[2023-03-16 00:41:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1367,
         payload: %{
           "apiVersion" => "v3",
@@ -21753,7 +21753,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:41:18],
         updated_at: ~N[2023-03-23 21:41:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1371,
         payload: %{
           "apiVersion" => "v3",
@@ -21782,7 +21782,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 21:42:53],
         updated_at: ~N[2023-03-23 21:42:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1378,
         payload: %{
           "apiVersion" => "v3",
@@ -21813,7 +21813,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:13:03],
         updated_at: ~N[2023-03-23 22:13:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1386,
         payload: %{
           "apiVersion" => "v3",
@@ -21842,7 +21842,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:19:18],
         updated_at: ~N[2023-03-23 22:19:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1388,
         payload: %{
           "apiVersion" => "v3",
@@ -21887,7 +21887,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:21:54],
         updated_at: ~N[2023-03-23 22:21:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1394,
         payload: %{
           "apiVersion" => "v3",
@@ -21918,7 +21918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:52:42],
         updated_at: ~N[2023-03-23 22:52:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1403,
         payload: %{
           "apiVersion" => "v3",
@@ -21956,7 +21956,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:09:36],
         updated_at: ~N[2023-03-23 23:09:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1404,
         payload: %{
           "apiVersion" => "v3",
@@ -21985,7 +21985,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:30:13],
         updated_at: ~N[2023-03-23 23:30:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 472,
         payload: %{
           "apiVersion" => "v3",
@@ -22014,7 +22014,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:32:01],
         updated_at: ~N[2023-03-16 00:32:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1377,
         payload: %{
           "apiVersion" => "v3",
@@ -22045,7 +22045,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:11:49],
         updated_at: ~N[2023-03-23 22:11:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1381,
         payload: %{
           "apiVersion" => "v3",
@@ -22083,7 +22083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:14:48],
         updated_at: ~N[2023-03-23 22:14:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1384,
         payload: %{
           "apiVersion" => "v3",
@@ -22112,7 +22112,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:18:43],
         updated_at: ~N[2023-03-23 22:18:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1393,
         payload: %{
           "apiVersion" => "v3",
@@ -22150,7 +22150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:41:57],
         updated_at: ~N[2023-03-23 22:41:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1401,
         payload: %{
           "apiVersion" => "v3",
@@ -22180,7 +22180,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:04:11],
         updated_at: ~N[2023-03-23 23:04:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1405,
         payload: %{
           "apiVersion" => "v3",
@@ -22209,7 +22209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:31:26],
         updated_at: ~N[2023-03-23 23:31:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1414,
         payload: %{
           "apiVersion" => "v3",
@@ -22238,7 +22238,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:01:59],
         updated_at: ~N[2023-03-24 16:01:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1423,
         payload: %{
           "apiVersion" => "v3",
@@ -22269,7 +22269,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:31:20],
         updated_at: ~N[2023-03-24 18:31:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1430,
         payload: %{
           "apiVersion" => "v3",
@@ -22307,7 +22307,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:36:41],
         updated_at: ~N[2023-03-24 18:36:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1433,
         payload: %{
           "apiVersion" => "v3",
@@ -22338,7 +22338,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:38:16],
         updated_at: ~N[2023-03-24 18:38:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 478,
         payload: %{
           "apiVersion" => "v3",
@@ -22368,7 +22368,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:36:21],
         updated_at: ~N[2023-03-16 00:36:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 482,
         payload: %{
           "apiVersion" => "v3",
@@ -22397,7 +22397,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:39:58],
         updated_at: ~N[2023-03-16 00:39:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 485,
         payload: %{
           "apiVersion" => "v3",
@@ -22427,7 +22427,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:42:19],
         updated_at: ~N[2023-03-16 00:42:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 487,
         payload: %{
           "apiVersion" => "v3",
@@ -22456,7 +22456,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:45:52],
         updated_at: ~N[2023-03-16 00:45:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 488,
         payload: %{
           "apiVersion" => "v3",
@@ -22485,7 +22485,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:46:42],
         updated_at: ~N[2023-03-16 00:46:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 489,
         payload: %{
           "apiVersion" => "v3",
@@ -22514,7 +22514,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:48:37],
         updated_at: ~N[2023-03-16 00:48:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 490,
         payload: %{
           "apiVersion" => "v3",
@@ -22543,7 +22543,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 00:52:09],
         updated_at: ~N[2023-03-16 00:52:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 491,
         payload: %{
           "apiVersion" => "v3",
@@ -22573,7 +22573,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 01:06:04],
         updated_at: ~N[2023-03-16 01:06:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 492,
         payload: %{
           "apiVersion" => "v3",
@@ -22603,7 +22603,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 01:08:21],
         updated_at: ~N[2023-03-16 01:08:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 493,
         payload: %{
           "apiVersion" => "v3",
@@ -22632,7 +22632,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 01:08:48],
         updated_at: ~N[2023-03-16 01:08:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 494,
         payload: %{
           "apiVersion" => "v3",
@@ -22662,7 +22662,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 01:13:01],
         updated_at: ~N[2023-03-16 01:13:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 495,
         payload: %{
           "apiVersion" => "v3",
@@ -22692,7 +22692,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 01:14:20],
         updated_at: ~N[2023-03-16 01:14:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 499,
         payload: %{
           "apiVersion" => "v3",
@@ -22721,7 +22721,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 14:03:37],
         updated_at: ~N[2023-03-16 14:03:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 501,
         payload: %{
           "apiVersion" => "v3",
@@ -22750,7 +22750,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 15:35:41],
         updated_at: ~N[2023-03-16 15:35:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 502,
         payload: %{
           "apiVersion" => "v3",
@@ -22780,7 +22780,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 15:59:16],
         updated_at: ~N[2023-03-16 15:59:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 504,
         payload: %{
           "apiVersion" => "v3",
@@ -22809,7 +22809,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:01:25],
         updated_at: ~N[2023-03-16 16:01:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 506,
         payload: %{
           "apiVersion" => "v3",
@@ -22838,7 +22838,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:04:08],
         updated_at: ~N[2023-03-16 16:04:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 509,
         payload: %{
           "apiVersion" => "v3",
@@ -22876,7 +22876,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:13:09],
         updated_at: ~N[2023-03-16 16:13:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 511,
         payload: %{
           "apiVersion" => "v3",
@@ -22914,7 +22914,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:16:00],
         updated_at: ~N[2023-03-16 16:16:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 512,
         payload: %{
           "apiVersion" => "v3",
@@ -22944,7 +22944,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:21:20],
         updated_at: ~N[2023-03-16 16:21:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 496,
         payload: %{
           "apiVersion" => "v3",
@@ -22973,7 +22973,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 02:02:30],
         updated_at: ~N[2023-03-16 02:02:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 503,
         payload: %{
           "apiVersion" => "v3",
@@ -23002,7 +23002,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 15:59:48],
         updated_at: ~N[2023-03-16 15:59:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 510,
         payload: %{
           "apiVersion" => "v3",
@@ -23033,7 +23033,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:15:51],
         updated_at: ~N[2023-03-16 16:15:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 515,
         payload: %{
           "apiVersion" => "v3",
@@ -23071,7 +23071,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:28:18],
         updated_at: ~N[2023-03-16 16:28:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 522,
         payload: %{
           "apiVersion" => "v3",
@@ -23102,7 +23102,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:36:05],
         updated_at: ~N[2023-03-16 16:36:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 525,
         payload: %{
           "apiVersion" => "v3",
@@ -23131,7 +23131,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:36:23],
         updated_at: ~N[2023-03-16 16:36:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 530,
         payload: %{
           "apiVersion" => "v3",
@@ -23160,7 +23160,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:52:19],
         updated_at: ~N[2023-03-16 16:52:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 532,
         payload: %{
           "apiVersion" => "v3",
@@ -23191,7 +23191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:00:17],
         updated_at: ~N[2023-03-16 17:00:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 537,
         payload: %{
           "apiVersion" => "v3",
@@ -23220,7 +23220,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:26:59],
         updated_at: ~N[2023-03-16 17:26:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 541,
         payload: %{
           "apiVersion" => "v3",
@@ -23251,7 +23251,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:17:16],
         updated_at: ~N[2023-03-16 18:17:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 542,
         payload: %{
           "apiVersion" => "v3",
@@ -23289,7 +23289,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:17:33],
         updated_at: ~N[2023-03-16 18:17:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 497,
         payload: %{
           "apiVersion" => "v3",
@@ -23319,7 +23319,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 02:12:18],
         updated_at: ~N[2023-03-16 02:12:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 505,
         payload: %{
           "apiVersion" => "v3",
@@ -23348,7 +23348,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:03:42],
         updated_at: ~N[2023-03-16 16:03:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 507,
         payload: %{
           "apiVersion" => "v3",
@@ -23379,7 +23379,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:12:52],
         updated_at: ~N[2023-03-16 16:12:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 513,
         payload: %{
           "apiVersion" => "v3",
@@ -23410,7 +23410,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:28:06],
         updated_at: ~N[2023-03-16 16:28:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 517,
         payload: %{
           "apiVersion" => "v3",
@@ -23437,7 +23437,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:28:48],
         updated_at: ~N[2023-03-16 16:28:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 524,
         payload: %{
           "apiVersion" => "v3",
@@ -23466,7 +23466,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:36:21],
         updated_at: ~N[2023-03-16 16:36:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 526,
         payload: %{
           "apiVersion" => "v3",
@@ -23495,7 +23495,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:38:48],
         updated_at: ~N[2023-03-16 16:38:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 545,
         payload: %{
           "apiVersion" => "v3",
@@ -23526,7 +23526,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:22:00],
         updated_at: ~N[2023-03-16 18:22:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 548,
         payload: %{
           "apiVersion" => "v3",
@@ -23555,7 +23555,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:24:25],
         updated_at: ~N[2023-03-16 18:24:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 555,
         payload: %{
           "apiVersion" => "v3",
@@ -23593,7 +23593,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:29:06],
         updated_at: ~N[2023-03-16 18:29:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 557,
         payload: %{
           "apiVersion" => "v3",
@@ -23623,7 +23623,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:29:53],
         updated_at: ~N[2023-03-16 18:29:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 498,
         payload: %{
           "apiVersion" => "v3",
@@ -23652,7 +23652,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 14:02:57],
         updated_at: ~N[2023-03-16 14:02:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 500,
         payload: %{
           "apiVersion" => "v3",
@@ -23681,7 +23681,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 14:03:54],
         updated_at: ~N[2023-03-16 14:03:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 508,
         payload: %{
           "apiVersion" => "v3",
@@ -23708,7 +23708,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:12:56],
         updated_at: ~N[2023-03-16 16:12:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 516,
         payload: %{
           "apiVersion" => "v3",
@@ -23735,7 +23735,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:28:33],
         updated_at: ~N[2023-03-16 16:28:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 519,
         payload: %{
           "apiVersion" => "v3",
@@ -23764,7 +23764,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:31:28],
         updated_at: ~N[2023-03-16 16:31:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 527,
         payload: %{
           "apiVersion" => "v3",
@@ -23793,7 +23793,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:39:22],
         updated_at: ~N[2023-03-16 16:39:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 533,
         payload: %{
           "apiVersion" => "v3",
@@ -23831,7 +23831,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:00:24],
         updated_at: ~N[2023-03-16 17:00:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 535,
         payload: %{
           "apiVersion" => "v3",
@@ -23860,7 +23860,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:10:41],
         updated_at: ~N[2023-03-16 17:10:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 539,
         payload: %{
           "apiVersion" => "v3",
@@ -23889,7 +23889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:54:12],
         updated_at: ~N[2023-03-16 17:54:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 544,
         payload: %{
           "apiVersion" => "v3",
@@ -23916,7 +23916,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:20:39],
         updated_at: ~N[2023-03-16 18:20:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 546,
         payload: %{
           "apiVersion" => "v3",
@@ -23954,7 +23954,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:22:12],
         updated_at: ~N[2023-03-16 18:22:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 593,
         payload: %{
           "apiVersion" => "v3",
@@ -23983,7 +23983,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:08:31],
         updated_at: ~N[2023-03-16 19:08:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 514,
         payload: %{
           "apiVersion" => "v3",
@@ -24010,7 +24010,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:28:13],
         updated_at: ~N[2023-03-16 16:28:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 520,
         payload: %{
           "apiVersion" => "v3",
@@ -24040,7 +24040,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:33:29],
         updated_at: ~N[2023-03-16 16:33:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 523,
         payload: %{
           "apiVersion" => "v3",
@@ -24078,7 +24078,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:36:15],
         updated_at: ~N[2023-03-16 16:36:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 529,
         payload: %{
           "apiVersion" => "v3",
@@ -24108,7 +24108,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:43:38],
         updated_at: ~N[2023-03-16 16:43:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 531,
         payload: %{
           "apiVersion" => "v3",
@@ -24137,7 +24137,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:53:15],
         updated_at: ~N[2023-03-16 16:53:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 536,
         payload: %{
           "apiVersion" => "v3",
@@ -24166,7 +24166,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:15:09],
         updated_at: ~N[2023-03-16 17:15:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 547,
         payload: %{
           "apiVersion" => "v3",
@@ -24196,7 +24196,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:22:12],
         updated_at: ~N[2023-03-16 18:22:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 550,
         payload: %{
           "apiVersion" => "v3",
@@ -24225,7 +24225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:26:11],
         updated_at: ~N[2023-03-16 18:26:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 558,
         payload: %{
           "apiVersion" => "v3",
@@ -24254,7 +24254,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:29:55],
         updated_at: ~N[2023-03-16 18:29:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 562,
         payload: %{
           "apiVersion" => "v3",
@@ -24292,7 +24292,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:31:25],
         updated_at: ~N[2023-03-16 18:31:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 518,
         payload: %{
           "apiVersion" => "v3",
@@ -24322,7 +24322,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:30:05],
         updated_at: ~N[2023-03-16 16:30:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 521,
         payload: %{
           "apiVersion" => "v3",
@@ -24351,7 +24351,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:33:50],
         updated_at: ~N[2023-03-16 16:33:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 528,
         payload: %{
           "apiVersion" => "v3",
@@ -24381,7 +24381,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 16:39:46],
         updated_at: ~N[2023-03-16 16:39:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 534,
         payload: %{
           "apiVersion" => "v3",
@@ -24411,7 +24411,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:07:41],
         updated_at: ~N[2023-03-16 17:07:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 538,
         payload: %{
           "apiVersion" => "v3",
@@ -24441,7 +24441,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:38:45],
         updated_at: ~N[2023-03-16 17:38:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 540,
         payload: %{
           "apiVersion" => "v3",
@@ -24471,7 +24471,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 17:56:07],
         updated_at: ~N[2023-03-16 17:56:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 549,
         payload: %{
           "apiVersion" => "v3",
@@ -24501,7 +24501,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:25:46],
         updated_at: ~N[2023-03-16 18:25:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 552,
         payload: %{
           "apiVersion" => "v3",
@@ -24530,7 +24530,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:26:27],
         updated_at: ~N[2023-03-16 18:26:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 556,
         payload: %{
           "apiVersion" => "v3",
@@ -24560,7 +24560,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:29:28],
         updated_at: ~N[2023-03-16 18:29:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 559,
         payload: %{
           "apiVersion" => "v3",
@@ -24589,7 +24589,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:30:14],
         updated_at: ~N[2023-03-16 18:30:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 543,
         payload: %{
           "apiVersion" => "v3",
@@ -24619,7 +24619,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:19:41],
         updated_at: ~N[2023-03-16 18:19:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 551,
         payload: %{
           "apiVersion" => "v3",
@@ -24649,7 +24649,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:26:14],
         updated_at: ~N[2023-03-16 18:26:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 553,
         payload: %{
           "apiVersion" => "v3",
@@ -24678,7 +24678,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:27:15],
         updated_at: ~N[2023-03-16 18:27:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 560,
         payload: %{
           "apiVersion" => "v3",
@@ -24709,7 +24709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:31:18],
         updated_at: ~N[2023-03-16 18:31:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 564,
         payload: %{
           "apiVersion" => "v3",
@@ -24738,7 +24738,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:32:09],
         updated_at: ~N[2023-03-16 18:32:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 568,
         payload: %{
           "apiVersion" => "v3",
@@ -24769,7 +24769,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:46:02],
         updated_at: ~N[2023-03-16 18:46:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 572,
         payload: %{
           "apiVersion" => "v3",
@@ -24807,7 +24807,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:47:01],
         updated_at: ~N[2023-03-16 18:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 578,
         payload: %{
           "apiVersion" => "v3",
@@ -24836,7 +24836,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:01:04],
         updated_at: ~N[2023-03-16 19:01:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 587,
         payload: %{
           "apiVersion" => "v3",
@@ -24865,7 +24865,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:05:01],
         updated_at: ~N[2023-03-16 19:05:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1380,
         payload: %{
           "apiVersion" => "v3",
@@ -24896,7 +24896,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:14:39],
         updated_at: ~N[2023-03-23 22:14:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1383,
         payload: %{
           "apiVersion" => "v3",
@@ -24934,7 +24934,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:16:28],
         updated_at: ~N[2023-03-23 22:16:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 554,
         payload: %{
           "apiVersion" => "v3",
@@ -24965,7 +24965,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:28:47],
         updated_at: ~N[2023-03-16 18:28:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 561,
         payload: %{
           "apiVersion" => "v3",
@@ -24994,7 +24994,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:31:22],
         updated_at: ~N[2023-03-16 18:31:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 565,
         payload: %{
           "apiVersion" => "v3",
@@ -25023,7 +25023,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:32:27],
         updated_at: ~N[2023-03-16 18:32:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 569,
         payload: %{
           "apiVersion" => "v3",
@@ -25061,7 +25061,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:46:14],
         updated_at: ~N[2023-03-16 18:46:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 573,
         payload: %{
           "apiVersion" => "v3",
@@ -25090,7 +25090,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:47:05],
         updated_at: ~N[2023-03-16 18:47:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 580,
         payload: %{
           "apiVersion" => "v3",
@@ -25119,7 +25119,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:01:48],
         updated_at: ~N[2023-03-16 19:01:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1387,
         payload: %{
           "apiVersion" => "v3",
@@ -25199,7 +25199,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:21:36],
         updated_at: ~N[2023-03-23 22:21:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1391,
         payload: %{
           "apiVersion" => "v3",
@@ -25228,7 +25228,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:28:36],
         updated_at: ~N[2023-03-23 22:28:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1397,
         payload: %{
           "apiVersion" => "v3",
@@ -25266,7 +25266,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:58:40],
         updated_at: ~N[2023-03-23 22:58:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1398,
         payload: %{
           "apiVersion" => "v3",
@@ -25297,7 +25297,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:59:05],
         updated_at: ~N[2023-03-23 22:59:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 563,
         payload: %{
           "apiVersion" => "v3",
@@ -25326,7 +25326,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:31:56],
         updated_at: ~N[2023-03-16 18:31:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 567,
         payload: %{
           "apiVersion" => "v3",
@@ -25356,7 +25356,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:45:47],
         updated_at: ~N[2023-03-16 18:45:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 575,
         payload: %{
           "apiVersion" => "v3",
@@ -25386,7 +25386,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:49:27],
         updated_at: ~N[2023-03-16 18:49:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 576,
         payload: %{
           "apiVersion" => "v3",
@@ -25417,7 +25417,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:00:42],
         updated_at: ~N[2023-03-16 19:00:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 582,
         payload: %{
           "apiVersion" => "v3",
@@ -25446,7 +25446,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:02:58],
         updated_at: ~N[2023-03-16 19:02:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1390,
         payload: %{
           "apiVersion" => "v3",
@@ -25475,7 +25475,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:27:45],
         updated_at: ~N[2023-03-23 22:27:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1395,
         payload: %{
           "apiVersion" => "v3",
@@ -25513,7 +25513,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:52:48],
         updated_at: ~N[2023-03-23 22:52:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1409,
         payload: %{
           "apiVersion" => "v3",
@@ -25542,7 +25542,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:41:36],
         updated_at: ~N[2023-03-23 23:41:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1411,
         payload: %{
           "apiVersion" => "v3",
@@ -25571,7 +25571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:42:49],
         updated_at: ~N[2023-03-23 23:42:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1418,
         payload: %{
           "apiVersion" => "v3",
@@ -25609,7 +25609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:10:29],
         updated_at: ~N[2023-03-24 16:10:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1603,
         payload: %{
           "apiVersion" => "v3",
@@ -25638,7 +25638,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:35:26],
         updated_at: ~N[2023-03-27 17:35:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 566,
         payload: %{
           "apiVersion" => "v3",
@@ -25667,7 +25667,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:39:40],
         updated_at: ~N[2023-03-16 18:39:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 570,
         payload: %{
           "apiVersion" => "v3",
@@ -25696,7 +25696,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:46:17],
         updated_at: ~N[2023-03-16 18:46:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 577,
         payload: %{
           "apiVersion" => "v3",
@@ -25725,7 +25725,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:00:44],
         updated_at: ~N[2023-03-16 19:00:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 579,
         payload: %{
           "apiVersion" => "v3",
@@ -25754,7 +25754,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:01:33],
         updated_at: ~N[2023-03-16 19:01:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 583,
         payload: %{
           "apiVersion" => "v3",
@@ -25785,7 +25785,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:04:09],
         updated_at: ~N[2023-03-16 19:04:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1392,
         payload: %{
           "apiVersion" => "v3",
@@ -25816,7 +25816,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 22:41:49],
         updated_at: ~N[2023-03-23 22:41:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1400,
         payload: %{
           "apiVersion" => "v3",
@@ -25845,7 +25845,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:02:11],
         updated_at: ~N[2023-03-23 23:02:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1402,
         payload: %{
           "apiVersion" => "v3",
@@ -25876,7 +25876,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:09:29],
         updated_at: ~N[2023-03-23 23:09:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1406,
         payload: %{
           "apiVersion" => "v3",
@@ -25907,7 +25907,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:35:12],
         updated_at: ~N[2023-03-23 23:35:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1408,
         payload: %{
           "apiVersion" => "v3",
@@ -25936,7 +25936,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:41:00],
         updated_at: ~N[2023-03-23 23:41:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1417,
         payload: %{
           "apiVersion" => "v3",
@@ -25967,7 +25967,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:10:23],
         updated_at: ~N[2023-03-24 16:10:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1420,
         payload: %{
           "apiVersion" => "v3",
@@ -25996,7 +25996,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:58:30],
         updated_at: ~N[2023-03-24 16:58:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 571,
         payload: %{
           "apiVersion" => "v3",
@@ -26027,7 +26027,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:46:55],
         updated_at: ~N[2023-03-16 18:46:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 574,
         payload: %{
           "apiVersion" => "v3",
@@ -26054,7 +26054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 18:47:09],
         updated_at: ~N[2023-03-16 18:47:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 581,
         payload: %{
           "apiVersion" => "v3",
@@ -26084,7 +26084,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:02:22],
         updated_at: ~N[2023-03-16 19:02:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 584,
         payload: %{
           "apiVersion" => "v3",
@@ -26122,7 +26122,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:04:12],
         updated_at: ~N[2023-03-16 19:04:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 585,
         payload: %{
           "apiVersion" => "v3",
@@ -26153,7 +26153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:04:42],
         updated_at: ~N[2023-03-16 19:04:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 586,
         payload: %{
           "apiVersion" => "v3",
@@ -26191,7 +26191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:04:48],
         updated_at: ~N[2023-03-16 19:04:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 588,
         payload: %{
           "apiVersion" => "v3",
@@ -26220,7 +26220,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:06:45],
         updated_at: ~N[2023-03-16 19:06:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 589,
         payload: %{
           "apiVersion" => "v3",
@@ -26249,7 +26249,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:06:52],
         updated_at: ~N[2023-03-16 19:06:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 590,
         payload: %{
           "apiVersion" => "v3",
@@ -26278,7 +26278,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:07:02],
         updated_at: ~N[2023-03-16 19:07:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 591,
         payload: %{
           "apiVersion" => "v3",
@@ -26307,7 +26307,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:07:26],
         updated_at: ~N[2023-03-16 19:07:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 592,
         payload: %{
           "apiVersion" => "v3",
@@ -26336,7 +26336,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:07:39],
         updated_at: ~N[2023-03-16 19:07:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 594,
         payload: %{
           "apiVersion" => "v3",
@@ -26365,7 +26365,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:08:47],
         updated_at: ~N[2023-03-16 19:08:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 595,
         payload: %{
           "apiVersion" => "v3",
@@ -26394,7 +26394,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:14:14],
         updated_at: ~N[2023-03-16 19:14:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 596,
         payload: %{
           "apiVersion" => "v3",
@@ -26423,7 +26423,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:14:33],
         updated_at: ~N[2023-03-16 19:14:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 598,
         payload: %{
           "apiVersion" => "v3",
@@ -26452,7 +26452,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:25:58],
         updated_at: ~N[2023-03-16 19:25:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 602,
         payload: %{
           "apiVersion" => "v3",
@@ -26481,7 +26481,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:31:30],
         updated_at: ~N[2023-03-16 19:31:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 603,
         payload: %{
           "apiVersion" => "v3",
@@ -26511,7 +26511,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:34:35],
         updated_at: ~N[2023-03-16 19:34:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 604,
         payload: %{
           "apiVersion" => "v3",
@@ -26540,7 +26540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:35:54],
         updated_at: ~N[2023-03-16 19:35:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 605,
         payload: %{
           "apiVersion" => "v3",
@@ -26570,7 +26570,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:36:50],
         updated_at: ~N[2023-03-16 19:36:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 608,
         payload: %{
           "apiVersion" => "v3",
@@ -26601,7 +26601,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:18:18],
         updated_at: ~N[2023-03-16 20:18:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 609,
         payload: %{
           "apiVersion" => "v3",
@@ -26639,7 +26639,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:18:25],
         updated_at: ~N[2023-03-16 20:18:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 612,
         payload: %{
           "apiVersion" => "v3",
@@ -26670,7 +26670,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:19:46],
         updated_at: ~N[2023-03-16 20:19:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 597,
         payload: %{
           "apiVersion" => "v3",
@@ -26699,7 +26699,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:14:43],
         updated_at: ~N[2023-03-16 19:14:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 600,
         payload: %{
           "apiVersion" => "v3",
@@ -26728,7 +26728,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:26:42],
         updated_at: ~N[2023-03-16 19:26:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 606,
         payload: %{
           "apiVersion" => "v3",
@@ -26757,7 +26757,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:38:16],
         updated_at: ~N[2023-03-16 19:38:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 610,
         payload: %{
           "apiVersion" => "v3",
@@ -26788,7 +26788,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:19:03],
         updated_at: ~N[2023-03-16 20:19:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 616,
         payload: %{
           "apiVersion" => "v3",
@@ -26819,7 +26819,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:23:18],
         updated_at: ~N[2023-03-16 20:23:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 618,
         payload: %{
           "apiVersion" => "v3",
@@ -26850,7 +26850,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:24:00],
         updated_at: ~N[2023-03-16 20:24:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 621,
         payload: %{
           "apiVersion" => "v3",
@@ -26888,7 +26888,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:25:59],
         updated_at: ~N[2023-03-16 20:25:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 622,
         payload: %{
           "apiVersion" => "v3",
@@ -26919,7 +26919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:30:04],
         updated_at: ~N[2023-03-16 20:30:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 630,
         payload: %{
           "apiVersion" => "v3",
@@ -26950,7 +26950,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:37:59],
         updated_at: ~N[2023-03-16 20:37:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 638,
         payload: %{
           "apiVersion" => "v3",
@@ -26981,7 +26981,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:45:51],
         updated_at: ~N[2023-03-16 20:45:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 639,
         payload: %{
           "apiVersion" => "v3",
@@ -27019,7 +27019,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:45:58],
         updated_at: ~N[2023-03-16 20:45:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 599,
         payload: %{
           "apiVersion" => "v3",
@@ -27048,7 +27048,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:26:31],
         updated_at: ~N[2023-03-16 19:26:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 601,
         payload: %{
           "apiVersion" => "v3",
@@ -27077,7 +27077,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:26:59],
         updated_at: ~N[2023-03-16 19:26:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 607,
         payload: %{
           "apiVersion" => "v3",
@@ -27106,7 +27106,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 19:39:55],
         updated_at: ~N[2023-03-16 19:39:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 611,
         payload: %{
           "apiVersion" => "v3",
@@ -27144,7 +27144,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:19:09],
         updated_at: ~N[2023-03-16 20:19:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 619,
         payload: %{
           "apiVersion" => "v3",
@@ -27182,7 +27182,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:24:05],
         updated_at: ~N[2023-03-16 20:24:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 620,
         payload: %{
           "apiVersion" => "v3",
@@ -27213,7 +27213,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:25:52],
         updated_at: ~N[2023-03-16 20:25:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 627,
         payload: %{
           "apiVersion" => "v3",
@@ -27251,7 +27251,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:35:57],
         updated_at: ~N[2023-03-16 20:35:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 633,
         payload: %{
           "apiVersion" => "v3",
@@ -27289,7 +27289,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:39:32],
         updated_at: ~N[2023-03-16 20:39:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 636,
         payload: %{
           "apiVersion" => "v3",
@@ -27318,7 +27318,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:43:26],
         updated_at: ~N[2023-03-16 20:43:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 642,
         payload: %{
           "apiVersion" => "v3",
@@ -27347,7 +27347,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:50:42],
         updated_at: ~N[2023-03-16 20:50:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 646,
         payload: %{
           "apiVersion" => "v3",
@@ -27378,7 +27378,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:56:46],
         updated_at: ~N[2023-03-16 20:56:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 613,
         payload: %{
           "apiVersion" => "v3",
@@ -27416,7 +27416,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:19:52],
         updated_at: ~N[2023-03-16 20:19:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 623,
         payload: %{
           "apiVersion" => "v3",
@@ -27454,7 +27454,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:30:14],
         updated_at: ~N[2023-03-16 20:30:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 624,
         payload: %{
           "apiVersion" => "v3",
@@ -27485,7 +27485,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:30:48],
         updated_at: ~N[2023-03-16 20:30:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 629,
         payload: %{
           "apiVersion" => "v3",
@@ -27523,7 +27523,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:37:10],
         updated_at: ~N[2023-03-16 20:37:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 635,
         payload: %{
           "apiVersion" => "v3",
@@ -27553,7 +27553,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:42:28],
         updated_at: ~N[2023-03-16 20:42:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 637,
         payload: %{
           "apiVersion" => "v3",
@@ -27583,7 +27583,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:44:11],
         updated_at: ~N[2023-03-16 20:44:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 640,
         payload: %{
           "apiVersion" => "v3",
@@ -27613,7 +27613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:47:58],
         updated_at: ~N[2023-03-16 20:47:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 643,
         payload: %{
           "apiVersion" => "v3",
@@ -27642,7 +27642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:52:23],
         updated_at: ~N[2023-03-16 20:52:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 650,
         payload: %{
           "apiVersion" => "v3",
@@ -27680,7 +27680,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:04:18],
         updated_at: ~N[2023-03-16 21:04:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 651,
         payload: %{
           "apiVersion" => "v3",
@@ -27709,7 +27709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:15:24],
         updated_at: ~N[2023-03-16 21:15:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 614,
         payload: %{
           "apiVersion" => "v3",
@@ -27736,7 +27736,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:20:36],
         updated_at: ~N[2023-03-16 20:20:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 617,
         payload: %{
           "apiVersion" => "v3",
@@ -27774,7 +27774,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:23:24],
         updated_at: ~N[2023-03-16 20:23:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 626,
         payload: %{
           "apiVersion" => "v3",
@@ -27805,7 +27805,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:35:51],
         updated_at: ~N[2023-03-16 20:35:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 632,
         payload: %{
           "apiVersion" => "v3",
@@ -27836,7 +27836,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:39:28],
         updated_at: ~N[2023-03-16 20:39:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 634,
         payload: %{
           "apiVersion" => "v3",
@@ -27865,7 +27865,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:39:49],
         updated_at: ~N[2023-03-16 20:39:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 645,
         payload: %{
           "apiVersion" => "v3",
@@ -27903,7 +27903,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:56:00],
         updated_at: ~N[2023-03-16 20:56:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 647,
         payload: %{
           "apiVersion" => "v3",
@@ -27941,7 +27941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:56:51],
         updated_at: ~N[2023-03-16 20:56:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 656,
         payload: %{
           "apiVersion" => "v3",
@@ -27970,7 +27970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:32:06],
         updated_at: ~N[2023-03-16 21:32:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 657,
         payload: %{
           "apiVersion" => "v3",
@@ -28001,7 +28001,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:36:07],
         updated_at: ~N[2023-03-16 21:36:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 665,
         payload: %{
           "apiVersion" => "v3",
@@ -28032,7 +28032,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:41:00],
         updated_at: ~N[2023-03-16 21:41:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 682,
         payload: %{
           "apiVersion" => "v3",
@@ -28061,7 +28061,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:18:26],
         updated_at: ~N[2023-03-16 23:18:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 615,
         payload: %{
           "apiVersion" => "v3",
@@ -28091,7 +28091,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:22:39],
         updated_at: ~N[2023-03-16 20:22:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 625,
         payload: %{
           "apiVersion" => "v3",
@@ -28129,7 +28129,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:30:53],
         updated_at: ~N[2023-03-16 20:30:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 628,
         payload: %{
           "apiVersion" => "v3",
@@ -28160,7 +28160,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:37:04],
         updated_at: ~N[2023-03-16 20:37:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 631,
         payload: %{
           "apiVersion" => "v3",
@@ -28198,7 +28198,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:38:04],
         updated_at: ~N[2023-03-16 20:38:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 641,
         payload: %{
           "apiVersion" => "v3",
@@ -28227,7 +28227,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:49:18],
         updated_at: ~N[2023-03-16 20:49:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 644,
         payload: %{
           "apiVersion" => "v3",
@@ -28258,7 +28258,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 20:55:47],
         updated_at: ~N[2023-03-16 20:55:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 648,
         payload: %{
           "apiVersion" => "v3",
@@ -28288,7 +28288,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:02:25],
         updated_at: ~N[2023-03-16 21:02:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 654,
         payload: %{
           "apiVersion" => "v3",
@@ -28319,7 +28319,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:20:47],
         updated_at: ~N[2023-03-16 21:20:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 655,
         payload: %{
           "apiVersion" => "v3",
@@ -28357,7 +28357,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:20:51],
         updated_at: ~N[2023-03-16 21:20:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 662,
         payload: %{
           "apiVersion" => "v3",
@@ -28386,7 +28386,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:39:35],
         updated_at: ~N[2023-03-16 21:39:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 649,
         payload: %{
           "apiVersion" => "v3",
@@ -28417,7 +28417,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:04:12],
         updated_at: ~N[2023-03-16 21:04:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 652,
         payload: %{
           "apiVersion" => "v3",
@@ -28448,7 +28448,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:17:17],
         updated_at: ~N[2023-03-16 21:17:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 661,
         payload: %{
           "apiVersion" => "v3",
@@ -28478,7 +28478,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:39:10],
         updated_at: ~N[2023-03-16 21:39:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 664,
         payload: %{
           "apiVersion" => "v3",
@@ -28507,7 +28507,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:40:16],
         updated_at: ~N[2023-03-16 21:40:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 673,
         payload: %{
           "apiVersion" => "v3",
@@ -28536,7 +28536,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:27:42],
         updated_at: ~N[2023-03-16 22:27:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 675,
         payload: %{
           "apiVersion" => "v3",
@@ -28565,7 +28565,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:57:49],
         updated_at: ~N[2023-03-16 22:57:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 681,
         payload: %{
           "apiVersion" => "v3",
@@ -28603,7 +28603,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:18:18],
         updated_at: ~N[2023-03-16 23:18:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 690,
         payload: %{
           "apiVersion" => "v3",
@@ -28633,7 +28633,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:53:52],
         updated_at: ~N[2023-03-16 23:53:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 694,
         payload: %{
           "apiVersion" => "v3",
@@ -28662,7 +28662,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 00:57:22],
         updated_at: ~N[2023-03-17 00:57:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 695,
         payload: %{
           "apiVersion" => "v3",
@@ -28691,7 +28691,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 01:21:36],
         updated_at: ~N[2023-03-17 01:21:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1407,
         payload: %{
           "apiVersion" => "v3",
@@ -28729,7 +28729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:35:22],
         updated_at: ~N[2023-03-23 23:35:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 653,
         payload: %{
           "apiVersion" => "v3",
@@ -28767,7 +28767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:17:27],
         updated_at: ~N[2023-03-16 21:17:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1410,
         payload: %{
           "apiVersion" => "v3",
@@ -28796,7 +28796,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:42:17],
         updated_at: ~N[2023-03-23 23:42:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1419,
         payload: %{
           "apiVersion" => "v3",
@@ -28826,7 +28826,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:22:16],
         updated_at: ~N[2023-03-24 16:22:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1421,
         payload: %{
           "apiVersion" => "v3",
@@ -28855,7 +28855,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:59:09],
         updated_at: ~N[2023-03-24 16:59:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1425,
         payload: %{
           "apiVersion" => "v3",
@@ -28886,7 +28886,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:31:52],
         updated_at: ~N[2023-03-24 18:31:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1435,
         payload: %{
           "apiVersion" => "v3",
@@ -28917,7 +28917,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:39:21],
         updated_at: ~N[2023-03-24 18:39:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1436,
         payload: %{
           "apiVersion" => "v3",
@@ -28955,7 +28955,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:39:28],
         updated_at: ~N[2023-03-24 18:39:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1437,
         payload: %{
           "apiVersion" => "v3",
@@ -28986,7 +28986,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:43:07],
         updated_at: ~N[2023-03-24 18:43:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1438,
         payload: %{
           "apiVersion" => "v3",
@@ -29024,7 +29024,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:43:16],
         updated_at: ~N[2023-03-24 18:43:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1443,
         payload: %{
           "apiVersion" => "v3",
@@ -29053,7 +29053,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:09:22],
         updated_at: ~N[2023-03-24 19:09:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1608,
         payload: %{
           "apiVersion" => "v3",
@@ -29082,7 +29082,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:39:42],
         updated_at: ~N[2023-03-27 17:39:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 658,
         payload: %{
           "apiVersion" => "v3",
@@ -29120,7 +29120,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:36:14],
         updated_at: ~N[2023-03-16 21:36:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 660,
         payload: %{
           "apiVersion" => "v3",
@@ -29158,7 +29158,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:36:28],
         updated_at: ~N[2023-03-16 21:36:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 666,
         payload: %{
           "apiVersion" => "v3",
@@ -29196,7 +29196,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:41:06],
         updated_at: ~N[2023-03-16 21:41:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 669,
         payload: %{
           "apiVersion" => "v3",
@@ -29227,7 +29227,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:53:59],
         updated_at: ~N[2023-03-16 21:53:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 680,
         payload: %{
           "apiVersion" => "v3",
@@ -29258,7 +29258,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:18:10],
         updated_at: ~N[2023-03-16 23:18:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 689,
         payload: %{
           "apiVersion" => "v3",
@@ -29287,7 +29287,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:52:15],
         updated_at: ~N[2023-03-16 23:52:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 693,
         payload: %{
           "apiVersion" => "v3",
@@ -29325,7 +29325,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 00:07:03],
         updated_at: ~N[2023-03-17 00:07:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1413,
         payload: %{
           "apiVersion" => "v3",
@@ -29354,7 +29354,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-23 23:52:45],
         updated_at: ~N[2023-03-23 23:52:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1415,
         payload: %{
           "apiVersion" => "v3",
@@ -29383,7 +29383,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:02:12],
         updated_at: ~N[2023-03-24 16:02:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1416,
         payload: %{
           "apiVersion" => "v3",
@@ -29413,7 +29413,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 16:03:39],
         updated_at: ~N[2023-03-24 16:03:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1422,
         payload: %{
           "apiVersion" => "v3",
@@ -29442,7 +29442,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 17:27:04],
         updated_at: ~N[2023-03-24 17:27:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 659,
         payload: %{
           "apiVersion" => "v3",
@@ -29473,7 +29473,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:36:22],
         updated_at: ~N[2023-03-16 21:36:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 663,
         payload: %{
           "apiVersion" => "v3",
@@ -29502,7 +29502,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:39:53],
         updated_at: ~N[2023-03-16 21:39:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 671,
         payload: %{
           "apiVersion" => "v3",
@@ -29532,7 +29532,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:05:06],
         updated_at: ~N[2023-03-16 22:05:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 672,
         payload: %{
           "apiVersion" => "v3",
@@ -29562,7 +29562,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:16:25],
         updated_at: ~N[2023-03-16 22:16:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 677,
         payload: %{
           "apiVersion" => "v3",
@@ -29591,7 +29591,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:59:36],
         updated_at: ~N[2023-03-16 22:59:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 684,
         payload: %{
           "apiVersion" => "v3",
@@ -29620,7 +29620,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:19:45],
         updated_at: ~N[2023-03-16 23:19:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 686,
         payload: %{
           "apiVersion" => "v3",
@@ -29649,7 +29649,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:51:20],
         updated_at: ~N[2023-03-16 23:51:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 696,
         payload: %{
           "apiVersion" => "v3",
@@ -29679,7 +29679,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 01:25:18],
         updated_at: ~N[2023-03-17 01:25:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1424,
         payload: %{
           "apiVersion" => "v3",
@@ -29717,7 +29717,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:31:26],
         updated_at: ~N[2023-03-24 18:31:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1431,
         payload: %{
           "apiVersion" => "v3",
@@ -29748,7 +29748,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:37:34],
         updated_at: ~N[2023-03-24 18:37:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1434,
         payload: %{
           "apiVersion" => "v3",
@@ -29786,7 +29786,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:38:24],
         updated_at: ~N[2023-03-24 18:38:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 667,
         payload: %{
           "apiVersion" => "v3",
@@ -29816,7 +29816,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:42:58],
         updated_at: ~N[2023-03-16 21:42:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 678,
         payload: %{
           "apiVersion" => "v3",
@@ -29845,7 +29845,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:59:58],
         updated_at: ~N[2023-03-16 22:59:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 683,
         payload: %{
           "apiVersion" => "v3",
@@ -29874,7 +29874,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:18:35],
         updated_at: ~N[2023-03-16 23:18:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 685,
         payload: %{
           "apiVersion" => "v3",
@@ -29903,7 +29903,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:51:12],
         updated_at: ~N[2023-03-16 23:51:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 692,
         payload: %{
           "apiVersion" => "v3",
@@ -29934,7 +29934,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 00:06:55],
         updated_at: ~N[2023-03-17 00:06:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1427,
         payload: %{
           "apiVersion" => "v3",
@@ -29965,7 +29965,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:33:49],
         updated_at: ~N[2023-03-24 18:33:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1429,
         payload: %{
           "apiVersion" => "v3",
@@ -29996,7 +29996,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:36:30],
         updated_at: ~N[2023-03-24 18:36:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1439,
         payload: %{
           "apiVersion" => "v3",
@@ -30025,7 +30025,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:04:57],
         updated_at: ~N[2023-03-24 19:04:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1445,
         payload: %{
           "apiVersion" => "v3",
@@ -30063,7 +30063,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:23:04],
         updated_at: ~N[2023-03-24 19:23:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1610,
         payload: %{
           "apiVersion" => "v3",
@@ -30093,7 +30093,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:47:45],
         updated_at: ~N[2023-03-27 17:47:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1613,
         payload: %{
           "apiVersion" => "v3",
@@ -30120,7 +30120,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:49:43],
         updated_at: ~N[2023-03-27 17:49:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 668,
         payload: %{
           "apiVersion" => "v3",
@@ -30150,7 +30150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:47:01],
         updated_at: ~N[2023-03-16 21:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 670,
         payload: %{
           "apiVersion" => "v3",
@@ -30188,7 +30188,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 21:54:08],
         updated_at: ~N[2023-03-16 21:54:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 674,
         payload: %{
           "apiVersion" => "v3",
@@ -30217,7 +30217,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:47:56],
         updated_at: ~N[2023-03-16 22:47:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 676,
         payload: %{
           "apiVersion" => "v3",
@@ -30246,7 +30246,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 22:58:55],
         updated_at: ~N[2023-03-16 22:58:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 679,
         payload: %{
           "apiVersion" => "v3",
@@ -30275,7 +30275,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:16:42],
         updated_at: ~N[2023-03-16 23:16:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 687,
         payload: %{
           "apiVersion" => "v3",
@@ -30304,7 +30304,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:51:22],
         updated_at: ~N[2023-03-16 23:51:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 688,
         payload: %{
           "apiVersion" => "v3",
@@ -30333,7 +30333,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:51:58],
         updated_at: ~N[2023-03-16 23:51:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 691,
         payload: %{
           "apiVersion" => "v3",
@@ -30363,7 +30363,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-16 23:57:08],
         updated_at: ~N[2023-03-16 23:57:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 697,
         payload: %{
           "apiVersion" => "v3",
@@ -30392,7 +30392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 01:49:47],
         updated_at: ~N[2023-03-17 01:49:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 698,
         payload: %{
           "apiVersion" => "v3",
@@ -30421,7 +30421,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 01:58:59],
         updated_at: ~N[2023-03-17 01:58:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 699,
         payload: %{
           "apiVersion" => "v3",
@@ -30452,7 +30452,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:06:02],
         updated_at: ~N[2023-03-17 02:06:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 700,
         payload: %{
           "apiVersion" => "v3",
@@ -30482,7 +30482,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:06:04],
         updated_at: ~N[2023-03-17 02:06:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 705,
         payload: %{
           "apiVersion" => "v3",
@@ -30511,7 +30511,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:20:16],
         updated_at: ~N[2023-03-17 02:20:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 714,
         payload: %{
           "apiVersion" => "v3",
@@ -30542,7 +30542,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:28:25],
         updated_at: ~N[2023-03-17 16:28:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 716,
         payload: %{
           "apiVersion" => "v3",
@@ -30573,7 +30573,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:39:29],
         updated_at: ~N[2023-03-17 16:39:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 720,
         payload: %{
           "apiVersion" => "v3",
@@ -30603,7 +30603,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:48:15],
         updated_at: ~N[2023-03-17 16:48:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 723,
         payload: %{
           "apiVersion" => "v3",
@@ -30634,7 +30634,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:19:52],
         updated_at: ~N[2023-03-17 17:19:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 732,
         payload: %{
           "apiVersion" => "v3",
@@ -30665,7 +30665,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:41:11],
         updated_at: ~N[2023-03-17 17:41:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 734,
         payload: %{
           "apiVersion" => "v3",
@@ -30696,7 +30696,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:43:38],
         updated_at: ~N[2023-03-17 17:43:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 738,
         payload: %{
           "apiVersion" => "v3",
@@ -30727,7 +30727,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:48:26],
         updated_at: ~N[2023-03-17 17:48:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 743,
         payload: %{
           "apiVersion" => "v3",
@@ -30765,7 +30765,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:12:34],
         updated_at: ~N[2023-03-17 18:12:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 701,
         payload: %{
           "apiVersion" => "v3",
@@ -30795,7 +30795,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:06:38],
         updated_at: ~N[2023-03-17 02:06:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 702,
         payload: %{
           "apiVersion" => "v3",
@@ -30824,7 +30824,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:09:58],
         updated_at: ~N[2023-03-17 02:09:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 704,
         payload: %{
           "apiVersion" => "v3",
@@ -30853,7 +30853,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:16:31],
         updated_at: ~N[2023-03-17 02:16:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 707,
         payload: %{
           "apiVersion" => "v3",
@@ -30882,7 +30882,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 07:35:00],
         updated_at: ~N[2023-03-17 07:35:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 709,
         payload: %{
           "apiVersion" => "v3",
@@ -30920,7 +30920,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:11:14],
         updated_at: ~N[2023-03-17 16:11:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 710,
         payload: %{
           "apiVersion" => "v3",
@@ -30950,7 +30950,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:18:15],
         updated_at: ~N[2023-03-17 16:18:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 712,
         payload: %{
           "apiVersion" => "v3",
@@ -30980,7 +30980,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:27:52],
         updated_at: ~N[2023-03-17 16:27:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 715,
         payload: %{
           "apiVersion" => "v3",
@@ -31018,7 +31018,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:28:44],
         updated_at: ~N[2023-03-17 16:28:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 717,
         payload: %{
           "apiVersion" => "v3",
@@ -31056,7 +31056,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:39:44],
         updated_at: ~N[2023-03-17 16:39:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 724,
         payload: %{
           "apiVersion" => "v3",
@@ -31094,7 +31094,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:19:58],
         updated_at: ~N[2023-03-17 17:19:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 703,
         payload: %{
           "apiVersion" => "v3",
@@ -31124,7 +31124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 02:13:48],
         updated_at: ~N[2023-03-17 02:13:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 708,
         payload: %{
           "apiVersion" => "v3",
@@ -31155,7 +31155,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:11:06],
         updated_at: ~N[2023-03-17 16:11:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 711,
         payload: %{
           "apiVersion" => "v3",
@@ -31185,7 +31185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:20:05],
         updated_at: ~N[2023-03-17 16:20:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 718,
         payload: %{
           "apiVersion" => "v3",
@@ -31212,7 +31212,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:41:45],
         updated_at: ~N[2023-03-17 16:41:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 721,
         payload: %{
           "apiVersion" => "v3",
@@ -31242,7 +31242,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:53:41],
         updated_at: ~N[2023-03-17 16:53:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 726,
         payload: %{
           "apiVersion" => "v3",
@@ -31280,7 +31280,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:21:22],
         updated_at: ~N[2023-03-17 17:21:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 729,
         payload: %{
           "apiVersion" => "v3",
@@ -31311,7 +31311,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:39:26],
         updated_at: ~N[2023-03-17 17:39:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 735,
         payload: %{
           "apiVersion" => "v3",
@@ -31349,7 +31349,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:43:43],
         updated_at: ~N[2023-03-17 17:43:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 737,
         payload: %{
           "apiVersion" => "v3",
@@ -31387,7 +31387,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:44:44],
         updated_at: ~N[2023-03-17 17:44:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 755,
         payload: %{
           "apiVersion" => "v3",
@@ -31417,7 +31417,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:37:41],
         updated_at: ~N[2023-03-17 18:37:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 713,
         payload: %{
           "apiVersion" => "v3",
@@ -31444,7 +31444,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:27:57],
         updated_at: ~N[2023-03-17 16:27:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 725,
         payload: %{
           "apiVersion" => "v3",
@@ -31475,7 +31475,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:21:16],
         updated_at: ~N[2023-03-17 17:21:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 733,
         payload: %{
           "apiVersion" => "v3",
@@ -31513,7 +31513,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:41:18],
         updated_at: ~N[2023-03-17 17:41:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 736,
         payload: %{
           "apiVersion" => "v3",
@@ -31544,7 +31544,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:44:38],
         updated_at: ~N[2023-03-17 17:44:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 741,
         payload: %{
           "apiVersion" => "v3",
@@ -31582,7 +31582,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:49:56],
         updated_at: ~N[2023-03-17 17:49:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 742,
         payload: %{
           "apiVersion" => "v3",
@@ -31613,7 +31613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:12:20],
         updated_at: ~N[2023-03-17 18:12:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 748,
         payload: %{
           "apiVersion" => "v3",
@@ -31642,7 +31642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:23:53],
         updated_at: ~N[2023-03-17 18:23:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 754,
         payload: %{
           "apiVersion" => "v3",
@@ -31671,7 +31671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:36:52],
         updated_at: ~N[2023-03-17 18:36:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 765,
         payload: %{
           "apiVersion" => "v3",
@@ -31700,7 +31700,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:43:11],
         updated_at: ~N[2023-03-17 19:43:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 767,
         payload: %{
           "apiVersion" => "v3",
@@ -31731,7 +31731,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:52:10],
         updated_at: ~N[2023-03-17 19:52:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 774,
         payload: %{
           "apiVersion" => "v3",
@@ -31760,7 +31760,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:30:04],
         updated_at: ~N[2023-03-17 20:30:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 719,
         payload: %{
           "apiVersion" => "v3",
@@ -31790,7 +31790,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:48:01],
         updated_at: ~N[2023-03-17 16:48:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 722,
         payload: %{
           "apiVersion" => "v3",
@@ -31820,7 +31820,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 16:55:36],
         updated_at: ~N[2023-03-17 16:55:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 727,
         payload: %{
           "apiVersion" => "v3",
@@ -31851,7 +31851,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:38:05],
         updated_at: ~N[2023-03-17 17:38:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 730,
         payload: %{
           "apiVersion" => "v3",
@@ -31889,7 +31889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:39:34],
         updated_at: ~N[2023-03-17 17:39:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 739,
         payload: %{
           "apiVersion" => "v3",
@@ -31927,7 +31927,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:48:31],
         updated_at: ~N[2023-03-17 17:48:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 746,
         payload: %{
           "apiVersion" => "v3",
@@ -31956,7 +31956,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:17:20],
         updated_at: ~N[2023-03-17 18:17:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 752,
         payload: %{
           "apiVersion" => "v3",
@@ -31985,7 +31985,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:36:27],
         updated_at: ~N[2023-03-17 18:36:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 757,
         payload: %{
           "apiVersion" => "v3",
@@ -32015,7 +32015,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:39:18],
         updated_at: ~N[2023-03-17 18:39:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 761,
         payload: %{
           "apiVersion" => "v3",
@@ -32053,7 +32053,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:21:49],
         updated_at: ~N[2023-03-17 19:21:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 763,
         payload: %{
           "apiVersion" => "v3",
@@ -32083,7 +32083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:41:16],
         updated_at: ~N[2023-03-17 19:41:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 728,
         payload: %{
           "apiVersion" => "v3",
@@ -32121,7 +32121,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:38:11],
         updated_at: ~N[2023-03-17 17:38:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 731,
         payload: %{
           "apiVersion" => "v3",
@@ -32152,7 +32152,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:39:43],
         updated_at: ~N[2023-03-17 17:39:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 740,
         payload: %{
           "apiVersion" => "v3",
@@ -32183,7 +32183,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 17:49:49],
         updated_at: ~N[2023-03-17 17:49:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 747,
         payload: %{
           "apiVersion" => "v3",
@@ -32213,7 +32213,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:21:24],
         updated_at: ~N[2023-03-17 18:21:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 753,
         payload: %{
           "apiVersion" => "v3",
@@ -32242,7 +32242,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:36:30],
         updated_at: ~N[2023-03-17 18:36:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 759,
         payload: %{
           "apiVersion" => "v3",
@@ -32271,7 +32271,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:40:19],
         updated_at: ~N[2023-03-17 18:40:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 762,
         payload: %{
           "apiVersion" => "v3",
@@ -32298,7 +32298,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:21:55],
         updated_at: ~N[2023-03-17 19:21:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 771,
         payload: %{
           "apiVersion" => "v3",
@@ -32329,7 +32329,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:14:37],
         updated_at: ~N[2023-03-17 20:14:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 772,
         payload: %{
           "apiVersion" => "v3",
@@ -32367,7 +32367,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:14:46],
         updated_at: ~N[2023-03-17 20:14:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 778,
         payload: %{
           "apiVersion" => "v3",
@@ -32397,7 +32397,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:03:45],
         updated_at: ~N[2023-03-17 22:03:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 744,
         payload: %{
           "apiVersion" => "v3",
@@ -32427,7 +32427,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:13:16],
         updated_at: ~N[2023-03-17 18:13:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 745,
         payload: %{
           "apiVersion" => "v3",
@@ -32454,7 +32454,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:13:20],
         updated_at: ~N[2023-03-17 18:13:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 750,
         payload: %{
           "apiVersion" => "v3",
@@ -32483,7 +32483,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:35:07],
         updated_at: ~N[2023-03-17 18:35:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 751,
         payload: %{
           "apiVersion" => "v3",
@@ -32512,7 +32512,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:36:01],
         updated_at: ~N[2023-03-17 18:36:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 756,
         payload: %{
           "apiVersion" => "v3",
@@ -32541,7 +32541,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:38:34],
         updated_at: ~N[2023-03-17 18:38:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 766,
         payload: %{
           "apiVersion" => "v3",
@@ -32571,7 +32571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:43:55],
         updated_at: ~N[2023-03-17 19:43:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 769,
         payload: %{
           "apiVersion" => "v3",
@@ -32600,7 +32600,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:12:20],
         updated_at: ~N[2023-03-17 20:12:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 776,
         payload: %{
           "apiVersion" => "v3",
@@ -32629,7 +32629,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 21:36:20],
         updated_at: ~N[2023-03-17 21:36:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 782,
         payload: %{
           "apiVersion" => "v3",
@@ -32667,7 +32667,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:13:01],
         updated_at: ~N[2023-03-17 22:13:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 784,
         payload: %{
           "apiVersion" => "v3",
@@ -32696,7 +32696,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:28:58],
         updated_at: ~N[2023-03-17 22:28:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 790,
         payload: %{
           "apiVersion" => "v3",
@@ -32725,7 +32725,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 23:45:43],
         updated_at: ~N[2023-03-17 23:45:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 758,
         payload: %{
           "apiVersion" => "v3",
@@ -32754,7 +32754,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 18:39:55],
         updated_at: ~N[2023-03-17 18:39:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 760,
         payload: %{
           "apiVersion" => "v3",
@@ -32785,7 +32785,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:21:40],
         updated_at: ~N[2023-03-17 19:21:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 764,
         payload: %{
           "apiVersion" => "v3",
@@ -32814,7 +32814,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:42:18],
         updated_at: ~N[2023-03-17 19:42:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 768,
         payload: %{
           "apiVersion" => "v3",
@@ -32852,7 +32852,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 19:52:17],
         updated_at: ~N[2023-03-17 19:52:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 770,
         payload: %{
           "apiVersion" => "v3",
@@ -32881,7 +32881,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:13:36],
         updated_at: ~N[2023-03-17 20:13:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 777,
         payload: %{
           "apiVersion" => "v3",
@@ -32912,7 +32912,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:03:43],
         updated_at: ~N[2023-03-17 22:03:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 783,
         payload: %{
           "apiVersion" => "v3",
@@ -32941,7 +32941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:28:45],
         updated_at: ~N[2023-03-17 22:28:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 785,
         payload: %{
           "apiVersion" => "v3",
@@ -32970,7 +32970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:37:26],
         updated_at: ~N[2023-03-17 22:37:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 791,
         payload: %{
           "apiVersion" => "v3",
@@ -32999,7 +32999,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-18 06:35:45],
         updated_at: ~N[2023-03-18 06:35:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 797,
         payload: %{
           "apiVersion" => "v3",
@@ -33028,7 +33028,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 16:10:53],
         updated_at: ~N[2023-03-19 16:10:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 800,
         payload: %{
           "apiVersion" => "v3",
@@ -33057,7 +33057,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 17:56:17],
         updated_at: ~N[2023-03-19 17:56:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 805,
         payload: %{
           "apiVersion" => "v3",
@@ -33086,7 +33086,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 19:24:00],
         updated_at: ~N[2023-03-19 19:24:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 773,
         payload: %{
           "apiVersion" => "v3",
@@ -33115,7 +33115,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 20:29:23],
         updated_at: ~N[2023-03-17 20:29:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 775,
         payload: %{
           "apiVersion" => "v3",
@@ -33144,7 +33144,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 21:34:32],
         updated_at: ~N[2023-03-17 21:34:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 781,
         payload: %{
           "apiVersion" => "v3",
@@ -33175,7 +33175,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:12:54],
         updated_at: ~N[2023-03-17 22:12:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 789,
         payload: %{
           "apiVersion" => "v3",
@@ -33205,7 +33205,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 23:23:09],
         updated_at: ~N[2023-03-17 23:23:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 792,
         payload: %{
           "apiVersion" => "v3",
@@ -33234,7 +33234,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-18 06:36:26],
         updated_at: ~N[2023-03-18 06:36:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 801,
         payload: %{
           "apiVersion" => "v3",
@@ -33264,7 +33264,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 18:49:43],
         updated_at: ~N[2023-03-19 18:49:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 810,
         payload: %{
           "apiVersion" => "v3",
@@ -33294,7 +33294,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:15:01],
         updated_at: ~N[2023-03-19 20:15:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1428,
         payload: %{
           "apiVersion" => "v3",
@@ -33332,7 +33332,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:33:57],
         updated_at: ~N[2023-03-24 18:33:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1432,
         payload: %{
           "apiVersion" => "v3",
@@ -33370,7 +33370,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 18:37:46],
         updated_at: ~N[2023-03-24 18:37:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1440,
         payload: %{
           "apiVersion" => "v3",
@@ -33400,7 +33400,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:06:36],
         updated_at: ~N[2023-03-24 19:06:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 779,
         payload: %{
           "apiVersion" => "v3",
@@ -33431,7 +33431,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:06:44],
         updated_at: ~N[2023-03-17 22:06:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 786,
         payload: %{
           "apiVersion" => "v3",
@@ -33462,7 +33462,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:49:01],
         updated_at: ~N[2023-03-17 22:49:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 787,
         payload: %{
           "apiVersion" => "v3",
@@ -33500,7 +33500,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:49:08],
         updated_at: ~N[2023-03-17 22:49:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 793,
         payload: %{
           "apiVersion" => "v3",
@@ -33531,7 +33531,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-18 18:29:44],
         updated_at: ~N[2023-03-18 18:29:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 795,
         payload: %{
           "apiVersion" => "v3",
@@ -33561,7 +33561,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 00:46:51],
         updated_at: ~N[2023-03-19 00:46:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 796,
         payload: %{
           "apiVersion" => "v3",
@@ -33590,7 +33590,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 16:10:36],
         updated_at: ~N[2023-03-19 16:10:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 799,
         payload: %{
           "apiVersion" => "v3",
@@ -33620,7 +33620,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 17:46:19],
         updated_at: ~N[2023-03-19 17:46:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 807,
         payload: %{
           "apiVersion" => "v3",
@@ -33650,7 +33650,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:08:48],
         updated_at: ~N[2023-03-19 20:08:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 808,
         payload: %{
           "apiVersion" => "v3",
@@ -33681,7 +33681,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:12:33],
         updated_at: ~N[2023-03-19 20:12:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 815,
         payload: %{
           "apiVersion" => "v3",
@@ -33710,7 +33710,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:19:04],
         updated_at: ~N[2023-03-19 20:19:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 780,
         payload: %{
           "apiVersion" => "v3",
@@ -33748,7 +33748,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 22:06:52],
         updated_at: ~N[2023-03-17 22:06:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 788,
         payload: %{
           "apiVersion" => "v3",
@@ -33777,7 +33777,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-17 23:17:05],
         updated_at: ~N[2023-03-17 23:17:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 798,
         payload: %{
           "apiVersion" => "v3",
@@ -33806,7 +33806,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 16:11:01],
         updated_at: ~N[2023-03-19 16:11:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 803,
         payload: %{
           "apiVersion" => "v3",
@@ -33844,7 +33844,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 18:50:39],
         updated_at: ~N[2023-03-19 18:50:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 809,
         payload: %{
           "apiVersion" => "v3",
@@ -33874,7 +33874,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:12:35],
         updated_at: ~N[2023-03-19 20:12:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 816,
         payload: %{
           "apiVersion" => "v3",
@@ -33903,7 +33903,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:19:20],
         updated_at: ~N[2023-03-19 20:19:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1441,
         payload: %{
           "apiVersion" => "v3",
@@ -33932,7 +33932,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:07:57],
         updated_at: ~N[2023-03-24 19:07:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1616,
         payload: %{
           "apiVersion" => "v3",
@@ -33963,7 +33963,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:51:53],
         updated_at: ~N[2023-03-27 17:51:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1619,
         payload: %{
           "apiVersion" => "v3",
@@ -34028,7 +34028,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:19:51],
         updated_at: ~N[2023-03-27 20:19:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 794,
         payload: %{
           "apiVersion" => "v3",
@@ -34058,7 +34058,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-18 18:29:46],
         updated_at: ~N[2023-03-18 18:29:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 802,
         payload: %{
           "apiVersion" => "v3",
@@ -34089,7 +34089,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 18:50:33],
         updated_at: ~N[2023-03-19 18:50:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 804,
         payload: %{
           "apiVersion" => "v3",
@@ -34119,7 +34119,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 18:53:15],
         updated_at: ~N[2023-03-19 18:53:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 811,
         payload: %{
           "apiVersion" => "v3",
@@ -34148,7 +34148,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:15:36],
         updated_at: ~N[2023-03-19 20:15:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 812,
         payload: %{
           "apiVersion" => "v3",
@@ -34177,7 +34177,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:15:51],
         updated_at: ~N[2023-03-19 20:15:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1442,
         payload: %{
           "apiVersion" => "v3",
@@ -34207,7 +34207,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:09:07],
         updated_at: ~N[2023-03-24 19:09:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1444,
         payload: %{
           "apiVersion" => "v3",
@@ -34238,7 +34238,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:22:57],
         updated_at: ~N[2023-03-24 19:22:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1618,
         payload: %{
           "apiVersion" => "v3",
@@ -34267,7 +34267,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 18:01:59],
         updated_at: ~N[2023-03-27 18:01:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1620,
         payload: %{
           "apiVersion" => "v3",
@@ -34296,7 +34296,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:20:04],
         updated_at: ~N[2023-03-27 20:20:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1623,
         payload: %{
           "apiVersion" => "v3",
@@ -34325,7 +34325,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:21:57],
         updated_at: ~N[2023-03-27 20:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1626,
         payload: %{
           "apiVersion" => "v3",
@@ -34354,7 +34354,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:27:40],
         updated_at: ~N[2023-03-27 20:27:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 806,
         payload: %{
           "apiVersion" => "v3",
@@ -34389,7 +34389,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:08:45],
         updated_at: ~N[2023-03-19 20:08:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 813,
         payload: %{
           "apiVersion" => "v3",
@@ -34418,7 +34418,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:16:39],
         updated_at: ~N[2023-03-19 20:16:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 814,
         payload: %{
           "apiVersion" => "v3",
@@ -34447,7 +34447,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:16:51],
         updated_at: ~N[2023-03-19 20:16:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 817,
         payload: %{
           "apiVersion" => "v3",
@@ -34476,7 +34476,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:19:21],
         updated_at: ~N[2023-03-19 20:19:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 818,
         payload: %{
           "apiVersion" => "v3",
@@ -34505,7 +34505,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:19:22],
         updated_at: ~N[2023-03-19 20:19:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 819,
         payload: %{
           "apiVersion" => "v3",
@@ -34534,7 +34534,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:20:05],
         updated_at: ~N[2023-03-19 20:20:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 820,
         payload: %{
           "apiVersion" => "v3",
@@ -34563,7 +34563,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:20:57],
         updated_at: ~N[2023-03-19 20:20:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 821,
         payload: %{
           "apiVersion" => "v3",
@@ -34592,7 +34592,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:21:57],
         updated_at: ~N[2023-03-19 20:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 822,
         payload: %{
           "apiVersion" => "v3",
@@ -34621,7 +34621,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:22:53],
         updated_at: ~N[2023-03-19 20:22:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 823,
         payload: %{
           "apiVersion" => "v3",
@@ -34652,7 +34652,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:23:38],
         updated_at: ~N[2023-03-19 20:23:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 824,
         payload: %{
           "apiVersion" => "v3",
@@ -34690,7 +34690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:23:45],
         updated_at: ~N[2023-03-19 20:23:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 825,
         payload: %{
           "apiVersion" => "v3",
@@ -34719,7 +34719,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:24:00],
         updated_at: ~N[2023-03-19 20:24:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 826,
         payload: %{
           "apiVersion" => "v3",
@@ -34750,7 +34750,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:27:10],
         updated_at: ~N[2023-03-19 20:27:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 831,
         payload: %{
           "apiVersion" => "v3",
@@ -34779,7 +34779,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:39:26],
         updated_at: ~N[2023-03-19 20:39:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 837,
         payload: %{
           "apiVersion" => "v3",
@@ -34808,7 +34808,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:58:27],
         updated_at: ~N[2023-03-19 20:58:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 840,
         payload: %{
           "apiVersion" => "v3",
@@ -34888,7 +34888,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:11:17],
         updated_at: ~N[2023-03-19 21:11:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 845,
         payload: %{
           "apiVersion" => "v3",
@@ -34963,7 +34963,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:14:03],
         updated_at: ~N[2023-03-19 21:14:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 854,
         payload: %{
           "apiVersion" => "v3",
@@ -34992,7 +34992,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:25:10],
         updated_at: ~N[2023-03-19 21:25:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 863,
         payload: %{
           "apiVersion" => "v3",
@@ -35021,7 +35021,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:58:17],
         updated_at: ~N[2023-03-19 23:58:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 868,
         payload: %{
           "apiVersion" => "v3",
@@ -35050,7 +35050,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:13:40],
         updated_at: ~N[2023-03-20 00:13:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 827,
         payload: %{
           "apiVersion" => "v3",
@@ -35088,7 +35088,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:27:18],
         updated_at: ~N[2023-03-19 20:27:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 832,
         payload: %{
           "apiVersion" => "v3",
@@ -35117,7 +35117,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:43:59],
         updated_at: ~N[2023-03-19 20:43:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 834,
         payload: %{
           "apiVersion" => "v3",
@@ -35147,7 +35147,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:54:46],
         updated_at: ~N[2023-03-19 20:54:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 843,
         payload: %{
           "apiVersion" => "v3",
@@ -35227,7 +35227,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:12:49],
         updated_at: ~N[2023-03-19 21:12:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 850,
         payload: %{
           "apiVersion" => "v3",
@@ -35256,7 +35256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:22:36],
         updated_at: ~N[2023-03-19 21:22:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 852,
         payload: %{
           "apiVersion" => "v3",
@@ -35287,7 +35287,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:23:55],
         updated_at: ~N[2023-03-19 21:23:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 857,
         payload: %{
           "apiVersion" => "v3",
@@ -35316,7 +35316,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 22:10:58],
         updated_at: ~N[2023-03-19 22:10:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 860,
         payload: %{
           "apiVersion" => "v3",
@@ -35346,7 +35346,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:10:17],
         updated_at: ~N[2023-03-19 23:10:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 864,
         payload: %{
           "apiVersion" => "v3",
@@ -35375,7 +35375,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:58:20],
         updated_at: ~N[2023-03-19 23:58:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 869,
         payload: %{
           "apiVersion" => "v3",
@@ -35404,7 +35404,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:13:57],
         updated_at: ~N[2023-03-20 00:13:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 828,
         payload: %{
           "apiVersion" => "v3",
@@ -35433,7 +35433,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:28:04],
         updated_at: ~N[2023-03-19 20:28:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 839,
         payload: %{
           "apiVersion" => "v3",
@@ -35463,7 +35463,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:05:53],
         updated_at: ~N[2023-03-19 21:05:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 844,
         payload: %{
           "apiVersion" => "v3",
@@ -35543,7 +35543,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:13:22],
         updated_at: ~N[2023-03-19 21:13:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 847,
         payload: %{
           "apiVersion" => "v3",
@@ -35572,7 +35572,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:18:14],
         updated_at: ~N[2023-03-19 21:18:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 858,
         payload: %{
           "apiVersion" => "v3",
@@ -35601,7 +35601,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 22:11:03],
         updated_at: ~N[2023-03-19 22:11:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 866,
         payload: %{
           "apiVersion" => "v3",
@@ -35630,7 +35630,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:10:02],
         updated_at: ~N[2023-03-20 00:10:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 876,
         payload: %{
           "apiVersion" => "v3",
@@ -35659,7 +35659,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:42],
         updated_at: ~N[2023-03-20 00:17:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 877,
         payload: %{
           "apiVersion" => "v3",
@@ -35688,7 +35688,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:45],
         updated_at: ~N[2023-03-20 00:17:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 886,
         payload: %{
           "apiVersion" => "v3",
@@ -35718,7 +35718,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:05:07],
         updated_at: ~N[2023-03-20 16:05:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 887,
         payload: %{
           "apiVersion" => "v3",
@@ -35748,7 +35748,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:17:32],
         updated_at: ~N[2023-03-20 16:17:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 829,
         payload: %{
           "apiVersion" => "v3",
@@ -35779,7 +35779,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:30:46],
         updated_at: ~N[2023-03-19 20:30:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 838,
         payload: %{
           "apiVersion" => "v3",
@@ -35809,7 +35809,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:01:54],
         updated_at: ~N[2023-03-19 21:01:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 842,
         payload: %{
           "apiVersion" => "v3",
@@ -35889,7 +35889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:12:20],
         updated_at: ~N[2023-03-19 21:12:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 846,
         payload: %{
           "apiVersion" => "v3",
@@ -35918,7 +35918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:17:47],
         updated_at: ~N[2023-03-19 21:17:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 856,
         payload: %{
           "apiVersion" => "v3",
@@ -35947,7 +35947,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:27:06],
         updated_at: ~N[2023-03-19 21:27:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 861,
         payload: %{
           "apiVersion" => "v3",
@@ -35976,7 +35976,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:11:19],
         updated_at: ~N[2023-03-19 23:11:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 862,
         payload: %{
           "apiVersion" => "v3",
@@ -36005,7 +36005,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:58:00],
         updated_at: ~N[2023-03-19 23:58:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 867,
         payload: %{
           "apiVersion" => "v3",
@@ -36035,7 +36035,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:12:00],
         updated_at: ~N[2023-03-20 00:12:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 878,
         payload: %{
           "apiVersion" => "v3",
@@ -36064,7 +36064,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:56],
         updated_at: ~N[2023-03-20 00:17:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 881,
         payload: %{
           "apiVersion" => "v3",
@@ -36093,7 +36093,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:18:49],
         updated_at: ~N[2023-03-20 00:18:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 830,
         payload: %{
           "apiVersion" => "v3",
@@ -36131,7 +36131,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:30:52],
         updated_at: ~N[2023-03-19 20:30:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 833,
         payload: %{
           "apiVersion" => "v3",
@@ -36160,7 +36160,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:44:01],
         updated_at: ~N[2023-03-19 20:44:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 835,
         payload: %{
           "apiVersion" => "v3",
@@ -36189,7 +36189,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:55:38],
         updated_at: ~N[2023-03-19 20:55:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 836,
         payload: %{
           "apiVersion" => "v3",
@@ -36218,7 +36218,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 20:55:48],
         updated_at: ~N[2023-03-19 20:55:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 841,
         payload: %{
           "apiVersion" => "v3",
@@ -36298,7 +36298,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:11:55],
         updated_at: ~N[2023-03-19 21:11:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 848,
         payload: %{
           "apiVersion" => "v3",
@@ -36327,7 +36327,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:19:03],
         updated_at: ~N[2023-03-19 21:19:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 849,
         payload: %{
           "apiVersion" => "v3",
@@ -36356,7 +36356,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:19:53],
         updated_at: ~N[2023-03-19 21:19:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 851,
         payload: %{
           "apiVersion" => "v3",
@@ -36385,7 +36385,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:22:36],
         updated_at: ~N[2023-03-19 21:22:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 853,
         payload: %{
           "apiVersion" => "v3",
@@ -36423,7 +36423,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:24:00],
         updated_at: ~N[2023-03-19 21:24:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 855,
         payload: %{
           "apiVersion" => "v3",
@@ -36452,7 +36452,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 21:26:20],
         updated_at: ~N[2023-03-19 21:26:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 859,
         payload: %{
           "apiVersion" => "v3",
@@ -36481,7 +36481,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 22:11:12],
         updated_at: ~N[2023-03-19 22:11:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 904,
         payload: %{
           "apiVersion" => "v3",
@@ -36511,7 +36511,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:16:09],
         updated_at: ~N[2023-03-20 17:16:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 941,
         payload: %{
           "apiVersion" => "v3",
@@ -36540,7 +36540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:36:28],
         updated_at: ~N[2023-03-20 19:36:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1446,
         payload: %{
           "apiVersion" => "v3",
@@ -36571,7 +36571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:23:42],
         updated_at: ~N[2023-03-24 19:23:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1452,
         payload: %{
           "apiVersion" => "v3",
@@ -36602,7 +36602,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:38:52],
         updated_at: ~N[2023-03-24 19:38:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1458,
         payload: %{
           "apiVersion" => "v3",
@@ -36633,7 +36633,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:06:57],
         updated_at: ~N[2023-03-24 20:06:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1463,
         payload: %{
           "apiVersion" => "v3",
@@ -36671,7 +36671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:19:43],
         updated_at: ~N[2023-03-24 20:19:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1469,
         payload: %{
           "apiVersion" => "v3",
@@ -36709,7 +36709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:33:45],
         updated_at: ~N[2023-03-24 20:33:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1474,
         payload: %{
           "apiVersion" => "v3",
@@ -36740,7 +36740,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:41:52],
         updated_at: ~N[2023-03-24 20:41:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1480,
         payload: %{
           "apiVersion" => "v3",
@@ -36771,7 +36771,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:53:23],
         updated_at: ~N[2023-03-24 20:53:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1487,
         payload: %{
           "apiVersion" => "v3",
@@ -36801,7 +36801,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 22:58:35],
         updated_at: ~N[2023-03-24 22:58:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 865,
         payload: %{
           "apiVersion" => "v3",
@@ -36830,7 +36830,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-19 23:58:33],
         updated_at: ~N[2023-03-19 23:58:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 874,
         payload: %{
           "apiVersion" => "v3",
@@ -36859,7 +36859,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:34],
         updated_at: ~N[2023-03-20 00:17:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 875,
         payload: %{
           "apiVersion" => "v3",
@@ -36888,7 +36888,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:39],
         updated_at: ~N[2023-03-20 00:17:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 885,
         payload: %{
           "apiVersion" => "v3",
@@ -36926,7 +36926,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:01:59],
         updated_at: ~N[2023-03-20 16:01:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 889,
         payload: %{
           "apiVersion" => "v3",
@@ -36955,7 +36955,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:19:40],
         updated_at: ~N[2023-03-20 16:19:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 897,
         payload: %{
           "apiVersion" => "v3",
@@ -36993,7 +36993,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:01:45],
         updated_at: ~N[2023-03-20 17:01:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 906,
         payload: %{
           "apiVersion" => "v3",
@@ -37023,7 +37023,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:28:32],
         updated_at: ~N[2023-03-20 17:28:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 907,
         payload: %{
           "apiVersion" => "v3",
@@ -37054,7 +37054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:30:39],
         updated_at: ~N[2023-03-20 17:30:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 909,
         payload: %{
           "apiVersion" => "v3",
@@ -37083,7 +37083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:34:33],
         updated_at: ~N[2023-03-20 17:34:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 913,
         payload: %{
           "apiVersion" => "v3",
@@ -37121,7 +37121,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:37:37],
         updated_at: ~N[2023-03-20 17:37:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 870,
         payload: %{
           "apiVersion" => "v3",
@@ -37151,7 +37151,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:15:13],
         updated_at: ~N[2023-03-20 00:15:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 891,
         payload: %{
           "apiVersion" => "v3",
@@ -37180,7 +37180,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:20:19],
         updated_at: ~N[2023-03-20 16:20:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 892,
         payload: %{
           "apiVersion" => "v3",
@@ -37209,7 +37209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:21:56],
         updated_at: ~N[2023-03-20 16:21:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 899,
         payload: %{
           "apiVersion" => "v3",
@@ -37240,7 +37240,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:13:18],
         updated_at: ~N[2023-03-20 17:13:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 908,
         payload: %{
           "apiVersion" => "v3",
@@ -37278,7 +37278,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:30:46],
         updated_at: ~N[2023-03-20 17:30:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 912,
         payload: %{
           "apiVersion" => "v3",
@@ -37309,7 +37309,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:37:30],
         updated_at: ~N[2023-03-20 17:37:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 919,
         payload: %{
           "apiVersion" => "v3",
@@ -37347,7 +37347,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:56:18],
         updated_at: ~N[2023-03-20 17:56:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 923,
         payload: %{
           "apiVersion" => "v3",
@@ -37378,7 +37378,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:00:43],
         updated_at: ~N[2023-03-20 18:00:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 929,
         payload: %{
           "apiVersion" => "v3",
@@ -37407,7 +37407,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:13:23],
         updated_at: ~N[2023-03-20 18:13:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 931,
         payload: %{
           "apiVersion" => "v3",
@@ -37436,7 +37436,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:22:41],
         updated_at: ~N[2023-03-20 18:22:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 937,
         payload: %{
           "apiVersion" => "v3",
@@ -37466,7 +37466,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:29:09],
         updated_at: ~N[2023-03-20 19:29:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 871,
         payload: %{
           "apiVersion" => "v3",
@@ -37495,7 +37495,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:15:33],
         updated_at: ~N[2023-03-20 00:15:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1447,
         payload: %{
           "apiVersion" => "v3",
@@ -37533,7 +37533,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:23:47],
         updated_at: ~N[2023-03-24 19:23:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1451,
         payload: %{
           "apiVersion" => "v3",
@@ -37571,7 +37571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:32:13],
         updated_at: ~N[2023-03-24 19:32:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1457,
         payload: %{
           "apiVersion" => "v3",
@@ -37609,7 +37609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:55:12],
         updated_at: ~N[2023-03-24 19:55:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1462,
         payload: %{
           "apiVersion" => "v3",
@@ -37640,7 +37640,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:19:35],
         updated_at: ~N[2023-03-24 20:19:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1466,
         payload: %{
           "apiVersion" => "v3",
@@ -37671,7 +37671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:33:06],
         updated_at: ~N[2023-03-24 20:33:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1470,
         payload: %{
           "apiVersion" => "v3",
@@ -37702,7 +37702,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:34:07],
         updated_at: ~N[2023-03-24 20:34:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1475,
         payload: %{
           "apiVersion" => "v3",
@@ -37740,7 +37740,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:41:59],
         updated_at: ~N[2023-03-24 20:41:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1484,
         payload: %{
           "apiVersion" => "v3",
@@ -37771,7 +37771,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:56:10],
         updated_at: ~N[2023-03-24 20:56:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1486,
         payload: %{
           "apiVersion" => "v3",
@@ -37801,7 +37801,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 22:56:48],
         updated_at: ~N[2023-03-24 22:56:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 872,
         payload: %{
           "apiVersion" => "v3",
@@ -37831,7 +37831,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:16:27],
         updated_at: ~N[2023-03-20 00:16:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1448,
         payload: %{
           "apiVersion" => "v3",
@@ -37862,7 +37862,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:29:00],
         updated_at: ~N[2023-03-24 19:29:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1453,
         payload: %{
           "apiVersion" => "v3",
@@ -37900,7 +37900,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:39:01],
         updated_at: ~N[2023-03-24 19:39:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1456,
         payload: %{
           "apiVersion" => "v3",
@@ -37931,7 +37931,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:55:05],
         updated_at: ~N[2023-03-24 19:55:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1460,
         payload: %{
           "apiVersion" => "v3",
@@ -37962,7 +37962,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:09:09],
         updated_at: ~N[2023-03-24 20:09:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1467,
         payload: %{
           "apiVersion" => "v3",
@@ -38000,7 +38000,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:33:14],
         updated_at: ~N[2023-03-24 20:33:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1472,
         payload: %{
           "apiVersion" => "v3",
@@ -38031,7 +38031,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:34:59],
         updated_at: ~N[2023-03-24 20:34:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1477,
         payload: %{
           "apiVersion" => "v3",
@@ -38069,7 +38069,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:47:10],
         updated_at: ~N[2023-03-24 20:47:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1478,
         payload: %{
           "apiVersion" => "v3",
@@ -38100,7 +38100,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:52:14],
         updated_at: ~N[2023-03-24 20:52:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1485,
         payload: %{
           "apiVersion" => "v3",
@@ -38138,7 +38138,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:56:18],
         updated_at: ~N[2023-03-24 20:56:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 873,
         payload: %{
           "apiVersion" => "v3",
@@ -38167,7 +38167,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:27],
         updated_at: ~N[2023-03-20 00:17:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 879,
         payload: %{
           "apiVersion" => "v3",
@@ -38196,7 +38196,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:17:57],
         updated_at: ~N[2023-03-20 00:17:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 903,
         payload: %{
           "apiVersion" => "v3",
@@ -38225,7 +38225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:13:50],
         updated_at: ~N[2023-03-20 17:13:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 905,
         payload: %{
           "apiVersion" => "v3",
@@ -38256,7 +38256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:28:30],
         updated_at: ~N[2023-03-20 17:28:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 942,
         payload: %{
           "apiVersion" => "v3",
@@ -38285,7 +38285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:40:04],
         updated_at: ~N[2023-03-20 19:40:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 943,
         payload: %{
           "apiVersion" => "v3",
@@ -38314,7 +38314,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:40:27],
         updated_at: ~N[2023-03-20 19:40:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1449,
         payload: %{
           "apiVersion" => "v3",
@@ -38352,7 +38352,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:29:08],
         updated_at: ~N[2023-03-24 19:29:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1455,
         payload: %{
           "apiVersion" => "v3",
@@ -38390,7 +38390,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:51:27],
         updated_at: ~N[2023-03-24 19:51:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1461,
         payload: %{
           "apiVersion" => "v3",
@@ -38428,7 +38428,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:09:16],
         updated_at: ~N[2023-03-24 20:09:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1464,
         payload: %{
           "apiVersion" => "v3",
@@ -38459,7 +38459,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:22:31],
         updated_at: ~N[2023-03-24 20:22:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1468,
         payload: %{
           "apiVersion" => "v3",
@@ -38490,7 +38490,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:33:35],
         updated_at: ~N[2023-03-24 20:33:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 880,
         payload: %{
           "apiVersion" => "v3",
@@ -38519,7 +38519,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:18:10],
         updated_at: ~N[2023-03-20 00:18:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 888,
         payload: %{
           "apiVersion" => "v3",
@@ -38549,7 +38549,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:19:08],
         updated_at: ~N[2023-03-20 16:19:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 890,
         payload: %{
           "apiVersion" => "v3",
@@ -38579,7 +38579,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:19:59],
         updated_at: ~N[2023-03-20 16:19:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 894,
         payload: %{
           "apiVersion" => "v3",
@@ -38609,7 +38609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:01:23],
         updated_at: ~N[2023-03-20 17:01:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 895,
         payload: %{
           "apiVersion" => "v3",
@@ -38640,7 +38640,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:01:27],
         updated_at: ~N[2023-03-20 17:01:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 901,
         payload: %{
           "apiVersion" => "v3",
@@ -38670,7 +38670,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:13:42],
         updated_at: ~N[2023-03-20 17:13:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 914,
         payload: %{
           "apiVersion" => "v3",
@@ -38700,7 +38700,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:39:04],
         updated_at: ~N[2023-03-20 17:39:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 917,
         payload: %{
           "apiVersion" => "v3",
@@ -38729,7 +38729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:53:47],
         updated_at: ~N[2023-03-20 17:53:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 921,
         payload: %{
           "apiVersion" => "v3",
@@ -38767,7 +38767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:57:36],
         updated_at: ~N[2023-03-20 17:57:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 926,
         payload: %{
           "apiVersion" => "v3",
@@ -38805,7 +38805,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:05:01],
         updated_at: ~N[2023-03-20 18:05:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 882,
         payload: %{
           "apiVersion" => "v3",
@@ -38834,7 +38834,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 00:22:02],
         updated_at: ~N[2023-03-20 00:22:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 883,
         payload: %{
           "apiVersion" => "v3",
@@ -38863,7 +38863,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 03:56:16],
         updated_at: ~N[2023-03-20 03:56:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 884,
         payload: %{
           "apiVersion" => "v3",
@@ -38894,7 +38894,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:01:49],
         updated_at: ~N[2023-03-20 16:01:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 893,
         payload: %{
           "apiVersion" => "v3",
@@ -38924,7 +38924,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 16:22:04],
         updated_at: ~N[2023-03-20 16:22:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 896,
         payload: %{
           "apiVersion" => "v3",
@@ -38951,7 +38951,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:01:29],
         updated_at: ~N[2023-03-20 17:01:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 898,
         payload: %{
           "apiVersion" => "v3",
@@ -38981,7 +38981,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:03:20],
         updated_at: ~N[2023-03-20 17:03:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 902,
         payload: %{
           "apiVersion" => "v3",
@@ -39008,7 +39008,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:13:42],
         updated_at: ~N[2023-03-20 17:13:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 910,
         payload: %{
           "apiVersion" => "v3",
@@ -39039,7 +39039,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:36:12],
         updated_at: ~N[2023-03-20 17:36:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 915,
         payload: %{
           "apiVersion" => "v3",
@@ -39069,7 +39069,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:48:59],
         updated_at: ~N[2023-03-20 17:48:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 920,
         payload: %{
           "apiVersion" => "v3",
@@ -39100,7 +39100,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:57:29],
         updated_at: ~N[2023-03-20 17:57:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 924,
         payload: %{
           "apiVersion" => "v3",
@@ -39138,7 +39138,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:00:51],
         updated_at: ~N[2023-03-20 18:00:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 900,
         payload: %{
           "apiVersion" => "v3",
@@ -39176,7 +39176,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:13:39],
         updated_at: ~N[2023-03-20 17:13:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 911,
         payload: %{
           "apiVersion" => "v3",
@@ -39214,7 +39214,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:36:17],
         updated_at: ~N[2023-03-20 17:36:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 918,
         payload: %{
           "apiVersion" => "v3",
@@ -39245,7 +39245,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:56:12],
         updated_at: ~N[2023-03-20 17:56:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 925,
         payload: %{
           "apiVersion" => "v3",
@@ -39276,7 +39276,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:04:48],
         updated_at: ~N[2023-03-20 18:04:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 927,
         payload: %{
           "apiVersion" => "v3",
@@ -39305,7 +39305,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:05:22],
         updated_at: ~N[2023-03-20 18:05:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 935,
         payload: %{
           "apiVersion" => "v3",
@@ -39336,7 +39336,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:58:04],
         updated_at: ~N[2023-03-20 18:58:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 944,
         payload: %{
           "apiVersion" => "v3",
@@ -39365,7 +39365,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:40:51],
         updated_at: ~N[2023-03-20 19:40:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 948,
         payload: %{
           "apiVersion" => "v3",
@@ -39392,7 +39392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:57:58],
         updated_at: ~N[2023-03-20 19:57:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1450,
         payload: %{
           "apiVersion" => "v3",
@@ -39423,7 +39423,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:32:06],
         updated_at: ~N[2023-03-24 19:32:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1454,
         payload: %{
           "apiVersion" => "v3",
@@ -39454,7 +39454,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 19:51:17],
         updated_at: ~N[2023-03-24 19:51:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1459,
         payload: %{
           "apiVersion" => "v3",
@@ -39492,7 +39492,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:07:09],
         updated_at: ~N[2023-03-24 20:07:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 916,
         payload: %{
           "apiVersion" => "v3",
@@ -39521,7 +39521,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:53:12],
         updated_at: ~N[2023-03-20 17:53:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 922,
         payload: %{
           "apiVersion" => "v3",
@@ -39550,7 +39550,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 17:58:08],
         updated_at: ~N[2023-03-20 17:58:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 928,
         payload: %{
           "apiVersion" => "v3",
@@ -39580,7 +39580,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:10:46],
         updated_at: ~N[2023-03-20 18:10:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 930,
         payload: %{
           "apiVersion" => "v3",
@@ -39609,7 +39609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:20:45],
         updated_at: ~N[2023-03-20 18:20:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 936,
         payload: %{
           "apiVersion" => "v3",
@@ -39647,7 +39647,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:58:11],
         updated_at: ~N[2023-03-20 18:58:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 946,
         payload: %{
           "apiVersion" => "v3",
@@ -39676,7 +39676,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:53:03],
         updated_at: ~N[2023-03-20 19:53:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1465,
         payload: %{
           "apiVersion" => "v3",
@@ -39714,7 +39714,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:22:40],
         updated_at: ~N[2023-03-24 20:22:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1471,
         payload: %{
           "apiVersion" => "v3",
@@ -39752,7 +39752,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:34:20],
         updated_at: ~N[2023-03-24 20:34:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1476,
         payload: %{
           "apiVersion" => "v3",
@@ -39783,7 +39783,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:47:04],
         updated_at: ~N[2023-03-24 20:47:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1481,
         payload: %{
           "apiVersion" => "v3",
@@ -39821,7 +39821,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:53:32],
         updated_at: ~N[2023-03-24 20:53:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 932,
         payload: %{
           "apiVersion" => "v3",
@@ -39852,7 +39852,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:56:13],
         updated_at: ~N[2023-03-20 18:56:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 934,
         payload: %{
           "apiVersion" => "v3",
@@ -39890,7 +39890,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:56:50],
         updated_at: ~N[2023-03-20 18:56:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 939,
         payload: %{
           "apiVersion" => "v3",
@@ -39919,7 +39919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:34:59],
         updated_at: ~N[2023-03-20 19:34:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 947,
         payload: %{
           "apiVersion" => "v3",
@@ -39949,7 +39949,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:57:51],
         updated_at: ~N[2023-03-20 19:57:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1473,
         payload: %{
           "apiVersion" => "v3",
@@ -39987,7 +39987,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:35:07],
         updated_at: ~N[2023-03-24 20:35:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1479,
         payload: %{
           "apiVersion" => "v3",
@@ -40025,7 +40025,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:52:21],
         updated_at: ~N[2023-03-24 20:52:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1482,
         payload: %{
           "apiVersion" => "v3",
@@ -40056,7 +40056,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:54:23],
         updated_at: ~N[2023-03-24 20:54:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1491,
         payload: %{
           "apiVersion" => "v3",
@@ -40085,7 +40085,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:17:37],
         updated_at: ~N[2023-03-24 23:17:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1497,
         payload: %{
           "apiVersion" => "v3",
@@ -40114,7 +40114,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:59:43],
         updated_at: ~N[2023-03-24 23:59:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1502,
         payload: %{
           "apiVersion" => "v3",
@@ -40152,7 +40152,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:02:42],
         updated_at: ~N[2023-03-25 00:02:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1622,
         payload: %{
           "apiVersion" => "v3",
@@ -40181,7 +40181,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:21:31],
         updated_at: ~N[2023-03-27 20:21:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 933,
         payload: %{
           "apiVersion" => "v3",
@@ -40208,7 +40208,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 18:56:17],
         updated_at: ~N[2023-03-20 18:56:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 938,
         payload: %{
           "apiVersion" => "v3",
@@ -40238,7 +40238,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:29:31],
         updated_at: ~N[2023-03-20 19:29:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 940,
         payload: %{
           "apiVersion" => "v3",
@@ -40267,7 +40267,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:35:58],
         updated_at: ~N[2023-03-20 19:35:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1483,
         payload: %{
           "apiVersion" => "v3",
@@ -40305,7 +40305,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 20:54:32],
         updated_at: ~N[2023-03-24 20:54:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1524,
         payload: %{
           "apiVersion" => "v3",
@@ -40343,7 +40343,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:46:29],
         updated_at: ~N[2023-03-25 00:46:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1624,
         payload: %{
           "apiVersion" => "v3",
@@ -40372,7 +40372,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:22:06],
         updated_at: ~N[2023-03-27 20:22:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1632,
         payload: %{
           "apiVersion" => "v3",
@@ -40401,7 +40401,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:12:50],
         updated_at: ~N[2023-03-27 21:12:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1634,
         payload: %{
           "apiVersion" => "v3",
@@ -40432,7 +40432,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:14:26],
         updated_at: ~N[2023-03-27 21:14:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1635,
         payload: %{
           "apiVersion" => "v3",
@@ -40470,7 +40470,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:14:32],
         updated_at: ~N[2023-03-27 21:14:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1638,
         payload: %{
           "apiVersion" => "v3",
@@ -40508,7 +40508,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:19:02],
         updated_at: ~N[2023-03-27 21:19:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1642,
         payload: %{
           "apiVersion" => "v3",
@@ -40537,7 +40537,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:21:41],
         updated_at: ~N[2023-03-27 21:21:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 945,
         payload: %{
           "apiVersion" => "v3",
@@ -40566,7 +40566,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:43:56],
         updated_at: ~N[2023-03-20 19:43:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 949,
         payload: %{
           "apiVersion" => "v3",
@@ -40597,7 +40597,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:58:35],
         updated_at: ~N[2023-03-20 19:58:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 950,
         payload: %{
           "apiVersion" => "v3",
@@ -40635,7 +40635,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 19:58:51],
         updated_at: ~N[2023-03-20 19:58:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 951,
         payload: %{
           "apiVersion" => "v3",
@@ -40664,7 +40664,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:02:47],
         updated_at: ~N[2023-03-20 20:02:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 952,
         payload: %{
           "apiVersion" => "v3",
@@ -40693,7 +40693,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:03:15],
         updated_at: ~N[2023-03-20 20:03:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 953,
         payload: %{
           "apiVersion" => "v3",
@@ -40722,7 +40722,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:03:22],
         updated_at: ~N[2023-03-20 20:03:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 954,
         payload: %{
           "apiVersion" => "v3",
@@ -40751,7 +40751,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:03:34],
         updated_at: ~N[2023-03-20 20:03:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 955,
         payload: %{
           "apiVersion" => "v3",
@@ -40781,7 +40781,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:04:41],
         updated_at: ~N[2023-03-20 20:04:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 956,
         payload: %{
           "apiVersion" => "v3",
@@ -40811,7 +40811,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:08:47],
         updated_at: ~N[2023-03-20 20:08:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 957,
         payload: %{
           "apiVersion" => "v3",
@@ -40840,7 +40840,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:34:14],
         updated_at: ~N[2023-03-20 20:34:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 958,
         payload: %{
           "apiVersion" => "v3",
@@ -40869,7 +40869,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:34:45],
         updated_at: ~N[2023-03-20 20:34:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 959,
         payload: %{
           "apiVersion" => "v3",
@@ -40898,7 +40898,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:35:49],
         updated_at: ~N[2023-03-20 20:35:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 970,
         payload: %{
           "apiVersion" => "v3",
@@ -40927,7 +40927,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:24:21],
         updated_at: ~N[2023-03-20 22:24:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 979,
         payload: %{
           "apiVersion" => "v3",
@@ -40965,7 +40965,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:48:26],
         updated_at: ~N[2023-03-20 22:48:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 984,
         payload: %{
           "apiVersion" => "v3",
@@ -40996,7 +40996,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:58:46],
         updated_at: ~N[2023-03-20 22:58:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 986,
         payload: %{
           "apiVersion" => "v3",
@@ -41026,7 +41026,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:04:10],
         updated_at: ~N[2023-03-20 23:04:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 991,
         payload: %{
           "apiVersion" => "v3",
@@ -41057,7 +41057,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:12:51],
         updated_at: ~N[2023-03-20 23:12:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 999,
         payload: %{
           "apiVersion" => "v3",
@@ -41095,7 +41095,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:25:37],
         updated_at: ~N[2023-03-20 23:25:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1004,
         payload: %{
           "apiVersion" => "v3",
@@ -41126,7 +41126,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 00:25:18],
         updated_at: ~N[2023-03-21 00:25:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1016,
         payload: %{
           "apiVersion" => "v3",
@@ -41156,7 +41156,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:20:55],
         updated_at: ~N[2023-03-21 16:20:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1017,
         payload: %{
           "apiVersion" => "v3",
@@ -41185,7 +41185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:21:40],
         updated_at: ~N[2023-03-21 16:21:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 960,
         payload: %{
           "apiVersion" => "v3",
@@ -41212,7 +41212,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:45:14],
         updated_at: ~N[2023-03-20 20:45:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 961,
         payload: %{
           "apiVersion" => "v3",
@@ -41243,7 +41243,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:49:43],
         updated_at: ~N[2023-03-20 20:49:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 969,
         payload: %{
           "apiVersion" => "v3",
@@ -41273,7 +41273,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:23:35],
         updated_at: ~N[2023-03-20 22:23:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 978,
         payload: %{
           "apiVersion" => "v3",
@@ -41304,7 +41304,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:48:21],
         updated_at: ~N[2023-03-20 22:48:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 983,
         payload: %{
           "apiVersion" => "v3",
@@ -41334,7 +41334,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:52:25],
         updated_at: ~N[2023-03-20 22:52:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 990,
         payload: %{
           "apiVersion" => "v3",
@@ -41364,7 +41364,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:09:34],
         updated_at: ~N[2023-03-20 23:09:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 997,
         payload: %{
           "apiVersion" => "v3",
@@ -41402,7 +41402,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:21:01],
         updated_at: ~N[2023-03-20 23:21:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 998,
         payload: %{
           "apiVersion" => "v3",
@@ -41433,7 +41433,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:25:25],
         updated_at: ~N[2023-03-20 23:25:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1002,
         payload: %{
           "apiVersion" => "v3",
@@ -41464,7 +41464,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 00:24:27],
         updated_at: ~N[2023-03-21 00:24:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1014,
         payload: %{
           "apiVersion" => "v3",
@@ -41493,7 +41493,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:17:16],
         updated_at: ~N[2023-03-21 16:17:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 962,
         payload: %{
           "apiVersion" => "v3",
@@ -41531,7 +41531,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 20:50:00],
         updated_at: ~N[2023-03-20 20:50:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 963,
         payload: %{
           "apiVersion" => "v3",
@@ -41560,7 +41560,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:05:21],
         updated_at: ~N[2023-03-20 22:05:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 964,
         payload: %{
           "apiVersion" => "v3",
@@ -41589,7 +41589,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:07:58],
         updated_at: ~N[2023-03-20 22:07:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 965,
         payload: %{
           "apiVersion" => "v3",
@@ -41620,7 +41620,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:12:01],
         updated_at: ~N[2023-03-20 22:12:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 966,
         payload: %{
           "apiVersion" => "v3",
@@ -41658,7 +41658,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:12:18],
         updated_at: ~N[2023-03-20 22:12:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 967,
         payload: %{
           "apiVersion" => "v3",
@@ -41687,7 +41687,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:18:09],
         updated_at: ~N[2023-03-20 22:18:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 973,
         payload: %{
           "apiVersion" => "v3",
@@ -41717,7 +41717,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:44:45],
         updated_at: ~N[2023-03-20 22:44:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 975,
         payload: %{
           "apiVersion" => "v3",
@@ -41755,7 +41755,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:45:41],
         updated_at: ~N[2023-03-20 22:45:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 981,
         payload: %{
           "apiVersion" => "v3",
@@ -41793,7 +41793,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:49:02],
         updated_at: ~N[2023-03-20 22:49:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 988,
         payload: %{
           "apiVersion" => "v3",
@@ -41831,7 +41831,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:06:39],
         updated_at: ~N[2023-03-20 23:06:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 968,
         payload: %{
           "apiVersion" => "v3",
@@ -41860,7 +41860,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:23:14],
         updated_at: ~N[2023-03-20 22:23:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 976,
         payload: %{
           "apiVersion" => "v3",
@@ -41891,7 +41891,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:47:50],
         updated_at: ~N[2023-03-20 22:47:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 977,
         payload: %{
           "apiVersion" => "v3",
@@ -41921,7 +41921,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:47:53],
         updated_at: ~N[2023-03-20 22:47:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 982,
         payload: %{
           "apiVersion" => "v3",
@@ -41952,7 +41952,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:50:27],
         updated_at: ~N[2023-03-20 22:50:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 989,
         payload: %{
           "apiVersion" => "v3",
@@ -41982,7 +41982,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:07:25],
         updated_at: ~N[2023-03-20 23:07:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 995,
         payload: %{
           "apiVersion" => "v3",
@@ -42020,7 +42020,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:19:32],
         updated_at: ~N[2023-03-20 23:19:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 996,
         payload: %{
           "apiVersion" => "v3",
@@ -42051,7 +42051,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:20:55],
         updated_at: ~N[2023-03-20 23:20:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1003,
         payload: %{
           "apiVersion" => "v3",
@@ -42089,7 +42089,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 00:24:34],
         updated_at: ~N[2023-03-21 00:24:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1006,
         payload: %{
           "apiVersion" => "v3",
@@ -42119,7 +42119,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:03:45],
         updated_at: ~N[2023-03-21 16:03:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 971,
         payload: %{
           "apiVersion" => "v3",
@@ -42148,7 +42148,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:28:01],
         updated_at: ~N[2023-03-20 22:28:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 972,
         payload: %{
           "apiVersion" => "v3",
@@ -42178,7 +42178,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:30:34],
         updated_at: ~N[2023-03-20 22:30:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 974,
         payload: %{
           "apiVersion" => "v3",
@@ -42209,7 +42209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:45:35],
         updated_at: ~N[2023-03-20 22:45:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 980,
         payload: %{
           "apiVersion" => "v3",
@@ -42240,7 +42240,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:48:56],
         updated_at: ~N[2023-03-20 22:48:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 985,
         payload: %{
           "apiVersion" => "v3",
@@ -42278,7 +42278,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 22:58:52],
         updated_at: ~N[2023-03-20 22:58:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 987,
         payload: %{
           "apiVersion" => "v3",
@@ -42309,7 +42309,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:06:31],
         updated_at: ~N[2023-03-20 23:06:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 992,
         payload: %{
           "apiVersion" => "v3",
@@ -42347,7 +42347,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:12:57],
         updated_at: ~N[2023-03-20 23:12:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1000,
         payload: %{
           "apiVersion" => "v3",
@@ -42378,7 +42378,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:28:10],
         updated_at: ~N[2023-03-20 23:28:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1005,
         payload: %{
           "apiVersion" => "v3",
@@ -42416,7 +42416,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 00:25:25],
         updated_at: ~N[2023-03-21 00:25:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1008,
         payload: %{
           "apiVersion" => "v3",
@@ -42445,7 +42445,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:11:54],
         updated_at: ~N[2023-03-21 16:11:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1020,
         payload: %{
           "apiVersion" => "v3",
@@ -42475,7 +42475,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:35:59],
         updated_at: ~N[2023-03-21 16:35:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 993,
         payload: %{
           "apiVersion" => "v3",
@@ -42504,7 +42504,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:18:30],
         updated_at: ~N[2023-03-20 23:18:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 994,
         payload: %{
           "apiVersion" => "v3",
@@ -42535,7 +42535,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:19:23],
         updated_at: ~N[2023-03-20 23:19:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1001,
         payload: %{
           "apiVersion" => "v3",
@@ -42573,7 +42573,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-20 23:28:18],
         updated_at: ~N[2023-03-20 23:28:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1018,
         payload: %{
           "apiVersion" => "v3",
@@ -42603,7 +42603,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:22:03],
         updated_at: ~N[2023-03-21 16:22:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1021,
         payload: %{
           "apiVersion" => "v3",
@@ -42632,7 +42632,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:38:32],
         updated_at: ~N[2023-03-21 16:38:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1026,
         payload: %{
           "apiVersion" => "v3",
@@ -42663,7 +42663,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:44:56],
         updated_at: ~N[2023-03-21 16:44:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1032,
         payload: %{
           "apiVersion" => "v3",
@@ -42701,7 +42701,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:46:51],
         updated_at: ~N[2023-03-21 16:46:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1038,
         payload: %{
           "apiVersion" => "v3",
@@ -42730,7 +42730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:47:01],
         updated_at: ~N[2023-03-21 17:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1041,
         payload: %{
           "apiVersion" => "v3",
@@ -42760,7 +42760,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:49:24],
         updated_at: ~N[2023-03-21 17:49:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1048,
         payload: %{
           "apiVersion" => "v3",
@@ -42790,7 +42790,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:57:24],
         updated_at: ~N[2023-03-21 17:57:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1007,
         payload: %{
           "apiVersion" => "v3",
@@ -42820,7 +42820,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:11:39],
         updated_at: ~N[2023-03-21 16:11:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1023,
         payload: %{
           "apiVersion" => "v3",
@@ -42849,7 +42849,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:41:30],
         updated_at: ~N[2023-03-21 16:41:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1027,
         payload: %{
           "apiVersion" => "v3",
@@ -42887,7 +42887,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:45:06],
         updated_at: ~N[2023-03-21 16:45:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1031,
         payload: %{
           "apiVersion" => "v3",
@@ -42918,7 +42918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:46:40],
         updated_at: ~N[2023-03-21 16:46:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1035,
         payload: %{
           "apiVersion" => "v3",
@@ -42948,7 +42948,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:44:50],
         updated_at: ~N[2023-03-21 17:44:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1043,
         payload: %{
           "apiVersion" => "v3",
@@ -42977,7 +42977,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:50:38],
         updated_at: ~N[2023-03-21 17:50:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1049,
         payload: %{
           "apiVersion" => "v3",
@@ -43007,7 +43007,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:00:29],
         updated_at: ~N[2023-03-21 18:00:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1056,
         payload: %{
           "apiVersion" => "v3",
@@ -43036,7 +43036,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:06:57],
         updated_at: ~N[2023-03-21 18:06:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1057,
         payload: %{
           "apiVersion" => "v3",
@@ -43065,7 +43065,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:07:32],
         updated_at: ~N[2023-03-21 18:07:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1064,
         payload: %{
           "apiVersion" => "v3",
@@ -43095,7 +43095,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:30:51],
         updated_at: ~N[2023-03-21 18:30:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1104,
         payload: %{
           "apiVersion" => "v3",
@@ -43124,7 +43124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:51:25],
         updated_at: ~N[2023-03-21 19:51:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1009,
         payload: %{
           "apiVersion" => "v3",
@@ -43153,7 +43153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:13:24],
         updated_at: ~N[2023-03-21 16:13:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1488,
         payload: %{
           "apiVersion" => "v3",
@@ -43182,7 +43182,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 22:59:30],
         updated_at: ~N[2023-03-24 22:59:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1493,
         payload: %{
           "apiVersion" => "v3",
@@ -43212,7 +43212,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:27:39],
         updated_at: ~N[2023-03-24 23:27:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1496,
         payload: %{
           "apiVersion" => "v3",
@@ -43242,7 +43242,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:41:23],
         updated_at: ~N[2023-03-24 23:41:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1501,
         payload: %{
           "apiVersion" => "v3",
@@ -43273,7 +43273,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:02:36],
         updated_at: ~N[2023-03-25 00:02:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1508,
         payload: %{
           "apiVersion" => "v3",
@@ -43302,7 +43302,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:19:52],
         updated_at: ~N[2023-03-25 00:19:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1516,
         payload: %{
           "apiVersion" => "v3",
@@ -43331,7 +43331,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:29:45],
         updated_at: ~N[2023-03-25 00:29:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1527,
         payload: %{
           "apiVersion" => "v3",
@@ -43360,7 +43360,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:49:12],
         updated_at: ~N[2023-03-25 00:49:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1530,
         payload: %{
           "apiVersion" => "v3",
@@ -43390,7 +43390,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:50:40],
         updated_at: ~N[2023-03-25 00:50:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1540,
         payload: %{
           "apiVersion" => "v3",
@@ -43420,7 +43420,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:22:52],
         updated_at: ~N[2023-03-25 17:22:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1625,
         payload: %{
           "apiVersion" => "v3",
@@ -43449,7 +43449,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:25:35],
         updated_at: ~N[2023-03-27 20:25:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1010,
         payload: %{
           "apiVersion" => "v3",
@@ -43478,7 +43478,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:13:58],
         updated_at: ~N[2023-03-21 16:13:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1489,
         payload: %{
           "apiVersion" => "v3",
@@ -43509,7 +43509,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:08:45],
         updated_at: ~N[2023-03-24 23:08:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1498,
         payload: %{
           "apiVersion" => "v3",
@@ -43540,7 +43540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:00:48],
         updated_at: ~N[2023-03-25 00:00:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1503,
         payload: %{
           "apiVersion" => "v3",
@@ -43570,7 +43570,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:03:18],
         updated_at: ~N[2023-03-25 00:03:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1510,
         payload: %{
           "apiVersion" => "v3",
@@ -43599,7 +43599,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:24:21],
         updated_at: ~N[2023-03-25 00:24:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1513,
         payload: %{
           "apiVersion" => "v3",
@@ -43628,7 +43628,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:28:42],
         updated_at: ~N[2023-03-25 00:28:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1518,
         payload: %{
           "apiVersion" => "v3",
@@ -43657,7 +43657,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:33:38],
         updated_at: ~N[2023-03-25 00:33:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1526,
         payload: %{
           "apiVersion" => "v3",
@@ -43686,7 +43686,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:49:04],
         updated_at: ~N[2023-03-25 00:49:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1528,
         payload: %{
           "apiVersion" => "v3",
@@ -43716,7 +43716,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:49:31],
         updated_at: ~N[2023-03-25 00:49:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1533,
         payload: %{
           "apiVersion" => "v3",
@@ -43745,7 +43745,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 01:02:27],
         updated_at: ~N[2023-03-25 01:02:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1537,
         payload: %{
           "apiVersion" => "v3",
@@ -43783,7 +43783,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 16:02:50],
         updated_at: ~N[2023-03-25 16:02:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1011,
         payload: %{
           "apiVersion" => "v3",
@@ -43812,7 +43812,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:15:50],
         updated_at: ~N[2023-03-21 16:15:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1490,
         payload: %{
           "apiVersion" => "v3",
@@ -43850,7 +43850,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:08:54],
         updated_at: ~N[2023-03-24 23:08:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1494,
         payload: %{
           "apiVersion" => "v3",
@@ -43881,7 +43881,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:28:21],
         updated_at: ~N[2023-03-24 23:28:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1499,
         payload: %{
           "apiVersion" => "v3",
@@ -43919,7 +43919,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:00:54],
         updated_at: ~N[2023-03-25 00:00:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1504,
         payload: %{
           "apiVersion" => "v3",
@@ -43948,7 +43948,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:03:21],
         updated_at: ~N[2023-03-25 00:03:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1505,
         payload: %{
           "apiVersion" => "v3",
@@ -43977,7 +43977,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:04:32],
         updated_at: ~N[2023-03-25 00:04:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1511,
         payload: %{
           "apiVersion" => "v3",
@@ -44006,7 +44006,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:25:40],
         updated_at: ~N[2023-03-25 00:25:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1515,
         payload: %{
           "apiVersion" => "v3",
@@ -44035,7 +44035,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:29:32],
         updated_at: ~N[2023-03-25 00:29:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1520,
         payload: %{
           "apiVersion" => "v3",
@@ -44073,7 +44073,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:34:30],
         updated_at: ~N[2023-03-25 00:34:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1538,
         payload: %{
           "apiVersion" => "v3",
@@ -44102,7 +44102,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:21:17],
         updated_at: ~N[2023-03-25 17:21:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1539,
         payload: %{
           "apiVersion" => "v3",
@@ -44133,7 +44133,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:22:50],
         updated_at: ~N[2023-03-25 17:22:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1012,
         payload: %{
           "apiVersion" => "v3",
@@ -44163,7 +44163,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:16:24],
         updated_at: ~N[2023-03-21 16:16:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1492,
         payload: %{
           "apiVersion" => "v3",
@@ -44193,7 +44193,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:19:28],
         updated_at: ~N[2023-03-24 23:19:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1495,
         payload: %{
           "apiVersion" => "v3",
@@ -44231,7 +44231,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-24 23:28:26],
         updated_at: ~N[2023-03-24 23:28:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1500,
         payload: %{
           "apiVersion" => "v3",
@@ -44261,7 +44261,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:01:54],
         updated_at: ~N[2023-03-25 00:01:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1506,
         payload: %{
           "apiVersion" => "v3",
@@ -44291,7 +44291,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:11:01],
         updated_at: ~N[2023-03-25 00:11:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1507,
         payload: %{
           "apiVersion" => "v3",
@@ -44321,7 +44321,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:12:06],
         updated_at: ~N[2023-03-25 00:12:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1512,
         payload: %{
           "apiVersion" => "v3",
@@ -44351,7 +44351,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:28:25],
         updated_at: ~N[2023-03-25 00:28:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1517,
         payload: %{
           "apiVersion" => "v3",
@@ -44381,7 +44381,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:31:21],
         updated_at: ~N[2023-03-25 00:31:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1521,
         payload: %{
           "apiVersion" => "v3",
@@ -44412,7 +44412,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:35:12],
         updated_at: ~N[2023-03-25 00:35:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1531,
         payload: %{
           "apiVersion" => "v3",
@@ -44442,7 +44442,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:59:46],
         updated_at: ~N[2023-03-25 00:59:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1534,
         payload: %{
           "apiVersion" => "v3",
@@ -44472,7 +44472,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 01:03:37],
         updated_at: ~N[2023-03-25 01:03:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1013,
         payload: %{
           "apiVersion" => "v3",
@@ -44502,7 +44502,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:16:39],
         updated_at: ~N[2023-03-21 16:16:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1509,
         payload: %{
           "apiVersion" => "v3",
@@ -44532,7 +44532,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:23:41],
         updated_at: ~N[2023-03-25 00:23:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1514,
         payload: %{
           "apiVersion" => "v3",
@@ -44561,7 +44561,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:28:46],
         updated_at: ~N[2023-03-25 00:28:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1519,
         payload: %{
           "apiVersion" => "v3",
@@ -44592,7 +44592,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:34:25],
         updated_at: ~N[2023-03-25 00:34:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1529,
         payload: %{
           "apiVersion" => "v3",
@@ -44621,7 +44621,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:49:47],
         updated_at: ~N[2023-03-25 00:49:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1532,
         payload: %{
           "apiVersion" => "v3",
@@ -44650,7 +44650,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 01:00:32],
         updated_at: ~N[2023-03-25 01:00:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1535,
         payload: %{
           "apiVersion" => "v3",
@@ -44679,7 +44679,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 16:01:21],
         updated_at: ~N[2023-03-25 16:01:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1536,
         payload: %{
           "apiVersion" => "v3",
@@ -44710,7 +44710,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 16:02:44],
         updated_at: ~N[2023-03-25 16:02:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1544,
         payload: %{
           "apiVersion" => "v3",
@@ -44739,7 +44739,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:32:57],
         updated_at: ~N[2023-03-25 17:32:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1546,
         payload: %{
           "apiVersion" => "v3",
@@ -44768,7 +44768,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:44:46],
         updated_at: ~N[2023-03-25 17:44:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1551,
         payload: %{
           "apiVersion" => "v3",
@@ -44797,7 +44797,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 18:52:33],
         updated_at: ~N[2023-03-25 18:52:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1627,
         payload: %{
           "apiVersion" => "v3",
@@ -44826,7 +44826,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:28:49],
         updated_at: ~N[2023-03-27 20:28:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1015,
         payload: %{
           "apiVersion" => "v3",
@@ -44856,7 +44856,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:19:32],
         updated_at: ~N[2023-03-21 16:19:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1025,
         payload: %{
           "apiVersion" => "v3",
@@ -44894,7 +44894,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:44:17],
         updated_at: ~N[2023-03-21 16:44:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1028,
         payload: %{
           "apiVersion" => "v3",
@@ -44925,7 +44925,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:45:10],
         updated_at: ~N[2023-03-21 16:45:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1037,
         payload: %{
           "apiVersion" => "v3",
@@ -44955,7 +44955,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:46:03],
         updated_at: ~N[2023-03-21 17:46:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1039,
         payload: %{
           "apiVersion" => "v3",
@@ -44984,7 +44984,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:48:24],
         updated_at: ~N[2023-03-21 17:48:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1045,
         payload: %{
           "apiVersion" => "v3",
@@ -45014,7 +45014,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:52:17],
         updated_at: ~N[2023-03-21 17:52:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1047,
         payload: %{
           "apiVersion" => "v3",
@@ -45043,7 +45043,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:56:14],
         updated_at: ~N[2023-03-21 17:56:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1052,
         payload: %{
           "apiVersion" => "v3",
@@ -45073,7 +45073,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:04:39],
         updated_at: ~N[2023-03-21 18:04:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1054,
         payload: %{
           "apiVersion" => "v3",
@@ -45102,7 +45102,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:05:44],
         updated_at: ~N[2023-03-21 18:05:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1061,
         payload: %{
           "apiVersion" => "v3",
@@ -45132,7 +45132,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:21:04],
         updated_at: ~N[2023-03-21 18:21:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1019,
         payload: %{
           "apiVersion" => "v3",
@@ -45162,7 +45162,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:29:44],
         updated_at: ~N[2023-03-21 16:29:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1022,
         payload: %{
           "apiVersion" => "v3",
@@ -45191,7 +45191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:40:08],
         updated_at: ~N[2023-03-21 16:40:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1029,
         payload: %{
           "apiVersion" => "v3",
@@ -45222,7 +45222,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:45:49],
         updated_at: ~N[2023-03-21 16:45:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1033,
         payload: %{
           "apiVersion" => "v3",
@@ -45252,7 +45252,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:59:42],
         updated_at: ~N[2023-03-21 16:59:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1040,
         payload: %{
           "apiVersion" => "v3",
@@ -45281,7 +45281,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:48:45],
         updated_at: ~N[2023-03-21 17:48:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1042,
         payload: %{
           "apiVersion" => "v3",
@@ -45310,7 +45310,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:50:34],
         updated_at: ~N[2023-03-21 17:50:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1050,
         payload: %{
           "apiVersion" => "v3",
@@ -45339,7 +45339,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:02:16],
         updated_at: ~N[2023-03-21 18:02:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1058,
         payload: %{
           "apiVersion" => "v3",
@@ -45369,7 +45369,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:09:07],
         updated_at: ~N[2023-03-21 18:09:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1059,
         payload: %{
           "apiVersion" => "v3",
@@ -45398,7 +45398,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:20:26],
         updated_at: ~N[2023-03-21 18:20:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1065,
         payload: %{
           "apiVersion" => "v3",
@@ -45428,7 +45428,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:37:47],
         updated_at: ~N[2023-03-21 18:37:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1068,
         payload: %{
           "apiVersion" => "v3",
@@ -45458,7 +45458,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:44:40],
         updated_at: ~N[2023-03-21 18:44:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1024,
         payload: %{
           "apiVersion" => "v3",
@@ -45489,7 +45489,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:44:02],
         updated_at: ~N[2023-03-21 16:44:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1030,
         payload: %{
           "apiVersion" => "v3",
@@ -45527,7 +45527,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 16:45:57],
         updated_at: ~N[2023-03-21 16:45:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1034,
         payload: %{
           "apiVersion" => "v3",
@@ -45557,7 +45557,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:42:10],
         updated_at: ~N[2023-03-21 17:42:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1036,
         payload: %{
           "apiVersion" => "v3",
@@ -45587,7 +45587,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:45:34],
         updated_at: ~N[2023-03-21 17:45:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1044,
         payload: %{
           "apiVersion" => "v3",
@@ -45617,7 +45617,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:51:01],
         updated_at: ~N[2023-03-21 17:51:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1046,
         payload: %{
           "apiVersion" => "v3",
@@ -45647,7 +45647,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 17:54:36],
         updated_at: ~N[2023-03-21 17:54:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1051,
         payload: %{
           "apiVersion" => "v3",
@@ -45676,7 +45676,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:02:16],
         updated_at: ~N[2023-03-21 18:02:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1060,
         payload: %{
           "apiVersion" => "v3",
@@ -45705,7 +45705,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:20:36],
         updated_at: ~N[2023-03-21 18:20:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1066,
         payload: %{
           "apiVersion" => "v3",
@@ -45734,7 +45734,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:41:02],
         updated_at: ~N[2023-03-21 18:41:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1075,
         payload: %{
           "apiVersion" => "v3",
@@ -45772,7 +45772,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:03:09],
         updated_at: ~N[2023-03-21 19:03:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1053,
         payload: %{
           "apiVersion" => "v3",
@@ -45802,7 +45802,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:05:35],
         updated_at: ~N[2023-03-21 18:05:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1055,
         payload: %{
           "apiVersion" => "v3",
@@ -45832,7 +45832,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:06:48],
         updated_at: ~N[2023-03-21 18:06:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1063,
         payload: %{
           "apiVersion" => "v3",
@@ -45861,7 +45861,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:21:42],
         updated_at: ~N[2023-03-21 18:21:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1070,
         payload: %{
           "apiVersion" => "v3",
@@ -45891,7 +45891,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:49:31],
         updated_at: ~N[2023-03-21 18:49:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1077,
         payload: %{
           "apiVersion" => "v3",
@@ -45929,7 +45929,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:04:03],
         updated_at: ~N[2023-03-21 19:04:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1089,
         payload: %{
           "apiVersion" => "v3",
@@ -45958,7 +45958,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:29:14],
         updated_at: ~N[2023-03-21 19:29:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1091,
         payload: %{
           "apiVersion" => "v3",
@@ -45987,7 +45987,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:36:49],
         updated_at: ~N[2023-03-21 19:36:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1522,
         payload: %{
           "apiVersion" => "v3",
@@ -46025,7 +46025,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:35:19],
         updated_at: ~N[2023-03-25 00:35:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1628,
         payload: %{
           "apiVersion" => "v3",
@@ -46054,7 +46054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:46:53],
         updated_at: ~N[2023-03-27 20:46:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1639,
         payload: %{
           "apiVersion" => "v3",
@@ -46085,7 +46085,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:21:11],
         updated_at: ~N[2023-03-27 21:21:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1640,
         payload: %{
           "apiVersion" => "v3",
@@ -46123,7 +46123,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:21:18],
         updated_at: ~N[2023-03-27 21:21:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1062,
         payload: %{
           "apiVersion" => "v3",
@@ -46153,7 +46153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:21:40],
         updated_at: ~N[2023-03-21 18:21:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1069,
         payload: %{
           "apiVersion" => "v3",
@@ -46183,7 +46183,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:45:11],
         updated_at: ~N[2023-03-21 18:45:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1076,
         payload: %{
           "apiVersion" => "v3",
@@ -46214,7 +46214,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:03:57],
         updated_at: ~N[2023-03-21 19:03:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1084,
         payload: %{
           "apiVersion" => "v3",
@@ -46243,7 +46243,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:23:06],
         updated_at: ~N[2023-03-21 19:23:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1088,
         payload: %{
           "apiVersion" => "v3",
@@ -46272,7 +46272,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:28:24],
         updated_at: ~N[2023-03-21 19:28:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1523,
         payload: %{
           "apiVersion" => "v3",
@@ -46303,7 +46303,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:46:21],
         updated_at: ~N[2023-03-25 00:46:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1609,
         payload: %{
           "apiVersion" => "v3",
@@ -46332,7 +46332,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 17:39:50],
         updated_at: ~N[2023-03-27 17:39:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1629,
         payload: %{
           "apiVersion" => "v3",
@@ -46361,7 +46361,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 20:47:58],
         updated_at: ~N[2023-03-27 20:47:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1630,
         payload: %{
           "apiVersion" => "v3",
@@ -46392,7 +46392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:06:34],
         updated_at: ~N[2023-03-27 21:06:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1641,
         payload: %{
           "apiVersion" => "v3",
@@ -46421,7 +46421,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:21:30],
         updated_at: ~N[2023-03-27 21:21:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1643,
         payload: %{
           "apiVersion" => "v3",
@@ -46450,7 +46450,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:32:27],
         updated_at: ~N[2023-03-27 21:32:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1645,
         payload: %{
           "apiVersion" => "v3",
@@ -46481,7 +46481,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:41:32],
         updated_at: ~N[2023-03-27 21:41:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1067,
         payload: %{
           "apiVersion" => "v3",
@@ -46511,7 +46511,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 18:43:42],
         updated_at: ~N[2023-03-21 18:43:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1071,
         payload: %{
           "apiVersion" => "v3",
@@ -46540,7 +46540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:00:06],
         updated_at: ~N[2023-03-21 19:00:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1072,
         payload: %{
           "apiVersion" => "v3",
@@ -46571,7 +46571,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:01:10],
         updated_at: ~N[2023-03-21 19:01:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1074,
         payload: %{
           "apiVersion" => "v3",
@@ -46602,7 +46602,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:03:03],
         updated_at: ~N[2023-03-21 19:03:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1079,
         payload: %{
           "apiVersion" => "v3",
@@ -46640,7 +46640,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:06:00],
         updated_at: ~N[2023-03-21 19:06:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1080,
         payload: %{
           "apiVersion" => "v3",
@@ -46671,7 +46671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:08:40],
         updated_at: ~N[2023-03-21 19:08:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1083,
         payload: %{
           "apiVersion" => "v3",
@@ -46700,7 +46700,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:20:48],
         updated_at: ~N[2023-03-21 19:20:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1087,
         payload: %{
           "apiVersion" => "v3",
@@ -46729,7 +46729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:27:31],
         updated_at: ~N[2023-03-21 19:27:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1093,
         payload: %{
           "apiVersion" => "v3",
@@ -46767,7 +46767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:39:00],
         updated_at: ~N[2023-03-21 19:39:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1525,
         payload: %{
           "apiVersion" => "v3",
@@ -46796,7 +46796,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 00:49:02],
         updated_at: ~N[2023-03-25 00:49:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1574,
         payload: %{
           "apiVersion" => "v3",
@@ -46825,7 +46825,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 00:30:26],
         updated_at: ~N[2023-03-27 00:30:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1073,
         payload: %{
           "apiVersion" => "v3",
@@ -46863,7 +46863,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:01:17],
         updated_at: ~N[2023-03-21 19:01:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1078,
         payload: %{
           "apiVersion" => "v3",
@@ -46894,7 +46894,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:05:53],
         updated_at: ~N[2023-03-21 19:05:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1082,
         payload: %{
           "apiVersion" => "v3",
@@ -46923,7 +46923,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:20:30],
         updated_at: ~N[2023-03-21 19:20:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1085,
         payload: %{
           "apiVersion" => "v3",
@@ -46952,7 +46952,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:23:13],
         updated_at: ~N[2023-03-21 19:23:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1086,
         payload: %{
           "apiVersion" => "v3",
@@ -46981,7 +46981,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:26:55],
         updated_at: ~N[2023-03-21 19:26:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1090,
         payload: %{
           "apiVersion" => "v3",
@@ -47010,7 +47010,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:30:33],
         updated_at: ~N[2023-03-21 19:30:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1541,
         payload: %{
           "apiVersion" => "v3",
@@ -47039,7 +47039,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:23:04],
         updated_at: ~N[2023-03-25 17:23:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1549,
         payload: %{
           "apiVersion" => "v3",
@@ -47089,7 +47089,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 18:51:42],
         updated_at: ~N[2023-03-25 18:51:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1554,
         payload: %{
           "apiVersion" => "v3",
@@ -47118,7 +47118,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 09:57:24],
         updated_at: ~N[2023-03-26 09:57:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1555,
         payload: %{
           "apiVersion" => "v3",
@@ -47147,7 +47147,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 09:57:37],
         updated_at: ~N[2023-03-26 09:57:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1631,
         payload: %{
           "apiVersion" => "v3",
@@ -47185,7 +47185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:06:48],
         updated_at: ~N[2023-03-27 21:06:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1081,
         payload: %{
           "apiVersion" => "v3",
@@ -47223,7 +47223,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:08:47],
         updated_at: ~N[2023-03-21 19:08:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1092,
         payload: %{
           "apiVersion" => "v3",
@@ -47254,7 +47254,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:38:52],
         updated_at: ~N[2023-03-21 19:38:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1094,
         payload: %{
           "apiVersion" => "v3",
@@ -47285,7 +47285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:40:04],
         updated_at: ~N[2023-03-21 19:40:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1095,
         payload: %{
           "apiVersion" => "v3",
@@ -47323,7 +47323,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:40:12],
         updated_at: ~N[2023-03-21 19:40:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1096,
         payload: %{
           "apiVersion" => "v3",
@@ -47354,7 +47354,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:43:49],
         updated_at: ~N[2023-03-21 19:43:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1097,
         payload: %{
           "apiVersion" => "v3",
@@ -47392,7 +47392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:43:58],
         updated_at: ~N[2023-03-21 19:43:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1098,
         payload: %{
           "apiVersion" => "v3",
@@ -47423,7 +47423,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:45:32],
         updated_at: ~N[2023-03-21 19:45:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1099,
         payload: %{
           "apiVersion" => "v3",
@@ -47461,7 +47461,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:45:40],
         updated_at: ~N[2023-03-21 19:45:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1100,
         payload: %{
           "apiVersion" => "v3",
@@ -47490,7 +47490,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:46:28],
         updated_at: ~N[2023-03-21 19:46:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1101,
         payload: %{
           "apiVersion" => "v3",
@@ -47519,7 +47519,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:46:53],
         updated_at: ~N[2023-03-21 19:46:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1102,
         payload: %{
           "apiVersion" => "v3",
@@ -47548,7 +47548,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:49:02],
         updated_at: ~N[2023-03-21 19:49:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1103,
         payload: %{
           "apiVersion" => "v3",
@@ -47577,7 +47577,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 19:51:11],
         updated_at: ~N[2023-03-21 19:51:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1110,
         payload: %{
           "apiVersion" => "v3",
@@ -47604,7 +47604,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:14:55],
         updated_at: ~N[2023-03-21 20:14:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1115,
         payload: %{
           "apiVersion" => "v3",
@@ -47635,7 +47635,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:55:56],
         updated_at: ~N[2023-03-21 20:55:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1116,
         payload: %{
           "apiVersion" => "v3",
@@ -47673,7 +47673,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:56:03],
         updated_at: ~N[2023-03-21 20:56:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1122,
         payload: %{
           "apiVersion" => "v3",
@@ -47704,7 +47704,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:59:58],
         updated_at: ~N[2023-03-21 20:59:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1125,
         payload: %{
           "apiVersion" => "v3",
@@ -47735,7 +47735,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:28:17],
         updated_at: ~N[2023-03-21 22:28:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1132,
         payload: %{
           "apiVersion" => "v3",
@@ -47773,7 +47773,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:53:24],
         updated_at: ~N[2023-03-21 22:53:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1134,
         payload: %{
           "apiVersion" => "v3",
@@ -47811,7 +47811,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:55:39],
         updated_at: ~N[2023-03-21 22:55:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1139,
         payload: %{
           "apiVersion" => "v3",
@@ -47842,7 +47842,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 23:19:00],
         updated_at: ~N[2023-03-21 23:19:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1140,
         payload: %{
           "apiVersion" => "v3",
@@ -47880,7 +47880,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 23:19:07],
         updated_at: ~N[2023-03-21 23:19:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1154,
         payload: %{
           "apiVersion" => "v3",
@@ -47909,7 +47909,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 15:38:57],
         updated_at: ~N[2023-03-22 15:38:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1105,
         payload: %{
           "apiVersion" => "v3",
@@ -47938,7 +47938,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:01:50],
         updated_at: ~N[2023-03-21 20:01:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1106,
         payload: %{
           "apiVersion" => "v3",
@@ -47967,7 +47967,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:02:19],
         updated_at: ~N[2023-03-21 20:02:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1112,
         payload: %{
           "apiVersion" => "v3",
@@ -47994,7 +47994,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:17:27],
         updated_at: ~N[2023-03-21 20:17:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1119,
         payload: %{
           "apiVersion" => "v3",
@@ -48023,7 +48023,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:58:06],
         updated_at: ~N[2023-03-21 20:58:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1126,
         payload: %{
           "apiVersion" => "v3",
@@ -48061,7 +48061,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:28:23],
         updated_at: ~N[2023-03-21 22:28:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1130,
         payload: %{
           "apiVersion" => "v3",
@@ -48099,7 +48099,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:47:28],
         updated_at: ~N[2023-03-21 22:47:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1133,
         payload: %{
           "apiVersion" => "v3",
@@ -48130,7 +48130,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:55:33],
         updated_at: ~N[2023-03-21 22:55:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1144,
         payload: %{
           "apiVersion" => "v3",
@@ -48159,7 +48159,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:37:15],
         updated_at: ~N[2023-03-22 00:37:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1145,
         payload: %{
           "apiVersion" => "v3",
@@ -48188,7 +48188,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:38:31],
         updated_at: ~N[2023-03-22 00:38:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1150,
         payload: %{
           "apiVersion" => "v3",
@@ -48217,7 +48217,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:43:28],
         updated_at: ~N[2023-03-22 00:43:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1153,
         payload: %{
           "apiVersion" => "v3",
@@ -48247,7 +48247,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 14:29:28],
         updated_at: ~N[2023-03-22 14:29:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1107,
         payload: %{
           "apiVersion" => "v3",
@@ -48277,7 +48277,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:09:43],
         updated_at: ~N[2023-03-21 20:09:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1113,
         payload: %{
           "apiVersion" => "v3",
@@ -48307,7 +48307,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:18:53],
         updated_at: ~N[2023-03-21 20:18:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1114,
         payload: %{
           "apiVersion" => "v3",
@@ -48337,7 +48337,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:20:07],
         updated_at: ~N[2023-03-21 20:20:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1120,
         payload: %{
           "apiVersion" => "v3",
@@ -48368,7 +48368,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:58:50],
         updated_at: ~N[2023-03-21 20:58:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1123,
         payload: %{
           "apiVersion" => "v3",
@@ -48399,7 +48399,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:27:33],
         updated_at: ~N[2023-03-21 22:27:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1128,
         payload: %{
           "apiVersion" => "v3",
@@ -48437,7 +48437,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:34:22],
         updated_at: ~N[2023-03-21 22:34:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1131,
         payload: %{
           "apiVersion" => "v3",
@@ -48468,7 +48468,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:53:18],
         updated_at: ~N[2023-03-21 22:53:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1143,
         payload: %{
           "apiVersion" => "v3",
@@ -48497,7 +48497,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:27:29],
         updated_at: ~N[2023-03-22 00:27:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1149,
         payload: %{
           "apiVersion" => "v3",
@@ -48526,7 +48526,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:43:12],
         updated_at: ~N[2023-03-22 00:43:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1158,
         payload: %{
           "apiVersion" => "v3",
@@ -48564,7 +48564,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:13:38],
         updated_at: ~N[2023-03-22 16:13:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1164,
         payload: %{
           "apiVersion" => "v3",
@@ -48595,7 +48595,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:48:06],
         updated_at: ~N[2023-03-22 16:48:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1108,
         payload: %{
           "apiVersion" => "v3",
@@ -48626,7 +48626,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:14:08],
         updated_at: ~N[2023-03-21 20:14:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1109,
         payload: %{
           "apiVersion" => "v3",
@@ -48664,7 +48664,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:14:15],
         updated_at: ~N[2023-03-21 20:14:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1117,
         payload: %{
           "apiVersion" => "v3",
@@ -48695,7 +48695,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:57:24],
         updated_at: ~N[2023-03-21 20:57:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1121,
         payload: %{
           "apiVersion" => "v3",
@@ -48733,7 +48733,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:58:57],
         updated_at: ~N[2023-03-21 20:58:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1124,
         payload: %{
           "apiVersion" => "v3",
@@ -48771,7 +48771,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:27:38],
         updated_at: ~N[2023-03-21 22:27:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1129,
         payload: %{
           "apiVersion" => "v3",
@@ -48802,7 +48802,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:47:22],
         updated_at: ~N[2023-03-21 22:47:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1137,
         payload: %{
           "apiVersion" => "v3",
@@ -48833,7 +48833,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 23:17:38],
         updated_at: ~N[2023-03-21 23:17:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1138,
         payload: %{
           "apiVersion" => "v3",
@@ -48871,7 +48871,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 23:17:46],
         updated_at: ~N[2023-03-21 23:17:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1146,
         payload: %{
           "apiVersion" => "v3",
@@ -48900,7 +48900,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:39:21],
         updated_at: ~N[2023-03-22 00:39:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1155,
         payload: %{
           "apiVersion" => "v3",
@@ -48930,7 +48930,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:04:46],
         updated_at: ~N[2023-03-22 16:04:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1111,
         payload: %{
           "apiVersion" => "v3",
@@ -48960,7 +48960,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:16:53],
         updated_at: ~N[2023-03-21 20:16:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1118,
         payload: %{
           "apiVersion" => "v3",
@@ -48998,7 +48998,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 20:57:30],
         updated_at: ~N[2023-03-21 20:57:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1127,
         payload: %{
           "apiVersion" => "v3",
@@ -49029,7 +49029,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:34:14],
         updated_at: ~N[2023-03-21 22:34:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1135,
         payload: %{
           "apiVersion" => "v3",
@@ -49056,7 +49056,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:56:14],
         updated_at: ~N[2023-03-21 22:56:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1136,
         payload: %{
           "apiVersion" => "v3",
@@ -49083,7 +49083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-21 22:56:58],
         updated_at: ~N[2023-03-21 22:56:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1141,
         payload: %{
           "apiVersion" => "v3",
@@ -49112,7 +49112,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:24:01],
         updated_at: ~N[2023-03-22 00:24:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1147,
         payload: %{
           "apiVersion" => "v3",
@@ -49141,7 +49141,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:40:02],
         updated_at: ~N[2023-03-22 00:40:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1151,
         payload: %{
           "apiVersion" => "v3",
@@ -49171,7 +49171,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 03:01:28],
         updated_at: ~N[2023-03-22 03:01:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1152,
         payload: %{
           "apiVersion" => "v3",
@@ -49200,7 +49200,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 07:39:26],
         updated_at: ~N[2023-03-22 07:39:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1160,
         payload: %{
           "apiVersion" => "v3",
@@ -49238,7 +49238,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:14:43],
         updated_at: ~N[2023-03-22 16:14:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1161,
         payload: %{
           "apiVersion" => "v3",
@@ -49267,7 +49267,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:30:20],
         updated_at: ~N[2023-03-22 16:30:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1142,
         payload: %{
           "apiVersion" => "v3",
@@ -49297,7 +49297,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:27:09],
         updated_at: ~N[2023-03-22 00:27:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1148,
         payload: %{
           "apiVersion" => "v3",
@@ -49327,7 +49327,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 00:41:45],
         updated_at: ~N[2023-03-22 00:41:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1156,
         payload: %{
           "apiVersion" => "v3",
@@ -49357,7 +49357,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:05:48],
         updated_at: ~N[2023-03-22 16:05:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1162,
         payload: %{
           "apiVersion" => "v3",
@@ -49386,7 +49386,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:31:17],
         updated_at: ~N[2023-03-22 16:31:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1167,
         payload: %{
           "apiVersion" => "v3",
@@ -49424,7 +49424,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:49:13],
         updated_at: ~N[2023-03-22 16:49:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1174,
         payload: %{
           "apiVersion" => "v3",
@@ -49462,7 +49462,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:52:52],
         updated_at: ~N[2023-03-22 16:52:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1179,
         payload: %{
           "apiVersion" => "v3",
@@ -49500,7 +49500,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:00:31],
         updated_at: ~N[2023-03-22 17:00:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1183,
         payload: %{
           "apiVersion" => "v3",
@@ -49531,7 +49531,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:07:13],
         updated_at: ~N[2023-03-22 17:07:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1189,
         payload: %{
           "apiVersion" => "v3",
@@ -49561,7 +49561,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:10:52],
         updated_at: ~N[2023-03-22 17:10:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1193,
         payload: %{
           "apiVersion" => "v3",
@@ -49599,7 +49599,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:27:29],
         updated_at: ~N[2023-03-22 17:27:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1157,
         payload: %{
           "apiVersion" => "v3",
@@ -49630,7 +49630,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:13:32],
         updated_at: ~N[2023-03-22 16:13:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1165,
         payload: %{
           "apiVersion" => "v3",
@@ -49668,7 +49668,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:48:13],
         updated_at: ~N[2023-03-22 16:48:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1170,
         payload: %{
           "apiVersion" => "v3",
@@ -49699,7 +49699,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:50:40],
         updated_at: ~N[2023-03-22 16:50:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1173,
         payload: %{
           "apiVersion" => "v3",
@@ -49730,7 +49730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:52:43],
         updated_at: ~N[2023-03-22 16:52:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1177,
         payload: %{
           "apiVersion" => "v3",
@@ -49768,7 +49768,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:00:04],
         updated_at: ~N[2023-03-22 17:00:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1181,
         payload: %{
           "apiVersion" => "v3",
@@ -49799,7 +49799,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:03:17],
         updated_at: ~N[2023-03-22 17:03:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1186,
         payload: %{
           "apiVersion" => "v3",
@@ -49828,7 +49828,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:08:48],
         updated_at: ~N[2023-03-22 17:08:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1196,
         payload: %{
           "apiVersion" => "v3",
@@ -49859,7 +49859,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:32:05],
         updated_at: ~N[2023-03-22 17:32:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1197,
         payload: %{
           "apiVersion" => "v3",
@@ -49897,7 +49897,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:32:14],
         updated_at: ~N[2023-03-22 17:32:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1205,
         payload: %{
           "apiVersion" => "v3",
@@ -49935,7 +49935,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:45:10],
         updated_at: ~N[2023-03-22 17:45:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1644,
         payload: %{
           "apiVersion" => "v3",
@@ -49964,7 +49964,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:32:49],
         updated_at: ~N[2023-03-27 21:32:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1159,
         payload: %{
           "apiVersion" => "v3",
@@ -49995,7 +49995,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:14:36],
         updated_at: ~N[2023-03-22 16:14:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1166,
         payload: %{
           "apiVersion" => "v3",
@@ -50026,7 +50026,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:49:05],
         updated_at: ~N[2023-03-22 16:49:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1172,
         payload: %{
           "apiVersion" => "v3",
@@ -50055,7 +50055,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:51:22],
         updated_at: ~N[2023-03-22 16:51:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1176,
         payload: %{
           "apiVersion" => "v3",
@@ -50086,7 +50086,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:59:55],
         updated_at: ~N[2023-03-22 16:59:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1182,
         payload: %{
           "apiVersion" => "v3",
@@ -50124,7 +50124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:03:26],
         updated_at: ~N[2023-03-22 17:03:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1188,
         payload: %{
           "apiVersion" => "v3",
@@ -50153,7 +50153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:09:04],
         updated_at: ~N[2023-03-22 17:09:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1191,
         payload: %{
           "apiVersion" => "v3",
@@ -50184,7 +50184,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:26:39],
         updated_at: ~N[2023-03-22 17:26:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1194,
         payload: %{
           "apiVersion" => "v3",
@@ -50215,7 +50215,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:28:49],
         updated_at: ~N[2023-03-22 17:28:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1200,
         payload: %{
           "apiVersion" => "v3",
@@ -50246,7 +50246,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:37:39],
         updated_at: ~N[2023-03-22 17:37:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1202,
         payload: %{
           "apiVersion" => "v3",
@@ -50277,7 +50277,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:40:14],
         updated_at: ~N[2023-03-22 17:40:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1204,
         payload: %{
           "apiVersion" => "v3",
@@ -50308,7 +50308,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:45:00],
         updated_at: ~N[2023-03-22 17:45:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1163,
         payload: %{
           "apiVersion" => "v3",
@@ -50339,7 +50339,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:46:28],
         updated_at: ~N[2023-03-22 16:46:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1168,
         payload: %{
           "apiVersion" => "v3",
@@ -50370,7 +50370,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:49:50],
         updated_at: ~N[2023-03-22 16:49:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1171,
         payload: %{
           "apiVersion" => "v3",
@@ -50408,7 +50408,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:50:47],
         updated_at: ~N[2023-03-22 16:50:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1178,
         payload: %{
           "apiVersion" => "v3",
@@ -50439,7 +50439,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:00:24],
         updated_at: ~N[2023-03-22 17:00:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1185,
         payload: %{
           "apiVersion" => "v3",
@@ -50470,7 +50470,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:08:47],
         updated_at: ~N[2023-03-22 17:08:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1187,
         payload: %{
           "apiVersion" => "v3",
@@ -50508,7 +50508,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:08:56],
         updated_at: ~N[2023-03-22 17:08:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1198,
         payload: %{
           "apiVersion" => "v3",
@@ -50539,7 +50539,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:36:38],
         updated_at: ~N[2023-03-22 17:36:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1206,
         payload: %{
           "apiVersion" => "v3",
@@ -50570,7 +50570,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:10:54],
         updated_at: ~N[2023-03-22 18:10:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1208,
         payload: %{
           "apiVersion" => "v3",
@@ -50601,7 +50601,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:41:42],
         updated_at: ~N[2023-03-22 18:41:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1217,
         payload: %{
           "apiVersion" => "v3",
@@ -50632,7 +50632,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:28:57],
         updated_at: ~N[2023-03-22 19:28:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1220,
         payload: %{
           "apiVersion" => "v3",
@@ -50670,7 +50670,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:30:14],
         updated_at: ~N[2023-03-22 19:30:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1169,
         payload: %{
           "apiVersion" => "v3",
@@ -50708,7 +50708,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:49:57],
         updated_at: ~N[2023-03-22 16:49:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1175,
         payload: %{
           "apiVersion" => "v3",
@@ -50737,7 +50737,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 16:55:32],
         updated_at: ~N[2023-03-22 16:55:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1180,
         payload: %{
           "apiVersion" => "v3",
@@ -50764,7 +50764,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:00:49],
         updated_at: ~N[2023-03-22 17:00:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1184,
         payload: %{
           "apiVersion" => "v3",
@@ -50802,7 +50802,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:07:20],
         updated_at: ~N[2023-03-22 17:07:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1190,
         payload: %{
           "apiVersion" => "v3",
@@ -50829,7 +50829,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:11:21],
         updated_at: ~N[2023-03-22 17:11:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1192,
         payload: %{
           "apiVersion" => "v3",
@@ -50860,7 +50860,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:27:22],
         updated_at: ~N[2023-03-22 17:27:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1199,
         payload: %{
           "apiVersion" => "v3",
@@ -50898,7 +50898,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:36:49],
         updated_at: ~N[2023-03-22 17:36:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1201,
         payload: %{
           "apiVersion" => "v3",
@@ -50936,7 +50936,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:37:45],
         updated_at: ~N[2023-03-22 17:37:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1207,
         payload: %{
           "apiVersion" => "v3",
@@ -50974,7 +50974,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:11:02],
         updated_at: ~N[2023-03-22 18:11:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1215,
         payload: %{
           "apiVersion" => "v3",
@@ -51005,7 +51005,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:27:13],
         updated_at: ~N[2023-03-22 19:27:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1195,
         payload: %{
           "apiVersion" => "v3",
@@ -51043,7 +51043,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:28:56],
         updated_at: ~N[2023-03-22 17:28:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1203,
         payload: %{
           "apiVersion" => "v3",
@@ -51081,7 +51081,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 17:40:24],
         updated_at: ~N[2023-03-22 17:40:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1209,
         payload: %{
           "apiVersion" => "v3",
@@ -51119,7 +51119,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:41:49],
         updated_at: ~N[2023-03-22 18:41:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1210,
         payload: %{
           "apiVersion" => "v3",
@@ -51150,7 +51150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:43:44],
         updated_at: ~N[2023-03-22 18:43:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1212,
         payload: %{
           "apiVersion" => "v3",
@@ -51181,7 +51181,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:24:39],
         updated_at: ~N[2023-03-22 19:24:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1216,
         payload: %{
           "apiVersion" => "v3",
@@ -51219,7 +51219,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:27:21],
         updated_at: ~N[2023-03-22 19:27:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1542,
         payload: %{
           "apiVersion" => "v3",
@@ -51248,7 +51248,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:23:17],
         updated_at: ~N[2023-03-25 17:23:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1543,
         payload: %{
           "apiVersion" => "v3",
@@ -51279,7 +51279,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:25:42],
         updated_at: ~N[2023-03-25 17:25:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1550,
         payload: %{
           "apiVersion" => "v3",
@@ -51359,7 +51359,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 18:52:32],
         updated_at: ~N[2023-03-25 18:52:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1211,
         payload: %{
           "apiVersion" => "v3",
@@ -51397,7 +51397,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 18:43:53],
         updated_at: ~N[2023-03-22 18:43:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1214,
         payload: %{
           "apiVersion" => "v3",
@@ -51428,7 +51428,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:25:31],
         updated_at: ~N[2023-03-22 19:25:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1545,
         payload: %{
           "apiVersion" => "v3",
@@ -51493,7 +51493,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 17:32:59],
         updated_at: ~N[2023-03-25 17:32:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1547,
         payload: %{
           "apiVersion" => "v3",
@@ -51524,7 +51524,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 18:34:08],
         updated_at: ~N[2023-03-25 18:34:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1553,
         payload: %{
           "apiVersion" => "v3",
@@ -51554,7 +51554,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 20:10:36],
         updated_at: ~N[2023-03-25 20:10:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1559,
         payload: %{
           "apiVersion" => "v3",
@@ -51585,7 +51585,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 20:22:00],
         updated_at: ~N[2023-03-26 20:22:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1562,
         payload: %{
           "apiVersion" => "v3",
@@ -51621,7 +51621,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 22:24:11],
         updated_at: ~N[2023-03-26 22:24:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1565,
         payload: %{
           "apiVersion" => "v3",
@@ -51651,7 +51651,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:39:36],
         updated_at: ~N[2023-03-26 23:39:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1570,
         payload: %{
           "apiVersion" => "v3",
@@ -51689,7 +51689,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:43:53],
         updated_at: ~N[2023-03-26 23:43:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1213,
         payload: %{
           "apiVersion" => "v3",
@@ -51727,7 +51727,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:24:49],
         updated_at: ~N[2023-03-22 19:24:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1218,
         payload: %{
           "apiVersion" => "v3",
@@ -51765,7 +51765,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:29:07],
         updated_at: ~N[2023-03-22 19:29:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1548,
         payload: %{
           "apiVersion" => "v3",
@@ -51795,7 +51795,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 18:34:10],
         updated_at: ~N[2023-03-25 18:34:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1561,
         payload: %{
           "apiVersion" => "v3",
@@ -51824,7 +51824,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 21:41:16],
         updated_at: ~N[2023-03-26 21:41:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1567,
         payload: %{
           "apiVersion" => "v3",
@@ -51855,7 +51855,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:42:53],
         updated_at: ~N[2023-03-26 23:42:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1571,
         payload: %{
           "apiVersion" => "v3",
@@ -51886,7 +51886,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:46:05],
         updated_at: ~N[2023-03-26 23:46:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1575,
         payload: %{
           "apiVersion" => "v3",
@@ -51915,7 +51915,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 03:12:10],
         updated_at: ~N[2023-03-27 03:12:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1576,
         payload: %{
           "apiVersion" => "v3",
@@ -51946,7 +51946,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:02:27],
         updated_at: ~N[2023-03-27 16:02:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1581,
         payload: %{
           "apiVersion" => "v3",
@@ -51976,7 +51976,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:12:37],
         updated_at: ~N[2023-03-27 16:12:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1587,
         payload: %{
           "apiVersion" => "v3",
@@ -52005,7 +52005,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:43:31],
         updated_at: ~N[2023-03-27 16:43:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1219,
         payload: %{
           "apiVersion" => "v3",
@@ -52036,7 +52036,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-22 19:30:06],
         updated_at: ~N[2023-03-22 19:30:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1552,
         payload: %{
           "apiVersion" => "v3",
@@ -52067,7 +52067,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-25 20:10:34],
         updated_at: ~N[2023-03-25 20:10:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1557,
         payload: %{
           "apiVersion" => "v3",
@@ -52096,7 +52096,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 18:09:10],
         updated_at: ~N[2023-03-26 18:09:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1558,
         payload: %{
           "apiVersion" => "v3",
@@ -52125,7 +52125,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 18:09:29],
         updated_at: ~N[2023-03-26 18:09:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1560,
         payload: %{
           "apiVersion" => "v3",
@@ -52155,7 +52155,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 20:22:02],
         updated_at: ~N[2023-03-26 20:22:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1569,
         payload: %{
           "apiVersion" => "v3",
@@ -52186,7 +52186,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:43:46],
         updated_at: ~N[2023-03-26 23:43:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1572,
         payload: %{
           "apiVersion" => "v3",
@@ -52224,7 +52224,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-26 23:46:10],
         updated_at: ~N[2023-03-26 23:46:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1577,
         payload: %{
           "apiVersion" => "v3",
@@ -52262,7 +52262,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:02:34],
         updated_at: ~N[2023-03-27 16:02:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1582,
         payload: %{
           "apiVersion" => "v3",
@@ -52291,7 +52291,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:13:32],
         updated_at: ~N[2023-03-27 16:13:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1583,
         payload: %{
           "apiVersion" => "v3",
@@ -52321,7 +52321,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 16:14:39],
         updated_at: ~N[2023-03-27 16:14:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1646,
         payload: %{
           "apiVersion" => "v3",
@@ -52359,7 +52359,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 21:41:42],
         updated_at: ~N[2023-03-27 21:41:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1647,
         payload: %{
           "apiVersion" => "v3",
@@ -52389,7 +52389,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 22:48:05],
         updated_at: ~N[2023-03-27 22:48:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1648,
         payload: %{
           "apiVersion" => "v3",
@@ -52420,7 +52420,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:06:13],
         updated_at: ~N[2023-03-27 23:06:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1649,
         payload: %{
           "apiVersion" => "v3",
@@ -52458,7 +52458,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:06:25],
         updated_at: ~N[2023-03-27 23:06:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1652,
         payload: %{
           "apiVersion" => "v3",
@@ -52489,7 +52489,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:32:34],
         updated_at: ~N[2023-03-27 23:32:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1656,
         payload: %{
           "apiVersion" => "v3",
@@ -52520,7 +52520,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:47:23],
         updated_at: ~N[2023-03-27 23:47:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1662,
         payload: %{
           "apiVersion" => "v3",
@@ -52549,7 +52549,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:14:20],
         updated_at: ~N[2023-03-28 00:14:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1665,
         payload: %{
           "apiVersion" => "v3",
@@ -52580,7 +52580,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:44:25],
         updated_at: ~N[2023-03-28 00:44:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1672,
         payload: %{
           "apiVersion" => "v3",
@@ -52609,7 +52609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:04:28],
         updated_at: ~N[2023-03-28 16:04:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1676,
         payload: %{
           "apiVersion" => "v3",
@@ -52638,7 +52638,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:10:16],
         updated_at: ~N[2023-03-28 16:10:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1681,
         payload: %{
           "apiVersion" => "v3",
@@ -52667,7 +52667,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:17:07],
         updated_at: ~N[2023-03-28 16:17:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1650,
         payload: %{
           "apiVersion" => "v3",
@@ -52698,7 +52698,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:28:36],
         updated_at: ~N[2023-03-27 23:28:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1653,
         payload: %{
           "apiVersion" => "v3",
@@ -52736,7 +52736,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:32:43],
         updated_at: ~N[2023-03-27 23:32:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1660,
         payload: %{
           "apiVersion" => "v3",
@@ -52765,7 +52765,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:57:38],
         updated_at: ~N[2023-03-27 23:57:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1663,
         payload: %{
           "apiVersion" => "v3",
@@ -52794,7 +52794,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:14:57],
         updated_at: ~N[2023-03-28 00:14:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1666,
         payload: %{
           "apiVersion" => "v3",
@@ -52832,7 +52832,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:44:34],
         updated_at: ~N[2023-03-28 00:44:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1667,
         payload: %{
           "apiVersion" => "v3",
@@ -52861,7 +52861,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 04:47:35],
         updated_at: ~N[2023-03-28 04:47:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1673,
         payload: %{
           "apiVersion" => "v3",
@@ -52892,7 +52892,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:05:46],
         updated_at: ~N[2023-03-28 16:05:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1679,
         payload: %{
           "apiVersion" => "v3",
@@ -52921,7 +52921,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:14:06],
         updated_at: ~N[2023-03-28 16:14:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1685,
         payload: %{
           "apiVersion" => "v3",
@@ -52951,7 +52951,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:25:43],
         updated_at: ~N[2023-03-28 16:25:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1691,
         payload: %{
           "apiVersion" => "v3",
@@ -52980,7 +52980,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:30:56],
         updated_at: ~N[2023-03-28 16:30:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1692,
         payload: %{
           "apiVersion" => "v3",
@@ -53010,7 +53010,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:31:14],
         updated_at: ~N[2023-03-28 16:31:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1651,
         payload: %{
           "apiVersion" => "v3",
@@ -53040,7 +53040,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:28:38],
         updated_at: ~N[2023-03-27 23:28:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1654,
         payload: %{
           "apiVersion" => "v3",
@@ -53071,7 +53071,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:37:31],
         updated_at: ~N[2023-03-27 23:37:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1661,
         payload: %{
           "apiVersion" => "v3",
@@ -53100,7 +53100,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:13:12],
         updated_at: ~N[2023-03-28 00:13:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1669,
         payload: %{
           "apiVersion" => "v3",
@@ -53129,7 +53129,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:02:21],
         updated_at: ~N[2023-03-28 16:02:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1678,
         payload: %{
           "apiVersion" => "v3",
@@ -53158,7 +53158,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:13:57],
         updated_at: ~N[2023-03-28 16:13:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1684,
         payload: %{
           "apiVersion" => "v3",
@@ -53187,7 +53187,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:22:26],
         updated_at: ~N[2023-03-28 16:22:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1690,
         payload: %{
           "apiVersion" => "v3",
@@ -53216,7 +53216,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:30:05],
         updated_at: ~N[2023-03-28 16:30:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1698,
         payload: %{
           "apiVersion" => "v3",
@@ -53245,7 +53245,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:44:22],
         updated_at: ~N[2023-03-28 16:44:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1702,
         payload: %{
           "apiVersion" => "v3",
@@ -53274,7 +53274,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 17:39:15],
         updated_at: ~N[2023-03-28 17:39:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1705,
         payload: %{
           "apiVersion" => "v3",
@@ -53304,7 +53304,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 18:10:58],
         updated_at: ~N[2023-03-28 18:10:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2038,
         payload: %{
           "apiVersion" => "v3",
@@ -53333,7 +53333,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:01:25],
         updated_at: ~N[2023-04-03 18:01:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1655,
         payload: %{
           "apiVersion" => "v3",
@@ -53371,7 +53371,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:37:38],
         updated_at: ~N[2023-03-27 23:37:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1657,
         payload: %{
           "apiVersion" => "v3",
@@ -53409,7 +53409,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:47:29],
         updated_at: ~N[2023-03-27 23:47:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1664,
         payload: %{
           "apiVersion" => "v3",
@@ -53445,7 +53445,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 00:41:46],
         updated_at: ~N[2023-03-28 00:41:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1668,
         payload: %{
           "apiVersion" => "v3",
@@ -53474,7 +53474,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:00:33],
         updated_at: ~N[2023-03-28 16:00:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1677,
         payload: %{
           "apiVersion" => "v3",
@@ -53504,7 +53504,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:11:41],
         updated_at: ~N[2023-03-28 16:11:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1683,
         payload: %{
           "apiVersion" => "v3",
@@ -53534,7 +53534,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:21:24],
         updated_at: ~N[2023-03-28 16:21:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1687,
         payload: %{
           "apiVersion" => "v3",
@@ -53564,7 +53564,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:29:01],
         updated_at: ~N[2023-03-28 16:29:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1689,
         payload: %{
           "apiVersion" => "v3",
@@ -53593,7 +53593,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:29:54],
         updated_at: ~N[2023-03-28 16:29:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1697,
         payload: %{
           "apiVersion" => "v3",
@@ -53622,7 +53622,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:43:58],
         updated_at: ~N[2023-03-28 16:43:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1704,
         payload: %{
           "apiVersion" => "v3",
@@ -53651,7 +53651,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 18:07:57],
         updated_at: ~N[2023-03-28 18:07:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1658,
         payload: %{
           "apiVersion" => "v3",
@@ -53681,7 +53681,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:50:11],
         updated_at: ~N[2023-03-27 23:50:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1659,
         payload: %{
           "apiVersion" => "v3",
@@ -53710,7 +53710,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-27 23:57:19],
         updated_at: ~N[2023-03-27 23:57:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1670,
         payload: %{
           "apiVersion" => "v3",
@@ -53739,7 +53739,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:03:14],
         updated_at: ~N[2023-03-28 16:03:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1671,
         payload: %{
           "apiVersion" => "v3",
@@ -53768,7 +53768,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:03:52],
         updated_at: ~N[2023-03-28 16:03:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1674,
         payload: %{
           "apiVersion" => "v3",
@@ -53806,7 +53806,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:05:53],
         updated_at: ~N[2023-03-28 16:05:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1675,
         payload: %{
           "apiVersion" => "v3",
@@ -53836,7 +53836,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:09:28],
         updated_at: ~N[2023-03-28 16:09:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1680,
         payload: %{
           "apiVersion" => "v3",
@@ -53866,7 +53866,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:14:15],
         updated_at: ~N[2023-03-28 16:14:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1686,
         payload: %{
           "apiVersion" => "v3",
@@ -53895,7 +53895,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:26:03],
         updated_at: ~N[2023-03-28 16:26:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1693,
         payload: %{
           "apiVersion" => "v3",
@@ -53925,7 +53925,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:34:28],
         updated_at: ~N[2023-03-28 16:34:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1695,
         payload: %{
           "apiVersion" => "v3",
@@ -53954,7 +53954,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:35:34],
         updated_at: ~N[2023-03-28 16:35:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1700,
         payload: %{
           "apiVersion" => "v3",
@@ -53984,7 +53984,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 17:11:29],
         updated_at: ~N[2023-03-28 17:11:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1682,
         payload: %{
           "apiVersion" => "v3",
@@ -54013,7 +54013,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:20:58],
         updated_at: ~N[2023-03-28 16:20:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1688,
         payload: %{
           "apiVersion" => "v3",
@@ -54042,7 +54042,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:29:20],
         updated_at: ~N[2023-03-28 16:29:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1694,
         payload: %{
           "apiVersion" => "v3",
@@ -54071,7 +54071,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:35:12],
         updated_at: ~N[2023-03-28 16:35:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1696,
         payload: %{
           "apiVersion" => "v3",
@@ -54100,7 +54100,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:36:37],
         updated_at: ~N[2023-03-28 16:36:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1701,
         payload: %{
           "apiVersion" => "v3",
@@ -54129,7 +54129,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 17:35:02],
         updated_at: ~N[2023-03-28 17:35:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1708,
         payload: %{
           "apiVersion" => "v3",
@@ -54159,7 +54159,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:08:34],
         updated_at: ~N[2023-03-28 19:08:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1714,
         payload: %{
           "apiVersion" => "v3",
@@ -54188,7 +54188,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:35:35],
         updated_at: ~N[2023-03-28 19:35:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1726,
         payload: %{
           "apiVersion" => "v3",
@@ -54217,7 +54217,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:24:02],
         updated_at: ~N[2023-03-28 20:24:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1728,
         payload: %{
           "apiVersion" => "v3",
@@ -54246,7 +54246,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:36:52],
         updated_at: ~N[2023-03-28 20:36:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1736,
         payload: %{
           "apiVersion" => "v3",
@@ -54277,7 +54277,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:50:08],
         updated_at: ~N[2023-03-28 20:50:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1748,
         payload: %{
           "apiVersion" => "v3",
@@ -54306,7 +54306,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:17:04],
         updated_at: ~N[2023-03-28 21:17:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1699,
         payload: %{
           "apiVersion" => "v3",
@@ -54336,7 +54336,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 16:45:49],
         updated_at: ~N[2023-03-28 16:45:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1709,
         payload: %{
           "apiVersion" => "v3",
@@ -54365,7 +54365,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:10:48],
         updated_at: ~N[2023-03-28 19:10:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1723,
         payload: %{
           "apiVersion" => "v3",
@@ -54396,7 +54396,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:10:49],
         updated_at: ~N[2023-03-28 20:10:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1724,
         payload: %{
           "apiVersion" => "v3",
@@ -54434,7 +54434,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:10:57],
         updated_at: ~N[2023-03-28 20:10:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1734,
         payload: %{
           "apiVersion" => "v3",
@@ -54463,7 +54463,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:44:55],
         updated_at: ~N[2023-03-28 20:44:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1752,
         payload: %{
           "apiVersion" => "v3",
@@ -54493,7 +54493,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:41:40],
         updated_at: ~N[2023-03-28 22:41:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1758,
         payload: %{
           "apiVersion" => "v3",
@@ -54523,7 +54523,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:46:36],
         updated_at: ~N[2023-03-28 22:46:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1759,
         payload: %{
           "apiVersion" => "v3",
@@ -54552,7 +54552,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:57:33],
         updated_at: ~N[2023-03-28 22:57:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1767,
         payload: %{
           "apiVersion" => "v3",
@@ -54590,7 +54590,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:52:20],
         updated_at: ~N[2023-03-28 23:52:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1807,
         payload: %{
           "apiVersion" => "v3",
@@ -54619,7 +54619,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 15:13:39],
         updated_at: ~N[2023-03-30 15:13:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1703,
         payload: %{
           "apiVersion" => "v3",
@@ -54648,7 +54648,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 17:40:06],
         updated_at: ~N[2023-03-28 17:40:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1710,
         payload: %{
           "apiVersion" => "v3",
@@ -54677,7 +54677,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:11:54],
         updated_at: ~N[2023-03-28 19:11:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1730,
         payload: %{
           "apiVersion" => "v3",
@@ -54706,7 +54706,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:38:58],
         updated_at: ~N[2023-03-28 20:38:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1731,
         payload: %{
           "apiVersion" => "v3",
@@ -54736,7 +54736,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:39:37],
         updated_at: ~N[2023-03-28 20:39:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1733,
         payload: %{
           "apiVersion" => "v3",
@@ -54766,7 +54766,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:41:14],
         updated_at: ~N[2023-03-28 20:41:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1743,
         payload: %{
           "apiVersion" => "v3",
@@ -54795,7 +54795,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:14:03],
         updated_at: ~N[2023-03-28 21:14:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1744,
         payload: %{
           "apiVersion" => "v3",
@@ -54824,7 +54824,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:14:06],
         updated_at: ~N[2023-03-28 21:14:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1753,
         payload: %{
           "apiVersion" => "v3",
@@ -54855,7 +54855,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:43:16],
         updated_at: ~N[2023-03-28 22:43:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1760,
         payload: %{
           "apiVersion" => "v3",
@@ -54884,7 +54884,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:59:29],
         updated_at: ~N[2023-03-28 22:59:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1761,
         payload: %{
           "apiVersion" => "v3",
@@ -54913,7 +54913,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:48:16],
         updated_at: ~N[2023-03-28 23:48:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1768,
         payload: %{
           "apiVersion" => "v3",
@@ -54942,7 +54942,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:54:32],
         updated_at: ~N[2023-03-28 23:54:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1772,
         payload: %{
           "apiVersion" => "v3",
@@ -54971,7 +54971,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:03:27],
         updated_at: ~N[2023-03-29 00:03:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1706,
         payload: %{
           "apiVersion" => "v3",
@@ -55001,7 +55001,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 18:40:43],
         updated_at: ~N[2023-03-28 18:40:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1712,
         payload: %{
           "apiVersion" => "v3",
@@ -55031,7 +55031,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:18:00],
         updated_at: ~N[2023-03-28 19:18:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1713,
         payload: %{
           "apiVersion" => "v3",
@@ -55060,7 +55060,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:35:21],
         updated_at: ~N[2023-03-28 19:35:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1721,
         payload: %{
           "apiVersion" => "v3",
@@ -55098,7 +55098,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:54:05],
         updated_at: ~N[2023-03-28 19:54:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1722,
         payload: %{
           "apiVersion" => "v3",
@@ -55127,7 +55127,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:54:22],
         updated_at: ~N[2023-03-28 19:54:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1732,
         payload: %{
           "apiVersion" => "v3",
@@ -55157,7 +55157,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:39:48],
         updated_at: ~N[2023-03-28 20:39:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1737,
         payload: %{
           "apiVersion" => "v3",
@@ -55195,7 +55195,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:50:16],
         updated_at: ~N[2023-03-28 20:50:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1738,
         payload: %{
           "apiVersion" => "v3",
@@ -55226,7 +55226,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:53:27],
         updated_at: ~N[2023-03-28 20:53:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1749,
         payload: %{
           "apiVersion" => "v3",
@@ -55256,7 +55256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:12:51],
         updated_at: ~N[2023-03-28 22:12:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1750,
         payload: %{
           "apiVersion" => "v3",
@@ -55285,7 +55285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:17:08],
         updated_at: ~N[2023-03-28 22:17:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1756,
         payload: %{
           "apiVersion" => "v3",
@@ -55314,7 +55314,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:46:17],
         updated_at: ~N[2023-03-28 22:46:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1707,
         payload: %{
           "apiVersion" => "v3",
@@ -55344,7 +55344,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 18:56:48],
         updated_at: ~N[2023-03-28 18:56:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1711,
         payload: %{
           "apiVersion" => "v3",
@@ -55373,7 +55373,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:12:06],
         updated_at: ~N[2023-03-28 19:12:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1715,
         payload: %{
           "apiVersion" => "v3",
@@ -55402,7 +55402,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:39:22],
         updated_at: ~N[2023-03-28 19:39:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1716,
         payload: %{
           "apiVersion" => "v3",
@@ -55432,7 +55432,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:40:43],
         updated_at: ~N[2023-03-28 19:40:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1725,
         payload: %{
           "apiVersion" => "v3",
@@ -55462,7 +55462,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:22:54],
         updated_at: ~N[2023-03-28 20:22:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1727,
         payload: %{
           "apiVersion" => "v3",
@@ -55491,7 +55491,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:24:56],
         updated_at: ~N[2023-03-28 20:24:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1735,
         payload: %{
           "apiVersion" => "v3",
@@ -55521,7 +55521,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:45:44],
         updated_at: ~N[2023-03-28 20:45:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1745,
         payload: %{
           "apiVersion" => "v3",
@@ -55550,7 +55550,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:14:08],
         updated_at: ~N[2023-03-28 21:14:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1746,
         payload: %{
           "apiVersion" => "v3",
@@ -55579,7 +55579,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:14:30],
         updated_at: ~N[2023-03-28 21:14:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1751,
         payload: %{
           "apiVersion" => "v3",
@@ -55609,7 +55609,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:19:47],
         updated_at: ~N[2023-03-28 22:19:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1754,
         payload: %{
           "apiVersion" => "v3",
@@ -55636,7 +55636,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:43:38],
         updated_at: ~N[2023-03-28 22:43:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1717,
         payload: %{
           "apiVersion" => "v3",
@@ -55665,7 +55665,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:42:18],
         updated_at: ~N[2023-03-28 19:42:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1718,
         payload: %{
           "apiVersion" => "v3",
@@ -55695,7 +55695,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:44:43],
         updated_at: ~N[2023-03-28 19:44:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1740,
         payload: %{
           "apiVersion" => "v3",
@@ -55724,7 +55724,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:54:11],
         updated_at: ~N[2023-03-28 20:54:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1741,
         payload: %{
           "apiVersion" => "v3",
@@ -55753,7 +55753,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:54:52],
         updated_at: ~N[2023-03-28 20:54:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1784,
         payload: %{
           "apiVersion" => "v3",
@@ -55782,7 +55782,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:14:07],
         updated_at: ~N[2023-03-29 00:14:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1785,
         payload: %{
           "apiVersion" => "v3",
@@ -55812,7 +55812,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:15:33],
         updated_at: ~N[2023-03-29 00:15:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1795,
         payload: %{
           "apiVersion" => "v3",
@@ -55841,7 +55841,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:57:12],
         updated_at: ~N[2023-03-29 16:57:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1719,
         payload: %{
           "apiVersion" => "v3",
@@ -55870,7 +55870,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:52:38],
         updated_at: ~N[2023-03-28 19:52:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1739,
         payload: %{
           "apiVersion" => "v3",
@@ -55908,7 +55908,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:53:33],
         updated_at: ~N[2023-03-28 20:53:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1781,
         payload: %{
           "apiVersion" => "v3",
@@ -55946,7 +55946,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:11:37],
         updated_at: ~N[2023-03-29 00:11:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1799,
         payload: %{
           "apiVersion" => "v3",
@@ -55975,7 +55975,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 17:02:38],
         updated_at: ~N[2023-03-29 17:02:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1720,
         payload: %{
           "apiVersion" => "v3",
@@ -56006,7 +56006,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 19:53:57],
         updated_at: ~N[2023-03-28 19:53:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1742,
         payload: %{
           "apiVersion" => "v3",
@@ -56035,7 +56035,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:55:16],
         updated_at: ~N[2023-03-28 20:55:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1764,
         payload: %{
           "apiVersion" => "v3",
@@ -56064,7 +56064,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:51:37],
         updated_at: ~N[2023-03-28 23:51:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1770,
         payload: %{
           "apiVersion" => "v3",
@@ -56095,7 +56095,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:55:54],
         updated_at: ~N[2023-03-28 23:55:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1786,
         payload: %{
           "apiVersion" => "v3",
@@ -56124,7 +56124,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 03:17:11],
         updated_at: ~N[2023-03-29 03:17:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1822,
         payload: %{
           "apiVersion" => "v3",
@@ -56155,7 +56155,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:43:25],
         updated_at: ~N[2023-03-30 17:43:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1729,
         payload: %{
           "apiVersion" => "v3",
@@ -56185,7 +56185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 20:37:59],
         updated_at: ~N[2023-03-28 20:37:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1747,
         payload: %{
           "apiVersion" => "v3",
@@ -56215,7 +56215,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 21:16:05],
         updated_at: ~N[2023-03-28 21:16:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1787,
         payload: %{
           "apiVersion" => "v3",
@@ -56245,7 +56245,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 13:42:07],
         updated_at: ~N[2023-03-29 13:42:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1801,
         payload: %{
           "apiVersion" => "v3",
@@ -56275,7 +56275,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 19:38:12],
         updated_at: ~N[2023-03-29 19:38:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1755,
         payload: %{
           "apiVersion" => "v3",
@@ -56313,7 +56313,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:43:39],
         updated_at: ~N[2023-03-28 22:43:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1765,
         payload: %{
           "apiVersion" => "v3",
@@ -56342,7 +56342,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:51:58],
         updated_at: ~N[2023-03-28 23:51:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1771,
         payload: %{
           "apiVersion" => "v3",
@@ -56380,7 +56380,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:56:02],
         updated_at: ~N[2023-03-28 23:56:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1777,
         payload: %{
           "apiVersion" => "v3",
@@ -56409,7 +56409,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:07:39],
         updated_at: ~N[2023-03-29 00:07:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1792,
         payload: %{
           "apiVersion" => "v3",
@@ -56438,7 +56438,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:51:50],
         updated_at: ~N[2023-03-29 16:51:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1805,
         payload: %{
           "apiVersion" => "v3",
@@ -56465,7 +56465,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 00:46:10],
         updated_at: ~N[2023-03-30 00:46:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1806,
         payload: %{
           "apiVersion" => "v3",
@@ -56494,7 +56494,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 15:13:09],
         updated_at: ~N[2023-03-30 15:13:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1815,
         payload: %{
           "apiVersion" => "v3",
@@ -56525,7 +56525,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:36:04],
         updated_at: ~N[2023-03-30 17:36:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1819,
         payload: %{
           "apiVersion" => "v3",
@@ -56563,7 +56563,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:40:01],
         updated_at: ~N[2023-03-30 17:40:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1826,
         payload: %{
           "apiVersion" => "v3",
@@ -56592,7 +56592,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:44:48],
         updated_at: ~N[2023-03-30 17:44:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1830,
         payload: %{
           "apiVersion" => "v3",
@@ -56630,7 +56630,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:47:48],
         updated_at: ~N[2023-03-30 17:47:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1757,
         payload: %{
           "apiVersion" => "v3",
@@ -56659,7 +56659,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 22:46:23],
         updated_at: ~N[2023-03-28 22:46:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1766,
         payload: %{
           "apiVersion" => "v3",
@@ -56690,7 +56690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:52:08],
         updated_at: ~N[2023-03-28 23:52:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1774,
         payload: %{
           "apiVersion" => "v3",
@@ -56730,7 +56730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:03:55],
         updated_at: ~N[2023-03-29 00:03:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1779,
         payload: %{
           "apiVersion" => "v3",
@@ -56759,7 +56759,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:09:40],
         updated_at: ~N[2023-03-29 00:09:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1780,
         payload: %{
           "apiVersion" => "v3",
@@ -56790,7 +56790,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:11:29],
         updated_at: ~N[2023-03-29 00:11:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1789,
         payload: %{
           "apiVersion" => "v3",
@@ -56820,7 +56820,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:03:33],
         updated_at: ~N[2023-03-29 16:03:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1796,
         payload: %{
           "apiVersion" => "v3",
@@ -56851,7 +56851,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 17:01:01],
         updated_at: ~N[2023-03-29 17:01:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1797,
         payload: %{
           "apiVersion" => "v3",
@@ -56889,7 +56889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 17:01:08],
         updated_at: ~N[2023-03-29 17:01:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1802,
         payload: %{
           "apiVersion" => "v3",
@@ -56920,7 +56920,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 19:42:35],
         updated_at: ~N[2023-03-29 19:42:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1803,
         payload: %{
           "apiVersion" => "v3",
@@ -56958,7 +56958,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 19:42:42],
         updated_at: ~N[2023-03-29 19:42:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1762,
         payload: %{
           "apiVersion" => "v3",
@@ -56987,7 +56987,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:50:57],
         updated_at: ~N[2023-03-28 23:50:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1763,
         payload: %{
           "apiVersion" => "v3",
@@ -57016,7 +57016,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:51:12],
         updated_at: ~N[2023-03-28 23:51:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1769,
         payload: %{
           "apiVersion" => "v3",
@@ -57045,7 +57045,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-28 23:55:28],
         updated_at: ~N[2023-03-28 23:55:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1776,
         payload: %{
           "apiVersion" => "v3",
@@ -57075,7 +57075,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:05:08],
         updated_at: ~N[2023-03-29 00:05:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1793,
         payload: %{
           "apiVersion" => "v3",
@@ -57105,7 +57105,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:56:03],
         updated_at: ~N[2023-03-29 16:56:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1809,
         payload: %{
           "apiVersion" => "v3",
@@ -57134,7 +57134,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 15:13:54],
         updated_at: ~N[2023-03-30 15:13:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1812,
         payload: %{
           "apiVersion" => "v3",
@@ -57165,7 +57165,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:35:45],
         updated_at: ~N[2023-03-30 17:35:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1818,
         payload: %{
           "apiVersion" => "v3",
@@ -57196,7 +57196,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:39:52],
         updated_at: ~N[2023-03-30 17:39:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1821,
         payload: %{
           "apiVersion" => "v3",
@@ -57234,7 +57234,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:41:05],
         updated_at: ~N[2023-03-30 17:41:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1829,
         payload: %{
           "apiVersion" => "v3",
@@ -57265,7 +57265,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:47:41],
         updated_at: ~N[2023-03-30 17:47:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1834,
         payload: %{
           "apiVersion" => "v3",
@@ -57292,7 +57292,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:51:41],
         updated_at: ~N[2023-03-30 17:51:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1773,
         payload: %{
           "apiVersion" => "v3",
@@ -57332,7 +57332,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:03:50],
         updated_at: ~N[2023-03-29 00:03:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1778,
         payload: %{
           "apiVersion" => "v3",
@@ -57361,7 +57361,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:08:31],
         updated_at: ~N[2023-03-29 00:08:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1790,
         payload: %{
           "apiVersion" => "v3",
@@ -57391,7 +57391,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:33:50],
         updated_at: ~N[2023-03-29 16:33:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1798,
         payload: %{
           "apiVersion" => "v3",
@@ -57420,7 +57420,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 17:02:37],
         updated_at: ~N[2023-03-29 17:02:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1800,
         payload: %{
           "apiVersion" => "v3",
@@ -57449,7 +57449,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 17:08:30],
         updated_at: ~N[2023-03-29 17:08:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1804,
         payload: %{
           "apiVersion" => "v3",
@@ -57479,7 +57479,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 19:59:21],
         updated_at: ~N[2023-03-29 19:59:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1808,
         payload: %{
           "apiVersion" => "v3",
@@ -57508,7 +57508,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 15:13:43],
         updated_at: ~N[2023-03-30 15:13:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1811,
         payload: %{
           "apiVersion" => "v3",
@@ -57538,7 +57538,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:35:04],
         updated_at: ~N[2023-03-30 17:35:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1814,
         payload: %{
           "apiVersion" => "v3",
@@ -57568,7 +57568,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:36:01],
         updated_at: ~N[2023-03-30 17:36:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1823,
         payload: %{
           "apiVersion" => "v3",
@@ -57606,7 +57606,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:43:36],
         updated_at: ~N[2023-03-30 17:43:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1775,
         payload: %{
           "apiVersion" => "v3",
@@ -57666,7 +57666,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:04:17],
         updated_at: ~N[2023-03-29 00:04:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1782,
         payload: %{
           "apiVersion" => "v3",
@@ -57695,7 +57695,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:12:36],
         updated_at: ~N[2023-03-29 00:12:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1783,
         payload: %{
           "apiVersion" => "v3",
@@ -57725,7 +57725,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 00:13:40],
         updated_at: ~N[2023-03-29 00:13:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1788,
         payload: %{
           "apiVersion" => "v3",
@@ -57752,7 +57752,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 13:42:10],
         updated_at: ~N[2023-03-29 13:42:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1791,
         payload: %{
           "apiVersion" => "v3",
@@ -57781,7 +57781,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:50:44],
         updated_at: ~N[2023-03-29 16:50:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1794,
         payload: %{
           "apiVersion" => "v3",
@@ -57810,7 +57810,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-29 16:56:29],
         updated_at: ~N[2023-03-29 16:56:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1813,
         payload: %{
           "apiVersion" => "v3",
@@ -57837,7 +57837,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:35:49],
         updated_at: ~N[2023-03-30 17:35:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1816,
         payload: %{
           "apiVersion" => "v3",
@@ -57875,7 +57875,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:36:11],
         updated_at: ~N[2023-03-30 17:36:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1824,
         payload: %{
           "apiVersion" => "v3",
@@ -57904,7 +57904,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:43:54],
         updated_at: ~N[2023-03-30 17:43:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1827,
         payload: %{
           "apiVersion" => "v3",
@@ -57933,7 +57933,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:45:14],
         updated_at: ~N[2023-03-30 17:45:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1836,
         payload: %{
           "apiVersion" => "v3",
@@ -57960,7 +57960,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:52:17],
         updated_at: ~N[2023-03-30 17:52:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1810,
         payload: %{
           "apiVersion" => "v3",
@@ -57990,7 +57990,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 16:10:12],
         updated_at: ~N[2023-03-30 16:10:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1817,
         payload: %{
           "apiVersion" => "v3",
@@ -58028,7 +58028,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:36:12],
         updated_at: ~N[2023-03-30 17:36:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1820,
         payload: %{
           "apiVersion" => "v3",
@@ -58059,7 +58059,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:40:57],
         updated_at: ~N[2023-03-30 17:40:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1828,
         payload: %{
           "apiVersion" => "v3",
@@ -58088,7 +58088,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:45:31],
         updated_at: ~N[2023-03-30 17:45:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1832,
         payload: %{
           "apiVersion" => "v3",
@@ -58119,7 +58119,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:51:21],
         updated_at: ~N[2023-03-30 17:51:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1839,
         payload: %{
           "apiVersion" => "v3",
@@ -58150,7 +58150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:01:20],
         updated_at: ~N[2023-03-30 18:01:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1843,
         payload: %{
           "apiVersion" => "v3",
@@ -58188,7 +58188,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:14:59],
         updated_at: ~N[2023-03-30 18:14:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1846,
         payload: %{
           "apiVersion" => "v3",
@@ -58218,7 +58218,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:29:22],
         updated_at: ~N[2023-03-30 18:29:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1851,
         payload: %{
           "apiVersion" => "v3",
@@ -58249,7 +58249,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 19:54:18],
         updated_at: ~N[2023-03-30 19:54:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1855,
         payload: %{
           "apiVersion" => "v3",
@@ -58276,7 +58276,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 22:32:12],
         updated_at: ~N[2023-03-30 22:32:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1825,
         payload: %{
           "apiVersion" => "v3",
@@ -58305,7 +58305,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:44:35],
         updated_at: ~N[2023-03-30 17:44:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1831,
         payload: %{
           "apiVersion" => "v3",
@@ -58335,7 +58335,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:50:02],
         updated_at: ~N[2023-03-30 17:50:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1835,
         payload: %{
           "apiVersion" => "v3",
@@ -58362,7 +58362,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:52:05],
         updated_at: ~N[2023-03-30 17:52:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1841,
         payload: %{
           "apiVersion" => "v3",
@@ -58392,7 +58392,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:07:12],
         updated_at: ~N[2023-03-30 18:07:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1848,
         payload: %{
           "apiVersion" => "v3",
@@ -58419,7 +58419,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:52:44],
         updated_at: ~N[2023-03-30 18:52:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1850,
         payload: %{
           "apiVersion" => "v3",
@@ -58446,7 +58446,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 19:25:12],
         updated_at: ~N[2023-03-30 19:25:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1854,
         payload: %{
           "apiVersion" => "v3",
@@ -58477,7 +58477,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 22:32:07],
         updated_at: ~N[2023-03-30 22:32:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1833,
         payload: %{
           "apiVersion" => "v3",
@@ -58515,7 +58515,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:51:28],
         updated_at: ~N[2023-03-30 17:51:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1837,
         payload: %{
           "apiVersion" => "v3",
@@ -58546,7 +58546,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:56:57],
         updated_at: ~N[2023-03-30 17:56:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1842,
         payload: %{
           "apiVersion" => "v3",
@@ -58577,7 +58577,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:14:30],
         updated_at: ~N[2023-03-30 18:14:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1847,
         payload: %{
           "apiVersion" => "v3",
@@ -58606,7 +58606,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:30:17],
         updated_at: ~N[2023-03-30 18:30:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1853,
         payload: %{
           "apiVersion" => "v3",
@@ -58633,7 +58633,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 19:59:06],
         updated_at: ~N[2023-03-30 19:59:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1838,
         payload: %{
           "apiVersion" => "v3",
@@ -58671,7 +58671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 17:57:01],
         updated_at: ~N[2023-03-30 17:57:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1844,
         payload: %{
           "apiVersion" => "v3",
@@ -58702,7 +58702,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:22:21],
         updated_at: ~N[2023-03-30 18:22:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1849,
         payload: %{
           "apiVersion" => "v3",
@@ -58729,7 +58729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 19:10:36],
         updated_at: ~N[2023-03-30 19:10:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1840,
         payload: %{
           "apiVersion" => "v3",
@@ -58767,7 +58767,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:01:32],
         updated_at: ~N[2023-03-30 18:01:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1845,
         payload: %{
           "apiVersion" => "v3",
@@ -58805,7 +58805,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 18:22:30],
         updated_at: ~N[2023-03-30 18:22:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1852,
         payload: %{
           "apiVersion" => "v3",
@@ -58843,7 +58843,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 19:54:42],
         updated_at: ~N[2023-03-30 19:54:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1856,
         payload: %{
           "apiVersion" => "v3",
@@ -58881,7 +58881,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 22:32:22],
         updated_at: ~N[2023-03-30 22:32:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1857,
         payload: %{
           "apiVersion" => "v3",
@@ -58911,7 +58911,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-30 22:38:58],
         updated_at: ~N[2023-03-30 22:38:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1858,
         payload: %{
           "apiVersion" => "v3",
@@ -58941,7 +58941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 00:46:39],
         updated_at: ~N[2023-03-31 00:46:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1859,
         payload: %{
           "apiVersion" => "v3",
@@ -58971,7 +58971,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 01:17:01],
         updated_at: ~N[2023-03-31 01:17:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1860,
         payload: %{
           "apiVersion" => "v3",
@@ -59000,7 +59000,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:00:35],
         updated_at: ~N[2023-03-31 16:00:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1861,
         payload: %{
           "apiVersion" => "v3",
@@ -59031,7 +59031,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:05:50],
         updated_at: ~N[2023-03-31 16:05:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1878,
         payload: %{
           "apiVersion" => "v3",
@@ -59060,7 +59060,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:47:58],
         updated_at: ~N[2023-03-31 16:47:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1862,
         payload: %{
           "apiVersion" => "v3",
@@ -59098,7 +59098,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:05:57],
         updated_at: ~N[2023-03-31 16:05:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1863,
         payload: %{
           "apiVersion" => "v3",
@@ -59128,7 +59128,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:06:35],
         updated_at: ~N[2023-03-31 16:06:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1864,
         payload: %{
           "apiVersion" => "v3",
@@ -59158,7 +59158,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:21:03],
         updated_at: ~N[2023-03-31 16:21:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1865,
         payload: %{
           "apiVersion" => "v3",
@@ -59187,7 +59187,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:22:42],
         updated_at: ~N[2023-03-31 16:22:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1866,
         payload: %{
           "apiVersion" => "v3",
@@ -59216,7 +59216,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:25:27],
         updated_at: ~N[2023-03-31 16:25:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1870,
         payload: %{
           "apiVersion" => "v3",
@@ -59247,7 +59247,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:31:12],
         updated_at: ~N[2023-03-31 16:31:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1871,
         payload: %{
           "apiVersion" => "v3",
@@ -59285,7 +59285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:31:19],
         updated_at: ~N[2023-03-31 16:31:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1872,
         payload: %{
           "apiVersion" => "v3",
@@ -59315,7 +59315,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:32:28],
         updated_at: ~N[2023-03-31 16:32:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1873,
         payload: %{
           "apiVersion" => "v3",
@@ -59344,7 +59344,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:32:51],
         updated_at: ~N[2023-03-31 16:32:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1874,
         payload: %{
           "apiVersion" => "v3",
@@ -59373,7 +59373,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:33:11],
         updated_at: ~N[2023-03-31 16:33:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1877,
         payload: %{
           "apiVersion" => "v3",
@@ -59403,7 +59403,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:47:29],
         updated_at: ~N[2023-03-31 16:47:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1867,
         payload: %{
           "apiVersion" => "v3",
@@ -59434,7 +59434,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:28:31],
         updated_at: ~N[2023-03-31 16:28:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1875,
         payload: %{
           "apiVersion" => "v3",
@@ -59463,7 +59463,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:33:25],
         updated_at: ~N[2023-03-31 16:33:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1881,
         payload: %{
           "apiVersion" => "v3",
@@ -59494,7 +59494,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:58:20],
         updated_at: ~N[2023-03-31 16:58:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1883,
         payload: %{
           "apiVersion" => "v3",
@@ -59523,7 +59523,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:00:13],
         updated_at: ~N[2023-03-31 17:00:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1885,
         payload: %{
           "apiVersion" => "v3",
@@ -59553,7 +59553,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:17:50],
         updated_at: ~N[2023-03-31 17:17:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1888,
         payload: %{
           "apiVersion" => "v3",
@@ -59583,7 +59583,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:32:29],
         updated_at: ~N[2023-03-31 17:32:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1894,
         payload: %{
           "apiVersion" => "v3",
@@ -59613,7 +59613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:21:58],
         updated_at: ~N[2023-03-31 18:21:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1899,
         payload: %{
           "apiVersion" => "v3",
@@ -59642,7 +59642,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:26:31],
         updated_at: ~N[2023-03-31 18:26:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1903,
         payload: %{
           "apiVersion" => "v3",
@@ -59671,7 +59671,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:06:00],
         updated_at: ~N[2023-03-31 19:06:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1911,
         payload: %{
           "apiVersion" => "v3",
@@ -59709,7 +59709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:35:49],
         updated_at: ~N[2023-03-31 20:35:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1912,
         payload: %{
           "apiVersion" => "v3",
@@ -59739,7 +59739,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:35:59],
         updated_at: ~N[2023-03-31 20:35:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1868,
         payload: %{
           "apiVersion" => "v3",
@@ -59777,7 +59777,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:28:39],
         updated_at: ~N[2023-03-31 16:28:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1869,
         payload: %{
           "apiVersion" => "v3",
@@ -59806,7 +59806,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:30:29],
         updated_at: ~N[2023-03-31 16:30:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1876,
         payload: %{
           "apiVersion" => "v3",
@@ -59836,7 +59836,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:46:33],
         updated_at: ~N[2023-03-31 16:46:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1884,
         payload: %{
           "apiVersion" => "v3",
@@ -59865,7 +59865,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:00:34],
         updated_at: ~N[2023-03-31 17:00:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1887,
         payload: %{
           "apiVersion" => "v3",
@@ -59895,7 +59895,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:26:30],
         updated_at: ~N[2023-03-31 17:26:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1890,
         payload: %{
           "apiVersion" => "v3",
@@ -59924,7 +59924,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:56:20],
         updated_at: ~N[2023-03-31 17:56:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1892,
         payload: %{
           "apiVersion" => "v3",
@@ -59962,7 +59962,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:07:58],
         updated_at: ~N[2023-03-31 18:07:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1898,
         payload: %{
           "apiVersion" => "v3",
@@ -59991,7 +59991,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:25:26],
         updated_at: ~N[2023-03-31 18:25:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1919,
         payload: %{
           "apiVersion" => "v3",
@@ -60020,7 +60020,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:39:39],
         updated_at: ~N[2023-03-31 20:39:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1925,
         payload: %{
           "apiVersion" => "v3",
@@ -60058,7 +60058,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:50:32],
         updated_at: ~N[2023-03-31 20:50:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1879,
         payload: %{
           "apiVersion" => "v3",
@@ -60087,7 +60087,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:48:38],
         updated_at: ~N[2023-03-31 16:48:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1882,
         payload: %{
           "apiVersion" => "v3",
@@ -60125,7 +60125,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:58:27],
         updated_at: ~N[2023-03-31 16:58:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1886,
         payload: %{
           "apiVersion" => "v3",
@@ -60155,7 +60155,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:20:36],
         updated_at: ~N[2023-03-31 17:20:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1889,
         payload: %{
           "apiVersion" => "v3",
@@ -60185,7 +60185,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 17:34:47],
         updated_at: ~N[2023-03-31 17:34:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1895,
         payload: %{
           "apiVersion" => "v3",
@@ -60214,7 +60214,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:24:56],
         updated_at: ~N[2023-03-31 18:24:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1906,
         payload: %{
           "apiVersion" => "v3",
@@ -60252,7 +60252,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:18:13],
         updated_at: ~N[2023-03-31 19:18:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1907,
         payload: %{
           "apiVersion" => "v3",
@@ -60281,7 +60281,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:38:10],
         updated_at: ~N[2023-03-31 19:38:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1914,
         payload: %{
           "apiVersion" => "v3",
@@ -60312,7 +60312,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:36:47],
         updated_at: ~N[2023-03-31 20:36:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1916,
         payload: %{
           "apiVersion" => "v3",
@@ -60350,7 +60350,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:36:56],
         updated_at: ~N[2023-03-31 20:36:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1880,
         payload: %{
           "apiVersion" => "v3",
@@ -60379,7 +60379,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 16:48:57],
         updated_at: ~N[2023-03-31 16:48:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1893,
         payload: %{
           "apiVersion" => "v3",
@@ -60408,7 +60408,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:20:36],
         updated_at: ~N[2023-03-31 18:20:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1897,
         payload: %{
           "apiVersion" => "v3",
@@ -60437,7 +60437,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:25:25],
         updated_at: ~N[2023-03-31 18:25:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1901,
         payload: %{
           "apiVersion" => "v3",
@@ -60466,7 +60466,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:33:44],
         updated_at: ~N[2023-03-31 18:33:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1902,
         payload: %{
           "apiVersion" => "v3",
@@ -60495,7 +60495,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:05:29],
         updated_at: ~N[2023-03-31 19:05:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1904,
         payload: %{
           "apiVersion" => "v3",
@@ -60524,7 +60524,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:17:14],
         updated_at: ~N[2023-03-31 19:17:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1917,
         payload: %{
           "apiVersion" => "v3",
@@ -60604,7 +60604,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:37:45],
         updated_at: ~N[2023-03-31 20:37:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1933,
         payload: %{
           "apiVersion" => "v3",
@@ -60633,7 +60633,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:52:39],
         updated_at: ~N[2023-03-31 22:52:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1945,
         payload: %{
           "apiVersion" => "v3",
@@ -60662,7 +60662,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:05:22],
         updated_at: ~N[2023-04-01 16:05:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1946,
         payload: %{
           "apiVersion" => "v3",
@@ -60692,7 +60692,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:07:29],
         updated_at: ~N[2023-04-01 16:07:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1891,
         payload: %{
           "apiVersion" => "v3",
@@ -60723,7 +60723,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:07:50],
         updated_at: ~N[2023-03-31 18:07:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1896,
         payload: %{
           "apiVersion" => "v3",
@@ -60752,7 +60752,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:25:15],
         updated_at: ~N[2023-03-31 18:25:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1900,
         payload: %{
           "apiVersion" => "v3",
@@ -60781,7 +60781,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 18:33:36],
         updated_at: ~N[2023-03-31 18:33:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1905,
         payload: %{
           "apiVersion" => "v3",
@@ -60812,7 +60812,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 19:18:06],
         updated_at: ~N[2023-03-31 19:18:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1908,
         payload: %{
           "apiVersion" => "v3",
@@ -60843,7 +60843,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:33:02],
         updated_at: ~N[2023-03-31 20:33:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1909,
         payload: %{
           "apiVersion" => "v3",
@@ -60881,7 +60881,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:33:12],
         updated_at: ~N[2023-03-31 20:33:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1910,
         payload: %{
           "apiVersion" => "v3",
@@ -60912,7 +60912,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:35:44],
         updated_at: ~N[2023-03-31 20:35:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1915,
         payload: %{
           "apiVersion" => "v3",
@@ -60941,7 +60941,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:36:51],
         updated_at: ~N[2023-03-31 20:36:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1918,
         payload: %{
           "apiVersion" => "v3",
@@ -61006,7 +61006,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:39:30],
         updated_at: ~N[2023-03-31 20:39:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1920,
         payload: %{
           "apiVersion" => "v3",
@@ -61037,7 +61037,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:44:47],
         updated_at: ~N[2023-03-31 20:44:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1921,
         payload: %{
           "apiVersion" => "v3",
@@ -61075,7 +61075,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:45:03],
         updated_at: ~N[2023-03-31 20:45:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1935,
         payload: %{
           "apiVersion" => "v3",
@@ -61104,7 +61104,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:55:40],
         updated_at: ~N[2023-03-31 22:55:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1944,
         payload: %{
           "apiVersion" => "v3",
@@ -61133,7 +61133,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 14:38:13],
         updated_at: ~N[2023-04-01 14:38:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1947,
         payload: %{
           "apiVersion" => "v3",
@@ -61162,7 +61162,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:13:26],
         updated_at: ~N[2023-04-01 16:13:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1948,
         payload: %{
           "apiVersion" => "v3",
@@ -61191,7 +61191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:14:31],
         updated_at: ~N[2023-04-01 16:14:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1958,
         payload: %{
           "apiVersion" => "v3",
@@ -61221,7 +61221,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 17:04:34],
         updated_at: ~N[2023-04-01 17:04:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1959,
         payload: %{
           "apiVersion" => "v3",
@@ -61250,7 +61250,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 17:05:25],
         updated_at: ~N[2023-04-01 17:05:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1963,
         payload: %{
           "apiVersion" => "v3",
@@ -61279,7 +61279,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 18:02:56],
         updated_at: ~N[2023-04-01 18:02:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1977,
         payload: %{
           "apiVersion" => "v3",
@@ -61308,7 +61308,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:26:28],
         updated_at: ~N[2023-04-01 21:26:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1980,
         payload: %{
           "apiVersion" => "v3",
@@ -61337,7 +61337,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:28:43],
         updated_at: ~N[2023-04-01 21:28:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1986,
         payload: %{
           "apiVersion" => "v3",
@@ -61366,7 +61366,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:35:57],
         updated_at: ~N[2023-04-01 21:35:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1991,
         payload: %{
           "apiVersion" => "v3",
@@ -61395,7 +61395,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:39:31],
         updated_at: ~N[2023-04-01 21:39:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1922,
         payload: %{
           "apiVersion" => "v3",
@@ -61422,7 +61422,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:45:39],
         updated_at: ~N[2023-03-31 20:45:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1934,
         payload: %{
           "apiVersion" => "v3",
@@ -61451,7 +61451,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:53:10],
         updated_at: ~N[2023-03-31 22:53:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1942,
         payload: %{
           "apiVersion" => "v3",
@@ -61481,7 +61481,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 14:25:46],
         updated_at: ~N[2023-04-01 14:25:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1951,
         payload: %{
           "apiVersion" => "v3",
@@ -61511,7 +61511,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:22:20],
         updated_at: ~N[2023-04-01 16:22:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1957,
         payload: %{
           "apiVersion" => "v3",
@@ -61540,7 +61540,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:59:45],
         updated_at: ~N[2023-04-01 16:59:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1962,
         payload: %{
           "apiVersion" => "v3",
@@ -61569,7 +61569,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 17:56:17],
         updated_at: ~N[2023-04-01 17:56:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1968,
         payload: %{
           "apiVersion" => "v3",
@@ -61649,7 +61649,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 19:37:26],
         updated_at: ~N[2023-04-01 19:37:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1972,
         payload: %{
           "apiVersion" => "v3",
@@ -61678,7 +61678,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 20:59:25],
         updated_at: ~N[2023-04-01 20:59:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1978,
         payload: %{
           "apiVersion" => "v3",
@@ -61707,7 +61707,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:26:38],
         updated_at: ~N[2023-04-01 21:26:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1981,
         payload: %{
           "apiVersion" => "v3",
@@ -61737,7 +61737,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:30:20],
         updated_at: ~N[2023-04-01 21:30:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1923,
         payload: %{
           "apiVersion" => "v3",
@@ -61766,7 +61766,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:48:18],
         updated_at: ~N[2023-03-31 20:48:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1940,
         payload: %{
           "apiVersion" => "v3",
@@ -61795,7 +61795,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 23:01:50],
         updated_at: ~N[2023-03-31 23:01:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1924,
         payload: %{
           "apiVersion" => "v3",
@@ -61826,7 +61826,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:50:23],
         updated_at: ~N[2023-03-31 20:50:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1941,
         payload: %{
           "apiVersion" => "v3",
@@ -61856,7 +61856,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 01:40:20],
         updated_at: ~N[2023-04-01 01:40:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1927,
         payload: %{
           "apiVersion" => "v3",
@@ -61886,7 +61886,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 20:55:01],
         updated_at: ~N[2023-03-31 20:55:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1937,
         payload: %{
           "apiVersion" => "v3",
@@ -61915,7 +61915,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:57:01],
         updated_at: ~N[2023-03-31 22:57:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2081,
         payload: %{
           "apiVersion" => "v3",
@@ -61953,7 +61953,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:37:10],
         updated_at: ~N[2023-04-03 19:37:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1928,
         payload: %{
           "apiVersion" => "v3",
@@ -61982,7 +61982,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:35:51],
         updated_at: ~N[2023-03-31 22:35:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2035,
         payload: %{
           "apiVersion" => "v3",
@@ -62012,7 +62012,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:50:36],
         updated_at: ~N[2023-04-03 17:50:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2048,
         payload: %{
           "apiVersion" => "v3",
@@ -62042,7 +62042,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:14:19],
         updated_at: ~N[2023-04-03 18:14:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2072,
         payload: %{
           "apiVersion" => "v3",
@@ -62073,7 +62073,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:32:42],
         updated_at: ~N[2023-04-03 19:32:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2093,
         payload: %{
           "apiVersion" => "v3",
@@ -62104,7 +62104,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:15:01],
         updated_at: ~N[2023-04-03 20:15:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1929,
         payload: %{
           "apiVersion" => "v3",
@@ -62133,7 +62133,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:49:09],
         updated_at: ~N[2023-03-31 22:49:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2034,
         payload: %{
           "apiVersion" => "v3",
@@ -62162,7 +62162,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:38:38],
         updated_at: ~N[2023-04-03 17:38:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2047,
         payload: %{
           "apiVersion" => "v3",
@@ -62192,7 +62192,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:13:16],
         updated_at: ~N[2023-04-03 18:13:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1930,
         payload: %{
           "apiVersion" => "v3",
@@ -62222,7 +62222,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:51:12],
         updated_at: ~N[2023-03-31 22:51:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1932,
         payload: %{
           "apiVersion" => "v3",
@@ -62251,7 +62251,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:52:15],
         updated_at: ~N[2023-03-31 22:52:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1936,
         payload: %{
           "apiVersion" => "v3",
@@ -62280,7 +62280,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:56:00],
         updated_at: ~N[2023-03-31 22:56:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1943,
         payload: %{
           "apiVersion" => "v3",
@@ -62309,7 +62309,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 14:35:45],
         updated_at: ~N[2023-04-01 14:35:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1949,
         payload: %{
           "apiVersion" => "v3",
@@ -62340,7 +62340,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:15:18],
         updated_at: ~N[2023-04-01 16:15:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1952,
         payload: %{
           "apiVersion" => "v3",
@@ -62370,7 +62370,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:25:16],
         updated_at: ~N[2023-04-01 16:25:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1955,
         payload: %{
           "apiVersion" => "v3",
@@ -62399,7 +62399,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:54:05],
         updated_at: ~N[2023-04-01 16:54:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1961,
         payload: %{
           "apiVersion" => "v3",
@@ -62428,7 +62428,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 17:56:03],
         updated_at: ~N[2023-04-01 17:56:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1967,
         payload: %{
           "apiVersion" => "v3",
@@ -62508,7 +62508,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 19:37:09],
         updated_at: ~N[2023-04-01 19:37:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1970,
         payload: %{
           "apiVersion" => "v3",
@@ -62537,7 +62537,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 19:38:47],
         updated_at: ~N[2023-04-01 19:38:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1931,
         payload: %{
           "apiVersion" => "v3",
@@ -62566,7 +62566,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:51:58],
         updated_at: ~N[2023-03-31 22:51:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1938,
         payload: %{
           "apiVersion" => "v3",
@@ -62595,7 +62595,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 22:57:42],
         updated_at: ~N[2023-03-31 22:57:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1939,
         payload: %{
           "apiVersion" => "v3",
@@ -62625,7 +62625,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-03-31 23:00:56],
         updated_at: ~N[2023-03-31 23:00:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1950,
         payload: %{
           "apiVersion" => "v3",
@@ -62663,7 +62663,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:15:28],
         updated_at: ~N[2023-04-01 16:15:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1954,
         payload: %{
           "apiVersion" => "v3",
@@ -62701,7 +62701,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:29:24],
         updated_at: ~N[2023-04-01 16:29:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1960,
         payload: %{
           "apiVersion" => "v3",
@@ -62730,7 +62730,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 17:05:27],
         updated_at: ~N[2023-04-01 17:05:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1964,
         payload: %{
           "apiVersion" => "v3",
@@ -62759,7 +62759,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 18:10:22],
         updated_at: ~N[2023-04-01 18:10:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1965,
         payload: %{
           "apiVersion" => "v3",
@@ -62788,7 +62788,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 18:48:52],
         updated_at: ~N[2023-04-01 18:48:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1973,
         payload: %{
           "apiVersion" => "v3",
@@ -62817,7 +62817,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:19:56],
         updated_at: ~N[2023-04-01 21:19:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1975,
         payload: %{
           "apiVersion" => "v3",
@@ -62846,7 +62846,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:21:11],
         updated_at: ~N[2023-04-01 21:21:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1982,
         payload: %{
           "apiVersion" => "v3",
@@ -62875,7 +62875,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:32:06],
         updated_at: ~N[2023-04-01 21:32:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2461,
         payload: %{
           "apiVersion" => "v3",
@@ -62904,7 +62904,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-09 23:59:28],
         updated_at: ~N[2023-04-09 23:59:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1953,
         payload: %{
           "apiVersion" => "v3",
@@ -62935,7 +62935,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:29:17],
         updated_at: ~N[2023-04-01 16:29:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1956,
         payload: %{
           "apiVersion" => "v3",
@@ -62964,7 +62964,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 16:54:52],
         updated_at: ~N[2023-04-01 16:54:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1966,
         payload: %{
           "apiVersion" => "v3",
@@ -63040,7 +63040,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 19:17:22],
         updated_at: ~N[2023-04-01 19:17:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1969,
         payload: %{
           "apiVersion" => "v3",
@@ -63085,7 +63085,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 19:38:20],
         updated_at: ~N[2023-04-01 19:38:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1971,
         payload: %{
           "apiVersion" => "v3",
@@ -63114,7 +63114,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 20:36:58],
         updated_at: ~N[2023-04-01 20:36:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1974,
         payload: %{
           "apiVersion" => "v3",
@@ -63143,7 +63143,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:20:39],
         updated_at: ~N[2023-04-01 21:20:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1979,
         payload: %{
           "apiVersion" => "v3",
@@ -63172,7 +63172,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:26:58],
         updated_at: ~N[2023-04-01 21:26:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1983,
         payload: %{
           "apiVersion" => "v3",
@@ -63201,7 +63201,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:32:47],
         updated_at: ~N[2023-04-01 21:32:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1989,
         payload: %{
           "apiVersion" => "v3",
@@ -63256,7 +63256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:38:38],
         updated_at: ~N[2023-04-01 21:38:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1976,
         payload: %{
           "apiVersion" => "v3",
@@ -63286,7 +63286,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:25:26],
         updated_at: ~N[2023-04-01 21:25:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1984,
         payload: %{
           "apiVersion" => "v3",
@@ -63315,7 +63315,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:33:04],
         updated_at: ~N[2023-04-01 21:33:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1987,
         payload: %{
           "apiVersion" => "v3",
@@ -63344,7 +63344,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:36:13],
         updated_at: ~N[2023-04-01 21:36:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1993,
         payload: %{
           "apiVersion" => "v3",
@@ -63373,7 +63373,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:41:02],
         updated_at: ~N[2023-04-01 21:41:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1994,
         payload: %{
           "apiVersion" => "v3",
@@ -63403,7 +63403,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:53:37],
         updated_at: ~N[2023-04-01 21:53:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1998,
         payload: %{
           "apiVersion" => "v3",
@@ -63443,7 +63443,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 03:34:06],
         updated_at: ~N[2023-04-02 03:34:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2003,
         payload: %{
           "apiVersion" => "v3",
@@ -63473,7 +63473,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 19:38:08],
         updated_at: ~N[2023-04-02 19:38:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2008,
         payload: %{
           "apiVersion" => "v3",
@@ -63502,7 +63502,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:17:56],
         updated_at: ~N[2023-04-03 16:17:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2014,
         payload: %{
           "apiVersion" => "v3",
@@ -63532,7 +63532,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:25:25],
         updated_at: ~N[2023-04-03 16:25:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2022,
         payload: %{
           "apiVersion" => "v3",
@@ -63570,7 +63570,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:42:40],
         updated_at: ~N[2023-04-03 16:42:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2040,
         payload: %{
           "apiVersion" => "v3",
@@ -63601,7 +63601,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:04:51],
         updated_at: ~N[2023-04-03 18:04:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1985,
         payload: %{
           "apiVersion" => "v3",
@@ -63631,7 +63631,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:35:17],
         updated_at: ~N[2023-04-01 21:35:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1990,
         payload: %{
           "apiVersion" => "v3",
@@ -63660,7 +63660,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:39:10],
         updated_at: ~N[2023-04-01 21:39:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1995,
         payload: %{
           "apiVersion" => "v3",
@@ -63690,7 +63690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 22:07:02],
         updated_at: ~N[2023-04-01 22:07:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2000,
         payload: %{
           "apiVersion" => "v3",
@@ -63719,7 +63719,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 13:55:28],
         updated_at: ~N[2023-04-02 13:55:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2001,
         payload: %{
           "apiVersion" => "v3",
@@ -63750,7 +63750,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 17:52:22],
         updated_at: ~N[2023-04-02 17:52:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2007,
         payload: %{
           "apiVersion" => "v3",
@@ -63779,7 +63779,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:12:50],
         updated_at: ~N[2023-04-03 16:12:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2013,
         payload: %{
           "apiVersion" => "v3",
@@ -63808,7 +63808,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:24:33],
         updated_at: ~N[2023-04-03 16:24:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2015,
         payload: %{
           "apiVersion" => "v3",
@@ -63839,7 +63839,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:31:34],
         updated_at: ~N[2023-04-03 16:31:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2016,
         payload: %{
           "apiVersion" => "v3",
@@ -63877,7 +63877,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:31:45],
         updated_at: ~N[2023-04-03 16:31:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2024,
         payload: %{
           "apiVersion" => "v3",
@@ -63907,7 +63907,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:54:19],
         updated_at: ~N[2023-04-03 16:54:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2030,
         payload: %{
           "apiVersion" => "v3",
@@ -63945,7 +63945,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:33:45],
         updated_at: ~N[2023-04-03 17:33:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1988,
         payload: %{
           "apiVersion" => "v3",
@@ -64025,7 +64025,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:37:57],
         updated_at: ~N[2023-04-01 21:37:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1992,
         payload: %{
           "apiVersion" => "v3",
@@ -64054,7 +64054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 21:39:51],
         updated_at: ~N[2023-04-01 21:39:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1997,
         payload: %{
           "apiVersion" => "v3",
@@ -64083,7 +64083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 03:33:28],
         updated_at: ~N[2023-04-02 03:33:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2005,
         payload: %{
           "apiVersion" => "v3",
@@ -64112,7 +64112,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 14:56:48],
         updated_at: ~N[2023-04-03 14:56:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2006,
         payload: %{
           "apiVersion" => "v3",
@@ -64142,7 +64142,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:11:53],
         updated_at: ~N[2023-04-03 16:11:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2009,
         payload: %{
           "apiVersion" => "v3",
@@ -64171,7 +64171,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:19:52],
         updated_at: ~N[2023-04-03 16:19:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2012,
         payload: %{
           "apiVersion" => "v3",
@@ -64200,7 +64200,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:24:29],
         updated_at: ~N[2023-04-03 16:24:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2019,
         payload: %{
           "apiVersion" => "v3",
@@ -64231,7 +64231,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:41:52],
         updated_at: ~N[2023-04-03 16:41:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2021,
         payload: %{
           "apiVersion" => "v3",
@@ -64262,7 +64262,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:42:33],
         updated_at: ~N[2023-04-03 16:42:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2027,
         payload: %{
           "apiVersion" => "v3",
@@ -64293,7 +64293,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:24:56],
         updated_at: ~N[2023-04-03 17:24:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1996,
         payload: %{
           "apiVersion" => "v3",
@@ -64323,7 +64323,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-01 22:08:31],
         updated_at: ~N[2023-04-01 22:08:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2002,
         payload: %{
           "apiVersion" => "v3",
@@ -64353,7 +64353,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 17:52:24],
         updated_at: ~N[2023-04-02 17:52:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2010,
         payload: %{
           "apiVersion" => "v3",
@@ -64382,7 +64382,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:22:21],
         updated_at: ~N[2023-04-03 16:22:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2017,
         payload: %{
           "apiVersion" => "v3",
@@ -64413,7 +64413,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:36:33],
         updated_at: ~N[2023-04-03 16:36:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2026,
         payload: %{
           "apiVersion" => "v3",
@@ -64442,7 +64442,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:59:34],
         updated_at: ~N[2023-04-03 16:59:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2032,
         payload: %{
           "apiVersion" => "v3",
@@ -64471,7 +64471,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:36:35],
         updated_at: ~N[2023-04-03 17:36:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2033,
         payload: %{
           "apiVersion" => "v3",
@@ -64500,7 +64500,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:37:30],
         updated_at: ~N[2023-04-03 17:37:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2037,
         payload: %{
           "apiVersion" => "v3",
@@ -64529,7 +64529,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:51:32],
         updated_at: ~N[2023-04-03 17:51:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2041,
         payload: %{
           "apiVersion" => "v3",
@@ -64567,7 +64567,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:05:01],
         updated_at: ~N[2023-04-03 18:05:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2045,
         payload: %{
           "apiVersion" => "v3",
@@ -64598,7 +64598,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:11:41],
         updated_at: ~N[2023-04-03 18:11:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2108,
         payload: %{
           "apiVersion" => "v3",
@@ -64627,7 +64627,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 22:59:37],
         updated_at: ~N[2023-04-03 22:59:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 1999,
         payload: %{
           "apiVersion" => "v3",
@@ -64656,7 +64656,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-02 03:34:43],
         updated_at: ~N[2023-04-02 03:34:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2004,
         payload: %{
           "apiVersion" => "v3",
@@ -64685,7 +64685,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 01:22:22],
         updated_at: ~N[2023-04-03 01:22:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2011,
         payload: %{
           "apiVersion" => "v3",
@@ -64715,7 +64715,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:23:53],
         updated_at: ~N[2023-04-03 16:23:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2018,
         payload: %{
           "apiVersion" => "v3",
@@ -64753,7 +64753,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:36:43],
         updated_at: ~N[2023-04-03 16:36:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2020,
         payload: %{
           "apiVersion" => "v3",
@@ -64791,7 +64791,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:42:01],
         updated_at: ~N[2023-04-03 16:42:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2025,
         payload: %{
           "apiVersion" => "v3",
@@ -64821,7 +64821,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:58:44],
         updated_at: ~N[2023-04-03 16:58:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2028,
         payload: %{
           "apiVersion" => "v3",
@@ -64859,7 +64859,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:25:03],
         updated_at: ~N[2023-04-03 17:25:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2031,
         payload: %{
           "apiVersion" => "v3",
@@ -64889,7 +64889,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:34:30],
         updated_at: ~N[2023-04-03 17:34:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2043,
         payload: %{
           "apiVersion" => "v3",
@@ -64918,7 +64918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:06:23],
         updated_at: ~N[2023-04-03 18:06:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2050,
         payload: %{
           "apiVersion" => "v3",
@@ -64948,7 +64948,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:15:22],
         updated_at: ~N[2023-04-03 18:15:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2023,
         payload: %{
           "apiVersion" => "v3",
@@ -64978,7 +64978,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 16:50:45],
         updated_at: ~N[2023-04-03 16:50:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2029,
         payload: %{
           "apiVersion" => "v3",
@@ -65009,7 +65009,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:33:38],
         updated_at: ~N[2023-04-03 17:33:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2036,
         payload: %{
           "apiVersion" => "v3",
@@ -65038,7 +65038,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 17:51:05],
         updated_at: ~N[2023-04-03 17:51:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2039,
         payload: %{
           "apiVersion" => "v3",
@@ -65067,7 +65067,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:02:32],
         updated_at: ~N[2023-04-03 18:02:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2044,
         payload: %{
           "apiVersion" => "v3",
@@ -65096,7 +65096,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:09:09],
         updated_at: ~N[2023-04-03 18:09:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2051,
         payload: %{
           "apiVersion" => "v3",
@@ -65126,7 +65126,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:15:44],
         updated_at: ~N[2023-04-03 18:15:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2057,
         payload: %{
           "apiVersion" => "v3",
@@ -65164,7 +65164,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:46:11],
         updated_at: ~N[2023-04-03 18:46:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2061,
         payload: %{
           "apiVersion" => "v3",
@@ -65195,7 +65195,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:47:36],
         updated_at: ~N[2023-04-03 18:47:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2067,
         payload: %{
           "apiVersion" => "v3",
@@ -65225,7 +65225,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:53:45],
         updated_at: ~N[2023-04-03 18:53:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2070,
         payload: %{
           "apiVersion" => "v3",
@@ -65256,7 +65256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:31:22],
         updated_at: ~N[2023-04-03 19:31:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2111,
         payload: %{
           "apiVersion" => "v3",
@@ -65285,7 +65285,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:01:41],
         updated_at: ~N[2023-04-03 23:01:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2042,
         payload: %{
           "apiVersion" => "v3",
@@ -65312,7 +65312,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:05:24],
         updated_at: ~N[2023-04-03 18:05:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2046,
         payload: %{
           "apiVersion" => "v3",
@@ -65350,7 +65350,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:11:49],
         updated_at: ~N[2023-04-03 18:11:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2055,
         payload: %{
           "apiVersion" => "v3",
@@ -65380,7 +65380,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:26:08],
         updated_at: ~N[2023-04-03 18:26:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2060,
         payload: %{
           "apiVersion" => "v3",
@@ -65418,7 +65418,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:47:30],
         updated_at: ~N[2023-04-03 18:47:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2064,
         payload: %{
           "apiVersion" => "v3",
@@ -65449,7 +65449,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:51:54],
         updated_at: ~N[2023-04-03 18:51:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2073,
         payload: %{
           "apiVersion" => "v3",
@@ -65487,7 +65487,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:32:51],
         updated_at: ~N[2023-04-03 19:32:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2075,
         payload: %{
           "apiVersion" => "v3",
@@ -65525,7 +65525,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:34:48],
         updated_at: ~N[2023-04-03 19:34:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2083,
         payload: %{
           "apiVersion" => "v3",
@@ -65556,7 +65556,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:38:47],
         updated_at: ~N[2023-04-03 19:38:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2084,
         payload: %{
           "apiVersion" => "v3",
@@ -65587,7 +65587,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:07:04],
         updated_at: ~N[2023-04-03 20:07:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2089,
         payload: %{
           "apiVersion" => "v3",
@@ -65617,7 +65617,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:12:13],
         updated_at: ~N[2023-04-03 20:12:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2049,
         payload: %{
           "apiVersion" => "v3",
@@ -65646,7 +65646,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:14:44],
         updated_at: ~N[2023-04-03 18:14:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2052,
         payload: %{
           "apiVersion" => "v3",
@@ -65675,7 +65675,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:16:09],
         updated_at: ~N[2023-04-03 18:16:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2058,
         payload: %{
           "apiVersion" => "v3",
@@ -65702,7 +65702,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:46:30],
         updated_at: ~N[2023-04-03 18:46:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2066,
         payload: %{
           "apiVersion" => "v3",
@@ -65731,7 +65731,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:53:41],
         updated_at: ~N[2023-04-03 18:53:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2069,
         payload: %{
           "apiVersion" => "v3",
@@ -65769,7 +65769,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:28:02],
         updated_at: ~N[2023-04-03 19:28:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2077,
         payload: %{
           "apiVersion" => "v3",
@@ -65807,7 +65807,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:35:32],
         updated_at: ~N[2023-04-03 19:35:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2079,
         payload: %{
           "apiVersion" => "v3",
@@ -65845,7 +65845,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:36:30],
         updated_at: ~N[2023-04-03 19:36:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2087,
         payload: %{
           "apiVersion" => "v3",
@@ -65883,7 +65883,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:08:13],
         updated_at: ~N[2023-04-03 20:08:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2094,
         payload: %{
           "apiVersion" => "v3",
@@ -65921,7 +65921,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:15:08],
         updated_at: ~N[2023-04-03 20:15:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2053,
         payload: %{
           "apiVersion" => "v3",
@@ -65952,7 +65952,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:21:39],
         updated_at: ~N[2023-04-03 18:21:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2056,
         payload: %{
           "apiVersion" => "v3",
@@ -65983,7 +65983,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:46:02],
         updated_at: ~N[2023-04-03 18:46:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2063,
         payload: %{
           "apiVersion" => "v3",
@@ -66013,7 +66013,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:48:53],
         updated_at: ~N[2023-04-03 18:48:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2065,
         payload: %{
           "apiVersion" => "v3",
@@ -66051,7 +66051,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:52:00],
         updated_at: ~N[2023-04-03 18:52:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2068,
         payload: %{
           "apiVersion" => "v3",
@@ -66082,7 +66082,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:27:53],
         updated_at: ~N[2023-04-03 19:27:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2071,
         payload: %{
           "apiVersion" => "v3",
@@ -66120,7 +66120,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:31:32],
         updated_at: ~N[2023-04-03 19:31:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2082,
         payload: %{
           "apiVersion" => "v3",
@@ -66151,7 +66151,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:38:31],
         updated_at: ~N[2023-04-03 19:38:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2085,
         payload: %{
           "apiVersion" => "v3",
@@ -66189,7 +66189,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:07:16],
         updated_at: ~N[2023-04-03 20:07:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2090,
         payload: %{
           "apiVersion" => "v3",
@@ -66218,7 +66218,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:12:45],
         updated_at: ~N[2023-04-03 20:12:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2054,
         payload: %{
           "apiVersion" => "v3",
@@ -66256,7 +66256,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:21:46],
         updated_at: ~N[2023-04-03 18:21:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2059,
         payload: %{
           "apiVersion" => "v3",
@@ -66287,7 +66287,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:47:23],
         updated_at: ~N[2023-04-03 18:47:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2062,
         payload: %{
           "apiVersion" => "v3",
@@ -66325,7 +66325,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 18:47:44],
         updated_at: ~N[2023-04-03 18:47:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2074,
         payload: %{
           "apiVersion" => "v3",
@@ -66356,7 +66356,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:34:38],
         updated_at: ~N[2023-04-03 19:34:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2076,
         payload: %{
           "apiVersion" => "v3",
@@ -66387,7 +66387,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:35:26],
         updated_at: ~N[2023-04-03 19:35:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2086,
         payload: %{
           "apiVersion" => "v3",
@@ -66418,7 +66418,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:08:07],
         updated_at: ~N[2023-04-03 20:08:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2091,
         payload: %{
           "apiVersion" => "v3",
@@ -66447,7 +66447,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:14:04],
         updated_at: ~N[2023-04-03 20:14:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2092,
         payload: %{
           "apiVersion" => "v3",
@@ -66476,7 +66476,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:15:01],
         updated_at: ~N[2023-04-03 20:15:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2078,
         payload: %{
           "apiVersion" => "v3",
@@ -66507,7 +66507,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:36:23],
         updated_at: ~N[2023-04-03 19:36:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2080,
         payload: %{
           "apiVersion" => "v3",
@@ -66538,7 +66538,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 19:36:58],
         updated_at: ~N[2023-04-03 19:36:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2088,
         payload: %{
           "apiVersion" => "v3",
@@ -66567,7 +66567,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:10:33],
         updated_at: ~N[2023-04-03 20:10:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2095,
         payload: %{
           "apiVersion" => "v3",
@@ -66596,7 +66596,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:16:01],
         updated_at: ~N[2023-04-03 20:16:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2096,
         payload: %{
           "apiVersion" => "v3",
@@ -66625,7 +66625,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:19:31],
         updated_at: ~N[2023-04-03 20:19:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2097,
         payload: %{
           "apiVersion" => "v3",
@@ -66654,7 +66654,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:20:25],
         updated_at: ~N[2023-04-03 20:20:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2098,
         payload: %{
           "apiVersion" => "v3",
@@ -66685,7 +66685,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:20:43],
         updated_at: ~N[2023-04-03 20:20:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2099,
         payload: %{
           "apiVersion" => "v3",
@@ -66723,7 +66723,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:21:42],
         updated_at: ~N[2023-04-03 20:21:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2100,
         payload: %{
           "apiVersion" => "v3",
@@ -66752,7 +66752,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:21:54],
         updated_at: ~N[2023-04-03 20:21:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2101,
         payload: %{
           "apiVersion" => "v3",
@@ -66781,7 +66781,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:22:16],
         updated_at: ~N[2023-04-03 20:22:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2102,
         payload: %{
           "apiVersion" => "v3",
@@ -66812,7 +66812,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:24:47],
         updated_at: ~N[2023-04-03 20:24:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2103,
         payload: %{
           "apiVersion" => "v3",
@@ -66850,7 +66850,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:24:54],
         updated_at: ~N[2023-04-03 20:24:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2106,
         payload: %{
           "apiVersion" => "v3",
@@ -66888,7 +66888,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:55:12],
         updated_at: ~N[2023-04-03 20:55:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2107,
         payload: %{
           "apiVersion" => "v3",
@@ -66918,7 +66918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 22:14:30],
         updated_at: ~N[2023-04-03 22:14:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2115,
         payload: %{
           "apiVersion" => "v3",
@@ -66947,7 +66947,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:10:30],
         updated_at: ~N[2023-04-03 23:10:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2119,
         payload: %{
           "apiVersion" => "v3",
@@ -66976,7 +66976,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:29:33],
         updated_at: ~N[2023-04-03 23:29:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2125,
         payload: %{
           "apiVersion" => "v3",
@@ -67005,7 +67005,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:44:10],
         updated_at: ~N[2023-04-03 23:44:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2126,
         payload: %{
           "apiVersion" => "v3",
@@ -67034,7 +67034,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 01:59:52],
         updated_at: ~N[2023-04-04 01:59:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2134,
         payload: %{
           "apiVersion" => "v3",
@@ -67064,7 +67064,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:06:11],
         updated_at: ~N[2023-04-04 16:06:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2139,
         payload: %{
           "apiVersion" => "v3",
@@ -67094,7 +67094,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:14:40],
         updated_at: ~N[2023-04-04 16:14:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2143,
         payload: %{
           "apiVersion" => "v3",
@@ -67123,7 +67123,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:18:47],
         updated_at: ~N[2023-04-04 16:18:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2172,
         payload: %{
           "apiVersion" => "v3",
@@ -67152,7 +67152,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:54:59],
         updated_at: ~N[2023-04-04 18:54:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2104,
         payload: %{
           "apiVersion" => "v3",
@@ -67182,7 +67182,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:28:55],
         updated_at: ~N[2023-04-03 20:28:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2105,
         payload: %{
           "apiVersion" => "v3",
@@ -67213,7 +67213,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 20:54:19],
         updated_at: ~N[2023-04-03 20:54:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2109,
         payload: %{
           "apiVersion" => "v3",
@@ -67242,7 +67242,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:00:04],
         updated_at: ~N[2023-04-03 23:00:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2112,
         payload: %{
           "apiVersion" => "v3",
@@ -67271,7 +67271,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:02:09],
         updated_at: ~N[2023-04-03 23:02:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2118,
         payload: %{
           "apiVersion" => "v3",
@@ -67300,7 +67300,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:29:01],
         updated_at: ~N[2023-04-03 23:29:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2121,
         payload: %{
           "apiVersion" => "v3",
@@ -67329,7 +67329,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:42:56],
         updated_at: ~N[2023-04-03 23:42:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2127,
         payload: %{
           "apiVersion" => "v3",
@@ -67360,7 +67360,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 14:39:09],
         updated_at: ~N[2023-04-04 14:39:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2133,
         payload: %{
           "apiVersion" => "v3",
@@ -67398,7 +67398,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:02:53],
         updated_at: ~N[2023-04-04 16:02:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2136,
         payload: %{
           "apiVersion" => "v3",
@@ -67427,7 +67427,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:12:35],
         updated_at: ~N[2023-04-04 16:12:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2145,
         payload: %{
           "apiVersion" => "v3",
@@ -67456,7 +67456,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:33:58],
         updated_at: ~N[2023-04-04 16:33:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2146,
         payload: %{
           "apiVersion" => "v3",
@@ -67485,7 +67485,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:22:01],
         updated_at: ~N[2023-04-04 17:22:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2215,
         payload: %{
           "apiVersion" => "v3",
@@ -67514,7 +67514,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 22:42:36],
         updated_at: ~N[2023-04-04 22:42:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2110,
         payload: %{
           "apiVersion" => "v3",
@@ -67543,7 +67543,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:00:31],
         updated_at: ~N[2023-04-03 23:00:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2114,
         payload: %{
           "apiVersion" => "v3",
@@ -67572,7 +67572,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:09:03],
         updated_at: ~N[2023-04-03 23:09:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2122,
         payload: %{
           "apiVersion" => "v3",
@@ -67601,7 +67601,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:43:17],
         updated_at: ~N[2023-04-03 23:43:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2123,
         payload: %{
           "apiVersion" => "v3",
@@ -67630,7 +67630,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:43:47],
         updated_at: ~N[2023-04-03 23:43:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2128,
         payload: %{
           "apiVersion" => "v3",
@@ -67660,7 +67660,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 14:39:12],
         updated_at: ~N[2023-04-04 14:39:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2129,
         payload: %{
           "apiVersion" => "v3",
@@ -67691,7 +67691,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 14:40:45],
         updated_at: ~N[2023-04-04 14:40:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2135,
         payload: %{
           "apiVersion" => "v3",
@@ -67720,7 +67720,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:11:51],
         updated_at: ~N[2023-04-04 16:11:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2140,
         payload: %{
           "apiVersion" => "v3",
@@ -67750,7 +67750,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:14:40],
         updated_at: ~N[2023-04-04 16:14:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2144,
         payload: %{
           "apiVersion" => "v3",
@@ -67779,7 +67779,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:33:39],
         updated_at: ~N[2023-04-04 16:33:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2147,
         payload: %{
           "apiVersion" => "v3",
@@ -67810,7 +67810,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:32:01],
         updated_at: ~N[2023-04-04 17:32:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2154,
         payload: %{
           "apiVersion" => "v3",
@@ -67848,7 +67848,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:35:48],
         updated_at: ~N[2023-04-04 17:35:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2113,
         payload: %{
           "apiVersion" => "v3",
@@ -67878,7 +67878,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:08:17],
         updated_at: ~N[2023-04-03 23:08:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2116,
         payload: %{
           "apiVersion" => "v3",
@@ -67907,7 +67907,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:11:11],
         updated_at: ~N[2023-04-03 23:11:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2124,
         payload: %{
           "apiVersion" => "v3",
@@ -67936,7 +67936,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:44:06],
         updated_at: ~N[2023-04-03 23:44:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2130,
         payload: %{
           "apiVersion" => "v3",
@@ -67967,7 +67967,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 14:56:22],
         updated_at: ~N[2023-04-04 14:56:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2131,
         payload: %{
           "apiVersion" => "v3",
@@ -67997,7 +67997,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:00:41],
         updated_at: ~N[2023-04-04 16:00:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2137,
         payload: %{
           "apiVersion" => "v3",
@@ -68026,7 +68026,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:12:48],
         updated_at: ~N[2023-04-04 16:12:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2141,
         payload: %{
           "apiVersion" => "v3",
@@ -68055,7 +68055,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:16:49],
         updated_at: ~N[2023-04-04 16:16:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2151,
         payload: %{
           "apiVersion" => "v3",
@@ -68086,7 +68086,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:34:14],
         updated_at: ~N[2023-04-04 17:34:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2153,
         payload: %{
           "apiVersion" => "v3",
@@ -68117,7 +68117,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:35:43],
         updated_at: ~N[2023-04-04 17:35:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2158,
         payload: %{
           "apiVersion" => "v3",
@@ -68148,7 +68148,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:56:37],
         updated_at: ~N[2023-04-04 17:56:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2164,
         payload: %{
           "apiVersion" => "v3",
@@ -68178,7 +68178,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:36:55],
         updated_at: ~N[2023-04-04 18:36:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2165,
         payload: %{
           "apiVersion" => "v3",
@@ -68207,7 +68207,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:51:52],
         updated_at: ~N[2023-04-04 18:51:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2117,
         payload: %{
           "apiVersion" => "v3",
@@ -68237,7 +68237,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:26:48],
         updated_at: ~N[2023-04-03 23:26:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2120,
         payload: %{
           "apiVersion" => "v3",
@@ -68267,7 +68267,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-03 23:36:22],
         updated_at: ~N[2023-04-03 23:36:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2132,
         payload: %{
           "apiVersion" => "v3",
@@ -68298,7 +68298,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:02:43],
         updated_at: ~N[2023-04-04 16:02:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2138,
         payload: %{
           "apiVersion" => "v3",
@@ -68327,7 +68327,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:13:22],
         updated_at: ~N[2023-04-04 16:13:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2142,
         payload: %{
           "apiVersion" => "v3",
@@ -68356,7 +68356,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 16:17:31],
         updated_at: ~N[2023-04-04 16:17:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2148,
         payload: %{
           "apiVersion" => "v3",
@@ -68387,7 +68387,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:33:12],
         updated_at: ~N[2023-04-04 17:33:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2149,
         payload: %{
           "apiVersion" => "v3",
@@ -68425,7 +68425,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:33:17],
         updated_at: ~N[2023-04-04 17:33:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2155,
         payload: %{
           "apiVersion" => "v3",
@@ -68456,7 +68456,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:45:36],
         updated_at: ~N[2023-04-04 17:45:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2160,
         payload: %{
           "apiVersion" => "v3",
@@ -68487,7 +68487,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:57:47],
         updated_at: ~N[2023-04-04 17:57:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2163,
         payload: %{
           "apiVersion" => "v3",
@@ -68516,7 +68516,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:34:46],
         updated_at: ~N[2023-04-04 18:34:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2171,
         payload: %{
           "apiVersion" => "v3",
@@ -68545,7 +68545,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:54:57],
         updated_at: ~N[2023-04-04 18:54:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2150,
         payload: %{
           "apiVersion" => "v3",
@@ -68576,7 +68576,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:33:35],
         updated_at: ~N[2023-04-04 17:33:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2156,
         payload: %{
           "apiVersion" => "v3",
@@ -68614,7 +68614,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:45:46],
         updated_at: ~N[2023-04-04 17:45:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2166,
         payload: %{
           "apiVersion" => "v3",
@@ -68643,7 +68643,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:52:07],
         updated_at: ~N[2023-04-04 18:52:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2169,
         payload: %{
           "apiVersion" => "v3",
@@ -68674,7 +68674,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:54:02],
         updated_at: ~N[2023-04-04 18:54:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2180,
         payload: %{
           "apiVersion" => "v3",
@@ -68703,7 +68703,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:14:31],
         updated_at: ~N[2023-04-04 19:14:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2184,
         payload: %{
           "apiVersion" => "v3",
@@ -68733,7 +68733,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:28:47],
         updated_at: ~N[2023-04-04 19:28:47]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2186,
         payload: %{
           "apiVersion" => "v3",
@@ -68762,7 +68762,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:31:09],
         updated_at: ~N[2023-04-04 19:31:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2197,
         payload: %{
           "apiVersion" => "v3",
@@ -68792,7 +68792,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:54:22],
         updated_at: ~N[2023-04-04 19:54:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2199,
         payload: %{
           "apiVersion" => "v3",
@@ -68822,7 +68822,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:02:25],
         updated_at: ~N[2023-04-04 20:02:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2202,
         payload: %{
           "apiVersion" => "v3",
@@ -68851,7 +68851,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:44:35],
         updated_at: ~N[2023-04-04 20:44:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2209,
         payload: %{
           "apiVersion" => "v3",
@@ -68880,7 +68880,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:23:30],
         updated_at: ~N[2023-04-04 21:23:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2152,
         payload: %{
           "apiVersion" => "v3",
@@ -68918,7 +68918,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:34:22],
         updated_at: ~N[2023-04-04 17:34:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2157,
         payload: %{
           "apiVersion" => "v3",
@@ -68949,7 +68949,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:47:09],
         updated_at: ~N[2023-04-04 17:47:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2161,
         payload: %{
           "apiVersion" => "v3",
@@ -68987,7 +68987,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:57:56],
         updated_at: ~N[2023-04-04 17:57:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2162,
         payload: %{
           "apiVersion" => "v3",
@@ -69016,7 +69016,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:34:27],
         updated_at: ~N[2023-04-04 18:34:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2168,
         payload: %{
           "apiVersion" => "v3",
@@ -69054,7 +69054,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:53:08],
         updated_at: ~N[2023-04-04 18:53:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2177,
         payload: %{
           "apiVersion" => "v3",
@@ -69083,7 +69083,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:12:29],
         updated_at: ~N[2023-04-04 19:12:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2178,
         payload: %{
           "apiVersion" => "v3",
@@ -69113,7 +69113,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:13:44],
         updated_at: ~N[2023-04-04 19:13:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2182,
         payload: %{
           "apiVersion" => "v3",
@@ -69142,7 +69142,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:17:07],
         updated_at: ~N[2023-04-04 19:17:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2188,
         payload: %{
           "apiVersion" => "v3",
@@ -69171,7 +69171,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:31:28],
         updated_at: ~N[2023-04-04 19:31:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2189,
         payload: %{
           "apiVersion" => "v3",
@@ -69201,7 +69201,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:31:51],
         updated_at: ~N[2023-04-04 19:31:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2207,
         payload: %{
           "apiVersion" => "v3",
@@ -69230,7 +69230,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:16:12],
         updated_at: ~N[2023-04-04 21:16:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2159,
         payload: %{
           "apiVersion" => "v3",
@@ -69268,7 +69268,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 17:56:43],
         updated_at: ~N[2023-04-04 17:56:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2167,
         payload: %{
           "apiVersion" => "v3",
@@ -69299,7 +69299,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:53:03],
         updated_at: ~N[2023-04-04 18:53:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2170,
         payload: %{
           "apiVersion" => "v3",
@@ -69337,7 +69337,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:54:08],
         updated_at: ~N[2023-04-04 18:54:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2175,
         payload: %{
           "apiVersion" => "v3",
@@ -69366,7 +69366,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:55:39],
         updated_at: ~N[2023-04-04 18:55:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2176,
         payload: %{
           "apiVersion" => "v3",
@@ -69395,7 +69395,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:11:36],
         updated_at: ~N[2023-04-04 19:11:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2183,
         payload: %{
           "apiVersion" => "v3",
@@ -69424,7 +69424,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:24:59],
         updated_at: ~N[2023-04-04 19:24:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2187,
         payload: %{
           "apiVersion" => "v3",
@@ -69453,7 +69453,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:31:15],
         updated_at: ~N[2023-04-04 19:31:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2192,
         payload: %{
           "apiVersion" => "v3",
@@ -69482,7 +69482,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:32:00],
         updated_at: ~N[2023-04-04 19:32:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2194,
         payload: %{
           "apiVersion" => "v3",
@@ -69520,7 +69520,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:33:11],
         updated_at: ~N[2023-04-04 19:33:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2198,
         payload: %{
           "apiVersion" => "v3",
@@ -69550,7 +69550,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:57:24],
         updated_at: ~N[2023-04-04 19:57:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2201,
         payload: %{
           "apiVersion" => "v3",
@@ -69579,7 +69579,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:41:14],
         updated_at: ~N[2023-04-04 20:41:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2173,
         payload: %{
           "apiVersion" => "v3",
@@ -69610,7 +69610,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:55:16],
         updated_at: ~N[2023-04-04 18:55:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2185,
         payload: %{
           "apiVersion" => "v3",
@@ -69640,7 +69640,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:30:43],
         updated_at: ~N[2023-04-04 19:30:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2195,
         payload: %{
           "apiVersion" => "v3",
@@ -69669,7 +69669,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:33:54],
         updated_at: ~N[2023-04-04 19:33:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2196,
         payload: %{
           "apiVersion" => "v3",
@@ -69699,7 +69699,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:47:09],
         updated_at: ~N[2023-04-04 19:47:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2208,
         payload: %{
           "apiVersion" => "v3",
@@ -69729,7 +69729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:18:38],
         updated_at: ~N[2023-04-04 21:18:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2216,
         payload: %{
           "apiVersion" => "v3",
@@ -69789,7 +69789,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 22:42:42],
         updated_at: ~N[2023-04-04 22:42:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2223,
         payload: %{
           "apiVersion" => "v3",
@@ -69818,7 +69818,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 00:07:15],
         updated_at: ~N[2023-04-05 00:07:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2237,
         payload: %{
           "apiVersion" => "v3",
@@ -69849,7 +69849,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:09:01],
         updated_at: ~N[2023-04-05 18:09:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2238,
         payload: %{
           "apiVersion" => "v3",
@@ -69887,7 +69887,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:09:08],
         updated_at: ~N[2023-04-05 18:09:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2250,
         payload: %{
           "apiVersion" => "v3",
@@ -69925,7 +69925,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:27:20],
         updated_at: ~N[2023-04-05 21:27:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2174,
         payload: %{
           "apiVersion" => "v3",
@@ -69963,7 +69963,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 18:55:24],
         updated_at: ~N[2023-04-04 18:55:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2179,
         payload: %{
           "apiVersion" => "v3",
@@ -69992,7 +69992,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:13:50],
         updated_at: ~N[2023-04-04 19:13:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2181,
         payload: %{
           "apiVersion" => "v3",
@@ -70022,7 +70022,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:16:09],
         updated_at: ~N[2023-04-04 19:16:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2190,
         payload: %{
           "apiVersion" => "v3",
@@ -70053,7 +70053,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:31:53],
         updated_at: ~N[2023-04-04 19:31:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2191,
         payload: %{
           "apiVersion" => "v3",
@@ -70091,7 +70091,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:32:00],
         updated_at: ~N[2023-04-04 19:32:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2193,
         payload: %{
           "apiVersion" => "v3",
@@ -70122,7 +70122,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 19:33:05],
         updated_at: ~N[2023-04-04 19:33:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2200,
         payload: %{
           "apiVersion" => "v3",
@@ -70151,7 +70151,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:40:20],
         updated_at: ~N[2023-04-04 20:40:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2204,
         payload: %{
           "apiVersion" => "v3",
@@ -70180,7 +70180,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:46:43],
         updated_at: ~N[2023-04-04 20:46:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2205,
         payload: %{
           "apiVersion" => "v3",
@@ -70209,7 +70209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:14:46],
         updated_at: ~N[2023-04-04 21:14:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2217,
         payload: %{
           "apiVersion" => "v3",
@@ -70239,7 +70239,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 23:11:02],
         updated_at: ~N[2023-04-04 23:11:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2218,
         payload: %{
           "apiVersion" => "v3",
@@ -70268,7 +70268,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 23:14:10],
         updated_at: ~N[2023-04-04 23:14:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2203,
         payload: %{
           "apiVersion" => "v3",
@@ -70297,7 +70297,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 20:46:16],
         updated_at: ~N[2023-04-04 20:46:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2206,
         payload: %{
           "apiVersion" => "v3",
@@ -70326,7 +70326,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:15:07],
         updated_at: ~N[2023-04-04 21:15:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2210,
         payload: %{
           "apiVersion" => "v3",
@@ -70355,7 +70355,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:52:26],
         updated_at: ~N[2023-04-04 21:52:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2211,
         payload: %{
           "apiVersion" => "v3",
@@ -70386,7 +70386,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:55:42],
         updated_at: ~N[2023-04-04 21:55:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2212,
         payload: %{
           "apiVersion" => "v3",
@@ -70424,7 +70424,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 21:55:52],
         updated_at: ~N[2023-04-04 21:55:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2219,
         payload: %{
           "apiVersion" => "v3",
@@ -70453,7 +70453,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 23:17:49],
         updated_at: ~N[2023-04-04 23:17:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2220,
         payload: %{
           "apiVersion" => "v3",
@@ -70482,7 +70482,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 00:02:56],
         updated_at: ~N[2023-04-05 00:02:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2225,
         payload: %{
           "apiVersion" => "v3",
@@ -70512,7 +70512,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 01:11:17],
         updated_at: ~N[2023-04-05 01:11:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2233,
         payload: %{
           "apiVersion" => "v3",
@@ -70550,7 +70550,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:59:38],
         updated_at: ~N[2023-04-05 16:59:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2239,
         payload: %{
           "apiVersion" => "v3",
@@ -70581,7 +70581,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:10:04],
         updated_at: ~N[2023-04-05 18:10:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2243,
         payload: %{
           "apiVersion" => "v3",
@@ -70612,7 +70612,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 20:58:33],
         updated_at: ~N[2023-04-05 20:58:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2213,
         payload: %{
           "apiVersion" => "v3",
@@ -70692,7 +70692,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 22:42:10],
         updated_at: ~N[2023-04-04 22:42:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2325,
         payload: %{
           "apiVersion" => "v3",
@@ -70721,7 +70721,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:35:06],
         updated_at: ~N[2023-04-06 19:35:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2214,
         payload: %{
           "apiVersion" => "v3",
@@ -70801,7 +70801,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-04 22:42:20],
         updated_at: ~N[2023-04-04 22:42:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2289,
         payload: %{
           "apiVersion" => "v3",
@@ -70839,7 +70839,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:31:02],
         updated_at: ~N[2023-04-06 16:31:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2342,
         payload: %{
           "apiVersion" => "v3",
@@ -70877,7 +70877,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:47:25],
         updated_at: ~N[2023-04-06 19:47:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2221,
         payload: %{
           "apiVersion" => "v3",
@@ -70906,7 +70906,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 00:03:38],
         updated_at: ~N[2023-04-05 00:03:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2226,
         payload: %{
           "apiVersion" => "v3",
@@ -70937,7 +70937,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:21:37],
         updated_at: ~N[2023-04-05 16:21:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2228,
         payload: %{
           "apiVersion" => "v3",
@@ -70968,7 +70968,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:34:04],
         updated_at: ~N[2023-04-05 16:34:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2235,
         payload: %{
           "apiVersion" => "v3",
@@ -70999,7 +70999,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:08:16],
         updated_at: ~N[2023-04-05 18:08:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2242,
         payload: %{
           "apiVersion" => "v3",
@@ -71037,7 +71037,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:13:56],
         updated_at: ~N[2023-04-05 18:13:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2248,
         payload: %{
           "apiVersion" => "v3",
@@ -71075,7 +71075,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:11:50],
         updated_at: ~N[2023-04-05 21:11:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2252,
         payload: %{
           "apiVersion" => "v3",
@@ -71105,7 +71105,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:35:53],
         updated_at: ~N[2023-04-05 21:35:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2253,
         payload: %{
           "apiVersion" => "v3",
@@ -71135,7 +71135,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:16:17],
         updated_at: ~N[2023-04-05 23:16:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2259,
         payload: %{
           "apiVersion" => "v3",
@@ -71162,7 +71162,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:35:11],
         updated_at: ~N[2023-04-05 23:35:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2270,
         payload: %{
           "apiVersion" => "v3",
@@ -71191,7 +71191,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:45:26],
         updated_at: ~N[2023-04-06 15:45:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2222,
         payload: %{
           "apiVersion" => "v3",
@@ -71220,7 +71220,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 00:07:07],
         updated_at: ~N[2023-04-05 00:07:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2229,
         payload: %{
           "apiVersion" => "v3",
@@ -71258,7 +71258,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:34:11],
         updated_at: ~N[2023-04-05 16:34:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2231,
         payload: %{
           "apiVersion" => "v3",
@@ -71296,7 +71296,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:39:34],
         updated_at: ~N[2023-04-05 16:39:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2232,
         payload: %{
           "apiVersion" => "v3",
@@ -71327,7 +71327,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:59:30],
         updated_at: ~N[2023-04-05 16:59:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2234,
         payload: %{
           "apiVersion" => "v3",
@@ -71357,7 +71357,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 17:50:42],
         updated_at: ~N[2023-04-05 17:50:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2240,
         payload: %{
           "apiVersion" => "v3",
@@ -71395,7 +71395,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:10:10],
         updated_at: ~N[2023-04-05 18:10:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2241,
         payload: %{
           "apiVersion" => "v3",
@@ -71426,7 +71426,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:13:48],
         updated_at: ~N[2023-04-05 18:13:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2244,
         payload: %{
           "apiVersion" => "v3",
@@ -71464,7 +71464,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 20:58:53],
         updated_at: ~N[2023-04-05 20:58:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2251,
         payload: %{
           "apiVersion" => "v3",
@@ -71491,7 +71491,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:28:14],
         updated_at: ~N[2023-04-05 21:28:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2254,
         payload: %{
           "apiVersion" => "v3",
@@ -71522,7 +71522,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:18:12],
         updated_at: ~N[2023-04-05 23:18:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2224,
         payload: %{
           "apiVersion" => "v3",
@@ -71552,7 +71552,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 00:10:13],
         updated_at: ~N[2023-04-05 00:10:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2227,
         payload: %{
           "apiVersion" => "v3",
@@ -71590,7 +71590,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:21:42],
         updated_at: ~N[2023-04-05 16:21:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2230,
         payload: %{
           "apiVersion" => "v3",
@@ -71621,7 +71621,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 16:39:23],
         updated_at: ~N[2023-04-05 16:39:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2236,
         payload: %{
           "apiVersion" => "v3",
@@ -71659,7 +71659,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 18:08:24],
         updated_at: ~N[2023-04-05 18:08:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2245,
         payload: %{
           "apiVersion" => "v3",
@@ -71686,7 +71686,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:00:09],
         updated_at: ~N[2023-04-05 21:00:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2247,
         payload: %{
           "apiVersion" => "v3",
@@ -71717,7 +71717,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:11:44],
         updated_at: ~N[2023-04-05 21:11:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2256,
         payload: %{
           "apiVersion" => "v3",
@@ -71747,7 +71747,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:31:14],
         updated_at: ~N[2023-04-05 23:31:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2272,
         payload: %{
           "apiVersion" => "v3",
@@ -71785,7 +71785,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:02:34],
         updated_at: ~N[2023-04-06 16:02:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2278,
         payload: %{
           "apiVersion" => "v3",
@@ -71815,7 +71815,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:22:38],
         updated_at: ~N[2023-04-06 16:22:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2246,
         payload: %{
           "apiVersion" => "v3",
@@ -71845,7 +71845,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:04:05],
         updated_at: ~N[2023-04-05 21:04:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2249,
         payload: %{
           "apiVersion" => "v3",
@@ -71876,7 +71876,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 21:27:04],
         updated_at: ~N[2023-04-05 21:27:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2258,
         payload: %{
           "apiVersion" => "v3",
@@ -71914,7 +71914,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:33:37],
         updated_at: ~N[2023-04-05 23:33:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2262,
         payload: %{
           "apiVersion" => "v3",
@@ -71952,7 +71952,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 00:02:58],
         updated_at: ~N[2023-04-06 00:02:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2263,
         payload: %{
           "apiVersion" => "v3",
@@ -71982,7 +71982,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 00:11:11],
         updated_at: ~N[2023-04-06 00:11:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2264,
         payload: %{
           "apiVersion" => "v3",
@@ -72011,7 +72011,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:04:16],
         updated_at: ~N[2023-04-06 15:04:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2265,
         payload: %{
           "apiVersion" => "v3",
@@ -72040,7 +72040,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:04:36],
         updated_at: ~N[2023-04-06 15:04:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2266,
         payload: %{
           "apiVersion" => "v3",
@@ -72071,7 +72071,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:16:30],
         updated_at: ~N[2023-04-06 15:16:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2267,
         payload: %{
           "apiVersion" => "v3",
@@ -72101,7 +72101,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:16:32],
         updated_at: ~N[2023-04-06 15:16:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2255,
         payload: %{
           "apiVersion" => "v3",
@@ -72139,7 +72139,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:18:21],
         updated_at: ~N[2023-04-05 23:18:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2268,
         payload: %{
           "apiVersion" => "v3",
@@ -72169,7 +72169,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:40:45],
         updated_at: ~N[2023-04-06 15:40:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2275,
         payload: %{
           "apiVersion" => "v3",
@@ -72199,7 +72199,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:13:10],
         updated_at: ~N[2023-04-06 16:13:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2279,
         payload: %{
           "apiVersion" => "v3",
@@ -72229,7 +72229,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:23:21],
         updated_at: ~N[2023-04-06 16:23:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2285,
         payload: %{
           "apiVersion" => "v3",
@@ -72259,7 +72259,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:29:10],
         updated_at: ~N[2023-04-06 16:29:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2295,
         payload: %{
           "apiVersion" => "v3",
@@ -72289,7 +72289,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:45:34],
         updated_at: ~N[2023-04-06 16:45:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2298,
         payload: %{
           "apiVersion" => "v3",
@@ -72319,7 +72319,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:10:00],
         updated_at: ~N[2023-04-06 17:10:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2299,
         payload: %{
           "apiVersion" => "v3",
@@ -72348,7 +72348,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:30:27],
         updated_at: ~N[2023-04-06 17:30:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2302,
         payload: %{
           "apiVersion" => "v3",
@@ -72386,7 +72386,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:41:24],
         updated_at: ~N[2023-04-06 17:41:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2326,
         payload: %{
           "apiVersion" => "v3",
@@ -72415,7 +72415,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:35:25],
         updated_at: ~N[2023-04-06 19:35:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2257,
         payload: %{
           "apiVersion" => "v3",
@@ -72446,7 +72446,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:33:12],
         updated_at: ~N[2023-04-05 23:33:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2260,
         payload: %{
           "apiVersion" => "v3",
@@ -72476,7 +72476,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-05 23:51:41],
         updated_at: ~N[2023-04-05 23:51:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2269,
         payload: %{
           "apiVersion" => "v3",
@@ -72506,7 +72506,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 15:45:06],
         updated_at: ~N[2023-04-06 15:45:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2271,
         payload: %{
           "apiVersion" => "v3",
@@ -72537,7 +72537,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:02:30],
         updated_at: ~N[2023-04-06 16:02:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2277,
         payload: %{
           "apiVersion" => "v3",
@@ -72567,7 +72567,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:21:05],
         updated_at: ~N[2023-04-06 16:21:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2281,
         payload: %{
           "apiVersion" => "v3",
@@ -72596,7 +72596,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:26:39],
         updated_at: ~N[2023-04-06 16:26:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2286,
         payload: %{
           "apiVersion" => "v3",
@@ -72625,7 +72625,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:29:11],
         updated_at: ~N[2023-04-06 16:29:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2296,
         payload: %{
           "apiVersion" => "v3",
@@ -72654,7 +72654,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:46:40],
         updated_at: ~N[2023-04-06 16:46:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2297,
         payload: %{
           "apiVersion" => "v3",
@@ -72684,7 +72684,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:48:32],
         updated_at: ~N[2023-04-06 16:48:32]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2304,
         payload: %{
           "apiVersion" => "v3",
@@ -72715,7 +72715,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:57:11],
         updated_at: ~N[2023-04-06 17:57:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2307,
         payload: %{
           "apiVersion" => "v3",
@@ -72746,7 +72746,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:19:44],
         updated_at: ~N[2023-04-06 18:19:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2261,
         payload: %{
           "apiVersion" => "v3",
@@ -72777,7 +72777,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 00:02:51],
         updated_at: ~N[2023-04-06 00:02:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2288,
         payload: %{
           "apiVersion" => "v3",
@@ -72808,7 +72808,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:30:54],
         updated_at: ~N[2023-04-06 16:30:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2335,
         payload: %{
           "apiVersion" => "v3",
@@ -72846,7 +72846,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:41:17],
         updated_at: ~N[2023-04-06 19:41:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2273,
         payload: %{
           "apiVersion" => "v3",
@@ -72875,7 +72875,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:04:08],
         updated_at: ~N[2023-04-06 16:04:08]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2276,
         payload: %{
           "apiVersion" => "v3",
@@ -72904,7 +72904,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:18:39],
         updated_at: ~N[2023-04-06 16:18:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2282,
         payload: %{
           "apiVersion" => "v3",
@@ -72933,7 +72933,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:26:40],
         updated_at: ~N[2023-04-06 16:26:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2291,
         payload: %{
           "apiVersion" => "v3",
@@ -72963,7 +72963,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:38:21],
         updated_at: ~N[2023-04-06 16:38:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2293,
         payload: %{
           "apiVersion" => "v3",
@@ -73001,7 +73001,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:41:38],
         updated_at: ~N[2023-04-06 16:41:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2301,
         payload: %{
           "apiVersion" => "v3",
@@ -73028,7 +73028,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:41:21],
         updated_at: ~N[2023-04-06 17:41:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2306,
         payload: %{
           "apiVersion" => "v3",
@@ -73055,7 +73055,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:59:05],
         updated_at: ~N[2023-04-06 17:59:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2312,
         payload: %{
           "apiVersion" => "v3",
@@ -73086,7 +73086,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:55:57],
         updated_at: ~N[2023-04-06 18:55:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2316,
         payload: %{
           "apiVersion" => "v3",
@@ -73121,7 +73121,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:08:19],
         updated_at: ~N[2023-04-06 19:08:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2328,
         payload: %{
           "apiVersion" => "v3",
@@ -73150,7 +73150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:36:07],
         updated_at: ~N[2023-04-06 19:36:07]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2337,
         payload: %{
           "apiVersion" => "v3",
@@ -73179,7 +73179,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:43:41],
         updated_at: ~N[2023-04-06 19:43:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2274,
         payload: %{
           "apiVersion" => "v3",
@@ -73209,7 +73209,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:08:00],
         updated_at: ~N[2023-04-06 16:08:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2280,
         payload: %{
           "apiVersion" => "v3",
@@ -73239,7 +73239,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:24:03],
         updated_at: ~N[2023-04-06 16:24:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2284,
         payload: %{
           "apiVersion" => "v3",
@@ -73268,7 +73268,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:28:39],
         updated_at: ~N[2023-04-06 16:28:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2287,
         payload: %{
           "apiVersion" => "v3",
@@ -73297,7 +73297,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:29:40],
         updated_at: ~N[2023-04-06 16:29:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2300,
         payload: %{
           "apiVersion" => "v3",
@@ -73328,7 +73328,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:41:13],
         updated_at: ~N[2023-04-06 17:41:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2303,
         payload: %{
           "apiVersion" => "v3",
@@ -73355,7 +73355,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:43:44],
         updated_at: ~N[2023-04-06 17:43:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2311,
         payload: %{
           "apiVersion" => "v3",
@@ -73393,7 +73393,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:53:53],
         updated_at: ~N[2023-04-06 18:53:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2314,
         payload: %{
           "apiVersion" => "v3",
@@ -73424,7 +73424,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:04:22],
         updated_at: ~N[2023-04-06 19:04:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2322,
         payload: %{
           "apiVersion" => "v3",
@@ -73453,7 +73453,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:16:31],
         updated_at: ~N[2023-04-06 19:16:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2323,
         payload: %{
           "apiVersion" => "v3",
@@ -73489,7 +73489,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:18:38],
         updated_at: ~N[2023-04-06 19:18:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2283,
         payload: %{
           "apiVersion" => "v3",
@@ -73519,7 +73519,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:27:29],
         updated_at: ~N[2023-04-06 16:27:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2292,
         payload: %{
           "apiVersion" => "v3",
@@ -73550,7 +73550,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:41:31],
         updated_at: ~N[2023-04-06 16:41:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2294,
         payload: %{
           "apiVersion" => "v3",
@@ -73580,7 +73580,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:42:33],
         updated_at: ~N[2023-04-06 16:42:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2309,
         payload: %{
           "apiVersion" => "v3",
@@ -73610,7 +73610,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:44:55],
         updated_at: ~N[2023-04-06 18:44:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2310,
         payload: %{
           "apiVersion" => "v3",
@@ -73641,7 +73641,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:53:44],
         updated_at: ~N[2023-04-06 18:53:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2313,
         payload: %{
           "apiVersion" => "v3",
@@ -73679,7 +73679,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:56:04],
         updated_at: ~N[2023-04-06 18:56:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2320,
         payload: %{
           "apiVersion" => "v3",
@@ -73708,7 +73708,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:15:30],
         updated_at: ~N[2023-04-06 19:15:30]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2321,
         payload: %{
           "apiVersion" => "v3",
@@ -73738,7 +73738,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:16:00],
         updated_at: ~N[2023-04-06 19:16:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2330,
         payload: %{
           "apiVersion" => "v3",
@@ -73768,7 +73768,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:37:40],
         updated_at: ~N[2023-04-06 19:37:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2343,
         payload: %{
           "apiVersion" => "v3",
@@ -73797,7 +73797,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:54:03],
         updated_at: ~N[2023-04-06 19:54:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2346,
         payload: %{
           "apiVersion" => "v3",
@@ -73833,7 +73833,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:01:15],
         updated_at: ~N[2023-04-06 20:01:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2290,
         payload: %{
           "apiVersion" => "v3",
@@ -73863,7 +73863,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 16:37:16],
         updated_at: ~N[2023-04-06 16:37:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2334,
         payload: %{
           "apiVersion" => "v3",
@@ -73894,7 +73894,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:41:01],
         updated_at: ~N[2023-04-06 19:41:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2354,
         payload: %{
           "apiVersion" => "v3",
@@ -73932,7 +73932,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:24:14],
         updated_at: ~N[2023-04-06 20:24:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2305,
         payload: %{
           "apiVersion" => "v3",
@@ -73970,7 +73970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 17:57:36],
         updated_at: ~N[2023-04-06 17:57:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2308,
         payload: %{
           "apiVersion" => "v3",
@@ -74008,7 +74008,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 18:19:52],
         updated_at: ~N[2023-04-06 18:19:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2317,
         payload: %{
           "apiVersion" => "v3",
@@ -74043,7 +74043,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:08:31],
         updated_at: ~N[2023-04-06 19:08:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2319,
         payload: %{
           "apiVersion" => "v3",
@@ -74079,7 +74079,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:15:14],
         updated_at: ~N[2023-04-06 19:15:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2327,
         payload: %{
           "apiVersion" => "v3",
@@ -74108,7 +74108,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:35:55],
         updated_at: ~N[2023-04-06 19:35:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2336,
         payload: %{
           "apiVersion" => "v3",
@@ -74137,7 +74137,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:43:04],
         updated_at: ~N[2023-04-06 19:43:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2339,
         payload: %{
           "apiVersion" => "v3",
@@ -74166,7 +74166,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:45:15],
         updated_at: ~N[2023-04-06 19:45:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2345,
         payload: %{
           "apiVersion" => "v3",
@@ -74195,7 +74195,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:59:52],
         updated_at: ~N[2023-04-06 19:59:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2351,
         payload: %{
           "apiVersion" => "v3",
@@ -74224,7 +74224,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:23:31],
         updated_at: ~N[2023-04-06 20:23:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2353,
         payload: %{
           "apiVersion" => "v3",
@@ -74253,7 +74253,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:24:00],
         updated_at: ~N[2023-04-06 20:24:00]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2315,
         payload: %{
           "apiVersion" => "v3",
@@ -74291,7 +74291,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:04:45],
         updated_at: ~N[2023-04-06 19:04:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2318,
         payload: %{
           "apiVersion" => "v3",
@@ -74321,7 +74321,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:11:39],
         updated_at: ~N[2023-04-06 19:11:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2329,
         payload: %{
           "apiVersion" => "v3",
@@ -74350,7 +74350,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:36:23],
         updated_at: ~N[2023-04-06 19:36:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2338,
         payload: %{
           "apiVersion" => "v3",
@@ -74380,7 +74380,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:44:50],
         updated_at: ~N[2023-04-06 19:44:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2341,
         payload: %{
           "apiVersion" => "v3",
@@ -74411,7 +74411,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:47:19],
         updated_at: ~N[2023-04-06 19:47:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2349,
         payload: %{
           "apiVersion" => "v3",
@@ -74441,7 +74441,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:05:40],
         updated_at: ~N[2023-04-06 20:05:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2324,
         payload: %{
           "apiVersion" => "v3",
@@ -74471,7 +74471,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:20:22],
         updated_at: ~N[2023-04-06 19:20:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2331,
         payload: %{
           "apiVersion" => "v3",
@@ -74500,7 +74500,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:38:20],
         updated_at: ~N[2023-04-06 19:38:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2332,
         payload: %{
           "apiVersion" => "v3",
@@ -74531,7 +74531,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:39:12],
         updated_at: ~N[2023-04-06 19:39:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2333,
         payload: %{
           "apiVersion" => "v3",
@@ -74569,7 +74569,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:39:21],
         updated_at: ~N[2023-04-06 19:39:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2344,
         payload: %{
           "apiVersion" => "v3",
@@ -74599,7 +74599,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:55:52],
         updated_at: ~N[2023-04-06 19:55:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2347,
         payload: %{
           "apiVersion" => "v3",
@@ -74630,7 +74630,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:05:09],
         updated_at: ~N[2023-04-06 20:05:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2352,
         payload: %{
           "apiVersion" => "v3",
@@ -74661,7 +74661,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:23:54],
         updated_at: ~N[2023-04-06 20:23:54]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2340,
         payload: %{
           "apiVersion" => "v3",
@@ -74690,7 +74690,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 19:46:01],
         updated_at: ~N[2023-04-06 19:46:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2348,
         payload: %{
           "apiVersion" => "v3",
@@ -74728,7 +74728,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:05:22],
         updated_at: ~N[2023-04-06 20:05:22]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2350,
         payload: %{
           "apiVersion" => "v3",
@@ -74757,7 +74757,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:15:42],
         updated_at: ~N[2023-04-06 20:15:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2355,
         payload: %{
           "apiVersion" => "v3",
@@ -74787,7 +74787,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:26:29],
         updated_at: ~N[2023-04-06 20:26:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2356,
         payload: %{
           "apiVersion" => "v3",
@@ -74817,7 +74817,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:30:06],
         updated_at: ~N[2023-04-06 20:30:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2357,
         payload: %{
           "apiVersion" => "v3",
@@ -74848,7 +74848,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:36:06],
         updated_at: ~N[2023-04-06 20:36:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2358,
         payload: %{
           "apiVersion" => "v3",
@@ -74886,7 +74886,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:36:14],
         updated_at: ~N[2023-04-06 20:36:14]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2359,
         payload: %{
           "apiVersion" => "v3",
@@ -74916,7 +74916,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:37:38],
         updated_at: ~N[2023-04-06 20:37:38]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2360,
         payload: %{
           "apiVersion" => "v3",
@@ -74947,7 +74947,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:43:04],
         updated_at: ~N[2023-04-06 20:43:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2361,
         payload: %{
           "apiVersion" => "v3",
@@ -74985,7 +74985,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:43:20],
         updated_at: ~N[2023-04-06 20:43:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2362,
         payload: %{
           "apiVersion" => "v3",
@@ -75015,7 +75015,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:55:17],
         updated_at: ~N[2023-04-06 20:55:17]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2363,
         payload: %{
           "apiVersion" => "v3",
@@ -75046,7 +75046,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:58:27],
         updated_at: ~N[2023-04-06 20:58:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2364,
         payload: %{
           "apiVersion" => "v3",
@@ -75084,7 +75084,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:58:34],
         updated_at: ~N[2023-04-06 20:58:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2370,
         payload: %{
           "apiVersion" => "v3",
@@ -75115,7 +75115,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:25:49],
         updated_at: ~N[2023-04-06 23:25:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2372,
         payload: %{
           "apiVersion" => "v3",
@@ -75153,7 +75153,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:26:12],
         updated_at: ~N[2023-04-06 23:26:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2379,
         payload: %{
           "apiVersion" => "v3",
@@ -75183,7 +75183,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 16:05:58],
         updated_at: ~N[2023-04-07 16:05:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2387,
         payload: %{
           "apiVersion" => "v3",
@@ -75221,7 +75221,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:21:04],
         updated_at: ~N[2023-04-07 18:21:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2392,
         payload: %{
           "apiVersion" => "v3",
@@ -75259,7 +75259,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:25:42],
         updated_at: ~N[2023-04-07 18:25:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2401,
         payload: %{
           "apiVersion" => "v3",
@@ -75288,7 +75288,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:07:18],
         updated_at: ~N[2023-04-07 19:07:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2409,
         payload: %{
           "apiVersion" => "v3",
@@ -75317,7 +75317,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 21:36:41],
         updated_at: ~N[2023-04-07 21:36:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2411,
         payload: %{
           "apiVersion" => "v3",
@@ -75346,7 +75346,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 21:46:31],
         updated_at: ~N[2023-04-07 21:46:31]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2417,
         payload: %{
           "apiVersion" => "v3",
@@ -75375,7 +75375,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:43:23],
         updated_at: ~N[2023-04-07 22:43:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2434,
         payload: %{
           "apiVersion" => "v3",
@@ -75406,7 +75406,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:01:34],
         updated_at: ~N[2023-04-08 16:01:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2365,
         payload: %{
           "apiVersion" => "v3",
@@ -75433,7 +75433,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 20:58:37],
         updated_at: ~N[2023-04-06 20:58:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2371,
         payload: %{
           "apiVersion" => "v3",
@@ -75460,7 +75460,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:26:03],
         updated_at: ~N[2023-04-06 23:26:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2373,
         payload: %{
           "apiVersion" => "v3",
@@ -75491,7 +75491,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:28:10],
         updated_at: ~N[2023-04-06 23:28:10]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2382,
         payload: %{
           "apiVersion" => "v3",
@@ -75522,7 +75522,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 16:39:46],
         updated_at: ~N[2023-04-07 16:39:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2385,
         payload: %{
           "apiVersion" => "v3",
@@ -75552,7 +75552,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:04:20],
         updated_at: ~N[2023-04-07 18:04:20]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2390,
         payload: %{
           "apiVersion" => "v3",
@@ -75582,7 +75582,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:24:51],
         updated_at: ~N[2023-04-07 18:24:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2398,
         payload: %{
           "apiVersion" => "v3",
@@ -75612,7 +75612,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:55:56],
         updated_at: ~N[2023-04-07 18:55:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2403,
         payload: %{
           "apiVersion" => "v3",
@@ -75641,7 +75641,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:28:45],
         updated_at: ~N[2023-04-07 19:28:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2406,
         payload: %{
           "apiVersion" => "v3",
@@ -75670,7 +75670,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:47:24],
         updated_at: ~N[2023-04-07 19:47:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2414,
         payload: %{
           "apiVersion" => "v3",
@@ -75700,7 +75700,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:18:27],
         updated_at: ~N[2023-04-07 22:18:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2418,
         payload: %{
           "apiVersion" => "v3",
@@ -75729,7 +75729,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:54:13],
         updated_at: ~N[2023-04-07 22:54:13]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2366,
         payload: %{
           "apiVersion" => "v3",
@@ -75756,7 +75756,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 21:02:15],
         updated_at: ~N[2023-04-06 21:02:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2368,
         payload: %{
           "apiVersion" => "v3",
@@ -75785,7 +75785,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 21:16:28],
         updated_at: ~N[2023-04-06 21:16:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2376,
         payload: %{
           "apiVersion" => "v3",
@@ -75823,7 +75823,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:31:28],
         updated_at: ~N[2023-04-06 23:31:28]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2377,
         payload: %{
           "apiVersion" => "v3",
@@ -75853,7 +75853,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:42:55],
         updated_at: ~N[2023-04-06 23:42:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2386,
         payload: %{
           "apiVersion" => "v3",
@@ -75884,7 +75884,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:20:58],
         updated_at: ~N[2023-04-07 18:20:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2391,
         payload: %{
           "apiVersion" => "v3",
@@ -75915,7 +75915,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:25:35],
         updated_at: ~N[2023-04-07 18:25:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2400,
         payload: %{
           "apiVersion" => "v3",
@@ -75945,7 +75945,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:06:56],
         updated_at: ~N[2023-04-07 19:06:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2405,
         payload: %{
           "apiVersion" => "v3",
@@ -75974,7 +75974,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:47:01],
         updated_at: ~N[2023-04-07 19:47:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2407,
         payload: %{
           "apiVersion" => "v3",
@@ -76003,7 +76003,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:49:50],
         updated_at: ~N[2023-04-07 19:49:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2415,
         payload: %{
           "apiVersion" => "v3",
@@ -76032,7 +76032,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:41:01],
         updated_at: ~N[2023-04-07 22:41:01]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2424,
         payload: %{
           "apiVersion" => "v3",
@@ -76061,7 +76061,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:33:26],
         updated_at: ~N[2023-04-08 01:33:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2367,
         payload: %{
           "apiVersion" => "v3",
@@ -76090,7 +76090,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 21:15:59],
         updated_at: ~N[2023-04-06 21:15:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2369,
         payload: %{
           "apiVersion" => "v3",
@@ -76120,7 +76120,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:25:40],
         updated_at: ~N[2023-04-06 23:25:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2393,
         payload: %{
           "apiVersion" => "v3",
@@ -76150,7 +76150,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:29:41],
         updated_at: ~N[2023-04-07 18:29:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2442,
         payload: %{
           "apiVersion" => "v3",
@@ -76179,7 +76179,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:07:51],
         updated_at: ~N[2023-04-08 16:07:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2374,
         payload: %{
           "apiVersion" => "v3",
@@ -76217,7 +76217,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:28:18],
         updated_at: ~N[2023-04-06 23:28:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2375,
         payload: %{
           "apiVersion" => "v3",
@@ -76248,7 +76248,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:31:18],
         updated_at: ~N[2023-04-06 23:31:18]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2378,
         payload: %{
           "apiVersion" => "v3",
@@ -76277,7 +76277,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-06 23:44:49],
         updated_at: ~N[2023-04-06 23:44:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2380,
         payload: %{
           "apiVersion" => "v3",
@@ -76307,7 +76307,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 16:06:48],
         updated_at: ~N[2023-04-07 16:06:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2381,
         payload: %{
           "apiVersion" => "v3",
@@ -76336,7 +76336,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 16:29:26],
         updated_at: ~N[2023-04-07 16:29:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2383,
         payload: %{
           "apiVersion" => "v3",
@@ -76367,7 +76367,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:03:37],
         updated_at: ~N[2023-04-07 18:03:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2384,
         payload: %{
           "apiVersion" => "v3",
@@ -76405,7 +76405,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:03:44],
         updated_at: ~N[2023-04-07 18:03:44]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2388,
         payload: %{
           "apiVersion" => "v3",
@@ -76436,7 +76436,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:21:49],
         updated_at: ~N[2023-04-07 18:21:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2389,
         payload: %{
           "apiVersion" => "v3",
@@ -76474,7 +76474,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:21:57],
         updated_at: ~N[2023-04-07 18:21:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2394,
         payload: %{
           "apiVersion" => "v3",
@@ -76503,7 +76503,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:30:21],
         updated_at: ~N[2023-04-07 18:30:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2395,
         payload: %{
           "apiVersion" => "v3",
@@ -76532,7 +76532,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:30:42],
         updated_at: ~N[2023-04-07 18:30:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2396,
         payload: %{
           "apiVersion" => "v3",
@@ -76562,7 +76562,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:31:19],
         updated_at: ~N[2023-04-07 18:31:19]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2402,
         payload: %{
           "apiVersion" => "v3",
@@ -76591,7 +76591,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:28:16],
         updated_at: ~N[2023-04-07 19:28:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2410,
         payload: %{
           "apiVersion" => "v3",
@@ -76620,7 +76620,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 21:42:55],
         updated_at: ~N[2023-04-07 21:42:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2416,
         payload: %{
           "apiVersion" => "v3",
@@ -76650,7 +76650,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:42:04],
         updated_at: ~N[2023-04-07 22:42:04]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2419,
         payload: %{
           "apiVersion" => "v3",
@@ -76679,7 +76679,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 00:02:35],
         updated_at: ~N[2023-04-08 00:02:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2435,
         payload: %{
           "apiVersion" => "v3",
@@ -76709,7 +76709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:01:36],
         updated_at: ~N[2023-04-08 16:01:36]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2440,
         payload: %{
           "apiVersion" => "v3",
@@ -76740,7 +76740,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:07:26],
         updated_at: ~N[2023-04-08 16:07:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2441,
         payload: %{
           "apiVersion" => "v3",
@@ -76778,7 +76778,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:07:33],
         updated_at: ~N[2023-04-08 16:07:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2454,
         payload: %{
           "apiVersion" => "v3",
@@ -76823,7 +76823,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:45:53],
         updated_at: ~N[2023-04-08 21:45:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2397,
         payload: %{
           "apiVersion" => "v3",
@@ -76852,7 +76852,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 18:32:06],
         updated_at: ~N[2023-04-07 18:32:06]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2399,
         payload: %{
           "apiVersion" => "v3",
@@ -76882,7 +76882,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:04:41],
         updated_at: ~N[2023-04-07 19:04:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2404,
         payload: %{
           "apiVersion" => "v3",
@@ -76911,7 +76911,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:46:41],
         updated_at: ~N[2023-04-07 19:46:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2412,
         payload: %{
           "apiVersion" => "v3",
@@ -76940,7 +76940,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 21:47:45],
         updated_at: ~N[2023-04-07 21:47:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2413,
         payload: %{
           "apiVersion" => "v3",
@@ -76970,7 +76970,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 22:15:56],
         updated_at: ~N[2023-04-07 22:15:56]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2422,
         payload: %{
           "apiVersion" => "v3",
@@ -76999,7 +76999,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:30:51],
         updated_at: ~N[2023-04-08 01:30:51]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2430,
         payload: %{
           "apiVersion" => "v3",
@@ -77028,7 +77028,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 15:32:03],
         updated_at: ~N[2023-04-08 15:32:03]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2432,
         payload: %{
           "apiVersion" => "v3",
@@ -77057,7 +77057,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 15:56:34],
         updated_at: ~N[2023-04-08 15:56:34]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2437,
         payload: %{
           "apiVersion" => "v3",
@@ -77087,7 +77087,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:03:43],
         updated_at: ~N[2023-04-08 16:03:43]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2446,
         payload: %{
           "apiVersion" => "v3",
@@ -77117,7 +77117,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:11:11],
         updated_at: ~N[2023-04-08 16:11:11]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2448,
         payload: %{
           "apiVersion" => "v3",
@@ -77146,7 +77146,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:46:24],
         updated_at: ~N[2023-04-08 16:46:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2408,
         payload: %{
           "apiVersion" => "v3",
@@ -77175,7 +77175,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-07 19:50:02],
         updated_at: ~N[2023-04-07 19:50:02]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2425,
         payload: %{
           "apiVersion" => "v3",
@@ -77204,7 +77204,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:44:23],
         updated_at: ~N[2023-04-08 01:44:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2444,
         payload: %{
           "apiVersion" => "v3",
@@ -77235,7 +77235,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:10:42],
         updated_at: ~N[2023-04-08 16:10:42]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2420,
         payload: %{
           "apiVersion" => "v3",
@@ -77264,7 +77264,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 00:24:35],
         updated_at: ~N[2023-04-08 00:24:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2426,
         payload: %{
           "apiVersion" => "v3",
@@ -77293,7 +77293,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:51:23],
         updated_at: ~N[2023-04-08 01:51:23]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2427,
         payload: %{
           "apiVersion" => "v3",
@@ -77323,7 +77323,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 02:00:25],
         updated_at: ~N[2023-04-08 02:00:25]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2431,
         payload: %{
           "apiVersion" => "v3",
@@ -77352,7 +77352,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 15:55:49],
         updated_at: ~N[2023-04-08 15:55:49]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2433,
         payload: %{
           "apiVersion" => "v3",
@@ -77382,7 +77382,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 15:59:27],
         updated_at: ~N[2023-04-08 15:59:27]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2438,
         payload: %{
           "apiVersion" => "v3",
@@ -77413,7 +77413,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:05:33],
         updated_at: ~N[2023-04-08 16:05:33]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2458,
         payload: %{
           "apiVersion" => "v3",
@@ -77443,7 +77443,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-09 16:18:29],
         updated_at: ~N[2023-04-09 16:18:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2421,
         payload: %{
           "apiVersion" => "v3",
@@ -77473,7 +77473,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:03:53],
         updated_at: ~N[2023-04-08 01:03:53]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2423,
         payload: %{
           "apiVersion" => "v3",
@@ -77553,7 +77553,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 01:31:55],
         updated_at: ~N[2023-04-08 01:31:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2429,
         payload: %{
           "apiVersion" => "v3",
@@ -77582,7 +77582,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 15:30:57],
         updated_at: ~N[2023-04-08 15:30:57]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2436,
         payload: %{
           "apiVersion" => "v3",
@@ -77613,7 +77613,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:03:41],
         updated_at: ~N[2023-04-08 16:03:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2445,
         payload: %{
           "apiVersion" => "v3",
@@ -77651,7 +77651,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:10:50],
         updated_at: ~N[2023-04-08 16:10:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2447,
         payload: %{
           "apiVersion" => "v3",
@@ -77680,7 +77680,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:30:09],
         updated_at: ~N[2023-04-08 16:30:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2451,
         payload: %{
           "apiVersion" => "v3",
@@ -77709,7 +77709,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:44:29],
         updated_at: ~N[2023-04-08 21:44:29]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2452,
         payload: %{
           "apiVersion" => "v3",
@@ -77789,7 +77789,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:45:16],
         updated_at: ~N[2023-04-08 21:45:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2428,
         payload: %{
           "apiVersion" => "v3",
@@ -77819,7 +77819,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 02:43:41],
         updated_at: ~N[2023-04-08 02:43:41]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2443,
         payload: %{
           "apiVersion" => "v3",
@@ -77848,7 +77848,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:08:50],
         updated_at: ~N[2023-04-08 16:08:50]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2460,
         payload: %{
           "apiVersion" => "v3",
@@ -77877,7 +77877,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-09 18:01:55],
         updated_at: ~N[2023-04-09 18:01:55]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2439,
         payload: %{
           "apiVersion" => "v3",
@@ -77906,7 +77906,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:05:35],
         updated_at: ~N[2023-04-08 16:05:35]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2453,
         payload: %{
           "apiVersion" => "v3",
@@ -77986,7 +77986,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:45:45],
         updated_at: ~N[2023-04-08 21:45:45]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2455,
         payload: %{
           "apiVersion" => "v3",
@@ -78015,7 +78015,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:48:24],
         updated_at: ~N[2023-04-08 21:48:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2459,
         payload: %{
           "apiVersion" => "v3",
@@ -78045,7 +78045,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-09 16:21:12],
         updated_at: ~N[2023-04-09 16:21:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2449,
         payload: %{
           "apiVersion" => "v3",
@@ -78074,7 +78074,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:52:48],
         updated_at: ~N[2023-04-08 16:52:48]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2450,
         payload: %{
           "apiVersion" => "v3",
@@ -78103,7 +78103,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 16:53:24],
         updated_at: ~N[2023-04-08 16:53:24]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2456,
         payload: %{
           "apiVersion" => "v3",
@@ -78132,7 +78132,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-08 21:49:37],
         updated_at: ~N[2023-04-08 21:49:37]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2457,
         payload: %{
           "apiVersion" => "v3",
@@ -78161,7 +78161,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-09 03:42:46],
         updated_at: ~N[2023-04-09 03:42:46]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2464,
         payload: %{
           "apiVersion" => "v3",
@@ -78190,7 +78190,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:00:05],
         updated_at: ~N[2023-04-10 03:00:05]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2465,
         payload: %{
           "apiVersion" => "v3",
@@ -78220,7 +78220,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:00:15],
         updated_at: ~N[2023-04-10 03:00:15]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2466,
         payload: %{
           "apiVersion" => "v3",
@@ -78250,7 +78250,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:00:58],
         updated_at: ~N[2023-04-10 03:00:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2467,
         payload: %{
           "apiVersion" => "v3",
@@ -78279,7 +78279,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:01:26],
         updated_at: ~N[2023-04-10 03:01:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2468,
         payload: %{
           "apiVersion" => "v3",
@@ -78309,7 +78309,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:02:58],
         updated_at: ~N[2023-04-10 03:02:58]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2469,
         payload: %{
           "apiVersion" => "v3",
@@ -78338,7 +78338,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:03:21],
         updated_at: ~N[2023-04-10 03:03:21]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2470,
         payload: %{
           "apiVersion" => "v3",
@@ -78367,7 +78367,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:04:16],
         updated_at: ~N[2023-04-10 03:04:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2473,
         payload: %{
           "apiVersion" => "v3",
@@ -78396,7 +78396,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:10:12],
         updated_at: ~N[2023-04-10 03:10:12]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2471,
         payload: %{
           "apiVersion" => "v3",
@@ -78426,7 +78426,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:06:52],
         updated_at: ~N[2023-04-10 03:06:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2472,
         payload: %{
           "apiVersion" => "v3",
@@ -78456,7 +78456,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:09:52],
         updated_at: ~N[2023-04-10 03:09:52]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2479,
         payload: %{
           "apiVersion" => "v3",
@@ -78485,7 +78485,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:23:09],
         updated_at: ~N[2023-04-10 03:23:09]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2474,
         payload: %{
           "apiVersion" => "v3",
@@ -78514,7 +78514,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:10:26],
         updated_at: ~N[2023-04-10 03:10:26]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2475,
         payload: %{
           "apiVersion" => "v3",
@@ -78543,7 +78543,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:10:39],
         updated_at: ~N[2023-04-10 03:10:39]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2476,
         payload: %{
           "apiVersion" => "v3",
@@ -78572,7 +78572,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:11:16],
         updated_at: ~N[2023-04-10 03:11:16]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2477,
         payload: %{
           "apiVersion" => "v3",
@@ -78602,7 +78602,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:13:40],
         updated_at: ~N[2023-04-10 03:13:40]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 2478,
         payload: %{
           "apiVersion" => "v3",
@@ -78631,7 +78631,7 @@ defmodule OpenphoneRecorder.EventStreamFixtures do
         inserted_at: ~N[2023-04-10 03:22:59],
         updated_at: ~N[2023-04-10 03:22:59]
       },
-      %OpenphoneRecorder.Events.Event{
+      %Discussit.Events.Event{
         id: 4937,
         payload: %{
           "apiVersion" => "v3",

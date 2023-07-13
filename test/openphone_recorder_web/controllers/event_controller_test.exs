@@ -1,10 +1,10 @@
-defmodule OpenphoneRecorderWeb.EventControllerTest do
-  use OpenphoneRecorderWeb.ConnCase
+defmodule DiscussitWeb.EventControllerTest do
+  use DiscussitWeb.ConnCase
 
-  import OpenphoneRecorder.EventsFixtures
-  import OpenphoneRecorder.AccountsFixtures
+  import Discussit.EventsFixtures
+  import Discussit.AccountsFixtures
 
-  alias OpenphoneRecorder.Events.Event
+  alias Discussit.Events.Event
 
   @create_attrs %{
     payload: %{key: "Value"}
@@ -20,7 +20,7 @@ defmodule OpenphoneRecorderWeb.EventControllerTest do
 
   defp sign_request(conn, attrs) do
     timestamp = DateTime.now!("Etc/UTC") |> DateTime.to_unix()
-    signing_secret = Application.get_env(:openphone_recorder, :signing_secret)
+    signing_secret = Application.get_env(:discussit, :signing_secret)
     body = Jason.encode!(attrs)
     signed_data = "#{timestamp}.#{body}"
     signing_key_bytes = Base.decode64!(signing_secret)

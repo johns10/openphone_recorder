@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.CallsFixtures do
+defmodule Discussit.CallsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Calls` context.
+  entities via the `Discussit.Calls` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.CallsFixtures do
         external_id: "some external_id",
         source: :openphone
       })
-      |> OpenphoneRecorder.Calls.create_call()
+      |> Discussit.Calls.create_call()
 
     call
   end

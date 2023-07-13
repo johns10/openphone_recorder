@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorderWeb.UserInvitationLive do
-  use OpenphoneRecorderWeb, :live_view
+defmodule DiscussitWeb.UserInvitationLive do
+  use DiscussitWeb, :live_view
 
-  alias OpenphoneRecorder.Users
+  alias Discussit.Users
 
   def render(%{live_action: :edit} = assigns) do
     ~H"""

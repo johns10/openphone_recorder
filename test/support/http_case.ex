@@ -1,9 +1,9 @@
-defmodule OpenphoneRecorder.HTTPCase do
+defmodule Discussit.HTTPCase do
   use ExUnit.CaseTemplate
 
   setup do
-    Application.put_env(:openphone_recorder, :http_provider, OpenphoneRecorder.MockHTTP)
-    Mox.stub_with(OpenphoneRecorder.MockHTTP, OpenphoneRecorder.StubHTTP)
+    Application.put_env(:discussit, :http_provider, Discussit.MockHTTP)
+    Mox.stub_with(Discussit.MockHTTP, Discussit.StubHTTP)
 
     :ok
   end

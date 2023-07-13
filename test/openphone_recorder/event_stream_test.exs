@@ -1,15 +1,15 @@
-defmodule OpenphoneRecorder.EventStreamTest do
-  use OpenphoneRecorder.DataCase
-  use OpenphoneRecorder.HTTPCase
-  use OpenphoneRecorder.AudioCase
+defmodule Discussit.EventStreamTest do
+  use Discussit.DataCase
+  use Discussit.HTTPCase
+  use Discussit.AudioCase
 
   import Mox
-  import OpenphoneRecorder.HTTPFixtures
-  import OpenphoneRecorder.AccountsFixtures
+  import Discussit.HTTPFixtures
+  import Discussit.AccountsFixtures
 
-  alias OpenphoneRecorder.EventStreamFixtures
-  alias OpenphoneRecorder.Events
-  alias OpenphoneRecorder.Events.Openphone.Projector
+  alias Discussit.EventStreamFixtures
+  alias Discussit.Events
+  alias Discussit.Events.Openphone.Projector
 
   @transcription_url "https://api.openai.com/v1/audio/transcriptions"
 
@@ -18,7 +18,7 @@ defmodule OpenphoneRecorder.EventStreamTest do
     test "streams" do
       account = account_fixture()
 
-      OpenphoneRecorder.MockHTTP
+      Discussit.MockHTTP
       |> expect(:post, 16, fn @transcription_url, _, _, _ -> openai_speech() end)
 
       EventStreamFixtures.stream()
