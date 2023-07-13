@@ -17,7 +17,8 @@ defmodule Discussit.Application do
       # Start Finch
       {Finch, name: Discussit.Finch},
       # Start the Endpoint (http/https)
-      DiscussitWeb.Endpoint
+      DiscussitWeb.Endpoint,
+      {Discussit.Events.Consumer, %{delay: 10000, count: 0}}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -177,7 +177,8 @@ defmodule DiscussitWeb.UserAuth do
             [%Account{id: id} | _] ->
               {:ok, updated_user_setting} =
                 UserSettings.update_user_setting(original_user_setting, %{selected_account_id: id})
-                |> Discussit.Repo.preload([:selected_account])
+
+              Discussit.Repo.preload(updated_user_setting, [:selected_account])
 
               updated_user_setting
 
