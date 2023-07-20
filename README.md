@@ -20,3 +20,5 @@ fly ssh console --select -C "/app/bin/discussit remote"
 ```
 bin/discussit eval 'Discussit.Release.migrate()'
 ```
+
+./bin/discussit eval 'Discussit.Events.list_unprocessed_events()'

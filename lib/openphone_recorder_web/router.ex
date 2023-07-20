@@ -69,6 +69,7 @@ defmodule DiscussitWeb.Router do
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
+      resources "/events", EventController, except: [:new, :edit]
     end
 
     post "/users/log_in", UserSessionController, :create
@@ -102,8 +103,6 @@ defmodule DiscussitWeb.Router do
 
       live "/home", IndexLive.Index, :index
       live "/conversations/:id", IndexLive.Index, :index
-
-      resources "/events", EventController, except: [:new, :edit]
 
       live "/contacts", ContactLive.Index, :index
       live "/contacts/new", ContactLive.Index, :new
