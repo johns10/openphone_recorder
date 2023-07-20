@@ -85,6 +85,7 @@ defmodule DiscussitWeb.Router do
       live "/accounts", AccountLive.Index, :index
       live "/accounts/new", AccountLive.Index, :new
       live "/accounts/:id/edit", AccountLive.Index, :edit
+      live "/admin", AdminLive.Index, :index
     end
   end
 
