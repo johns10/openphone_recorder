@@ -88,7 +88,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   defp replace_conversations(socket, conversations) do
     socket =
       Enum.reduce(socket.assigns.streams.conversations, socket, fn conversation, acc ->
-        stream_delete(acc, :conversations, conversations)
+        stream_delete(acc, :conversations, conversation)
       end)
 
     Enum.reduce(conversations, socket, fn conversation, acc ->
