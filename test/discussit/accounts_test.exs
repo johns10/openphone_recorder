@@ -21,11 +21,16 @@ defmodule Discussit.AccountsTest do
     end
 
     test "create_account/1 with valid data creates a account" do
-      valid_attrs = %{name: "some name", plan: :free}
+      valid_attrs = %{
+        name: "some name",
+        plan: :free,
+        openphone_signing_secret: "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g="
+      }
 
       assert {:ok, %Account{} = account} = Accounts.create_account(valid_attrs)
       assert account.name == "some name"
       assert account.plan == :free
+      assert account.openphone_signing_secret == "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g="
     end
 
     test "create_account/1 with invalid data returns error changeset" do

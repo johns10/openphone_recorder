@@ -10,9 +10,14 @@
 <.list>
   <:item title="Plan"><%= @account.plan |> Atom.to_string() |> String.capitalize() %></:item>
   <:item title="Openphone Webhook URL"><%= url(~p"/api/events/#{@account.id}") %></:item>
+  <:item title="Openphone Signing Secret">
+    <%= render_signing_secret(@account.openphone_signing_secret) %>
+  </:item>
 </.list>
 
-<.header>Account Users</.header>
+<div class="mt-4">
+  <.header>Account Users</.header>
+</div>
 
 <.table class="!mb-0" id="account_users" rows={@account.account_users}>
   <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>

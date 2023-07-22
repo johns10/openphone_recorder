@@ -7,6 +7,7 @@ defmodule Discussit.Accounts.Account do
   schema "accounts" do
     field :name, :string
     field :plan, Ecto.Enum, values: [:free, :basic, :pro, :enterprise]
+    field :openphone_signing_secret, :string
 
     has_many :account_users, AccountUser
 
@@ -16,7 +17,7 @@ defmodule Discussit.Accounts.Account do
   @doc false
   def changeset(account, attrs) do
     account
-    |> cast(attrs, [:name, :plan])
+    |> cast(attrs, [:name, :plan, :openphone_signing_secret])
     |> validate_required([:name, :plan])
   end
 end

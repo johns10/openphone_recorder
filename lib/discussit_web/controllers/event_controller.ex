@@ -1,6 +1,7 @@
 defmodule DiscussitWeb.EventController do
   use DiscussitWeb, :controller
 
+  alias Discussit.Accounts
   alias Discussit.Events
   alias Discussit.Events.Event
   alias Discussit.Events.Signature
@@ -12,11 +13,12 @@ defmodule DiscussitWeb.EventController do
     render(conn, :index, events: events)
   end
 
-  def create(conn, %{"account_id" => account_id, "event" => event_params}) do
-    params = Map.put(event_params, "account_id", account_id)
+  def create(conn, attrs) do
+    {account_id, payload} = Map.pop(attrs, "account_id")
 
-    with {:ok, _signature} <- validate_request(conn),
-         {:ok, %Event{} = event} <- Events.create_event(params) do
+    with {:ok, _signature} <- validate_request(conn, account_id),
+         {:ok, %Event{} = event} <-
+           Events.create_event(%{account_id: account_id, payload: payload}) do
       conn
       |> put_status(:created)
       |> render(:show, event: event)
@@ -28,11 +30,14 @@ defmodule DiscussitWeb.EventController do
     render(conn, :show, event: event)
   end
 
-  def update(conn, %{"id" => id, "event" => event_params}) do
+  def update(conn, attrs) do
+    {id, attrs} = Map.pop(attrs, "id")
     event = Events.get_event!(id)
+    {account_id, payload} = Map.pop(attrs, "account_id")
 
-    with {:ok, _signature} <- validate_request(conn),
-         {:ok, %Event{} = event} <- Events.update_event(event, event_params) do
+    with {:ok, _signature} <- validate_request(conn, account_id),
+         {:ok, %Event{} = event} <-
+           Events.update_event(event, %{account_id: account_id, payload: payload}) do
       render(conn, :show, event: event)
     end
   end
@@ -45,8 +50,8 @@ defmodule DiscussitWeb.EventController do
     end
   end
 
-  defp validate_request(conn) do
-    secret = Application.get_env(:discussit, :signing_secret)
+  defp validate_request(conn, account_id) do
+    %{openphone_signing_secret: secret} = Accounts.get_account!(account_id)
     incoming_signature = get_req_header(conn, "openphone-signature") |> Enum.at(0) || ""
     body = Map.get(conn.assigns, :raw_body) |> Enum.join()
 

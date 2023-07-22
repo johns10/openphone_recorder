@@ -20,6 +20,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:openphone_signing_secret]} type="text" label="Signing Secret" />
         <.input
           field={@form[:plan]}
           type="select"

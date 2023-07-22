@@ -36,9 +36,9 @@ defmodule DiscussitWeb.Router do
 
     post "/events/:account_id", EventController, :create
     get "/events/:id", EventController, :show
-    get "/events", EventController, :index
-    put "/events/:id", EventController, :update
-    delete "/events/:id", EventController, :delete
+    # get "/events", EventController, :index
+    # put "/events/:account_id/:id", EventController, :update
+    # delete "/events/:id", EventController, :delete
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -69,7 +69,6 @@ defmodule DiscussitWeb.Router do
       live "/users/log_in", UserLoginLive, :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
-      resources "/events", EventController, except: [:new, :edit]
     end
 
     post "/users/log_in", UserSessionController, :create
