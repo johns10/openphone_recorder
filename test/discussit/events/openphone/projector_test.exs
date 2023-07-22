@@ -93,6 +93,15 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
   end
 
   describe "ContactUpdated" do
+    test "Does nothing when it doesn't exist" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      assert {:error, _} =
+               OpenphoneFixtures.contact_updated(%{phone_number: "125665812"})
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
+    end
+
     test "creates a contact when it doesn't exist" do
       account = Discussit.AccountsFixtures.account_fixture()
 
