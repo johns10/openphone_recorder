@@ -14,6 +14,7 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Calls
   alias Discussit.Audio
   alias Discussit.Contacts
+  alias Discussit.Accounts
 
   alias Discussit.Events.Openphone.CallCompleted
   alias Discussit.Events.Openphone.CallRinging
@@ -48,7 +49,7 @@ defmodule Discussit.Events.Openphone.Projector do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
          {:ok, call} <- Calls.upsert_call(call_attrs),
-         {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data) do
+         {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data, account_id) do
       {:ok, call}
     end
   end
@@ -179,15 +180,18 @@ defmodule Discussit.Events.Openphone.Projector do
   defp maybe_transcribe_call_recording(
          %Calls.Call{conversation_id: conversation_id} = call,
          %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
-         %{from_participant: from_participant, to_participant: to_participant}
+         %{from_participant: from_participant, to_participant: to_participant},
+         account_id
        )
        when duration > 0 do
     with {:ok, path} = Briefly.create(extname: ".mp3"),
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(media_url),
          :ok <- File.write(path, body),
          {:ok, %{left: left, right: right}} <- Audio.split(path),
-         {:ok, left_attrs} <- transcribe_file(left, from_participant, call, conversation_id),
-         {:ok, right_attrs} <- transcribe_file(right, to_participant, call, conversation_id) do
+         {:ok, left_attrs} <-
+           transcribe_file(left, from_participant, call, conversation_id, account_id),
+         {:ok, right_attrs} <-
+           transcribe_file(right, to_participant, call, conversation_id, account_id) do
       attrs = left_attrs ++ right_attrs
       changesets = Enum.map(attrs, &Statements.change_statement(%Statement{}, &1))
 
@@ -214,16 +218,21 @@ defmodule Discussit.Events.Openphone.Projector do
     end
   end
 
-  defp maybe_transcribe_call_recording(_openphone_call, call, _participants),
+  defp maybe_transcribe_call_recording(_openphone_call, call, _participants, _account_id),
     do: {:ok, call}
 
   defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
 
-  defp transcribe_file(file, participant, call, conversation_id) do
+  defp transcribe_file(file, participant, call, conversation_id, account_id) do
     opts = [model: "whisper-1", response_format: "verbose_json"]
 
+    config =
+      account_id
+      |> Accounts.get_account!()
+      |> Accounts.cast_openai_config()
+
     with {:ok, %{duration: duration, segments: segments}} <-
-           OpenAI.audio_transcription(file, opts) do
+           OpenAI.audio_transcription(file, opts, config) do
       now = NaiveDateTime.utc_now()
 
       {:ok,

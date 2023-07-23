@@ -61,4 +61,9 @@ defmodule Discussit.Accounts do
   def change_account(%Account{} = account, attrs \\ %{}) do
     Account.changeset(account, attrs)
   end
+
+  def cast_openai_config(%Account{openai_api_key: openai_api_key}) do
+    openai_apikey = openai_api_key || System.get_env("OPENAI_API_KEY")
+    %OpenAI.Config{api_key: openai_apikey, http_options: [recv_timeout: 10 * 60 * 1000]}
+  end
 end

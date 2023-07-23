@@ -14,7 +14,6 @@ defmodule DiscussitWeb.ConnCase do
   by setting `use DiscussitWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
-  alias Discussit.AccountUsersFixtures
   alias Discussit.AccountsFixtures
   alias Discussit.UserSettingsFixtures
 
