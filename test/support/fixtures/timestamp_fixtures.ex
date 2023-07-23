@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.TimestampFixtures do
+defmodule Discussit.TimestampFixtures do
   alias PgRanges.TsRange
   def ten_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10 * 60)
   def thirty_minutes_ago(), do: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30 * 60)

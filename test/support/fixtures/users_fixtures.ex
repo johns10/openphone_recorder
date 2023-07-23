@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.UsersFixtures do
+defmodule Discussit.UsersFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Users` context.
+  entities via the `Discussit.Users` context.
   """
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -18,7 +18,7 @@ defmodule OpenphoneRecorder.UsersFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> OpenphoneRecorder.Users.register_user()
+      |> Discussit.Users.register_user()
 
     user
   end
@@ -28,7 +28,7 @@ defmodule OpenphoneRecorder.UsersFixtures do
       attrs
       |> Map.merge(%{email: "johns10@gmail.com"})
       |> valid_user_attributes()
-      |> OpenphoneRecorder.Users.register_user()
+      |> Discussit.Users.register_user()
 
     user
   end

@@ -1,5 +1,5 @@
-defmodule OpenphoneRecorder.StubHTTP do
-  @behaviour OpenphoneRecorder.HTTP.Behaviour
+defmodule Discussit.StubHTTP do
+  @behaviour Discussit.HTTP.Behaviour
 
   @impl true
   def start(), do: :ok

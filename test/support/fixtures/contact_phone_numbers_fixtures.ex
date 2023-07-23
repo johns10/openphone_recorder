@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.ContactPhoneNumbersFixtures do
+defmodule Discussit.ContactPhoneNumbersFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.ContactPhoneNumbers` context.
+  entities via the `Discussit.ContactPhoneNumbers` context.
   """
 
   @doc """
@@ -11,7 +11,7 @@ defmodule OpenphoneRecorder.ContactPhoneNumbersFixtures do
     {:ok, contact_phone_number} =
       attrs
       |> Enum.into(%{})
-      |> OpenphoneRecorder.ContactPhoneNumbers.create_contact_phone_number()
+      |> Discussit.ContactPhoneNumbers.create_contact_phone_number()
 
     contact_phone_number
   end

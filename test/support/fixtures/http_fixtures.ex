@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.HTTPFixtures do
+defmodule Discussit.HTTPFixtures do
   def openai_speech(attrs \\ %{})
 
   def openai_speech(%{response_format: "json"}) do
@@ -34,7 +34,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
               {"model", "whisper-1"},
               {"response_format", "json"},
               {:file,
-               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello.mp3"}
+               "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello.mp3"}
             ]},
          params: %{},
          options: []
@@ -76,7 +76,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
               {"model", "whisper-1"},
               {"response_format", "verbose_json"},
               {:file,
-               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello_goodbye.mp3"}
+               "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello_goodbye.mp3"}
             ]},
          params: %{},
          options: []
@@ -118,7 +118,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
               {"model", "whisper-1"},
               {"response_format", "verbose_json"},
               {:file,
-               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello_goodbye.mp3"}
+               "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello_goodbye.mp3"}
             ]},
          params: %{},
          options: []
@@ -160,7 +160,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
               {"model", "whisper-1"},
               {"response_format", "verbose_json"},
               {:file,
-               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello_goodbye.mp3"}
+               "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello_goodbye.mp3"}
             ]},
          params: %{},
          options: []
@@ -202,7 +202,7 @@ defmodule OpenphoneRecorder.HTTPFixtures do
               {"model", "whisper-1"},
               {"response_format", "verbose_json"},
               {:file,
-               "/Users/johndavenport/Documents/github/openphone_recorder/test/support/fixtures/hello_goodbye.mp3"}
+               "/Users/johndavenport/Documents/github/discussit/test/support/fixtures/hello_goodbye.mp3"}
             ]},
          params: %{},
          options: []

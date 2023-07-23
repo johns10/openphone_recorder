@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.SummariesFixtures do
+defmodule Discussit.SummariesFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Summaries` context.
+  entities via the `Discussit.Summaries` context.
   """
 
   @doc """
@@ -15,7 +15,7 @@ defmodule OpenphoneRecorder.SummariesFixtures do
         params: %{},
         chunker: :daily
       })
-      |> OpenphoneRecorder.Summaries.create_summary()
+      |> Discussit.Summaries.create_summary()
 
     summary
   end

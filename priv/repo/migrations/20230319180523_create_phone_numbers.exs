@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.Repo.Migrations.CreatePhoneNumbers do
+defmodule Discussit.Repo.Migrations.CreatePhoneNumbers do
   use Ecto.Migration
 
   def change do

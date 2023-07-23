@@ -1,2 +1,2 @@
 ExUnit.start(exclude: [:integration])
-Ecto.Adapters.SQL.Sandbox.mode(OpenphoneRecorder.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Discussit.Repo, :manual)

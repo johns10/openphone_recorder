@@ -1,0 +1,10 @@
+<.header>
+  Conversation <%= @conversation.id %>
+  <:subtitle>This is a conversation record from your database.</:subtitle>
+</.header>
+
+<.list>
+  <:item title="Source"><%= @conversation.source %></:item>
+</.list>
+
+<.back navigate={~p"/home"}>Back to conversations</.back>

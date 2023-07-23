@@ -1,7 +1,7 @@
-defmodule OpenphoneRecorder.SummarizersFixtures do
+defmodule Discussit.SummarizersFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `OpenphoneRecorder.Summarizers` context.
+  entities via the `Discussit.Summarizers` context.
   """
 
   @doc """
@@ -14,7 +14,7 @@ defmodule OpenphoneRecorder.SummarizersFixtures do
         prompt: "some prompt",
         chunker: :daily
       })
-      |> OpenphoneRecorder.Summarizers.create_summarizer()
+      |> Discussit.Summarizers.create_summarizer()
 
     summarizer
   end

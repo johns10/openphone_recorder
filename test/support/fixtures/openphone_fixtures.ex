@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.OpenphoneFixtures do
+defmodule Discussit.OpenphoneFixtures do
   def call_completed(attrs \\ %{}) do
     id = Map.get(attrs, :id, "ACbaee66e137f0467dbed5ad4bc8d60800")
 
@@ -254,7 +254,9 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
   #   |> Jason.decode!()
   # end
 
-  def contact_updated(_attrs \\ %{}) do
+  def contact_updated(attrs \\ %{}) do
+    phone_number = Map.get(attrs, :phone_number, "12566581234")
+
     """
     {
       "apiVersion": "v3",
@@ -263,7 +265,7 @@ defmodule OpenphoneRecorder.OpenphoneFixtures do
         "object": {
           "clientId": "81b91794-7604-4731-8aab-0cfc5ce44449",
           "createdAt": "2023-03-30T22:32:12.319Z",
-          "fields": {"Phone": "+12566581234"},
+          "fields": {"Phone": "+#{phone_number}"},
           "firstName": "Jayson",
           "id": "CT64260c5cd1c90ca558ff6edb",
           "lastName": "",

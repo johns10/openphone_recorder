@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorder.Repo.Migrations.CreateSummarizers do
+defmodule Discussit.Repo.Migrations.CreateSummarizers do
   use Ecto.Migration
 
   def change do

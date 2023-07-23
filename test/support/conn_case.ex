@@ -1,4 +1,4 @@
-defmodule OpenphoneRecorderWeb.ConnCase do
+defmodule DiscussitWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,31 +11,30 @@ defmodule OpenphoneRecorderWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use OpenphoneRecorderWeb.ConnCase, async: true`, although
+  by setting `use DiscussitWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
-  alias OpenphoneRecorder.AccountUsersFixtures
-  alias OpenphoneRecorder.AccountsFixtures
-  alias OpenphoneRecorder.UserSettingsFixtures
+  alias Discussit.AccountsFixtures
+  alias Discussit.UserSettingsFixtures
 
   use ExUnit.CaseTemplate
 
   using do
     quote do
       # The default endpoint for testing
-      @endpoint OpenphoneRecorderWeb.Endpoint
+      @endpoint DiscussitWeb.Endpoint
 
-      use OpenphoneRecorderWeb, :verified_routes
+      use DiscussitWeb, :verified_routes
 
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import OpenphoneRecorderWeb.ConnCase
+      import DiscussitWeb.ConnCase
     end
   end
 
   setup tags do
-    OpenphoneRecorder.DataCase.setup_sandbox(tags)
+    Discussit.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
@@ -48,12 +47,12 @@ defmodule OpenphoneRecorderWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = OpenphoneRecorder.UsersFixtures.user_fixture()
+    user = Discussit.UsersFixtures.user_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
 
   def register_and_log_in_administrator(%{conn: conn}) do
-    user = OpenphoneRecorder.UsersFixtures.administrator_fixture()
+    user = Discussit.UsersFixtures.administrator_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
 
@@ -63,7 +62,7 @@ defmodule OpenphoneRecorderWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_user(conn, user) do
-    token = OpenphoneRecorder.Users.generate_user_session_token(user)
+    token = Discussit.Users.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})
@@ -84,7 +83,7 @@ defmodule OpenphoneRecorderWeb.ConnCase do
 
   def permit(%{account: account, user: user}) do
     account_user =
-      OpenphoneRecorder.AccountUsersFixtures.account_user_fixture(%{
+      Discussit.AccountUsersFixtures.account_user_fixture(%{
         user_id: user.id,
         account_id: account.id
       })
