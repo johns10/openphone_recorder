@@ -20,7 +20,8 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:openphone_signing_secret]} type="text" label="Signing Secret" />
+        <.input field={@form[:openphone_signing_secret]} type="password" label="Signing Secret" />
+        <.input field={@form[:openai_api_key]} type="password" label="OpenAI API Key" />
         <.input
           field={@form[:plan]}
           type="select"

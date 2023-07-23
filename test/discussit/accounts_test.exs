@@ -24,13 +24,15 @@ defmodule Discussit.AccountsTest do
       valid_attrs = %{
         name: "some name",
         plan: :free,
-        openphone_signing_secret: "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g="
+        openphone_signing_secret: "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g=",
+        openai_api_key: "test key"
       }
 
       assert {:ok, %Account{} = account} = Accounts.create_account(valid_attrs)
       assert account.name == "some name"
       assert account.plan == :free
       assert account.openphone_signing_secret == "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g="
+      assert account.openai_api_key == "test key"
     end
 
     test "create_account/1 with invalid data returns error changeset" do
@@ -39,11 +41,19 @@ defmodule Discussit.AccountsTest do
 
     test "update_account/2 with valid data updates the account" do
       account = account_fixture()
-      update_attrs = %{name: "some updated name", plan: :basic}
+
+      update_attrs = %{
+        name: "some updated name",
+        plan: :basic,
+        openphone_signing_secret: "updated secret",
+        openai_api_key: "test key"
+      }
 
       assert {:ok, %Account{} = account} = Accounts.update_account(account, update_attrs)
       assert account.name == "some updated name"
       assert account.plan == :basic
+      assert account.openphone_signing_secret == "updated secret"
+      assert account.openai_api_key == "test key"
     end
 
     test "update_account/2 with invalid data returns error changeset" do

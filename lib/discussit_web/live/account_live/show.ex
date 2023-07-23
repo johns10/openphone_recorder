@@ -52,9 +52,9 @@ defmodule DiscussitWeb.AccountLive.Show do
     {:noreply, assign(socket, :account, account)}
   end
 
-  defp render_signing_secret(nil), do: nil
+  defp render_sensitive_string(nil), do: nil
 
-  defp render_signing_secret(secret) when is_binary(secret) do
+  defp render_sensitive_string(secret) when is_binary(secret) do
     "*#{String.slice(secret, -4..-1)}"
   end
 

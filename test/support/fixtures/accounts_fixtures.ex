@@ -13,7 +13,8 @@ defmodule Discussit.AccountsFixtures do
       |> Enum.into(%{
         name: Faker.Company.name(),
         plan: :free,
-        openphone_signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
+        openphone_signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E=",
+        openai_api_key: "test api key"
       })
       |> Discussit.Accounts.create_account()
 

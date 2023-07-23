@@ -11,7 +11,10 @@
   <:item title="Plan"><%= @account.plan |> Atom.to_string() |> String.capitalize() %></:item>
   <:item title="Openphone Webhook URL"><%= url(~p"/api/events/#{@account.id}") %></:item>
   <:item title="Openphone Signing Secret">
-    <%= render_signing_secret(@account.openphone_signing_secret) %>
+    <%= render_sensitive_string(@account.openphone_signing_secret) %>
+  </:item>
+  <:item title="Openphone Signing Secret">
+    <%= render_sensitive_string(@account.openai_api_key) %>
   </:item>
 </.list>
 
