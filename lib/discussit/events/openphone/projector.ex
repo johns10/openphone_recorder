@@ -73,18 +73,14 @@ defmodule Discussit.Events.Openphone.Projector do
   def apply(%ContactUpdated{data: contact}, account_id) do
     with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact, account_id),
          {:ok, contact} <- Contacts.upsert_contact(contact_attrs),
-         phone_number_attrs <- phone_number_attrs(contact_attrs.phone_numbers, contact),
          {:ok, %{phone_numbers: phone_numbers}} <-
-           PhoneNumbers.upsert_all_phone_numbers(phone_number_attrs),
+           PhoneNumbers.upsert_all_phone_numbers(contact_attrs.phone_numbers),
          cpn_attrs <- Enum.map(phone_numbers, &%{phone_number_id: &1.id, contact_id: contact.id}),
          {:ok, %{contact_phone_numbers: _contact_phone_numbers}} <-
            ContactPhoneNumbers.get_or_insert_all_contact_phone_number(cpn_attrs) do
       {:ok, Contacts.get_contact!(contact.id, preload: [:phone_numbers])}
     end
   end
-
-  defp phone_number_attrs(phone_numbers, %{id: id}),
-    do: Enum.map(phone_numbers, &Map.put(&1, :contact_id, id))
 
   def prepare_model(
         %{
@@ -122,7 +118,9 @@ defmodule Discussit.Events.Openphone.Projector do
            Participants.upsert_participant(%{
              conversation_id: conversation.id,
              phone_number_id: to_phone_number.id
-           }) do
+           }),
+         {:ok, from_participant} <- resolve_contact(from_participant, from_phone_number),
+         {:ok, to_participant} <- resolve_contact(to_participant, to_phone_number) do
       {:ok,
        %{
          from_participant: from_participant,
@@ -131,6 +129,20 @@ defmodule Discussit.Events.Openphone.Projector do
        }}
     end
   end
+
+  defp resolve_contact(%{contact_id: nil} = participant, phone_number) do
+    contact_id =
+      Contacts.list_contacts(filters: [phone_number_id: phone_number.id])
+      |> case do
+        [] -> nil
+        [contact] -> contact.id
+        [_ | _] -> nil
+      end
+
+    Participants.update_participant(participant, %{contact_id: contact_id})
+  end
+
+  defp resolve_contact(participant, _), do: {:ok, participant}
 
   defp maybe_transcribe_voicemail(
          %Call{

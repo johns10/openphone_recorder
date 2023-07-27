@@ -24,27 +24,39 @@ defmodule Discussit.Conversations do
     |> Repo.all()
   end
 
-  def list_conversation_summary(account_id) do
-    from(c in Conversation)
+  def conversation_summary(query, account_id) do
+    query
     |> join(:left, [c], p in assoc(c, :participants), as: :participants)
     |> join(:left, [participants: p], pn in assoc(p, :phone_number), as: :phone_number)
+    |> join(:left, [participants: p], c in assoc(p, :contact), as: :contact)
     |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers),
       as: :contact_phone_numbers
     )
-    |> join(:left, [phone_number: pn], c in assoc(pn, :contact), as: :contact)
+    |> join(:left, [phone_number: pn], c in assoc(pn, :contacts), as: :contacts)
     |> where([c], c.account_id == ^account_id)
-    |> order_by([phone_number: pn, contact: contact],
-      asc: contact.id,
+    |> order_by([phone_number: pn, contacts: contacts],
+      asc: contacts.id,
       desc:
         fragment(
           "CASE 'relationship' when 'primary' then 1 when 'internal' then 2 when 'external' then 3 end"
         )
     )
     |> preload(
-      [participants: p, phone_number: pn, contact: c],
-      participants: {p, phone_number: {pn, contact: c}}
+      [participants: p, phone_number: pn, contacts: cs, contact: c],
+      participants: {p, phone_number: {pn, contacts: cs}, contact: c}
     )
+  end
+
+  def list_conversation_summary(account_id) do
+    from(c in Conversation)
+    |> conversation_summary(account_id)
     |> Repo.all()
+  end
+
+  def get_conversation_summary!(id, account_id) do
+    Conversation
+    |> conversation_summary(account_id)
+    |> Repo.get!(id)
   end
 
   def get_conversation!(id, opts \\ []) do

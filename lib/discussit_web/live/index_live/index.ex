@@ -4,14 +4,13 @@ defmodule DiscussitWeb.IndexLive.Index do
   use Phoenix.LiveView,
     container: {:div, class: "h-full flex-grow flex flex-col overflow-hidden"}
 
-  on_mount {DiscussitWeb.UserAuth, :mount_current_user}
+  on_mount({DiscussitWeb.UserAuth, :mount_current_user})
 
   import DiscussitWeb.IndexLive.Components
 
   alias Discussit.Conversations
   alias Discussit.Statements
-
-  @default_preloads [:participants, [participants: [phone_number: :contact]]]
+  alias Discussit.Participants
 
   @impl true
   def mount(_params, _session, socket) do
@@ -22,8 +21,9 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:ok,
      socket
      |> assign(:render, true)
-     |> stream(:conversations, conversations)
-     |> stream(:statements, []), layout: {DiscussitWeb.Layouts, :full_screen}}
+     |> assign(:conversation, nil)
+     |> assign(:conversations, conversations)
+     |> assign(:statements, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
@@ -31,38 +31,30 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :index, %{"id" => conversation_id}) do
-    user = socket.assigns.current_user
-    conversation = Conversations.get_conversation!(conversation_id, preloads: @default_preloads)
-
-    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
-      :ok ->
-        statements =
-          Statements.list_statements(
-            filters: [conversation_id: conversation_id],
-            order_by: [occurred_at: :desc]
-          )
-
-        conversation.participants
-        |> participant_sides
-
-        socket =
-          Enum.reduce(socket.assigns.streams.statements, socket, fn statement, acc ->
-            stream_delete(acc, :statements, statement)
-          end)
-
-        Enum.reduce(statements, socket, fn statement, acc ->
-          stream_insert(acc, :statements, statement)
-        end)
-        |> assign(:participant_sides, participant_sides(conversation.participants))
-        |> assign(:page_title, "Listing Conversations")
-        |> assign(:conversation, nil)
-
-      {:error, :unauthorized} ->
+  @impl true
+  def handle_event(
+        "set-participant-contact",
+        %{"contact-id" => contact_id, "participant-id" => participant_id},
         socket
-        |> push_patch(to: ~p"/home")
-        |> put_flash(:error, "You cannot access this conversation")
+      ) do
+    Participants.get_participant!(participant_id)
+    |> Participants.update_participant(%{contact_id: contact_id})
+    |> case do
+      {:ok, _participant} ->
+        %{assigns: %{conversation: conversation}} =
+          socket = handle_conversation_update(socket, socket.assigns.conversation.id)
+
+        socket = replace_conversation(socket, conversation)
+
+        {:noreply, socket}
+
+      _ ->
+        {:noreply, socket}
     end
+  end
+
+  defp apply_action(socket, :index, %{"id" => conversation_id}) do
+    handle_conversation_update(socket, conversation_id)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -81,19 +73,55 @@ defmodule DiscussitWeb.IndexLive.Index do
      socket
      |> replace_conversations(conversations)
      |> assign(:user_setting, user_setting)
-     |> assign(:conversations, conversations)
      |> push_patch(to: ~p"/home")}
   end
 
-  defp replace_conversations(socket, conversations) do
-    socket =
-      Enum.reduce(socket.assigns.streams.conversations, socket, fn conversation, acc ->
-        stream_delete(acc, :conversations, conversation)
+  defp replace_conversation(socket, conversation) do
+    conversations =
+      socket.assigns.conversations
+      |> Enum.map(fn %{id: conversation_id} = old_conversation ->
+        if conversation_id == conversation.id do
+          conversation
+        else
+          old_conversation
+        end
       end)
 
-    Enum.reduce(conversations, socket, fn conversation, acc ->
-      stream_insert(acc, :conversations, conversation)
-    end)
+    assign(socket, :conversations, conversations)
+  end
+
+  defp replace_conversations(socket, conversations) do
+    assign(socket, :conversations, conversations)
+  end
+
+  defp handle_conversation_update(socket, conversation_id) do
+    user = socket.assigns.current_user
+
+    conversation =
+      Conversations.get_conversation_summary!(
+        conversation_id,
+        socket.assigns.user_setting.selected_account_id
+      )
+
+    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
+      :ok ->
+        statements =
+          Statements.list_statements(
+            filters: [conversation_id: conversation_id],
+            order_by: [occurred_at: :desc]
+          )
+
+        socket
+        |> assign(:statements, statements)
+        |> assign(:participant_sides, participant_sides(conversation.participants))
+        |> assign(:page_title, "Listing Conversations")
+        |> assign(:conversation, conversation)
+
+      {:error, :unauthorized} ->
+        socket
+        |> push_patch(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this conversation")
+    end
   end
 
   defp participant_sides([p1, p2 | tail]) do

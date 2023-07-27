@@ -94,8 +94,8 @@ defmodule DiscussitWeb.EventControllerTest do
   # end
   # end
 
-  defp create_event(_) do
-    event = event_fixture()
-    %{event: event}
-  end
+  # defp create_event(_) do
+  #   event = event_fixture()
+  #   %{event: event}
+  # end
 end
