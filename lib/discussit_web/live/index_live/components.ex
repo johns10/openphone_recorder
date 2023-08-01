@@ -40,12 +40,10 @@ defmodule DiscussitWeb.IndexLive.Components do
   def participant_or_picker(assigns), do: participant(assigns)
 
   def render_contact_picker(assigns) do
-    dropdown_style = if assigns.last, do: "dropdown-end", else: ""
-
     ~H"""
     <div class="flex flex-row items-center gap-2">
       <.participant participant={@participant} class={@class} />
-      <div class={["dropdown pr-0 mr-0", dropdown_style]}>
+      <div class={["dropdown pr-0 mr-0", if(@last, do: "dropdown-end", else: "")]}>
         <label tabindex="0">
           <span class="btn btn-xs"><.icon name="hero-chevron-down" class="w-3 h-3" /></span>
         </label>
