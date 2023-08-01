@@ -4,7 +4,7 @@ defmodule Discussit.Audio.Provider do
     left = Briefly.create!(extname: extname)
     right = Briefly.create!(extname: extname)
 
-    System.cmd("ffmpeg", [
+    MuonTrap.cmd("ffmpeg", [
       "-y",
       "-i",
       filename,
@@ -25,7 +25,7 @@ defmodule Discussit.Audio.Provider do
   end
 
   def duration(filename) do
-    System.cmd("ffprobe", [
+    MuonTrap.cmd("ffprobe", [
       filename,
       "-show_entries",
       "format=duration",
