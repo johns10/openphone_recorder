@@ -231,5 +231,14 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
                |> Events.cast_event()
                |> Projector.apply(account.id)
     end
+
+    test "handles no phone numbers" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      assert {:ok, %Contact{phone_numbers: []}} =
+               OpenphoneFixtures.contact_updated(%{phone_number: nil})
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
+    end
   end
 end
