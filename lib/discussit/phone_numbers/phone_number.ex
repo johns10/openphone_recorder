@@ -35,6 +35,7 @@ defmodule Discussit.PhoneNumbers.PhoneNumber do
     |> cast(attrs, [:external_id, :value, :source])
     |> cast_id()
     |> handle_shortcode(attrs)
+    |> handle_no_caller_id(attrs)
     |> validate_required([:source])
     |> unique_constraint([:id], name: :phone_numbers_pkey)
   end
@@ -57,6 +58,26 @@ defmodule Discussit.PhoneNumbers.PhoneNumber do
     end
   end
 
+  defp handle_no_caller_id(%{errors: errors} = changeset, attrs) do
+    Keyword.get(errors, :value)
+    |> case do
+      nil ->
+        changeset
+
+      {"is invalid", [type: EctoPhoneNumber, validation: :cast]} ->
+        key = if Enum.at(attrs, 0) |> elem(0) |> is_atom(), do: :value, else: "value"
+        invalid_value = Map.get(attrs, key)
+
+        case is_no_caller_id?(invalid_value) do
+          true ->
+            force_invalid_phone_number(changeset, attrs, invalid_value)
+
+          false ->
+            changeset
+        end
+    end
+  end
+
   defp handle_shortcode(%{errors: errors} = changeset, attrs) do
     Keyword.get(errors, :value)
     |> case do
@@ -69,15 +90,7 @@ defmodule Discussit.PhoneNumbers.PhoneNumber do
 
         case is_shortcode?(invalid_value) && String.length(invalid_value) in [5, 6] do
           true ->
-            changeset.data
-            |> cast(attrs, [:external_id, :source])
-            |> put_change(:value, %EctoPhoneNumber{
-              e164: String.to_integer(invalid_value)
-            })
-            |> cast_id()
-            |> handle_shortcode(attrs)
-            |> validate_required([:source])
-            |> unique_constraint([:id], name: :phone_numbers_pkey)
+            force_invalid_phone_number(changeset, attrs, invalid_value)
 
           false ->
             changeset
@@ -85,11 +98,27 @@ defmodule Discussit.PhoneNumbers.PhoneNumber do
     end
   end
 
+  defp force_invalid_phone_number(changeset, attrs, invalid_value) do
+    changeset.data
+    |> cast(attrs, [:external_id, :source])
+    |> put_change(:value, %EctoPhoneNumber{
+      e164: String.to_integer(invalid_value)
+    })
+    |> cast_id()
+    |> handle_shortcode(attrs)
+    |> validate_required([:source])
+    |> unique_constraint([:id], name: :phone_numbers_pkey)
+  end
+
   defp is_shortcode?(phone_number_value) do
     @shortcode_regexes
     |> Enum.any?(fn regex ->
       Regex.match?(regex, phone_number_value)
     end)
+  end
+
+  defp is_no_caller_id?(phone_number_value) do
+    phone_number_value == "+266696687" or phone_number_value == "266696687"
   end
 
   def render_for_prompt(%__MODULE__{contacts: [contact]}), do: Contact.render_for_prompt(contact)
