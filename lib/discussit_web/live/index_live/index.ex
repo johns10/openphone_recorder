@@ -20,10 +20,9 @@ defmodule DiscussitWeb.IndexLive.Index do
 
     {:ok,
      socket
-     |> assign(:render, true)
      |> assign(:conversation, nil)
-     |> assign(:conversations, conversations)
-     |> assign(:statements, []), layout: {DiscussitWeb.Layouts, :full_screen}}
+     |> stream(:conversations, conversations)
+     |> stream(:statements, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
@@ -42,11 +41,9 @@ defmodule DiscussitWeb.IndexLive.Index do
     |> case do
       {:ok, _participant} ->
         %{assigns: %{conversation: conversation}} =
-          socket = handle_conversation_update(socket, socket.assigns.conversation.id)
+          socket = replace_statements(socket, socket.assigns.conversation.id)
 
-        socket = replace_conversation(socket, conversation)
-
-        {:noreply, socket}
+        {:noreply, stream_insert(socket, :conversations, conversation)}
 
       _ ->
         {:noreply, socket}
@@ -54,7 +51,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   defp apply_action(socket, :index, %{"id" => conversation_id}) do
-    handle_conversation_update(socket, conversation_id)
+    replace_statements(socket, conversation_id)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -76,25 +73,18 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> push_patch(to: ~p"/home")}
   end
 
-  defp replace_conversation(socket, conversation) do
-    conversations =
-      socket.assigns.conversations
-      |> Enum.map(fn %{id: conversation_id} = old_conversation ->
-        if conversation_id == conversation.id do
-          conversation
-        else
-          old_conversation
-        end
+  defp replace_conversations(socket, conversations) do
+    socket =
+      Enum.reduce(socket.assigns.streams.conversations, socket, fn conversation, acc ->
+        stream_delete(acc, :conversations, conversation)
       end)
 
-    assign(socket, :conversations, conversations)
+    Enum.reduce(conversations, socket, fn conversation, acc ->
+      stream_insert(acc, :conversations, conversation)
+    end)
   end
 
-  defp replace_conversations(socket, conversations) do
-    assign(socket, :conversations, conversations)
-  end
-
-  defp handle_conversation_update(socket, conversation_id) do
+  defp replace_statements(socket, conversation_id) do
     user = socket.assigns.current_user
 
     conversation =
@@ -112,10 +102,10 @@ defmodule DiscussitWeb.IndexLive.Index do
           )
 
         socket
-        |> assign(:statements, statements)
         |> assign(:participant_sides, participant_sides(conversation.participants))
         |> assign(:page_title, "Listing Conversations")
         |> assign(:conversation, conversation)
+        |> stream(:statements, statements, reset: true)
 
       {:error, :unauthorized} ->
         socket

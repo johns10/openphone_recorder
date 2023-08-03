@@ -6,8 +6,8 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def participant_header(%{conversation: nil} = assigns), do: ~H""
 
-  def participant_header(assigns),
-    do: ~H"""
+  def participant_header(assigns) do
+    ~H"""
     <div class="flex w-full bg-base-300 justify-between py-2 px-4">
       <.participant_or_picker
         participant={Enum.at(@conversation.participants, 0)}
@@ -21,6 +21,7 @@ defmodule DiscussitWeb.IndexLive.Components do
       />
     </div>
     """
+  end
 
   def participant_or_picker(%{
         participant: %{phone_number: %{contacts: contacts} = phone_number} = participant,
@@ -45,7 +46,9 @@ defmodule DiscussitWeb.IndexLive.Components do
       <.participant participant={@participant} class={@class} />
       <div class={["dropdown pr-0 mr-0", if(@last, do: "dropdown-end", else: "")]}>
         <label tabindex="0">
-          <span class="btn btn-xs"><.icon name="hero-chevron-down" class="w-3 h-3" /></span>
+          <span class="btn btn-xs" id={"participant-dropdown-toggle-#{@participant.id}"}>
+            <.icon name="hero-chevron-down" class="w-3 h-3" />
+          </span>
         </label>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
           <li :for={contact <- @contacts}>
@@ -53,6 +56,7 @@ defmodule DiscussitWeb.IndexLive.Components do
               phx-click="set-participant-contact"
               phx-value-participant-id={@participant.id}
               phx-value-contact-id={contact.id}
+              id={"participant-contact-option-#{contact.id}"}
             >
               <%= contact.first_name %> <%= contact.last_name %>
             </.link>

@@ -78,5 +78,37 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
 
       assert html =~ to_string(pn.value)
     end
+
+    test "updates a contact when participant contact picked", %{
+      conn: conn,
+      phone_number: phone_number,
+      participant: participant,
+      conversation: conversation
+    } do
+      contact_1 = Discussit.ContactsFixtures.contact_fixture()
+      contact_2 = Discussit.ContactsFixtures.contact_fixture()
+
+      Discussit.ContactPhoneNumbersFixtures.contact_phone_number_fixture(%{
+        phone_number_id: phone_number.id,
+        contact_id: contact_1.id
+      })
+
+      Discussit.ContactPhoneNumbersFixtures.contact_phone_number_fixture(%{
+        phone_number_id: phone_number.id,
+        contact_id: contact_2.id
+      })
+
+      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
+
+      assert index_live
+             |> element("span#participant-dropdown-toggle-#{participant.id}")
+             |> render_click() =~ contact_1.first_name
+
+      assert index_live
+             |> element("a#participant-contact-option-#{contact_2.id}")
+             |> render_click() =~ contact_2.first_name
+
+      # TODO: Validate on actual conversation in sidebar
+    end
   end
 end
