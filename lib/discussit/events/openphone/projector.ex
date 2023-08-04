@@ -118,7 +118,9 @@ defmodule Discussit.Events.Openphone.Projector do
            Participants.upsert_participant(%{
              conversation_id: conversation.id,
              phone_number_id: to_phone_number.id
-           }) do
+           }),
+         {:ok, from_participant} <- resolve_contact(from_participant, from_phone_number),
+         {:ok, to_participant} <- resolve_contact(to_participant, to_phone_number) do
       {:ok,
        %{
          from_participant: from_participant,
@@ -127,6 +129,20 @@ defmodule Discussit.Events.Openphone.Projector do
        }}
     end
   end
+
+  defp resolve_contact(%{contact_id: nil} = participant, phone_number) do
+    contact_id =
+      Contacts.list_contacts(filters: [phone_number_id: phone_number.id])
+      |> case do
+        [] -> nil
+        [contact] -> contact.id
+        [_ | _] -> nil
+      end
+
+    Participants.update_participant(participant, %{contact_id: contact_id})
+  end
+
+  defp resolve_contact(participant, _), do: {:ok, participant}
 
   defp maybe_transcribe_voicemail(
          %Call{

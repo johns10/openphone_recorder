@@ -254,8 +254,53 @@ defmodule Discussit.OpenphoneFixtures do
   #   |> Jason.decode!()
   # end
 
+  def contact_updated(%{phone_number: nil}) do
+    """
+    {
+     "id": "EVf08755a27aed4b4dab904acbb27e1450",
+     "data": {
+       "object": {
+         "id": "CT643452a4da87a11f79bbc55b",
+         "notes": [],
+         "fields": {},
+         "object": "contact",
+         "userId": "UShk0sCp2n",
+         "clientId": "c89382ac-9f1b-4398-8a3c-639f26d23c64",
+         "lastName": "",
+         "createdAt": "2023-04-10T18:33:31.819Z",
+         "firstName": "jhy",
+         "updatedAt": "2023-04-10T18:33:31.819Z",
+         "sharedWith": [
+           "UShk0sCp2n",
+           "OR60CD87vA"
+         ]
+       }
+     },
+     "type": "contact.updated",
+     "object": "event",
+     "createdAt": "2023-04-10T18:33:31.844Z",
+     "apiVersion": "v3"
+    }
+    """
+    |> Jason.decode!()
+  end
+
   def contact_updated(attrs \\ %{}) do
-    phone_number = Map.get(attrs, :phone_number, "12566581234")
+    phone_number_string =
+      Map.get(attrs, :phone_number, "12566581234")
+      |> case do
+        [first | phone_numbers] = list when is_list(list) ->
+          Enum.reduce(
+            phone_numbers,
+            "[\"+#{first}\"",
+            fn pn, acc ->
+              acc <> ", \"+" <> pn <> "\""
+            end
+          ) <> "]"
+
+        phone_number ->
+          "\"+#{phone_number}\""
+      end
 
     """
     {
@@ -265,7 +310,7 @@ defmodule Discussit.OpenphoneFixtures do
         "object": {
           "clientId": "81b91794-7604-4731-8aab-0cfc5ce44449",
           "createdAt": "2023-03-30T22:32:12.319Z",
-          "fields": {"Phone": "+#{phone_number}"},
+          "fields": {"Phone": #{phone_number_string}},
           "firstName": "Jayson",
           "id": "CT64260c5cd1c90ca558ff6edb",
           "lastName": "",

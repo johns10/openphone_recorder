@@ -3,6 +3,7 @@ defmodule DiscussitWeb.EventController do
 
   alias Discussit.Accounts
   alias Discussit.Events
+  alias Discussit.Events.Consumer
   alias Discussit.Events.Event
   alias Discussit.Events.Signature
 
@@ -19,6 +20,8 @@ defmodule DiscussitWeb.EventController do
     with {:ok, _signature} <- validate_request(conn, account_id),
          {:ok, %Event{} = event} <-
            Events.create_event(%{account_id: account_id, payload: payload}) do
+      Consumer.start()
+
       conn
       |> put_status(:created)
       |> render(:show, event: event)

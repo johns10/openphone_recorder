@@ -61,7 +61,6 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
          |> put_flash(:info, "User setting updated successfully")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        IO.inspect(changeset)
         {:noreply, assign_form(socket, changeset)}
     end
   end

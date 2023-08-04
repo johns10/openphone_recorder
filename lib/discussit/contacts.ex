@@ -22,6 +22,7 @@ defmodule Discussit.Contacts do
 
     Contact
     |> filter_by_account_id(filters[:account_id])
+    |> filter_by_phone_number_id(filters[:phone_number_id])
     |> Repo.all()
   end
 
@@ -37,6 +38,14 @@ defmodule Discussit.Contacts do
   defp filter_by_account_id(query, account_id) do
     query
     |> where([c], c.account_id == ^account_id)
+  end
+
+  defp filter_by_phone_number_id(query, nil), do: query
+
+  defp filter_by_phone_number_id(query, phone_number_id) do
+    query
+    |> join(:left, [c], cpn in assoc(c, :contact_phone_numbers), as: :cpn)
+    |> where([cpn: cpn], cpn.phone_number_id == ^phone_number_id)
   end
 
   def create_contact(attrs \\ %{}) do

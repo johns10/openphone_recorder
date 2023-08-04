@@ -1,15 +1,31 @@
-<div class="flex flex-col flex-grow overflow-y-scroll min-w-fit">
-  <%= for {_id, conversation} <- @streams.conversations do %>
-    <.conversation conversation={conversation} />
+<div class="flex flex-col flex-grow overflow-y-scroll min-w-fit" id="contacts" phx-update="stream">
+  <%= for {id, %{participants: [first, second]} = conversation} <- @streams.conversations do %>
+    <a
+      phx-click={JS.patch(~p{/conversations/#{conversation.id}})}
+      class="w-full px-4 py-2 hover:bg-base-200"
+      id={id}
+    >
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          <.participant participant={first} class="font-bold" />
+        </div>
+        <div class="flex flex-row">
+          <.participant participant={second} class="font-light" />
+        </div>
+      </div>
+    </a>
   <% end %>
 </div>
 <div class="flex flex-col overflow-y-scroll flex-grow-1 min-w-[50%]">
-  <%= for {_id, statement} <- @streams.statements do %>
-    <div class={["chat", @participant_sides[atomize(statement.participant_id)]]}>
-      <div class="chat-bubble">
-        <%= statement.content %>
+  <.participant_header conversation={@conversation} />
+  <div id="statements" phx-update="stream">
+    <%= for {id, statement} <- @streams.statements do %>
+      <div class={["chat", @participant_sides[atomize(statement.participant_id)]]} id={id}>
+        <div class="chat-bubble">
+          <%= statement.content %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
   <div class="flex-grow" />
 </div>
