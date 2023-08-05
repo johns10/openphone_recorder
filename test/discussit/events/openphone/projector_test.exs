@@ -23,10 +23,13 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
     test "gets projected to the database properly" do
       account = Discussit.AccountsFixtures.account_fixture()
 
-      assert {:ok, %Call{}} =
+      assert {:ok, %Call{from_participant_id: from, to_participant_id: to}} =
                OpenphoneFixtures.call_ringing()
                |> Events.cast_event()
                |> Projector.apply(account.id)
+
+      assert not is_nil(from)
+      assert not is_nil(to)
     end
   end
 

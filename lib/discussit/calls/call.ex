@@ -3,6 +3,7 @@ defmodule Discussit.Calls.Call do
   import Ecto.Changeset
   alias Discussit.Statements.Statement
   alias Discussit.Conversations.Conversation
+  alias Discussit.Participants.Participant
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
@@ -12,6 +13,9 @@ defmodule Discussit.Calls.Call do
     field :completed_at, :naive_datetime_usec
 
     belongs_to :conversation, Conversation, type: :binary_id
+    belongs_to :from_participant, Participant
+    belongs_to :to_participant, Participant
+
     has_many :statements, Statement
 
     timestamps(type: :naive_datetime_usec)
@@ -20,7 +24,15 @@ defmodule Discussit.Calls.Call do
   @doc false
   def changeset(call, attrs) do
     call
-    |> cast(attrs, [:source, :external_id, :answered_at, :completed_at, :conversation_id])
+    |> cast(attrs, [
+      :source,
+      :external_id,
+      :answered_at,
+      :completed_at,
+      :conversation_id,
+      :from_participant_id,
+      :to_participant_id
+    ])
     |> validate_required([:source, :external_id])
     |> cast_id()
     |> unique_constraint([:id], name: :calls_pkey)

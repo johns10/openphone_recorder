@@ -73,8 +73,8 @@ defmodule Discussit.ConversationsTest do
 
       [conversation] = Conversations.list_conversation_summary(account.id)
 
-      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
-               conversation.participants
+      assert [%{phone_number: %{id: ^pn2_id}}, %{phone_number: %{id: ^pn_id}}] =
+               conversation.participants |> Enum.sort(&(&1.inserted_at > &2.inserted_at))
     end
 
     test "get_conversation!/1 returns the conversation with given id" do
