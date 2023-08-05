@@ -3,6 +3,7 @@ defmodule Discussit.Conversations.Conversation do
   import Ecto.Changeset
   alias Discussit.Participants.Participant
   alias Discussit.Accounts.Account
+  alias Discussit.Statements.Statement
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
@@ -12,6 +13,7 @@ defmodule Discussit.Conversations.Conversation do
     belongs_to :account, Account, type: :binary_id
 
     has_many :participants, Participant
+    has_many :statements, Statement
     has_many :phone_numbers, through: [:participants, :phone_number]
     has_many :contacts, through: [:phone_numbers, :contact]
     timestamps(type: :naive_datetime_usec)

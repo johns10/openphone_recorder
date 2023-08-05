@@ -2,6 +2,7 @@ defmodule Discussit.Calls.Call do
   use Ecto.Schema
   import Ecto.Changeset
   alias Discussit.Statements.Statement
+  alias Discussit.Conversations.Conversation
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
@@ -9,8 +10,8 @@ defmodule Discussit.Calls.Call do
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
-    field :conversation_id, :binary_id
 
+    belongs_to :conversation, Conversation, type: :binary_id
     has_many :statements, Statement
 
     timestamps(type: :naive_datetime_usec)
@@ -50,13 +51,19 @@ defmodule Discussit.Calls.Call do
           answered_at: answered_at,
           completed_at: completed_at
         },
-        conversation_id
+        %{
+          conversation: %{id: conversation_id},
+          from_participant: %{id: from_participant_id},
+          to_participant: %{id: to_participant_id}
+        }
       ) do
     %{
       external_id: external_id,
       conversation_id: conversation_id,
       answered_at: answered_at,
       completed_at: completed_at,
+      from_participant_id: from_participant_id,
+      to_participant_id: to_participant_id,
       source: :openphone
     }
   end

@@ -99,6 +99,7 @@ defmodule DiscussitWeb.Router do
       ] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      live "/users/options/:id", UserSettingLive.Form, :edit
 
       live "/home", IndexLive.Index, :index
       live "/conversations/:id", IndexLive.Index, :index

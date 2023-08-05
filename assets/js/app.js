@@ -22,8 +22,9 @@ import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import StopPropogation from "./hooks/stop_propogation";
+import ElementVisible from "./hooks/element_visible";
 
-let hooks = { StopPropogation }
+let hooks = { StopPropogation, ElementVisible }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: hooks })

@@ -8,7 +8,7 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def participant_header(assigns) do
     ~H"""
-    <div class="flex w-full bg-base-300 justify-between py-2 px-4">
+    <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10">
       <.participant_or_picker
         participant={Enum.at(@conversation.participants, 0)}
         class=""

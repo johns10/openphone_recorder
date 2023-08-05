@@ -4,13 +4,12 @@ defmodule DiscussitWeb.EventControllerTest do
   import Discussit.EventsFixtures
   import Discussit.AccountsFixtures
 
+  alias Discussit.OpenphoneFixtures
+  alias Discussit.EventsFixtures
   alias Discussit.Events.Event
+  alias Discussit.Events.Consumer
 
   @update_attrs %{new_key: "New value"}
-
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
 
   defp sign_request(conn, attrs) do
     timestamp = DateTime.now!("Etc/UTC") |> DateTime.to_unix()
@@ -36,13 +35,25 @@ defmodule DiscussitWeb.EventControllerTest do
   # end
 
   describe "create event" do
+    setup %{conn: conn} do
+      attrs = %{subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
+      Consumer.set_subscriber(self())
+      pid = Process.whereis(Consumer)
+      Ecto.Adapters.SQL.Sandbox.allow(Discussit.Repo, self(), pid)
+      {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    end
+
     test "renders event when data is valid", %{conn: conn} do
       account_id = account_fixture().id
+
+      payload =
+        OpenphoneFixtures.message_received()
+        |> Map.put("account_id", account_id)
 
       conn =
         conn
         |> sign_request(%{"key" => "value"})
-        |> post(~p"/api/events/#{account_id}", account_id: account_id, key: "value")
+        |> post(~p"/api/events/#{account_id}", payload)
 
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
@@ -50,9 +61,11 @@ defmodule DiscussitWeb.EventControllerTest do
 
       assert %{
                "id" => ^id,
-               "payload" => %{"key" => "value"},
+               "payload" => %{},
                "account_id" => ^account_id
              } = json_response(conn, 200)["data"]
+
+      assert_receive({:consumed, _}, 2000)
     end
 
     # test "renders errors when data is invalid", %{conn: conn} do

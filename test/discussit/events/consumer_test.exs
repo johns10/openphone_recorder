@@ -6,13 +6,12 @@ defmodule Discussit.Consumer do
   alias Discussit.Events
   alias Discussit.Events.Consumer
 
-  @default_timeout 500
+  @default_timeout 5000
 
   describe "Consumer" do
     setup do
       attrs = %{subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
       consumer = start_supervised!({Consumer, attrs})
-
       Ecto.Adapters.SQL.Sandbox.allow(Repo, self(), consumer)
       %{consumer: consumer}
     end

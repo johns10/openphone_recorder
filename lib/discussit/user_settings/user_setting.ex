@@ -5,6 +5,8 @@ defmodule Discussit.UserSettings.UserSetting do
   alias Discussit.Users.User
 
   schema "user_settings" do
+    field :timezone, Ecto.Enum, values: [etc: "Etc/UTC", est: "EST", mst: "MST"]
+
     belongs_to :selected_account, Account, type: :binary_id
     belongs_to :user, User
 
@@ -14,7 +16,7 @@ defmodule Discussit.UserSettings.UserSetting do
   @doc false
   def changeset(user_setting, attrs) do
     user_setting
-    |> cast(attrs, [:selected_account_id, :user_id])
+    |> cast(attrs, [:selected_account_id, :user_id, :timezone])
     |> validate_required([])
     |> foreign_key_constraint(:selected_account_id)
     |> foreign_key_constraint(:user_id)

@@ -30,7 +30,7 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallRinging{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
          {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
@@ -38,7 +38,7 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
          {:ok, call} <- Calls.upsert_call(call_attrs),
          {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, data.from_participant) do
       {:ok, call}
@@ -47,7 +47,7 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data.conversation.id),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
          {:ok, call} <- Calls.upsert_call(call_attrs),
          {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data, account_id) do
       {:ok, call}

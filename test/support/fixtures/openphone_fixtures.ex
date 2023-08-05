@@ -254,6 +254,8 @@ defmodule Discussit.OpenphoneFixtures do
   #   |> Jason.decode!()
   # end
 
+  def contact_updated(attrs \\ %{})
+
   def contact_updated(%{phone_number: nil}) do
     """
     {
@@ -285,7 +287,7 @@ defmodule Discussit.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
-  def contact_updated(attrs \\ %{}) do
+  def contact_updated(attrs) do
     phone_number_string =
       Map.get(attrs, :phone_number, "12566581234")
       |> case do

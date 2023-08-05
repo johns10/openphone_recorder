@@ -3,6 +3,8 @@ defmodule Discussit.Conversations do
   import Ecto.Query, warn: false
   alias Discussit.Repo
   alias Discussit.Conversations.Conversation
+  alias Discussit.Participants.Participant
+  alias Discussit.Statements.Statement
 
   def authorize(:get_conversation!, user, %{account_id: account_id}) do
     account_ids =
@@ -17,38 +19,43 @@ defmodule Discussit.Conversations do
   def list_conversations(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
     preloads = Keyword.get(opts, :preloads, nil)
+    order_bys = Keyword.get(opts, :order_bys, [])
 
     Conversation
     |> maybe_preload(preloads)
     |> filter_by_account_id(filters[:account_id])
+    |> order_by_last_statement_occured_at(order_bys[:last_statement_occurred_at])
     |> Repo.all()
   end
 
   def conversation_summary(query, account_id) do
+    participants_query =
+      from(p in Participant)
+      |> join(:left, [p], pn in assoc(p, :phone_number), as: :phone_number)
+      |> join(:left, [p], c in assoc(p, :contact), as: :contact)
+      |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers),
+        as: :contact_phone_numbers
+      )
+      |> join(:left, [phone_number: pn], c in assoc(pn, :contacts), as: :contacts)
+      |> preload(
+        [phone_number: pn, contacts: cs, contact: c],
+        phone_number: {pn, contacts: cs},
+        contact: c
+      )
+
     query
-    |> join(:left, [c], p in assoc(c, :participants), as: :participants)
-    |> join(:left, [participants: p], pn in assoc(p, :phone_number), as: :phone_number)
-    |> join(:left, [participants: p], c in assoc(p, :contact), as: :contact)
-    |> join(:left, [phone_number: pn], c in assoc(pn, :contact_phone_numbers),
-      as: :contact_phone_numbers
-    )
-    |> join(:left, [phone_number: pn], c in assoc(pn, :contacts), as: :contacts)
     |> where([c], c.account_id == ^account_id)
-    |> order_by([phone_number: pn, contacts: contacts],
-      asc: contacts.id,
-      desc:
-        fragment(
-          "CASE 'relationship' when 'primary' then 1 when 'internal' then 2 when 'external' then 3 end"
-        )
-    )
-    |> preload(
-      [participants: p, phone_number: pn, contacts: cs, contact: c],
-      participants: {p, phone_number: {pn, contacts: cs}, contact: c}
-    )
+    |> order_by_last_statement_occured_at(:desc_nulls_last)
+    |> preload([c], participants: ^participants_query)
   end
 
-  def list_conversation_summary(account_id) do
+  def list_conversation_summary(account_id, opts \\ []) do
+    offset = Keyword.get(opts, :offset, 0)
+    limit = Keyword.get(opts, :limit, 20)
+
     from(c in Conversation)
+    |> offset(^offset)
+    |> limit(^limit)
     |> conversation_summary(account_id)
     |> Repo.all()
   end
@@ -72,6 +79,22 @@ defmodule Discussit.Conversations do
   defp filter_by_account_id(query, account_id) do
     query
     |> where([c], c.account_id == ^account_id)
+  end
+
+  defp order_by_last_statement_occured_at(query, nil), do: query
+
+  defp order_by_last_statement_occured_at(query, order) do
+    last_statement =
+      from s in Statement,
+        group_by: s.conversation_id,
+        select: %{conversation_id: s.conversation_id, occurred_at: max(s.occurred_at)}
+
+    query
+    |> join(:left, [c], last in subquery(last_statement),
+      on: last.conversation_id == c.id,
+      as: :statement
+    )
+    |> order_by([statement: s], [{^order, s.occurred_at}])
   end
 
   def create_conversation(attrs \\ %{}) do
