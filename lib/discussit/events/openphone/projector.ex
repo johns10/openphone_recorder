@@ -78,7 +78,7 @@ defmodule Discussit.Events.Openphone.Projector do
          cpn_attrs <- Enum.map(phone_numbers, &%{phone_number_id: &1.id, contact_id: contact.id}),
          {:ok, %{contact_phone_numbers: _contact_phone_numbers}} <-
            ContactPhoneNumbers.get_or_insert_all_contact_phone_number(cpn_attrs) do
-      {:ok, Contacts.get_contact!(contact.id, preload: [:phone_numbers])}
+      {:ok, Contacts.get_contact!(contact.id, preloads: [:phone_numbers])}
     end
   end
 

@@ -9,6 +9,7 @@ defmodule Discussit.PhoneNumbers do
   end
 
   def get_phone_number!(id), do: Repo.get!(PhoneNumber, id)
+  def get_phone_number(id), do: Repo.get(PhoneNumber, id)
 
   def create_phone_number(attrs \\ %{}) do
     %PhoneNumber{}
