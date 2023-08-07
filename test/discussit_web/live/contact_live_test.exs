@@ -136,7 +136,7 @@ defmodule DiscussitWeb.ContactLiveTest do
     end
 
     test "upserts contact phone numbers listing", %{conn: conn, contact: contact} do
-      value = Discussit.PhoneNumbersFixtures.phone_number_fixture(%{value: "12566581234"})
+      Discussit.PhoneNumbersFixtures.phone_number_fixture(%{value: "12566581234"})
       {:ok, index_live, _html} = live(conn, ~p"/contacts/#{contact}/edit")
 
       attrs =

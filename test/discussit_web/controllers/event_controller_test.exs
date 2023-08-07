@@ -1,15 +1,10 @@
 defmodule DiscussitWeb.EventControllerTest do
   use DiscussitWeb.ConnCase
 
-  import Discussit.EventsFixtures
   import Discussit.AccountsFixtures
 
   alias Discussit.OpenphoneFixtures
-  alias Discussit.EventsFixtures
-  alias Discussit.Events.Event
   alias Discussit.Events.Consumer
-
-  @update_attrs %{new_key: "New value"}
 
   defp sign_request(conn, attrs) do
     timestamp = DateTime.now!("Etc/UTC") |> DateTime.to_unix()
@@ -36,7 +31,6 @@ defmodule DiscussitWeb.EventControllerTest do
 
   describe "create event" do
     setup %{conn: conn} do
-      attrs = %{subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
       Consumer.set_subscriber(self())
       pid = Process.whereis(Consumer)
       Ecto.Adapters.SQL.Sandbox.allow(Discussit.Repo, self(), pid)
