@@ -24,7 +24,7 @@ defmodule Discussit.PhoneNumbers.PhoneNumber do
     |> cast_id()
     |> handle_shortcode(attrs)
     |> handle_no_caller_id(attrs)
-    |> validate_required([:source])
+    |> validate_required([:value, :source])
     |> unique_constraint([:id], name: :phone_numbers_pkey)
   end
 

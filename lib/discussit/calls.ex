@@ -6,8 +6,10 @@ defmodule Discussit.Calls do
 
   def list_calls(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
+    preloads = Keyword.get(opts, :preloads, [])
 
     Call
+    |> preload(^preloads)
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> Repo.all()
   end

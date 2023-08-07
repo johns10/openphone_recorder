@@ -117,13 +117,22 @@ defmodule DiscussitWeb.IndexLive.Index do
     case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
       :ok ->
         statements =
-          Statements.list_statements(filters: [conversation_id: conversation_id])
+          Statements.list_statements(
+            filters: [conversation_id: conversation_id],
+            preloads: [:participant, [participant: [:contact, [phone_number: :contacts]]]]
+          )
           |> Enum.map(
             &%{type: "statement", data: &1, id: "statement-#{&1.id}", timestamp: &1.occurred_at}
           )
 
         calls =
-          [filters: [conversation_id: conversation_id]]
+          [
+            filters: [conversation_id: conversation_id],
+            preloads: [
+              [from_participant: [:contact, [phone_number: :contacts]]],
+              [to_participant: [:contact, [phone_number: :contacts]]]
+            ]
+          ]
           |> Calls.list_calls()
           |> Enum.reduce([], fn
             %{answered_at: nil, completed_at: timestamp, id: id} = call, acc ->

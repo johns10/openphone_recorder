@@ -108,6 +108,24 @@ defmodule Discussit.Contacts do
               |> Ecto.Changeset.put_change(:phone_number_id, id)
           end
 
+        %{data: data, changes: %{phone_number: %{changes: %{value: value}} = pn}} = changeset ->
+          id = Discussit.PhoneNumbers.PhoneNumber.id(value)
+
+          case Discussit.PhoneNumbers.get_phone_number(id) do
+            nil ->
+              {:ok, phone_number} =
+                Discussit.PhoneNumbers.create_phone_number(%{value: value, source: :user})
+
+              changeset
+              |> Ecto.Changeset.delete_change(:phone_number)
+              |> Ecto.Changeset.put_change(:phone_number_id, phone_number.id)
+
+            %Discussit.PhoneNumbers.PhoneNumber{id: id} ->
+              changeset
+              |> Ecto.Changeset.delete_change(:phone_number)
+              |> Ecto.Changeset.put_change(:phone_number_id, id)
+          end
+
         changeset ->
           changeset
       end)
