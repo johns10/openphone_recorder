@@ -2,6 +2,8 @@ defmodule Discussit.Calls.Call do
   use Ecto.Schema
   import Ecto.Changeset
   alias Discussit.Statements.Statement
+  alias Discussit.Conversations.Conversation
+  alias Discussit.Participants.Participant
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
@@ -9,7 +11,10 @@ defmodule Discussit.Calls.Call do
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
-    field :conversation_id, :binary_id
+
+    belongs_to :conversation, Conversation, type: :binary_id
+    belongs_to :from_participant, Participant
+    belongs_to :to_participant, Participant
 
     has_many :statements, Statement
 
@@ -19,7 +24,15 @@ defmodule Discussit.Calls.Call do
   @doc false
   def changeset(call, attrs) do
     call
-    |> cast(attrs, [:source, :external_id, :answered_at, :completed_at, :conversation_id])
+    |> cast(attrs, [
+      :source,
+      :external_id,
+      :answered_at,
+      :completed_at,
+      :conversation_id,
+      :from_participant_id,
+      :to_participant_id
+    ])
     |> validate_required([:source, :external_id])
     |> cast_id()
     |> unique_constraint([:id], name: :calls_pkey)
@@ -50,13 +63,19 @@ defmodule Discussit.Calls.Call do
           answered_at: answered_at,
           completed_at: completed_at
         },
-        conversation_id
+        %{
+          conversation: %{id: conversation_id},
+          from_participant: %{id: from_participant_id},
+          to_participant: %{id: to_participant_id}
+        }
       ) do
     %{
       external_id: external_id,
       conversation_id: conversation_id,
       answered_at: answered_at,
       completed_at: completed_at,
+      from_participant_id: from_participant_id,
+      to_participant_id: to_participant_id,
       source: :openphone
     }
   end

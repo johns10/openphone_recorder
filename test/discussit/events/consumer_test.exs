@@ -6,13 +6,12 @@ defmodule Discussit.Consumer do
   alias Discussit.Events
   alias Discussit.Events.Consumer
 
-  @default_timeout 500
+  @default_timeout 5000
 
   describe "Consumer" do
     setup do
-      attrs = %{delay: 1000, subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
+      attrs = %{subscribed: [self()], name: Ecto.UUID.generate() |> String.to_atom()}
       consumer = start_supervised!({Consumer, attrs})
-
       Ecto.Adapters.SQL.Sandbox.allow(Repo, self(), consumer)
       %{consumer: consumer}
     end
@@ -22,36 +21,42 @@ defmodule Discussit.Consumer do
     end
 
     test "consumes", %{consumer: consumer} do
-      event = event_fixture(%{payload: message_received()})
+      %{id: id} = event = event_fixture(%{payload: message_received()})
       GenServer.call(consumer, {:set_count, 1})
-      assert_receive({:consumed, updated_event}, @default_timeout)
-      assert event.id == updated_event.id
+      GenServer.cast(consumer, {:start})
+      assert_receive({:consumed, %{id: ^id}}, @default_timeout)
       assert %{processed: true} = Events.get_event!(event.id)
     end
 
     test "consumes 2", %{consumer: consumer} do
-      event_1 = event_fixture(%{payload: message_received()})
-      event_2 = event_fixture(%{payload: message_received()})
+      %{id: id1} = event_fixture(%{payload: message_received()})
+      %{id: id2} = event_fixture(%{payload: message_received()})
       GenServer.call(consumer, {:set_count, 2})
-      assert_receive({:consumed, updated_event_1}, @default_timeout)
-      assert_receive({:consumed, updated_event_2}, @default_timeout)
-      assert event_1.id == updated_event_1.id
-      assert event_2.id == updated_event_2.id
+      GenServer.cast(consumer, {:start})
+      assert_receive({:consumed, %{id: ^id1}}, @default_timeout)
+      assert_receive({:consumed, %{id: ^id2}}, @default_timeout)
     end
 
     test "consumes inf", %{consumer: consumer} do
-      event_1 = event_fixture(%{payload: message_received()})
-      event_2 = event_fixture(%{payload: message_received()})
+      %{id: id1} = event_fixture(%{payload: message_received()})
+      %{id: id2} = event_fixture(%{payload: message_received()})
       GenServer.call(consumer, {:set_count, :inf})
-      assert_receive({:consumed, updated_event_1}, @default_timeout)
-      assert_receive({:consumed, updated_event_2}, @default_timeout)
-      assert event_1.id == updated_event_1.id
-      assert event_2.id == updated_event_2.id
+      GenServer.cast(consumer, {:start})
+      assert_receive({:consumed, %{id: ^id1}}, @default_timeout)
+      assert_receive({:consumed, %{id: ^id2}}, @default_timeout)
+    end
+
+    test "start works", %{consumer: consumer} do
+      %{id: id1} = event_fixture(%{payload: message_received()})
+      %{id: id2} = event_fixture(%{payload: message_received()})
+      GenServer.call(consumer, {:set_count, :inf})
+      GenServer.cast(consumer, {:start})
+      assert_receive({:consumed, %{id: ^id1}}, @default_timeout)
+      assert_receive({:consumed, %{id: ^id2}}, @default_timeout)
     end
 
     test "schedules", %{consumer: consumer} do
       GenServer.call(consumer, {:set_count, :inf})
-      GenServer.call(consumer, {:set_delay, 2000})
       event_fixture(%{payload: message_received()})
       refute_receive({:consumed, _event})
     end

@@ -30,7 +30,7 @@ defmodule Discussit.ConversationSummarizer do
         before: DateSupport.start_of_today(opts)
       ],
       preloads: [
-        participant: [phone_number: :contact]
+        participant: [phone_number: :contacts]
       ],
       order_by: [occurred_at: :desc]
     )

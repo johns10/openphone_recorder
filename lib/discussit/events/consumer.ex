@@ -4,7 +4,7 @@ defmodule Discussit.Events.Consumer do
   alias Discussit.Events
   require Logger
 
-  @default_state %{timer: nil, delay: 60000, subscribed: [], count: 0}
+  @default_state %{subscribed: [], count: 0}
 
   def start_link(opts) do
     name = Map.get(opts, :name, __MODULE__)
@@ -16,12 +16,12 @@ defmodule Discussit.Events.Consumer do
     GenServer.call(__MODULE__, {:set_count, count})
   end
 
-  def set_delay(delay) do
-    GenServer.call(__MODULE__, {:set_delay, delay})
-  end
-
   def set_subscriber(pid) do
     GenServer.call(__MODULE__, {:set_subscriber, pid})
+  end
+
+  def start() do
+    GenServer.cast(__MODULE__, {:start})
   end
 
   @impl true
@@ -30,14 +30,8 @@ defmodule Discussit.Events.Consumer do
   end
 
   @impl true
-  def handle_call({:set_count, count}, _from, %{timer: timer} = state) do
-    Process.cancel_timer(timer)
-    {:reply, count, Map.put(state, :count, count), {:continue, :next}}
-  end
-
-  def handle_call({:set_delay, delay}, _from, %{timer: timer} = state) do
-    Process.cancel_timer(timer)
-    {:reply, delay, Map.put(state, :delay, delay), {:continue, :schedule_next_run}}
+  def handle_call({:set_count, count}, _from, state) do
+    {:reply, count, Map.put(state, :count, count)}
   end
 
   def handle_call({:set_subscriber, pid}, _from, %{subscribed: subscribed} = state) do
@@ -46,33 +40,25 @@ defmodule Discussit.Events.Consumer do
   end
 
   @impl true
-  def handle_info(:consume, state) do
-    state
-    |> case do
-      %{count: count} = state when count in [0] ->
-        {:noreply, state, {:continue, :schedule_next_run}}
-
-      state ->
-        state
-        |> consume()
-        |> after_consume(state)
-    end
+  def handle_cast({:start}, state) do
+    {:noreply, state, {:continue, :next}}
   end
 
   @impl true
-  def handle_continue(:schedule_next_run, %{delay: delay} = state) do
-    {:noreply, Map.put(state, :timer, Process.send_after(self(), :consume, delay))}
-  end
+  def handle_continue(:next, %{count: 0} = state), do: {:noreply, state}
 
   def handle_continue(:next, state) do
+    result = maybe_consume(state)
+    send_result(state, result)
+
     state
-    |> consume()
-    |> after_consume(state)
+    |> handle_count(result)
+    |> maybe_continue(result)
   end
 
-  defp consume(%{count: 0}), do: {:error, :done}
+  defp maybe_consume(%{count: count}) when count != 0, do: consume()
 
-  defp consume(%{count: count} = state) when count > 0 do
+  defp consume() do
     Events.list_unprocessed_events()
     |> case do
       [event] ->
@@ -80,14 +66,11 @@ defmodule Discussit.Events.Consumer do
         consume_event(event)
 
       [event | _] ->
-        Logger.info(
-          "Processing event #{event.id} with additional events in the queue. Will process #{state.count} additional events."
-        )
-
+        Logger.info("Processing event #{event.id} with additional events in the queue.")
         consume_event(event)
 
       [] ->
-        Logger.info("No events in database, scheduling next run. #{state.count} left to process.")
+        Logger.info("No events in database.")
         {:error, :empty}
     end
   end
@@ -106,22 +89,41 @@ defmodule Discussit.Events.Consumer do
     end
   end
 
-  defp after_consume(result, %{count: count} = state) do
+  defp send_result(state, result) do
     result
     |> case do
       {:ok, event} ->
         Enum.each(state.subscribed, &send(&1, {:consumed, event}))
 
+      _ ->
+        nil
+    end
+  end
+
+  defp handle_count(%{count: count} = state, result) do
+    case result do
+      {:ok, _} ->
         count =
           case count do
             :inf -> :inf
             count when is_integer(count) -> count - 1
           end
 
-        {:noreply, Map.put(state, :count, count), {:continue, :next}}
+        Map.put(state, :count, count)
+
+      _ ->
+        state
+    end
+  end
+
+  defp maybe_continue(state, result) do
+    result
+    |> case do
+      {:ok, _} ->
+        {:noreply, state, {:continue, :next}}
 
       {:error, _changeset} ->
-        {:noreply, state, {:continue, :schedule_next_run}}
+        {:noreply, state}
     end
   end
 end

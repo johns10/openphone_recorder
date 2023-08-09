@@ -46,6 +46,19 @@ defmodule Discussit.PhoneNumbersTest do
       assert phone_number.source == :openphone
     end
 
+    test "create_phone_number/1 with +266696687 creates a new phone number" do
+      valid_attrs = %{
+        external_id: "some external_id",
+        value: "+266696687",
+        source: :openphone
+      }
+
+      assert {:ok, %PhoneNumber{} = phone_number} = PhoneNumbers.create_phone_number(valid_attrs)
+      assert phone_number.external_id == "some external_id"
+      assert phone_number.value == %EctoPhoneNumber{e164: 266_696_687}
+      assert phone_number.source == :openphone
+    end
+
     test "create_phone_number/1 with a short code 2 creates a phone_number" do
       valid_attrs = %{
         external_id: "some external_id",

@@ -13,6 +13,8 @@ defmodule Discussit.ConversationsTest do
     import Discussit.ContactsFixtures
     import Discussit.ContactPhoneNumbersFixtures
     import Discussit.AccountsFixtures
+    import Discussit.StatementsFixtures
+    import Discussit.TimestampFixtures
 
     @invalid_attrs %{}
 
@@ -21,8 +23,24 @@ defmodule Discussit.ConversationsTest do
       assert Conversations.list_conversations() == [conversation]
     end
 
+    test "ordering by last statement" do
+      %{id: con_id} = con = conversation_fixture()
+      %{id: con2_id} = con2 = conversation_fixture()
+      statement_fixture(%{conversation_id: con.id, occurred_at: thirty_minutes_ago()})
+      statement_fixture(%{conversation_id: con.id, occurred_at: ten_minutes_ago()})
+      statement_fixture(%{conversation_id: con2.id, occurred_at: thirty_minutes_ago()})
+      statement_fixture(%{conversation_id: con2.id, occurred_at: forty_minutes_ago()})
+
+      assert [%{id: ^con_id}, %{id: ^con2_id}] =
+               Conversations.list_conversations(order_bys: [last_statement_occurred_at: :desc])
+
+      assert [%{id: ^con2_id}, %{id: ^con_id}] =
+               Conversations.list_conversations(order_bys: [last_statement_occurred_at: :asc])
+    end
+
     test "list_conversation_summary works" do
-      con = conversation_fixture()
+      account = account_fixture()
+      con = conversation_fixture(%{account_id: account.id})
       pn = phone_number_fixture()
       pn2 = phone_number_fixture()
       participant_fixture(%{conversation_id: con.id, phone_number_id: pn.id})
@@ -31,11 +49,14 @@ defmodule Discussit.ConversationsTest do
       c = contact_fixture(%{relationship: :primary})
       contact_phone_number_fixture(%{contact_id: c.id, phone_number_id: pn.id})
       contact_phone_number_fixture(%{contact_id: c2.id, phone_number_id: pn2.id})
-      # pn_id = pn.id
-      # pn2_id = pn2.id
 
-      # [conversation] = Conversations.list_conversation_summary()
-      # assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] = conversation.participants
+      pn_id = pn.id
+      pn2_id = pn2.id
+
+      [conversation] = Conversations.list_conversation_summary(account.id)
+
+      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
+               conversation.participants
     end
 
     test "list_conversation_summary orders participants with contacts first" do
@@ -52,8 +73,8 @@ defmodule Discussit.ConversationsTest do
 
       [conversation] = Conversations.list_conversation_summary(account.id)
 
-      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
-               conversation.participants
+      assert [%{phone_number: %{id: ^pn2_id}}, %{phone_number: %{id: ^pn_id}}] =
+               conversation.participants |> Enum.sort(&(&1.inserted_at > &2.inserted_at))
     end
 
     test "get_conversation!/1 returns the conversation with given id" do

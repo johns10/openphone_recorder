@@ -4,6 +4,8 @@ defmodule DiscussitWeb.ContactLive.Index do
   alias Discussit.Contacts
   alias Discussit.Contacts.Contact
 
+  @preloads [contact_phone_numbers: :phone_number]
+
   @impl true
   def mount(_params, _session, socket) do
     contacts =
@@ -21,7 +23,7 @@ defmodule DiscussitWeb.ContactLive.Index do
   end
 
   defp apply_action(socket, :edit, %{"id" => id}) do
-    contact = Contacts.get_contact!(id)
+    contact = Contacts.get_contact!(id, preloads: @preloads)
 
     case Bodyguard.permit(Contacts, :get_contact!, socket.assigns.current_user, contact) do
       :ok ->
@@ -39,7 +41,7 @@ defmodule DiscussitWeb.ContactLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Contact")
-    |> assign(:contact, %Contact{})
+    |> assign(:contact, %Contact{contact_phone_numbers: []})
   end
 
   defp apply_action(socket, :index, _params) do

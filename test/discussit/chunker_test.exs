@@ -13,7 +13,7 @@ defmodule Discussit.ChunkerTest do
   def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 
   def participant() do
-    %Participant{phone_number: %PhoneNumber{contact: nil}}
+    %Participant{phone_number: %PhoneNumber{}}
   end
 
   describe "integration" do

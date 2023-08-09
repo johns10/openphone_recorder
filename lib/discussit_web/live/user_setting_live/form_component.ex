@@ -2,6 +2,7 @@ defmodule DiscussitWeb.UserSettingLive.FormComponent do
   use DiscussitWeb, :live_component
 
   alias Discussit.UserSettings
+  import DiscussitWeb.LiveSupport
 
   @impl true
   def render(assigns) do
@@ -14,6 +15,13 @@ defmodule DiscussitWeb.UserSettingLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <.input
+          field={@form[:timezone]}
+          type="select"
+          label="timezone"
+          prompt="Choose a value"
+          options={select_options(Discussit.UserSettings.UserSetting, :timezone)}
+        />
         <:actions>
           <.button phx-disable-with="Saving...">Save User setting</.button>
         </:actions>

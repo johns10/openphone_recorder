@@ -5,18 +5,16 @@ defmodule DiscussitWeb.ContactLiveTest do
   import Discussit.ContactsFixtures
 
   @create_attrs %{
-    external_id: "",
     first_name: "some first_name",
     last_name: "some last_name",
     source: :user
   }
   @update_attrs %{
-    external_id: "",
     first_name: "some updated first_name",
     last_name: "some updated last_name",
     source: :user
   }
-  @invalid_attrs %{external_id: nil, first_name: nil, last_name: nil, source: nil}
+  @invalid_attrs %{first_name: nil, last_name: nil}
 
   defp create_contact(%{account: account}) do
     contact = contact_fixture(%{account_id: account.id})
@@ -95,6 +93,68 @@ defmodule DiscussitWeb.ContactLiveTest do
       html = render(index_live)
       assert html =~ "Contact updated successfully"
       assert html =~ "some updated last_name"
+    end
+
+    test "handles contact phone numbers listing", %{conn: conn, contact: contact} do
+      {:ok, index_live, _html} = live(conn, ~p"/contacts/#{contact}/edit")
+
+      invalid_attrs =
+        Map.put(@update_attrs, :contact_phone_numbers,
+          "0": %{phone_number: %{value: "notaphonenumber"}}
+        )
+
+      assert index_live
+             |> element("#add-phone-number", "Add a phone number")
+             |> render_click() =~ "Enter phone number"
+
+      refute index_live
+             |> element("#remove-temporary-contact-phone-number")
+             |> render_click() =~ "Enter phone number"
+
+      assert index_live
+             |> element("#add-phone-number", "Add a phone number")
+             |> render_click() =~ "Enter phone number"
+
+      assert index_live
+             |> form("#contact-form", contact: invalid_attrs)
+             |> render_change() =~ "invalid"
+
+      valid_attrs =
+        Map.put(@update_attrs, :contact_phone_numbers,
+          "0": %{phone_number: %{value: "12566583331"}}
+        )
+
+      assert index_live
+             |> form("#contact-form", contact: valid_attrs)
+             |> render_submit()
+
+      assert_patch(index_live, ~p"/contacts")
+
+      html = render(index_live)
+      assert html =~ "Contact updated successfully"
+      assert html =~ "some updated last_name"
+    end
+
+    test "upserts contact phone numbers listing", %{conn: conn, contact: contact} do
+      Discussit.PhoneNumbersFixtures.phone_number_fixture(%{value: "12566581234"})
+      {:ok, index_live, _html} = live(conn, ~p"/contacts/#{contact}/edit")
+
+      attrs =
+        Map.put(@update_attrs, :contact_phone_numbers,
+          "0": %{phone_number: %{value: "12566581234"}}
+        )
+
+      index_live
+      |> element("#add-phone-number", "Add a phone number")
+      |> render_click() =~ "Enter phone number"
+
+      index_live
+      |> form("#contact-form", contact: attrs)
+      |> render_submit()
+
+      # TODO: assert on html
+
+      assert_patch(index_live, ~p"/contacts")
     end
 
     test "deletes contact in listing", %{conn: conn, contact: contact} do

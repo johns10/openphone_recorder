@@ -1,7 +1,10 @@
 defmodule DiscussitWeb.ContactLive.FormComponent do
+  alias Discussit.ContactPhoneNumbers
   use DiscussitWeb, :live_component
 
   alias Discussit.Contacts
+  alias Discussit.ContactPhoneNumbers.ContactPhoneNumber
+  alias Discussit.ContactPhoneNumbers
 
   @impl true
   def render(assigns) do
@@ -20,25 +23,55 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:account_id]} type="hidden" value={@account_id} />
-        <.input field={@form[:first_name]} type="text" label="First name" />
-        <.input field={@form[:last_name]} type="text" label="Last name" />
-        <.input field={@form[:company]} type="text" label="Company" />
-        <.input field={@form[:role]} type="text" label="Role" />
-        <.input field={@form[:external_id]} type="text" label="External" />
+        <.input field={@form[:source]} type="hidden" value={:user} />
+        <div class="flex flex-row space-x-4">
+          <.input field={@form[:first_name]} type="text" placeholder="First name" />
+          <.input field={@form[:last_name]} type="text" placeholder="Last name" />
+        </div>
+        <div class="flex flex-row space-x-4">
+          <.input field={@form[:company]} type="text" placeholder="Company" />
+          <.input field={@form[:role]} type="text" placeholder="Role" />
+        </div>
         <.input
           field={@form[:relationship]}
           type="select"
-          label="relationship"
-          prompt="Choose a value"
+          label="Relationship"
+          prompt="Relationship"
           options={Ecto.Enum.values(Discussit.Contacts.Contact, :relationship)}
         />
-        <.input
-          field={@form[:source]}
-          type="select"
-          label="Source"
-          prompt="Choose a value"
-          options={Ecto.Enum.values(Discussit.Contacts.Contact, :source)}
-        />
+
+        <div class="flex flex-row justify-between">
+          <.label>Phone Numbers</.label>
+          <.label>Delete</.label>
+        </div>
+        <.inputs_for :let={cpn} field={@form[:contact_phone_numbers]}>
+          <div class="flex flex-row items-center !my-2">
+            <.input field={cpn[:contact_id]} type="hidden" value={@contact.id} />
+
+            <.inputs_for :let={pn} field={cpn[:phone_number]}>
+              <.input field={pn[:source]} type="hidden" value={:user} />
+              <.input field={pn[:value]} type="raw_input" placeholder="Enter phone number" />
+            </.inputs_for>
+            <div :if={is_nil(cpn.data.temp_id) or cpn.data.temp_id == ""} class="mx-4">
+              <.input field={cpn[:delete]} type="checkbox" class="ml-4" phx-target={@myself} />
+            </div>
+            <.input field={cpn[:temp_id]} type="hidden" />
+            <.button
+              :if={!(is_nil(cpn.data.temp_id) or cpn.data.temp_id == "")}
+              href="#"
+              id="remove-temporary-contact-phone-number"
+              phx-click="remove-contact-phone-number"
+              phx-target={@myself}
+              phx-value-remove={cpn.data.temp_id}
+              class="btn-error btn-sm ml-2"
+            >
+              <.icon name="hero-x-mark-solid" class="w-3 h-3" />
+            </.button>
+          </div>
+        </.inputs_for>
+        <.link href="#" id="add-phone-number" phx-click="add-phone-number" phx-target={@myself}>
+          Add a phone number
+        </.link>
         <:actions>
           <.button phx-disable-with="Saving...">Save Contact</.button>
         </:actions>
@@ -71,8 +104,48 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
     save_contact(socket, socket.assigns.action, contact_params)
   end
 
+  def handle_event("add-phone-number", _, socket) do
+    existing_contact_phone_numbers =
+      Map.get(
+        socket.assigns.changeset.changes,
+        :contact_phone_numbers,
+        socket.assigns.contact.contact_phone_numbers
+      )
+
+    contact_phone_numbers =
+      existing_contact_phone_numbers
+      |> Enum.concat([
+        ContactPhoneNumbers.change_contact_phone_number(%ContactPhoneNumber{
+          temp_id: Ecto.UUID.generate()
+        })
+      ])
+
+    changeset =
+      Ecto.Changeset.put_assoc(
+        socket.assigns.changeset,
+        :contact_phone_numbers,
+        contact_phone_numbers
+      )
+
+    {:noreply, assign_form(socket, changeset)}
+  end
+
+  def handle_event("remove-contact-phone-number", %{"remove" => id}, socket) do
+    contact_phone_numbers =
+      socket.assigns.changeset.changes.contact_phone_numbers
+      |> Enum.reject(fn %{data: contact_phone_number} ->
+        contact_phone_number.temp_id == id
+      end)
+
+    changeset =
+      socket.assigns.changeset
+      |> Ecto.Changeset.put_assoc(:contact_phone_numbers, contact_phone_numbers)
+
+    {:noreply, assign_form(socket, changeset)}
+  end
+
   defp save_contact(socket, :edit, contact_params) do
-    case Contacts.update_contact(socket.assigns.contact, contact_params) do
+    case Contacts.update_nested_contact(socket.assigns.contact, contact_params) do
       {:ok, contact} ->
         notify_parent({:saved, contact})
 
@@ -87,7 +160,7 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
   end
 
   defp save_contact(socket, :new, contact_params) do
-    case Contacts.create_contact(contact_params) do
+    case Contacts.create_nested_contact(contact_params) do
       {:ok, contact} ->
         notify_parent({:saved, contact})
 
@@ -102,7 +175,9 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    assign(socket, :form, to_form(changeset))
+    socket
+    |> assign(:form, to_form(changeset))
+    |> assign(:changeset, changeset)
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})

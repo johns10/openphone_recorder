@@ -36,7 +36,8 @@ defmodule Discussit.Contacts.Contact do
       :account_id
     ])
     |> cast_id()
-    |> validate_required([:source, :account_id])
+    |> cast_assoc(:contact_phone_numbers)
+    |> validate_required([:first_name, :source, :account_id])
     |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :contacts_pkey)
   end
@@ -83,6 +84,8 @@ defmodule Discussit.Contacts.Contact do
 
   def render_for_prompt(%__MODULE__{first_name: first_name, last_name: last_name}),
     do: "#{first_name} #{last_name}"
+
+  defp cast_phone_numbers(nil), do: []
 
   defp cast_phone_numbers(phone_number) when is_binary(phone_number),
     do: [cast_phone_number(phone_number)]

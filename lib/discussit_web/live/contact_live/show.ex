@@ -10,7 +10,7 @@ defmodule DiscussitWeb.ContactLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    contact = Contacts.get_contact!(id)
+    contact = Contacts.get_contact!(id, preloads: [contact_phone_numbers: :phone_number])
 
     case Bodyguard.permit(Contacts, :get_contact!, socket.assigns.current_user, contact) do
       :ok ->

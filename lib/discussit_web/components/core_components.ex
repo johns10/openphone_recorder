@@ -308,9 +308,12 @@ defmodule DiscussitWeb.CoreComponents do
     |> assign(field: nil, id: assigns.id || field.id)
     |> assign(:errors, Enum.map(field.errors, &translate_error(&1)))
     |> assign_new(:name, fn -> if assigns.multiple, do: field.name <> "[]", else: field.name end)
-    |> assign_new(:value, fn -> field.value end)
+    |> assign_new(:value, fn -> cast_value(field.value) end)
     |> input()
   end
+
+  def cast_value(%EctoPhoneNumber{} = value), do: to_string(value)
+  def cast_value(value), do: value
 
   def input(%{type: "checkbox", value: value} = assigns) do
     assigns =
@@ -372,18 +375,21 @@ defmodule DiscussitWeb.CoreComponents do
 
   def input(%{type: "raw_input"} = assigns) do
     ~H"""
-    <input
-      type={@type}
-      name={@name}
-      id={@id || @name}
-      value={Phoenix.HTML.Form.normalize_value(@type, @value)}
-      class={[
-        "input input-bordered w-full",
-        @errors != [] && "input-error",
-        @class
-      ]}
-      {@rest}
-    />
+    <div class="w-full">
+      <input
+        type={@type}
+        name={@name}
+        id={@id || @name}
+        value={Phoenix.HTML.Form.normalize_value(@type, @value)}
+        class={[
+          "input input-bordered w-full",
+          @errors != [] && "input-error",
+          @class
+        ]}
+        {@rest}
+      />
+      <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
     """
   end
 

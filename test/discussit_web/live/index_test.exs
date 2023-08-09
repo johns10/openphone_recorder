@@ -106,6 +106,7 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       # assert index_live
       #        |> element("a#participant-contact-option-#{contact_2.id}")
       #        |> render_click() =~ contact_2.first_name
+
     end
   end
 end

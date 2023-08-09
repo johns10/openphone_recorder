@@ -4,8 +4,21 @@ defmodule Discussit.Calls do
 
   alias Discussit.Calls.Call
 
-  def list_calls do
-    Repo.all(Call)
+  def list_calls(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Call
+    |> preload(^preloads)
+    |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> Repo.all()
+  end
+
+  defp maybe_filter_by_conversation_id(query, nil), do: query
+
+  defp maybe_filter_by_conversation_id(query, conversation_id) do
+    query
+    |> where([p], p.conversation_id == ^conversation_id)
   end
 
   def get_call!(id), do: Repo.get!(Call, id)
