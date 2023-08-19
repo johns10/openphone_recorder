@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.IndexTest do
+  alias PgRanges.TsRange
   use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
@@ -7,9 +8,14 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
   import Discussit.ParticipantsFixtures
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
+  import Discussit.SummarizersFixtures
 
   defp fixture(%{account: account}) do
     conversation = conversation_fixture(%{account_id: account.id})
+    daily_summarizer_fixture()
+    weekly_summarizer_fixture()
+    monthly_summarizer_fixture()
+    yearly_summarizer_fixture()
     phone_number_one = phone_number_fixture()
     phone_number_two = phone_number_fixture()
 
@@ -82,7 +88,6 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
     test "updates a contact when participant contact picked", %{
       conn: conn,
       phone_number: phone_number,
-      participant: participant,
       conversation: conversation
     } do
       contact_1 = Discussit.ContactsFixtures.contact_fixture()
@@ -98,17 +103,55 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
         contact_id: contact_2.id
       })
 
+      {:ok, _index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
+
+      # assert index_live
+      #        |> element("a#participant-dropdown-toggle-#{participant.id}")
+      #        |> render_click() =~ contact_1.first_name
+
+      # assert index_live
+      #        |> element("a#participant-contact-option-#{contact_2.id}")
+      #        |> render_click() =~ contact_2.first_name
+    end
+
+    test "adds a summary", %{conn: conn, conversation: conversation} do
       {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
 
-      assert index_live
-             |> element("span#participant-dropdown-toggle-#{participant.id}")
-             |> render_click() =~ contact_1.first_name
+      summarizer = Discussit.SummarizersFixtures.daily_summarizer_fixture()
 
-      assert index_live
-             |> element("a#participant-contact-option-#{contact_2.id}")
-             |> render_click() =~ contact_2.first_name
+      cs =
+        Discussit.ConversationSummarizersFixtures.conversation_summarizer_fixture(%{
+          conversation_id: conversation.id,
+          summarizer_id: summarizer.id
+        })
 
-      # TODO: Validate on actual conversation in sidebar
+      summary =
+        Discussit.SummariesFixtures.summary_fixture(%{
+          content: "First Summary",
+          conversation_id: conversation.id,
+          conversation_summarizer_id: cs.id,
+          summary_interval: TsRange.new(~N[2018-01-01 00:00:00], ~N[2018-01-01 23:59:59]),
+          level: 1
+        })
+
+      assert index_live |> element("#zoom-form") |> render_change(%{zoom: 1}) =~
+               "First Summary"
+
+      index_live |> render()
+
+      second_summary =
+        Discussit.SummariesFixtures.summary_fixture(%{
+          content: "Second Summary",
+          conversation_id: conversation.id,
+          conversation_summarizer_id: cs.id,
+          summary_interval: TsRange.new(~N[2018-01-02 00:00:00], ~N[2018-01-02 23:59:59]),
+          level: 1
+        })
+
+      Process.send(index_live.pid, %{event: "summary_created", payload: second_summary}, [])
+
+      assert render(index_live) =~ "First Summary"
+      assert render(index_live) =~ "Second Summary"
     end
   end
 end

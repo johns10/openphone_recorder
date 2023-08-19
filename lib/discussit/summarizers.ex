@@ -10,6 +10,10 @@ defmodule Discussit.Summarizers do
 
   def get_summarizer!(id), do: Repo.get!(Summarizer, id)
 
+  def get_summarizer_by!(filters \\ []) do
+    Repo.get_by(Summarizer, filters)
+  end
+
   def create_summarizer(attrs \\ %{}) do
     %Summarizer{}
     |> Summarizer.changeset(attrs)

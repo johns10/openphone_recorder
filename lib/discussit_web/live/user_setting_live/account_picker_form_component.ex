@@ -7,7 +7,7 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex flex-row-reverse items-center justify-items-end">
+    <div class="flex flex-row items-center justify-items-end">
       <details class="dropdown dropdown-right">
         <summary class="btn btn-ghost btn-sm px-2">
           <.icon name="hero-user-group" class="w-5 h-5" />

@@ -20,17 +20,21 @@ defmodule DiscussitWeb.AccountUserLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:account_id]} type="hidden" value={@account_id} />
-
-        <div class="flex">
-          <.input
-            field={@form[:email]}
-            type="raw_input"
-            class="rounded-r-none rounded-t-none"
-            required
-          />
-          <.button type="submit" class="btn-success flex-shrink rounded-l-none rounded-t-none">
-            Invite
-          </.button>
+        <div>
+          <div class="flex">
+            <.input
+              field={@form[:email]}
+              type="raw_input"
+              class="rounded-r-none rounded-t-none"
+              required
+            />
+            <.button type="submit" class="btn-success flex-shrink rounded-l-none rounded-t-none">
+              Invite
+            </.button>
+          </div>
+          <.error :for={msg <- Enum.map(@form[:email].errors, &translate_error(&1))}>
+            <%= msg %>
+          </.error>
         </div>
       </.form>
     </div>

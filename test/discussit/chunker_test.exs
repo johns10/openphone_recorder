@@ -1,6 +1,7 @@
 defmodule Discussit.ChunkerTest do
   use Discussit.DataCase
   import Discussit.TimestampFixtures
+  import Discussit.SentenceFixtures
   alias Discussit.Statements.Statement
   alias Discussit.Chunker
   alias Discussit.Chunker.Queue
@@ -13,20 +14,23 @@ defmodule Discussit.ChunkerTest do
   def prompt(string, _opts \\ []), do: "Here's the prompt #{string}"
 
   def participant() do
-    %Participant{phone_number: %PhoneNumber{}}
+    %Participant{
+      phone_number: %PhoneNumber{},
+      contact: nil
+    }
   end
 
   describe "integration" do
     test "works" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: yesterday()},
-          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
-          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()},
-          %Statement{content: Faker.Lorem.sentence(10), occurred_at: two_days_ago()}
+          %Statement{content: fifteen_token_sentence(), occurred_at: hours_ago(0)},
+          %Statement{content: twenty_token_sentence(), occurred_at: hours_ago(0)},
+          %Statement{content: twenty_token_sentence(), occurred_at: hours_ago(0)},
+          %Statement{content: twenty_token_sentence(), occurred_at: yesterday()},
+          %Statement{content: ten_token_sentence(), occurred_at: days_hours_ago(3, 0)},
+          %Statement{content: ten_token_sentence(), occurred_at: days_hours_ago(3, 0)},
+          %Statement{content: ten_token_sentence(), occurred_at: days_hours_ago(3, 0)}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -51,17 +55,17 @@ defmodule Discussit.ChunkerTest do
 
       queue = [
         %Summary{
-          content: Faker.Lorem.sentence(15),
+          content: fifteen_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 1),
           time_zone: "Etc/UTC"
         },
         %Summary{
-          content: Faker.Lorem.sentence(20),
+          content: twenty_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 2),
           time_zone: "Etc/UTC"
         },
         %Summary{
-          content: Faker.Lorem.sentence(20),
+          content: twenty_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 5),
           time_zone: "Etc/UTC"
         }
@@ -80,22 +84,22 @@ defmodule Discussit.ChunkerTest do
 
       queue = [
         %Summary{
-          content: Faker.Lorem.sentence(15),
+          content: fifteen_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 3),
           time_zone: "Etc/UTC"
         },
         %Summary{
-          content: Faker.Lorem.sentence(20),
+          content: twenty_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 4),
           time_zone: "Etc/UTC"
         },
         %Summary{
-          content: Faker.Lorem.sentence(20),
+          content: twenty_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 8),
           time_zone: "Etc/UTC"
         },
         %Summary{
-          content: Faker.Lorem.sentence(20),
+          content: twenty_token_sentence(),
           summary_interval: days_ago_range(day_of_week + 16),
           time_zone: "Etc/UTC"
         }
@@ -115,9 +119,9 @@ defmodule Discussit.ChunkerTest do
     test "chunks together" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()}
+          %Statement{content: fifteen_token_sentence(), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: twenty_token_sentence(), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: twenty_token_sentence(), occurred_at: NaiveDateTime.utc_now()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -133,11 +137,11 @@ defmodule Discussit.ChunkerTest do
     test "chunks apart" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: NaiveDateTime.utc_now()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: two_days_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()},
-          %Statement{content: Faker.Lorem.sentence(20), occurred_at: three_days_ago()}
+          %Statement{content: fifteen_token_sentence(), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: twenty_token_sentence(), occurred_at: NaiveDateTime.utc_now()},
+          %Statement{content: twenty_token_sentence(), occurred_at: two_days_ago()},
+          %Statement{content: twenty_token_sentence(), occurred_at: three_days_ago()},
+          %Statement{content: twenty_token_sentence(), occurred_at: three_days_ago()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
@@ -157,16 +161,16 @@ defmodule Discussit.ChunkerTest do
     test "chunks together" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(15)},
-          %Statement{content: Faker.Lorem.sentence(20)},
-          %Statement{content: Faker.Lorem.sentence(20)}
+          %Statement{content: fifteen_token_sentence()},
+          %Statement{content: twenty_token_sentence()},
+          %Statement{content: twenty_token_sentence()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 
       chunks =
         [chunk1] =
         Queue.acc(queue)
-        |> TokenCount.chunk_items(max_tokens: 60)
+        |> TokenCount.chunk_items(max_tokens: 100)
 
       assert Enum.count(chunks) == 1
       assert Enum.count(chunk1) == 3
@@ -175,9 +179,9 @@ defmodule Discussit.ChunkerTest do
     test "chunks apart" do
       queue =
         [
-          %Statement{content: Faker.Lorem.sentence(20)},
-          %Statement{content: Faker.Lorem.sentence(20)},
-          %Statement{content: Faker.Lorem.sentence(15)}
+          %Statement{content: twenty_token_sentence()},
+          %Statement{content: twenty_token_sentence()},
+          %Statement{content: fifteen_token_sentence()}
         ]
         |> Enum.map(&Map.put(&1, :participant, participant()))
 

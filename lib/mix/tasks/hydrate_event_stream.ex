@@ -2,13 +2,10 @@ defmodule Mix.Tasks.HydrateEventStream do
   @moduledoc "This task hydrates the event table from a list of structs"
   use Mix.Task
 
-  import Ecto.Query
   alias Discussit.Events
-  alias Discussit.Repo
   alias Discussit.Accounts
 
   def run(_) do
-    IO.puts("here")
     Application.ensure_all_started(:discussit)
 
     [account] = Accounts.list_accounts()

@@ -97,7 +97,7 @@ defmodule Discussit.Contacts do
     contact_phone_numbers =
       contact_phone_numbers
       |> Enum.map(fn
-        %{data: data, changes: %{phone_number: %{changes: %{id: id}} = pn}} = changeset ->
+        %{changes: %{phone_number: %{changes: %{id: id}}}} = changeset ->
           case Discussit.PhoneNumbers.get_phone_number(id) do
             nil ->
               changeset
@@ -108,7 +108,7 @@ defmodule Discussit.Contacts do
               |> Ecto.Changeset.put_change(:phone_number_id, id)
           end
 
-        %{data: data, changes: %{phone_number: %{changes: %{value: value}} = pn}} = changeset ->
+        %{changes: %{phone_number: %{changes: %{value: value}}}} = changeset ->
           id = Discussit.PhoneNumbers.PhoneNumber.id(value)
 
           case Discussit.PhoneNumbers.get_phone_number(id) do

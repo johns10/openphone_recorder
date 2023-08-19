@@ -1,9 +1,9 @@
 defmodule DiscussitWeb.UserSettingLive.Form do
-  alias Tzdata.TimeZoneDatabase
   use DiscussitWeb, :live_view
 
   alias Discussit.UserSettings
 
+  @impl true
   def render(assigns) do
     ~H"""
     <.header class="text-center">

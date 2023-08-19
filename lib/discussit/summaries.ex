@@ -63,6 +63,20 @@ defmodule Discussit.Summaries do
 
   def get_summary!(id), do: Repo.get!(Summary, id)
 
+  def get_latest_summary!(conversation_id, level) do
+    Summary
+    |> join(:left, [s], cs in assoc(s, :conversation_summarizer), as: :cs)
+    |> where([s, cs: cs], cs.conversation_id == ^conversation_id)
+    |> where([s], s.level == ^level)
+    |> order_by([s], desc: fragment("lower(?)", s.summary_interval))
+    |> limit(1)
+    |> Repo.all()
+    |> case do
+      [] -> nil
+      [summary] -> summary
+    end
+  end
+
   def create_summary(attrs \\ %{}) do
     %Summary{}
     |> Summary.changeset(attrs)

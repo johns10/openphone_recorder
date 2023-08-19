@@ -9,6 +9,7 @@
 
 <.list>
   <:item title="Plan"><%= @account.plan |> Atom.to_string() |> String.capitalize() %></:item>
+  <:item title="Timezone"><%= @account.timezone %></:item>
   <:item title="Openphone Webhook URL"><%= url(~p"/api/events/#{@account.id}") %></:item>
   <:item title="OpenAI Signing Secret">
     <%= render_sensitive_string(@account.openphone_signing_secret) %>

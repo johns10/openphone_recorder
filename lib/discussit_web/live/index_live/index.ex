@@ -14,8 +14,12 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Statements
   alias Discussit.Participants
   alias Discussit.UserSettings.UserSetting
+  alias Discussit.ConversationWorker
+  alias Discussit.Summaries.Summary
 
   @impl true
+  @spec mount(any, any, Phoenix.LiveView.Socket.t()) ::
+          {:ok, Phoenix.LiveView.Socket.t(), [{:layout, {any, any}}, ...]}
   def mount(_params, _session, socket) do
     conversations =
       socket.assigns.user_setting.selected_account_id
@@ -23,10 +27,13 @@ defmodule DiscussitWeb.IndexLive.Index do
 
     {:ok,
      socket
+     |> assign(:zoom_level, 0)
      |> assign(conversations_per_page: 20, conversation_page: 1)
      |> assign(:conversation, nil)
+     |> assign(:conversation_id, nil)
      |> stream(:conversations, conversations)
-     |> assign(end_of_timeline?: false)
+     |> assign(:end_of_timeline?, false)
+     |> assign(:worker_busy?, false)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -36,6 +43,40 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   @impl true
+  def handle_event("summarize", _, socket) do
+    ConversationWorker.run_summarizers(socket.assigns.conversation)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_event("zoom", %{"zoom" => "0"}, socket) do
+    {:noreply, replace_conversation_items(socket, socket.assigns.conversation.id)}
+  end
+
+  @impl true
+  def handle_event("zoom", %{"zoom" => zoom}, socket) do
+    level = String.to_integer(zoom)
+
+    summaries =
+      Discussit.Summaries.list_summaries(
+        filters: [
+          conversation_id: socket.assigns.conversation.id,
+          level: level
+        ],
+        preload: [conversation_summarizer: :summarizer]
+      )
+
+    conversation_items =
+      map_summaries_to_conversation_items(summaries)
+      |> Enum.sort(&(NaiveDateTime.compare(&1.timestamp, &2.timestamp) != :gt))
+
+    {:noreply,
+     socket
+     |> stream(:conversation_items, conversation_items, reset: true)
+     |> assign(:zoom_level, level)}
+  end
+
   def handle_event(
         "set-participant-contact",
         %{"contact-id" => contact_id, "participant-id" => participant_id},
@@ -60,13 +101,53 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   defp apply_action(socket, :index, %{"id" => conversation_id}) do
-    replace_conversation_items(socket, conversation_id)
+    user = socket.assigns.current_user
+
+    conversation =
+      Conversations.get_conversation_summary!(
+        conversation_id,
+        socket.assigns.user_setting.selected_account_id
+      )
+
+    conversation
+    |> ConversationWorker.name()
+    |> Atom.to_string()
+    |> DiscussitWeb.Endpoint.subscribe()
+
+    if socket.assigns.conversation,
+      do:
+        socket.assigns.conversation
+        |> ConversationWorker.name()
+        |> Atom.to_string()
+        |> DiscussitWeb.Endpoint.unsubscribe()
+
+    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
+      :ok ->
+        ConversationWorker.new(%{
+          conversation: conversation,
+          account: socket.assigns.user_setting.selected_account
+        })
+
+        ConversationWorker.get_conversation_summarizers(conversation)
+
+        socket
+        |> replace_conversation_items(conversation_id)
+        |> assign(:page_title, "Listing Conversations")
+        |> assign(:conversation, conversation)
+        |> assign(:conversation_id, conversation.id)
+
+      {:error, :unauthorized} ->
+        socket
+        |> push_patch(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this conversation")
+    end
   end
 
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Conversations")
     |> assign(:conversation, nil)
+    |> assign(:conversation_id, nil)
   end
 
   @impl true
@@ -83,8 +164,32 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> push_patch(to: ~p"/home")}
   end
 
+  @impl true
+  def handle_info(%{event: "busy"}, socket), do: {:noreply, socket |> assign(:worker_busy?, true)}
+
+  @impl true
+  def handle_info(%{event: "idle"}, socket),
+    do: {:noreply, socket |> assign(:worker_busy?, false)}
+
+  @impl true
+  def handle_info(
+        %{event: "summary_created", payload: %Summary{level: level} = summary},
+        socket
+      ) do
+    summary = Discussit.Repo.preload(summary, conversation_summarizer: :summarizer)
+
+    case level == socket.assigns.zoom_level do
+      false ->
+        {:noreply, socket}
+
+      true ->
+        conversation_item = map_summary_to_conversation_item(summary)
+        {:noreply, stream_insert(socket, :conversation_items, conversation_item, at: -1)}
+    end
+  end
+
   defp append_conversations(socket, new_page) when new_page >= 1 do
-    %{conversations_per_page: per_page, conversation_page: cur_page} = socket.assigns
+    %{conversations_per_page: per_page} = socket.assigns
 
     conversations =
       socket.assigns.user_setting.selected_account_id
@@ -167,7 +272,9 @@ defmodule DiscussitWeb.IndexLive.Index do
         |> assign(:participant_sides, participant_sides(conversation.participants))
         |> assign(:page_title, "Listing Conversations")
         |> assign(:conversation, conversation)
+        |> assign(:conversation_id, conversation.id)
         |> stream(:conversation_items, items, reset: true)
+        |> assign(:zoom_level, 0)
         |> push_event("scroll", %{id: "#statements"})
 
       {:error, :unauthorized} ->
@@ -175,6 +282,19 @@ defmodule DiscussitWeb.IndexLive.Index do
         |> push_patch(to: ~p"/home")
         |> put_flash(:error, "You cannot access this conversation")
     end
+  end
+
+  defp map_summaries_to_conversation_items(summaries) do
+    Enum.map(summaries, &map_summary_to_conversation_item/1)
+  end
+
+  defp map_summary_to_conversation_item(summary) do
+    %{
+      type: "#{summary.conversation_summarizer.summarizer.name}_summary",
+      data: summary,
+      timestamp: summary.summary_interval.lower,
+      id: "summary-#{summary.id}"
+    }
   end
 
   defp participant_sides([p1, p2 | tail]) do
@@ -190,6 +310,26 @@ defmodule DiscussitWeb.IndexLive.Index do
     timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
     {:ok, local} = DateTime.from_naive(date_time, timezone)
     "#{local.month}/#{local.day} #{local.hour}:#{local.minute}"
+  end
+
+  defp render_day(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    DateTime.from_naive!(date_time, timezone) |> Date.to_string()
+  end
+
+  defp render_week(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    date = DateTime.from_naive!(date_time, timezone) |> Date.to_string()
+    "Week of #{date}"
+  end
+
+  defp render_month(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    %{month: month} = DateTime.from_naive!(date_time, timezone)
+    "#{Timex.month_name(month)}"
   end
 
   defp atomize(int), do: :"#{int}"
