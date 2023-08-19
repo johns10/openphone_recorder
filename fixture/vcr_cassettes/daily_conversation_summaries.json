@@ -1,0 +1,47 @@
+[
+  {
+    "request": {
+      "body": "{\"max_tokens\":792,\"messages\":[{\"content\":\"\\n          Summarize the following conversation, maintaining the key context and important details:\\n          \\\"\\\"\\\" Jane Foe: You're welcome! It was a team effort. Remember, a clean sink is not only hygienic but also adds a touch of freshness to the whole kitchen.\\n John Doe: Agreed! We'll make it a habit to clean it regularly from now on. Thanks for your help and guidance.\\n Jane Foe: Great job! It's so satisfying to have a clean and sparkling sink. Let's try to maintain it regularly so it doesn't get dirty like this again.\\n John Doe: There, all done! The sink looks as good as new.\\n Jane Foe: Will do.\\n John Doe: Yes, it's amazing what a little cleaning can do. Now, take a dry cloth or paper towels and wipe the sink dry. This will help prevent any water spots or streaks from forming.\\n Jane Foe: Wow, it's already looking much better!\\n John Doe: Got it.\\n Jane Foe: Absolutely. Rinse the sink with warm water, making sure to remove all the cleaner or soap residue. It's important to rinse it well to avoid leaving any chemical residue behind.\\n John Doe: Alright, I'll scrub it thoroughly. Should I rinse the sink after scrubbing?\\n Jane Foe: Yes, go ahead. Use the sponge or scrub brush to gently scrub the sink in circular motions. Pay extra attention to any stains or stubborn spots.\\n John Doe: Done! Now, should I start scrubbing?\\n Jane Foe: While the sink is wet, go ahead and apply the cleaner or dish soap. Make sure to cover the entire surface, including the sides and the drain.\\n John Doe: Okay, got it.\\n Jane Foe: It's best to wet the sink first to help the cleaner spread evenly. So, turn on the faucet and let the water run over the surface.\\n John Doe: Great. I'll gather those supplies while you clear out the sink. Now, should we wet the sink first or apply the cleaner directly?\\n Jane Foe: I think a multipurpose cleaner or a mild dish soap should do the trick. We don't want anything too abrasive that could damage the sink's surface. Also, grab a sponge or a non-abrasive scrub brush.\\n John Doe: Alright, I'll take care of that. What should we use to clean the sink? Do you have any specific cleaning products in mind?\\n Jane Foe: Good idea. Let's clear out any dishes, utensils, or anything else that's in there. We want to have a clear space to work with.\\n John Doe: Definitely! So, where do we start? Should we remove everything from the sink first?\\n Jane Foe: Yeah, you're right. It's been a while since we last gave it a thorough cleaning. I think it's time to roll up our sleeves and tackle it.\\n John Doe: Hey, have you noticed how dirty the sink has become? It's in desperate need of cleaning.\\n\\\"\\\"\\\"\\n          Be sure to capture any recurring events or topics and provide their respective counts.\\n          Your summary should be concise yet comprehensive, focusing on the most relevant information.\\n          Summarize the content to approximately 25.0% of its original length.\\n        \",\"role\":\"user\"}],\"model\":\"gpt-3.5-turbo\",\"temperature\":0}",
+      "headers": {
+        "Authorization": "***",
+        "Content-type": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "recv_timeout": 600000
+      },
+      "request_body": "",
+      "url": "https://api.openai.com/v1/chat/completions?"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"chatcmpl-7pOYur2dk2NyAC2LvJcb3e3oJH3TK\",\n  \"object\": \"chat.completion\",\n  \"created\": 1692483500,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Jane and John discuss the importance of regularly cleaning the sink to maintain hygiene and freshness in the kitchen. They agree to make it a habit and express satisfaction with the clean sink. John asks for guidance on how to clean the sink, and Jane advises him to wet the sink first, apply a mild cleaner or dish soap, scrub gently, and rinse thoroughly. They also discuss the need to remove any items from the sink before cleaning. The conversation emphasizes the importance of maintaining a clean sink and provides step-by-step instructions for cleaning it properly. (100 words, 25% of original length)\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 676,\n    \"completion_tokens\": 118,\n    \"total_tokens\": 794\n  }\n}\n",
+      "headers": {
+        "Date": "Sat, 19 Aug 2023 22:18:22 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "1006",
+        "Connection": "keep-alive",
+        "access-control-allow-origin": "*",
+        "Cache-Control": "no-cache, must-revalidate",
+        "openai-model": "gpt-3.5-turbo-0613",
+        "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
+        "openai-processing-ms": "2230",
+        "openai-version": "2020-10-01",
+        "strict-transport-security": "max-age=15724800; includeSubDomains",
+        "x-ratelimit-limit-requests": "3500",
+        "x-ratelimit-limit-tokens": "90000",
+        "x-ratelimit-remaining-requests": "3499",
+        "x-ratelimit-remaining-tokens": "88479",
+        "x-ratelimit-reset-requests": "17ms",
+        "x-ratelimit-reset-tokens": "1.014s",
+        "x-request-id": "c8738f95c6438c0fa78c235895e978b9",
+        "CF-Cache-Status": "DYNAMIC",
+        "Server": "cloudflare",
+        "CF-RAY": "7f95c5945adb3a02-YYZ",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

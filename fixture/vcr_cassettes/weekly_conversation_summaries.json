@@ -1,9 +1,9 @@
 [
   {
     "request": {
-      "body": "{\"max_tokens\":801,\"model\":\"text-davinci-003\",\"prompt\":\"First, give the following text an informative title.\\n\\nSecond, write a summary of the following conversation.\\nRemove any irrelevant information and filler words.\\nThe summary should be no longer than 801 words.\\n\\\"\\\"\\\" John and Jane work together to clean the sink, removing any dishes, utensils, or other items, and using a multipurpose cleaner or mild dish soap with a sponge or non-abrasive scrub brush. They wet the sink first, apply the cleaner, scrub in circular motions, rinse the sink with warm water, and wipe it dry with a cloth or paper towels. The result is a clean and sparkling sink, and a commitment to maintain it regularly.\\n John Smith and Jane Fonda discuss the best way to clean a bathtub, with John planning to use a magical potion made from organic unicorn tears and enchanted pixie dust. Jane advises John to wear gloves and follow instructions carefully, and to use elbow grease and a toothbrush to tackle stubborn stains. Jane also suggests ventilating the bathroom and letting the cleaner sit for a while before scrubbing. John is determined to make the bathtub sparkle and Jane encourages him to be patient and persistent.\\n\\\"\\\"\\\"\\n\\nReturn your answer in the following format:\\nTitle | Summary\\ne.g\\nWhy Artificial Intelligence is Good | AI can make humans more productive by automating many repetitive processes.\\nHome Hygeine is important | Keeping a clean and tidy home can improve your health by reducing the dust particles you breathe, and reducing your exposure to harmful bacteria.\\n\\nTITLE AND SUMMARY:\\n\",\"temperature\":0}",
+      "body": "{\"max_tokens\":300,\"messages\":[{\"content\":\"\\n          Summarize the daily summaries from the past week to create a weekly summary.\\n          Summarize the content to approximately 399 words.\\n          SUMMARY: \\\"\\\"\\\"\\n           John Doe asks Jane Foe if she has ever cleaned a bathtub before. Jane Foe says she has and it's necessary but not exciting. John Doe admits he has been putting off cleaning his bathtub and it's starting to look bad. Jane Foe warns him about online cleaning products and asks about the ingredients of the one he found. John Doe says it's a secret formula made from organic unicorn tears and enchanted pixie dust. Jane Foe laughs and tells him to be careful and follow instructions. John Doe agrees and says he will wear protective gear. Jane Foe advises him to use elbow grease and ventilate the bathroom. John Doe agrees and says he will let the cleaner sit and repeat the process if needed. Jane Foe encourages him and says the end result will be worth it. John Doe thanks her and decides to clean the sink as well. Jane Foe agrees and says it's time to tackle it.\\n\\nJohn Doe and Jane Foe discuss the process of cleaning a sink. They agree to remove all dishes and utensils from the sink before starting. Jane suggests using a multipurpose cleaner or mild dish soap, along with a sponge or non-abrasive scrub brush. John gathers the supplies while Jane clears out the sink. They decide to wet the sink first before applying the cleaner, and John is instructed to scrub the sink in circular motions. After scrubbing, they rinse the sink thoroughly with warm water to remove any residue. They dry the sink with a cloth or paper towels to prevent water spots. Both are satisfied with the clean sink and agree to maintain it regularly. The conversation then takes a humorous turn as they discuss unconventional cleaning methods for floors, toilets, and showers. John prefers traditional cleaning methods, while Jane suggests using toothbrushes, ketchup and mustard, milk, feathers, spaghetti, loofah sponges, antacid tablets, glitter, mayonnaise, wildflower seeds, squirrels, melted chocolate and coconut oil, peanut butter, hairdryers, singing frogs, and whipped cream. They eventually agree that traditional cleaning methods are the most effective, but Jane encourages John to try some of his unique ideas for a touch of whimsy. They end the conversation by discussing John's question about cleaning floors, with Jane suggesting using old socks as cleaning gloves and John suggesting using whipped cream or confetti.\\n\\nJane and John continue their conversation about unconventional cleaning methods. Jane suggests using glitter to attract dirt and grime in the oven, while John suggests using marshmallows to scrub away the dirt. They both agree that these methods may leave a messy residue. Jane then suggests using a mixture of honey and vinegar, but John is concerned about the smell. Jane jokingly suggests using a pet parrot to peck away the grime, but John dismisses the idea. They discuss using a balloon-powered cleaning system, meditating, and using a mixture of banana peel and toothpaste, but John decides to stick to traditional methods. They then discuss cleaning kitchen cabinets, with Jane suggesting using a fluffy kitten to dust and John suggesting using mashed potatoes. They also discuss using a feather duster on a remote-controlled car and playing classical music. They eventually agree that using a regular cleaning spray and microfiber cloth is the most reliable method. They continue their conversation about cleaning baseboards, walls, and ceiling fans, with Jane suggesting using a feather boa, whipped cream, and bubble bath, and John suggesting using a damp cloth and mild soap. They also discuss using a pillowcase to clean fan blades and emphasize the importance of safety when cleaning high areas. They conclude by discussing the importance of regular maintenance for ceiling fans.\\n Maintaining a clean and hygienic sink is important for the overall freshness of the kitchen. Jane and John agree to make it a habit to clean the sink regularly. They discuss the steps to clean the sink, including removing dishes and utensils, wetting the sink, applying a mild cleaner or dish soap, scrubbing the sink, rinsing it thoroughly, and drying it with a cloth or paper towels. They emphasize the importance of removing all cleaner or soap residue and paying attention to stubborn stains. They also mention the use of non-abrasive cleaning products and tools. Jane and John are satisfied with the results and plan to maintain the cleanliness of the sink to prevent it from getting dirty again.\\n\\n          \\\"\\\"\\\"\\n          Your summary should be concise yet comprehensive, focusing on the most relevant information.\\n        \",\"role\":\"user\"}],\"model\":\"gpt-3.5-turbo\",\"temperature\":0}",
       "headers": {
-        "Authorization": "***",
+        "Authorization": "Bearer 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",
         "Content-type": "application/json"
       },
       "method": "post",
@@ -11,33 +11,33 @@
         "recv_timeout": 600000
       },
       "request_body": "",
-      "url": "https://api.openai.com/v1/completions"
+      "url": "https://api.openai.com/v1/chat/completions?"
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cmpl-7Z2UNIgd7886J3ozN9J4SgkMhAHnX\",\n  \"object\": \"text_completion\",\n  \"created\": 1688585403,\n  \"model\": \"text-davinci-003\",\n  \"choices\": [\n    {\n      \"text\": \"Cleaning a Sink: John and Jane's Tips | John and Jane discuss the best way to clean a sink, with John using a multipurpose cleaner or mild dish soap with a sponge or non-abrasive scrub brush. They wet the sink first, apply the cleaner, scrub in circular motions, rinse the sink with warm water, and wipe it dry with a cloth or paper towels. Jane also suggests ventilating the bathroom and letting the cleaner sit for a while before scrubbing. The result is a clean and sparkling sink, and a commitment to maintain it regularly.\",\n      \"index\": 0,\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 325,\n    \"completion_tokens\": 118,\n    \"total_tokens\": 443\n  }\n}\n",
+      "body": "{\n  \"id\": \"chatcmpl-7pOWlaQL5tpjZyJyJnRMBAldRt36f\",\n  \"object\": \"chat.completion\",\n  \"created\": 1692483367,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"John Doe and Jane Foe discuss the process of cleaning a bathtub and sink. They advise each other on the best cleaning methods and products to use. They agree to remove all dishes and utensils from the sink before starting and suggest using a multipurpose cleaner or mild dish soap with a non-abrasive scrub brush. They emphasize the importance of scrubbing in circular motions and thoroughly rinsing the sink with warm water. They also mention the need to dry the sink to prevent water spots. Both agree to maintain the cleanliness of the sink regularly.\\n\\nThe conversation takes a humorous turn as they discuss unconventional cleaning methods for floors, toilets, and showers. John prefers traditional cleaning methods, while Jane suggests using unconventional items such as toothbrushes, ketchup and mustard, milk, feathers, spaghetti, loofah sponges, antacid tablets, glitter, mayonnaise, wildflower seeds, squirrels, melted chocolate and coconut oil, peanut butter, hairdryers, singing frogs, and whipped cream. They eventually agree that traditional cleaning methods are the most effective, but Jane encourages John to try some of his unique ideas for a touch of whimsy.\\n\\nThey continue their conversation about unconventional cleaning methods, discussing using glitter and marshmallows in the oven, a mixture of honey and vinegar, and even a pet parrot to peck away grime. However, they ultimately decide to stick to traditional methods. They also discuss cleaning kitchen cabinets, using a fluffy kitten to dust, and using a\"\n      },\n      \"finish_reason\": \"length\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 935,\n    \"completion_tokens\": 300,\n    \"total_tokens\": 1235\n  }\n}\n",
       "headers": {
-        "Date": "Wed, 05 Jul 2023 19:30:11 GMT",
+        "Date": "Sat, 19 Aug 2023 22:16:12 GMT",
         "Content-Type": "application/json",
-        "Content-Length": "883",
+        "Content-Length": "1935",
         "Connection": "keep-alive",
         "access-control-allow-origin": "*",
         "Cache-Control": "no-cache, must-revalidate",
-        "openai-model": "text-davinci-003",
+        "openai-model": "gpt-3.5-turbo-0613",
         "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
-        "openai-processing-ms": "7924",
+        "openai-processing-ms": "5399",
         "openai-version": "2020-10-01",
         "strict-transport-security": "max-age=15724800; includeSubDomains",
-        "x-ratelimit-limit-requests": "3000",
-        "x-ratelimit-limit-tokens": "250000",
-        "x-ratelimit-remaining-requests": "2999",
-        "x-ratelimit-remaining-tokens": "249199",
-        "x-ratelimit-reset-requests": "20ms",
-        "x-ratelimit-reset-tokens": "192ms",
-        "x-request-id": "93d0c8d9119c341f313ff6eda344d4b3",
+        "x-ratelimit-limit-requests": "3500",
+        "x-ratelimit-limit-tokens": "90000",
+        "x-ratelimit-remaining-requests": "3499",
+        "x-ratelimit-remaining-tokens": "88518",
+        "x-ratelimit-reset-requests": "17ms",
+        "x-ratelimit-reset-tokens": "988ms",
+        "x-request-id": "4bc89419c9aa6f8f25cf28f69059c27b",
         "CF-Cache-Status": "DYNAMIC",
         "Server": "cloudflare",
-        "CF-RAY": "7e2205333ca736c3-YYZ",
+        "CF-RAY": "7f95c253ad1338e2-YYZ",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "status_code": 200,

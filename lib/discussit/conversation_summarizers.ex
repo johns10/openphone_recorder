@@ -19,13 +19,8 @@ defmodule Discussit.ConversationSummarizers do
 
   def get_conversation_summarizer!(id), do: Repo.get!(ConversationSummarizer, id)
 
-  def get_conversation_summarizer_by(opts \\ []) do
-    filters =
-      Keyword.get(opts, :filters, [])
-      |> IO.inspect()
-
-    ConversationSummarizer
-    |> Repo.get_by(filters)
+  def get_conversation_summarizer_by(filters \\ []) do
+    Repo.get_by(ConversationSummarizer, filters)
   end
 
   def create_conversation_summarizer(attrs \\ %{}) do

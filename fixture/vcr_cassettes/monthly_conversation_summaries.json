@@ -1,0 +1,47 @@
+[
+  {
+    "request": {
+      "body": "{\"max_tokens\":800,\"messages\":[{\"content\":\"\\n          Generate a summary of the daily summaries from the last month to create a monthly summary.\\n          Summarize the content to approximately 1064 words.\\n          SUMMARY: \\\"\\\"\\\"\\n           Maintaining a clean and hygienic sink is important for the overall freshness of the kitchen. Jane and John agree to make it a habit to clean the sink regularly. They discuss the steps to clean the sink, including removing dishes and utensils, wetting the sink, applying a mild cleaner or dish soap, scrubbing the sink, rinsing it thoroughly, and drying it with a cloth or paper towels. They emphasize the importance of removing all cleaner or soap residue and paying attention to stubborn stains. They also mention the use of non-abrasive cleaning products and tools. Jane and John are satisfied with the results and plan to maintain the cleanliness of the sink to prevent it from getting dirty again.\\n\\n          \\\"\\\"\\\"\\n          Your summary should be concise yet comprehensive, focusing on the most relevant information.\\n        \",\"role\":\"user\"}],\"model\":\"gpt-3.5-turbo\",\"temperature\":0}",
+      "headers": {
+        "Authorization": "Bearer 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",
+        "Content-type": "application/json"
+      },
+      "method": "post",
+      "options": {
+        "recv_timeout": 600000
+      },
+      "request_body": "",
+      "url": "https://api.openai.com/v1/chat/completions?"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"chatcmpl-7pOWzl9mcYHcHqwA1807tHogSewn0\",\n  \"object\": \"chat.completion\",\n  \"created\": 1692483381,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"In the last month, Jane and John have made it a priority to maintain a clean and hygienic sink in their kitchen. They have agreed to regularly clean the sink and have discussed the necessary steps to achieve this. These steps include removing dishes and utensils from the sink, wetting the sink, applying a mild cleaner or dish soap, scrubbing the sink, thoroughly rinsing it, and finally drying it with a cloth or paper towels. They emphasize the importance of removing all cleaner or soap residue and paying special attention to stubborn stains. They also mention the use of non-abrasive cleaning products and tools.\\n\\nJane and John are pleased with the results of their efforts and are determined to continue maintaining the cleanliness of their sink to prevent it from becoming dirty again.\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 204,\n    \"completion_tokens\": 154,\n    \"total_tokens\": 358\n  }\n}\n",
+      "headers": {
+        "Date": "Sat, 19 Aug 2023 22:16:24 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "1194",
+        "Connection": "keep-alive",
+        "access-control-allow-origin": "*",
+        "Cache-Control": "no-cache, must-revalidate",
+        "openai-model": "gpt-3.5-turbo-0613",
+        "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
+        "openai-processing-ms": "2538",
+        "openai-version": "2020-10-01",
+        "strict-transport-security": "max-age=15724800; includeSubDomains",
+        "x-ratelimit-limit-requests": "3500",
+        "x-ratelimit-limit-tokens": "90000",
+        "x-ratelimit-remaining-requests": "3499",
+        "x-ratelimit-remaining-tokens": "86734",
+        "x-ratelimit-reset-requests": "17ms",
+        "x-ratelimit-reset-tokens": "2.176s",
+        "x-request-id": "63de5e4f52f332b1ca4b5f62b45cb8a4",
+        "CF-Cache-Status": "DYNAMIC",
+        "Server": "cloudflare",
+        "CF-RAY": "7f95c2ae0c2e38e2-YYZ",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

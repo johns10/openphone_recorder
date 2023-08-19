@@ -47,22 +47,26 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
         <.inputs_for :let={cpn} field={@form[:contact_phone_numbers]}>
           <div class="flex flex-row items-center !my-2">
             <.input field={cpn[:contact_id]} type="hidden" value={@contact.id} />
-
-            <.inputs_for :let={pn} field={cpn[:phone_number]}>
-              <.input field={pn[:source]} type="hidden" value={:user} />
-              <.input field={pn[:value]} type="raw_input" placeholder="Enter phone number" />
-            </.inputs_for>
+            <div class="w-full">
+              <.inputs_for :let={pn} field={cpn[:phone_number]}>
+                <.input field={pn[:source]} type="hidden" value={:user} />
+                <.input field={pn[:value]} type="raw_input" placeholder="Enter phone number" />
+              </.inputs_for>
+              <.error :for={msg <- Enum.map(@form[:phone_number].errors, &translate_error(&1))}>
+                <%= msg %>
+              </.error>
+            </div>
             <div :if={is_nil(cpn.data.temp_id) or cpn.data.temp_id == ""} class="mx-4">
               <.input field={cpn[:delete]} type="checkbox" class="ml-4" phx-target={@myself} />
             </div>
             <.input field={cpn[:temp_id]} type="hidden" />
             <.button
               :if={!(is_nil(cpn.data.temp_id) or cpn.data.temp_id == "")}
-              href="#"
               id="remove-temporary-contact-phone-number"
               phx-click="remove-contact-phone-number"
               phx-target={@myself}
               phx-value-remove={cpn.data.temp_id}
+              type="button"
               class="btn-error btn-sm ml-2"
             >
               <.icon name="hero-x-mark-solid" class="w-3 h-3" />

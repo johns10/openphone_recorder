@@ -22,6 +22,7 @@ defmodule Discussit.Chunker do
 
   defp impl(:daily), do: Discussit.Chunker.Daily
   defp impl(:weekly), do: Discussit.Chunker.Weekly
+  defp impl(:monthly), do: Discussit.Chunker.Monthly
   defp impl(:token_count), do: Discussit.Chunker.TokenCount
   defp impl(:test), do: Discussit.Chunker.Test
 end

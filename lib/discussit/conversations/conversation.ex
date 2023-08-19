@@ -4,16 +4,20 @@ defmodule Discussit.Conversations.Conversation do
   alias Discussit.Participants.Participant
   alias Discussit.Accounts.Account
   alias Discussit.Statements.Statement
+  alias Discussit.ConversationSummarizers.ConversationSummarizer
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone]
 
+    field :last_occurred_at, :naive_datetime_usec, virtual: true
+
     belongs_to :account, Account, type: :binary_id
 
     has_many :participants, Participant
     has_many :statements, Statement
+    has_many :conversation_summarizers, ConversationSummarizer
     has_many :phone_numbers, through: [:participants, :phone_number]
     has_many :contacts, through: [:phone_numbers, :contact]
     timestamps(type: :naive_datetime_usec)

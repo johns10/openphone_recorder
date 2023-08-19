@@ -1,7 +1,7 @@
-defmodule Discussit.Chunker.Daily do
+defmodule Discussit.Chunker.Monthly do
   @behaviour Discussit.Chunker.Behaviour
-  alias Discussit.DateSupport
   alias Discussit.Chunker.Queue
+  alias Discussit.DateSupport
 
   @impl true
   def chunk_items(queue, opts \\ [])
@@ -10,10 +10,7 @@ defmodule Discussit.Chunker.Daily do
     do: done
 
   def chunk_items(%{queue: [head, next | _]} = acc, opts) do
-    head_occurred_at = DateSupport.date(head.occurred_at, opts)
-    next_occurred_at = DateSupport.date(next.occurred_at, opts)
-
-    case head_occurred_at == next_occurred_at do
+    case split?(head, next, opts) do
       true ->
         acc
         |> Queue.add_to_current()
@@ -32,5 +29,12 @@ defmodule Discussit.Chunker.Daily do
     |> Queue.complete_current()
     |> Queue.shift_queue(1)
     |> chunk_items(opts)
+  end
+
+  def split?(head, next, opts) do
+    %{month: head_month} = DateSupport.range_day(head.summary_interval, opts)
+    %{month: next_month} = DateSupport.range_day(next.summary_interval, opts)
+
+    head_month == next_month
   end
 end

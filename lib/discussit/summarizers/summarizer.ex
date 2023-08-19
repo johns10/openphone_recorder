@@ -3,8 +3,14 @@ defmodule Discussit.Summarizers.Summarizer do
   import Ecto.Changeset
 
   schema "summarizers" do
+    field :name, :string
     field :prompt, :string
-    field :chunker, Ecto.Enum, values: [:daily, :weekly, :topical]
+    field :reducer_prompt, :string
+    field :chunker, Ecto.Enum, values: [:daily, :weekly, :monthly, :yearly, :topical]
+    field :percentage_reduction, :float
+    field :fixed_reduction, :integer
+
+    belongs_to :summarizer, __MODULE__
 
     timestamps(type: :naive_datetime_usec)
   end
@@ -12,7 +18,14 @@ defmodule Discussit.Summarizers.Summarizer do
   @doc false
   def changeset(summarizer, attrs) do
     summarizer
-    |> cast(attrs, [:prompt, :chunker])
+    |> cast(attrs, [
+      :name,
+      :prompt,
+      :reducer_prompt,
+      :chunker,
+      :percentage_reduction,
+      :fixed_reduction
+    ])
     |> validate_required([:prompt])
   end
 end

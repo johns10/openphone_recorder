@@ -3,14 +3,44 @@ defmodule DiscussitWeb.IndexLive.Components do
   alias Discussit.Conversations.Conversation
 
   attr(:conversation, Conversation, default: nil)
+  attr(:zoom_level, :integer, default: 0)
+  attr(:worker_busy?, :boolean, default: true)
 
   def participant_header(%{conversation: nil} = assigns), do: ~H""
 
   def participant_header(assigns) do
     ~H"""
-    <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10">
-      <.participant_picker participant={Enum.at(@conversation.participants, 0)} class="" last={false} />
-      <.participant_picker participant={Enum.at(@conversation.participants, 1)} class="" last={true} />
+    <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+      <div class="flex flex-row space-x-4">
+        <.participant_picker
+          participant={Enum.at(@conversation.participants, 0)}
+          class=""
+          last={false}
+        />
+        <.participant_picker
+          participant={Enum.at(@conversation.participants, 1)}
+          class=""
+          last={true}
+        />
+      </div>
+      <div class="flex flex-row items-center space-x-4">
+        <button class="btn btn-xs btn-secondary" phx-click="summarize" disabled={@worker_busy?}>
+          Summarize
+        </button>
+        <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
+          <input
+            type="range"
+            min="0"
+            max="3"
+            value={@zoom_level}
+            class="range"
+            step="1"
+            name="zoom"
+            id="zoom-input"
+            phx-debounce="500"
+          />
+        </.form>
+      </div>
     </div>
     """
   end

@@ -312,9 +312,6 @@ defmodule DiscussitWeb.CoreComponents do
     |> input()
   end
 
-  def cast_value(%EctoPhoneNumber{} = value), do: to_string(value)
-  def cast_value(value), do: value
-
   def input(%{type: "checkbox", value: value} = assigns) do
     assigns =
       assign_new(assigns, :checked, fn -> Phoenix.HTML.Form.normalize_value("checkbox", value) end)
@@ -388,7 +385,6 @@ defmodule DiscussitWeb.CoreComponents do
         ]}
         {@rest}
       />
-      <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
   end
@@ -438,6 +434,9 @@ defmodule DiscussitWeb.CoreComponents do
     </div>
     """
   end
+
+  def cast_value(%EctoPhoneNumber{} = value), do: to_string(value)
+  def cast_value(value), do: value
 
   @doc """
   Renders a label.
