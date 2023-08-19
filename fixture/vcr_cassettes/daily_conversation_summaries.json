@@ -15,9 +15,9 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"chatcmpl-7pOYur2dk2NyAC2LvJcb3e3oJH3TK\",\n  \"object\": \"chat.completion\",\n  \"created\": 1692483500,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Jane and John discuss the importance of regularly cleaning the sink to maintain hygiene and freshness in the kitchen. They agree to make it a habit and express satisfaction with the clean sink. John asks for guidance on how to clean the sink, and Jane advises him to wet the sink first, apply a mild cleaner or dish soap, scrub gently, and rinse thoroughly. They also discuss the need to remove any items from the sink before cleaning. The conversation emphasizes the importance of maintaining a clean sink and provides step-by-step instructions for cleaning it properly. (100 words, 25% of original length)\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 676,\n    \"completion_tokens\": 118,\n    \"total_tokens\": 794\n  }\n}\n",
+      "body": "{\n  \"id\": \"chatcmpl-7pOfDCXpI8jTKUEboqPLsu9mcfhxL\",\n  \"object\": \"chat.completion\",\n  \"created\": 1692483891,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"Jane and John discuss the importance of regularly cleaning the sink to maintain hygiene and freshness in the kitchen. They agree to make it a habit and express satisfaction with the clean sink. John asks for guidance on how to clean the sink, and Jane advises him to wet the sink first, apply a mild cleaner or dish soap, scrub gently, and rinse thoroughly. They also discuss the need to remove any items from the sink before cleaning. The conversation emphasizes the importance of maintaining a clean sink and provides step-by-step instructions for cleaning it properly. (100 words, 25% of original length)\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 676,\n    \"completion_tokens\": 118,\n    \"total_tokens\": 794\n  }\n}\n",
       "headers": {
-        "Date": "Sat, 19 Aug 2023 22:18:22 GMT",
+        "Date": "Sat, 19 Aug 2023 22:24:53 GMT",
         "Content-Type": "application/json",
         "Content-Length": "1006",
         "Connection": "keep-alive",
@@ -25,7 +25,7 @@
         "Cache-Control": "no-cache, must-revalidate",
         "openai-model": "gpt-3.5-turbo-0613",
         "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
-        "openai-processing-ms": "2230",
+        "openai-processing-ms": "1976",
         "openai-version": "2020-10-01",
         "strict-transport-security": "max-age=15724800; includeSubDomains",
         "x-ratelimit-limit-requests": "3500",
@@ -34,10 +34,10 @@
         "x-ratelimit-remaining-tokens": "88479",
         "x-ratelimit-reset-requests": "17ms",
         "x-ratelimit-reset-tokens": "1.014s",
-        "x-request-id": "c8738f95c6438c0fa78c235895e978b9",
+        "x-request-id": "af5f5abffd0ee887ded8946db5561152",
         "CF-Cache-Status": "DYNAMIC",
         "Server": "cloudflare",
-        "CF-RAY": "7f95c5945adb3a02-YYZ",
+        "CF-RAY": "7f95cf23ec3436ac-YYZ",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "status_code": 200,
