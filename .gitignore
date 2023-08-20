@@ -39,3 +39,5 @@ npm-debug.log
 /priv/hero_icons/
 
 /.elixir_ls
+
+/data/.minio.sys/*

@@ -4,6 +4,7 @@ defmodule Discussit.Calls.Call do
   alias Discussit.Statements.Statement
   alias Discussit.Conversations.Conversation
   alias Discussit.Participants.Participant
+  alias Discussit.Files.File
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
@@ -11,10 +12,14 @@ defmodule Discussit.Calls.Call do
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
+    field :status, Ecto.Enum, values: [:file_uploaded, :transcribing, :transcribed]
 
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :from_participant, Participant
     belongs_to :to_participant, Participant
+
+    embeds_one :call_recording, File
+    embeds_one :voicemail, File
 
     has_many :statements, Statement
 
@@ -33,10 +38,14 @@ defmodule Discussit.Calls.Call do
       :from_participant_id,
       :to_participant_id
     ])
+    |> cast_embed(:call_recording)
+    |> cast_embed(:voicemail)
     |> validate_required([:source, :external_id])
     |> cast_id()
     |> unique_constraint([:id], name: :calls_pkey)
   end
+
+  def id(:openphone, external_id), do: UUID.uuid5(nil, "openphone-" <> external_id)
 
   defp cast_id(changeset) do
     case get_field(changeset, :id) do
@@ -46,7 +55,7 @@ defmodule Discussit.Calls.Call do
 
         case {source, external_id} do
           {:openphone, external_id} when is_atom(source) and is_binary(external_id) ->
-            put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+            put_change(changeset, :id, id(source, external_id))
 
           _ ->
             add_error(changeset, :id, "insufficient args to generate id")
@@ -67,7 +76,8 @@ defmodule Discussit.Calls.Call do
           conversation: %{id: conversation_id},
           from_participant: %{id: from_participant_id},
           to_participant: %{id: to_participant_id}
-        }
+        },
+        file_info \\ %{}
       ) do
     %{
       external_id: external_id,
@@ -76,7 +86,9 @@ defmodule Discussit.Calls.Call do
       completed_at: completed_at,
       from_participant_id: from_participant_id,
       to_participant_id: to_participant_id,
-      source: :openphone
+      source: :openphone,
+      status: :file_uploaded
     }
+    |> Map.merge(file_info)
   end
 end

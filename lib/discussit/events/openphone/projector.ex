@@ -38,7 +38,9 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
+         {:ok, voicemail} <- handle_upload(openphone_call, account_id),
+         call_attrs <-
+           Calls.Call.cast_openphone_call(openphone_call, data, %{voicemail: voicemail}),
          {:ok, call} <- Calls.upsert_call(call_attrs),
          {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, data.from_participant) do
       {:ok, call}
@@ -47,9 +49,10 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
-         {:ok, call} <- Calls.upsert_call(call_attrs),
-         {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data, account_id) do
+         {:ok, recording} <- handle_upload(openphone_call, account_id),
+         call_attrs <-
+           Calls.Call.cast_openphone_call(openphone_call, data, %{call_recording: recording}),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
@@ -143,6 +146,35 @@ defmodule Discussit.Events.Openphone.Projector do
   end
 
   defp resolve_contact(participant, _), do: {:ok, participant}
+
+  defp handle_upload(
+         %Call{id: id, voicemail: %Media{duration: d, type: "audio/mpeg"} = media},
+         account_id
+       )
+       when d > 0,
+       do: transfer_file(id, media, account_id)
+
+  defp handle_upload(
+         %Call{id: id, media: [%Media{duration: d, type: "audio/mpeg"} = media]},
+         account_id
+       )
+       when d > 0,
+       do: transfer_file(id, media, account_id)
+
+  defp handle_upload(_, _), do: {:ok, nil}
+
+  defp transfer_file(id, %Media{url: media_url} = media, _account_id) do
+    bucket = Application.get_env(:discussit, :bucket)
+    object_path = "/recordings/#{Calls.Call.id(:openphone, id)}"
+
+    with {:ok, path} = Briefly.create(),
+         {:ok, %{status_code: 200, body: body}} <- HTTP.get(media_url),
+         :ok <- File.write(path, body),
+         request = ExAws.S3.put_object(bucket, object_path, File.read!(path)),
+         {:ok, _response} <- ExAws.request(request) do
+      {:ok, %{bucket: bucket, key: object_path, metadata: Map.from_struct(media)}}
+    end
+  end
 
   defp maybe_transcribe_voicemail(
          %Call{
