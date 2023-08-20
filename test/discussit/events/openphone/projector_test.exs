@@ -154,12 +154,15 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
       account = Discussit.AccountsFixtures.account_fixture()
 
       use_cassette("call_completed_projection") do
-        assert {:ok, %Call{statements: [statement]}} =
-                 OpenphoneFixtures.call_completed()
-                 |> Events.cast_event()
-                 |> Projector.apply(account.id)
+        {:ok, %Call{voicemail: file}} =
+          OpenphoneFixtures.call_completed()
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
 
-        assert statement.content =~ "Hello, this is Susanna. Hi, Susanna, this is Jen."
+        assert {:ok, %{status_code: 200}} =
+                 ExAws.S3.head_object(file.bucket, file.key) |> ExAws.request()
+
+        assert file.metadata.type == "audio/mpeg"
       end
     end
   end
@@ -169,19 +172,16 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
       ExVCR.Config.filter_request_headers("Authorization")
       account = Discussit.AccountsFixtures.account_fixture()
 
-      use_cassette("call_recording_projection", match_requests_on: [:request_body]) do
-        assert {:ok,
-                %Call{
-                  statements: [
-                    %{content: " Thank you."},
-                    %{content: ""},
-                    %{content: " Hello? Hi, Troy. Uh-huh. Okay, perfect. All right. Thank you."}
-                    | _
-                  ]
-                }} =
-                 OpenphoneFixtures.call_recording_completed()
-                 |> Events.cast_event()
-                 |> Projector.apply(account.id)
+      use_cassette("call_recording_projection") do
+        {:ok, %Call{call_recording: file}} =
+          OpenphoneFixtures.call_recording_completed()
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        assert {:ok, %{status_code: 200}} =
+                 ExAws.S3.head_object(file.bucket, file.key) |> ExAws.request()
+
+        assert file.metadata.type == "audio/mpeg"
       end
     end
   end

@@ -7,19 +7,21 @@ defmodule Discussit.Application do
 
   @impl true
   def start(_type, _args) do
-    children = [
-      # Start the Telemetry supervisor
-      DiscussitWeb.Telemetry,
-      # Start the Ecto repository
-      Discussit.Repo,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: Discussit.PubSub},
-      # Start Finch
-      {Finch, name: Discussit.Finch},
-      # Start the Endpoint (http/https)
-      DiscussitWeb.Endpoint,
-      {Discussit.Events.Consumer, %{count: :inf}}
-    ]
+    children =
+      [
+        # Start the Telemetry supervisor
+        DiscussitWeb.Telemetry,
+        # Start the Ecto repository
+        Discussit.Repo,
+        # Start the PubSub system
+        {Phoenix.PubSub, name: Discussit.PubSub},
+        # Start Finch
+        {Finch, name: Discussit.Finch},
+        # Start the Endpoint (http/https)
+        DiscussitWeb.Endpoint,
+        {Discussit.Events.Consumer, %{count: :inf}}
+      ]
+      |> minio()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -33,5 +35,12 @@ defmodule Discussit.Application do
   def config_change(changed, _new, removed) do
     DiscussitWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  def minio(children) do
+    case Application.get_env(:discussit, :minio, nil) do
+      nil -> children
+      true -> children ++ [{MinioServer, Application.get_all_env(:ex_aws)}]
+    end
   end
 end

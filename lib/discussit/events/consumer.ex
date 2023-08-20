@@ -62,7 +62,7 @@ defmodule Discussit.Events.Consumer do
     Events.list_unprocessed_events()
     |> case do
       [event] ->
-        Logger.info("Processing event with no additional events in the queue")
+        Logger.info("Processing event #{event.id} with no additional events in the queue")
         consume_event(event)
 
       [event | _] ->

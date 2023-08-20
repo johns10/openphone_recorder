@@ -41,3 +41,14 @@ config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 
 config :swoosh, :api_client, false
+
+config :discussit, :minio, true
+
+config :ex_aws,
+  access_key_id: "minio_key",
+  secret_access_key: "minio_secret",
+  scheme: "http://",
+  region: "local",
+  host: "127.0.0.1",
+  port: 9000,
+  minio_path: "data"
