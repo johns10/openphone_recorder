@@ -61,6 +61,7 @@ defmodule Discussit.MixProject do
       {:ex_openai, "~> 1.2.1"},
       {:ex_aws, "~> 2.0"},
       {:ex_aws_s3, "~> 2.0"},
+      {:flow, "~> 1.2.4"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},

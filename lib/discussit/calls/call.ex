@@ -6,13 +6,17 @@ defmodule Discussit.Calls.Call do
   alias Discussit.Participants.Participant
   alias Discussit.Files.File
 
+  @channels [:left, :right]
+
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
-    field :external_id, :string
+    field :external_id, :string 
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
     field :status, Ecto.Enum, values: [:file_uploaded, :transcribing, :transcribed]
+    field :from_channel, Ecto.Enum, values: @channels 
+    field :to_channel, Ecto.Enum, values: @channels
 
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :from_participant, Participant
@@ -23,7 +27,7 @@ defmodule Discussit.Calls.Call do
 
     has_many :statements, Statement
 
-    timestamps(type: :naive_datetime_usec)
+    timestamps type: :naive_datetime_usec
   end
 
   @doc false
@@ -36,7 +40,9 @@ defmodule Discussit.Calls.Call do
       :completed_at,
       :conversation_id,
       :from_participant_id,
-      :to_participant_id
+      :from_channel,
+      :to_participant_id,
+      :to_channel
     ])
     |> cast_embed(:call_recording)
     |> cast_embed(:voicemail)
@@ -70,7 +76,8 @@ defmodule Discussit.Calls.Call do
         %Discussit.Events.Openphone.Data.Call{
           id: external_id,
           answered_at: answered_at,
-          completed_at: completed_at
+          completed_at: completed_at,
+          direction: direction
         },
         %{
           conversation: %{id: conversation_id},
@@ -79,13 +86,21 @@ defmodule Discussit.Calls.Call do
         },
         file_info \\ %{}
       ) do
+    {from_channel, to_channel} =
+      case direction do
+        "incoming" -> {:right, :left}
+        "outgoing" -> {:left, :right}
+      end
+
     %{
       external_id: external_id,
       conversation_id: conversation_id,
       answered_at: answered_at,
       completed_at: completed_at,
       from_participant_id: from_participant_id,
+      from_channel: from_channel,
       to_participant_id: to_participant_id,
+      to_channel: to_channel,
       source: :openphone,
       status: :file_uploaded
     }

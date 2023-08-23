@@ -1,5 +1,6 @@
 defmodule Discussit.ConversationWorker do
   alias Discussit.Conversations.Conversation
+  alias Discussit.Calls.Call
   alias Discussit.ConversationWorker.Impl
   alias Discussit.ConversationWorker.Server
 
@@ -25,6 +26,13 @@ defmodule Discussit.ConversationWorker do
     |> Impl.name()
     |> Process.whereis()
     |> GenServer.cast(:run_summarizers)
+  end
+
+  def summarize_call(%Conversation{} = conversation, %Call{id: call_id}) do
+    conversation
+    |> Impl.name()
+    |> Process.whereis()
+    |> GenServer.cast({:transcribe_audio, call_id})
   end
 
   def name(%Conversation{} = conversation), do: Impl.name(conversation)

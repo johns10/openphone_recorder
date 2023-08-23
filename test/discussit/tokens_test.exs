@@ -23,4 +23,12 @@ defmodule Discussit.TokensTest do
                )
     end
   end
+
+  describe "all_stopwords?" do
+    test "base case" do
+      assert true ==
+               "okay"
+               |> Tokens.all_stopwords?()
+    end
+  end
 end

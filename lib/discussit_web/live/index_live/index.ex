@@ -246,8 +246,7 @@ defmodule DiscussitWeb.IndexLive.Index do
                 | acc
               ]
 
-            %{answered_at: answered_at, completed_at: completed_at, id: id, status: status} = call,
-            acc ->
+            %{answered_at: answered_at, completed_at: completed_at, id: id} = call, acc ->
               started = %{
                 type: "call_started",
                 data: call,
@@ -262,26 +261,7 @@ defmodule DiscussitWeb.IndexLive.Index do
                 id: "call-completed-#{id}"
               }
 
-              call =
-                case status do
-                  :file_uploaded ->
-                    %{
-                      type: "call_recording",
-                      data: call,
-                      timestamp: answered_at,
-                      id: "call-recording-#{id}"
-                    }
-
-                  _ ->
-                    %{
-                      type: "call_record",
-                      data: call,
-                      timestamp: answered_at,
-                      id: "call-record-#{id}"
-                    }
-                end
-
-              [started, call, ended | acc]
+              [started, ended | acc]
           end)
 
         items =

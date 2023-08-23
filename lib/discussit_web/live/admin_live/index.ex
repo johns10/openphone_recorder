@@ -29,4 +29,10 @@ defmodule DiscussitWeb.AdminLive.Index do
 
     {:noreply, socket}
   end
+
+  def handle_event("seeds", _, socket) do
+    Discussit.Init.generate_default_summarizers()
+
+    {:noreply, socket}
+  end
 end
