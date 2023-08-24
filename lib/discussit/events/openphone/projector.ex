@@ -26,6 +26,15 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Events.Openphone.Data.Call
   alias Discussit.Events.Openphone.Data.Media
 
+  def reproject_event(external_id) do
+    [filters: [external_id: external_id]]
+    |> Discussit.Events.list_events()
+    |> Enum.map(fn %{payload: payload, account_id: account_id} ->
+      event = Discussit.Events.cast_event(payload)
+      __MODULE__.apply(event, account_id)
+    end)
+  end
+
   def apply(%CallRinging{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
