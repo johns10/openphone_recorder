@@ -37,7 +37,7 @@ defmodule Discussit.Contacts.Contact do
     ])
     |> cast_id()
     |> cast_assoc(:contact_phone_numbers)
-    |> validate_required([:first_name, :source, :account_id])
+    |> validate_required([:source, :account_id])
     |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :contacts_pkey)
   end

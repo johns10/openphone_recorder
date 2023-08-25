@@ -12,9 +12,7 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Conversations
   alias Discussit.Participants
   alias Discussit.Calls
-  alias Discussit.Audio
   alias Discussit.Contacts
-  alias Discussit.Accounts
 
   alias Discussit.Events.Openphone.CallCompleted
   alias Discussit.Events.Openphone.CallRinging
@@ -28,6 +26,15 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Events.Openphone.Data.Call
   alias Discussit.Events.Openphone.Data.Media
 
+  def reproject_event(external_id) do
+    [filters: [external_id: external_id]]
+    |> Discussit.Events.list_events()
+    |> Enum.map(fn %{payload: payload, account_id: account_id} ->
+      event = Discussit.Events.cast_event(payload)
+      __MODULE__.apply(event, account_id)
+    end)
+  end
+
   def apply(%CallRinging{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
@@ -38,18 +45,20 @@ defmodule Discussit.Events.Openphone.Projector do
 
   def apply(%CallCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
-         {:ok, call} <- Calls.upsert_call(call_attrs),
-         {:ok, call} <- maybe_transcribe_voicemail(openphone_call, call, data.from_participant) do
+         {:ok, voicemail} <- handle_upload(openphone_call, account_id),
+         call_attrs <-
+           Calls.Call.cast_openphone_call(openphone_call, data, %{voicemail: voicemail}),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
 
   def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
-         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
-         {:ok, call} <- Calls.upsert_call(call_attrs),
-         {:ok, call} <- maybe_transcribe_call_recording(call, openphone_call, data, account_id) do
+         {:ok, recording} <- handle_upload(openphone_call, account_id),
+         call_attrs <-
+           Calls.Call.cast_openphone_call(openphone_call, data, %{call_recording: recording}),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
@@ -144,128 +153,32 @@ defmodule Discussit.Events.Openphone.Projector do
 
   defp resolve_contact(participant, _), do: {:ok, participant}
 
-  defp maybe_transcribe_voicemail(
-         %Call{
-           voicemail: %Media{
-             duration: duration,
-             type: "audio/mpeg",
-             url: url
-           },
-           created_at: created_at
-         },
-         %Calls.Call{conversation_id: conversation_id} = call,
-         participant
-       )
-       when duration > 0 do
-    opts = [model: "whisper-1", response_format: "verbose_json"]
-
-    with {:ok, path} = Briefly.create(extname: ".mp3"),
-         {:ok, %{status_code: 200, body: body}} <- HTTP.get(url),
-         :ok <- File.write(path, body),
-         {:ok, duration} <- Audio.duration(path),
-         {:ok, %{text: text}} <- OpenAI.audio_transcription(path, opts) do
-      %{
-        content: text,
-        occurred_at:
-          (call.completed_at || created_at)
-          |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond),
-        type: :voicemail,
-        conversation_id: conversation_id,
-        participant_id: participant.id,
-        call_id: call.id,
-        source: :transcription,
-        external_id: nil
-      }
-      |> Statements.upsert_statement()
-      |> case do
-        {:ok, statement} ->
-          {:ok, Map.put(call, :statements, [statement])}
-
-        error ->
-          error
-      end
-    end
-  end
-
-  defp maybe_transcribe_voicemail(_openphone_call, call, _participant), do: {:ok, call}
-
-  defp maybe_transcribe_call_recording(
-         %Calls.Call{conversation_id: conversation_id} = call,
-         %Call{media: [%Media{duration: duration, type: "audio/mpeg", url: media_url}]},
-         %{from_participant: from_participant, to_participant: to_participant},
+  defp handle_upload(
+         %Call{id: id, voicemail: %Media{duration: d, type: "audio/mpeg"} = media},
          account_id
        )
-       when duration > 0 do
-    with {:ok, path} = Briefly.create(extname: ".mp3"),
+       when d > 0,
+       do: transfer_file(id, media, :voicemail, account_id)
+
+  defp handle_upload(
+         %Call{id: id, media: [%Media{duration: d, type: "audio/mpeg"} = media]},
+         account_id
+       )
+       when d > 0,
+       do: transfer_file(id, media, :call_recording, account_id)
+
+  defp handle_upload(_, _), do: {:ok, nil}
+
+  defp transfer_file(id, %Media{url: media_url} = media, _type, _account_id) do
+    bucket = Application.get_env(:discussit, :bucket)
+    object_path = "/recordings/#{Calls.Call.id(:openphone, id)}"
+
+    with {:ok, path} = Briefly.create(),
          {:ok, %{status_code: 200, body: body}} <- HTTP.get(media_url),
          :ok <- File.write(path, body),
-         {:ok, %{left: left, right: right}} <- Audio.split(path),
-         {:ok, left_attrs} <-
-           transcribe_file(left, from_participant, call, conversation_id, account_id),
-         {:ok, right_attrs} <-
-           transcribe_file(right, to_participant, call, conversation_id, account_id) do
-      attrs = left_attrs ++ right_attrs
-      changesets = Enum.map(attrs, &Statements.change_statement(%Statement{}, &1))
-
-      changeset_errors =
-        changesets
-        |> Enum.reduce([], fn changeset, acc ->
-          Ecto.Changeset.apply_action(changeset, :insert)
-          |> case do
-            {:ok, _} -> acc
-            {:error, changeset} -> [changeset | acc]
-          end
-        end)
-
-      case changeset_errors do
-        [_ | _] = changeset_errors ->
-          {:error, %{statements: changeset_errors}}
-
-        list when list == [] ->
-          {_result_count, statements} =
-            Discussit.Repo.insert_all(Statement, attrs, returning: true)
-
-          {:ok, Map.put(call, :statements, Enum.sort_by(statements, & &1.occurred_at))}
-      end
-    end
-  end
-
-  defp maybe_transcribe_call_recording(_openphone_call, call, _participants, _account_id),
-    do: {:ok, call}
-
-  defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()
-
-  defp transcribe_file(file, participant, call, conversation_id, account_id) do
-    opts = [model: "whisper-1", response_format: "verbose_json"]
-
-    config =
-      account_id
-      |> Accounts.get_account!()
-      |> Accounts.cast_openai_config()
-
-    with {:ok, %{duration: duration, segments: segments}} <-
-           OpenAI.audio_transcription(file, opts, config) do
-      now = NaiveDateTime.utc_now()
-
-      {:ok,
-       segments
-       |> Enum.map(fn segment ->
-         %{
-           occurred_at:
-             call.completed_at
-             |> NaiveDateTime.add(-1 * cast_microseconds(duration), :microsecond)
-             |> NaiveDateTime.add(cast_microseconds(segment["start"]), :microsecond),
-           type: :call,
-           content: segment["text"],
-           participant_id: participant.id,
-           conversation_id: conversation_id,
-           call_id: call.id,
-           inserted_at: now,
-           updated_at: now,
-           source: :transcription,
-           id: UUID.uuid4()
-         }
-       end)}
+         request = ExAws.S3.put_object(bucket, object_path, File.read!(path)),
+         {:ok, _response} <- ExAws.request(request) do
+      {:ok, %{bucket: bucket, key: object_path, metadata: Map.from_struct(media)}}
     end
   end
 end

@@ -51,10 +51,10 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
               <.inputs_for :let={pn} field={cpn[:phone_number]}>
                 <.input field={pn[:source]} type="hidden" value={:user} />
                 <.input field={pn[:value]} type="raw_input" placeholder="Enter phone number" />
+                <.error :for={msg <- Enum.map(pn[:value].errors, &translate_error(&1))}>
+                  <%= msg %>
+                </.error>
               </.inputs_for>
-              <.error :for={msg <- Enum.map(@form[:phone_number].errors, &translate_error(&1))}>
-                <%= msg %>
-              </.error>
             </div>
             <div :if={is_nil(cpn.data.temp_id) or cpn.data.temp_id == ""} class="mx-4">
               <.input field={cpn[:delete]} type="checkbox" class="ml-4" phx-target={@myself} />

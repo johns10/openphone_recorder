@@ -247,21 +247,21 @@ defmodule DiscussitWeb.IndexLive.Index do
               ]
 
             %{answered_at: answered_at, completed_at: completed_at, id: id} = call, acc ->
-              [
-                %{
-                  type: "call_started",
-                  data: call,
-                  timestamp: answered_at,
-                  id: "call-started-#{id}"
-                },
-                %{
-                  type: "call_ended",
-                  data: call,
-                  timestamp: completed_at,
-                  id: "call-completed-#{id}"
-                }
-                | acc
-              ]
+              started = %{
+                type: "call_started",
+                data: call,
+                timestamp: answered_at,
+                id: "call-started-#{id}"
+              }
+
+              ended = %{
+                type: "call_ended",
+                data: call,
+                timestamp: completed_at,
+                id: "call-completed-#{id}"
+              }
+
+              [started, ended | acc]
           end)
 
         items =

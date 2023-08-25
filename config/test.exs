@@ -38,7 +38,8 @@ config :phoenix, :plug_init_mode, :runtime
 # Enable dev routes for dashboard and mailbox
 config :discussit,
   dev_routes: true,
-  signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
+  signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E=",
+  bucket: "discussit-test"
 
 config :exvcr,
   global_mock: true

@@ -4,6 +4,7 @@ defmodule Discussit.Statements.Statement do
   alias Discussit.Calls.Call
   alias Discussit.StatementSummaries.StatementSummary
   alias Discussit.Participants.Participant
+  alias PgRanges.TsRange
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
@@ -13,6 +14,7 @@ defmodule Discussit.Statements.Statement do
     field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message]
     field :conversation_id, :binary_id
+    field :ts_range, TsRange
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
@@ -34,7 +36,8 @@ defmodule Discussit.Statements.Statement do
       :type,
       :conversation_id,
       :participant_id,
-      :call_id
+      :call_id,
+      :ts_range
     ])
     |> validate_required([:occurred_at, :type, :participant_id])
     |> foreign_key_constraint(:conversation_id)

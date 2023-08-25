@@ -3,9 +3,19 @@ defmodule Discussit.Events do
   alias Discussit.Repo
   alias Discussit.Events.Event
 
-  def list_events do
-    Repo.all(Event)
+  def list_events(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+
+    Event
+    |> maybe_filter_by_external_id(filters[:external_id])
+    |> Repo.all()
   end
+
+  defp maybe_filter_by_external_id(query, nil), do: query
+
+  defp maybe_filter_by_external_id(query, external_id),
+    do:
+      where(query, [e], fragment("? -> 'data' -> 'object' ->> 'id' = ?", e.payload, ^external_id))
 
   def list_unprocessed_events do
     Repo.all(from e in Event, where: e.processed == false, limit: 2, order_by: [asc: e.id])

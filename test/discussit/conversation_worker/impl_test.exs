@@ -1,10 +1,14 @@
 defmodule Discussit.ConversationWorker.ImplTest do
-  alias Discussit.SummariesFixtures
   use Discussit.DataCase
+  use Discussit.AudioCase
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+
   alias Discussit.Summaries.Summary
   alias Discussit.ConversationSummarizer
   alias Discussit.ConversationWorker.Impl
   alias Discussit.ConversationSummarizers.ConversationSummarizer
+
+  import Mox
   import Discussit.ConversationsFixtures
   import Discussit.StatementsFixtures
   import Discussit.SummarizersFixtures
@@ -14,11 +18,21 @@ defmodule Discussit.ConversationWorker.ImplTest do
   import Discussit.ParticipantsFixtures
   import Discussit.ContactsFixtures
   import Discussit.SummariesFixtures
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  import Discussit.CallsFixtures
+
+  setup :set_mox_global
 
   defp default_opts do
     on_summary_created = fn _, _ -> :ok end
-    [broadcast_function: on_summary_created]
+
+    [
+      broadcast_function: on_summary_created,
+      openai_config: %{
+        api_key: System.get_env("OPENAI_API_KEY"),
+        http_options: [recv_timeout: 10 * 60 * 1000],
+        organization_key: ""
+      }
+    ]
   end
 
   describe "ensure_summarizers_exist" do
@@ -514,10 +528,219 @@ defmodule Discussit.ConversationWorker.ImplTest do
         |> Map.put(:conversation, conversation)
         |> Map.put(:summarizer, monthly)
 
-      SummariesFixtures.long_daily_summaries(cs.id)
+      long_daily_summaries(cs.id)
 
       use_cassette("long_monthly_conversation_summary", match_requests_on: [:request_body]) do
         Impl.create_monthly_summaries(cs, default_opts())
+      end
+    end
+  end
+
+  describe "transcription" do
+    test "single call" do
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566583336"})
+      pn_two = phone_number_fixture(%{value: "16232464213"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      conversation = conversation_fixture()
+
+      use_cassette("single_call_transcription") do
+        bucket = Application.get_env(:discussit, :bucket)
+        key = "test-file.mp3"
+
+        "./test/support/fixtures/256_to_623.mp3"
+        |> ExAws.S3.Upload.stream_file()
+        |> ExAws.S3.upload(bucket, key)
+        |> ExAws.request()
+
+        call =
+          call_fixture(%{
+            conversation_id: conversation.id,
+            from_participant_id: participant_one.id,
+            from_channel: :right,
+            to_participant_id: participant_two.id,
+            to_channel: :left,
+            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+            call_recording: %{
+              key: key,
+              bucket: bucket,
+              metadata: %{duration: 10, type: "audio/mpeg"}
+            }
+          })
+
+        assert [
+                 %{
+                   statements: [
+                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+                   ]
+                 }
+               ] = Impl.transcribe_audio([call.id], conversation, default_opts())
+      end
+    end
+
+    test "conversation" do
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566583336"})
+      pn_two = phone_number_fixture(%{value: "16232464213"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      conversation = conversation_fixture()
+
+      expect(Discussit.MockAudio, :duration, fn _ -> {:ok, 205.45} end)
+
+      expect(Discussit.MockAudio, :split, fn _ ->
+        {:ok,
+         %{
+           left: "./test/support/fixtures/test_conversation_1_l.mp3",
+           right: "./test/support/fixtures/test_conversation_1_r.mp3"
+         }}
+      end)
+
+      use_cassette("test_call_1_transcription") do
+        bucket = Application.get_env(:discussit, :bucket)
+        key = "test_conversation_1.mp3"
+
+        "./test/support/fixtures/test_conversation_1.mp3"
+        |> ExAws.S3.Upload.stream_file()
+        |> ExAws.S3.upload(bucket, key)
+        |> ExAws.request()
+
+        call =
+          call_fixture(%{
+            conversation_id: conversation.id,
+            from_participant_id: participant_one.id,
+            from_channel: :right,
+            to_participant_id: participant_two.id,
+            to_channel: :left,
+            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+            call_recording: %{
+              key: key,
+              bucket: bucket,
+              metadata: %{duration: 10, type: "audio/mpeg"}
+            }
+          })
+
+        statements =
+          Impl.transcribe_audio([call.id], conversation, default_opts())
+          |> Enum.at(0)
+          |> Map.get(:statements)
+
+        statements |> Enum.count()
+
+        assert Enum.count(statements) in [19, 20]
+      end
+    end
+
+    test "several calls" do
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566583336"})
+      pn_two = phone_number_fixture(%{value: "16232464213"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      conversation = conversation_fixture()
+
+      use_cassette("single_call_transcription") do
+        bucket = Application.get_env(:discussit, :bucket)
+        key = "test-file.mp3"
+
+        "./test/support/fixtures/256_to_623.mp3"
+        |> ExAws.S3.Upload.stream_file()
+        |> ExAws.S3.upload(bucket, key)
+        |> ExAws.request()
+
+        call =
+          call_fixture(%{
+            external_id: UUID.uuid4(),
+            conversation_id: conversation.id,
+            from_participant_id: participant_one.id,
+            from_channel: :right,
+            to_participant_id: participant_two.id,
+            to_channel: :left,
+            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+            call_recording: %{
+              key: key,
+              bucket: bucket,
+              metadata: %{duration: 10, type: "audio/mpeg"}
+            }
+          })
+
+        call2 =
+          call_fixture(%{
+            external_id: UUID.uuid4(),
+            conversation_id: conversation.id,
+            from_participant_id: participant_one.id,
+            from_channel: :right,
+            to_participant_id: participant_two.id,
+            to_channel: :left,
+            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-20000),
+            call_recording: %{
+              key: key,
+              bucket: bucket,
+              metadata: %{duration: 10, type: "audio/mpeg"}
+            }
+          })
+
+        call3 =
+          call_fixture(%{
+            external_id: UUID.uuid4(),
+            conversation_id: conversation.id,
+            from_participant_id: participant_one.id,
+            from_channel: :right,
+            to_participant_id: participant_two.id,
+            to_channel: :left,
+            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30000),
+            call_recording: %{
+              key: key,
+              bucket: bucket,
+              metadata: %{duration: 10, type: "audio/mpeg"}
+            }
+          })
+
+        assert [
+                 %{
+                   statements: [
+                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+                   ]
+                 },
+                 %{
+                   statements: [
+                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+                   ]
+                 },
+                 %{
+                   statements: [
+                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+                   ]
+                 }
+               ] =
+                 Impl.transcribe_audio(
+                   [call.id, call2.id, call3.id],
+                   conversation,
+                   default_opts()
+                 )
       end
     end
   end
