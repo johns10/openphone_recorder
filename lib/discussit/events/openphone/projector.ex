@@ -9,8 +9,10 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Statements.Statement
   alias Discussit.HTTP
   alias Discussit.PhoneNumbers
+  alias Discussit.PhoneNumbers.PhoneNumber
   alias Discussit.Conversations
   alias Discussit.Participants
+  alias Discussit.Participants.Participant
   alias Discussit.Calls
   alias Discussit.Contacts
 
@@ -99,15 +101,8 @@ defmodule Discussit.Events.Openphone.Projector do
         },
         account_id
       ) do
-    from_phone_number_attrs = %{
-      value: from_phone_number,
-      source: :openphone
-    }
-
-    to_phone_number_attrs = %{
-      value: to_phone_number,
-      source: :openphone
-    }
+    from_phone_number_attrs = cast_phone_number_attr(from_phone_number)
+    to_phone_number_attrs = cast_phone_number_attrs(to_phone_number)
 
     conversation_attrs = %{
       account_id: account_id,
@@ -116,27 +111,75 @@ defmodule Discussit.Events.Openphone.Projector do
     }
 
     with {:ok, from_phone_number} <- PhoneNumbers.upsert_phone_number(from_phone_number_attrs),
-         {:ok, to_phone_number} <- PhoneNumbers.upsert_phone_number(to_phone_number_attrs),
+         {:ok, %{phone_numbers: to_phone_numbers}} <-
+           PhoneNumbers.upsert_all_phone_numbers(to_phone_number_attrs),
          {:ok, conversation} <- Conversations.upsert_conversation(conversation_attrs),
          {:ok, from_participant} <-
            Participants.upsert_participant(%{
              conversation_id: conversation.id,
              phone_number_id: from_phone_number.id
            }),
-         {:ok, to_participant} <-
-           Participants.upsert_participant(%{
-             conversation_id: conversation.id,
-             phone_number_id: to_phone_number.id
-           }),
+         to_participant_attrs = cast_participant_attrs(conversation, to_phone_numbers),
+         {:ok, to_participants} <- Participants.upsert_participants(to_participant_attrs),
          {:ok, from_participant} <- resolve_contact(from_participant, from_phone_number),
-         {:ok, to_participant} <- resolve_contact(to_participant, to_phone_number) do
-      {:ok,
-       %{
-         from_participant: from_participant,
-         to_participant: to_participant,
-         conversation: conversation
-       }}
+         {:ok, %{participants: to_participants}} <-
+           resolve_contacts(to_participants, to_phone_numbers) do
+      result =
+        case to_participants do
+          [to_participant] ->
+            %{
+              from_participant: from_participant,
+              to_participant: to_participant,
+              conversation: conversation
+            }
+
+          [_ | _] ->
+            %{
+              from_participant: from_participant,
+              to_participants: to_participants,
+              conversation: conversation
+            }
+
+          other ->
+            other
+        end
+
+      {:ok, result}
     end
+  end
+
+  defp cast_phone_number_attrs(phone_number_attrs) do
+    case String.split(phone_number_attrs, ",") do
+      [phone_number_attr] -> [cast_phone_number_attr(phone_number_attr)]
+      [_ | _] = phone_number_attrs -> Enum.map(phone_number_attrs, &cast_phone_number_attr/1)
+    end
+  end
+
+  defp cast_phone_number_attr(phone_number_attr),
+    do: %{
+      value: phone_number_attr,
+      source: :openphone
+    }
+
+  defp cast_participant_attrs(%{id: conversation_id}, phone_numbers),
+    do:
+      Enum.map(
+        phone_numbers,
+        &%{conversation_id: conversation_id, phone_number_id: &1.id}
+      )
+
+  defp resolve_contacts([%Participant{} | _] = participants, [%PhoneNumber{} | _] = phone_numbers) do
+    Enum.zip(participants, phone_numbers)
+    |> Enum.reduce({:ok, %{participants: [], changesets: []}}, fn
+      {participant, phone_number}, {status, acc} ->
+        case resolve_contact(participant, phone_number) do
+          {:ok, participant} ->
+            {status, %{acc | participants: [participant | acc.participants]}}
+
+          {:error, changeset} ->
+            {:error, %{acc | changesets: [changeset | acc.changesets]}}
+        end
+    end)
   end
 
   defp resolve_contact(%{contact_id: nil} = participant, phone_number) do
