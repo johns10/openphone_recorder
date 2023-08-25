@@ -16,7 +16,7 @@ FLY_DEV=1 fly pg connect --app openphone-recorder-db
 ./discussit eval 'Discussit.Release.migrate()'
 ./bin/discussit eval 'Mix.Tasks.SetAccountId.run(["2a711272-a6db-43d1-ae4d-5ba29f447396"])'
 ./bin/discussit eval 'Discussit.Events.Consumer.set_count(10)'
-fly ssh console --select -C "/app/bin/discussit remote"
+fly ssh console --select -C "/app/bin/discussit remote" --pty
 ```
 bin/discussit eval 'Discussit.Release.migrate()'
 ```
@@ -35,4 +35,25 @@ https://gist.github.com/sebleier/554280
 |> Enum.map(&Gpt3Tokenizer.encode/1)
 |> Enum.reduce([], fn item, acc -> item ++ acc end)
 |> Enum.uniq()
+```
+
+### How I reproject calls with nil participant id
+
+```
+Discussit.Calls.Call
+|> where([c], is_nil(c.to_participant_id) and is_nil(c.from_participant_id))
+|> Discussit.Repo.all()
+|> Enum.slice(3..-1)
+|> Enum.map(fn call -> 
+   IO.puts("before to: #{call.to_participant_id} from: #{call.from_participant_id}")
+   Discussit.Events.Openphone.Projector.reproject_event(call.external_id)
+   |> Enum.map(fn {:ok, {:ok, inner_call}} -> 
+   IO.puts("to: #{inner_call.to_participant_id} from: #{inner_call.from_participant_id}")
+   end)
+end)
+
+Discussit.Calls.Call
+|> where([c], is_nil(c.to_participant_id))
+|> Discussit.Repo.all()
+|> Enum.count()
 ```
