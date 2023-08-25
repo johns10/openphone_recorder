@@ -10,12 +10,12 @@ defmodule Discussit.Calls.Call do
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "calls" do
-    field :external_id, :string 
+    field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
     field :status, Ecto.Enum, values: [:file_uploaded, :transcribing, :transcribed]
-    field :from_channel, Ecto.Enum, values: @channels 
+    field :from_channel, Ecto.Enum, values: @channels
     field :to_channel, Ecto.Enum, values: @channels
 
     belongs_to :conversation, Conversation, type: :binary_id

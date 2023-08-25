@@ -83,7 +83,7 @@
             </div>
             <div class="chat flex flex-row px-4">
               <div class="chat-bubble z-0 flex flex-row items-center space-x-2">
-                <.icon name="hero-phone-arrow-down-left" class="w-5 h-5 bg-error" />
+                <<<<<<< HEAD <.icon name="hero-phone-arrow-down-left" class="w-5 h-5 bg-error" />
               </div>
             </div>
           </div>
@@ -117,6 +117,30 @@
             <div class="chat chat-start" id={id}>
               <div class={["chat-bubble z-0"]}>
                 <%= summary.content %>
+              </div>
+            </div>
+          </div>
+        <% %{type: "call_recording", timestamp: timestamp, data: _call} -> %>
+          <div id={id}>
+            <div class="text-xs px-4">
+              <%= render_date(timestamp, @user_setting) %>
+            </div>
+            <div class="chat chat-start" id={id}>
+              <div class={["chat-bubble z-0"]}>
+                <.icon name="hero-phone" class="w-5 h-5 bg-success" />
+                <.button>Transcribe</.button>
+              </div>
+            </div>
+          </div>
+        <% %{type: "call_record", timestamp: timestamp, data: _call} -> %>
+          <div id={id}>
+            <div class="text-xs px-4">
+              <%= render_date(timestamp, @user_setting) %>
+            </div>
+            <div class="chat chat-start" id={id}>
+              <div class="chat-bubble z-0 flex flex-row space-x-4 items-center">
+                <.icon name="hero-phone" class="w-5 h-5 bg-success" />
+                <.button class="btn-primary btn-sm">Transcribe</.button>
               </div>
             </div>
           </div>
