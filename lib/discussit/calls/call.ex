@@ -42,7 +42,8 @@ defmodule Discussit.Calls.Call do
       :from_participant_id,
       :from_channel,
       :to_participant_id,
-      :to_channel
+      :to_channel,
+      :status
     ])
     |> cast_embed(:call_recording)
     |> cast_embed(:voicemail)
