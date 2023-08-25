@@ -108,7 +108,9 @@ defmodule Discussit.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
-  def message_received() do
+  def message_received(type \\ nil)
+
+  def message_received(nil) do
     """
     {
       "id": "EVc67ec998b35c41d388af50799aeeba3e",
@@ -137,6 +139,36 @@ defmodule Discussit.OpenphoneFixtures do
           "conversationId": "CN78ba0373683c48fd8fd96bc836c51f79"
         }
       }
+    }
+    """
+    |> Jason.decode!()
+  end
+
+  def message_received(:multiple_recipients) do
+    """
+    {
+      "id": "EV452cb5a95e44489f8235112715b9c3f7",
+      "data": {
+        "object": {
+          "id": "ACdab71744ad3a4414a584fd45d61b80f2",
+          "to": "+15032601493,+15036576960,+15039665948,+15039990213,+15093611926",
+          "body": "While going about your daily activities, accept sticking the CORONA EXTRA BEER sticker on the Car, truck, bus, bike, or boat bumper.. $950 Bi-weekly salary. if you're interested click Below link to Apply..\\r\\n\\r\\nhttps: //forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAE9z9_tUNkc5U0M2SUNEM08xSFZTSklGTVIySktUTi4u",
+          "from": "+12243068171",
+          "media": [],
+          "object": "message",
+          "status": "received",
+          "userId": "USojtPrrVi",
+          "createdAt": "2023-08-20T20:47:34.894Z",
+          "createdBy": null,
+          "direction": "incoming",
+          "phoneNumberId": "PNzT5bK17C",
+          "conversationId": "CN126b7e85e31a4a718eed14ab1147371e"
+        }
+      },
+      "type": "message.received",
+      "object": "event",
+      "createdAt": "2023-08-20T20:47:35.016Z",
+      "apiVersion": "v3"
     }
     """
     |> Jason.decode!()

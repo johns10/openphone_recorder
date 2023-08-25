@@ -16,14 +16,33 @@ defmodule Discussit.Participants do
     |> Repo.insert()
   end
 
-  @duplicate_participant_error [conversation_id: {"has already been taken", [constraint: :unique, constraint_name: "participants_conversation_id_phone_number_id_index"]}]
+  @duplicate_participant_error [
+    conversation_id:
+      {"has already been taken",
+       [
+         constraint: :unique,
+         constraint_name: "participants_conversation_id_phone_number_id_index"
+       ]}
+  ]
+
+  def upsert_participants(attrs) do
+    result =
+      Enum.reduce(attrs, [], fn attrs, acc ->
+        {:ok, participant} = upsert_participant(attrs)
+        [participant | acc]
+      end)
+
+    {:ok, result}
+  end
 
   def upsert_participant(attrs \\ %{}) do
     %Participant{}
     |> Participant.changeset(attrs)
     |> Repo.insert()
     |> case do
-      {:ok, _} = result -> result
+      {:ok, _} = result ->
+        result
+
       {:error, %{changes: changes, errors: @duplicate_participant_error}} ->
         {:ok, Repo.get_by(Participant, changes)}
     end

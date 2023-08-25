@@ -1,4 +1,6 @@
 defmodule Discussit.Events.Openphone.ProjectorTest do
+  alias Discussit.Participants
+  alias Discussit.PhoneNumbers
   use Discussit.DataCase
   use Discussit.AudioCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
@@ -43,6 +45,21 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
                  |> Events.cast_event()
                  |> Projector.apply(account.id)
       end
+    end
+
+    test "projects a received message to multiple receivers" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      event =
+        OpenphoneFixtures.message_received(:multiple_recipients)
+        |> Events.cast_event()
+
+      expected_phone_numbers = 1 + Enum.count(String.split(event.data.to, ","))
+
+      assert {:ok, %Statement{}} = Projector.apply(event, account.id)
+
+      assert PhoneNumbers.list_phone_numbers() |> Enum.count() == expected_phone_numbers
+      assert Participants.list_participants() |> Enum.count() == expected_phone_numbers
     end
 
     test "resolves a contact" do
