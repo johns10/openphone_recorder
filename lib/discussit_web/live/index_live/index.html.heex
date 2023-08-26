@@ -1,20 +1,33 @@
 <div class="flex flex-col overflow-y-scroll min-w-fit h-screen">
   <div id="contacts" phx-update="stream">
     <div
-      :for={{id, %{participants: [first, second]} = conversation} <- @streams.conversations}
+      :for={{id, conversation} <- @streams.conversations}
       class="w-full px-4 py-2 conversations hover:bg-base-200"
       id={id}
     >
-      <.link phx-click={JS.patch(~p{/conversations/#{conversation.id}})}>
-        <div class="flex flex-col">
-          <div class="flex flex-row">
-            <.participant participant={first} class="font-bold" />
+      <%= case conversation do %>
+        <% %{participants: [first, second]} = conversation -> %>
+          <.link phx-click={JS.patch(~p{/conversations/#{conversation.id}})}>
+            <div class="flex flex-col">
+              <div class="flex flex-row">
+                <.participant participant={first} class="font-bold" />
+              </div>
+              <div class="flex flex-row">
+                <.participant participant={second} class="font-light" />
+              </div>
+            </div>
+          </.link>
+        <% %{participants: participants} = conversation -> %>
+          <div class="flex flex-col">
+            <.link phx-click={JS.patch(~p{/conversations/#{conversation.id}})}>
+              <span class="font-bold"><%= Enum.count(participants) %> participants</span>
+              <div class="flex flex-row">
+                <.participant participant={Enum.at(participants, 0)} class="font-bold" />
+                <span class="ml-1">+<%= Enum.count(participants) - 1 %></span>
+              </div>
+            </.link>
           </div>
-          <div class="flex flex-row">
-            <.participant participant={second} class="font-light" />
-          </div>
-        </div>
-      </.link>
+      <% end %>
     </div>
   </div>
   <div

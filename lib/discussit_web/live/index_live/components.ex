@@ -11,16 +11,12 @@ defmodule DiscussitWeb.IndexLive.Components do
   def participant_header(assigns) do
     ~H"""
     <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10 mb-2">
-      <div class="flex flex-row space-x-4">
+      <div class="flex flex-row space-x-4 flex-wrap">
         <.participant_picker
-          participant={Enum.at(@conversation.participants, 0)}
+          :for={participant <- @conversation.participants}
+          participant={participant}
           class=""
           last={false}
-        />
-        <.participant_picker
-          participant={Enum.at(@conversation.participants, 1)}
-          class=""
-          last={true}
         />
       </div>
       <div class="flex flex-row items-center space-x-4">
@@ -65,13 +61,11 @@ defmodule DiscussitWeb.IndexLive.Components do
     ~H"""
     <div class="flex flex-row items-center gap-2">
       <.participant participant={@participant} class={@class} />
-      <div class={["dropdown pr-0 mr-0", if(@last, do: "dropdown-end", else: "")]}>
-        <label tabindex="0">
-          <.link href="#" class="btn btn-xs" id={"participant-dropdown-toggle-#{@participant.id}"}>
-            <.icon name="hero-chevron-down" class="w-3 h-3" />
-          </.link>
-        </label>
-        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
+      <details class={["dropdown pr-0 mr-0", if(@last, do: "dropdown-end", else: "")]}>
+        <summary tabindex="0" class="btn btn-xs" id={"participant-dropdown-toggle-#{@participant.id}"}>
+          <.icon name="hero-chevron-down" class="w-3 h-3" />
+        </summary>
+        <ul tabindex="0" class="dropdown-content z-[0] menu p-2 bg-base-300 rounded-box w-52">
           <li :for={contact <- @contacts}>
             <.link
               phx-click="set-participant-contact"
@@ -83,10 +77,14 @@ defmodule DiscussitWeb.IndexLive.Components do
             </.link>
           </li>
           <li>
-            <.link href={~p"/contacts/new"}>New Contact</.link>
+            <.link href={
+              ~p"/contacts/new?#{[phone_number: @participant.phone_number.value |> to_string()]}"
+            }>
+              New Contact
+            </.link>
           </li>
         </ul>
-      </div>
+      </details>
     </div>
     """
   end
@@ -94,8 +92,11 @@ defmodule DiscussitWeb.IndexLive.Components do
   def participant(assigns) do
     ~H"""
     <%= case {@participant.contact, length(@participant.phone_number.contacts)} do %>
+      <% {%Discussit.Contacts.Contact{}, _} -> %>
+        <.render_contact contact={@participant.contact} class={@class} />
       <% {_, 1} -> %>
         <.render_contact contact={@participant.phone_number.contacts |> Enum.at(0)} class={@class} />
+        <span class="pl-2">?</span>
       <% {nil, _} -> %>
         <.render_phone_number phone_number={@participant.phone_number} , class={@class} } />
       <% _ -> %>
@@ -106,13 +107,15 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def render_contact(assigns) do
     ~H"""
-    <span class={@class}><%= @contact.first_name %> <%= @contact.last_name %></span>
+    <span class={["whitespace-nowrap", @class]}>
+      <%= @contact.first_name %> <%= @contact.last_name %>
+    </span>
     """
   end
 
   def render_phone_number(assigns) do
     ~H"""
-    <span class={@class}><%= @phone_number.value |> to_string() %></span>
+    <span class={["whitespace-nowrap", @class]}><%= @phone_number.value |> to_string() %></span>
     """
   end
 end
