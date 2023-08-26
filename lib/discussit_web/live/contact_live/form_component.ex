@@ -87,6 +87,17 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
   @impl true
   def update(%{contact: contact} = assigns, socket) do
     changeset = Contacts.change_contact(contact)
+    attrs = Map.get(assigns, :attrs, %{})
+    phone_number = Map.get(attrs, "phone_number", nil)
+
+    changeset =
+      if phone_number do
+        Ecto.Changeset.put_change(changeset, :contact_phone_numbers, [
+          %{contact_id: contact.id, phone_number: %{value: phone_number}}
+        ])
+      else
+        changeset
+      end
 
     {:ok,
      socket

@@ -14,7 +14,7 @@ defmodule DiscussitWeb.ContactLive.Index do
         account_id -> Contacts.list_contacts(filters: [account_id: account_id])
       end
 
-    {:ok, stream(socket, :contacts, contacts)}
+    {:ok, socket |> stream(:contacts, contacts) |> assign(:attrs, %{})}
   end
 
   @impl true
@@ -38,10 +38,13 @@ defmodule DiscussitWeb.ContactLive.Index do
     end
   end
 
-  defp apply_action(socket, :new, _params) do
+  defp apply_action(socket, :new, params) do
+    attrs = Map.take(params, ["phone_number"])
+
     socket
     |> assign(:page_title, "New Contact")
     |> assign(:contact, %Contact{contact_phone_numbers: []})
+    |> assign(:attrs, attrs)
   end
 
   defp apply_action(socket, :index, _params) do
