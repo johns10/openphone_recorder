@@ -27,6 +27,9 @@ defmodule Discussit.Participants.Participant do
   def render_for_prompt(%__MODULE__{phone_number: nil}),
     do: raise("Cannot render participant without associated phone number")
 
+  def render_for_prompt(%__MODULE__{phone_number: %PhoneNumber{contacts: [contact]}, contact: nil}),
+      do: Contact.render_for_prompt(contact)
+
   def render_for_prompt(%__MODULE__{phone_number: phone_number, contact: nil}),
     do: PhoneNumber.render_for_prompt(phone_number)
 
