@@ -18,7 +18,7 @@ defmodule Discussit.ConversationWorker.Impl do
   alias Discussit.Tokens
   alias Discussit.Statements.Statement
 
-  def transcribe_audio(call_ids, conversation, opts) do
+  def transcribe_call(call_ids, conversation, opts) do
     openai_config = Keyword.get(opts, :openai_config)
 
     call_ids

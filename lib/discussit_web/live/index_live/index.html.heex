@@ -83,20 +83,35 @@
                 <.participant participant={call.from_participant} class="" />
                 <.icon name="hero-phone-arrow-up-right" class="w-5 h-5 bg-success" />
                 <.participant participant={call.to_participant} class="" />
-                <%= if call.status == :file_uploaded do %>
-                  <.button class="btn-primary btn-sm">Transcribe</.button>
-                <% end %>
               </div>
             </div>
           </div>
-        <% %{type: "call_ended", timestamp: timestamp} -> %>
+        <% %{type: "call_ended", timestamp: timestamp, data: call} -> %>
           <div id={id}>
             <div class="text-xs px-4">
               <%= render_date(timestamp, @user_setting) %>
             </div>
             <div class="chat flex flex-row px-4">
-              <div class="chat-bubble z-0 flex flex-row items-center space-x-2">
+              <div class="chat-bubble z-0 flex flex-row items-center space-x-4">
                 <.icon name="hero-phone-arrow-down-left" class="w-5 h-5 bg-error" />
+                <%= case call.status do %>
+                  <% :file_uploaded -> %>
+                    <.button
+                      class="btn-primary btn-xs"
+                      phx-click="transcribe"
+                      phx-value-call-id={call.id}
+                      disabled={@worker_busy?}
+                    >
+                      Transcribe
+                    </.button>
+                  <% :transcribing -> %>
+                    <.button class="btn-primary btn-sm" disabled>
+                      <.icon name="hero-arrow-path" class="mr-2 w-5 h-5 animate-spin" />
+                      Transcribing ...
+                    </.button>
+                  <% :transcribed -> %>
+                    <.icon name="hero-check-circle" class="ml-4 w-5 h-5 bg-success" />
+                <% end %>
               </div>
             </div>
           </div>
@@ -130,30 +145,6 @@
             <div class="chat chat-start" id={id}>
               <div class={["chat-bubble z-0"]}>
                 <%= summary.content %>
-              </div>
-            </div>
-          </div>
-        <% %{type: "call_recording", timestamp: timestamp, data: _call} -> %>
-          <div id={id}>
-            <div class="text-xs px-4">
-              <%= render_date(timestamp, @user_setting) %>
-            </div>
-            <div class="chat chat-start" id={id}>
-              <div class={["chat-bubble z-0"]}>
-                <.icon name="hero-phone" class="w-5 h-5 bg-success" />
-                <.button>Transcribe</.button>
-              </div>
-            </div>
-          </div>
-        <% %{type: "call_record", timestamp: timestamp, data: _call} -> %>
-          <div id={id}>
-            <div class="text-xs px-4">
-              <%= render_date(timestamp, @user_setting) %>
-            </div>
-            <div class="chat chat-start" id={id}>
-              <div class="chat-bubble z-0 flex flex-row space-x-4 items-center">
-                <.icon name="hero-phone" class="w-5 h-5 bg-success" />
-                <.button class="btn-primary btn-sm">Transcribe</.button>
               </div>
             </div>
           </div>

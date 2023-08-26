@@ -95,8 +95,10 @@ defmodule DiscussitWeb.IndexLive.Components do
       <% {%Discussit.Contacts.Contact{}, _} -> %>
         <.render_contact contact={@participant.contact} class={@class} />
       <% {_, 1} -> %>
-        <.render_contact contact={@participant.phone_number.contacts |> Enum.at(0)} class={@class} />
-        <span class="pl-2">?</span>
+        <.render_contact
+          contact={@participant.phone_number.contacts |> Enum.at(0)}
+          class={["text-warning", @class]}
+        />
       <% {nil, _} -> %>
         <.render_phone_number phone_number={@participant.phone_number} , class={@class} } />
       <% _ -> %>

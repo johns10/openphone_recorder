@@ -582,7 +582,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
                    ]
                  }
-               ] = Impl.transcribe_audio([call.id], conversation, default_opts())
+               ] = Impl.transcribe_call([call.id], conversation, default_opts())
       end
     end
 
@@ -635,7 +635,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
           })
 
         statements =
-          Impl.transcribe_audio([call.id], conversation, default_opts())
+          Impl.transcribe_call([call.id], conversation, default_opts())
           |> Enum.at(0)
           |> Map.get(:statements)
 
@@ -736,7 +736,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
                    ]
                  }
                ] =
-                 Impl.transcribe_audio(
+                 Impl.transcribe_call(
                    [call.id, call2.id, call3.id],
                    conversation,
                    default_opts()
