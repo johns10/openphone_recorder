@@ -22,12 +22,13 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:ok,
      socket
      |> assign(:zoom_level, 0)
+     |> assign(:transcription_status, %{error: 0, in_progress: 0, success: 0, not_started: 1})
      |> assign(conversations_per_page: 20, conversation_page: 1)
      |> assign(:conversation, nil)
      |> assign(:conversation_id, nil)
      |> stream(:conversations, [])
      |> assign(:end_of_timeline?, false)
-     |> assign(:worker_busy?, false)
+     |> assign(:worker_busy?, true)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -39,12 +40,13 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:ok,
      socket
      |> assign(:zoom_level, 0)
+     |> assign(:transcription_status, %{error: 0, in_progress: 0, success: 0, not_started: 1})
      |> assign(conversations_per_page: 20, conversation_page: 1)
      |> assign(:conversation, nil)
      |> assign(:conversation_id, nil)
      |> stream(:conversations, conversations)
      |> assign(:end_of_timeline?, false)
-     |> assign(:worker_busy?, false)
+     |> assign(:worker_busy?, true)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -150,12 +152,14 @@ defmodule DiscussitWeb.IndexLive.Index do
         })
 
         ConversationWorker.get_conversation_summarizers(conversation)
+        ConversationWorker.busy?(conversation)
 
         socket
         |> replace_conversation_items(conversation_id)
         |> assign(:page_title, "Listing Conversations")
         |> assign(:conversation, conversation)
         |> assign(:conversation_id, conversation.id)
+        |> assign_transcription_status(conversation_id)
 
       {:error, :unauthorized} ->
         socket
@@ -188,10 +192,11 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> push_patch(to: ~p"/home")}
   end
 
-  def handle_info(%{event: "busy"}, socket), do: {:noreply, socket |> assign(:worker_busy?, true)}
+  def handle_info(%{event: "busy"}, socket),
+    do: {:noreply, socket |> assign(:worker_busy?, true) |> push_event("worker_busy", %{})}
 
   def handle_info(%{event: "idle"}, socket),
-    do: {:noreply, socket |> assign(:worker_busy?, false)}
+    do: {:noreply, socket |> assign(:worker_busy?, false) |> push_event("worker_idle", %{})}
 
   def handle_info(
         %{event: "summary_created", payload: %Summary{level: level} = summary},
@@ -209,15 +214,28 @@ defmodule DiscussitWeb.IndexLive.Index do
     end
   end
 
-  def handle_info(%{event: "call_transcription_progress", payload: %Calls.Call{} = call}, socket) do
-    call_item = %{
+  def handle_info(
+        %{event: "call_transcription_progress", payload: %{status: :transcribing} = call},
+        socket
+      ) do
+    ended = %{
       type: "call_ended",
       data: call,
       timestamp: call.completed_at,
       id: "call-completed-#{call.id}"
     }
 
-    {:noreply, stream_insert(socket, :conversation_items, call_item)}
+    {:noreply,
+     socket
+     |> stream_insert(:conversation_items, ended)
+     |> assign_transcription_status(socket.assigns.conversation.id)}
+  end
+
+  def handle_info(%{event: "call_transcription_progress", payload: %{status: _}}, socket) do
+    {:noreply,
+     socket
+     |> replace_conversation_items(socket.assigns.conversation.id)
+     |> assign_transcription_status(socket.assigns.conversation.id)}
   end
 
   defp append_conversations(socket, new_page) when new_page >= 1 do
@@ -327,6 +345,29 @@ defmodule DiscussitWeb.IndexLive.Index do
       timestamp: summary.summary_interval.lower,
       id: "summary-#{summary.id}"
     }
+  end
+
+  defp assign_transcription_status(socket, conversation_id) do
+    data = Calls.calls_status(%{conversation_id: conversation_id})
+    total = Enum.reduce(data, 0, fn %{count: count}, acc -> acc + count end)
+
+    status =
+      Enum.reduce(data, %{}, fn
+        %{count: count, status: :transcribed}, acc ->
+          Map.put(acc, :done, floor(count / total * 100))
+
+        %{count: count, status: :file_uploaded}, acc ->
+          Map.put(acc, :not_started, floor(count / total * 100))
+
+        %{count: count, status: :transcribing}, acc ->
+          Map.put(acc, :in_progress, floor(count / total * 100))
+
+        %{count: count, status: :upload_failed}, acc ->
+          Map.put(acc, :error, floor(count / total * 100))
+      end)
+      |> IO.inspect()
+
+    assign(socket, :transcription_status, status)
   end
 
   defp participant_sides([p1, p2 | tail]) do

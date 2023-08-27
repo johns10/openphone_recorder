@@ -38,7 +38,7 @@ defmodule Discussit.ConversationWorker.Impl do
         DiscussitWeb.Endpoint.broadcast(
           name(conversation) |> to_string(),
           "call_transcription_progress",
-          call
+          call |> Map.put(:statements, [])
         )
 
         state
@@ -261,13 +261,13 @@ defmodule Discussit.ConversationWorker.Impl do
         state
     end)
     |> Flow.map(fn
-      %{call: call} = state ->
+      %{call: call, statements: statements} = state ->
         case Calls.update_call(call, %{status: :transcribed}) do
           {:ok, call} ->
             DiscussitWeb.Endpoint.broadcast(
               name(conversation) |> to_string(),
               "call_transcription_progress",
-              call
+              call |> Map.put(:statements, statements)
             )
 
             %{state | call: call}

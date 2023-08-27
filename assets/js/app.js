@@ -33,6 +33,20 @@ let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfTo
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })
 window.addEventListener("phx:page-loading-start", _info => topbar.show(300))
 window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
+window.addEventListener("phx:worker_busy", _info => {
+  const htmlCollection = document.getElementsByClassName("transcribe-button")
+  const array = [].slice.call(htmlCollection);
+  array.map(el => {
+    el.disabled = true
+  })
+})
+window.addEventListener("phx:worker_idle", _info => {
+  const htmlCollection = document.getElementsByClassName("transcribe-button")
+  const array = [].slice.call(htmlCollection);
+  array.map(el => {
+    el.disabled = false
+  })
+})
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()

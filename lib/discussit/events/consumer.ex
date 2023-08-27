@@ -123,7 +123,10 @@ defmodule Discussit.Events.Consumer do
       {:ok, _} ->
         {:noreply, state, {:continue, :next}}
 
-      {:error, _changeset} ->
+      {:error, %Ecto.Changeset{}} ->
+        {:noreply, state, {:continue, :next}}
+
+      {:error, :empty} ->
         {:noreply, state}
     end
   end

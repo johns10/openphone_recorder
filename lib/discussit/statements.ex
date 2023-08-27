@@ -10,6 +10,7 @@ defmodule Discussit.Statements do
     preloads = Keyword.get(opts, :preloads, [])
 
     Statement
+    |> maybe_filter_by_call_id(filters[:call_id])
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
@@ -25,6 +26,13 @@ defmodule Discussit.Statements do
   defp maybe_filter_by_conversation_id(query, conversation_id) do
     query
     |> where([s], s.conversation_id == ^conversation_id)
+  end
+
+  defp maybe_filter_by_call_id(query, nil), do: query
+
+  defp maybe_filter_by_call_id(query, call_id) do
+    query
+    |> where([s], s.call_id == ^call_id)
   end
 
   defp maybe_filter_by_not_summarizer_id(query, nil), do: query

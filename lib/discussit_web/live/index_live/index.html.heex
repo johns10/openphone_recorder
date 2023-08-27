@@ -43,6 +43,7 @@
     conversation={@conversation}
     worker_busy?={@worker_busy?}
     zoom_level={@zoom_level}
+    transcription_status={@transcription_status}
   />
   <div id="statements" class="flex flex-col" phx-update="stream">
     <%= for {id, conversation_item} <- @streams.conversation_items do %>
@@ -97,10 +98,9 @@
                 <%= case call.status do %>
                   <% :file_uploaded -> %>
                     <.button
-                      class="btn-primary btn-xs"
+                      class="btn-primary btn-xs transcribe-button"
                       phx-click="transcribe"
                       phx-value-call-id={call.id}
-                      disabled={@worker_busy?}
                     >
                       Transcribe
                     </.button>

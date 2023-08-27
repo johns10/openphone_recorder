@@ -5,6 +5,7 @@ defmodule DiscussitWeb.IndexLive.Components do
   attr(:conversation, Conversation, default: nil)
   attr(:zoom_level, :integer, default: 0)
   attr(:worker_busy?, :boolean, default: true)
+  attr(:transcription_status, :map, default: %{})
 
   def participant_header(%{conversation: nil} = assigns), do: ~H""
 
@@ -20,6 +21,11 @@ defmodule DiscussitWeb.IndexLive.Components do
         />
       </div>
       <div class="flex flex-row items-center space-x-4">
+        <.transcribe
+          conversation={@conversation}
+          worker_busy?={@worker_busy?}
+          transcription_status={@transcription_status}
+        />
         <button class="btn btn-xs btn-secondary" phx-click="summarize" disabled={@worker_busy?}>
           Summarize
         </button>
@@ -36,6 +42,40 @@ defmodule DiscussitWeb.IndexLive.Components do
             phx-debounce="500"
           />
         </.form>
+      </div>
+    </div>
+    """
+  end
+
+  def transcribe(assigns) do
+    ~H"""
+    <div class="flex flex-col">
+      <button
+        class="btn btn-xs btn-secondary rounded-b-none"
+        phx-click="transcribe_conversation_calls"
+        phx-value-conversation-id={@conversation.id}
+        disabled={@worker_busy?}
+      >
+        Transcribe
+      </button>
+      <div class="relative">
+        <div class="overflow-hidden h-2 text-xs flex rounded rounded-t-none">
+          <div
+            style={"width: #{Map.get(@transcription_status, :done, 0)}%"}
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-success"
+          >
+          </div>
+          <div
+            style={"width: #{Map.get(@transcription_status, :in_progress, 0)}%"}
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+          >
+          </div>
+          <div
+            style={"width: #{Map.get(@transcription_status, :error, 0)}%"}
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-error"
+          >
+          </div>
+        </div>
       </div>
     </div>
     """

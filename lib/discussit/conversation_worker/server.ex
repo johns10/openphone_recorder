@@ -36,12 +36,7 @@ defmodule Discussit.ConversationWorker.Server do
     {:ok, state}
   end
 
-  def handle_cast(:busy, %{bosy: true} = state) do
-    Impl.broadcast_busy(state)
-    {:noreply, state}
-  end
-
-  def handle_cast(:busy, %{bosy: false} = state) do
+  def handle_cast(:busy, state) do
     Impl.broadcast_idle(state)
     {:noreply, state}
   end

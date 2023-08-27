@@ -46,12 +46,10 @@ defmodule Discussit.Calls do
     |> Repo.insert()
     |> case do
       {:error, %{errors: [id: {"has already been taken", _}]}} ->
-        call =
-          changeset
-          |> Ecto.Changeset.get_field(:id)
-          |> get_call!()
-
-        {:ok, call}
+        changeset
+        |> Ecto.Changeset.get_field(:id)
+        |> get_call!()
+        |> update_call(attrs)
 
       success ->
         success
