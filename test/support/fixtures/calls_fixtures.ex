@@ -11,7 +11,7 @@ defmodule Discussit.CallsFixtures do
     {:ok, call} =
       attrs
       |> Enum.into(%{
-        external_id: "some external_id",
+        external_id: Ecto.UUID.generate(),
         source: :openphone
       })
       |> Discussit.Calls.create_call()

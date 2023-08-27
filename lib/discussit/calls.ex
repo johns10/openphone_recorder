@@ -14,6 +14,14 @@ defmodule Discussit.Calls do
     |> Repo.all()
   end
 
+  def calls_status(%{conversation_id: conversation_id}) do
+    Call
+    |> where([c], c.conversation_id == ^conversation_id)
+    |> group_by([c], c.status)
+    |> select([c], %{status: c.status, count: count(c.status)})
+    |> Repo.all()
+  end
+
   defp maybe_filter_by_conversation_id(query, nil), do: query
 
   defp maybe_filter_by_conversation_id(query, conversation_id) do

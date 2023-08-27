@@ -64,5 +64,44 @@ defmodule Discussit.CallsTest do
       call = call_fixture()
       assert %Ecto.Changeset{} = Calls.change_call(call)
     end
+
+    import Discussit.AccountsFixtures
+    import Discussit.ConversationsFixtures
+
+    test "calls_status/1 returns counts" do
+      account = account_fixture()
+      conversation = conversation_fixture(%{account_id: account.id})
+
+      call =
+        call_fixture(%{
+          status: :file_uploaded,
+          account_id: account.id,
+          conversation_id: conversation.id
+        })
+
+      call =
+        call_fixture(%{
+          status: :transcribing,
+          account_id: account.id,
+          conversation_id: conversation.id
+        })
+
+      call =
+        call_fixture(%{
+          status: :transcribed,
+          account_id: account.id,
+          conversation_id: conversation.id
+        })
+
+      call =
+        call_fixture(%{
+          status: :transcribed,
+          account_id: account.id,
+          conversation_id: conversation.id
+        })
+
+      Calls.calls_status(%{conversation_id: conversation.id})
+      |> IO.inspect()
+    end
   end
 end
