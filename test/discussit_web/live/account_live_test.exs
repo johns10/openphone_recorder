@@ -5,9 +5,9 @@ defmodule DiscussitWeb.AccountLiveTest do
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
 
-  @create_attrs %{name: "some name", plan: :free}
-  @update_attrs %{name: "some updated name", plan: :basic}
-  @invalid_attrs %{name: nil, plan: nil}
+  @create_attrs %{name: "some name", plan: :free, timezone: "America/Chicago"}
+  @update_attrs %{name: "some updated name", plan: :basic, timezone: "America/Toronto"}
+  @invalid_attrs %{name: nil, plan: nil, timezone: "America/Chicago"}
 
   defp create_account(_) do
     account = account_fixture()
@@ -25,12 +25,7 @@ defmodule DiscussitWeb.AccountLiveTest do
     end
 
     test "saves new account", %{conn: conn} do
-      {:ok, index_live, _html} = live(conn, ~p"/accounts")
-
-      assert index_live |> element("a", "New Account") |> render_click() =~
-               "New Account"
-
-      assert_patch(index_live, ~p"/accounts/new")
+      {:ok, index_live, _html} = live(conn, ~p"/accounts/new")
 
       assert index_live
              |> form("#account-form", account: @invalid_attrs)

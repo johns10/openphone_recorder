@@ -10,7 +10,7 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
     <div class="flex flex-row items-center justify-items-end">
       <details class="dropdown dropdown-right">
         <summary class="btn btn-ghost btn-sm px-2">
-          <.icon name="hero-user-group" class="w-5 h-5" />
+          <.icon name="hero-user-group" class={["w-5 h-5",  @accounts == [] && "animate-pulse"]} />
         </summary>
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
           <%= for account <- @accounts do %>
@@ -20,6 +20,11 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
               </.link>
             </li>
           <% end %>
+          <li>
+          <.link href={~p{/accounts/new_standalone?#{[user_id: @user.id]}}}>
+          Create New Account
+          </.link>
+          </li>
         </ul>
       </details>
       <%= if @user_setting.selected_account_id do %>
@@ -28,7 +33,9 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
           style="display: none;"
           href={~p"/accounts/#{@user_setting.selected_account_id}"}
         >
-          <%= @user_setting |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
+          <%= if @user_setting.selected_account do %>
+            <%= @user_setting |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
+          <% end %>
         </.link>
       <% end %>
     </div>

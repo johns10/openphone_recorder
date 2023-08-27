@@ -18,8 +18,19 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Summaries.Summary
 
   @impl true
-  @spec mount(any, any, Phoenix.LiveView.Socket.t()) ::
-          {:ok, Phoenix.LiveView.Socket.t(), [{:layout, {any, any}}, ...]}
+  def mount(_, _, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket) do
+    {:ok,
+     socket
+     |> assign(:zoom_level, 0)
+     |> assign(conversations_per_page: 20, conversation_page: 1)
+     |> assign(:conversation, nil)
+     |> assign(:conversation_id, nil)
+     |> stream(:conversations, [])
+     |> assign(:end_of_timeline?, false)
+     |> assign(:worker_busy?, false)
+     |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
+  end
+
   def mount(_params, _session, socket) do
     conversations =
       socket.assigns.user_setting.selected_account_id
@@ -43,18 +54,19 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   @impl true
+  def handle_event(_, _, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket),
+    do: {:noreply, socket}
+
   def handle_event("summarize", _, socket) do
     ConversationWorker.run_summarizers(socket.assigns.conversation)
 
     {:noreply, socket}
   end
 
-  @impl true
   def handle_event("zoom", %{"zoom" => "0"}, socket) do
     {:noreply, replace_conversation_items(socket, socket.assigns.conversation.id)}
   end
 
-  @impl true
   def handle_event("zoom", %{"zoom" => zoom}, socket) do
     level = String.to_integer(zoom)
 
@@ -99,6 +111,15 @@ defmodule DiscussitWeb.IndexLive.Index do
   def handle_event("next-page", _, socket) do
     {:noreply, append_conversations(socket, socket.assigns.conversation_page + 1)}
   end
+
+  def handle_event("transcribe", %{"call-id" => call_id}, socket) do
+    ConversationWorker.transcribe_call(socket.assigns.conversation, call_id)
+
+    {:noreply, socket}
+  end
+
+  defp apply_action(%{assigns: %{user_setting: %{selected_account_id: nil}}} = socket, _, _),
+    do: socket
 
   defp apply_action(socket, :index, %{"id" => conversation_id}) do
     user = socket.assigns.current_user
@@ -151,6 +172,9 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   @impl true
+  def handle_info(_, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket),
+    do: {:noreply, socket}
+
   def handle_info({_, {:account_picked, user_setting}}, socket) do
     conversations =
       user_setting.selected_account_id
@@ -164,14 +188,11 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> push_patch(to: ~p"/home")}
   end
 
-  @impl true
   def handle_info(%{event: "busy"}, socket), do: {:noreply, socket |> assign(:worker_busy?, true)}
 
-  @impl true
   def handle_info(%{event: "idle"}, socket),
     do: {:noreply, socket |> assign(:worker_busy?, false)}
 
-  @impl true
   def handle_info(
         %{event: "summary_created", payload: %Summary{level: level} = summary},
         socket
@@ -186,6 +207,17 @@ defmodule DiscussitWeb.IndexLive.Index do
         conversation_item = map_summary_to_conversation_item(summary)
         {:noreply, stream_insert(socket, :conversation_items, conversation_item, at: -1)}
     end
+  end
+
+  def handle_info(%{event: "call_transcription_progress", payload: %Calls.Call{} = call}, socket) do
+    call_item = %{
+      type: "call_ended",
+      data: call,
+      timestamp: call.completed_at,
+      id: "call-completed-#{call.id}"
+    }
+
+    stream(socket, :conversation_items, call_item)
   end
 
   defp append_conversations(socket, new_page) when new_page >= 1 do

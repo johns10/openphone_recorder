@@ -379,8 +379,8 @@ defmodule DiscussitWeb.CoreComponents do
         id={@id || @name}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "input input-bordered w-full",
-          @errors != [] && "input-error",
+          "input input-bordered w-full phx-no-feedback:!border-base-content phx-no-feedback:!border-opacity-20",
+          @errors != [] && "border-error",
           @class
         ]}
         {@rest}
@@ -394,7 +394,7 @@ defmodule DiscussitWeb.CoreComponents do
     <select
       id={@id}
       name={@name}
-      class={["select select-bordered w-full", @errors != [] && "input-error", @class]}
+      class={["select select-bordered w-full", @class]}
       multiple={@multiple}
       {@rest}
     >
@@ -426,7 +426,7 @@ defmodule DiscussitWeb.CoreComponents do
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
           "input input-bordered w-full",
-          @errors != [] && "input-error"
+          @errors != [] && "border-error"
         ]}
         {@rest}
       />

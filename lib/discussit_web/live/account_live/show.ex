@@ -2,7 +2,6 @@ defmodule DiscussitWeb.AccountLive.Show do
   use DiscussitWeb, :live_view
 
   alias Discussit.Accounts
-  alias Discussit.AccountUsers
 
   @preloads [account_users: :user]
 
@@ -31,24 +30,13 @@ defmodule DiscussitWeb.AccountLive.Show do
   end
 
   @impl true
-  def handle_event("delete-account-user", %{"id" => id}, socket) do
-    account_user = AccountUsers.get_account_user!(id)
-    {:ok, _} = AccountUsers.delete_account_user(account_user)
-    account = socket.assigns.account
-    account_users = account.account_users |> Enum.reject(&(&1.id == account_user.id))
-    account = Map.put(account, :account_users, account_users)
-
+  def handle_info({_, {:saved, account}}, socket) do
     {:noreply, assign(socket, :account, account)}
   end
 
-  @impl true
   def handle_info({_, {:new_account_user, account_user}}, socket) do
     account = socket.assigns.account
     account = Map.put(account, :account_users, account.account_users ++ [account_user])
-    {:noreply, assign(socket, :account, account)}
-  end
-
-  def handle_info({_, {:saved, account}}, socket) do
     {:noreply, assign(socket, :account, account)}
   end
 

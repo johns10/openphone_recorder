@@ -1,0 +1,11 @@
+<div class="mx-auto max-w-sm">
+  <.live_component
+    module={DiscussitWeb.AccountLive.FormComponent}
+    id={:new}
+    title={@page_title}
+    action={:new}
+    account={@account}
+    redirect={~p"/home"}
+    current_user={@current_user}
+  />
+</div>

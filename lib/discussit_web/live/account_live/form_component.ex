@@ -2,6 +2,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   use DiscussitWeb, :live_component
 
   alias Discussit.Accounts
+  alias Discussit.AccountUsers
   import DiscussitWeb.LiveSupport
 
   @impl true
@@ -21,8 +22,8 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:openphone_signing_secret]} type="password" label="Signing Secret" />
-        <.input field={@form[:openai_api_key]} type="password" label="OpenAI API Key" />
+        <.input field={@form[:openphone_signing_secret]} type="text" label="Signing Secret" />
+        <.input field={@form[:openai_api_key]} type="text" label="OpenAI API Key" />
         <div class="dropdown w-full">
           <div phx-feedback-for={@form[:timezone].name} class="form-control w-full">
             <.label for={@form[:timezone].id}>Timezone</.label>
@@ -31,7 +32,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
                 field={@form[:timezone]}
                 type="raw_input"
                 prompt="Choose a value"
-                class="input input-bordered w-full rounded-r-none"
+                class="input w-full rounded-r-none"
                 autocomplete="off"
               />
               <button
@@ -42,7 +43,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
               >
                 <.icon name="hero-chevron-down" />
               </button>
-            </div>
+          </div>
             <.error :for={msg <- Enum.map(@form[:timezone].errors, &translate_error(&1))}>
               <%= msg %>
             </.error>
@@ -52,8 +53,8 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
               :for={{key, value} <- filter_timezone_options(@form)}
               key={key}
               class="border-b border-b-base-content/10 w-full"
-              phx-click="pick-timezone"
-              phx-value-val={value}
+              phx-click={JS.push("pick-timezone") |> JS.dispatch("keydown", to: "#timezone_input")}
+              phx-value-val={key}
               phx-target={@myself}
             >
               <button type="button"><%= value %></button>
@@ -82,6 +83,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:attrs, %{})
      |> assign_form(changeset)}
   end
 
@@ -92,7 +94,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
       |> Accounts.change_account(account_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, assign_form(socket, changeset)}
+    {:noreply, socket |> assign_form(changeset) |> assign(:attrs, account_params)}
   end
 
   def handle_event("save", %{"account" => account_params}, socket) do
@@ -100,9 +102,11 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   def handle_event("pick-timezone", %{"val" => value}, socket) do
+    account_params = socket.assigns.attrs |> Map.put("timezone", value)
+
     changeset =
       socket.assigns.account
-      |> Accounts.change_account(%{"timezone" => value})
+      |> Accounts.change_account(account_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}
@@ -110,11 +114,20 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
 
   def handle_event("reset-timezone", _, socket) do
     changeset =
-      socket.assigns.account
-      |> Accounts.change_account(%{"timezone" => ""})
-      |> Map.put(:action, :validate)
+      socket.assigns.form.source
+      |> Ecto.Changeset.put_change(:timezone, "")
 
     {:noreply, assign_form(socket, changeset)}
+  end
+
+  def handle_event("delete-account-user", %{"id" => id}, socket) do
+    account_user = AccountUsers.get_account_user!(id)
+    {:ok, _} = AccountUsers.delete_account_user(account_user)
+    account = socket.assigns.account
+    account_users = account.account_users |> Enum.reject(&(&1.id == account_user.id))
+    account = Map.put(account, :account_users, account_users)
+
+    {:noreply, assign(socket, :account, account)}
   end
 
   defp save_account(socket, :edit, account_params) do
@@ -122,10 +135,19 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
       {:ok, account} ->
         notify_parent({:saved, account})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Account updated successfully")
-         |> push_patch(to: socket.assigns.patch)}
+        case {Map.get(socket.assigns, :patch, nil), Map.get(socket.assigns, :redirect, nil)} do
+          {patch, nil} ->
+            {:noreply,
+             socket
+             |> put_flash(:info, "Account updated successfully")
+             |> push_patch(to: patch)}
+
+          {nil, redirect} ->
+            {:noreply,
+             socket
+             |> put_flash(:info, "Account updated successfully")
+             |> redirect(to: redirect)}
+        end
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
@@ -133,15 +155,28 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   defp save_account(socket, :new, account_params) do
-    case Accounts.create_account(account_params) do
-      {:ok, account} ->
-        notify_parent({:saved, account})
+    with {:ok, account} <- Accounts.create_account(account_params),
+         {:ok, account_user} <-
+           AccountUsers.create_account_user(%{
+             account_id: account.id,
+             user_id: socket.assigns.current_user.id
+           }) do
+      notify_parent({:saved, account})
 
-        {:noreply,
-         socket
-         |> put_flash(:info, "Account created successfully")
-         |> push_patch(to: socket.assigns.patch)}
+      case {Map.get(socket.assigns, :patch, nil), Map.get(socket.assigns, :redirect, nil)} do
+        {patch, nil} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Account created successfully")
+           |> push_patch(to: patch)}
 
+        {nil, redirect} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Account created successfully")
+           |> redirect(to: redirect)}
+      end
+    else
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
     end

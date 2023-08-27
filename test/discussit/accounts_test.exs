@@ -25,7 +25,8 @@ defmodule Discussit.AccountsTest do
         name: "some name",
         plan: :free,
         openphone_signing_secret: "UEtrY29teEM4NVdTWkFwUzY3VEQyYVBkYW1jOFhqZ2g=",
-        openai_api_key: "test key"
+        openai_api_key: "test key",
+        timezone: "America/Chicago"
       }
 
       assert {:ok, %Account{} = account} = Accounts.create_account(valid_attrs)
@@ -46,7 +47,8 @@ defmodule Discussit.AccountsTest do
         name: "some updated name",
         plan: :basic,
         openphone_signing_secret: "updated secret",
-        openai_api_key: "test key"
+        openai_api_key: "test key",
+        timezone: "America/Chicago"
       }
 
       assert {:ok, %Account{} = account} = Accounts.update_account(account, update_attrs)

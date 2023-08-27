@@ -619,6 +619,6 @@ defmodule Discussit.Accounts.Account do
   def changeset(account, attrs) do
     account
     |> cast(attrs, [:name, :plan, :openphone_signing_secret, :openai_api_key, :timezone])
-    |> validate_required([:name, :plan])
+    |> validate_required([:name, :plan, :timezone])
   end
 end
