@@ -364,24 +364,24 @@ defmodule DiscussitWeb.IndexLive.Index do
     total = Enum.reduce(data, 0, fn %{count: count}, acc -> acc + count end)
 
     status =
-      Enum.reduce(data, %{done: 0, not_started: 0, in_progres: 0, error: 0}, fn
+      Enum.reduce(data, %{done: 0, not_started: 0, in_progress: 0, error: 0, warning: 0}, fn
         %{count: count, status: :transcribed}, acc ->
-          Map.put(acc, :done, floor(count / total * 100))
+          Map.put(acc, :done, floor(count / total * 100) + acc.done)
 
         %{count: count, status: :file_uploaded}, acc ->
           Map.put(acc, :not_started, floor(count / total * 100) + acc.not_started)
 
         %{count: count, status: :created}, acc ->
-          Map.put(acc, :error, floor(count / total * 100) + acc.error)
+          Map.put(acc, :warning, floor(count / total * 100) + acc.warning)
 
         %{count: count, status: :transcribing}, acc ->
-          Map.put(acc, :in_progress, floor(count / total * 100))
+          Map.put(acc, :in_progress, floor(count / total * 100) + acc.in_progress)
 
         %{count: count, status: :upload_failed}, acc ->
           Map.put(acc, :error, floor(count / total * 100) + acc.error)
 
         %{count: count, status: :upload_empty}, acc ->
-          Map.put(acc, :error, floor(count / total * 100) + acc.error)
+          Map.put(acc, :warning, floor(count / total * 100) + acc.warning)
       end)
 
     assign(socket, :transcription_status, status)

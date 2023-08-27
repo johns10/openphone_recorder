@@ -71,6 +71,11 @@ defmodule DiscussitWeb.IndexLive.Components do
           >
           </div>
           <div
+            style={"width: #{Map.get(@transcription_status, :warning, 0)}%"}
+            class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-warning"
+          >
+          </div>
+          <div
             style={"width: #{Map.get(@transcription_status, :error, 0)}%"}
             class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-error"
           >
