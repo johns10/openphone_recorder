@@ -125,14 +125,13 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
           summarizer_id: summarizer.id
         })
 
-      summary =
-        Discussit.SummariesFixtures.summary_fixture(%{
-          content: "First Summary",
-          conversation_id: conversation.id,
-          conversation_summarizer_id: cs.id,
-          summary_interval: TsRange.new(~N[2018-01-01 00:00:00], ~N[2018-01-01 23:59:59]),
-          level: 1
-        })
+      Discussit.SummariesFixtures.summary_fixture(%{
+        content: "First Summary",
+        conversation_id: conversation.id,
+        conversation_summarizer_id: cs.id,
+        summary_interval: TsRange.new(~N[2018-01-01 00:00:00], ~N[2018-01-01 23:59:59]),
+        level: 1
+      })
 
       assert index_live |> element("#zoom-form") |> render_change(%{zoom: 1}) =~
                "First Summary"

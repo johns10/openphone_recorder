@@ -8,7 +8,7 @@ defmodule Discussit.CallsTest do
 
     import Discussit.CallsFixtures
 
-    @invalid_attrs %{external_id: nil, source: nil}
+    @invalid_attrs %{external_id: nil, source: nil, status: :not_valid_status}
 
     test "list_calls/0 returns all calls" do
       call = call_fixture()
@@ -34,10 +34,10 @@ defmodule Discussit.CallsTest do
 
     test "update_call/2 with valid data updates the call" do
       call = call_fixture()
-      update_attrs = %{external_id: "some updated external_id", source: :openphone}
+      update_attrs = %{status: :transcribed, source: :openphone}
 
       assert {:ok, %Call{} = call} = Calls.update_call(call, update_attrs)
-      assert call.external_id == "some updated external_id"
+      assert call.status == :transcribed
       assert call.source == :openphone
     end
 
@@ -71,37 +71,11 @@ defmodule Discussit.CallsTest do
     test "calls_status/1 returns counts" do
       account = account_fixture()
       conversation = conversation_fixture(%{account_id: account.id})
-
-      call =
-        call_fixture(%{
-          status: :file_uploaded,
-          account_id: account.id,
-          conversation_id: conversation.id
-        })
-
-      call =
-        call_fixture(%{
-          status: :transcribing,
-          account_id: account.id,
-          conversation_id: conversation.id
-        })
-
-      call =
-        call_fixture(%{
-          status: :transcribed,
-          account_id: account.id,
-          conversation_id: conversation.id
-        })
-
-      call =
-        call_fixture(%{
-          status: :transcribed,
-          account_id: account.id,
-          conversation_id: conversation.id
-        })
-
+      call_fixture(%{status: :file_uploaded, conversation_id: conversation.id})
+      call_fixture(%{status: :transcribing, conversation_id: conversation.id})
+      call_fixture(%{status: :transcribed, conversation_id: conversation.id})
+      call_fixture(%{status: :transcribed, conversation_id: conversation.id})
       Calls.calls_status(%{conversation_id: conversation.id})
-      |> IO.inspect()
     end
   end
 end

@@ -120,6 +120,18 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket}
   end
 
+  def handle_event("transcribe_conversation_calls", _, socket) do
+    ids =
+      Calls.list_calls(
+        filters: [conversation_id: socket.assigns.conversation.id, status: :file_uploaded]
+      )
+      |> Enum.map(& &1.id)
+
+    ConversationWorker.transcribe_calls(socket.assigns.conversation, ids)
+
+    {:noreply, socket}
+  end
+
   defp apply_action(%{assigns: %{user_setting: %{selected_account_id: nil}}} = socket, _, _),
     do: socket
 
@@ -352,20 +364,25 @@ defmodule DiscussitWeb.IndexLive.Index do
     total = Enum.reduce(data, 0, fn %{count: count}, acc -> acc + count end)
 
     status =
-      Enum.reduce(data, %{}, fn
+      Enum.reduce(data, %{done: 0, not_started: 0, in_progres: 0, error: 0}, fn
         %{count: count, status: :transcribed}, acc ->
           Map.put(acc, :done, floor(count / total * 100))
 
         %{count: count, status: :file_uploaded}, acc ->
-          Map.put(acc, :not_started, floor(count / total * 100))
+          Map.put(acc, :not_started, floor(count / total * 100) + acc.not_started)
+
+        %{count: count, status: :created}, acc ->
+          Map.put(acc, :error, floor(count / total * 100) + acc.error)
 
         %{count: count, status: :transcribing}, acc ->
           Map.put(acc, :in_progress, floor(count / total * 100))
 
         %{count: count, status: :upload_failed}, acc ->
-          Map.put(acc, :error, floor(count / total * 100))
+          Map.put(acc, :error, floor(count / total * 100) + acc.error)
+
+        %{count: count, status: :upload_empty}, acc ->
+          Map.put(acc, :error, floor(count / total * 100) + acc.error)
       end)
-      |> IO.inspect()
 
     assign(socket, :transcription_status, status)
   end

@@ -36,6 +36,39 @@ defmodule Discussit.OpenphoneFixtures do
     |> Jason.decode!()
   end
 
+  def call_completed_no_voicemail(attrs \\ %{}) do
+    id = Map.get(attrs, :id, "ACbaee66e137f0467dbed5ad4bc8d60800")
+
+    """
+    {
+      "id": "EVd39d3c8d6f244d21a9131de4fc9350d0",
+      "object": "event",
+      "apiVersion": "v2",
+      "createdAt": "2022-01-24T19:22:25.427Z",
+      "type": "call.completed",
+      "data": {
+        "object": {
+          "id": "#{id}",
+          "object": "call",
+          "from": "+18005550100",
+          "to": "+18885550101",
+          "direction": "incoming",
+          "media": [],
+          "voicemail": null,
+          "status": "completed",
+          "createdAt": "2022-01-24T19:21:59.545Z",
+          "answeredAt": null,
+          "completedAt": "2022-01-24T19:22:19.000Z",
+          "userId": "USu5AsEHuQ",
+          "phoneNumberId": "PNtoDbDhuz",
+          "conversationId": "CN78ba0373683c48fd8fd96bc836c51f79"
+        }
+      }
+    }
+    """
+    |> Jason.decode!()
+  end
+
   def call_ringing(attrs \\ %{}) do
     id = Map.get(attrs, :id, "ACbaee66e137f0467dbed5ad4bc8d60801")
 

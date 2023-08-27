@@ -31,7 +31,14 @@ defmodule Discussit.ConversationWorker do
     conversation
     |> Impl.name()
     |> Process.whereis()
-    |> GenServer.cast({:transcribe_call, call_id})
+    |> GenServer.cast({:transcribe_calls, [call_id]})
+  end
+
+  def transcribe_calls(%Conversation{} = conversation, call_ids) do
+    conversation
+    |> Impl.name()
+    |> Process.whereis()
+    |> GenServer.cast({:transcribe_calls, call_ids})
   end
 
   def busy?(%Conversation{} = conversation) do

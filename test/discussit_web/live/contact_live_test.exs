@@ -14,7 +14,8 @@ defmodule DiscussitWeb.ContactLiveTest do
     last_name: "some updated last_name",
     source: :user
   }
-  @invalid_attrs %{first_name: nil, last_name: nil}
+
+  # @invalid_attrs %{first_name: nil, last_name: nil}
 
   defp create_contact(%{account: account}) do
     contact = contact_fixture(%{account_id: account.id})

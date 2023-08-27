@@ -40,40 +40,39 @@ defmodule Discussit.Events.Openphone.Projector do
   def apply(%CallRinging{data: openphone_call}, account_id) do
     with {:ok, data} <- prepare_model(openphone_call, account_id),
          call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
+         call_attrs <- Map.put(call_attrs, :status, :created),
          {:ok, call} <- Calls.upsert_call(call_attrs) do
       {:ok, call}
     end
   end
 
   def apply(%CallCompleted{data: openphone_call}, account_id) do
-    with {:ok, data} <- prepare_model(openphone_call, account_id) do
-      call_attrs =
+    with {:ok, data} <- prepare_model(openphone_call, account_id),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
+      attrs =
         case handle_upload(openphone_call, account_id) do
-          {:ok, voicemail} ->
-            Calls.Call.cast_openphone_call(openphone_call, data, %{voicemail: voicemail})
-
-          {:error, :failed_download} ->
-            Calls.Call.cast_openphone_call(openphone_call, data, %{})
-            |> Map.put(:status, :upload_failed)
+          {:ok, nil} -> %{status: :upload_empty}
+          {:ok, voicemail} -> %{status: :file_uploaded, voicemail: voicemail}
+          {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.upsert_call(call_attrs)
+      Calls.update_call(call, attrs)
     end
   end
 
   def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
-    with {:ok, data} <- prepare_model(openphone_call, account_id) do
-      call_attrs =
+    with {:ok, data} <- prepare_model(openphone_call, account_id),
+         call_attrs <- Calls.Call.cast_openphone_call(openphone_call, data),
+         {:ok, call} <- Calls.upsert_call(call_attrs) do
+      attrs =
         case handle_upload(openphone_call, account_id) do
-          {:ok, recording} ->
-            Calls.Call.cast_openphone_call(openphone_call, data, %{call_recording: recording})
-
-          {:error, :failed_download} ->
-            Calls.Call.cast_openphone_call(openphone_call, data, %{})
-            |> Map.put(:status, :upload_failed)
+          {:ok, nil} -> %{status: :upload_empty}
+          {:ok, call_recording} -> %{status: :file_uploaded, call_recording: call_recording}
+          {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.upsert_call(call_attrs)
+      Calls.update_call(call, attrs)
     end
   end
 
@@ -213,18 +212,18 @@ defmodule Discussit.Events.Openphone.Projector do
          account_id
        )
        when d > 0,
-       do: transfer_file(id, media, :voicemail, account_id)
+       do: transfer_file(id, media)
 
   defp handle_upload(
          %Call{id: id, media: [%Media{duration: d, type: "audio/mpeg"} = media]},
          account_id
        )
        when d > 0,
-       do: transfer_file(id, media, :call_recording, account_id)
+       do: transfer_file(id, media)
 
   defp handle_upload(_, _), do: {:ok, nil}
 
-  defp transfer_file(id, %Media{url: media_url} = media, _type, _account_id) do
+  defp transfer_file(id, %Media{url: media_url} = media) do
     bucket = Application.get_env(:discussit, :bucket)
     object_path = "/recordings/#{Calls.Call.id(:openphone, id)}"
 

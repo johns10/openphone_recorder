@@ -16,7 +16,7 @@ defmodule Discussit.Calls.Call do
     field :completed_at, :naive_datetime_usec
 
     field :status, Ecto.Enum,
-      values: [:upload_failed, :file_uploaded, :transcribing, :transcribed]
+      values: [:created, :upload_failed, :upload_empty, :file_uploaded, :transcribing, :transcribed]
 
     field :from_channel, Ecto.Enum, values: @channels
     field :to_channel, Ecto.Enum, values: @channels
@@ -55,6 +55,15 @@ defmodule Discussit.Calls.Call do
     |> unique_constraint([:id], name: :calls_pkey)
   end
 
+  def update_changeset(call, attrs) do
+    call
+    |> cast(attrs, [
+      :status
+    ])
+    |> cast_embed(:call_recording)
+    |> cast_embed(:voicemail)
+  end
+
   def id(:openphone, external_id), do: UUID.uuid5(nil, "openphone-" <> external_id)
 
   defp cast_id(changeset) do
@@ -87,8 +96,7 @@ defmodule Discussit.Calls.Call do
           conversation: %{id: conversation_id},
           from_participant: %{id: from_participant_id},
           to_participant: %{id: to_participant_id}
-        },
-        file_info \\ %{}
+        }
       ) do
     {from_channel, to_channel} =
       case direction do
@@ -106,8 +114,7 @@ defmodule Discussit.Calls.Call do
       to_participant_id: to_participant_id,
       to_channel: to_channel,
       source: :openphone,
-      status: :file_uploaded
+      status: :created
     }
-    |> Map.merge(file_info)
   end
 end

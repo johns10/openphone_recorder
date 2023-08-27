@@ -201,6 +201,56 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
         assert file.metadata.type == "audio/mpeg"
       end
     end
+
+    test "call recording completed, then call answered doesn't overwrite the file" do
+      ExVCR.Config.filter_request_headers("Authorization")
+      account = Discussit.AccountsFixtures.account_fixture()
+      id = "ACbaee66e137f0467dbed5ad4bc8d60802"
+
+      use_cassette("call_recording_reprojection") do
+        {:ok, %Call{call_recording: file}} =
+          OpenphoneFixtures.call_recording_completed(%{id: id})
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        assert {:ok, %{status_code: 200}} =
+                 ExAws.S3.head_object(file.bucket, file.key) |> ExAws.request()
+
+        assert file.metadata.type == "audio/mpeg"
+
+        {:ok, %Call{} = call} =
+          OpenphoneFixtures.call_ringing(%{id: id})
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        assert not is_nil(call.call_recording)
+      end
+    end
+
+    test "call recording completed, then call completed without voicemail doesn't overwrite the file" do
+      ExVCR.Config.filter_request_headers("Authorization")
+      account = Discussit.AccountsFixtures.account_fixture()
+      id = "ACbaee66e137f0467dbed5ad4bc8d60802"
+
+      use_cassette("call_recording_reprojection_2") do
+        {:ok, %Call{call_recording: file}} =
+          OpenphoneFixtures.call_recording_completed(%{id: id})
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        assert {:ok, %{status_code: 200}} =
+                 ExAws.S3.head_object(file.bucket, file.key) |> ExAws.request()
+
+        assert file.metadata.type == "audio/mpeg"
+
+        {:ok, %Call{} = call} =
+          OpenphoneFixtures.call_completed_no_voicemail(%{id: id})
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        assert not is_nil(call.call_recording)
+      end
+    end
   end
 
   describe "ContactUpdated" do

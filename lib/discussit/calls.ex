@@ -11,6 +11,7 @@ defmodule Discussit.Calls do
     Call
     |> preload(^preloads)
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> maybe_filter_by_status(filters[:status])
     |> Repo.all()
   end
 
@@ -27,6 +28,13 @@ defmodule Discussit.Calls do
   defp maybe_filter_by_conversation_id(query, conversation_id) do
     query
     |> where([p], p.conversation_id == ^conversation_id)
+  end
+
+  defp maybe_filter_by_status(query, nil), do: query
+
+  defp maybe_filter_by_status(query, status) do
+    query
+    |> where([p], p.status == ^status)
   end
 
   def get_call!(id), do: Repo.get!(Call, id)
@@ -46,10 +54,12 @@ defmodule Discussit.Calls do
     |> Repo.insert()
     |> case do
       {:error, %{errors: [id: {"has already been taken", _}]}} ->
-        changeset
-        |> Ecto.Changeset.get_field(:id)
-        |> get_call!()
-        |> update_call(attrs)
+        call =
+          changeset
+          |> Ecto.Changeset.get_field(:id)
+          |> get_call!()
+
+        {:ok, call}
 
       success ->
         success
@@ -58,7 +68,7 @@ defmodule Discussit.Calls do
 
   def update_call(%Call{} = call, attrs) do
     call
-    |> Call.changeset(attrs)
+    |> Call.update_changeset(attrs)
     |> Repo.update()
   end
 

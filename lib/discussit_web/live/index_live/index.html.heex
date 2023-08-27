@@ -95,8 +95,8 @@
             <div class="chat flex flex-row px-4">
               <div class="chat-bubble z-0 flex flex-row items-center space-x-4">
                 <.icon name="hero-phone-arrow-down-left" class="w-5 h-5 bg-error" />
-                <%= case call.status do %>
-                  <% :file_uploaded -> %>
+                <%= case call do %>
+                  <% %{status: :file_uploaded, call_recording: recording, voicemail: voicemail} when recording != nil or voicemail != nil -> %>
                     <.button
                       class="btn-primary btn-xs transcribe-button"
                       phx-click="transcribe"
@@ -104,13 +104,16 @@
                     >
                       Transcribe
                     </.button>
-                  <% :transcribing -> %>
+                  <% %{status: :transcribing} -> %>
                     <.button class="btn-primary btn-sm" disabled>
                       <.icon name="hero-arrow-path" class="mr-2 w-5 h-5 animate-spin" />
                       Transcribing ...
                     </.button>
-                  <% :transcribed -> %>
+                  <% %{status: :transcribed} -> %>
                     <.icon name="hero-check-circle" class="ml-4 w-5 h-5 bg-success" />
+                  <% %{status: :upload_empty} -> %>
+                    <.icon name="hero-exclamation-circle" class="ml-4 w-5 h-5 bg-warning" />
+                    <span class="text-warning">Call Recording Empty</span>
                 <% end %>
               </div>
             </div>
