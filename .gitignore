@@ -41,3 +41,4 @@ npm-debug.log
 /.elixir_ls
 
 /data/.minio.sys/*
+/data/*

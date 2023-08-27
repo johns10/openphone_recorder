@@ -40,7 +40,7 @@ defmodule Discussit.Application do
   def minio(children) do
     case Application.get_env(:discussit, :minio, nil) do
       nil -> children
-      true -> children ++ [{MinioServer, Application.get_all_env(:ex_aws)}]
+      true -> children ++ [{MinioServer, Application.get_env(:ex_aws, :s3)}]
     end
   end
 end

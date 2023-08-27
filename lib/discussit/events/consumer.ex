@@ -84,6 +84,7 @@ defmodule Discussit.Events.Consumer do
         Discussit.Events.update_event(event, %{processed: true})
 
       {:error, error} ->
+        Discussit.Events.update_event(event, %{skipped: true})
         Logger.error(inspect(error))
         {:error, error}
     end

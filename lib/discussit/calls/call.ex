@@ -14,7 +14,10 @@ defmodule Discussit.Calls.Call do
     field :source, Ecto.Enum, values: [:openphone]
     field :answered_at, :naive_datetime_usec
     field :completed_at, :naive_datetime_usec
-    field :status, Ecto.Enum, values: [:file_uploaded, :transcribing, :transcribed]
+
+    field :status, Ecto.Enum,
+      values: [:upload_failed, :file_uploaded, :transcribing, :transcribed]
+
     field :from_channel, Ecto.Enum, values: @channels
     field :to_channel, Ecto.Enum, values: @channels
 

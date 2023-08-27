@@ -46,22 +46,34 @@ defmodule Discussit.Events.Openphone.Projector do
   end
 
   def apply(%CallCompleted{data: openphone_call}, account_id) do
-    with {:ok, data} <- prepare_model(openphone_call, account_id),
-         {:ok, voicemail} <- handle_upload(openphone_call, account_id),
-         call_attrs <-
-           Calls.Call.cast_openphone_call(openphone_call, data, %{voicemail: voicemail}),
-         {:ok, call} <- Calls.upsert_call(call_attrs) do
-      {:ok, call}
+    with {:ok, data} <- prepare_model(openphone_call, account_id) do
+      call_attrs =
+        case handle_upload(openphone_call, account_id) do
+          {:ok, voicemail} ->
+            Calls.Call.cast_openphone_call(openphone_call, data, %{voicemail: voicemail})
+
+          {:error, :failed_download} ->
+            Calls.Call.cast_openphone_call(openphone_call, data, %{})
+            |> Map.put(:status, :upload_failed)
+        end
+
+      Calls.upsert_call(call_attrs)
     end
   end
 
   def apply(%CallRecordingCompleted{data: openphone_call}, account_id) do
-    with {:ok, data} <- prepare_model(openphone_call, account_id),
-         {:ok, recording} <- handle_upload(openphone_call, account_id),
-         call_attrs <-
-           Calls.Call.cast_openphone_call(openphone_call, data, %{call_recording: recording}),
-         {:ok, call} <- Calls.upsert_call(call_attrs) do
-      {:ok, call}
+    with {:ok, data} <- prepare_model(openphone_call, account_id) do
+      call_attrs =
+        case handle_upload(openphone_call, account_id) do
+          {:ok, recording} ->
+            Calls.Call.cast_openphone_call(openphone_call, data, %{call_recording: recording})
+
+          {:error, :failed_download} ->
+            Calls.Call.cast_openphone_call(openphone_call, data, %{})
+            |> Map.put(:status, :upload_failed)
+        end
+
+      Calls.upsert_call(call_attrs)
     end
   end
 
@@ -222,6 +234,9 @@ defmodule Discussit.Events.Openphone.Projector do
          request = ExAws.S3.put_object(bucket, object_path, File.read!(path)),
          {:ok, _response} <- ExAws.request(request) do
       {:ok, %{bucket: bucket, key: object_path, metadata: Map.from_struct(media)}}
+    else
+      _ ->
+        {:error, :failed_download}
     end
   end
 end

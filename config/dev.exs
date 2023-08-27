@@ -44,7 +44,7 @@ config :swoosh, :api_client, false
 
 config :discussit, :minio, true
 
-config :ex_aws,
+config :ex_aws, :s3,
   access_key_id: "minio_key",
   secret_access_key: "minio_secret",
   scheme: "http://",
