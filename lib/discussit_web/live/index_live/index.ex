@@ -217,7 +217,7 @@ defmodule DiscussitWeb.IndexLive.Index do
       id: "call-completed-#{call.id}"
     }
 
-    stream(socket, :conversation_items, call_item)
+    {:noreply, stream_insert(socket, :conversation_items, call_item)}
   end
 
   defp append_conversations(socket, new_page) when new_page >= 1 do
