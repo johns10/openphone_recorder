@@ -121,6 +121,10 @@ defmodule DiscussitWeb.Router do
 
       live "/accounts/:id", AccountLive.Show, :show
       live "/accounts/:id/show/edit", AccountLive.Show, :edit
+      
+      live "/usages", UsageLive.Index, :index
+
+      live "/usages/:id", UsageLive.Show, :show
     end
   end
 

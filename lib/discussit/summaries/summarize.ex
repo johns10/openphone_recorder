@@ -104,7 +104,7 @@ defmodule Discussit.Summaries.Summarize do
         ]
 
         prompt = EEx.eval_string(prompt, assigns)
-        {:ok, text} = create_completion(prompt, max_output_count)
+        {:ok, text} = create_completion(prompt, max_output_count, opts)
 
         previous_summary =
           text
@@ -143,7 +143,7 @@ defmodule Discussit.Summaries.Summarize do
     ]
 
     prompt = EEx.eval_string(prompt_template, assigns)
-    {:ok, text} = create_completion(prompt, max_output)
+    {:ok, text} = create_completion(prompt, max_output, opts)
 
     text
   end
@@ -241,16 +241,31 @@ defmodule Discussit.Summaries.Summarize do
     end)
   end
 
-  def create_completion(prompt, max_tokens) do
-    messages = [
-      %{role: :user, content: prompt}
-    ]
+  def create_completion(prompt, max_tokens, opts \\ []) do
+    messages = [%{role: :user, content: prompt}]
 
-    opts = [max_tokens: max_tokens, temperature: 0]
+    model = "gpt-3.5-turbo"
 
-    ExOpenAI.Chat.create_chat_completion(messages, "gpt-3.5-turbo", opts)
+    ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
     |> case do
-      {:ok, %{choices: [%{message: %{content: content}}]}} ->
+      {:ok, %{choices: [%{message: %{content: content}}], usage: usage}} ->
+        %{
+          meta: usage,
+          model: model,
+          product: :chat_completions,
+          provider: :openai,
+          account_id: opts[:account_id]
+        }
+        |> Discussit.Usages.calculate_total()
+        |> Discussit.Usages.create_usage()
+        |> case do
+          {:error, changeset} ->
+            Logger.error("Failed to create completion usage", changeset: changeset)
+
+          _ ->
+            nil
+        end
+
         {:ok, content}
 
       {:error, %{error: %{message: message}}} ->

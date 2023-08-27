@@ -29,7 +29,8 @@ defmodule Discussit.ConversationWorker.Server do
       opts: [
         timezone: Atom.to_string(timezone),
         openai_config: openai_config,
-        broadcast_function: broadcast_function
+        broadcast_function: broadcast_function,
+        account_id: account.id
       ]
     }
 

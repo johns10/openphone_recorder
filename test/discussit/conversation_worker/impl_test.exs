@@ -19,14 +19,16 @@ defmodule Discussit.ConversationWorker.ImplTest do
   import Discussit.ContactsFixtures
   import Discussit.SummariesFixtures
   import Discussit.CallsFixtures
+  import Discussit.AccountsFixtures
 
   setup :set_mox_global
 
-  defp default_opts do
+  defp default_opts(account_id) do
     on_summary_created = fn _, _ -> :ok end
 
     [
       broadcast_function: on_summary_created,
+      account_id: account_id,
       openai_config: %{
         api_key: System.get_env("OPENAI_API_KEY"),
         http_options: [recv_timeout: 10 * 60 * 1000],
@@ -113,6 +115,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
 
   describe "daily" do
     test "summarizes over token limit" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566786789"})
@@ -184,11 +187,12 @@ defmodule Discussit.ConversationWorker.ImplTest do
                    content:
                      "John Doe asks Jane Foe if she has ever cleaned a bathtub before." <> _
                  }
-               ] = Impl.create_daily_summaries(cs, default_opts())
+               ] = Impl.create_daily_summaries(cs, default_opts(account_id))
       end
     end
 
     test "summarizes" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566786789"})
@@ -231,13 +235,14 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      "Jane and John discuss the importance of regularly cleaning the sink to maintain" <>
                        _
                  }
-               ] = Impl.create_daily_summaries(cs, default_opts())
+               ] = Impl.create_daily_summaries(cs, default_opts(account_id))
       end
     end
   end
 
   describe "weekly" do
     test "summarizes" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566786789"})
@@ -285,11 +290,12 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      "John Doe and Jane Foe discuss the process of cleaning a bathtub and sink." <>
                        _
                  }
-               ] = Impl.create_weekly_summaries(cs, default_opts())
+               ] = Impl.create_weekly_summaries(cs, default_opts(account_id))
       end
     end
 
     test "skips previous summary" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566786789"})
@@ -340,11 +346,12 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      "John Doe and Jane Foe engage in a conversation about cleaning a bathtub and sink." <>
                        _
                  }
-               ] = Impl.create_weekly_summaries(cs, default_opts())
+               ] = Impl.create_weekly_summaries(cs, default_opts(account_id))
       end
     end
 
     test "skips this weeks summary" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566786789"})
@@ -384,12 +391,13 @@ defmodule Discussit.ConversationWorker.ImplTest do
         level: Summary.daily()
       })
 
-      assert [] == Impl.create_weekly_summaries(cs, default_opts())
+      assert [] == Impl.create_weekly_summaries(cs, default_opts(account_id))
     end
   end
 
   describe "monthly" do
     test "summarizes" do
+      %{id: account_id} = account_fixture()
       %{id: conversation_id} = conversation = conversation_fixture()
       %{id: monthly_id} = monthly = monthly_summarizer_fixture()
 
@@ -426,11 +434,12 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      "In the last month, Jane and John have made it a priority to maintain a clean" <>
                        _
                  }
-               ] = Impl.create_monthly_summaries(cs, default_opts())
+               ] = Impl.create_monthly_summaries(cs, default_opts(account_id))
       end
     end
 
     test "skips previous summary" do
+      %{id: account_id} = account_fixture()
       %{id: conversation_id} = conversation = conversation_fixture()
       %{id: monthly_id} = monthly = monthly_summarizer_fixture()
 
@@ -475,11 +484,12 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      "In the last month, Jane and John have made it a priority to maintain a clean" <>
                        _
                  }
-               ] = Impl.create_monthly_summaries(cs, default_opts())
+               ] = Impl.create_monthly_summaries(cs, default_opts(account_id))
       end
     end
 
     test "skips this months summary" do
+      %{id: account_id} = account_fixture()
       %{id: conversation_id} = conversation = conversation_fixture()
       %{id: monthly_id} = monthly = monthly_summarizer_fixture()
 
@@ -513,10 +523,11 @@ defmodule Discussit.ConversationWorker.ImplTest do
         level: Summary.daily()
       })
 
-      assert [] == Impl.create_monthly_summaries(cs, default_opts())
+      assert [] == Impl.create_monthly_summaries(cs, default_opts(account_id))
     end
 
     test "summarizes long conversations into the token limit" do
+      %{id: account_id} = account_fixture()
       %{id: conversation_id} = conversation = conversation_fixture()
       %{id: monthly_id} = monthly = monthly_summarizer_fixture()
 
@@ -531,13 +542,14 @@ defmodule Discussit.ConversationWorker.ImplTest do
       long_daily_summaries(cs.id)
 
       use_cassette("long_monthly_conversation_summary", match_requests_on: [:request_body]) do
-        Impl.create_monthly_summaries(cs, default_opts())
+        Impl.create_monthly_summaries(cs, default_opts(account_id))
       end
     end
   end
 
   describe "transcription" do
     test "single call" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566583336"})
@@ -582,11 +594,17 @@ defmodule Discussit.ConversationWorker.ImplTest do
                      %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
                    ]
                  }
-               ] = Impl.transcribe_call([call.id], conversation, default_opts())
+               ] = Impl.transcribe_call([call.id], conversation, default_opts(account_id))
+
+        assert [
+                 %{total: 0.012, account_id: ^account_id},
+                 %{total: 0.012, account_id: ^account_id}
+               ] = Discussit.Usages.list_usages()
       end
     end
 
     test "conversation" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566583336"})
@@ -635,7 +653,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
           })
 
         statements =
-          Impl.transcribe_call([call.id], conversation, default_opts())
+          Impl.transcribe_call([call.id], conversation, default_opts(account_id))
           |> Enum.at(0)
           |> Map.get(:statements)
 
@@ -646,6 +664,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
     end
 
     test "several calls" do
+      %{id: account_id} = account_fixture()
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
       contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
       pn_one = phone_number_fixture(%{value: "12566583336"})
@@ -739,7 +758,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
                  Impl.transcribe_call(
                    [call.id, call2.id, call3.id],
                    conversation,
-                   default_opts()
+                   default_opts(account_id)
                  )
       end
     end

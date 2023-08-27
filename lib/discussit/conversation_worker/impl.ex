@@ -19,8 +19,6 @@ defmodule Discussit.ConversationWorker.Impl do
   alias Discussit.Statements.Statement
 
   def transcribe_call(call_ids, conversation, opts) do
-    openai_config = Keyword.get(opts, :openai_config)
-
     call_ids
     |> Flow.from_enumerable()
     |> Flow.map(fn id ->
@@ -58,13 +56,11 @@ defmodule Discussit.ConversationWorker.Impl do
     |> Flow.map(fn
       # downloads the file and gets the transcription
       %{status: :ok, type: :voicemail, file: %{bucket: bucket, key: key}} = state ->
-        opts = [model: "whisper-1", response_format: "verbose_json"]
-
         with {:ok, path} = Briefly.create(extname: ".mp3"),
              request = ExAws.S3.download_file(bucket, key, path),
              {:ok, :done} = ExAws.request(request),
              {:ok, duration} <- Audio.duration(path),
-             {:ok, %{segments: segments}} <- OpenAI.audio_transcription(path, opts, openai_config) do
+             {:ok, segments} <- create_transcription(path, duration, opts) do
           state
           |> Map.put(:segments, segments)
           |> Map.put(:duration, duration)
@@ -75,17 +71,13 @@ defmodule Discussit.ConversationWorker.Impl do
         end
 
       %{status: :ok, type: :call, file: %{bucket: bucket, key: key}} = state ->
-        opts = [model: "whisper-1", response_format: "verbose_json"]
-
         with {:ok, path} = Briefly.create(extname: ".mp3"),
              request = ExAws.S3.download_file(bucket, key, path),
              {:ok, :done} = ExAws.request(request),
              {:ok, duration} <- Audio.duration(path),
              {:ok, %{left: left, right: right}} <- Audio.split(path),
-             {:ok, %{segments: left_segments}} <-
-               OpenAI.audio_transcription(left, opts, openai_config),
-             {:ok, %{segments: right_segments}} <-
-               OpenAI.audio_transcription(right, opts, openai_config) do
+             {:ok, left_segments} <- create_transcription(left, duration, opts),
+             {:ok, right_segments} <- create_transcription(right, duration, opts) do
           segments =
             Enum.map(left_segments, &Map.put(&1, "channel", :left)) ++
               Enum.map(right_segments, &Map.put(&1, "channel", :right))
@@ -306,6 +298,40 @@ defmodule Discussit.ConversationWorker.Impl do
       joined_errors = Enum.join(v, "; ")
       "#{acc}#{k}: #{joined_errors}\n"
     end)
+  end
+
+  defp create_transcription(path, duration, opts) do
+    openai_config = Keyword.get(opts, :openai_config)
+    account_id = Keyword.get(opts, :account_id)
+    model = "whisper-1"
+    opts = [model: model, response_format: "verbose_json"]
+
+    case OpenAI.audio_transcription(path, opts, openai_config) do
+      {:ok, %{segments: segments}} ->
+        %{
+          meta: %{duration: duration},
+          model: model,
+          product: :transcription,
+          provider: :openai,
+          account_id: account_id
+        }
+        |> Discussit.Usages.calculate_total()
+        |> Discussit.Usages.create_usage()
+        |> case do
+          {:error, changeset} ->
+            IO.inspect(changeset)
+
+            Logger.error("Failed to create transcription usage", changeset: changeset)
+
+          _ ->
+            nil
+        end
+
+        {:ok, segments}
+
+      {:error, _} ->
+        {:error, "Failed to transcribe"}
+    end
   end
 
   defp cast_microseconds(seconds), do: (seconds * 1_000_000) |> floor()

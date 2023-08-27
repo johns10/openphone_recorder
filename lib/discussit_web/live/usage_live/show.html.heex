@@ -1,0 +1,18 @@
+<.header>
+  Usage <%= @usage.id %>
+  <:subtitle>This is a usage record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/usages/#{@usage}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit usage</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Provider"><%= @usage.provider %></:item>
+  <:item title="Model"><%= @usage.model %></:item>
+  <:item title="Product"><%= @usage.product %></:item>
+  <:item title="Total"><%= @usage.total %></:item>
+</.list>
+
+<.back navigate={~p"/usages"}>Back to usages</.back>
