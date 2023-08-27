@@ -7,7 +7,7 @@ defmodule DiscussitWeb.EventController do
   alias Discussit.Events.Event
   alias Discussit.Events.Signature
 
-  action_fallback DiscussitWeb.FallbackController
+  action_fallback(DiscussitWeb.FallbackController)
 
   def index(conn, _params) do
     events = Events.list_events()
@@ -19,7 +19,12 @@ defmodule DiscussitWeb.EventController do
 
     with {:ok, _signature} <- validate_request(conn, account_id),
          {:ok, %Event{} = event} <-
-           Events.create_event(%{account_id: account_id, payload: payload}) do
+           Events.create_event(%{
+             account_id: account_id,
+             payload: payload,
+             skipped: false,
+             processed: false
+           }) do
       Consumer.start()
 
       conn

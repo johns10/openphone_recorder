@@ -17,7 +17,8 @@ defmodule Discussit.EventsFixtures do
       |> Enum.into(%{
         account_id: account_id,
         payload: %{},
-        processed: false
+        processed: false,
+        skipped: false
       })
       |> Discussit.Events.create_event()
 
