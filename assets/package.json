@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "daisyui": "^2.51.6"
+    "daisyui": "^2.51.6",
+    "uuid": "^9.0.0"
   }
 }

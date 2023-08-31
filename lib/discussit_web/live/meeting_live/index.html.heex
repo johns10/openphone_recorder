@@ -1,0 +1,60 @@
+<.header>
+  Listing Meetings
+  <:actions>
+    <.link phx-hook="ImportZoomMeetings" id="import-zoom-meetings">
+      <.button>Import Zoom Meetings</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="meetings"
+  rows={@streams.meetings}
+  row_click={fn {_id, meeting} -> JS.navigate(~p"/meetings/#{meeting}") end}
+>
+  <:col :let={{_id, meeting}} label="Name"><%= meeting.name %></:col>
+  <:col :let={{_id, meeting}} label="Provider"><%= meeting.provider %></:col>
+  <:col :let={{_id, meeting}} label="Occurred at"><%= meeting.occurred_at %></:col>
+  <:col :let={{_id, meeting}} label="Status">
+    <.icon
+      :if={meeting.upload_status == :created}
+      name="hero-ellipsis-horizontal"
+      class="w-4 h-4"
+    />
+    <.icon
+      :if={meeting.upload_status == :files_uploading}
+      name="hero-arrow-path"
+      class="w-4 h-4 animate-spin"
+    />
+    <.icon :if={meeting.upload_status == :files_uploaded} name="hero-check" class="w-4 h-4 bg-success" />
+  </:col>
+  <:action :let={{_id, meeting}}>
+    <div class="sr-only">
+      <.link navigate={~p"/meetings/#{meeting}"}>Show</.link>
+    </div>
+  </:action>
+  <:action :let={{id, meeting}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: meeting.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="meeting-modal"
+  show
+  on_cancel={JS.patch(~p"/meetings")}
+>
+  <.live_component
+    module={DiscussitWeb.MeetingLive.FormComponent}
+    id={@meeting.id || :new}
+    title={@page_title}
+    action={@live_action}
+    meeting={@meeting}
+    patch={~p"/meetings"}
+  />
+</.modal>
