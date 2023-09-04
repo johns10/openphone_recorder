@@ -1,0 +1,24 @@
+@startuml
+[<img:zoom_logo.png{scale=1}>] as zoom
+[<img:gmail_logo.png{scale=0.1}>] as gmail
+[<img:openphone_logo.png{scale=1}>] as openphone
+zoom --[hidden]> gmail
+gmail --[hidden]> openphone
+
+[<img:discussit_logo.png{scale=0.2}>] as discussit
+
+gmail -> discussit
+zoom -d-> discussit
+openphone -u-> discussit
+
+[Summarizers] as summ
+[Topic Analysis] as ta
+[Sentiment Analysis] as sa
+
+summ --[hidden]> ta
+ta --[hidden]> sa
+
+discussit -> summ
+discussit -u-> ta
+discussit -d-> sa
+@enduml
