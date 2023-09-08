@@ -209,14 +209,14 @@ defmodule Discussit.Events.Openphone.Projector do
 
   defp handle_upload(
          %Call{id: id, voicemail: %Media{duration: d, type: "audio/mpeg"} = media},
-         account_id
+         _account_id
        )
        when d > 0,
        do: transfer_file(id, media)
 
   defp handle_upload(
          %Call{id: id, media: [%Media{duration: d, type: "audio/mpeg"} = media]},
-         account_id
+         _account_id
        )
        when d > 0,
        do: transfer_file(id, media)

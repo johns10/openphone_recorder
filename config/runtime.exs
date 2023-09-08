@@ -14,6 +14,11 @@ case System.get_env("OPENAI_API_KEY") do
   key -> config :ex_openai, api_key: key
 end
 
+case System.get_env("AAI_API_KEY") do
+  nil -> nil
+  key -> config :discussit, aai_api_key: key
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

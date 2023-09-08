@@ -10,14 +10,13 @@ ImportZoomMeetings = {
       incoming.files.map(async incomingFile => {
         const file = FILES[incomingFile.key]
         const fileData = await file.handle.getFile();
-        let response = await fetch(incomingFile.url, {
+        await fetch(incomingFile.url, {
           method: "PUT",
           body: fileData,
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-        console.log(response)
         this.pushEvent("meeting-uploaded", { id: incoming.id })
       })
 
@@ -44,21 +43,31 @@ async function getDirectories(handle) {
 
 async function getMeetingAttrs([name, directoryHandle]) {
   var files = []
-  files = await getFiles(directoryHandle, files)
-  const attrs = { name, files, provider: "zoom", upload_status: "created" }
+  const result = await getFiles(directoryHandle, files)
+  files = result.files
+  external_id = result.externalId
+  const attrs = { name, files, external_id, source: "zoom", upload_status: "created" }
   return attrs
 }
 
 async function getFiles(directoryHandle, files) {
+  var externalId
   for await (const [fileName, fileHandle] of directoryHandle) {
     if (fileHandle.name.includes(".m4a") || fileHandle.name.includes(".txt")) {
       const key = uuidv5(fileName, uuidv5.URL)
-      const attrs = { name: fileName, handle: fileHandle }
+      const { lastModified } = await fileHandle.getFile()
+      const attrs = { name: fileName, handle: fileHandle, lastModified }
       FILES[key] = attrs
       files.push({ key, ...attrs })
     }
+    if (fileHandle.name === "recording.conf") {
+      const file = await fileHandle.getFile()
+      const text = await file.text()
+      const result = JSON.parse(text)
+      externalId = result.magic_number
+    }
   }
-  return files
+  return { files, externalId }
 }
 
 export default ImportZoomMeetings

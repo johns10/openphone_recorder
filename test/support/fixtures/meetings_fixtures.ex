@@ -12,7 +12,8 @@ defmodule Discussit.MeetingsFixtures do
       attrs
       |> Enum.into(%{
         occurred_at: ~N[2023-08-27 17:35:00.000000],
-        provider: :zoom
+        source: :zoom,
+        external_id: Ecto.UUID.generate()
       })
       |> Discussit.Meetings.create_meeting()
 

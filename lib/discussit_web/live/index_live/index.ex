@@ -7,13 +7,11 @@ defmodule DiscussitWeb.IndexLive.Index do
   on_mount({DiscussitWeb.UserAuth, :mount_current_user})
 
   import DiscussitWeb.IndexLive.Components
-  import DiscussitWeb.LiveSupport
 
   alias Discussit.Conversations
   alias Discussit.Calls
   alias Discussit.Statements
   alias Discussit.Participants
-  alias Discussit.UserSettings.UserSetting
   alias Discussit.ConversationWorker
   alias Discussit.Summaries.Summary
 
@@ -393,33 +391,6 @@ defmodule DiscussitWeb.IndexLive.Index do
       {atomize(p2.id), "chat-end"}
       | Enum.map(tail, &{atomize(&1.id), "chat-end"})
     ]
-  end
-
-  defp render_date(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
-    {:ok, local} = DateTime.from_naive(date_time, timezone)
-    "#{local.month}/#{local.day} #{local.hour}:#{local.minute}"
-  end
-
-  defp render_day(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
-    DateTime.from_naive!(date_time, timezone) |> Date.to_string()
-  end
-
-  defp render_week(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
-    date = DateTime.from_naive!(date_time, timezone) |> Date.to_string()
-    "Week of #{date}"
-  end
-
-  defp render_month(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
-    %{month: month} = DateTime.from_naive!(date_time, timezone)
-    "#{Timex.month_name(month)}"
   end
 
   defp atomize(int), do: :"#{int}"

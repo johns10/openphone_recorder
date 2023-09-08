@@ -243,8 +243,8 @@ defmodule Discussit.Summaries.Summarize do
 
   def create_completion(prompt, max_tokens, opts \\ []) do
     messages = [%{role: :user, content: prompt}]
-
     model = "gpt-3.5-turbo"
+    account_id = opts[:account_id] || raise("Account id required to create usage")
 
     ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
     |> case do
@@ -254,7 +254,7 @@ defmodule Discussit.Summaries.Summarize do
           model: model,
           product: :chat_completions,
           provider: :openai,
-          account_id: opts[:account_id]
+          account_id: account_id
         }
         |> Discussit.Usages.calculate_total()
         |> Discussit.Usages.create_usage()

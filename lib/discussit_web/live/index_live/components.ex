@@ -1,6 +1,11 @@
 defmodule DiscussitWeb.IndexLive.Components do
   use DiscussitWeb, :html
+
+  import DiscussitWeb.LiveSupport
+
   alias Discussit.Conversations.Conversation
+  alias Discussit.UserSettings.UserSetting
+  alias Discussit.PhoneNumbers.PhoneNumber
 
   attr(:conversation, Conversation, default: nil)
   attr(:zoom_level, :integer, default: 0)
@@ -136,18 +141,22 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def participant(assigns) do
     ~H"""
-    <%= case {@participant.contact, length(@participant.phone_number.contacts)} do %>
-      <% {%Discussit.Contacts.Contact{}, _} -> %>
-        <.render_contact contact={@participant.contact} class={@class} />
-      <% {_, 1} -> %>
-        <.render_contact
-          contact={@participant.phone_number.contacts |> Enum.at(0)}
-          class={["text-warning", @class]}
-        />
-      <% {nil, _} -> %>
-        <.render_phone_number phone_number={@participant.phone_number} , class={@class} } />
-      <% _ -> %>
-        <.render_contact contact={@participant.contact} class={@class} />
+    <.render_contact
+      :if={is_struct(@participant.contact, Discussit.Contacts.Contact)}
+      contact={@participant.contact}
+      class={@class}
+    />
+    <%= if @participant.contact == nil && is_struct(@participant.phone_number, PhoneNumber) do %>
+      <.render_contact
+        :if={length(@participant.phone_number.contacts) == 1}
+        contact={@participant.phone_number.contacts |> Enum.at(0)}
+        class={["text-warning", @class]}
+      />
+      <.render_phone_number
+        :if={length(@participant.phone_number.contacts) > 1}
+        phone_number={@participant.phone_number}
+        class={@class}
+      />
     <% end %>
     """
   end
@@ -164,5 +173,32 @@ defmodule DiscussitWeb.IndexLive.Components do
     ~H"""
     <span class={["whitespace-nowrap", @class]}><%= @phone_number.value |> to_string() %></span>
     """
+  end
+
+  def render_date(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    {:ok, local} = DateTime.from_naive(date_time, timezone)
+    "#{local.month}/#{local.day} #{local.hour}:#{local.minute}"
+  end
+
+  def render_day(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    DateTime.from_naive!(date_time, timezone) |> Date.to_string()
+  end
+
+  def render_week(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    date = DateTime.from_naive!(date_time, timezone) |> Date.to_string()
+    "Week of #{date}"
+  end
+
+  def render_month(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
+    options = select_options(UserSetting, :timezone)
+    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+    %{month: month} = DateTime.from_naive!(date_time, timezone)
+    "#{Timex.month_name(month)}"
   end
 end

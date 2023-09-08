@@ -1,6 +1,7 @@
 defmodule Discussit.Statements.Statement do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.Meetings.Meeting
   alias Discussit.Calls.Call
   alias Discussit.StatementSummaries.StatementSummary
   alias Discussit.Participants.Participant
@@ -12,12 +13,13 @@ defmodule Discussit.Statements.Statement do
     field :source, Ecto.Enum, values: [:openphone, :transcription]
     field :content, :string
     field :occurred_at, :naive_datetime_usec
-    field :type, Ecto.Enum, values: [:call, :voicemail, :message]
+    field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
     field :conversation_id, :binary_id
     field :ts_range, TsRange
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
+    belongs_to :meeting, Meeting
 
     has_many :statement_summaries, StatementSummary
     has_many :summaries, through: [:statement_summaries, :summary]
@@ -30,12 +32,13 @@ defmodule Discussit.Statements.Statement do
     statement
     |> cast(attrs, [
       :external_id,
+      :conversation_id,
+      :participant_id,
+      :meeting_id,
       :source,
       :content,
       :occurred_at,
       :type,
-      :conversation_id,
-      :participant_id,
       :call_id,
       :ts_range
     ])
@@ -43,6 +46,7 @@ defmodule Discussit.Statements.Statement do
     |> foreign_key_constraint(:conversation_id)
     |> foreign_key_constraint(:participant_id)
     |> foreign_key_constraint(:call_id)
+    |> foreign_key_constraint(:meeting_id)
     |> cast_id()
     |> unique_constraint([:id], name: :statements_pkey)
   end

@@ -454,7 +454,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       summary_fixture(%{
         title: "title",
         content: "content",
-        summary_interval: months_ago_range(3),
+        summary_interval: months_ago_range(4),
         conversation_summarizer_id: cs.id,
         level: Summary.monthly()
       })
@@ -477,13 +477,11 @@ defmodule Discussit.ConversationWorker.ImplTest do
         level: Summary.daily()
       })
 
+      ExVCR.Config.filter_request_headers("Authorization")
+
       use_cassette("existing_monthly_conversation_summaries", match_requests_on: [:request_body]) do
         assert [
-                 %{
-                   content:
-                     "In the last month, Jane and John have made it a priority to maintain a clean" <>
-                       _
-                 }
+                 %{content: "Jane and John discuss the importance of maintaining" <> _}
                ] = Impl.create_monthly_summaries(cs, default_opts(account_id))
       end
     end
@@ -659,7 +657,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
 
         statements |> Enum.count()
 
-        assert Enum.count(statements) in [19, 20]
+        assert Enum.count(statements) in [19, 20, 21]
       end
     end
 

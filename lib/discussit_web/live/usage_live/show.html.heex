@@ -1,11 +1,6 @@
 <.header>
   Usage <%= @usage.id %>
   <:subtitle>This is a usage record from your database.</:subtitle>
-  <:actions>
-    <.link patch={~p"/usages/#{@usage}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit usage</.button>
-    </.link>
-  </:actions>
 </.header>
 
 <.list>

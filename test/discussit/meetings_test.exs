@@ -8,11 +8,17 @@ defmodule Discussit.MeetingsTest do
 
     import Discussit.MeetingsFixtures
 
-    @invalid_attrs %{occurred_at: nil, provider: nil}
+    @invalid_attrs %{occurred_at: nil, source: nil}
 
     test "list_meetings/0 returns all meetings" do
       meeting = meeting_fixture()
       assert Meetings.list_meetings() == [meeting]
+    end
+
+    test "list_meetings/0 doesn't return segments" do
+      meeting_fixture(%{segments: [%{"stuff" => "things"}]})
+      [meeting] = Meetings.list_meetings()
+      assert meeting.segments == nil
     end
 
     test "get_meeting!/1 returns the meeting with given id" do
@@ -21,11 +27,11 @@ defmodule Discussit.MeetingsTest do
     end
 
     test "create_meeting/1 with valid data creates a meeting" do
-      valid_attrs = %{occurred_at: ~N[2023-08-27 17:35:00.000000], provider: :zoom}
+      valid_attrs = %{occurred_at: ~N[2023-08-27 17:35:00.000000], source: :zoom}
 
       assert {:ok, %Meeting{} = meeting} = Meetings.create_meeting(valid_attrs)
       assert meeting.occurred_at == ~N[2023-08-27 17:35:00.000000]
-      assert meeting.provider == :zoom
+      assert meeting.source == :zoom
     end
 
     test "create_meeting/1 with invalid data returns error changeset" do
@@ -34,11 +40,11 @@ defmodule Discussit.MeetingsTest do
 
     test "update_meeting/2 with valid data updates the meeting" do
       meeting = meeting_fixture()
-      update_attrs = %{occurred_at: ~N[2023-08-28 17:35:00.000000], provider: :teams}
+      update_attrs = %{occurred_at: ~N[2023-08-28 17:35:00.000000], source: :teams}
 
       assert {:ok, %Meeting{} = meeting} = Meetings.update_meeting(meeting, update_attrs)
       assert meeting.occurred_at == ~N[2023-08-28 17:35:00.000000]
-      assert meeting.provider == :teams
+      assert meeting.source == :teams
     end
 
     test "update_meeting/2 with invalid data returns error changeset" do

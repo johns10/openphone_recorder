@@ -61,4 +61,17 @@ defmodule Discussit.Usages do
     total = ceil(duration / 60) * 0.006
     Map.put(attrs, :total, total)
   end
+
+  def calculate_total(
+        %{
+          provider: :assemblyai,
+          model: "assemblyai_default",
+          meta: %{
+            duration: duration
+          }
+        } = attrs
+      ) do
+    total = duration * 0.000181
+    Map.put(attrs, :total, total)
+  end
 end

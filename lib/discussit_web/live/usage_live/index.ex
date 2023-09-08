@@ -2,7 +2,6 @@ defmodule DiscussitWeb.UsageLive.Index do
   use DiscussitWeb, :live_view
 
   alias Discussit.Usages
-  alias Discussit.Usages.Usage
 
   @impl true
   def mount(_params, _session, socket) do

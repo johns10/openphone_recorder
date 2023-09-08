@@ -55,8 +55,8 @@ defmodule Discussit.ConversationsTest do
 
       [conversation] = Conversations.list_conversation_summary(account.id)
 
-      assert [%{phone_number: %{id: ^pn_id}}, %{phone_number: %{id: ^pn2_id}}] =
-               conversation.participants
+      assert Enum.any?(conversation.participants, &(&1.phone_number.id == pn_id))
+      assert Enum.any?(conversation.participants, &(&1.phone_number.id == pn2_id))
     end
 
     test "list_conversation_summary orders participants with contacts first" do

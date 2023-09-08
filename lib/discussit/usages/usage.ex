@@ -5,9 +5,16 @@ defmodule Discussit.Usages.Usage do
 
   schema "usages" do
     field :meta, :map
-    field :model, Ecto.Enum, values: ["gpt-3.5-turbo": "gpt-3.5-turbo", "whisper-1": "whisper-1"]
+
+    field :model, Ecto.Enum,
+      values: [
+        "gpt-3.5-turbo": "gpt-3.5-turbo",
+        "whisper-1": "whisper-1",
+        assemblyai_default: "assemblyai_default"
+      ]
+
     field :product, Ecto.Enum, values: [:chat_completions, :transcription]
-    field :provider, Ecto.Enum, values: [:openai]
+    field :provider, Ecto.Enum, values: [:openai, :assemblyai]
     field :total, :float
 
     belongs_to :account, Account, type: :binary_id

@@ -43,7 +43,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
               >
                 <.icon name="hero-chevron-down" />
               </button>
-          </div>
+            </div>
             <.error :for={msg <- Enum.map(@form[:timezone].errors, &translate_error(&1))}>
               <%= msg %>
             </.error>
@@ -156,7 +156,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
 
   defp save_account(socket, :new, account_params) do
     with {:ok, account} <- Accounts.create_account(account_params),
-         {:ok, account_user} <-
+         {:ok, _account_user} <-
            AccountUsers.create_account_user(%{
              account_id: account.id,
              user_id: socket.assigns.current_user.id

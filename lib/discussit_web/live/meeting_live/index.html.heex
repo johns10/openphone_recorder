@@ -13,9 +13,9 @@
   row_click={fn {_id, meeting} -> JS.navigate(~p"/meetings/#{meeting}") end}
 >
   <:col :let={{_id, meeting}} label="Name"><%= meeting.name %></:col>
-  <:col :let={{_id, meeting}} label="Provider"><%= meeting.provider %></:col>
+  <:col :let={{_id, meeting}} label="Provider"><%= meeting.source %></:col>
   <:col :let={{_id, meeting}} label="Occurred at"><%= meeting.occurred_at %></:col>
-  <:col :let={{_id, meeting}} label="Status">
+  <:col :let={{_id, meeting}} label="Files">
     <.icon
       :if={meeting.upload_status == :created}
       name="hero-ellipsis-horizontal"
@@ -26,7 +26,32 @@
       name="hero-arrow-path"
       class="w-4 h-4 animate-spin"
     />
-    <.icon :if={meeting.upload_status == :files_uploaded} name="hero-check" class="w-4 h-4 bg-success" />
+    <.icon
+      :if={meeting.upload_status == :files_uploaded}
+      name="hero-check"
+      class="w-4 h-4 bg-success"
+    />
+  </:col>
+  <:col :let={{_id, meeting}} label="Transcript">
+    <div id={"projector-status-#{meeting.id}"}>
+      <.icon
+        :if={meeting.projector_status == :not_started}
+        name="hero-ellipsis-horizontal"
+        class="w-4 h-4"
+      />
+      <.icon
+        :if={meeting.projector_status == :in_progress}
+        name="hero-arrow-path"
+        class="w-4 h-4 animate-spin"
+      />
+      <.icon :if={meeting.projector_status == :done} name="hero-check" class="w-4 h-4 bg-success" />
+    </div>
+  </:col>
+  <:col :let={{_id, meeting}} label="Assigned">
+    <div id={"assignment-status-#{meeting.id}"}>
+      <.icon :if={meeting.conversation_id} name="hero-check" class="w-4 h-4 bg-success" />
+      <.icon :if={!meeting.conversation_id} name="hero-ellipsis-horizontal" class="w-4 h-4" />
+    </div>
   </:col>
   <:action :let={{_id, meeting}}>
     <div class="sr-only">
@@ -34,12 +59,21 @@
     </div>
   </:action>
   <:action :let={{id, meeting}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: meeting.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
+    <.button class="btn-xs">
+      <.link
+        phx-click={JS.push("delete", value: %{id: meeting.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </.button>
+  </:action>
+  <:action :let={{_id, meeting}}>
+    <.button class="btn-xs" disabled={meeting.projector_status != :not_started}>
+      <.link phx-click={JS.push("transcribe", value: %{id: meeting.id})}>
+        Transcribe
+      </.link>
+    </.button>
   </:action>
 </.table>
 

@@ -6,6 +6,8 @@ defmodule Discussit.Participants.Participant do
   alias Discussit.Contacts.Contact
 
   schema "participants" do
+    field :name, :string
+    
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :phone_number, PhoneNumber, type: :binary_id
     belongs_to :contact, Contact, type: :binary_id
@@ -16,7 +18,7 @@ defmodule Discussit.Participants.Participant do
   @doc false
   def changeset(participant, attrs) do
     participant
-    |> cast(attrs, [:conversation_id, :phone_number_id, :contact_id])
+    |> cast(attrs, [:conversation_id, :phone_number_id, :contact_id, :name])
     |> validate_required([])
     |> unique_constraint([:conversation_id, :phone_number_id])
     |> foreign_key_constraint(:conversation_id)

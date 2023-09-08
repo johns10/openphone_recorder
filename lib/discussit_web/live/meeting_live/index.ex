@@ -3,9 +3,11 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   alias Discussit.Meetings
   alias Discussit.Meetings.Meeting
+  alias Discussit.Transcription
 
   @impl true
   def mount(_params, _session, socket) do
+    DiscussitWeb.Endpoint.subscribe("user_#{socket.assigns.current_user.id}")
     {:ok, stream(socket, :meetings, Meetings.list_meetings())}
   end
 
@@ -22,6 +24,10 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   @impl true
   def handle_info({DiscussitWeb.MeetingLive.FormComponent, {:saved, meeting}}, socket) do
+    {:noreply, stream_insert(socket, :meetings, meeting)}
+  end
+
+  def handle_info(%{event: "meeting_transcription_progress", payload: meeting}, socket) do
     {:noreply, stream_insert(socket, :meetings, meeting)}
   end
 
@@ -61,7 +67,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
     |> Map.put("occurred_at", occurred_at)
     |> Map.put("files", file_attrs)
     |> Map.put("user_id", socket.assigns.current_user.id)
-    |> IO.inspect()
+    |> Map.put("projector_status", :not_started)
     |> Meetings.create_meeting()
     |> case do
       {:ok, meeting} ->
@@ -71,8 +77,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
       {:error, %{errors: [name: {"has already been taken", [{:constraint, :unique} | _]}]}} ->
         {:noreply, socket}
 
-      {:error, changeset} ->
-        IO.inspect(changeset)
+      {:error, _changeset} ->
         {:noreply, put_flash(socket, :error, "Failed to create meeting")}
     end
   end
@@ -93,5 +98,14 @@ defmodule DiscussitWeb.MeetingLive.Index do
       |> Meetings.update_meeting(%{upload_status: :files_uploaded})
 
     {:noreply, socket |> stream_insert(:meetings, meeting)}
+  end
+
+  def handle_event("transcribe", %{"id" => id}, socket) do
+    Transcription.transcribe([id], %Meeting{},
+      account_id: socket.assigns.user_setting.selected_account_id,
+      user_id: socket.assigns.current_user.id
+    )
+
+    {:noreply, socket}
   end
 end

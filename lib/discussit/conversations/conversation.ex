@@ -9,7 +9,8 @@ defmodule Discussit.Conversations.Conversation do
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
     field :external_id, :string
-    field :source, Ecto.Enum, values: [:openphone]
+    field :source, Ecto.Enum, values: [:openphone, :zoom]
+    field :occurred_at, :naive_datetime_usec
 
     field :last_occurred_at, :naive_datetime_usec, virtual: true
 
@@ -40,11 +41,11 @@ defmodule Discussit.Conversations.Conversation do
         source = get_change(changeset, :source)
 
         case {source, external_id} do
-          {:openphone, external_id} when is_atom(source) and is_binary(external_id) ->
-            put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+          {source, external_id} when is_atom(source) and is_binary(external_id) ->
+            put_change(changeset, :id, UUID.uuid5(nil, to_string(source) <> "-" <> external_id))
 
           _ ->
-            add_error(changeset, :id, "insufficient args to generate id")
+            add_error(changeset, :id, "insufficient args to generate conversation_id id")
         end
 
       _ ->
