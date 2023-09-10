@@ -15,6 +15,12 @@ defmodule Discussit.ContactsTest do
       assert Contacts.list_contacts() == [contact]
     end
 
+    test "list_contacts/1 with search returns the right contacts" do
+      contact = contact_fixture()
+      other_contact = contact_fixture()
+      assert Contacts.list_contacts(filters: [search: contact.first_name]) == [contact]
+    end
+
     test "get_contact!/1 returns the contact with given id" do
       contact = contact_fixture()
       assert Contacts.get_contact!(contact.id) == contact

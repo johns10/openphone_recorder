@@ -25,6 +25,8 @@ defmodule Discussit.Contacts do
     |> preload(^preloads)
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_phone_number_id(filters[:phone_number_id])
+    |> search(filters[:search])
+    |> maybe_limit(opts[:limit])
     |> Repo.all()
   end
 
@@ -50,6 +52,19 @@ defmodule Discussit.Contacts do
     |> join(:left, [c], cpn in assoc(c, :contact_phone_numbers), as: :cpn)
     |> where([cpn: cpn], cpn.phone_number_id == ^phone_number_id)
   end
+
+  defp search(query, nil), do: query
+
+  defp search(query, text) do
+    query
+    |> where(
+      [c],
+      ilike(fragment("CONCAT((?),' ',(?))", c.first_name, c.last_name), ^"%#{text}%")
+    )
+  end
+
+  defp maybe_limit(query, nil), do: query
+  defp maybe_limit(query, value), do: limit(query, ^value)
 
   def create_contact(attrs \\ %{}) do
     %Contact{}
