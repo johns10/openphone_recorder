@@ -82,6 +82,29 @@ defmodule Discussit.ConversationsTest do
       assert Conversations.get_conversation!(conversation.id) == conversation
     end
 
+    test "list_conversations!/2 filtered by participant ids returns the right conversation" do
+      conversation_fixture()
+      conversation = conversation_fixture()
+      contact_1 = contact_fixture()
+      participant_fixture(%{conversation_id: conversation.id, contact_id: contact_1.id})
+      contact_2 = contact_fixture()
+      participant_fixture(%{conversation_id: conversation.id, contact_id: contact_2.id})
+      ids = [contact_1.id, contact_2.id]
+      assert Conversations.list_conversations(filters: [exact_contact_ids: ids]) == [conversation]
+    end
+
+    test "list_conversations/2 filtered by wrong participant ids doesn't return conversation" do
+      conversation = conversation_fixture()
+      contact_1 = contact_fixture()
+      participant_fixture(%{conversation_id: conversation.id, contact_id: contact_1.id})
+      contact_2 = contact_fixture()
+      participant_fixture(%{conversation_id: conversation.id, contact_id: contact_2.id})
+      contact_3 = contact_fixture()
+      participant_fixture(%{conversation_id: conversation.id, contact_id: contact_3.id})
+      ids = [contact_1.id, contact_2.id]
+      assert Conversations.list_conversations(filters: [exact_contact_ids: ids]) == []
+    end
+
     test "upsert_conversation/1 with valid data creates a conversation" do
       valid_attrs = %{
         external_id: "asd08hlaihdoih",

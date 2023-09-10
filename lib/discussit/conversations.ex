@@ -2,6 +2,7 @@ defmodule Discussit.Conversations do
   @behaviour Bodyguard.Policy
   import Ecto.Query, warn: false
   alias Discussit.Repo
+  alias Discussit.Participants
   alias Discussit.Conversations.Conversation
   alias Discussit.Participants.Participant
   alias Discussit.Statements.Statement
@@ -23,6 +24,7 @@ defmodule Discussit.Conversations do
 
     Conversation
     |> maybe_preload(preloads)
+    |> filter_by_exact_contact_ids(filters[:exact_contact_ids])
     |> filter_by_account_id(filters[:account_id])
     |> order_by_last_statement_occured_at(order_bys[:last_statement_occurred_at])
     |> Repo.all()
@@ -79,6 +81,18 @@ defmodule Discussit.Conversations do
   defp filter_by_account_id(query, account_id) do
     query
     |> where([c], c.account_id == ^account_id)
+  end
+
+  defp filter_by_exact_contact_ids(query, nil), do: query
+  defp filter_by_exact_contact_ids(query, []), do: query
+
+  defp filter_by_exact_contact_ids(query, contact_ids) do
+    ids_count = Enum.count(contact_ids)
+
+    query
+    |> join(:inner, [c], p in assoc(c, :participants), as: :participants)
+    |> group_by([c, participants: p], c.id)
+    |> having([c, participants: p], count(p.contact_id, :distinct) == ^ids_count)
   end
 
   defp order_by_last_statement_occured_at(query, nil), do: query
