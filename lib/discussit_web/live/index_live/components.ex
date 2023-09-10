@@ -105,6 +105,18 @@ defmodule DiscussitWeb.IndexLive.Components do
     })
   end
 
+  def participant_search_dropdown(assigns) do
+    ~H"""
+    <input type="text" list="cars" />
+    <datalist id="cars">
+      <option>Volvo</option>
+      <option>Saab</option>
+      <option>Mercedes</option>
+      <option>Audi</option>
+    </datalist>
+    """
+  end
+
   def participant_or_picker(assigns), do: participant(assigns)
 
   def render_contact_picker(assigns) do
@@ -153,10 +165,13 @@ defmodule DiscussitWeb.IndexLive.Components do
         class={["text-warning", @class]}
       />
       <.render_phone_number
-        :if={length(@participant.phone_number.contacts) > 1}
+        :if={length(@participant.phone_number.contacts) != 1}
         phone_number={@participant.phone_number}
         class={@class}
       />
+    <% end %>
+    <%= if @participant.contact == nil && @participant.phone_number == nil do %>
+      <%= @participant.name %>
     <% end %>
     """
   end

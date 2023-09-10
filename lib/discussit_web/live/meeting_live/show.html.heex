@@ -12,6 +12,12 @@
 </.list>
 
 <%= for statement <- @meeting.statements do %>
+  <.live_component
+    module={DiscussitWeb.MeetingLive.ParticipantFinder}
+    id={"participant-finder-#{statement.participant.id}"}
+    participant={statement.participant}
+    account_id={@user_setting.selected_account_id}
+  />
   <div class="px-4 w-full flex flex-row items-center space-x-2">
     <.participant participant={statement.participant} class="" />
     <div class="text-xs">

@@ -6,10 +6,19 @@ defmodule DiscussitWeb.MeetingLiveTest do
   import Discussit.MeetingsFixtures
   import Discussit.StatementsFixtures
   import Discussit.ParticipantsFixtures
+  import Discussit.AccountsFixtures
+  import Discussit.AccountUsersFixtures
+  import Discussit.ContactsFixtures
 
   # @create_attrs %{occurred_at: "2023-08-27T17:35:00.000000", provider: :zoom}
   # @update_attrs %{occurred_at: "2023-08-28T17:35:00.000000", provider: :teams}
   # @invalid_attrs %{occurred_at: nil, provider: nil}
+
+  defp account_setup(%{user: user}) do
+    account = account_fixture()
+    account_user = account_user_fixture(%{account_id: account.id, user_id: user.id})
+    %{account: account}
+  end
 
   defp create_meeting(_) do
     meeting = meeting_fixture()
@@ -82,7 +91,13 @@ defmodule DiscussitWeb.MeetingLiveTest do
   end
 
   describe "Show" do
-    setup [:register_and_log_in_user, :create_meeting, :create_participant, :create_statement]
+    setup [
+      :register_and_log_in_user,
+      :account_setup,
+      :create_meeting,
+      :create_participant,
+      :create_statement
+    ]
 
     test "displays meeting", %{conn: conn, meeting: meeting, statement: statement} do
       {:ok, _show_live, html} = live(conn, ~p"/meetings/#{meeting}")
@@ -96,13 +111,31 @@ defmodule DiscussitWeb.MeetingLiveTest do
         conn: conn,
         meeting: meeting,
         statement: statement,
-        participant: participant
+        participant: participant,
+        account: account
       } = context
+
+      other_account = account_fixture()
+      other_contact = contact_fixture(%{account_id: other_account.id})
+
+      contact = contact_fixture(%{account_id: account.id})
+      contact_2 = contact_fixture(%{account_id: account.id})
 
       {:ok, show_live, html} = live(conn, ~p"/meetings/#{meeting}")
       assert html =~ "Show Meeting"
       assert html =~ statement.content
       assert html =~ participant.name
+
+      html = show_live |> element("#find-participant-#{participant.id}") |> render_click()
+      assert html =~ contact.first_name
+      refute html =~ other_contact.first_name
+
+      refute show_live
+             |> element("#contact-search-#{participant.id}")
+             |> render_change(%{search: contact.first_name}) =~ contact_2.first_name
+
+      assert show_live |> element("#participant-contact-#{contact.id}") |> render_click() =~
+               contact.first_name
     end
   end
 end
