@@ -338,7 +338,15 @@ defmodule Discussit.Transcription.Support do
 
   def build_statement_attrs(%{status: :error} = state), do: state
 
-  def group_statement_attrs(%{status: :ok, statement_attrs: attrs} = state) do
+  def group_statement_attrs(%{status: :ok, statement_attrs: attrs, data: %Meeting{}} = state) do
+    Map.put(
+      state,
+      :message,
+      state.message <> "No grouping on meetings, passed #{Enum.count(attrs)} attrs."
+    )
+  end
+
+  def group_statement_attrs(%{status: :ok, statement_attrs: attrs, data: %Call{}} = state) do
     attrs =
       attrs
       |> Enum.sort(&(NaiveDateTime.compare(&1.occurred_at, &2.occurred_at) != :gt))
