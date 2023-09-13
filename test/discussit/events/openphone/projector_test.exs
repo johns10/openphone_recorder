@@ -163,6 +163,18 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
                |> Events.cast_event()
                |> Projector.apply(account.id)
     end
+
+    test "projects events with missing created at" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      assert {:ok, %Statement{}} =
+               """
+               {"id": "EV36b7f4cdcbfb42a68ffda55df31a8bee", "data": {"object": {"id": "AC3a9ddb4a29af4452b9ab8de8a63fa9c8", "to": "+19283002716", "body": "Rayna, please invoice 175 on 20230823-46587", "from":"+16232464213", "media": [], "object": "message", "status": "delivered", "userId": "UShk0sCp2n", "createdAt": "2023-09-07T13:18:02.015Z", "createdBy": "UShk0sCp2n", "direction": "outgoing", "phoneNumberId": "PNMUD2Wja7", "conversationId": "CN881a0ac7ead8411d8c8e7691da6b463c"}}, "type": "message.delivered", "object": "event", "apiVersion": "v3"}
+               """
+               |> Jason.decode!()
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
+    end
   end
 
   describe "CallCompleted" do

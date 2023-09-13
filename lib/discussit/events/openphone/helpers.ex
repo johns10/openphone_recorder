@@ -43,6 +43,7 @@ defmodule Discussit.Events.Openphone.Helpers do
     event
     |> cast(params, [:id, :object, :api_version, :created_at])
     |> cast_embed(:data, with: &Call.changeset/2)
+    |> ensure_created_at()
     |> validate_required([:id, :object, :api_version, :created_at])
   end
 
@@ -50,6 +51,7 @@ defmodule Discussit.Events.Openphone.Helpers do
     event
     |> cast(params, [:id, :object, :api_version, :created_at])
     |> cast_embed(:data, with: &Message.changeset/2)
+    |> ensure_created_at()
     |> validate_required([:id, :object, :api_version, :created_at])
   end
 
@@ -57,6 +59,7 @@ defmodule Discussit.Events.Openphone.Helpers do
     event
     |> cast(params, [:id, :object, :api_version, :created_at])
     |> cast_embed(:data, with: &Contact.changeset/2)
+    |> ensure_created_at()
     |> validate_required([:id, :object, :api_version, :created_at])
   end
 
@@ -72,5 +75,12 @@ defmodule Discussit.Events.Openphone.Helpers do
     attrs
     |> Map.delete("data")
     |> Map.put("data", data)
+  end
+
+  def ensure_created_at(changeset) do
+    case get_change(changeset, :created_at, nil) do
+      nil -> put_change(changeset, :created_at, NaiveDateTime.utc_now())
+      _ -> changeset
+    end
   end
 end
