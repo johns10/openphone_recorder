@@ -38,6 +38,10 @@ npm-debug.log
 # heroicons
 /priv/hero_icons/
 
+# robots
+/priv/static/robots*
+/priv/static/favicon*
+
 /.elixir_ls
 
 /data/.minio.sys/*

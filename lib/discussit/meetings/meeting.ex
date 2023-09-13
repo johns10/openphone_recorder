@@ -1,6 +1,7 @@
 defmodule Discussit.Meetings.Meeting do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.Participants.Participant
   alias Discussit.Statements.Statement
   alias Discussit.Files.File
   alias Discussit.Users.User
@@ -22,9 +23,11 @@ defmodule Discussit.Meetings.Meeting do
 
     belongs_to :user, User
     belongs_to :account, Account
-    belongs_to :conversation, Conversation
+    belongs_to :conversation, Conversation, type: :binary_id
 
     has_many :statements, Statement
+    has_many :participants, Participant
+
     timestamps()
   end
 
@@ -39,10 +42,12 @@ defmodule Discussit.Meetings.Meeting do
       :projector_status,
       :user_id,
       :external_id,
-      :segments
+      :segments,
+      :conversation_id
     ])
     |> cast_embed(:files)
     |> foreign_key_constraint(:user_id)
+    |> foreign_key_constraint(:conversation_id)
     |> validate_required([:source, :occurred_at])
     |> unique_constraint([:name, :occurred_at, :user_id])
   end

@@ -158,7 +158,7 @@ defmodule DiscussitWeb.IndexLive.Components do
       contact={@participant.contact}
       class={@class}
     />
-    <%= if @participant.contact == nil && is_struct(@participant.phone_number, PhoneNumber) do %>
+    <%= if @participant.contact_id == nil && is_struct(@participant.phone_number, PhoneNumber) do %>
       <.render_contact
         :if={length(@participant.phone_number.contacts) == 1}
         contact={@participant.phone_number.contacts |> Enum.at(0)}
@@ -170,7 +170,7 @@ defmodule DiscussitWeb.IndexLive.Components do
         class={@class}
       />
     <% end %>
-    <%= if @participant.contact == nil && @participant.phone_number == nil do %>
+    <%= if @participant.contact_id == nil && @participant.phone_number_id == nil do %>
       <%= @participant.name %>
     <% end %>
     """

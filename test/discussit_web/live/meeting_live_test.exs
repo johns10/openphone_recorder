@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.MeetingLiveTest do
+  alias Discussit.Participants
   use DiscussitWeb.ConnCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
 
@@ -9,6 +10,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
   import Discussit.ContactsFixtures
+  import Discussit.ConversationsFixtures
 
   # @create_attrs %{occurred_at: "2023-08-27T17:35:00.000000", provider: :zoom}
   # @update_attrs %{occurred_at: "2023-08-28T17:35:00.000000", provider: :teams}
@@ -16,7 +18,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
   defp account_setup(%{user: user}) do
     account = account_fixture()
-    account_user = account_user_fixture(%{account_id: account.id, user_id: user.id})
+    account_user_fixture(%{account_id: account.id, user_id: user.id})
     %{account: account}
   end
 
@@ -25,8 +27,10 @@ defmodule DiscussitWeb.MeetingLiveTest do
     %{meeting: meeting}
   end
 
-  defp create_participant(_) do
-    participant = participant_fixture(%{name: "speaker a", phone_number_id: nil})
+  defp create_participant(%{meeting: %{id: meeting_id}}) do
+    participant =
+      participant_fixture(%{name: "speaker a", phone_number_id: nil, meeting_id: meeting_id})
+
     %{participant: participant}
   end
 
@@ -136,6 +140,33 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       assert show_live |> element("#participant-contact-#{contact.id}") |> render_click() =~
                contact.first_name
+    end
+
+    test "interface for conversation assignment shows existing conversations", context do
+      %{
+        conn: conn,
+        meeting: meeting,
+        participant: participant,
+        account: account
+      } = context
+
+      conversation = conversation_fixture()
+      contact = contact_fixture(%{account_id: account.id})
+
+      Participants.update_participant(participant, %{conversation_id: conversation.id})
+      {:ok, show_live, html} = live(conn, ~p"/meetings/#{meeting}")
+      refute html =~ "Assign to Conversation"
+      show_live |> element("#find-participant-#{participant.id}") |> render_click()
+
+      assert show_live
+             |> element("#participant-#{participant.id}-contact-#{contact.id}")
+             |> render_click()
+
+      assert render(show_live) =~ "Assign to Conversation"
+      assert show_live |> element("#assign-conversation") |> render() =~ contact.first_name
+
+      assert show_live |> element("#assign-conversation-#{conversation.id}") |> render_click() =~
+               "assigned"
     end
   end
 end

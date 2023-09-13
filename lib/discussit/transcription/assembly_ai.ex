@@ -22,6 +22,10 @@ defmodule Discussit.Transcription.AssemblyAI do
       {:ok, %{status_code: _}} ->
         Logger.error("Assembly AI call failed")
         {:error, "Assembly AI call failed"}
+
+      {:error, reason} ->
+        Logger.error("Assembly AI call failed: #{inspect(reason)}")
+        {:error, "Assembly AI call failed"}
     end
   end
 
@@ -37,7 +41,8 @@ defmodule Discussit.Transcription.AssemblyAI do
           %{"status" => "completed"} = response ->
             {:halt, {:ok, response}}
 
-          %{"status" => "error"} ->
+          %{"status" => "error"} = result ->
+            Logger.error(result["error"])
             {:halt, {:error, "failed to process"}}
 
           %{"status" => "queued"} ->

@@ -1,36 +1,50 @@
 import { v5 as uuidv5 } from 'uuid';
 
 var FILES = []
+var DIRECTORIES = []
 
 ImportZoomMeetings = {
   mounted() {
 
-    this.handleEvent("meeting-created", incoming => {
-      this.pushEvent("meeting-uploading", { id: incoming.id })
-      incoming.files.map(async incomingFile => {
-        const file = FILES[incomingFile.key]
-        const fileData = await file.handle.getFile();
-        await fetch(incomingFile.url, {
-          method: "PUT",
-          body: fileData,
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
-        this.pushEvent("meeting-uploaded", { id: incoming.id })
-      })
+    this.handleEvent("meeting-exists", e => {
+      console.log("skipped")
+      createMeeting(this)
+    })
 
+    this.handleEvent("meeting-created", incoming => {
+      console.log("created")
+      this.pushEvent("meeting-uploading", { id: incoming.id })
+      uploadMeeting(incoming)
+      this.pushEvent("meeting-uploaded", { id: incoming.id })
+      createMeeting(this)
     })
 
     this.el.addEventListener("click", async e => {
       const directoryHandle = await window.showDirectoryPicker();
-      const directories = await getDirectories(directoryHandle)
-      directories.map(async directory => {
-        const meetingAttrs = await getMeetingAttrs(directory)
-        this.pushEvent("create-meeting", meetingAttrs)
-      })
+      DIRECTORIES = await getDirectories(directoryHandle)
+      this.pushEvent("upload-started", { directories: DIRECTORIES.length })
+      createMeeting(this)
     })
   }
+}
+
+async function createMeeting(hook) {
+  const directory = DIRECTORIES.pop()
+  if (directory) hook.pushEvent("create-meeting", await getMeetingAttrs(directory))
+}
+
+async function uploadMeeting(incoming) {
+  incoming.files.map(async incomingFile => {
+    const file = FILES[incomingFile.key]
+    const fileData = await file.handle.getFile();
+    const request = await fetch(incomingFile.url, {
+      method: "PUT",
+      body: fileData,
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+  })
 }
 
 async function getDirectories(handle) {
@@ -57,7 +71,7 @@ async function getFiles(directoryHandle, files) {
       const key = uuidv5(fileName, uuidv5.URL)
       const { lastModified } = await fileHandle.getFile()
       const attrs = { name: fileName, handle: fileHandle, lastModified }
-      FILES[key] = attrs
+      FILES[`/meetings/${key}`] = attrs
       files.push({ key, ...attrs })
     }
     if (fileHandle.name === "recording.conf") {

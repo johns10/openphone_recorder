@@ -2,6 +2,11 @@
   Listing Meetings
   <:actions>
     <.link phx-hook="ImportZoomMeetings" id="import-zoom-meetings">
+      <div
+        :if={@directories}
+        class="radial-progress mr-2"
+        style={"--value:#{floor(@uploaded / @directories * 100)}; --size:2rem;"}
+      />
       <.button>Import Zoom Meetings</.button>
     </.link>
   </:actions>

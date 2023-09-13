@@ -83,12 +83,12 @@ defmodule Discussit.ConversationsTest do
     end
 
     test "list_conversations!/2 filtered by participant ids returns the right conversation" do
-      conversation_fixture()
       conversation = conversation_fixture()
       contact_1 = contact_fixture()
       participant_fixture(%{conversation_id: conversation.id, contact_id: contact_1.id})
       contact_2 = contact_fixture()
       participant_fixture(%{conversation_id: conversation.id, contact_id: contact_2.id})
+
       ids = [contact_1.id, contact_2.id]
       assert Conversations.list_conversations(filters: [exact_contact_ids: ids]) == [conversation]
     end

@@ -8,7 +8,12 @@ defmodule DiscussitWeb.MeetingLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     DiscussitWeb.Endpoint.subscribe("user_#{socket.assigns.current_user.id}")
-    {:ok, stream(socket, :meetings, Meetings.list_meetings())}
+
+    {:ok,
+     socket
+     |> stream(:meetings, Meetings.list_meetings())
+     |> assign(:directories, nil)
+     |> assign(:uploaded, nil)}
   end
 
   @impl true
@@ -40,6 +45,10 @@ defmodule DiscussitWeb.MeetingLive.Index do
   end
 
   @impl true
+  def handle_event("upload-started", %{"directories" => directories}, socket) do
+    {:noreply, socket |> assign(:directories, directories) |> assign(:uploaded, 0)}
+  end
+
   def handle_event("create-meeting", %{"name" => name, "files" => files} = attrs, socket) do
     [date_string, time_string | rest] = String.split(name, " ")
     {:ok, date} = Date.from_iso8601(date_string)
@@ -49,10 +58,12 @@ defmodule DiscussitWeb.MeetingLive.Index do
     bucket = Application.get_env(:discussit, :bucket)
 
     file_attrs =
-      Enum.map(files, fn %{"name" => name, "key" => key} ->
+      Enum.map(files, fn %{"name" => name, "key" => incoming_key} ->
+        key = "/meetings/#{incoming_key}"
+
         {:ok, url} =
           ExAws.Config.new(:s3)
-          |> ExAws.S3.presigned_url(:put, bucket, "/meetings/#{key}")
+          |> ExAws.S3.presigned_url(:put, bucket, key)
 
         %{
           metadata: %{name: name, type: MIME.from_path(name)},
@@ -71,11 +82,19 @@ defmodule DiscussitWeb.MeetingLive.Index do
     |> Meetings.create_meeting()
     |> case do
       {:ok, meeting} ->
+        IO.puts("C")
+
         {:noreply,
-         socket |> stream_insert(:meetings, meeting) |> push_event("meeting-created", meeting)}
+         socket
+         |> stream_insert(:meetings, meeting)
+         |> push_event("meeting-created", meeting)
+         |> assign(:uploaded, socket.assigns.uploaded + 1)}
 
       {:error, %{errors: [name: {"has already been taken", [{:constraint, :unique} | _]}]}} ->
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> push_event("meeting-exists", %{})
+         |> assign(:directories, socket.assigns.directories - 1)}
 
       {:error, _changeset} ->
         {:noreply, put_flash(socket, :error, "Failed to create meeting")}
