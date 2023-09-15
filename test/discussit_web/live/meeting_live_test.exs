@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.MeetingLiveTest do
+  alias Discussit.Meetings
   alias Discussit.Participants
   use DiscussitWeb.ConnCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
@@ -50,6 +51,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
     test "file upload", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/meetings")
+      render_hook(index_live, :"upload-started", %{directories: 1})
 
       assert index_live
              |> element("#import-zoom-meetings")
@@ -109,8 +111,18 @@ defmodule DiscussitWeb.MeetingLiveTest do
       assert html =~ "Show Meeting"
       assert html =~ statement.content
     end
+  end
 
-    test "interface for participant assignment", context do
+  describe "Show: participant assignment interface" do
+    setup [
+      :register_and_log_in_user,
+      :account_setup,
+      :create_meeting,
+      :create_participant,
+      :create_statement
+    ]
+
+    test "base case", context do
       %{
         conn: conn,
         meeting: meeting,
@@ -138,11 +150,13 @@ defmodule DiscussitWeb.MeetingLiveTest do
              |> element("#contact-search-#{participant.id}")
              |> render_change(%{search: contact.first_name}) =~ contact_2.first_name
 
-      assert show_live |> element("#participant-contact-#{contact.id}") |> render_click() =~
+      assert show_live
+             |> element("#participant-#{participant.id}-contact-#{contact.id}")
+             |> render_click() =~
                contact.first_name
     end
 
-    test "interface for conversation assignment shows existing conversations", context do
+    test "shows existing conversations", context do
       %{
         conn: conn,
         meeting: meeting,
@@ -155,18 +169,58 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       Participants.update_participant(participant, %{conversation_id: conversation.id})
       {:ok, show_live, html} = live(conn, ~p"/meetings/#{meeting}")
-      refute html =~ "Assign to Conversation"
+      refute html =~ "Assign"
       show_live |> element("#find-participant-#{participant.id}") |> render_click()
 
       assert show_live
              |> element("#participant-#{participant.id}-contact-#{contact.id}")
              |> render_click()
 
-      assert render(show_live) =~ "Assign to Conversation"
+      assert render(show_live) =~ "Assign"
       assert show_live |> element("#assign-conversation") |> render() =~ contact.first_name
 
       assert show_live |> element("#assign-conversation-#{conversation.id}") |> render_click() =~
                "assigned"
+    end
+
+    test "creates conversation", context do
+      %{
+        conn: conn,
+        meeting: meeting,
+        participant: participant,
+        account: account
+      } = context
+
+      contact = contact_fixture(%{account_id: account.id})
+      {:ok, show_live, html} = live(conn, ~p"/meetings/#{meeting}")
+      refute html =~ "Create Conversation"
+      {:ok, participant} = Participants.update_participant(participant, %{contact_id: contact.id})
+
+      Process.send(
+        show_live.pid,
+        {"", {:participant_contact_set, %{participant | contact: contact}}},
+        []
+      )
+
+      refute show_live |> element("#create-conversation") |> render_click =~ "unassigned"
+    end
+
+    test "removes from conversation", context do
+      %{
+        conn: conn,
+        meeting: meeting,
+        participant: participant,
+        account: account
+      } = context
+
+      contact = contact_fixture(%{account_id: account.id})
+      {:ok, participant} = Participants.update_participant(participant, %{contact_id: contact.id})
+
+      conversation = conversation_fixture()
+      {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
+
+      {:ok, show_live, _html} = live(conn, ~p"/meetings/#{meeting}")
+      assert show_live |> element("#remove-from-conversation") |> render_click =~ "unassigned"
     end
   end
 end

@@ -235,7 +235,9 @@ defmodule Discussit.Transcription.Support do
       Enum.map(segments, & &1["speaker"])
       |> Enum.uniq()
       |> Enum.map(fn speaker_name ->
-        {:ok, participant} = Participants.create_participant(%{name: speaker_name})
+        {:ok, participant} =
+          Participants.create_participant(%{name: speaker_name, meeting_id: meeting.id})
+
         {speaker_name, participant}
       end)
       |> Enum.into(%{})

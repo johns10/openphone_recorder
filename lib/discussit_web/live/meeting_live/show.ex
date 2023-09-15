@@ -35,15 +35,13 @@ defmodule DiscussitWeb.MeetingLive.Show do
         old -> old
       end)
 
-    contact_ids = Enum.map(participants, & &1.contact_id) |> IO.inspect()
+    contact_ids = Enum.map(participants, & &1.contact_id)
 
     conversations =
       Conversations.list_conversations(
         filters: [exact_contact_ids: contact_ids],
         preloads: [participants: :contact]
       )
-
-    conversations |> Enum.count() |> IO.inspect()
 
     {:noreply,
      socket
@@ -53,10 +51,56 @@ defmodule DiscussitWeb.MeetingLive.Show do
 
   @impl true
   def handle_event("assign-to-conversation", %{"id" => conversation_id}, socket) do
-    Meetings.update_meeting(socket.assigns.meeting, %{conversation_id: conversation_id})
+    meeting = socket.assigns.meeting
+
+    Meetings.update_meeting(meeting, %{conversation_id: conversation_id})
     |> case do
       {:ok, meeting} ->
         {:noreply, assign(socket, :meeting, meeting)}
+
+      {:error, changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to assign meeting to conversation")
+         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
+    end
+  end
+
+  def handle_event("remove-from-conversation", _, socket) do
+    meeting = socket.assigns.meeting
+
+    Meetings.update_meeting(meeting, %{conversation_id: nil})
+    |> case do
+      {:ok, meeting} ->
+        {:noreply, assign(socket, :meeting, meeting)}
+
+      {:error, changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to remove meeting from conversation")
+         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
+    end
+  end
+
+  def handle_event("create-conversation", _, socket) do
+    meeting = socket.assigns.meeting
+
+    meeting
+    |> Map.from_struct()
+    |> Map.take([:external_id, :source, :occurred_at])
+    |> Map.put(:account_id, socket.assigns.user_setting.selected_account.id)
+    |> Conversations.create_conversation()
+    |> case do
+      {:ok, conversation} ->
+        {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
+
+        {:noreply, socket |> assign(:meeting, meeting)}
+
+      {:error, changeset} ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to create conversation for meeting")
+         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
     end
   end
 

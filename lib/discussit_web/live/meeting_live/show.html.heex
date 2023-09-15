@@ -37,35 +37,54 @@
 </div>
 
 <div :if={all_participants_assigned?(@meeting)} id="assign-conversation">
-  Assign to Conversation
-  <div :for={conversation <- @conversations}>
+  <div :if={length(@conversations) == 0 && !@meeting.conversation_id}>
+    <.button
+      id={"create-conversation"}
+      class="btn btn-sm btn-success"
+      phx-click="create-conversation"
+    >
+    Create Conversation
+    </.button>
+  </div>
+  <div :for={conversation <- @conversations} :if={length(@conversations) > 0}>
     <span :for={participant <- conversation.participants}>
       <%= participant.contact.first_name %> <%= participant.contact.last_name %>
     </span>
     <.button
       id={"assign-conversation-#{conversation.id}"}
-      class="btn btn-success"
+      class="btn btn-sm btn-success"
       phx-click="assign-to-conversation"
       phx-value-id={conversation.id}
     >
       Assign
     </.button>
   </div>
+  <div :if={@meeting.conversation_id}>
+  <.button
+      id={"remove-from-conversation"}
+      class="btn btn-sm btn-error"
+      phx-click="remove-from-conversation"
+    >
+     Remove from Conversation 
+    </.button>
+  </div>
 </div>
 
-<%= for statement <- @meeting.statements do %>
-  <div class="px-4 w-full flex flex-row items-center space-x-2">
-    <.participant participant={statement.participant} class="" />
-    <div class="text-xs">
-      <%= render_date(statement.occurred_at, @user_setting) %>
+<div class="py-4">
+  <%= for statement <- @meeting.statements do %>
+    <div class="px-4 w-full flex flex-row items-center space-x-2">
+      <.participant participant={statement.participant} class="" />
+      <div class="text-xs">
+        <%= render_date(statement.occurred_at, @user_setting) %>
+      </div>
     </div>
-  </div>
-  <div class="chat chat-start">
-    <div class={["chat-bubble z-0", if(statement.call_id, do: "bg-accent")]}>
-      <%= statement.content %>
+    <div class="chat chat-start">
+      <div class={["chat-bubble z-0", if(statement.call_id, do: "bg-accent")]}>
+        <%= statement.content %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <.modal
   :if={@live_action == :edit}

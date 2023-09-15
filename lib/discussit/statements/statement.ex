@@ -58,8 +58,12 @@ defmodule Discussit.Statements.Statement do
         source = get_change(changeset, :source)
 
         case {source, external_id} do
-          {:openphone, external_id} when is_atom(source) and is_binary(external_id) ->
-            put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+          {source, external_id} when is_atom(source) and is_binary(external_id) ->
+            put_change(
+              changeset,
+              :id,
+              UUID.uuid5(nil, Atom.to_string(source) <> "-" <> external_id)
+            )
 
           {:transcription, nil} ->
             put_change(changeset, :id, UUID.uuid4())

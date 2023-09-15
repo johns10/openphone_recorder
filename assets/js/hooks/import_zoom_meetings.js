@@ -7,12 +7,10 @@ ImportZoomMeetings = {
   mounted() {
 
     this.handleEvent("meeting-exists", e => {
-      console.log("skipped")
       createMeeting(this)
     })
 
     this.handleEvent("meeting-created", incoming => {
-      console.log("created")
       this.pushEvent("meeting-uploading", { id: incoming.id })
       uploadMeeting(incoming)
       this.pushEvent("meeting-uploaded", { id: incoming.id })
