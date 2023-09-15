@@ -214,7 +214,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
       } = context
 
       contact = contact_fixture(%{account_id: account.id})
-      {:ok, participant} = Participants.update_participant(participant, %{contact_id: contact.id})
+      Participants.update_participant(participant, %{contact_id: contact.id})
 
       conversation = conversation_fixture()
       {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})

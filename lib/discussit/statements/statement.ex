@@ -10,7 +10,7 @@ defmodule Discussit.Statements.Statement do
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
     field :external_id, :string
-    field :source, Ecto.Enum, values: [:openphone, :transcription]
+    field :source, Ecto.Enum, values: [:openphone, :transcription, :zoom]
     field :content, :string
     field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
