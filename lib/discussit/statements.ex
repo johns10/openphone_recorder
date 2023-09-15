@@ -12,6 +12,7 @@ defmodule Discussit.Statements do
     Statement
     |> maybe_filter_by_call_id(filters[:call_id])
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> maybe_filter_by_meeting_id(filters[:meeting_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
@@ -26,6 +27,13 @@ defmodule Discussit.Statements do
   defp maybe_filter_by_conversation_id(query, conversation_id) do
     query
     |> where([s], s.conversation_id == ^conversation_id)
+  end
+
+  defp maybe_filter_by_meeting_id(query, nil), do: query
+
+  defp maybe_filter_by_meeting_id(query, meeting_id) do
+    query
+    |> where([s], s.meeting_id == ^meeting_id)
   end
 
   defp maybe_filter_by_call_id(query, nil), do: query

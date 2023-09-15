@@ -1,6 +1,7 @@
 defmodule Discussit.Statements.Statement do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.Conversations.Conversation
   alias Discussit.Meetings.Meeting
   alias Discussit.Calls.Call
   alias Discussit.StatementSummaries.StatementSummary
@@ -14,12 +15,12 @@ defmodule Discussit.Statements.Statement do
     field :content, :string
     field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
-    field :conversation_id, :binary_id
     field :ts_range, TsRange
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
     belongs_to :meeting, Meeting
+    belongs_to :conversation, Conversation, type: :binary_id
 
     has_many :statement_summaries, StatementSummary
     has_many :summaries, through: [:statement_summaries, :summary]

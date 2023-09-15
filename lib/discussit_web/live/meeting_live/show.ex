@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.MeetingLive.Show do
+  alias Discussit.Statements
   alias Discussit.Conversations
   use DiscussitWeb, :live_view
 
@@ -56,9 +57,10 @@ defmodule DiscussitWeb.MeetingLive.Show do
     Meetings.update_meeting(meeting, %{conversation_id: conversation_id})
     |> case do
       {:ok, meeting} ->
+        update_meeting_statements(meeting.id, conversation_id)
         {:noreply, assign(socket, :meeting, meeting)}
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         {:noreply,
          socket
          |> put_flash(:error, "Failed to assign meeting to conversation")
@@ -72,9 +74,10 @@ defmodule DiscussitWeb.MeetingLive.Show do
     Meetings.update_meeting(meeting, %{conversation_id: nil})
     |> case do
       {:ok, meeting} ->
+        update_meeting_statements(meeting.id, nil)
         {:noreply, assign(socket, :meeting, meeting)}
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         {:noreply,
          socket
          |> put_flash(:error, "Failed to remove meeting from conversation")
@@ -93,15 +96,22 @@ defmodule DiscussitWeb.MeetingLive.Show do
     |> case do
       {:ok, conversation} ->
         {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
-
+        update_meeting_statements(meeting.id, conversation.id)
         {:noreply, socket |> assign(:meeting, meeting)}
 
-      {:error, changeset} ->
+      {:error, _changeset} ->
         {:noreply,
          socket
          |> put_flash(:error, "Failed to create conversation for meeting")
          |> push_patch(to: ~p"/meetings/#{meeting.id}")}
     end
+  end
+
+  defp update_meeting_statements(meeting_id, conversation_id) do
+    Statements.list_statements(filters: [meeting_id: meeting_id])
+    |> Enum.map(fn statement ->
+      {:ok, _} = Statements.update_statement(statement, %{conversation_id: conversation_id})
+    end)
   end
 
   defp page_title(:show), do: "Show Meeting"

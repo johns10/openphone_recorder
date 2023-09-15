@@ -8,9 +8,12 @@ defmodule Discussit.Meetings do
 
   alias Discussit.Meetings.Meeting
 
-  def list_meetings do
+  def list_meetings(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+
     Meeting
     |> select([s], ^only())
+    |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> Repo.all()
   end
 
@@ -21,6 +24,13 @@ defmodule Discussit.Meetings do
     |> preload(^preload)
     |> select([s], ^only())
     |> Repo.get!(id)
+  end
+
+  defp maybe_filter_by_conversation_id(query, nil), do: query
+
+  defp maybe_filter_by_conversation_id(query, conversation_id) do
+    query
+    |> where([p], p.conversation_id == ^conversation_id)
   end
 
   def create_meeting(attrs \\ %{}) do
