@@ -41,7 +41,7 @@
     <.button
       id={"create-conversation"}
       class="btn btn-sm btn-success"
-      phx-click="create-conversation"
+      phx-click={JS.push("create-conversation") |> JS.set_attribute({"disabled", "true"}, to: "#create-conversation")}
     >
     Create Conversation
     </.button>

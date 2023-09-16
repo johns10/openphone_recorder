@@ -1,10 +1,11 @@
 defmodule DiscussitWeb.MeetingLive.Show do
+  use DiscussitWeb, :live_view
+
   alias Discussit.Participants
   alias Discussit.Statements
   alias Discussit.Conversations
-  use DiscussitWeb, :live_view
-
   alias Discussit.Meetings
+
   import DiscussitWeb.IndexLive.Components
 
   @impl true
@@ -14,15 +15,10 @@ defmodule DiscussitWeb.MeetingLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
-    preload = [
-      [participants: :contact],
-      statements: [:participant, [participant: [:contact, [phone_number: :contacts]]]]
-    ]
-
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:meeting, Meetings.get_meeting!(id, preload: preload))
+     |> assign(:meeting, Meetings.get_meeting_summary!(id))
      |> assign(:conversations, [])}
   end
 

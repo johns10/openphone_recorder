@@ -26,6 +26,28 @@ defmodule Discussit.Meetings do
     |> Repo.get!(id)
   end
 
+  def get_meeting_summary!(id) do
+    Meeting
+    |> join(:left, [m], pn in assoc(m, :participants), as: :participant)
+    |> join(:left, [participant: p], c in assoc(p, :contact), as: :contact)
+    |> join(:left, [m], s in assoc(m, :statements), as: :statements)
+    |> join(:left, [statements: s], p in assoc(s, :participant), as: :statement_participant)
+    |> join(:left, [statement_participant: p], c in assoc(p, :contact), as: :statement_contact)
+    |> order_by([statements: s], asc: s.occurred_at)
+    |> preload(
+      [
+        participant: p,
+        contact: c,
+        statements: s,
+        statement_participant: sp,
+        statement_contact: sc
+      ],
+      participants: {p, contact: c},
+      statements: {s, participant: {sp, contact: sc}}
+    )
+    |> Repo.get!(id)
+  end
+
   defp maybe_filter_by_conversation_id(query, nil), do: query
 
   defp maybe_filter_by_conversation_id(query, conversation_id) do
