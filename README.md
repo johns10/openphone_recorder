@@ -57,3 +57,12 @@ Discussit.Calls.Call
 |> Discussit.Repo.all()
 |> Enum.count()
 ```
+
+### Test data for meetings
+
+```
+meeting_id = 166
+meeting = Discussit.Meetings.get_meeting!(meeting_id)
+{:ok, participant} = Discussit.Participants.create_participant(%{meeting_id: meeting_id, name: "speaker a"})
+{:ok, statement} = Discussit.Statements.create_statement(%{occurred_at: NaiveDateTime.utc_now, type: :meeting, participant_id: 4826, meeting_id: meeting_id, content: "this is a statement", source: :zoom, external_id: meeting.external_id})
+```
