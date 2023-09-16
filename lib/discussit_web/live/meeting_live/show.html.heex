@@ -59,16 +59,16 @@
       Assign
     </.button>
   </div>
-  <div :if={@meeting.conversation_id}>
+  <div :if={@meeting.conversation_id} class="flex flex-row items-center space-x-4">
   <.link href={~p"/conversations/#{@meeting.conversation_id}"}>
-  Conversation
+    <%= render_conversation_name(@meeting.participants) %>
   </.link>
   <.button
       id={"remove-from-conversation"}
-      class="btn btn-sm btn-error"
+      class="btn btn-xs btn-error"
       phx-click="remove-from-conversation"
     >
-     Remove from Conversation 
+     <.icon name="hero-x-mark-solid" />
     </.button>
   </div>
 </div>

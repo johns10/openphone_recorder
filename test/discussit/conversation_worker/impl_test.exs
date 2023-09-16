@@ -469,6 +469,14 @@ defmodule Discussit.ConversationWorker.ImplTest do
       })
 
       summary_fixture(%{
+        title: "title",
+        content: "content",
+        summary_interval: months_ago_range(3),
+        conversation_summarizer_id: cs.id,
+        level: Summary.monthly()
+      })
+
+      summary_fixture(%{
         title: "Cleaning a Bathtub with Magic",
         content:
           "Maintaining a clean and hygienic sink is important for the overall freshness of the kitchen. Jane and John agree to make it a habit to clean the sink regularly. They discuss the steps to clean the sink, including removing dishes and utensils, wetting the sink, applying a mild cleaner or dish soap, scrubbing the sink, rinsing it thoroughly, and drying it with a cloth or paper towels. They emphasize the importance of removing all cleaner or soap residue and paying attention to stubborn stains. They also mention the use of non-abrasive cleaning products and tools. Jane and John are satisfied with the results and plan to maintain the cleanliness of the sink to prevent it from getting dirty again.",
@@ -481,7 +489,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
 
       use_cassette("existing_monthly_conversation_summaries", match_requests_on: [:request_body]) do
         assert [
-                 %{content: "Jane and John discuss the importance of maintaining" <> _}
+                 %{content: "In the last month, Jane and John have made" <> _}
                ] = Impl.create_monthly_summaries(cs, default_opts(account_id))
       end
     end

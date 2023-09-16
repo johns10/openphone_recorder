@@ -119,4 +119,14 @@ defmodule DiscussitWeb.MeetingLive.Show do
 
   defp all_participants_assigned?(meeting),
     do: Enum.all?(meeting.participants, &(&1.contact_id != nil))
+
+  defp render_conversation_name(participants), do: render_conversation_name("", participants)
+
+  defp render_conversation_name(acc, [%{contact: contact}]), do: acc <> render_name(contact)
+
+  defp render_conversation_name(acc, [%{contact: contact} | participants]),
+    do: render_conversation_name(acc <> render_name(contact) <> ", ", participants)
+
+  defp render_name(%{first_name: first_name, last_name: last_name}),
+    do: first_name <> if(last_name && last_name != "", do: " #{last_name}", else: "")
 end

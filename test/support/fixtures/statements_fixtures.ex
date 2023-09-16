@@ -25,9 +25,6 @@ defmodule Discussit.StatementsFixtures do
   end
 
   def statement_fixture(attrs \\ %{}) do
-    conversation_id =
-      Map.get(attrs, :conversation_id, nil) || conversation_fixture() |> Map.get(:id)
-
     {:ok, statement} =
       attrs
       |> Enum.into(%{
@@ -37,7 +34,7 @@ defmodule Discussit.StatementsFixtures do
         occurred_at: ~U[2023-03-28 10:21:00Z],
         type: :call,
         participant_id: participant_fixture() |> Map.get(:id),
-        conversation_id: conversation_id
+        conversation_id: Map.get(attrs, :conversation_id, nil)
       })
       |> Discussit.Statements.create_statement()
 

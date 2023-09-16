@@ -1,4 +1,6 @@
 defmodule DiscussitWeb.MeetingLiveTest do
+  alias Discussit.Conversations
+  alias Discussit.Statements
   alias Discussit.Meetings
   alias Discussit.Participants
   use DiscussitWeb.ConnCase
@@ -156,15 +158,16 @@ defmodule DiscussitWeb.MeetingLiveTest do
                contact.first_name
     end
 
-    test "shows existing conversations", context do
+    test "assigns meeting to existing conversation", context do
       %{
         conn: conn,
         meeting: meeting,
         participant: participant,
-        account: account
+        account: account,
+        statement: statement
       } = context
 
-      conversation = conversation_fixture()
+      conversation = %{id: conversation_id} = conversation_fixture()
       contact = contact_fixture(%{account_id: account.id})
 
       Participants.update_participant(participant, %{conversation_id: conversation.id})
@@ -181,6 +184,8 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       assert show_live |> element("#assign-conversation-#{conversation.id}") |> render_click() =~
                "assigned"
+
+      assert %{conversation_id: ^conversation_id} = Statements.get_statement!(statement.id)
     end
 
     test "creates conversation", context do
@@ -196,6 +201,12 @@ defmodule DiscussitWeb.MeetingLiveTest do
       refute html =~ "Create Conversation"
       {:ok, participant} = Participants.update_participant(participant, %{contact_id: contact.id})
 
+      statement =
+        statement_fixture(%{
+          meeting_id: meeting.id,
+          participant_id: participant.id
+        })
+
       Process.send(
         show_live.pid,
         {"", {:participant_contact_set, %{participant | contact: contact}}},
@@ -203,6 +214,9 @@ defmodule DiscussitWeb.MeetingLiveTest do
       )
 
       refute show_live |> element("#create-conversation") |> render_click =~ "unassigned"
+      [%{id: conversation_id}] = Conversations.list_conversations()
+      assert %{conversation_id: ^conversation_id} = Statements.get_statement!(statement.id)
+      assert %{conversation_id: ^conversation_id} = Meetings.get_meeting!(meeting.id)
     end
 
     test "removes from conversation", context do
@@ -219,8 +233,16 @@ defmodule DiscussitWeb.MeetingLiveTest do
       conversation = conversation_fixture()
       {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
 
+      statement =
+        statement_fixture(%{
+          meeting_id: meeting.id,
+          participant_id: participant.id,
+          conversation_id: conversation.id
+        })
+
       {:ok, show_live, _html} = live(conn, ~p"/meetings/#{meeting}")
       assert show_live |> element("#remove-from-conversation") |> render_click =~ "unassigned"
+      assert %{conversation_id: nil} = Statements.get_statement!(statement.id)
     end
   end
 end
