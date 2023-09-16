@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.Components do
+  alias Discussit.Contacts.Contact
   use DiscussitWeb, :html
 
   import DiscussitWeb.LiveSupport
@@ -90,6 +91,9 @@ defmodule DiscussitWeb.IndexLive.Components do
     </div>
     """
   end
+
+  def participant_picker(%{participant: %{contact: %Contact{}}} = assigns),
+    do: participant(assigns)
 
   def participant_picker(%{
         participant: %{phone_number: %{contacts: contacts} = phone_number} = participant,

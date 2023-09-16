@@ -4,11 +4,22 @@ defmodule Discussit.Participants do
 
   alias Discussit.Participants.Participant
 
-  def list_participants do
-    Repo.all(Participant)
+  def list_participants(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+
+    Participant
+    |> maybe_filter_by_meeting_id(filters[:meeting_id])
+    |> Repo.all()
   end
 
   def get_participant!(id), do: Repo.get!(Participant, id)
+
+  defp maybe_filter_by_meeting_id(query, nil), do: query
+
+  defp maybe_filter_by_meeting_id(query, meeting_id) do
+    query
+    |> where([p], p.meeting_id == ^meeting_id)
+  end
 
   def create_participant(attrs \\ %{}) do
     %Participant{}

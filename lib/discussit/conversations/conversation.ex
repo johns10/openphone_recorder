@@ -41,8 +41,11 @@ defmodule Discussit.Conversations.Conversation do
         source = get_change(changeset, :source)
 
         case {source, external_id} do
-          {source, external_id} when is_atom(source) and is_binary(external_id) ->
-            put_change(changeset, :id, UUID.uuid5(nil, to_string(source) <> "-" <> external_id))
+          {:openphone, external_id} when is_binary(external_id) ->
+            put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
+
+          {:zoom, _} ->
+            put_change(changeset, :id, UUID.uuid4())
 
           _ ->
             add_error(changeset, :id, "insufficient args to generate conversation_id id")

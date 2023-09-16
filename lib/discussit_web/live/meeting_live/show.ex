@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.MeetingLive.Show do
+  alias Discussit.Participants
   alias Discussit.Statements
   alias Discussit.Conversations
   use DiscussitWeb, :live_view
@@ -58,6 +59,7 @@ defmodule DiscussitWeb.MeetingLive.Show do
     |> case do
       {:ok, meeting} ->
         update_meeting_statements(meeting.id, conversation_id)
+        update_meeting_participants(meeting.id, conversation_id)
         {:noreply, assign(socket, :meeting, meeting)}
 
       {:error, _changeset} ->
@@ -70,11 +72,14 @@ defmodule DiscussitWeb.MeetingLive.Show do
 
   def handle_event("remove-from-conversation", _, socket) do
     meeting = socket.assigns.meeting
+    conversation = Conversations.get_conversation!(meeting.conversation_id)
 
     Meetings.update_meeting(meeting, %{conversation_id: nil})
     |> case do
       {:ok, meeting} ->
         update_meeting_statements(meeting.id, nil)
+        update_meeting_participants(meeting.id, nil)
+        Conversations.delete_conversation(conversation)
         {:noreply, assign(socket, :meeting, meeting)}
 
       {:error, _changeset} ->
@@ -97,6 +102,7 @@ defmodule DiscussitWeb.MeetingLive.Show do
       {:ok, conversation} ->
         {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
         update_meeting_statements(meeting.id, conversation.id)
+        update_meeting_participants(meeting.id, conversation.id)
         {:noreply, socket |> assign(:meeting, meeting)}
 
       {:error, _changeset} ->
@@ -111,6 +117,13 @@ defmodule DiscussitWeb.MeetingLive.Show do
     Statements.list_statements(filters: [meeting_id: meeting_id])
     |> Enum.map(fn statement ->
       {:ok, _} = Statements.update_statement(statement, %{conversation_id: conversation_id})
+    end)
+  end
+
+  defp update_meeting_participants(meeting_id, conversation_id) do
+    Participants.list_participants(filters: [meeting_id: meeting_id])
+    |> Enum.map(fn participant ->
+      {:ok, _} = Participants.update_participant(participant, %{conversation_id: conversation_id})
     end)
   end
 
