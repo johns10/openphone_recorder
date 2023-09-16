@@ -57,7 +57,7 @@
               </div>
             </div>
             <div class="chat chat-start">
-              <div class={["chat-bubble z-0", if(statement.call_id, do: "bg-accent")]}>
+              <div class={["chat-bubble z-0", if(statement.call_id, do: "chat-bubble-accent"), if(statement.meeting_id, do: "chat-bubble-primary")]}>
                 <%= statement.content %>
               </div>
             </div>
@@ -118,13 +118,25 @@
               </div>
             </div>
           </div>
+        <% %{type: "meeting_started", timestamp: timestamp, data: summary} -> %>
+          <div id={id}>
+            <div class="text-xs px-4">
+              <%= render_date(timestamp, @user_setting) %>
+            </div>
+            <div class="chat flex flex-row px-4">
+              <div class="chat-bubble z-0 flex flex-row items-center space-x-2">
+                <.icon name="hero-calendar-days" class="mr-2 w-5 h-5" />
+                Meeting Started
+              </div>
+            </div>
+          </div>
         <% %{type: "daily_summary", timestamp: timestamp, data: summary} -> %>
           <div id={id}>
             <div class="text-xs px-4">
               <%= render_day(timestamp, @user_setting) %>
             </div>
             <div class="chat chat-start" id={id}>
-              <div class={["chat-bubble z-0"]}>
+              <div class="chat-bubble chat-bubble-secondary z-0">
                 <%= summary.content %>
               </div>
             </div>

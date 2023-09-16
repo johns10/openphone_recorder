@@ -60,6 +60,9 @@
     </.button>
   </div>
   <div :if={@meeting.conversation_id}>
+  <.link href={~p"/conversations/#{@meeting.conversation_id}"}>
+  Conversation
+  </.link>
   <.button
       id={"remove-from-conversation"}
       class="btn btn-sm btn-error"

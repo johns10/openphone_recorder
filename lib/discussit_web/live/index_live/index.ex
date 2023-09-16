@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.Index do
+  alias Discussit.Meetings
   use DiscussitWeb, :html_helpers
 
   use Phoenix.LiveView,
@@ -324,12 +325,26 @@ defmodule DiscussitWeb.IndexLive.Index do
               [started, ended | acc]
           end)
 
+        meetings =
+          [
+            filters: [conversation_id: conversation_id],
+            preloads: [participant: [:contact, [phone_number: :contacts]]]
+          ]
+          |> Meetings.list_meetings()
+          |> Enum.map(fn %{id: id, occurred_at: occurred_at} = meeting ->
+            %{
+              type: "meeting_started",
+              data: meeting,
+              timestamp: occurred_at,
+              id: "meeting-#{id}"
+            }
+          end)
+
         items =
-          (statements ++ calls)
+          (statements ++ calls ++ meetings)
           |> Enum.sort(&(NaiveDateTime.compare(&1.timestamp, &2.timestamp) != :gt))
 
         socket
-        |> assign(:participant_sides, participant_sides(conversation.participants))
         |> assign(:page_title, "Listing Conversations")
         |> assign(:conversation, conversation)
         |> assign(:conversation_id, conversation.id)
@@ -384,14 +399,4 @@ defmodule DiscussitWeb.IndexLive.Index do
 
     assign(socket, :transcription_status, status)
   end
-
-  defp participant_sides([p1, p2 | tail]) do
-    [
-      {atomize(p1.id), "chat-start pl-2"},
-      {atomize(p2.id), "chat-end"}
-      | Enum.map(tail, &{atomize(&1.id), "chat-end"})
-    ]
-  end
-
-  defp atomize(int), do: :"#{int}"
 end

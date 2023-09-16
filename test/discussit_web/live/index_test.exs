@@ -9,6 +9,8 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
   import Discussit.SummarizersFixtures
+  import Discussit.MeetingsFixtures
+  import Discussit.StatementsFixtures
 
   defp fixture(%{account: account}) do
     conversation = conversation_fixture(%{account_id: account.id})
@@ -65,6 +67,15 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       {:ok, _index_live, html} = live(conn, ~p"/home")
 
       assert html =~ account.name
+    end
+
+    test "renders statements from meetings", %{conn: conn, conversation: conversation} do
+      meeting = meeting_fixture(%{conversation_id: conversation.id})
+      statement = statement_fixture(%{meeting_id: meeting.id, conversation_id: conversation.id})
+      {:ok, _index_live, html} = live(conn, ~p"/conversations/#{conversation}")
+
+      assert html =~ statement.content
+      assert html =~ "calendar-days"
     end
   end
 
