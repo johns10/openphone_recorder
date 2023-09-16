@@ -120,10 +120,12 @@ defmodule DiscussitWeb.MeetingLive.Index do
   end
 
   def handle_event("transcribe", %{"id" => id}, socket) do
-    Transcription.transcribe([id], %Meeting{},
-      account_id: socket.assigns.user_setting.selected_account_id,
-      user_id: socket.assigns.current_user.id
-    )
+    Task.start(fn ->
+      Transcription.transcribe([id], %Meeting{},
+        account_id: socket.assigns.user_setting.selected_account_id,
+        user_id: socket.assigns.current_user.id
+      )
+    end)
 
     {:noreply, socket}
   end

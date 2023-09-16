@@ -32,7 +32,7 @@ defmodule Discussit.Transcription.AssemblyAI do
   end
 
   defp get_transcript(id) do
-    retry_while with: linear_backoff(500, 1) |> expiry(200_000) do
+    retry_while with: linear_backoff(500, 1) |> expiry(800_000) do
       url = @base_url <> "/transcript/#{id}"
       # Uncomment when you need a vcr
       # :timer.sleep(10000)
