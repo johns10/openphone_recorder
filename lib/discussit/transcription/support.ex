@@ -108,6 +108,10 @@ defmodule Discussit.Transcription.Support do
   def prepare_files(%{status: :error} = state), do: state
 
   def transcribe(%{status: :ok, data: %Meeting{} = meeting, recordings: recordings} = state, opts) do
+    updater = &Meetings.update_meeting(meeting, %{transcript_id: &1})
+    opts = Keyword.put(opts, :update_transcript_id, updater)
+
+    # when multiple recordings, set the start of next and end of previous, and add to durations
     {transcripts, duration} =
       Enum.map_reduce(recordings, 0, fn %{url: url}, acc ->
         with {:ok, %{duration: duration, segments: segments} = transcript} <-
@@ -194,6 +198,9 @@ defmodule Discussit.Transcription.Support do
 
   def transcribe(%{status: :error} = state), do: state
 
+  def ignore_segments(%{data: %Meeting{}} = state),
+    do: Map.put(state, :message, state.message <> "Doesn't ignore in meetings. ")
+
   def ignore_segments(%{status: :ok, segments: segments} = state) do
     segments =
       Enum.map(segments, fn %{"text" => text} = segment ->
@@ -250,9 +257,9 @@ defmodule Discussit.Transcription.Support do
         %{segment: segment, attrs: Map.put(%{}, "content", text) |> Map.delete("text")}
       end)
       |> Enum.map(fn %{segment: segment} ->
-        from = NaiveDateTime.add(occurred_at, segment["start"], :microsecond)
+        from = NaiveDateTime.add(occurred_at, segment["start"], :millisecond)
 
-        to = NaiveDateTime.add(occurred_at, segment["end"], :microsecond)
+        to = NaiveDateTime.add(occurred_at, segment["end"], :millisecond)
         range = PgRanges.TsRange.new(from, to)
 
         participant = participants[segment["speaker"]]

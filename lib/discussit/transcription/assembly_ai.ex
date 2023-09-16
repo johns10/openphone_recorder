@@ -10,10 +10,12 @@ defmodule Discussit.Transcription.AssemblyAI do
 
   def transcribe(link, opts) do
     body = %{"audio_url" => link, "speaker_labels" => "true"} |> Jason.encode!()
+    updater = Keyword.get(opts, :update_transcript_id, fn _ -> nil end)
 
     with {:ok, %{status_code: 200, body: body}} <-
            HTTP.post(@base_url <> "/transcript", body, headers()),
          {:ok, %{"id" => id}} <- Jason.decode(body),
+         updater.(id),
          {:ok, response} <- get_transcript(id),
          {:ok, _usage} <- create_usage(response, opts) do
       %{"utterances" => utterances, "audio_duration" => duration} = response
