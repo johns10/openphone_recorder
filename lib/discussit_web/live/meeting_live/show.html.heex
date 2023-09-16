@@ -74,7 +74,7 @@
 </div>
 
 <div class="py-4">
-  <%= for statement <- @meeting.statements do %>
+  <%= for {_id, statement} <- @streams.statements do %>
     <div class="px-4 w-full flex flex-row items-center space-x-2">
       <.participant participant={statement.participant} class="" />
       <div class="text-xs">

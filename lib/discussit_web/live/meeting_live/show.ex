@@ -15,10 +15,18 @@ defmodule DiscussitWeb.MeetingLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    statements =
+      Statements.list_statements(
+        filters: [meeting_id: id],
+        preloads: [:participant, [participant: :contact]],
+        order_by: [occurred_at: :asc]
+      )
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:meeting, Meetings.get_meeting_summary!(id))
+     |> assign(:meeting, Meetings.get_meeting!(id, preload: [participants: :contact]))
+     |> stream(:statements, statements)
      |> assign(:conversations, [])}
   end
 
