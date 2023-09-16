@@ -64,6 +64,20 @@ defmodule DiscussitWeb.MeetingLiveTest do
              }) =~ "John Davenport"
     end
 
+    test "transcription progress", %{conn: conn, user: user, meeting: meeting} do
+      {:ok, index_live, _html} = live(conn, ~p"/meetings")
+
+      refute index_live |> element("#projector-status-#{meeting.id}") |> render() =~ "arrow-path"
+
+      DiscussitWeb.Endpoint.broadcast(
+        "user_#{user.id}",
+        "meeting_transcription_progress",
+        meeting |> Map.put(:projector_status, :in_progress)
+      )
+
+      assert index_live |> element("#projector-status-#{meeting.id}") |> render() =~ "arrow-path"
+    end
+
     test "deletes meeting in listing", %{conn: conn, meeting: meeting} do
       {:ok, index_live, _html} = live(conn, ~p"/meetings")
 
