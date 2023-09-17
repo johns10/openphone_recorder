@@ -17,7 +17,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Summaries.Summary
 
   @impl true
-  def mount(_, _, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket) do
+  def mount(_, _, %{assigns: %{current_user: %{selected_account_id: nil}}} = socket) do
     {:ok,
      socket
      |> assign(:zoom_level, 0)
@@ -33,7 +33,7 @@ defmodule DiscussitWeb.IndexLive.Index do
 
   def mount(_params, _session, socket) do
     conversations =
-      socket.assigns.user_setting.selected_account_id
+      socket.assigns.current_user.selected_account_id
       |> Conversations.list_conversation_summary(limit: 20)
 
     {:ok,
@@ -55,7 +55,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   @impl true
-  def handle_event(_, _, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket),
+  def handle_event(_, _, %{assigns: %{current_user: %{selected_account_id: nil}}} = socket),
     do: {:noreply, socket}
 
   def handle_event("summarize", _, socket) do
@@ -131,7 +131,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket}
   end
 
-  defp apply_action(%{assigns: %{user_setting: %{selected_account_id: nil}}} = socket, _, _),
+  defp apply_action(%{assigns: %{current_user: %{selected_account_id: nil}}} = socket, _, _),
     do: socket
 
   defp apply_action(socket, :index, %{"id" => conversation_id}) do
@@ -140,7 +140,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     conversation =
       Conversations.get_conversation_summary!(
         conversation_id,
-        socket.assigns.user_setting.selected_account_id
+        socket.assigns.current_user.selected_account_id
       )
 
     conversation
@@ -159,7 +159,7 @@ defmodule DiscussitWeb.IndexLive.Index do
       :ok ->
         ConversationWorker.new(%{
           conversation: conversation,
-          account: socket.assigns.user_setting.selected_account
+          account: socket.assigns.current_user.selected_account
         })
 
         ConversationWorker.get_conversation_summarizers(conversation)
@@ -187,19 +187,19 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   @impl true
-  def handle_info(_, %{assigns: %{user_setting: %{selected_account_id: nil}}} = socket),
+  def handle_info(_, %{assigns: %{current_user: %{selected_account_id: nil}}} = socket),
     do: {:noreply, socket}
 
-  def handle_info({_, {:account_picked, user_setting}}, socket) do
+  def handle_info({_, {:account_picked, current_user}}, socket) do
     conversations =
-      user_setting.selected_account_id
+      current_user.selected_account_id
       |> Conversations.list_conversation_summary()
 
     {:noreply,
      socket
      |> stream(:conversations, conversations, reset: true)
      |> stream(:conversation_items, [], reset: true)
-     |> assign(:user_setting, user_setting)
+     |> assign(:current_user, current_user)
      |> push_patch(to: ~p"/home")}
   end
 
@@ -253,7 +253,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     %{conversations_per_page: per_page} = socket.assigns
 
     conversations =
-      socket.assigns.user_setting.selected_account_id
+      socket.assigns.current_user.selected_account_id
       |> Conversations.list_conversation_summary(
         offset: (new_page - 1) * per_page,
         limit: per_page
@@ -277,7 +277,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     conversation =
       Conversations.get_conversation_summary!(
         conversation_id,
-        socket.assigns.user_setting.selected_account_id
+        socket.assigns.current_user.selected_account_id
       )
 
     case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do

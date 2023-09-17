@@ -5,7 +5,7 @@ defmodule DiscussitWeb.IndexLive.Components do
   import DiscussitWeb.LiveSupport
 
   alias Discussit.Conversations.Conversation
-  alias Discussit.UserSettings.UserSetting
+  alias Discussit.Users.User
   alias Discussit.PhoneNumbers.PhoneNumber
 
   attr(:conversation, Conversation, default: nil)
@@ -194,29 +194,29 @@ defmodule DiscussitWeb.IndexLive.Components do
     """
   end
 
-  def render_date(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+  def render_date(%NaiveDateTime{} = date_time, %User{} = user) do
+    options = select_options(User, :timezone)
+    timezone = Keyword.get(options, user.timezone, "Etc/UTC")
     {:ok, local} = DateTime.from_naive(date_time, timezone)
     "#{local.month}/#{local.day} #{local.hour}:#{local.minute}"
   end
 
-  def render_day(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+  def render_day(%NaiveDateTime{} = date_time, %User{} = user) do
+    options = select_options(User, :timezone)
+    timezone = Keyword.get(options, user.timezone, "Etc/UTC")
     DateTime.from_naive!(date_time, timezone) |> Date.to_string()
   end
 
-  def render_week(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+  def render_week(%NaiveDateTime{} = date_time, %User{} = user) do
+    options = select_options(User, :timezone)
+    timezone = Keyword.get(options, user.timezone, "Etc/UTC")
     date = DateTime.from_naive!(date_time, timezone) |> Date.to_string()
     "Week of #{date}"
   end
 
-  def render_month(%NaiveDateTime{} = date_time, %UserSetting{} = user_setting) do
-    options = select_options(UserSetting, :timezone)
-    timezone = Keyword.get(options, user_setting.timezone, "Etc/UTC")
+  def render_month(%NaiveDateTime{} = date_time, %User{} = user) do
+    options = select_options(User, :timezone)
+    timezone = Keyword.get(options, user.timezone, "Etc/UTC")
     %{month: month} = DateTime.from_naive!(date_time, timezone)
     "#{Timex.month_name(month)}"
   end

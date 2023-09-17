@@ -19,7 +19,7 @@
     module={DiscussitWeb.MeetingLive.ParticipantFinder}
     id={"participant-finder-#{participant.id}"}
     participant={participant}
-    account_id={@user_setting.selected_account_id}
+    account_id={@current_user.selected_account_id}
   />
 </div>
 
@@ -78,7 +78,7 @@
     <div class="px-4 w-full flex flex-row items-center space-x-2">
       <.participant participant={statement.participant} class="" />
       <div class="text-xs">
-        <%= render_date(statement.occurred_at, @user_setting) %>
+        <%= render_date(statement.occurred_at, @current_user) %>
       </div>
     </div>
     <div class="chat chat-start">

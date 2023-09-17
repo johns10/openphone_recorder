@@ -5,7 +5,6 @@ defmodule DiscussitWeb.UserAuth do
   import Phoenix.Controller
 
   alias Discussit.Users
-  alias Discussit.UserSettings
   alias Discussit.Accounts
   alias Discussit.Accounts.Account
 
@@ -93,7 +92,12 @@ defmodule DiscussitWeb.UserAuth do
   """
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
-    user = user_token && Users.get_user_by_session_token(user_token)
+
+    user =
+      user_token &&
+        Users.get_user_by_session_token(user_token)
+        |> Discussit.Repo.preload(:selected_account)
+
     assign(conn, :current_user, user)
   end
 
@@ -165,36 +169,6 @@ defmodule DiscussitWeb.UserAuth do
     end
   end
 
-  def on_mount(:mount_user_setting, _params, _session, socket) do
-    if socket.assigns.current_user do
-      original_user_setting =
-        %{user_id: socket.assigns.current_user.id}
-        |> Discussit.UserSettings.get_or_insert_user_setting!()
-
-      user_setting =
-        if original_user_setting.selected_account_id == nil do
-          case Accounts.list_accounts(filters: [user_id: original_user_setting.user_id]) do
-            [%Account{id: id} | _] ->
-              {:ok, updated_user_setting} =
-                UserSettings.update_user_setting(original_user_setting, %{selected_account_id: id})
-
-              Discussit.Repo.preload(updated_user_setting, [:selected_account])
-
-              updated_user_setting
-
-            _ ->
-              original_user_setting
-          end
-        else
-          original_user_setting
-        end
-
-      {:cont, Phoenix.Component.assign(socket, :user_setting, user_setting)}
-    else
-      {:halt, socket}
-    end
-  end
-
   def on_mount(:ensure_administrator, _params, _session, socket) do
     if socket.assigns.current_user.email in administrator_emails() do
       {:cont, socket}
@@ -225,6 +199,7 @@ defmodule DiscussitWeb.UserAuth do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
       if user_token = session["user_token"] do
         Users.get_user_by_session_token(user_token)
+        |> Discussit.Repo.preload([:selected_account])
       end
     end)
   end

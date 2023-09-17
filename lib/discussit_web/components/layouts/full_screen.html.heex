@@ -29,16 +29,14 @@
         </label>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
           <li><.link href={~p"/users/settings"}>Settings</.link></li>
-          <li><.link href={~p"/users/options/#{@user_setting}"}>Options</.link></li>
           <li><.link href={~p"/users/log_out"} method="delete">Log Out</.link></li>
         </ul>
       </div>
       <.live_component
-        module={DiscussitWeb.UserSettingLive.AccountPickerFormComponent}
+        module={DiscussitWeb.AccountPickerFormComponent}
         id="account-picker"
-        account_id={@user_setting.selected_account_id}
+        account_id={@current_user.selected_account_id}
         user={@current_user}
-        user_setting={@user_setting}
         class="flex-grow"
       />
       <.link

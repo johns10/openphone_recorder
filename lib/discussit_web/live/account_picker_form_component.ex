@@ -1,7 +1,7 @@
-defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
+defmodule DiscussitWeb.AccountPickerFormComponent do
   use DiscussitWeb, :live_component
 
-  alias Discussit.UserSettings
+  alias Discussit.Users
   alias Discussit.Accounts
 
   @impl true
@@ -27,14 +27,14 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
           </li>
         </ul>
       </details>
-      <%= if @user_setting.selected_account_id do %>
+      <%= if @user.selected_account_id do %>
         <.link
           class="dropdown-label mr-2 hover:cursor-pointer"
           style="display: none;"
-          href={~p"/accounts/#{@user_setting.selected_account_id}"}
+          href={~p"/accounts/#{@user.selected_account_id}"}
         >
-          <%= if @user_setting.selected_account do %>
-            <%= @user_setting |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
+          <%= if @user.selected_account do %>
+            <%= @user |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
           <% end %>
         </.link>
       <% end %>
@@ -43,8 +43,8 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
   end
 
   @impl true
-  def update(%{user_setting: user_setting, user: user} = assigns, socket) do
-    changeset = UserSettings.change_user_setting(user_setting)
+  def update(%{user: user} = assigns, socket) do
+    changeset = Users.change_selected_account(user)
 
     accounts = Accounts.list_accounts(filters: [user_id: user.id])
 
@@ -57,11 +57,11 @@ defmodule DiscussitWeb.UserSettingLive.AccountPickerFormComponent do
 
   @impl true
   def handle_event("select-account", %{"id" => id}, socket) do
-    case UserSettings.update_user_setting(socket.assigns.user_setting, %{selected_account_id: id}) do
-      {:ok, user_setting} ->
-        user_setting = UserSettings.get_user_setting!(user_setting.id, preload: :selected_account)
+    case Users.update_selected_account(socket.assigns.user, %{selected_account_id: id}) do
+      {:ok, user} ->
+        user = Users.get_user!(socket.assigns.user.id, preload: :selected_account)
 
-        notify_parent({:account_picked, user_setting})
+        notify_parent({:account_picked, user})
 
         {:noreply,
          socket

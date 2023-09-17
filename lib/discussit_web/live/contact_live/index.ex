@@ -9,7 +9,7 @@ defmodule DiscussitWeb.ContactLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     contacts =
-      case socket.assigns.user_setting.selected_account_id do
+      case socket.assigns.current_user.selected_account_id do
         nil -> []
         account_id -> Contacts.list_contacts(filters: [account_id: account_id])
       end

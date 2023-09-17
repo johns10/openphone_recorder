@@ -82,8 +82,6 @@ defmodule DiscussitWeb.MeetingLive.Index do
     |> Meetings.create_meeting()
     |> case do
       {:ok, meeting} ->
-        IO.puts("C")
-
         {:noreply,
          socket
          |> stream_insert(:meetings, meeting)
@@ -122,7 +120,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
   def handle_event("transcribe", %{"id" => id}, socket) do
     Task.start(fn ->
       Transcription.transcribe([id], %Meeting{},
-        account_id: socket.assigns.user_setting.selected_account_id,
+        account_id: socket.assigns.current_user.selected_account_id,
         user_id: socket.assigns.current_user.id
       )
     end)

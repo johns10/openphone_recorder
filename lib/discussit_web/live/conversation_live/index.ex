@@ -6,7 +6,7 @@ defmodule DiscussitWeb.ConversationLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     conversations =
-      [filters: [account_id: socket.assigns.user_setting.selected_account_id]]
+      [filters: [account_id: socket.assigns.current_user.selected_account_id]]
       |> Conversations.list_conversations()
 
     {:ok, stream(socket, :conversations, conversations)}

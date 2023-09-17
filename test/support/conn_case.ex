@@ -72,13 +72,10 @@ defmodule DiscussitWeb.ConnCase do
   def user_setup(%{user: user}) do
     account = AccountsFixtures.account_fixture()
 
-    user_setting =
-      UserSettingsFixtures.user_setting_fixture(%{
-        user_id: user.id,
-        selected_account_id: account.id
-      })
+    {:ok, user} =
+      Discussit.Users.update_selected_account(user, %{selected_account_id: account.id})
 
-    %{account: account, user_setting: user_setting}
+    %{account: account, user: user}
   end
 
   def permit(%{account: account, user: user}) do

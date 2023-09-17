@@ -65,7 +65,13 @@ defmodule Discussit.Users do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    User
+    |> preload(^preloads)
+    |> Repo.get!(id)
+  end
 
   ## User registration
 
@@ -131,6 +137,16 @@ defmodule Discussit.Users do
   def update_user_options(%User{} = user, attrs \\ %{}) do
     user
     |> User.options_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def change_selected_account(user, attrs \\ %{}) do
+    User.selected_account_changeset(user, attrs)
+  end
+
+  def update_selected_account(%User{} = user, attrs \\ %{}) do
+    user
+    |> User.selected_account_changeset(attrs)
     |> Repo.update()
   end
 

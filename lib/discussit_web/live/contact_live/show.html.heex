@@ -29,7 +29,7 @@
     title={@page_title}
     action={@live_action}
     contact={@contact}
-    account_id={@user_setting.selected_account_id}
+    account_id={@current_user.selected_account_id}
     patch={~p"/contacts/#{@contact}"}
   />
 </.modal>

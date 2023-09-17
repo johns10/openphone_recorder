@@ -239,7 +239,6 @@ defmodule DiscussitWeb.UserSettingsLive do
         options_form =
           user
           |> Users.change_user_options(user_params)
-          |> IO.inspect()
           |> to_form()
 
         {:noreply, assign(socket, options_form: options_form)}

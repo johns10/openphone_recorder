@@ -22,7 +22,11 @@ defmodule DiscussitWeb.MeetingLiveTest do
   defp account_setup(%{user: user}) do
     account = account_fixture()
     account_user_fixture(%{account_id: account.id, user_id: user.id})
-    %{account: account}
+
+    {:ok, user} =
+      Discussit.Users.update_selected_account(user, %{selected_account_id: account.id})
+
+    %{account: account, user: user}
   end
 
   defp create_meeting(_) do

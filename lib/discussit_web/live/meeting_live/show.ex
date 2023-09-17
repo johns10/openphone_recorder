@@ -100,7 +100,7 @@ defmodule DiscussitWeb.MeetingLive.Show do
     meeting
     |> Map.from_struct()
     |> Map.take([:external_id, :source, :occurred_at])
-    |> Map.put(:account_id, socket.assigns.user_setting.selected_account.id)
+    |> Map.put(:account_id, socket.assigns.current_user.selected_account_id)
     |> Conversations.create_conversation()
     |> case do
       {:ok, conversation} ->
