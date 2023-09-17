@@ -1,4 +1,7 @@
 defmodule DiscussitWeb.LiveSupport do
+  def select_options([%Discussit.Users.User{} | _] = users),
+    do: Enum.map(users, fn user -> {user.name, user.id} end)
+
   def select_options(module, field) do
     Enum.zip(
       Ecto.Enum.values(module, field),

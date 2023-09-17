@@ -2,6 +2,7 @@ defmodule DiscussitWeb.UserSettingsLive do
   use DiscussitWeb, :live_view
 
   alias Discussit.Users
+  import DiscussitWeb.LiveSupport
 
   def render(assigns) do
     ~H"""
@@ -11,6 +12,55 @@ defmodule DiscussitWeb.UserSettingsLive do
     </.header>
 
     <div class="space-y-6 divide-y">
+      <div>
+        <.simple_form
+          for={@options_form}
+          id="options_form"
+          phx-submit="update_options"
+          phx-change="validate_options"
+        >
+          <.input field={@options_form[:name]} type="text" label="Name" required />
+          <div class="dropdown w-full">
+            <div phx-feedback-for={@options_form[:timezone].name} class="form-control w-full">
+              <.label for={@options_form[:timezone].id}>Timezone</.label>
+              <div class="flex flex-row">
+                <.input
+                  field={@options_form[:timezone]}
+                  type="raw_input"
+                  prompt="Choose a value"
+                  class="input w-full rounded-r-none"
+                  autocomplete="off"
+                  value={@timezone_string}
+                />
+                <button
+                  type="button"
+                  class="btn btn-ghost rounded-l-none"
+                  phx-click={JS.focus(to: "#account_timezone") |> JS.push("reset-timezone")}
+                >
+                  <.icon name="hero-chevron-down" />
+                </button>
+              </div>
+              <.error :for={msg <- Enum.map(@options_form[:timezone].errors, &translate_error(&1))}>
+                <%= msg %>
+              </.error>
+            </div>
+            <ul class="menu menu-compact dropdown-content bg-base-300 top-20 max-h-96 overflow-hidden flex-col rounded-md">
+              <li
+                :for={{key, value} <- filter_timezone_options(@timezone_string)}
+                key={key}
+                class="border-b border-b-base-content/10 w-full"
+                phx-click={JS.push("pick-timezone")}
+                phx-value-val={key}
+              >
+                <button type="button"><%= value %></button>
+              </li>
+            </ul>
+          </div>
+          <:actions>
+            <.button phx-disable-with="Changing...">Change Options</.button>
+          </:actions>
+        </.simple_form>
+      </div>
       <div>
         <.simple_form
           for={@email_form}
@@ -90,14 +140,17 @@ defmodule DiscussitWeb.UserSettingsLive do
     user = socket.assigns.current_user
     email_changeset = Users.change_user_email(user)
     password_changeset = Users.change_user_password(user)
+    options_changeset = Users.change_user_options(user)
 
     socket =
       socket
       |> assign(:current_password, nil)
       |> assign(:email_form_current_password, nil)
+      |> assign(:timezone_string, Atom.to_string(user.timezone) || "")
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
+      |> assign(:options_form, to_form(options_changeset))
       |> assign(:trigger_submit, false)
 
     {:ok, socket}
@@ -164,4 +217,56 @@ defmodule DiscussitWeb.UserSettingsLive do
         {:noreply, assign(socket, password_form: to_form(changeset))}
     end
   end
+
+  def handle_event("validate_options", %{"user" => user_params}, socket) do
+    %{"name" => name, "timezone" => timezone} = user_params
+
+    options_form =
+      socket.assigns.current_user
+      |> Ecto.Changeset.cast(%{"name" => name}, [:name])
+      |> Map.put(:action, :validate)
+      |> to_form()
+
+    {:noreply, assign(socket, options_form: options_form) |> assign(:timezone_string, timezone)}
+  end
+
+  def handle_event("update_options", %{"user" => user_params}, socket) do
+    user = socket.assigns.current_user
+    params = Map.put(user_params, "timezone", socket.assigns.timezone_string)
+
+    case Users.update_user_options(user, params) do
+      {:ok, user} ->
+        options_form =
+          user
+          |> Users.change_user_options(user_params)
+          |> IO.inspect()
+          |> to_form()
+
+        {:noreply, assign(socket, options_form: options_form)}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, options_form: to_form(changeset))}
+    end
+  end
+
+  def handle_event("pick-timezone", %{"val" => timezone}, socket) do
+    {:noreply, assign(socket, :timezone_string, timezone)}
+  end
+
+  def handle_event("reset-timezone", _, socket) do
+    {:noreply, assign(socket, :timezone_string, "")}
+  end
+
+  defp filter_timezone_options(nil) do
+    select_options(Discussit.Accounts.Account, :timezone)
+  end
+
+  defp filter_timezone_options(input_value) do
+    select_options(Discussit.Accounts.Account, :timezone)
+    |> Enum.filter(fn {_key, value} ->
+      String.contains?(String.upcase(value), String.upcase(input_value))
+    end)
+  end
+
+  defp filter_timezone_options(_), do: []
 end

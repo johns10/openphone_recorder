@@ -1,14 +1,19 @@
 defmodule Discussit.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.AccountUsers.AccountUser
+  @tz_options Discussit.TimeZoneOptions.tz_options()
 
   schema "users" do
+    field :name, :string
+    field :timezone, Ecto.Enum, values: @tz_options
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
     belongs_to :invited_by_user, __MODULE__
-
+    has_many :account_users, AccountUser
+    has_many :accounts, through: [:account_users, :account]
     timestamps()
   end
 
@@ -42,7 +47,7 @@ defmodule Discussit.Users.User do
     |> validate_password(opts)
   end
 
-  def invitation_changeset(user, attrs, opts \\[]) do
+  def invitation_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :invited_by_user_id, :password])
     |> validate_password(opts)
@@ -53,10 +58,17 @@ defmodule Discussit.Users.User do
 
   def accept_invitation_changeset(user, attrs, opts \\ []) do
     now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+
     user
     |> cast(attrs, [:password])
     |> put_change(:confirmed_at, now)
     |> validate_password(opts)
+  end
+
+  def options_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:name, :timezone])
+    |> validate_required([:name, :timezone])
   end
 
   defp validate_email(changeset, opts) do

@@ -10,6 +10,13 @@ defmodule Discussit.Users do
 
   ## Database getters
 
+  def list_users(account_id) do
+    User
+    |> join(:left, [u], account in assoc(u, :accounts), as: :accounts)
+    |> where([accounts: a], a.id == ^account_id)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a user by email.
 
@@ -85,7 +92,7 @@ defmodule Discussit.Users do
   """
   def invite_user(attrs) do
     %User{}
-    |> User.invitation_changeset(Map.put(attrs, :password,  Ecto.UUID.generate()))
+    |> User.invitation_changeset(Map.put(attrs, :password, Ecto.UUID.generate()))
     |> Repo.insert()
   end
 
@@ -115,6 +122,16 @@ defmodule Discussit.Users do
   """
   def change_user_email(user, attrs \\ %{}) do
     User.email_changeset(user, attrs, validate_email: false)
+  end
+
+  def change_user_options(user, attrs \\ %{}) do
+    User.options_changeset(user, attrs)
+  end
+
+  def update_user_options(%User{} = user, attrs \\ %{}) do
+    user
+    |> User.options_changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """
@@ -386,5 +403,4 @@ defmodule Discussit.Users do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
-
 end

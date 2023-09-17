@@ -19,8 +19,7 @@ defmodule Discussit.MixProject do
   def application do
     [
       mod: {Discussit.Application, []},
-      applications: [:stripity_stripe],
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :stripity_stripe]
     ]
   end
 
