@@ -5,9 +5,9 @@ defmodule DiscussitWeb.AccountLiveTest do
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
 
-  @create_attrs %{name: "some name", plan: :free, timezone: "America/Chicago"}
-  @update_attrs %{name: "some updated name", plan: :basic, timezone: "America/Toronto"}
-  @invalid_attrs %{name: nil, plan: nil, timezone: "America/Chicago"}
+  @create_attrs %{name: "some name", plan: :free}
+  @update_attrs %{name: "some updated name", plan: :basic}
+  @invalid_attrs %{name: nil, plan: nil}
 
   defp create_account(_) do
     account = account_fixture()

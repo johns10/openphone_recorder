@@ -29,7 +29,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           type="select"
           label="Billing User"
           prompt="Choose the user to communicate billing information to"
-          options={select_options(Discussit.Users.list_users( @account.id))}
+          options={if @account.id, do: select_options(Discussit.Users.list_users(@account.id)), else: select_options([@current_user])}
         />
 
         <.input
