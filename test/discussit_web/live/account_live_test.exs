@@ -1,11 +1,12 @@
 defmodule DiscussitWeb.AccountLiveTest do
   use DiscussitWeb.ConnCase
-
+  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   import Phoenix.LiveViewTest
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
   import Discussit.UsersFixtures
   import Discussit.AccountUsersFixtures
+  alias Discussit.Accounts
 
   @create_attrs %{name: "some name", plan: :free}
   @update_attrs %{name: "some updated name", plan: :basic}
@@ -33,22 +34,46 @@ defmodule DiscussitWeb.AccountLiveTest do
              |> form("#account-form", account: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      assert index_live
-             |> form("#account-form", account: @create_attrs)
-             |> render_submit()
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      use_cassette("create_stripe_customer") do
+        assert index_live
+               |> form("#account-form", account: @create_attrs)
+               |> render_submit()
+      end
 
       assert_patch(index_live, ~p"/accounts")
 
       html = render(index_live)
       assert html =~ "Account created successfully"
       assert html =~ "some name"
-      assert Discussit.Accounts.list_accounts() |> Enum.find(&(&1.billing_user_id == user_id))
+
+      assert account =
+               Discussit.Accounts.list_accounts()
+               |> Enum.find(&(&1.billing_user_id == user_id))
+
+      assert account.billing_user_id == user_id
+      assert account.stripe_customer_id
+
+      use_cassette("delete_stripe_customer") do
+        Stripe.Customer.delete(account.stripe_customer_id)
+      end
     end
 
     test "updates account in listing", %{conn: conn, account: account} do
       {:ok, index_live, _html} = live(conn, ~p"/accounts")
       other_user = user_fixture()
       account_user = account_user_fixture(%{user_id: other_user.id, account_id: account.id})
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      {:ok, account} =
+        use_cassette("create_stripe_customer_fixture") do
+          {:ok, %{id: id}} =
+            Stripe.Customer.create(%{email: other_user.email, name: account.name})
+
+          Accounts.update_account(account, %{stripe_customer_id: id})
+        end
 
       assert index_live |> element("#accounts-#{account.id} a", "Edit") |> render_click() =~
                "Edit Account"
@@ -61,9 +86,11 @@ defmodule DiscussitWeb.AccountLiveTest do
 
       attrs = Map.put(@update_attrs, :billing_user_id, other_user.id)
 
-      assert index_live
-             |> form("#account-form", account: attrs)
-             |> render_submit()
+      use_cassette("update_stripe_customer") do
+        assert index_live
+               |> form("#account-form", account: attrs)
+               |> render_submit()
+      end
 
       assert_patch(index_live, ~p"/accounts")
 
@@ -71,8 +98,15 @@ defmodule DiscussitWeb.AccountLiveTest do
       assert html =~ "Account updated successfully"
       assert html =~ "some updated name"
 
-      assert Discussit.Accounts.list_accounts()
-             |> Enum.find(&(&1.billing_user_id == other_user.id))
+      assert account =
+               Discussit.Accounts.list_accounts()
+               |> Enum.find(&(&1.billing_user_id == other_user.id))
+
+      assert account.stripe_customer_id
+
+      use_cassette("delete_stripe_customer_fixture") do
+        Stripe.Customer.delete(account.stripe_customer_id)
+      end
     end
 
     test "deletes account in listing", %{conn: conn, account: account} do
@@ -102,6 +136,19 @@ defmodule DiscussitWeb.AccountLiveTest do
 
     test "updates account within modal", %{conn: conn, account: account, user: user} do
       account_user_fixture(%{user_id: user.id, account_id: account.id})
+      other_user = user_fixture()
+      account_user = account_user_fixture(%{user_id: other_user.id, account_id: account.id})
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      {:ok, account} =
+        use_cassette("create_stripe_customer_fixture") do
+          {:ok, %{id: id}} =
+            Stripe.Customer.create(%{email: other_user.email, name: account.name})
+
+          Accounts.update_account(account, %{stripe_customer_id: id})
+        end
+
       {:ok, show_live, _html} = live(conn, ~p"/accounts/#{account}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~
@@ -113,9 +160,13 @@ defmodule DiscussitWeb.AccountLiveTest do
              |> form("#account-form", account: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
-      assert show_live
-             |> form("#account-form", account: @update_attrs)
-             |> render_submit()
+      attrs = Map.put(@update_attrs, :billing_user_id, other_user.id)
+
+      use_cassette("update_stripe_customer") do
+        assert show_live
+               |> form("#account-form", account: attrs)
+               |> render_submit()
+      end
 
       assert_patch(show_live, ~p"/accounts/#{account}")
 

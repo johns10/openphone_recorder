@@ -95,36 +95,41 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   defp save_account(socket, :edit, account_params) do
-    case Accounts.update_account(socket.assigns.account, account_params) do
-      {:ok, account} ->
-        notify_parent({:saved, account})
+    with {:ok, %{stripe_customer_id: id, name: name, billing_user_id: user_id} = account} <-
+           Accounts.update_account(socket.assigns.account, account_params),
+         %{email: email} <- Discussit.Users.get_user!(user_id),
+         {:ok, customer} <- Stripe.Customer.update(id, %{email: email, name: name}) do
+      notify_parent({:saved, account})
 
-        case {Map.get(socket.assigns, :patch, nil), Map.get(socket.assigns, :redirect, nil)} do
-          {patch, nil} ->
-            {:noreply,
-             socket
-             |> put_flash(:info, "Account updated successfully")
-             |> push_patch(to: patch)}
+      case {Map.get(socket.assigns, :patch, nil), Map.get(socket.assigns, :redirect, nil)} do
+        {patch, nil} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Account updated successfully")
+           |> push_patch(to: patch)}
 
-          {nil, redirect} ->
-            {:noreply,
-             socket
-             |> put_flash(:info, "Account updated successfully")
-             |> redirect(to: redirect)}
-        end
-
+        {nil, redirect} ->
+          {:noreply,
+           socket
+           |> put_flash(:info, "Account updated successfully")
+           |> redirect(to: redirect)}
+      end
+    else
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
     end
   end
 
   defp save_account(socket, :new, account_params) do
-    with {:ok, account} <- Accounts.create_account(account_params),
+    with {:ok, %{name: name} = account} <- Accounts.create_account(account_params),
          {:ok, _account_user} <-
            AccountUsers.create_account_user(%{
              account_id: account.id,
              user_id: socket.assigns.current_user.id
-           }) do
+           }),
+         %{email: email} <- Discussit.Users.get_user!(account.billing_user_id),
+         {:ok, %{id: id}} <- Stripe.Customer.create(%{email: email, name: name}),
+         {:ok, account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
       notify_parent({:saved, account})
 
       case {Map.get(socket.assigns, :patch, nil), Map.get(socket.assigns, :redirect, nil)} do

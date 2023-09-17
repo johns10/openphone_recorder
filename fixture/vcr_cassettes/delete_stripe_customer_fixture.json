@@ -1,0 +1,47 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json; charset=utf8",
+        "Accept-Encoding": "gzip",
+        "Authorization": "***",
+        "Connection": "keep-alive",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Stripe-Version": "2020-08-27",
+        "User-Agent": "Stripe/v1 stripe-elixir/2020-08-27"
+      },
+      "method": "delete",
+      "options": {
+        "pool": "Elixir.Stripe.API",
+        "with_body": "true"
+      },
+      "request_body": "",
+      "url": "https://api.stripe.com/v1/customers/cus_Oef9cYuXhp37F0"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"cus_Oef9cYuXhp37F0\",\n  \"object\": \"customer\",\n  \"deleted\": true\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Sun, 17 Sep 2023 14:19:42 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "75",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
+        "Access-Control-Max-Age": "300",
+        "Cache-Control": "no-cache, no-store",
+        "Request-Id": "req_edgwwEF4Xkg5iS",
+        "Stripe-Version": "2020-08-27",
+        "Vary": "Origin",
+        "X-Stripe-Routing-Context-Priority-Tier": "livemode",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
