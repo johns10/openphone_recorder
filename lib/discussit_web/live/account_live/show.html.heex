@@ -17,6 +17,10 @@
   <:item title="Openphone Signing Secret">
     <%= render_sensitive_string(@account.openai_api_key) %>
   </:item>
+  <:item title="Billing User">
+    <div :if={@account.billing_user}><%= @account.billing_user.name %></div>
+    <div :if={!@account.billing_user}>No Billing User Selected</div>
+  </:item>
 </.list>
 
 <div class="mt-4">

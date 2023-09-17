@@ -3,6 +3,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
 
   alias Discussit.Users
   alias Discussit.Accounts
+  alias Discussit.Accounts.Account
 
   @impl true
   def render(assigns) do
@@ -33,9 +34,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
           style="display: none;"
           href={~p"/accounts/#{@user.selected_account_id}"}
         >
-          <%= if @user.selected_account do %>
-            <%= @user |> Map.get(:selected_account, %{name: ""}) |> Map.get(:name, "") %>
-          <% end %>
+            <%= @account.name %>
         </.link>
       <% end %>
     </div>
@@ -45,12 +44,15 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
   @impl true
   def update(%{user: user} = assigns, socket) do
     changeset = Users.change_selected_account(user)
-
     accounts = Accounts.list_accounts(filters: [user_id: user.id])
+
+    account =
+      Accounts.get_account!(user.selected_account_id) || %Account{name: "No Account Selected"}
 
     {:ok,
      socket
      |> assign(assigns)
+     |> assign(:account, account)
      |> assign(:accounts, accounts)
      |> assign_form(changeset)}
   end

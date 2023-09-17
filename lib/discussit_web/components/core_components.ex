@@ -299,6 +299,7 @@ defmodule DiscussitWeb.CoreComponents do
   attr(:class, :string, default: nil)
   attr(:options, :list, doc: "the options to pass to Phoenix.HTML.Form.options_for_select/2")
   attr(:multiple, :boolean, default: false, doc: "the multiple flag for select inputs")
+  attr(:selected, :string, default: "")
   attr(:rest, :global, include: ~w(autocomplete cols disabled form max maxlength min minlength
                                    pattern placeholder readonly required rows size step))
   slot(:inner_block)
@@ -340,7 +341,13 @@ defmodule DiscussitWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <select id={@id} name={@name} class="select select-bordered w-full" multiple={@multiple} {@rest}>
+      <select
+        id={@id}
+        name={@name}
+        class="select select-bordered w-full"
+        multiple={@multiple}
+        {@rest}
+      >
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>

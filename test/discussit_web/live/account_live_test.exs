@@ -4,6 +4,8 @@ defmodule DiscussitWeb.AccountLiveTest do
   import Phoenix.LiveViewTest
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
+  import Discussit.UsersFixtures
+  import Discussit.AccountUsersFixtures
 
   @create_attrs %{name: "some name", plan: :free}
   @update_attrs %{name: "some updated name", plan: :basic}
@@ -24,7 +26,7 @@ defmodule DiscussitWeb.AccountLiveTest do
       assert html =~ account.name
     end
 
-    test "saves new account", %{conn: conn} do
+    test "saves new account", %{conn: conn, user: %{id: user_id}} do
       {:ok, index_live, _html} = live(conn, ~p"/accounts/new")
 
       assert index_live
@@ -40,10 +42,13 @@ defmodule DiscussitWeb.AccountLiveTest do
       html = render(index_live)
       assert html =~ "Account created successfully"
       assert html =~ "some name"
+      assert Discussit.Accounts.list_accounts() |> Enum.find(&(&1.billing_user_id == user_id))
     end
 
     test "updates account in listing", %{conn: conn, account: account} do
       {:ok, index_live, _html} = live(conn, ~p"/accounts")
+      other_user = user_fixture()
+      account_user = account_user_fixture(%{user_id: other_user.id, account_id: account.id})
 
       assert index_live |> element("#accounts-#{account.id} a", "Edit") |> render_click() =~
                "Edit Account"
@@ -54,8 +59,10 @@ defmodule DiscussitWeb.AccountLiveTest do
              |> form("#account-form", account: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
+      attrs = Map.put(@update_attrs, :billing_user_id, other_user.id)
+
       assert index_live
-             |> form("#account-form", account: @update_attrs)
+             |> form("#account-form", account: attrs)
              |> render_submit()
 
       assert_patch(index_live, ~p"/accounts")
@@ -63,6 +70,9 @@ defmodule DiscussitWeb.AccountLiveTest do
       html = render(index_live)
       assert html =~ "Account updated successfully"
       assert html =~ "some updated name"
+
+      assert Discussit.Accounts.list_accounts()
+             |> Enum.find(&(&1.billing_user_id == other_user.id))
     end
 
     test "deletes account in listing", %{conn: conn, account: account} do

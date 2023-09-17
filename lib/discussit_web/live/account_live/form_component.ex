@@ -28,8 +28,12 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           field={@form[:billing_user_id]}
           type="select"
           label="Billing User"
-          prompt="Choose the user to communicate billing information to"
-          options={if @account.id, do: select_options(Discussit.Users.list_users(@account.id)), else: select_options([@current_user])}
+          options={
+            if @account.id,
+              do: select_options(Discussit.Users.list_users(@account.id)),
+              else: select_options([@current_user])
+          }
+          selected={@current_user.id}
         />
 
         <.input

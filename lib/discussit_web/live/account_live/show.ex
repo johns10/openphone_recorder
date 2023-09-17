@@ -3,7 +3,7 @@ defmodule DiscussitWeb.AccountLive.Show do
 
   alias Discussit.Accounts
 
-  @preloads [account_users: :user]
+  @preloads [:billing_user, account_users: :user]
 
   @impl true
   def mount(_params, _session, socket) do
@@ -31,7 +31,7 @@ defmodule DiscussitWeb.AccountLive.Show do
 
   @impl true
   def handle_info({_, {:saved, account}}, socket) do
-    {:noreply, assign(socket, :account, account)}
+    {:noreply, assign(socket, :account, Discussit.Repo.preload(account, @preloads))}
   end
 
   def handle_info({_, {:new_account_user, account_user}}, socket) do
