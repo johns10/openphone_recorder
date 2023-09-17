@@ -63,7 +63,7 @@ defmodule DiscussitWeb.AccountLiveTest do
     test "updates account in listing", %{conn: conn, account: account} do
       {:ok, index_live, _html} = live(conn, ~p"/accounts")
       other_user = user_fixture()
-      account_user = account_user_fixture(%{user_id: other_user.id, account_id: account.id})
+      account_user_fixture(%{user_id: other_user.id, account_id: account.id})
 
       ExVCR.Config.filter_request_headers("Authorization")
 
@@ -137,7 +137,7 @@ defmodule DiscussitWeb.AccountLiveTest do
     test "updates account within modal", %{conn: conn, account: account, user: user} do
       account_user_fixture(%{user_id: user.id, account_id: account.id})
       other_user = user_fixture()
-      account_user = account_user_fixture(%{user_id: other_user.id, account_id: account.id})
+      account_user_fixture(%{user_id: other_user.id, account_id: account.id})
 
       ExVCR.Config.filter_request_headers("Authorization")
 
