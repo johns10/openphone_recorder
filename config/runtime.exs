@@ -19,6 +19,11 @@ case System.get_env("AAI_API_KEY") do
   key -> config :discussit, aai_api_key: key
 end
 
+case System.get_env("STRIPE_SECRET") do
+  nil -> nil
+  key -> config :stripity_stripe, api_key: key
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

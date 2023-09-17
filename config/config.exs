@@ -78,6 +78,8 @@ config :mime, :types, %{
 
 config :discussit, aai_api_key: System.get_env("AAI_API_KEY")
 
+config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

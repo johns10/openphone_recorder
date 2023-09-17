@@ -19,6 +19,7 @@ defmodule Discussit.MixProject do
   def application do
     [
       mod: {Discussit.Application, []},
+      applications: [:stripity_stripe],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -64,6 +65,7 @@ defmodule Discussit.MixProject do
       {:flow, "~> 1.2.4"},
       {:mime, "~> 2.0.5"},
       {:retry, "~> 0.18"},
+      {:stripity_stripe, "~> 2.17"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
