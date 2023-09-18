@@ -1,5 +1,9 @@
-// The public key can be found in the Stripe Dashboard
-const stripe = Stripe('pk_live_51NJe4fD6og6lHPCfQRWiYjgbPRrjPkiVSoYxu8VbwE6RwLWldQpuTCw0rJUrh8lKa3eakgCi0yRqfqEouA5ckxUW00KUXEkvtc')
+function publicKey() {
+  if (process.env.NODE_ENV === 'development') return `pk_test_51NJe4fD6og6lHPCf1vJQArEk6he5MqGQsUQzQ869Lol4WTBtuVpuhn4GCCx1dZmq9brfD2RvCbWP1c9nj3y8L20N008m18e0zY`
+  if (process.env.NODE_ENV === 'production') return 'pk_live_51NJe4fD6og6lHPCfQRWiYjgbPRrjPkiVSoYxu8VbwE6RwLWldQpuTCw0rJUrh8lKa3eakgCi0yRqfqEouA5ckxUW00KUXEkvtc'
+}
+
+const stripe = Stripe(publicKey())
 
 export default PaymentSetup = {
   mounted() {
@@ -11,7 +15,6 @@ export default PaymentSetup = {
 }
 
 const init = (form, successCallback) => {
-  console.log(form.dataset)
   const clientSecret = form.dataset.secret
   const accountId = form.dataset.accountId
   var elements = stripe.elements({ clientSecret, appearance });

@@ -23,7 +23,17 @@ defmodule DiscussitWeb.AccountLive.Show do
                {default, methods} <- find_default_method(customer, methods) do
             {default, methods}
           else
-            _ -> []
+            nil ->
+              with %{email: email} <-
+                     Discussit.Users.get_user!(account.billing_user_id),
+                   {:ok, %{id: id}} <-
+                     Stripe.Customer.create(%{email: email, name: account.name}),
+                   {:ok, account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
+                {nil, []}
+              end
+
+            _ ->
+              {nil, []}
           end
 
         {:noreply,
