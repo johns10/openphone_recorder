@@ -119,6 +119,7 @@ defmodule DiscussitWeb.Router do
 
       live("/accounts/:id", AccountLive.Show, :show)
       live("/accounts/:id/show/edit", AccountLive.Show, :edit)
+      live("/accounts/:id/show/add_payment", AccountLive.Show, :add_payment)
 
       live("/usages", UsageLive.Index, :index)
       live("/usages/:id", UsageLive.Show, :show)

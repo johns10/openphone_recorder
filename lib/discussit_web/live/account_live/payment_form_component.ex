@@ -1,64 +1,45 @@
-defmodule DiscussitWeb.AccountLive.FormComponent do
+defmodule DiscussitWeb.AccountLive.PaymentFormComponent do
   use DiscussitWeb, :live_component
   require Logger
   alias Discussit.Accounts
   alias Discussit.AccountUsers
-  import DiscussitWeb.LiveSupport
 
   @impl true
   def render(assigns) do
     ~H"""
-    <div>
+    <div id={@id}>
       <.header>
-        <%= @title %>
-        <:subtitle>Use this form to manage account records in your database.</:subtitle>
+        Add a Credit Card to Your Account
       </.header>
-
-      <.simple_form
-        for={@form}
-        id="account-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
+      <form
+        action="#"
+        method="post"
+        data-secret={@intent.client_secret}
+        data-account-id={@account.id}
+        phx-hook="PaymentSetup"
+        id="payment-form"
       >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:openphone_signing_secret]} type="text" label="Signing Secret" />
-        <.input field={@form[:openai_api_key]} type="text" label="OpenAI API Key" />
-        <.input
-          field={@form[:billing_user_id]}
-          type="select"
-          label="Billing User"
-          options={
-            if @account.id,
-              do: select_options(Discussit.Users.list_users(@account.id)),
-              else: select_options([@current_user])
-          }
-          selected={@current_user.id}
-        />
+        <div class="my-4">
+          <div id="card-element" class="tag-input"></div>
+          <div id="card-errors" class="tag-label" role="alert"></div>
+        </div>
 
-        <.input
-          field={@form[:plan]}
-          type="select"
-          label="Plan"
-          prompt="Choose a value"
-          options={Ecto.Enum.values(Discussit.Accounts.Account, :plan)}
-        />
-        <:actions>
-          <.button phx-disable-with="Saving...">Save Account</.button>
-        </:actions>
-      </.simple_form>
+        <button class="btn btn-success w-full">Add Card</button>
+      </form>
     </div>
     """
   end
 
   @impl true
-  def update(%{account: account} = assigns, socket) do
+  def update(%{account: %{stripe_customer_id: id} = account} = assigns, socket) do
     changeset = Accounts.change_account(account)
+    {:ok, setup_intent} = Stripe.SetupIntent.create(%{customer: id})
 
     {:ok,
      socket
      |> assign(assigns)
      |> assign(:attrs, %{})
+     |> assign(:intent, setup_intent)
      |> assign_form(changeset)}
   end
 
@@ -118,11 +99,8 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
 
-      nil ->
-        {:noreply, socket}
-
-      {:error, %{message: message}} ->
-        Logger.error("#{__MODULE__} #{message}")
+      {:error, %Stripe.Error{message: message}} ->
+        Logger.error("Stripe error in #{__MODULE__}, message: #{message}")
         {:noreply, socket}
     end
   end
@@ -156,11 +134,8 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}
 
-      nil ->
-        {:noreply, socket}
-
-      {:error, %{message: message}} ->
-        Logger.error("#{__MODULE__} #{message}")
+      {:error, %Stripe.Error{message: message}} ->
+        Logger.error("Stripe error in #{__MODULE__}, message: #{message}")
         {:noreply, socket}
     end
   end

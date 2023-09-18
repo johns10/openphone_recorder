@@ -1,6 +1,5 @@
 defmodule Discussit.StatementsFixtures do
   import Discussit.ParticipantsFixtures
-  import Discussit.ConversationsFixtures
 
   def statements_fixture(content, attrs \\ %{}) do
     participant_one = Map.get(attrs, :participant_one, participant_fixture())

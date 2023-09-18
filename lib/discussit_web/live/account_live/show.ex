@@ -16,10 +16,21 @@ defmodule DiscussitWeb.AccountLive.Show do
 
     case Bodyguard.permit(Accounts, :get_account!, socket.assigns.current_user, id) do
       :ok ->
+        payment_methods =
+          with id when is_binary(id) <- Map.get(account, :stripe_customer_id, nil),
+               {:ok, %{data: methods}} <- Stripe.PaymentMethod.list(%{customer: id}) do
+            methods
+          else
+            _ -> []
+          end
+
+        # IO.inspect(payment_methods, label: :pm)
+
         {:noreply,
          socket
          |> assign(:page_title, page_title(socket.assigns.live_action))
-         |> assign(:account, account)}
+         |> assign(:account, account)
+         |> assign(:payment_methods, payment_methods)}
 
       {:error, _} ->
         {:noreply,
@@ -40,6 +51,13 @@ defmodule DiscussitWeb.AccountLive.Show do
     {:noreply, assign(socket, :account, account)}
   end
 
+  @impl true
+  def handle_event("remove-card", %{"id" => id}, socket) do
+    with {:ok, _} <- Stripe.PaymentMethod.detach(%{payment_method: id}) do
+      {:noreply, socket |> push_patch(to: "/accounts/#{socket.assigns.account.id}")}
+    end
+  end
+
   defp render_sensitive_string(nil), do: nil
 
   defp render_sensitive_string(secret) when is_binary(secret) do
@@ -48,4 +66,5 @@ defmodule DiscussitWeb.AccountLive.Show do
 
   defp page_title(:show), do: "Show Account"
   defp page_title(:edit), do: "Edit Account"
+  defp page_title(:add_payment), do: "Add Payment Info"
 end

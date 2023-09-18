@@ -24,8 +24,9 @@ import topbar from "../vendor/topbar"
 import StopPropogation from "./hooks/stop_propogation";
 import ElementVisible from "./hooks/element_visible";
 import ImportZoomMeetings from "./hooks/import_zoom_meetings";
+import PaymentSetup from "./hooks/payment_setup";
 
-let hooks = { StopPropogation, ElementVisible, ImportZoomMeetings }
+let hooks = { StopPropogation, ElementVisible, ImportZoomMeetings, PaymentSetup }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: hooks })

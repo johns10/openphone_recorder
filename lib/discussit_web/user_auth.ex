@@ -5,8 +5,6 @@ defmodule DiscussitWeb.UserAuth do
   import Phoenix.Controller
 
   alias Discussit.Users
-  alias Discussit.Accounts
-  alias Discussit.Accounts.Account
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change

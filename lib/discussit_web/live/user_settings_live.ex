@@ -146,7 +146,7 @@ defmodule DiscussitWeb.UserSettingsLive do
       socket
       |> assign(:current_password, nil)
       |> assign(:email_form_current_password, nil)
-      |> assign(:timezone_string, Atom.to_string(user.timezone) || "")
+      |> assign(:timezone_string, Atom.to_string(user.timezone))
       |> assign(:current_email, user.email)
       |> assign(:email_form, to_form(email_changeset))
       |> assign(:password_form, to_form(password_changeset))
@@ -266,6 +266,4 @@ defmodule DiscussitWeb.UserSettingsLive do
       String.contains?(String.upcase(value), String.upcase(input_value))
     end)
   end
-
-  defp filter_timezone_options(_), do: []
 end

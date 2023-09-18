@@ -43,6 +43,37 @@
   account_user={%Discussit.AccountUsers.AccountUser{}}
 />
 
+<div class="my-4">
+  <.header>Payment Methods</.header>
+</div>
+
+<div :if={length(@payment_methods) > 0}>
+  <div :for={method <- @payment_methods}>
+    <div class="card my-4 bg-secondary flex flex-row p-4 items-end space-x-8 w-80">
+      <div>
+        <p class="font-medium tracking-more-wider text-secondary-content">
+          <%= "****  ****  ****  #{method.card.last4}" %>
+        </p>
+      </div>
+      <div>
+        <p class="font-medium tracking-wider text-secondary-content">
+          <%= method.card.exp_month %>/<%= method.card.exp_year %>
+        </p>
+      </div>
+      <.link
+        phx-click="remove-card"
+        phx-value-id={method.id}
+        class="font-medium tracking-wider text-secondary-content"
+      >
+        <.icon name="hero-trash" />
+      </.link>
+    </div>
+  </div>
+</div>
+<.link patch={~p{/accounts/#{@account.id}/show/add_payment}}>
+  <.button class="btn-primary">Add Payment Method</.button>
+</.link>
+
 <.back navigate={~p"/accounts"}>Back to accounts</.back>
 
 <.modal
@@ -56,6 +87,21 @@
     id={@account.id}
     title={@page_title}
     action={@live_action}
+    account={@account}
+    patch={~p"/accounts/#{@account}"}
+    current_user={@current_user}
+  />
+</.modal>
+
+<.modal
+  :if={@live_action == :add_payment}
+  id="payment-modal"
+  show
+  on_cancel={JS.patch(~p"/accounts/#{@account}")}
+>
+  <.live_component
+    module={DiscussitWeb.AccountLive.PaymentFormComponent}
+    id={@account.id}
     account={@account}
     patch={~p"/accounts/#{@account}"}
     current_user={@current_user}

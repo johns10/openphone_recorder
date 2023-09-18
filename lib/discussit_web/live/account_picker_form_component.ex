@@ -34,7 +34,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
           style="display: none;"
           href={~p"/accounts/#{@user.selected_account_id}"}
         >
-            <%= @account.name %>
+          <%= @account.name %>
         </.link>
       <% end %>
     </div>
@@ -60,7 +60,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
   @impl true
   def handle_event("select-account", %{"id" => id}, socket) do
     case Users.update_selected_account(socket.assigns.user, %{selected_account_id: id}) do
-      {:ok, user} ->
+      {:ok, _user} ->
         user = Users.get_user!(socket.assigns.user.id, preload: :selected_account)
 
         notify_parent({:account_picked, user})

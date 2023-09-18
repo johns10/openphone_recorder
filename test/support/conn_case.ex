@@ -15,7 +15,6 @@ defmodule DiscussitWeb.ConnCase do
   this option is not recommended for other databases.
   """
   alias Discussit.AccountsFixtures
-  alias Discussit.UserSettingsFixtures
 
   use ExUnit.CaseTemplate
 
