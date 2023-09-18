@@ -3,7 +3,9 @@ const stripe = Stripe('pk_live_51NJe4fD6og6lHPCfQRWiYjgbPRrjPkiVSoYxu8VbwE6RwLWl
 
 export default PaymentSetup = {
   mounted() {
-    const successCallback = paymentIntent => { this.pushEvent('payment-success', paymentIntent) }
+    const successCallback = setupIntent => {
+      this.pushEventTo('#payment-element', 'payment-setup', setupIntent)
+    }
     init(this.el, successCallback)
   }
 }
@@ -14,7 +16,7 @@ const init = (form, successCallback) => {
   const accountId = form.dataset.accountId
   var elements = stripe.elements({ clientSecret, appearance });
   var payment = elements.create('payment');
-  payment.mount('#card-element');
+  payment.mount('#payment-element');
 
   payment.on('change', function (event) {
     var displayError = document.getElementById('card-errors');
@@ -31,9 +33,8 @@ const init = (form, successCallback) => {
 
     stripe.confirmSetup({
       elements,
-      confirmParams: {
-        return_url: `http://localhost:4000/accounts/${accountId}`,
-      }
+      confirmParams: { return_url: `${window.location.origin}/accounts/${accountId}` },
+      redirect: 'if_required'
     }).then(function (result) {
       if (result.error) {
         console.log(result.error.message);
@@ -43,6 +44,7 @@ const init = (form, successCallback) => {
         }
       }
     })
+    document.getElementById("submit-payment").setAttribute("disabled", true)
   })
 }
 
