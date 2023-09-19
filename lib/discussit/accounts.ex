@@ -54,15 +54,8 @@ defmodule Discussit.Accounts do
   defp include_available_credits(query, nil), do: query
 
   defp include_available_credits(query, id) do
-    credits =
-      Discussit.Credits.Credit
-      |> where([c], c.account_id == ^id)
-      |> select([c], sum(c.quantity))
-
-    usages =
-      Discussit.Usages.Usage
-      |> where([c], c.account_id == ^id)
-      |> select([u], sum(u.total))
+    credits = Discussit.Credits.sum_credits_query(filters: [account_id: id])
+    usages = Discussit.Usages.sum_usages_query(filters: [account_id: id])
 
     select(query, [a], %{a | available_credits: subquery(credits) - 4 * subquery(usages)})
   end

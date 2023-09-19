@@ -9,12 +9,16 @@ defmodule Discussit.Usages do
   alias Discussit.Usages.Usage
 
   def sum_usages(opts \\ []) do
+    sum_usages_query(opts)
+    |> Repo.one()
+  end
+
+  def sum_usages_query(opts) do
     filters = Keyword.get(opts, :filters, [])
 
     Usage
     |> filter_by_account_id(filters[:account_id])
     |> select([u], sum(u.total))
-    |> Repo.one()
   end
 
   def list_usages do

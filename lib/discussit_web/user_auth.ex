@@ -93,11 +93,29 @@ defmodule DiscussitWeb.UserAuth do
 
     user =
       user_token &&
-        Users.get_user_by_session_token(user_token)
-        |> Discussit.Repo.preload(:selected_account)
+        preloaded_user(user_token)
 
     assign(conn, :current_user, user)
   end
+
+  defp preloaded_user(user_token) do
+    Users.get_user_by_session_token(user_token)
+    |> maybe_preload_user()
+  end
+
+  defp maybe_preload_user(nil), do: nil
+
+  defp maybe_preload_user(%Discussit.Users.User{selected_account_id: account_id} = user)
+       when not is_nil(account_id) do
+    account =
+      Discussit.Accounts.get_account!(account_id,
+        includes: [available_credits: true]
+      )
+
+    Map.put(user, :selected_account, account)
+  end
+
+  defp maybe_preload_user(%Discussit.Users.User{} = user), do: user
 
   defp ensure_user_token(conn) do
     if token = get_session(conn, :user_token) do
@@ -196,8 +214,7 @@ defmodule DiscussitWeb.UserAuth do
   defp mount_current_user(session, socket) do
     Phoenix.Component.assign_new(socket, :current_user, fn ->
       if user_token = session["user_token"] do
-        Users.get_user_by_session_token(user_token)
-        |> Discussit.Repo.preload([:selected_account])
+        preloaded_user(user_token)
       end
     end)
   end

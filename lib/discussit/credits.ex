@@ -9,12 +9,16 @@ defmodule Discussit.Credits do
   alias Discussit.Credits.Credit
 
   def sum_credits(opts \\ []) do
+    sum_credits_query(opts)
+    |> Repo.one()
+  end
+
+  def sum_credits_query(opts) do
     filters = Keyword.get(opts, :filters, [])
 
     Credit
     |> filter_by_account_id(filters[:account_id])
     |> select([c], sum(c.quantity))
-    |> Repo.one()
   end
 
   def list_credits(opts \\ []) do

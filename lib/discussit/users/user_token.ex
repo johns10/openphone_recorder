@@ -59,8 +59,10 @@ defmodule Discussit.Users.UserToken do
     query =
       from token in token_and_context_query(token, "session"),
         join: user in assoc(token, :user),
+        left_join: a in assoc(user, :selected_account),
         where: token.inserted_at > ago(@session_validity_in_days, "day"),
-        select: user
+        group_by: [user.id, a.id],
+        select: %{user | selected_account: a}
 
     {:ok, query}
   end
