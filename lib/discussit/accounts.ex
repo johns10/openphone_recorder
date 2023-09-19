@@ -16,6 +16,13 @@ defmodule Discussit.Accounts do
     end
   end
 
+  def sum_available_credits(account_id) do
+    credits = Discussit.Credits.sum_credits(filters: [account_id: account_id])
+    usages = Discussit.Usages.sum_usages(filters: [account_id: account_id])
+
+    credits - 4 * usages
+  end
+
   def list_accounts(opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])
     filters = Keyword.get(opts, :filters, [])
@@ -28,8 +35,10 @@ defmodule Discussit.Accounts do
 
   def get_account!(id, opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])
+    includes = Keyword.get(opts, :includes, [])
 
     Account
+    |> include_available_credits(if includes[:available_credits], do: id, else: nil)
     |> preload(^preloads)
     |> Repo.get!(id)
   end
@@ -40,6 +49,22 @@ defmodule Discussit.Accounts do
     query
     |> join(:left, [a], user_accounts in assoc(a, :account_users), as: :au)
     |> where([au: au], au.user_id == ^user_id)
+  end
+
+  defp include_available_credits(query, nil), do: query
+
+  defp include_available_credits(query, id) do
+    credits =
+      Discussit.Credits.Credit
+      |> where([c], c.account_id == ^id)
+      |> select([c], sum(c.quantity))
+
+    usages =
+      Discussit.Usages.Usage
+      |> where([c], c.account_id == ^id)
+      |> select([u], sum(u.total))
+
+    select(query, [a], %{a | available_credits: subquery(credits) - 4 * subquery(usages)})
   end
 
   def create_account(attrs \\ %{}) do

@@ -1,4 +1,5 @@
 defmodule Discussit.AccountsTest do
+  alias Discussit.Credits
   use Discussit.DataCase
 
   alias Discussit.Accounts
@@ -18,6 +19,14 @@ defmodule Discussit.AccountsTest do
     test "get_account!/1 returns the account with given id" do
       account = account_fixture()
       assert Accounts.get_account!(account.id) == account
+    end
+
+    test "get_account!/1 returns the account with available credits" do
+      account = account_fixture()
+      Discussit.UsagesFixtures.usage_fixture(%{account_id: account.id})
+      Discussit.CreditsFixtures.credit_fixture(%{account_id: account.id})
+      account = Accounts.get_account!(account.id, includes: [available_credits: true])
+      assert account.available_credits == -361.5
     end
 
     test "create_account/1 with valid data creates a account" do

@@ -1,0 +1,37 @@
+<div class="flex-grow">
+  <.header class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10">
+    Listing Credits
+    <:actions>
+      <.link patch={~p"/credits/new"}>
+        <.button class="btn-success">Buy Credits</.button>
+      </.link>
+    </:actions>
+  </.header>
+
+  <div class="p-8">
+    <.table
+      id="credits"
+      rows={@streams.credits}
+      row_click={fn {_id, credit} -> JS.navigate(~p"/credits/#{credit}") end}
+    >
+      <:col :let={{_id, credit}} label="Quantity"><%= credit.quantity %></:col>
+      <:col :let={{_id, credit}} label="Purchased at"><%= credit.purchased_at %></:col>
+    </.table>
+  </div>
+
+  <.modal
+    :if={@live_action in [:new, :edit]}
+    id="credit-modal"
+    show
+    on_cancel={JS.patch(~p"/credits")}
+  >
+    <.live_component
+      module={DiscussitWeb.CreditLive.FormComponent}
+      id={@credit.id || :new}
+      title={@page_title}
+      action={@live_action}
+      credit={@credit}
+      patch={~p"/credits"}
+    />
+  </.modal>
+</div>

@@ -1,6 +1,8 @@
 defmodule Discussit.Accounts.Account do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.Credits.Credit
+  alias Discussit.Usages.Usage
   alias Discussit.AccountUsers.AccountUser
   alias Discussit.Users.User
 
@@ -15,8 +17,12 @@ defmodule Discussit.Accounts.Account do
     field :timezone, Ecto.Enum, values: @tz_options
     field :stripe_customer_id, :string
 
+    field :available_credits, :float, virtual: true
+
     belongs_to :billing_user, User
     has_many :account_users, AccountUser
+    has_many :usages, Usage
+    has_many :credits, Credit
 
     timestamps()
   end
@@ -24,7 +30,15 @@ defmodule Discussit.Accounts.Account do
   @doc false
   def changeset(account, attrs) do
     account
-    |> cast(attrs, [:name, :plan, :openphone_signing_secret, :openai_api_key, :timezone, :billing_user_id, :stripe_customer_id])
+    |> cast(attrs, [
+      :name,
+      :plan,
+      :openphone_signing_secret,
+      :openai_api_key,
+      :timezone,
+      :billing_user_id,
+      :stripe_customer_id
+    ])
     |> foreign_key_constraint(:billing_user_id)
     |> validate_required([:name, :plan])
   end

@@ -8,11 +8,27 @@ defmodule Discussit.Usages do
 
   alias Discussit.Usages.Usage
 
+  def sum_usages(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+
+    Usage
+    |> filter_by_account_id(filters[:account_id])
+    |> select([u], sum(u.total))
+    |> Repo.one()
+  end
+
   def list_usages do
     Repo.all(Usage)
   end
 
   def get_usage!(id), do: Repo.get!(Usage, id)
+
+  defp filter_by_account_id(query, nil), do: query
+
+  defp filter_by_account_id(query, account_id) do
+    query
+    |> where([u], u.account_id == ^account_id)
+  end
 
   def create_usage(attrs \\ %{}) do
     %Usage{}

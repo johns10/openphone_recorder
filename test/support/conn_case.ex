@@ -71,6 +71,8 @@ defmodule DiscussitWeb.ConnCase do
   def user_setup(%{user: user}) do
     account = AccountsFixtures.account_fixture()
 
+    {:ok, account} = Discussit.Accounts.update_account(account, %{billing_user_id: user.id})
+
     {:ok, user} =
       Discussit.Users.update_selected_account(user, %{selected_account_id: account.id})
 

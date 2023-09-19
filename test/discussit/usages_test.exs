@@ -10,6 +10,15 @@ defmodule Discussit.UsagesTest do
 
     @invalid_attrs %{meta: nil, model: nil, product: nil, provider: nil, total: nil}
 
+    test "sum_usages/1 sums usages" do
+      account = Discussit.AccountsFixtures.account_fixture()
+      usage = usage_fixture(%{account_id: account.id})
+      usage_two = usage_fixture(%{account_id: account.id})
+
+      assert Usages.sum_usages(filters: [account_id: account.id]) ==
+               usage.total + usage_two.total
+    end
+
     test "list_usages/0 returns all usages" do
       usage = usage_fixture()
       assert Usages.list_usages() == [usage]

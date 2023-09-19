@@ -12,13 +12,8 @@ defmodule DiscussitWeb.AccountLiveTest do
   @update_attrs %{name: "some updated name", plan: :basic}
   @invalid_attrs %{name: nil, plan: nil}
 
-  defp create_account(_) do
-    account = account_fixture()
-    %{account: account}
-  end
-
   describe "Index" do
-    setup [:register_and_log_in_administrator, :create_account]
+    setup [:register_and_log_in_administrator, :user_setup]
 
     test "lists all accounts", %{conn: conn, account: account} do
       {:ok, _index_live, html} = live(conn, ~p"/accounts")
@@ -48,9 +43,10 @@ defmodule DiscussitWeb.AccountLiveTest do
       assert html =~ "Account created successfully"
       assert html =~ "some name"
 
-      assert account =
-               Discussit.Accounts.list_accounts()
-               |> Enum.find(&(&1.billing_user_id == user_id))
+      account =
+        Discussit.Accounts.list_accounts()
+        |> Enum.sort_by(& &1.inserted_at)
+        |> Enum.at(-1)
 
       assert account.billing_user_id == user_id
       assert account.stripe_customer_id
@@ -112,7 +108,7 @@ defmodule DiscussitWeb.AccountLiveTest do
   end
 
   describe "Show" do
-    setup [:register_and_log_in_user, :create_account]
+    setup [:register_and_log_in_user, :user_setup]
 
     test "doesn't display account without access", %{conn: conn, account: account} do
       {:error,
