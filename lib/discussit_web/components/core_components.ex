@@ -504,7 +504,7 @@ defmodule DiscussitWeb.CoreComponents do
     <.modal id="paywall-modal" on_cancel={hide_modal("paywall-modal")}>
       <.live_component
         module={DiscussitWeb.AccountLive.PaymentFormComponent}
-        id={@current_user.selected_account.id}
+        id={"#{@current_user.selected_account.id}"}
         account={@current_user.selected_account}
         current_user={@current_user.selected_account}
         title="Add a card to your account"
