@@ -115,7 +115,12 @@ defmodule DiscussitWeb.UserAuth do
     Map.put(user, :selected_account, account)
   end
 
-  defp maybe_preload_user(%Discussit.Users.User{} = user), do: user
+  defp maybe_preload_user(%Discussit.Users.User{} = user),
+    do:
+      Map.put(user, :selected_account, %Discussit.Accounts.Account{
+        id: 1,
+        name: "No Account Selected"
+      })
 
   defp ensure_user_token(conn) do
     if token = get_session(conn, :user_token) do
