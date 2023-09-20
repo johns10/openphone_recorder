@@ -47,7 +47,11 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
     accounts = Accounts.list_accounts(filters: [user_id: user.id])
 
     account =
-      Accounts.get_account!(user.selected_account_id) || %Account{name: "No Account Selected"}
+      if user.selected_account_id do
+        Accounts.get_account!(user.selected_account_id)
+      else
+        %Account{name: "No Account Selected"}
+      end
 
     {:ok,
      socket

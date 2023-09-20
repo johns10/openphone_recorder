@@ -4,7 +4,6 @@ const ElementVisible = {
 
     const observer = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting === true) {
-        console.log("visible")
         hook.pushEvent("next-page", {})
       }
     }, { threshold: [0] });
