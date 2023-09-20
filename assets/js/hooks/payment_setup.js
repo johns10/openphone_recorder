@@ -1,10 +1,3 @@
-function publicKey() {
-  if (process.env.NODE_ENV === 'development') return `pk_test_51NJe4fD6og6lHPCf1vJQArEk6he5MqGQsUQzQ869Lol4WTBtuVpuhn4GCCx1dZmq9brfD2RvCbWP1c9nj3y8L20N008m18e0zY`
-  if (process.env.NODE_ENV === 'production') return 'pk_live_51NJe4fD6og6lHPCfQRWiYjgbPRrjPkiVSoYxu8VbwE6RwLWldQpuTCw0rJUrh8lKa3eakgCi0yRqfqEouA5ckxUW00KUXEkvtc'
-}
-
-const stripe = Stripe(publicKey())
-
 export default PaymentSetup = {
   mounted() {
     const successCallback = setupIntent => {
@@ -17,7 +10,9 @@ export default PaymentSetup = {
 const init = (form, successCallback) => {
   const clientSecret = form.dataset.secret
   const accountId = form.dataset.accountId
-  if (clientSecret) {
+  const publicKey = form.dataset.publicKey
+  if (clientSecret && publicKey) {
+    const stripe = Stripe(publicKey)
     var elements = stripe.elements({ clientSecret, appearance });
     var payment = elements.create('payment');
     payment.mount('#payment-element');

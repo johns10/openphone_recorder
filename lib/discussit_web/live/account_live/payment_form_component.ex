@@ -18,6 +18,7 @@ defmodule DiscussitWeb.AccountLive.PaymentFormComponent do
         method="post"
         data-secret={@intent.client_secret}
         data-account-id={@account.id}
+        data-public-key={Application.get_env(:discussit, :stripe_public_key)}
         phx-hook="PaymentSetup"
         id="payment-form"
         class="flex-grow"

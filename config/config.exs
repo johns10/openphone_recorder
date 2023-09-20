@@ -77,6 +77,7 @@ config :mime, :types, %{
 }
 
 config :discussit, aai_api_key: System.get_env("AAI_API_KEY")
+config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
 

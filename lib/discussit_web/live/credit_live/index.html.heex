@@ -1,6 +1,6 @@
 <div class="flex-grow">
   <.header class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10">
-    Listing Credits
+    Listing Credits (<%= @current_user.selected_account.available_credits %> available)
     <:actions>
       <.link patch={~p"/credits/new"}>
         <.button class="btn-success">Buy Credits</.button>
