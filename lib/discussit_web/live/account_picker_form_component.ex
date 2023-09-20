@@ -65,7 +65,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
   def handle_event("select-account", %{"id" => id}, socket) do
     case Users.update_selected_account(socket.assigns.user, %{selected_account_id: id}) do
       {:ok, _user} ->
-        user = Users.get_user!(socket.assigns.user.id, preload: :selected_account)
+        user = Users.get_user!(socket.assigns.user.id, preloads: :selected_account)
 
         notify_parent({:account_picked, user})
 

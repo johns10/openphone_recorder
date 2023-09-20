@@ -17,40 +17,42 @@ export default PaymentSetup = {
 const init = (form, successCallback) => {
   const clientSecret = form.dataset.secret
   const accountId = form.dataset.accountId
-  var elements = stripe.elements({ clientSecret, appearance });
-  var payment = elements.create('payment');
-  payment.mount('#payment-element');
+  if (clientSecret) {
+    var elements = stripe.elements({ clientSecret, appearance });
+    var payment = elements.create('payment');
+    payment.mount('#payment-element');
 
-  payment.on('change', function (event) {
-    var displayError = document.getElementById('card-errors');
-    if (event.error) {
-      document.getElementById('submit-payment').removeAttribute('disabled')
-      displayError.textContent = event.error.message;
-    } else {
-      document.getElementById('submit-payment').removeAttribute('disabled')
-      displayError.textContent = '';
-    }
-  });
-
-  // Handle form submission.
-  form.addEventListener('submit', function (event) {
-    event.preventDefault()
-
-    stripe.confirmSetup({
-      elements,
-      confirmParams: { return_url: `${window.location.origin}/accounts/${accountId}` },
-      redirect: 'if_required'
-    }).then(function (result) {
-      if (result.error) {
-        console.log(result.error.message);
+    payment.on('change', function (event) {
+      var displayError = document.getElementById('card-errors');
+      if (event.error) {
+        document.getElementById('submit-payment').removeAttribute('disabled')
+        displayError.textContent = event.error.message;
       } else {
-        if (result.setupIntent.status === 'succeeded') {
-          successCallback(result.setupIntent)
-        }
+        document.getElementById('submit-payment').removeAttribute('disabled')
+        displayError.textContent = '';
       }
+    });
+
+    // Handle form submission.
+    form.addEventListener('submit', function (event) {
+      event.preventDefault()
+
+      stripe.confirmSetup({
+        elements,
+        confirmParams: { return_url: `${window.location.origin}/accounts/${accountId}` },
+        redirect: 'if_required'
+      }).then(function (result) {
+        if (result.error) {
+          console.log(result.error.message);
+        } else {
+          if (result.setupIntent.status === 'succeeded') {
+            successCallback(result.setupIntent)
+          }
+        }
+      })
+      document.getElementById("submit-payment").setAttribute("disabled", true)
     })
-    document.getElementById("submit-payment").setAttribute("disabled", true)
-  })
+  }
 }
 
 const appearance = {
