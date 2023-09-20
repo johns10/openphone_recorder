@@ -102,7 +102,6 @@
 <.link patch={~p{/accounts/#{@account.id}/show/add_payment}}>
   <.button class="btn-primary my-4">Add Payment Method</.button>
 </.link>
-
 <.back navigate={~p"/accounts"}>Back to accounts</.back>
 
 <.modal
@@ -134,5 +133,7 @@
     account={@account}
     patch={~p"/accounts/#{@account}"}
     current_user={@current_user}
+    title="Add a Credit Card to Your Account"
+    subtitle=""
   />
 </.modal>

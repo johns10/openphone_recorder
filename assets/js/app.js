@@ -49,6 +49,11 @@ window.addEventListener("phx:worker_idle", _info => {
     el.disabled = false
   })
 })
+window.addEventListener("phx:js-exec", ({ detail }) => {
+  document.querySelectorAll(detail.to).forEach(el => {
+    liveSocket.execJS(el, el.getAttribute(detail.attr))
+  })
+})
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()

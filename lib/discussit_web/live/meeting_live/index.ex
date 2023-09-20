@@ -127,4 +127,14 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
     {:noreply, socket}
   end
+
+  defp transcribe_meeting_button(assigns) do
+    ~H"""
+    <.button class="btn-xs" disabled={@meeting.projector_status != :not_started}>
+      <.link phx-click={paywall("transcribe", @account)} phx-value-id={@meeting.id}>
+        Transcribe
+      </.link>
+    </.button>
+    """
+  end
 end

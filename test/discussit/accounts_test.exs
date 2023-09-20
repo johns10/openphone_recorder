@@ -1,5 +1,4 @@
 defmodule Discussit.AccountsTest do
-  alias Discussit.Credits
   use Discussit.DataCase
 
   alias Discussit.Accounts

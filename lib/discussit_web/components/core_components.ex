@@ -14,6 +14,7 @@ defmodule DiscussitWeb.CoreComponents do
     endpoint: DiscussitWeb.Endpoint,
     router: DiscussitWeb.Router
 
+  alias Discussit.Accounts.Account
   alias Phoenix.LiveView.JS
   import DiscussitWeb.Gettext
 
@@ -341,13 +342,7 @@ defmodule DiscussitWeb.CoreComponents do
     ~H"""
     <div phx-feedback-for={@name}>
       <.label for={@id}><%= @label %></.label>
-      <select
-        id={@id}
-        name={@name}
-        class="select select-bordered w-full"
-        multiple={@multiple}
-        {@rest}
-      >
+      <select id={@id} name={@name} class="select select-bordered w-full" multiple={@multiple} {@rest}>
         <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
@@ -497,6 +492,27 @@ defmodule DiscussitWeb.CoreComponents do
       </div>
       <div class="flex-none"><%= render_slot(@actions) %></div>
     </header>
+    """
+  end
+
+  attr(:current_user, Discussit.Users.User, required: true)
+  attr(:patch, :string, required: false, default: "/home")
+  attr(:hide_modal, :boolean, required: false, default: false)
+
+  def paywall_modal(assigns) do
+    ~H"""
+    <.modal id="paywall-modal" on_cancel={hide_modal("paywall-modal")}>
+      <.live_component
+        module={DiscussitWeb.AccountLive.PaymentFormComponent}
+        id={@current_user.selected_account.id}
+        account={@current_user.selected_account}
+        current_user={@current_user.selected_account}
+        title="Add a card to your account"
+        subtitle="You must put a card on file to perform this action"
+        hide_modal={@hide_modal}
+        show
+      />
+    </.modal>
     """
   end
 
@@ -655,6 +671,15 @@ defmodule DiscussitWeb.CoreComponents do
   end
 
   ## JS Commands
+  def paywall(action, %{default_payment_method_id: id}) when is_binary(id), do: action
+
+  def paywall(action, %Account{available_credits: credits, default_payment_method_id: nil})
+      when credits > 0.0,
+      do: action
+
+  def paywall(_, %Account{available_credits: credits, default_payment_method_id: nil})
+      when credits <= 0.0,
+      do: show_modal("paywall-modal")
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,

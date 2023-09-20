@@ -24,12 +24,15 @@ defmodule DiscussitWeb.AccountLive.Show do
             {default, methods}
           else
             nil ->
-              with %{email: email} <-
-                     Discussit.Users.get_user!(account.billing_user_id),
+              with %{billing_user_id: user_id} when not is_nil(user_id) <- account,
+                   %{email: email} <- Discussit.Users.get_user!(user_id),
                    {:ok, %{id: id}} <-
                      Stripe.Customer.create(%{email: email, name: account.name}),
-                   {:ok, account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
+                   {:ok, _account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
                 {nil, []}
+              else
+                %{billing_user_id: nil} ->
+                  {nil, []}
               end
 
             _ ->
@@ -70,12 +73,19 @@ defmodule DiscussitWeb.AccountLive.Show do
   end
 
   def handle_event("default-payment-method", %{"id" => id}, socket) do
-    case Stripe.Customer.update(socket.assigns.account.stripe_customer_id, %{
-           invoice_settings: %{default_payment_method: id}
-         }) do
-      {:ok, _customer} ->
-        {:noreply, socket |> push_patch(to: "/accounts/#{socket.assigns.account.id}")}
-
+    with {:ok, _customer} <-
+           Stripe.Customer.update(socket.assigns.account.stripe_customer_id, %{
+             invoice_settings: %{default_payment_method: id}
+           }),
+         {:ok, account} <-
+           Accounts.update_account(socket.assigns.account, %{
+             default_payment_method_id: id
+           }) do
+      {:noreply,
+       socket
+       |> assign(:account, account)
+       |> push_patch(to: "/accounts/#{socket.assigns.account.id}")}
+    else
       {:error, %Stripe.Error{message: message}} ->
         Logger.error(message)
         {:noreply, socket}

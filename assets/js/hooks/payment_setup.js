@@ -24,8 +24,10 @@ const init = (form, successCallback) => {
   payment.on('change', function (event) {
     var displayError = document.getElementById('card-errors');
     if (event.error) {
+      document.getElementById('submit-payment').removeAttribute('disabled')
       displayError.textContent = event.error.message;
     } else {
+      document.getElementById('submit-payment').removeAttribute('disabled')
       displayError.textContent = '';
     }
   });
@@ -52,6 +54,5 @@ const init = (form, successCallback) => {
 }
 
 const appearance = {
-  theme: 'night',
-  labels: 'floating'
+  theme: 'night'
 }

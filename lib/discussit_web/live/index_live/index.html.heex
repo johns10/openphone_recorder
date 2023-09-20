@@ -44,6 +44,7 @@
     worker_busy?={@worker_busy?}
     zoom_level={@zoom_level}
     transcription_status={@transcription_status}
+    current_user={@current_user}
   />
   <div id="statements" class="flex flex-col" phx-update="stream">
     <%= for {id, conversation_item} <- @streams.conversation_items do %>
@@ -57,7 +58,11 @@
               </div>
             </div>
             <div class="chat chat-start">
-              <div class={["chat-bubble z-0", if(statement.call_id, do: "chat-bubble-accent"), if(statement.meeting_id, do: "chat-bubble-primary")]}>
+              <div class={[
+                "chat-bubble z-0",
+                if(statement.call_id, do: "chat-bubble-accent"),
+                if(statement.meeting_id, do: "chat-bubble-primary")
+              ]}>
                 <%= statement.content %>
               </div>
             </div>
@@ -97,13 +102,7 @@
                 <.icon name="hero-phone-arrow-down-left" class="w-5 h-5 bg-error" />
                 <%= case call do %>
                   <% %{status: :file_uploaded, call_recording: recording, voicemail: voicemail} when recording != nil or voicemail != nil -> %>
-                    <.button
-                      class="btn-primary btn-xs transcribe-button"
-                      phx-click="transcribe"
-                      phx-value-call-id={call.id}
-                    >
-                      Transcribe
-                    </.button>
+                    <.transcribe_call_button call={call} account={@current_user.selected_account} />
                   <% %{status: :transcribing} -> %>
                     <.button class="btn-primary btn-sm" disabled>
                       <.icon name="hero-arrow-path" class="mr-2 w-5 h-5 animate-spin" />
@@ -118,15 +117,14 @@
               </div>
             </div>
           </div>
-        <% %{type: "meeting_started", timestamp: timestamp, data: summary} -> %>
+        <% %{type: "meeting_started", timestamp: timestamp} -> %>
           <div id={id}>
             <div class="text-xs px-4">
               <%= render_date(timestamp, @current_user) %>
             </div>
             <div class="chat flex flex-row px-4">
               <div class="chat-bubble z-0 flex flex-row items-center space-x-2">
-                <.icon name="hero-calendar-days" class="mr-2 w-5 h-5" />
-                Meeting Started
+                <.icon name="hero-calendar-days" class="mr-2 w-5 h-5" /> Meeting Started
               </div>
             </div>
           </div>
@@ -168,3 +166,5 @@
   </div>
   <div class="flex-grow" />
 </div>
+
+<.paywall_modal current_user={@current_user} hide_modal={true} />

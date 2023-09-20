@@ -19,9 +19,10 @@ defmodule DiscussitWeb.CreditLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <.input field={@form[:account_id]} type="hidden" value={@current_user.selected_account_id} />
         <.input field={@form[:product_id]} type="text" label="Product" />
         <.input field={@form[:quantity]} type="number" label="Quantity" step="any" />
-        <.input field={@form[:purchased_at]} type="datetime-local" label="Purchased at" />
+        <.input field={@form[:purchased_at]} type="hidden" value={NaiveDateTime.utc_now()} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Credit</.button>
         </:actions>

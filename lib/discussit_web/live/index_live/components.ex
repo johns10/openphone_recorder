@@ -27,14 +27,13 @@ defmodule DiscussitWeb.IndexLive.Components do
         />
       </div>
       <div class="flex flex-row items-center space-x-4">
-        <.transcribe
+        <.transcribe_conversation_button
           conversation={@conversation}
           worker_busy?={@worker_busy?}
           transcription_status={@transcription_status}
+          account={@current_user.selected_account}
         />
-        <button class="btn btn-xs btn-secondary" phx-click="summarize" disabled={@worker_busy?}>
-          Summarize
-        </button>
+        <.summarize_conversation_button account={@current_user.selected_account} worker_busy?={@worker_busy?} />
         <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
           <input
             type="range"
@@ -53,12 +52,20 @@ defmodule DiscussitWeb.IndexLive.Components do
     """
   end
 
-  def transcribe(assigns) do
+  def summarize_conversation_button(assigns) do
+    ~H"""
+    <button class="btn btn-xs btn-secondary" phx-click={paywall("summarize", @account)} disabled={@worker_busy?}>
+      Summarize
+    </button>
+    """
+  end
+
+  def transcribe_conversation_button(assigns) do
     ~H"""
     <div class="flex flex-col">
       <button
         class="btn btn-xs btn-secondary rounded-b-none"
-        phx-click="transcribe_conversation_calls"
+        phx-click={paywall("transcribe_conversation_calls", @account)}
         phx-value-conversation-id={@conversation.id}
         disabled={@worker_busy?}
       >
@@ -89,6 +96,18 @@ defmodule DiscussitWeb.IndexLive.Components do
         </div>
       </div>
     </div>
+    """
+  end
+
+  def transcribe_call_button(assigns) do
+    ~H"""
+    <.button
+      class="btn-primary btn-xs transcribe-button"
+      phx-click={paywall("transcribe", @account)}
+      phx-value-call-id={@call.id}
+    >
+      Transcribe
+    </.button>
     """
   end
 

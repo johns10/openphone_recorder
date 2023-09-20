@@ -16,6 +16,7 @@ defmodule Discussit.Accounts.Account do
     field :openai_api_key, :string
     field :timezone, Ecto.Enum, values: @tz_options
     field :stripe_customer_id, :string
+    field :default_payment_method_id, :string
 
     field :available_credits, :float, virtual: true
 
@@ -37,7 +38,8 @@ defmodule Discussit.Accounts.Account do
       :openai_api_key,
       :timezone,
       :billing_user_id,
-      :stripe_customer_id
+      :stripe_customer_id,
+      :default_payment_method_id
     ])
     |> foreign_key_constraint(:billing_user_id)
     |> validate_required([:name, :plan])

@@ -16,7 +16,12 @@
 
 <.back navigate={~p"/credits"}>Back to credits</.back>
 
-<.modal :if={@live_action == :edit} id="credit-modal" show on_cancel={JS.patch(~p"/credits/#{@credit}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="credit-modal"
+  show
+  on_cancel={JS.patch(~p"/credits/#{@credit}")}
+>
   <.live_component
     module={DiscussitWeb.CreditLive.FormComponent}
     id={@credit.id}
@@ -24,5 +29,6 @@
     action={@live_action}
     credit={@credit}
     patch={~p"/credits/#{@credit}"}
+    current_user={@current_user}
   />
 </.modal>

@@ -47,7 +47,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
   end
 
   describe "Index" do
-    setup [:register_and_log_in_user, :create_meeting]
+    setup [:register_and_log_in_user, :user_setup, :create_meeting]
 
     test "lists all meetings", %{conn: conn} do
       {:ok, _index_live, html} = live(conn, ~p"/meetings")

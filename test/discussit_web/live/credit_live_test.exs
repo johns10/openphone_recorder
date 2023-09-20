@@ -6,15 +6,13 @@ defmodule DiscussitWeb.CreditLiveTest do
 
   @create_attrs %{
     product_id: "some product_id",
-    purchased_at: "2023-09-17T11:52:00",
     quantity: 120.5
   }
   @update_attrs %{
     product_id: "some updated product_id",
-    purchased_at: "2023-09-18T11:52:00",
     quantity: 456.7
   }
-  @invalid_attrs %{product_id: nil, purchased_at: nil, quantity: nil}
+  @invalid_attrs %{product_id: nil, quantity: nil}
 
   defp create_credit(_) do
     credit = credit_fixture()
@@ -22,9 +20,9 @@ defmodule DiscussitWeb.CreditLiveTest do
   end
 
   describe "Index" do
-    setup [:register_and_log_in_user, :user_setup, :create_credit]
+    setup [:register_and_log_in_administrator, :user_setup, :create_credit]
 
-    test "lists all credits", %{conn: conn, credit: credit} do
+    test "lists all credits", %{conn: conn} do
       {:ok, _index_live, html} = live(conn, ~p"/credits")
 
       assert html =~ "Listing Credits"
@@ -85,7 +83,7 @@ defmodule DiscussitWeb.CreditLiveTest do
   end
 
   describe "Show" do
-    setup [:register_and_log_in_user, :user_setup, :create_credit]
+    setup [:register_and_log_in_administrator, :user_setup, :create_credit]
 
     test "displays credit", %{conn: conn, credit: credit} do
       {:ok, _show_live, html} = live(conn, ~p"/credits/#{credit}")

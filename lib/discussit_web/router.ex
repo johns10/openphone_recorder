@@ -87,6 +87,13 @@ defmodule DiscussitWeb.Router do
       live("/accounts/new_standalone", AccountLive.Form, :new)
       live("/accounts/:id/edit", AccountLive.Index, :edit)
       live("/admin", AdminLive.Index, :index)
+
+      live "/credits", CreditLive.Index, :index
+      live "/credits/new", CreditLive.Index, :new
+      live "/credits/:id/edit", CreditLive.Index, :edit
+
+      live "/credits/:id", CreditLive.Show, :show
+      live "/credits/:id/show/edit", CreditLive.Show, :edit
     end
   end
 
@@ -126,13 +133,6 @@ defmodule DiscussitWeb.Router do
 
       live("/meetings", MeetingLive.Index, :index)
       live("/meetings/:id", MeetingLive.Show, :show)
-
-      live "/credits", CreditLive.Index, :index
-      live "/credits/new", CreditLive.Index, :new
-      live "/credits/:id/edit", CreditLive.Index, :edit
-
-      live "/credits/:id", CreditLive.Show, :show
-      live "/credits/:id/show/edit", CreditLive.Show, :edit
     end
   end
 

@@ -74,11 +74,7 @@
     </.button>
   </:action>
   <:action :let={{_id, meeting}}>
-    <.button class="btn-xs" disabled={meeting.projector_status != :not_started}>
-      <.link phx-click={JS.push("transcribe", value: %{id: meeting.id})}>
-        Transcribe
-      </.link>
-    </.button>
+    <.transcribe_meeting_button meeting={meeting} account={@current_user.selected_account} />
   </:action>
 </.table>
 
@@ -97,3 +93,5 @@
     patch={~p"/meetings"}
   />
 </.modal>
+
+<.paywall_modal current_user={@current_user} hide_modal={true} />

@@ -2,7 +2,6 @@ defmodule DiscussitWeb.AccountLiveTest do
   use DiscussitWeb.ConnCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   import Phoenix.LiveViewTest
-  import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
   import Discussit.UsersFixtures
   import Discussit.AccountUsersFixtures
