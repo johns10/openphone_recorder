@@ -24,6 +24,11 @@ case System.get_env("STRIPE_SECRET") do
   key -> config :stripity_stripe, api_key: key
 end
 
+case System.get_env("STRIPE_PUBLIC_KEY") do
+  nil -> nil
+  key -> config :discussit, stripe_public_key: key
+end
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
