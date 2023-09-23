@@ -65,6 +65,12 @@ defmodule Discussit.MixProject do
       {:mime, "~> 2.0.5"},
       {:retry, "~> 0.18"},
       {:stripity_stripe, "~> 2.17"},
+      {:gen_smtp, "~> 1.0"},
+      {:premailex, "~> 0.3.18"},
+      {:phoenix_swoosh, "~> 1.0"},
+      {:certifi, "~> 2.4"},
+      {:ssl_verify_fun, "~> 1.1"},
+      {:floki, ">= 0.30.0"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
@@ -72,7 +78,6 @@ defmodule Discussit.MixProject do
       {:minio_server, "~> 0.3.2", only: :dev},
       {:mix_test_watch, "~> 1.0", runtime: false},
       {:mox, "~> 1.0", only: :test},
-      {:floki, ">= 0.30.0", only: :test},
       {:faker, "~> 0.17", only: :test},
       {:exvcr, "~> 0.11", only: :test}
     ]

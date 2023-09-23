@@ -81,6 +81,12 @@ config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
 
+config :discussit, Discussit.Mailer,
+  adapter: Swoosh.Adapters.AmazonSES,
+  region: "us-east-2",
+  access_key: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret: System.get_env("AWS_SECRET_ACCESS_KEY")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

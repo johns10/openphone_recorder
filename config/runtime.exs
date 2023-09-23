@@ -4,31 +4,6 @@ if System.get_env("PHX_SERVER") do
   config :discussit, DiscussitWeb.Endpoint, server: true
 end
 
-case System.get_env("OPENAI_API_KEY") do
-  nil -> nil
-  key -> config :openai, api_key: key
-end
-
-case System.get_env("OPENAI_API_KEY") do
-  nil -> nil
-  key -> config :ex_openai, api_key: key
-end
-
-case System.get_env("AAI_API_KEY") do
-  nil -> nil
-  key -> config :discussit, aai_api_key: key
-end
-
-case System.get_env("STRIPE_SECRET") do
-  nil -> nil
-  key -> config :stripity_stripe, api_key: key
-end
-
-case System.get_env("STRIPE_PUBLIC_KEY") do
-  nil -> nil
-  key -> config :discussit, stripe_public_key: key
-end
-
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
@@ -64,4 +39,15 @@ if config_env() == :prod do
     secret_key_base: secret_key_base
 
   config :discussit, bucket: System.get_env("BUCKET")
+  config :openai, api_key: System.get_env("OPENAI_API_KEY")
+  config :ex_openai, api_key: System.get_env("OPENAI_API_KEY")
+  config :discussit, aai_api_key: System.get_env("AAI_API_KEY")
+  config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
+  config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
+
+  config :sample, Discussit.Mailer,
+    adapter: Swoosh.Adapters.AmazonSES,
+    region: "us-east-2",
+    access_key: System.get_env("AWS_ACCESS_KEY_ID"),
+    secret: System.get_env("AWS_SECRET_ACCESS_KEY")
 end

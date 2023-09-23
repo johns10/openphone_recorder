@@ -40,8 +40,6 @@ config :phoenix, :stacktrace_depth, 20
 
 config :phoenix, :plug_init_mode, :runtime
 
-config :swoosh, :api_client, false
-
 config :discussit, :minio, true
 
 config :ex_aws, :s3,
@@ -52,3 +50,6 @@ config :ex_aws, :s3,
   host: "127.0.0.1",
   port: 9000,
   minio_path: "data"
+
+config :swoosh, :api_client, false
+config :discussit, Discussit.Mailer, adapter: Swoosh.Adapters.Local

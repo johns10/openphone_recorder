@@ -10,7 +10,7 @@ defmodule DiscussitWeb.UserInvitationLive do
 
       <.simple_form for={@form} id="invitation_form" phx-submit="accept_invitation">
         <.input field={@form[:token]} type="hidden" />
-        <.input field={@form[:password]} type="password" />
+        <.input field={@form[:password]} type="password" label="Set your password" />
         <:actions>
           <.button phx-disable-with="Accepting..." class="w-full">Accept</.button>
         </:actions>
@@ -31,7 +31,11 @@ defmodule DiscussitWeb.UserInvitationLive do
 
   # Do not log in the user after confirmation to avoid a
   # leaked token giving the user access to the account.
-  def handle_event("accept_invitation", %{"user" => %{"token" => token, "password" => password}}, socket) do
+  def handle_event(
+        "accept_invitation",
+        %{"user" => %{"token" => token, "password" => password}},
+        socket
+      ) do
     case Users.accept_invitation(token, password) do
       {:ok, _} ->
         {:noreply,
