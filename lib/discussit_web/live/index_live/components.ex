@@ -12,6 +12,7 @@ defmodule DiscussitWeb.IndexLive.Components do
   attr(:zoom_level, :integer, default: 0)
   attr(:worker_busy?, :boolean, default: true)
   attr(:transcription_status, :map, default: %{})
+  attr(:current_user, User, required: true)
 
   def participant_header(%{conversation: nil} = assigns), do: ~H""
 
@@ -33,7 +34,10 @@ defmodule DiscussitWeb.IndexLive.Components do
           transcription_status={@transcription_status}
           account={@current_user.selected_account}
         />
-        <.summarize_conversation_button account={@current_user.selected_account} worker_busy?={@worker_busy?} />
+        <.summarize_conversation_button
+          account={@current_user.selected_account}
+          worker_busy?={@worker_busy?}
+        />
         <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
           <input
             type="range"
@@ -54,7 +58,11 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def summarize_conversation_button(assigns) do
     ~H"""
-    <button class="btn btn-xs btn-secondary" phx-click={paywall("summarize", @account)} disabled={@worker_busy?}>
+    <button
+      class="btn btn-xs btn-secondary"
+      phx-click={paywall("summarize", @account)}
+      disabled={@worker_busy?}
+    >
       Summarize
     </button>
     """

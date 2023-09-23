@@ -3,8 +3,6 @@ defmodule DiscussitWeb.AccountLive.Form do
 
   alias Discussit.Accounts.Account
 
-  @preloads [account_users: :user]
-
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
