@@ -27,7 +27,13 @@ config :discussit, DiscussitWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :discussit, Discussit.Mailer, adapter: Swoosh.Adapters.Local
+config :discussit, Discussit.Mailer,
+  adapter: Swoosh.Adapters.Brevo,
+  api_key: System.get_env("BREVO_API_KEY")
+
+config :swoosh,
+  api_client: Swoosh.ApiClient.Finch,
+  finch_name: Discussit.Finch
 
 # Configure esbuild (the version is required)
 config :esbuild,
@@ -78,14 +84,7 @@ config :mime, :types, %{
 
 config :discussit, aai_api_key: System.get_env("AAI_API_KEY")
 config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
-
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
-
-config :discussit, Discussit.Mailer,
-  adapter: Swoosh.Adapters.AmazonSES,
-  region: "us-east-2",
-  access_key: System.get_env("AWS_ACCESS_KEY_ID"),
-  secret: System.get_env("AWS_SECRET_ACCESS_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

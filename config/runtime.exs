@@ -45,9 +45,7 @@ if config_env() == :prod do
   config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
   config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 
-  config :sample, Discussit.Mailer,
-    adapter: Swoosh.Adapters.AmazonSES,
-    region: "us-east-2",
-    access_key: System.get_env("AWS_ACCESS_KEY_ID"),
-    secret: System.get_env("AWS_SECRET_ACCESS_KEY")
+  config :discussit, Discussit.Mailer,
+    adapter: Swoosh.Adapters.Brevo,
+    api_key: System.get_env("BREVO_API_KEY")
 end
