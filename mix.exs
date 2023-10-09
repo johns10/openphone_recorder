@@ -65,6 +65,7 @@ defmodule Discussit.MixProject do
       {:mime, "~> 2.0.5"},
       {:retry, "~> 0.18"},
       {:stripity_stripe, "~> 2.17"},
+      {:pgvector, "~> 0.2.0"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
