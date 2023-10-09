@@ -10,6 +10,8 @@ import Config
 config :discussit,
   ecto_repos: [Discussit.Repo]
 
+config :discussit, Discussit.Repo, types: Discussit.PostgrexTypes
+
 # Configures the endpoint
 config :discussit, DiscussitWeb.Endpoint,
   url: [host: "localhost"],
