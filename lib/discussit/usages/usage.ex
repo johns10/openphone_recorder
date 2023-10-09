@@ -2,6 +2,7 @@ defmodule Discussit.Usages.Usage do
   use Ecto.Schema
   import Ecto.Changeset
   alias Discussit.Accounts.Account
+  alias Discussit.Embeddings.Embedding
 
   schema "usages" do
     field :meta, :map
@@ -10,14 +11,16 @@ defmodule Discussit.Usages.Usage do
       values: [
         "gpt-3.5-turbo": "gpt-3.5-turbo",
         "whisper-1": "whisper-1",
-        assemblyai_default: "assemblyai_default"
+        assemblyai_default: "assemblyai_default",
+        "BAAI/bge-large-en-v1.5": "BAAI/bge-large-en-v1.5"
       ]
 
-    field :product, Ecto.Enum, values: [:chat_completions, :transcription]
-    field :provider, Ecto.Enum, values: [:openai, :assemblyai]
+    field :product, Ecto.Enum, values: [:chat_completions, :transcription, :embedding]
+    field :provider, Ecto.Enum, values: [:openai, :assemblyai, :discussit]
     field :total, :float
 
     belongs_to :account, Account, type: :binary_id
+    belongs_to :embedding, Embedding, type: :binary_id
 
     timestamps()
   end
