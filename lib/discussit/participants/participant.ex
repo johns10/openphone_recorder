@@ -8,7 +8,7 @@ defmodule Discussit.Participants.Participant do
 
   schema "participants" do
     field :name, :string
-    
+
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :phone_number, PhoneNumber, type: :binary_id
     belongs_to :contact, Contact, type: :binary_id
@@ -29,9 +29,6 @@ defmodule Discussit.Participants.Participant do
     |> foreign_key_constraint(:meeting_id)
   end
 
-  def render_for_prompt(%__MODULE__{phone_number: nil}),
-    do: raise("Cannot render participant without associated phone number")
-
   def render_for_prompt(%__MODULE__{phone_number: %PhoneNumber{contacts: [contact]}, contact: nil}),
       do: Contact.render_for_prompt(contact)
 
@@ -40,4 +37,7 @@ defmodule Discussit.Participants.Participant do
 
   def render_for_prompt(%__MODULE__{contact: contact}),
     do: Contact.render_for_prompt(contact)
+
+  def render_for_prompt(%__MODULE__{phone_number: nil}),
+    do: raise("Cannot render participant without good data")
 end
