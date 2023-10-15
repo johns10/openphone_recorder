@@ -18,6 +18,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
+    |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
     |> maybe_filter_embedded(filters[:embedded])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
@@ -65,6 +66,23 @@ defmodule Discussit.Statements do
     do:
       where(query, [s], s.all_stopwords == false)
       |> or_where([s], is_nil(s.all_stopwords))
+
+  defp maybe_filter_by_embedding_enabled(query, nil), do: query
+
+  defp maybe_filter_by_embedding_enabled(query, true),
+    do:
+      query
+      |> join(:left, [s], c in assoc(s, :conversation), as: :conversation)
+      |> join(:left, [conversation: c], a in assoc(c, :account), as: :account)
+      |> where([account: a], a.enable_embeddings == true)
+
+  defp maybe_filter_by_embedding_enabled(query, false),
+    do:
+      query
+      |> join(:left, [s], c in assoc(s, :conversation), as: :conversation)
+      |> join(:left, [conversation: c], a in assoc(c, :account), as: :account)
+      |> where([account: a], a.enable_embeddings == true)
+      |> or_where([account: a], is_nil(a.enable_embeddings))
 
   defp maybe_filter_embedded(query, nil), do: query
 
