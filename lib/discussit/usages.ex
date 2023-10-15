@@ -94,4 +94,17 @@ defmodule Discussit.Usages do
     total = duration * 0.000181
     Map.put(attrs, :total, total)
   end
+
+  def calculate_total(
+        %{
+          provider: :discussit,
+          model: "BAAI/bge-large-en-v1.5",
+          meta: %{
+            tokens: tokens
+          }
+        } = attrs
+      ) do
+    total = tokens * 0.0000001
+    Map.put(attrs, :total, total)
+  end
 end
