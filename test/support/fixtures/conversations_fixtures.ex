@@ -11,7 +11,7 @@ defmodule Discussit.ConversationsFixtures do
     {:ok, conversation} =
       attrs
       |> Enum.into(%{
-        account_id: Discussit.AccountsFixtures.account_fixture().id,
+        account_id: Map.get(attrs, :account_id, Discussit.AccountsFixtures.account_fixture().id),
         external_id: Ecto.UUID.generate(),
         source: :openphone
       })
