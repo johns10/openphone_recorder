@@ -43,6 +43,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           prompt="Choose a value"
           options={Ecto.Enum.values(Discussit.Accounts.Account, :plan)}
         />
+        <.input field={@form[:enable_embeddings]} type="checkbox" class="ml-4" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Account</.button>
         </:actions>

@@ -17,6 +17,7 @@ defmodule Discussit.Accounts.Account do
     field :timezone, Ecto.Enum, values: @tz_options
     field :stripe_customer_id, :string
     field :default_payment_method_id, :string
+    field :enable_embeddings, :boolean
 
     field :available_credits, :float, virtual: true
 
@@ -39,7 +40,8 @@ defmodule Discussit.Accounts.Account do
       :timezone,
       :billing_user_id,
       :stripe_customer_id,
-      :default_payment_method_id
+      :default_payment_method_id,
+      :enable_embeddings
     ])
     |> foreign_key_constraint(:billing_user_id)
     |> validate_required([:name, :plan])

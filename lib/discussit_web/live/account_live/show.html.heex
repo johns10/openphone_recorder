@@ -14,6 +14,9 @@
   <:item title="OpenAI Signing Secret">
     <%= render_sensitive_string(@account.openphone_signing_secret) %>
   </:item>
+  <:item title="Embeddings">
+    <%= if @account.enable_embeddings, do: "Embeddings Enabled", else: "Embeddings Disabled" %>
+  </:item>
   <:item title="Openphone Signing Secret">
     <%= render_sensitive_string(@account.openai_api_key) %>
   </:item>
