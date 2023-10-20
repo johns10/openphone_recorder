@@ -19,7 +19,8 @@ defmodule Discussit.Application do
         {Finch, name: Discussit.Finch},
         # Start the Endpoint (http/https)
         DiscussitWeb.Endpoint,
-        {Discussit.Events.Consumer, %{count: :inf}}
+        {Discussit.Events.Consumer, %{count: :inf}},
+        {Discussit.Embeddings.Server, %{}}
       ]
       |> minio()
 
