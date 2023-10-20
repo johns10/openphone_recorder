@@ -8,7 +8,7 @@ defmodule DiscussitWeb.AccountLive.Form do
     {:ok,
      socket
      |> assign(:account, %Account{account_users: []})
-     |> assign(:page_title, "New Account")}
+     |> assign(:page_title, "New Account"), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
