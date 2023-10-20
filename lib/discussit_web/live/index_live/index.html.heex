@@ -113,6 +113,9 @@
                   <% %{status: :upload_empty} -> %>
                     <.icon name="hero-exclamation-circle" class="ml-4 w-5 h-5 bg-warning" />
                     <span class="text-warning">Call Recording Empty</span>
+                  <% %{status: :upload_failed} -> %>
+                    <.icon name="hero-exclamation-circle" class="ml-4 w-5 h-5 bg-warning" />
+                    <span class="text-error">Error Uploading Recording</span>
                 <% end %>
               </div>
             </div>
