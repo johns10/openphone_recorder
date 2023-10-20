@@ -65,7 +65,7 @@ defmodule DiscussitWeb.ContactLiveTest do
     test "deletes contact in listing", %{conn: conn, contact: contact} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
 
-      assert index_live |> element("#contacts-#{contact.id} a", "Delete") |> render_click()
+      assert index_live |> element("#delete-contacts-#{contact.id}") |> render_click()
       refute has_element?(index_live, "#contacts-#{contact.id}")
     end
   end
@@ -76,7 +76,7 @@ defmodule DiscussitWeb.ContactLiveTest do
     test "updates contact in listing", %{conn: conn, contact: contact} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
 
-      assert index_live |> element("#contacts-#{contact.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("#edit-contacts-#{contact.id}") |> render_click() =~
                "Edit Contact"
 
       assert_patch(index_live, ~p"/contacts/#{contact}/edit")
@@ -161,7 +161,7 @@ defmodule DiscussitWeb.ContactLiveTest do
     test "deletes contact in listing", %{conn: conn, contact: contact} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
 
-      assert index_live |> element("#contacts-#{contact.id} a", "Delete") |> render_click()
+      assert index_live |> element("#delete-contacts-#{contact.id}") |> render_click()
       refute has_element?(index_live, "#contacts-#{contact.id}")
     end
   end

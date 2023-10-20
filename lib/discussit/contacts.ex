@@ -20,11 +20,15 @@ defmodule Discussit.Contacts do
   def list_contacts(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
     preloads = Keyword.get(opts, :preloads, [])
+    offset = Keyword.get(opts, :offset, nil)
+    limit = Keyword.get(opts, :limit, nil)
 
     Contact
     |> preload(^preloads)
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_phone_number_id(filters[:phone_number_id])
+    |> maybe_limit(limit)
+    |> maybe_offset(offset)
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
     |> Repo.all()
@@ -65,6 +69,8 @@ defmodule Discussit.Contacts do
 
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, value), do: limit(query, ^value)
+  defp maybe_offset(query, nil), do: query
+  defp maybe_offset(query, limit), do: offset(query, ^limit)
 
   def create_contact(attrs \\ %{}) do
     %Contact{}

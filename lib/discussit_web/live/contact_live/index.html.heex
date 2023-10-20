@@ -1,48 +1,53 @@
-<.header>
-  Listing Contacts
-  <:actions>
-    <.link patch={~p"/contacts/new"}>
-      <.button>New Contact</.button>
-    </.link>
-  </:actions>
-</.header>
-<.table
-  id="contacts"
-  rows={@streams.contacts}
-  row_click={fn {_id, contact} -> JS.navigate(~p"/contacts/#{contact}") end}
->
-  <:col :let={{_id, contact}} label="Last"><%= contact.last_name %></:col>
-  <:col :let={{_id, contact}} label="First"><%= contact.first_name %></:col>
-  <:action :let={{_id, contact}}>
-    <div class="sr-only">
-      <.link navigate={~p"/contacts/#{contact}"}>Show</.link>
-    </div>
-    <.link patch={~p"/contacts/#{contact}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, contact}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: contact.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
+<div class="flex flex-col overflow-y-scroll min-w-fit h-screen">
+  <div id="contacts" phx-update="stream" class="flex flex-col">
+    <div    
+      :for={{id, contact} <- @streams.contacts}
+      phx-hover={}
+      class="flex flex-row"
+      id={id}
     >
-      Delete
-    </.link>
-  </:action>
-</.table>
-
-<.modal
-  :if={@live_action in [:new, :edit]}
-  id="contact-modal"
-  show
-  on_cancel={JS.navigate(~p"/contacts")}
->
-  <.live_component
-    module={DiscussitWeb.ContactLive.FormComponent}
-    id={@contact.id || :new}
-    title={@page_title}
-    action={@live_action}
-    contact={@contact}
-    account_id={@current_user.selected_account_id}
-    patch={~p"/contacts"}
-    attrs={@attrs}
+      <.link 
+        id={"edit-#{id}"}
+        patch={~p"/contacts/#{contact.id}/edit"}
+        class="w-full px-4 py-2 conversations hover:bg-base-200"
+      >
+        <.render_contact_name contact={contact} />
+      </.link>
+      <.link 
+        id={"delete-#{id}"}
+        phx-click={JS.push("delete", value: %{id: contact.id}) |> hide("#{id}")}
+        data-confirm="Are you sure?"
+        class="px-2 py-2 conversations hover:bg-base-200"
+      >
+        <.icon name="hero-trash" class="w-4 h-4" />
+      </.link>
+    </div>
+  </div>
+  <div
+    :if={!@end_of_timeline?}
+    id="last-element"
+    phx-hook="ElementVisible"
+    class="pb-[calc(100vh)]"
   />
-</.modal>
+  <div :if={@end_of_timeline?} id="last-element" class="mx-2">Last Contact</div>
+</div>
+<div class="flex flex-col overflow-y-scroll overflow-x-hidden flex-grow">
+  <div class="flex flex-row-reverse w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+    <.link patch={~p"/contacts/new"}>
+      <.button class="btn-sm btn-success">New Contact</.button>
+    </.link>
+  </div>
+  <div class="p-4">
+    <.live_component
+      :if={@contact}
+      module={DiscussitWeb.ContactLive.FormComponent}
+      id={@contact.id || :new}
+      title={@page_title}
+      action={@live_action}
+      contact={@contact}
+      account_id={@current_user.selected_account_id}
+      patch={~p"/contacts"}
+      attrs={@attrs}
+    />
+  </div>
+</div>

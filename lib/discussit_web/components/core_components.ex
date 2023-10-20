@@ -15,6 +15,7 @@ defmodule DiscussitWeb.CoreComponents do
     router: DiscussitWeb.Router
 
   alias Discussit.Accounts.Account
+  alias Discussit.Contacts.Contact
   alias Phoenix.LiveView.JS
   import DiscussitWeb.Gettext
 
@@ -669,6 +670,15 @@ defmodule DiscussitWeb.CoreComponents do
     </div>
     """
   end
+
+  attr(:contact, Contact, required: true)
+
+  def render_contact_name(assigns),
+    do: ~H"""
+      <%= @contact.first_name %><%= if(@contact.last_name && @contact.last_name != "") do %>
+      <%= @contact.last_name %>
+      <% end %>
+    """
 
   ## JS Commands
   def paywall(action, %{default_payment_method_id: id}) when is_binary(id), do: action
