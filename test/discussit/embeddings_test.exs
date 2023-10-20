@@ -16,9 +16,9 @@ defmodule Discussit.EmbeddingsTest do
     end
 
     test "list_embeddings/0 returns the nearest embedding" do
-      embedding_fixture(%{embedding: vector, status: :complete})
-      embedding_fixture(%{embedding: opposite_vector, status: :complete})
-      embedding_fixture(%{embedding: other_vector, status: :complete})
+      embedding_fixture(%{embedding: vector(), status: :complete})
+      embedding_fixture(%{embedding: opposite_vector(), status: :complete})
+      embedding_fixture(%{embedding: other_vector(), status: :complete})
     end
 
     test "get_embedding!/1 returns the embedding with given id" do

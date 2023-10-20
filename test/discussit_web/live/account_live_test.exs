@@ -7,8 +7,8 @@ defmodule DiscussitWeb.AccountLiveTest do
   import Discussit.AccountUsersFixtures
   alias Discussit.Accounts
 
-  @create_attrs %{name: "some name", plan: :free}
-  @update_attrs %{name: "some updated name", plan: :basic}
+  @create_attrs %{name: "some name", plan: :free, enable_embeddings: false}
+  @update_attrs %{name: "some updated name", plan: :basic, enable_embeddings: true}
   @invalid_attrs %{name: nil, plan: nil}
 
   describe "Index" do
@@ -121,6 +121,7 @@ defmodule DiscussitWeb.AccountLiveTest do
 
       assert html =~ "Show Account"
       assert html =~ account.name
+      assert html =~ "Embeddings Disabled"
     end
 
     test "updates account within modal", %{conn: conn, account: account, user: user} do
@@ -155,6 +156,7 @@ defmodule DiscussitWeb.AccountLiveTest do
         html = render(show_live)
         assert html =~ "Account updated successfully"
         assert html =~ "some updated name"
+        assert html =~ "Embeddings Enabled"
         Stripe.Customer.delete(account.stripe_customer_id)
       end
     end
