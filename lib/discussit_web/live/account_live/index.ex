@@ -6,7 +6,8 @@ defmodule DiscussitWeb.AccountLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :accounts, Accounts.list_accounts())}
+    {:ok, stream(socket, :accounts, Accounts.list_accounts()),
+     layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
