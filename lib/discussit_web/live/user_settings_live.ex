@@ -6,118 +6,120 @@ defmodule DiscussitWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <.header class="text-center">
-      Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
-    </.header>
+    <div class="p-4 w-full">
+      <.header class="text-center">
+        Account Settings
+        <:subtitle>Manage your account email address and password settings</:subtitle>
+      </.header>
 
-    <div class="space-y-6 divide-y">
-      <div>
-        <.simple_form
-          for={@options_form}
-          id="options_form"
-          phx-submit="update_options"
-          phx-change="validate_options"
-        >
-          <.input field={@options_form[:name]} type="text" label="Name" required />
-          <div class="dropdown w-full">
-            <div phx-feedback-for={@options_form[:timezone].name} class="form-control w-full">
-              <.label for={@options_form[:timezone].id}>Timezone</.label>
-              <div class="flex flex-row">
-                <.input
-                  field={@options_form[:timezone]}
-                  type="raw_input"
-                  prompt="Choose a value"
-                  class="input w-full rounded-r-none"
-                  autocomplete="off"
-                  value={@timezone_string}
-                />
-                <button
-                  type="button"
-                  class="btn btn-ghost rounded-l-none"
-                  phx-click={JS.focus(to: "#account_timezone") |> JS.push("reset-timezone")}
-                >
-                  <.icon name="hero-chevron-down" />
-                </button>
+      <div class="space-y-6 divide-y">
+        <div>
+          <.simple_form
+            for={@options_form}
+            id="options_form"
+            phx-submit="update_options"
+            phx-change="validate_options"
+          >
+            <.input field={@options_form[:name]} type="text" label="Name" required />
+            <div class="dropdown w-full">
+              <div phx-feedback-for={@options_form[:timezone].name} class="form-control w-full">
+                <.label for={@options_form[:timezone].id}>Timezone</.label>
+                <div class="flex flex-row">
+                  <.input
+                    field={@options_form[:timezone]}
+                    type="raw_input"
+                    prompt="Choose a value"
+                    class="input w-full rounded-r-none"
+                    autocomplete="off"
+                    value={@timezone_string}
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-ghost rounded-l-none"
+                    phx-click={JS.focus(to: "#account_timezone") |> JS.push("reset-timezone")}
+                  >
+                    <.icon name="hero-chevron-down" />
+                  </button>
+                </div>
+                <.error :for={msg <- Enum.map(@options_form[:timezone].errors, &translate_error(&1))}>
+                  <%= msg %>
+                </.error>
               </div>
-              <.error :for={msg <- Enum.map(@options_form[:timezone].errors, &translate_error(&1))}>
-                <%= msg %>
-              </.error>
+              <ul class="menu menu-compact dropdown-content bg-base-300 top-20 max-h-96 overflow-hidden flex-col rounded-md">
+                <li
+                  :for={{key, value} <- filter_timezone_options(@timezone_string)}
+                  key={key}
+                  class="border-b border-b-base-content/10 w-full"
+                  phx-click={JS.push("pick-timezone")}
+                  phx-value-val={key}
+                >
+                  <button type="button"><%= value %></button>
+                </li>
+              </ul>
             </div>
-            <ul class="menu menu-compact dropdown-content bg-base-300 top-20 max-h-96 overflow-hidden flex-col rounded-md">
-              <li
-                :for={{key, value} <- filter_timezone_options(@timezone_string)}
-                key={key}
-                class="border-b border-b-base-content/10 w-full"
-                phx-click={JS.push("pick-timezone")}
-                phx-value-val={key}
-              >
-                <button type="button"><%= value %></button>
-              </li>
-            </ul>
-          </div>
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Options</.button>
-          </:actions>
-        </.simple_form>
-      </div>
-      <div>
-        <.simple_form
-          for={@email_form}
-          id="email_form"
-          phx-submit="update_email"
-          phx-change="validate_email"
-        >
-          <.input field={@email_form[:email]} type="email" label="Email" required />
-          <.input
-            field={@email_form[:current_password]}
-            name="current_password"
-            id="current_password_for_email"
-            type="password"
-            label="Current password"
-            value={@email_form_current_password}
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
-          </:actions>
-        </.simple_form>
-      </div>
-      <div>
-        <.simple_form
-          for={@password_form}
-          id="password_form"
-          action={~p"/users/log_in?_action=password_updated"}
-          method="post"
-          phx-change="validate_password"
-          phx-submit="update_password"
-          phx-trigger-action={@trigger_submit}
-        >
-          <.input
-            field={@password_form[:email]}
-            type="hidden"
-            id="hidden_user_email"
-            value={@current_email}
-          />
-          <.input field={@password_form[:password]} type="password" label="New password" required />
-          <.input
-            field={@password_form[:password_confirmation]}
-            type="password"
-            label="Confirm new password"
-          />
-          <.input
-            field={@password_form[:current_password]}
-            name="current_password"
-            type="password"
-            label="Current password"
-            id="current_password_for_password"
-            value={@current_password}
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
-          </:actions>
-        </.simple_form>
+            <:actions>
+              <.button phx-disable-with="Changing...">Change Options</.button>
+            </:actions>
+          </.simple_form>
+        </div>
+        <div>
+          <.simple_form
+            for={@email_form}
+            id="email_form"
+            phx-submit="update_email"
+            phx-change="validate_email"
+          >
+            <.input field={@email_form[:email]} type="email" label="Email" required />
+            <.input
+              field={@email_form[:current_password]}
+              name="current_password"
+              id="current_password_for_email"
+              type="password"
+              label="Current password"
+              value={@email_form_current_password}
+              required
+            />
+            <:actions>
+              <.button phx-disable-with="Changing...">Change Email</.button>
+            </:actions>
+          </.simple_form>
+        </div>
+        <div>
+          <.simple_form
+            for={@password_form}
+            id="password_form"
+            action={~p"/users/log_in?_action=password_updated"}
+            method="post"
+            phx-change="validate_password"
+            phx-submit="update_password"
+            phx-trigger-action={@trigger_submit}
+          >
+            <.input
+              field={@password_form[:email]}
+              type="hidden"
+              id="hidden_user_email"
+              value={@current_email}
+            />
+            <.input field={@password_form[:password]} type="password" label="New password" required />
+            <.input
+              field={@password_form[:password_confirmation]}
+              type="password"
+              label="Confirm new password"
+            />
+            <.input
+              field={@password_form[:current_password]}
+              name="current_password"
+              type="password"
+              label="Current password"
+              id="current_password_for_password"
+              value={@current_password}
+              required
+            />
+            <:actions>
+              <.button phx-disable-with="Changing...">Change Password</.button>
+            </:actions>
+          </.simple_form>
+        </div>
       </div>
     </div>
     """
@@ -153,7 +155,7 @@ defmodule DiscussitWeb.UserSettingsLive do
       |> assign(:options_form, to_form(options_changeset))
       |> assign(:trigger_submit, false)
 
-    {:ok, socket}
+    {:ok, socket, layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   def handle_event("validate_email", params, socket) do
