@@ -1,5 +1,5 @@
 <div class="flex flex-col overflow-y-scroll min-w-fit h-screen">
-  <div id="contacts" phx-update="stream">
+  <div id="conversations" phx-update="stream">
     <div
       :for={{id, conversation} <- @streams.conversations}
       class="w-full px-4 py-2 conversations hover:bg-base-200"

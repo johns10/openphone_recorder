@@ -72,8 +72,14 @@ defmodule DiscussitWeb.ContactLive.FormComponent do
             </.button>
           </div>
         </.inputs_for>
-        <.link href="#" id="add-phone-number" phx-click="add-phone-number" phx-target={@myself}>
-          Add a phone number
+        <.link
+          href="#"
+          id="add-phone-number"
+          phx-click="add-phone-number"
+          class="btn btn-success btn-sm"
+          phx-target={@myself}
+        >
+          +
         </.link>
         <:actions>
           <.button phx-disable-with="Saving...">Save Contact</.button>
