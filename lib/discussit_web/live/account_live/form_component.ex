@@ -11,7 +11,6 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage account records in your database.</:subtitle>
       </.header>
 
       <.simple_form
@@ -47,6 +46,26 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           <.button phx-disable-with="Saving...">Save Account</.button>
         </:actions>
       </.simple_form>
+
+      <.header class="pt-4">Account Users</.header>
+
+      <.table class="!mb-0" id="account_users" rows={@account.account_users}>
+        <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
+        <:action :let={account_user}>
+          <.link phx-click="delete-account-user" phx-value-id={account_user.id} phx-target={@myself}>
+            Remove
+          </.link>
+        </:action>
+      </.table>
+
+      <.live_component
+        module={DiscussitWeb.AccountUserLive.FormComponent}
+        id="account-user-form"
+        account_id={@account.id}
+        patch={~p"/accounts/#{@account}"}
+        current_user={@current_user}
+        account_user={%Discussit.AccountUsers.AccountUser{}}
+      />
     </div>
     """
   end
@@ -85,6 +104,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   def handle_event("delete-account-user", %{"id" => id}, socket) do
+    IO.puts("d")
     account_user = AccountUsers.get_account_user!(id)
     {:ok, _} = AccountUsers.delete_account_user(account_user)
     account = socket.assigns.account

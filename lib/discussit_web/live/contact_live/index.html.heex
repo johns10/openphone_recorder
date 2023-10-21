@@ -2,7 +2,6 @@
   <div id="contacts" phx-update="stream" class="flex flex-col">
     <div    
       :for={{id, contact} <- @streams.contacts}
-      phx-hover={}
       class="flex flex-row"
       id={id}
     >

@@ -6,8 +6,8 @@ defmodule DiscussitWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-4 w-full">
-      <.header class="text-center">
+    <div class="p-4 w-full overflow-y-scroll">
+      <.header>
         Account Settings
         <:subtitle>Manage your account email address and password settings</:subtitle>
       </.header>

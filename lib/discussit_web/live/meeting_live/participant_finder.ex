@@ -14,7 +14,8 @@ defmodule DiscussitWeb.MeetingLive.ParticipantFinder do
         class="btn btn-xs"
         id={"find-participant-#{@participant.id}"}
         phx-click={
-          JS.push("hydrate-contacts") |> JS.toggle(to: "#find-participant-menu-#{@participant.id}")
+          JS.push("hydrate-contacts")
+          |> JS.toggle(to: "#find-participant-menu-#{@participant.id}")
         }
         phx-target={@myself}
       >

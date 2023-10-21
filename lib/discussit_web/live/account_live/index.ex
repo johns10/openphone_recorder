@@ -4,6 +4,8 @@ defmodule DiscussitWeb.AccountLive.Index do
   alias Discussit.Accounts
   alias Discussit.Accounts.Account
 
+  @preloads [:billing_user, account_users: :user]
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok, stream(socket, :accounts, Accounts.list_accounts()),
@@ -18,7 +20,7 @@ defmodule DiscussitWeb.AccountLive.Index do
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Account")
-    |> assign(:account, Accounts.get_account!(id))
+    |> assign(:account, Accounts.get_account!(id, preloads: @preloads))
   end
 
   defp apply_action(socket, :new, _params) do
@@ -36,6 +38,12 @@ defmodule DiscussitWeb.AccountLive.Index do
   @impl true
   def handle_info({DiscussitWeb.AccountLive.FormComponent, {:saved, account}}, socket) do
     {:noreply, stream_insert(socket, :accounts, account)}
+  end
+
+  def handle_info({_, {:new_account_user, account_user}}, socket) do
+    account = socket.assigns.account
+    account = Map.put(account, :account_users, account.account_users ++ [account_user])
+    {:noreply, assign(socket, :account, account)}
   end
 
   @impl true
