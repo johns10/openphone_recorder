@@ -84,28 +84,15 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
         stripe_customer_id
       end
 
-    {default, payment_methods} =
-      with {:ok, customer} <- Stripe.Customer.retrieve(stripe_customer_id),
-           {:ok, %{data: methods}} <- Stripe.PaymentMethod.list(%{customer: customer}),
-           {default, methods} <- find_default_method(customer, methods) do
-        {default, methods}
-      end
-
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:default, default)
-     |> assign(:payment_methods, payment_methods)}
+     |> assign_methods(stripe_customer_id)}
   end
 
   def update(%{event: :payment_methods_updated}, socket) do
-    socket =
-      case Stripe.PaymentMethod.list(%{customer: socket.assigns.account.stripe_customer_id}) do
-        {:ok, %{data: methods}} -> assign(socket, :payment_methods, methods)
-        _ -> socket
-      end
-
-    {:ok, socket}
+    customer_id = socket.assigns.account.stripe_customer_id
+    {:ok, assign_methods(socket, customer_id)}
   end
 
   @impl true
@@ -141,10 +128,20 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
   end
 
   def handle_event("remove-card", %{"id" => id}, socket) do
-    with {:ok, _} <- Stripe.PaymentMethod.detach(%{payment_method: id}),
-         {:ok, %{data: methods}} <-
-           Stripe.PaymentMethod.list(%{customer: socket.assigns.account.stripe_customer_id}) do
-      {:noreply, socket |> assign(:payment_methods, methods)}
+    with {:ok, _} <- Stripe.PaymentMethod.detach(%{payment_method: id}) do
+      {:noreply, socket |> assign_methods(socket.assigns.account.stripe_customer_id)}
+    end
+  end
+
+  defp assign_methods(socket, customer_id) do
+    with {:ok, customer} <- Stripe.Customer.retrieve(customer_id),
+         {:ok, %{data: methods}} <- Stripe.PaymentMethod.list(%{customer: customer_id}),
+         {default, methods} <- find_default_method(customer, methods) do
+      socket
+      |> assign(:default, default)
+      |> assign(:payment_methods, methods)
+    else
+      _ -> socket
     end
   end
 
