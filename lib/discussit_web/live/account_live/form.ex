@@ -1,14 +1,33 @@
 defmodule DiscussitWeb.AccountLive.Form do
   use DiscussitWeb, :live_view
 
+  alias Discussit.Accounts
   alias Discussit.Accounts.Account
+
+  @preloads [:billing_user, account_users: :user]
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok,
-     socket
-     |> assign(:account, %Account{account_users: []})
-     |> assign(:page_title, "New Account"), layout: {DiscussitWeb.Layouts, :full_screen}}
+    {:ok, socket, layout: {DiscussitWeb.Layouts, :full_screen}}
+  end
+
+  @impl true
+  def handle_params(params, _url, socket) do
+    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  end
+
+  defp apply_action(socket, action, _) when action in [:edit, :add_payment] do
+    id = socket.assigns.current_user.selected_account_id
+
+    socket
+    |> assign(:page_title, "Edit Account")
+    |> assign(:account, Accounts.get_account!(id, preloads: @preloads))
+  end
+
+  defp apply_action(socket, :new, _params) do
+    socket
+    |> assign(:page_title, "New Account")
+    |> assign(:account, %Account{account_users: []})
   end
 
   @impl true
@@ -16,6 +35,14 @@ defmodule DiscussitWeb.AccountLive.Form do
     account = socket.assigns.account
     account = Map.put(account, :account_users, account.account_users ++ [account_user])
     {:noreply, assign(socket, :account, account)}
+  end
+
+  @impl true
+  def handle_event("delete", %{"id" => id}, socket) do
+    account = Accounts.get_account!(id)
+    {:ok, _} = Accounts.delete_account(account)
+
+    {:noreply, stream_delete(socket, :accounts, account)}
   end
 
   def handle_info({_, {:saved, account}}, socket) do

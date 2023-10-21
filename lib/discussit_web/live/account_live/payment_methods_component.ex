@@ -54,7 +54,12 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
               </p>
             </div>
           </div>
-          <.button phx-click="remove-card" phx-value-id={method.id} class="rounded-l-none btn-error">
+          <.button
+            phx-click="remove-card"
+            phx-value-id={method.id}
+            class="rounded-l-none btn-error"
+            phx-target={@myself}
+          >
             <.icon name="hero-trash" />
           </.button>
         </div>
@@ -93,6 +98,16 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
      |> assign(:payment_methods, payment_methods)}
   end
 
+  def update(%{event: :payment_methods_updated}, socket) do
+    socket =
+      case Stripe.PaymentMethod.list(%{customer: socket.assigns.account.stripe_customer_id}) do
+        {:ok, %{data: methods}} -> assign(socket, :payment_methods, methods)
+        _ -> socket
+      end
+
+    {:ok, socket}
+  end
+
   @impl true
   def handle_event("payment-setup", %{"payment_method" => payment_method}, socket) do
     with {:ok, customer} <- Stripe.Customer.retrieve(socket.assigns.account.stripe_customer_id),
@@ -122,6 +137,14 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
       {:error, %Stripe.Error{message: message}} ->
         Logger.error(message)
         {:noreply, socket}
+    end
+  end
+
+  def handle_event("remove-card", %{"id" => id}, socket) do
+    with {:ok, _} <- Stripe.PaymentMethod.detach(%{payment_method: id}),
+         {:ok, %{data: methods}} <-
+           Stripe.PaymentMethod.list(%{customer: socket.assigns.account.stripe_customer_id}) do
+      {:noreply, socket |> assign(:payment_methods, methods)}
     end
   end
 

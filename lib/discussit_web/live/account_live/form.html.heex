@@ -1,12 +1,11 @@
-<div class="p-4 w-full">
+<div class="p-4 w-full overflow-y-scroll">
   <.live_component
     module={DiscussitWeb.AccountLive.FormComponent}
     id={:new}
     title={@page_title}
-    action={:new}
+    action={@live_action}
     account={@account}
-    redirect={~p"/home"}
+    patch={~p"/accounts/edit_standalone"}
     current_user={@current_user}
   />
 </div>
-

@@ -30,7 +30,7 @@
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 bg-base-300 rounded-box w-52">
           <li><.link href={~p"/users/settings"}>User Settings</.link></li>
           <li :if={@current_user.selected_account_id}>
-            <.link href={~p"/accounts/#{@current_user.selected_account_id}/edit"}>
+            <.link href={~p"/accounts/edit_standalone"}>
               Account Settings
             </.link>
           </li>

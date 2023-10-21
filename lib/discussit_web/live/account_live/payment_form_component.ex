@@ -2,6 +2,7 @@ defmodule DiscussitWeb.AccountLive.PaymentFormComponent do
   use DiscussitWeb, :live_component
   require Logger
   alias Discussit.Accounts
+  alias DiscussitWeb.AccountLive.PaymentMethodsComponent
 
   @impl true
   def render(assigns) do
@@ -56,7 +57,9 @@ defmodule DiscussitWeb.AccountLive.PaymentFormComponent do
 
   @impl true
   def handle_event("payment-setup", %{"payment_method" => payment_method}, socket) do
-    with {:ok, customer} <- Stripe.Customer.retrieve(socket.assigns.account.stripe_customer_id),
+    customer_id = socket.assigns.account.stripe_customer_id
+
+    with {:ok, customer} <- Stripe.Customer.retrieve(customer_id),
          {:ok, _relationship} <-
            Stripe.PaymentMethod.attach(%{customer: customer, payment_method: payment_method}) do
       if !customer.invoice_settings.default_payment_method do
@@ -71,6 +74,11 @@ defmodule DiscussitWeb.AccountLive.PaymentFormComponent do
           {:ok, account}
         end
       end
+
+      send_update(PaymentMethodsComponent,
+        id: socket.assigns.account.id,
+        event: :payment_methods_updated
+      )
 
       case socket.assigns do
         %{patch: patch} when not is_nil(patch) ->

@@ -40,13 +40,6 @@ defmodule DiscussitWeb.AccountLive.Show do
     {:noreply, assign(socket, :account, account)}
   end
 
-  @impl true
-  def handle_event("remove-card", %{"id" => id}, socket) do
-    with {:ok, _} <- Stripe.PaymentMethod.detach(%{payment_method: id}) do
-      {:noreply, socket |> push_patch(to: "/accounts/#{socket.assigns.account.id}")}
-    end
-  end
-
   def handle_event("default-payment-method", %{"id" => id}, socket) do
     with {:ok, _customer} <-
            Stripe.Customer.update(socket.assigns.account.stripe_customer_id, %{

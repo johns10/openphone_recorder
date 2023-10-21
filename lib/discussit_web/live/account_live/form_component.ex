@@ -62,7 +62,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         module={DiscussitWeb.AccountUserLive.FormComponent}
         id="account-user-form"
         account_id={@account.id}
-        patch={~p"/accounts/#{@account}"}
+        patch={@patch}
         current_user={@current_user}
         account_user={%Discussit.AccountUsers.AccountUser{}}
       />
@@ -75,21 +75,16 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         account={@account}
       />
 
-      <.link patch={~p{/accounts/#{@account.id}/edit/add_payment}}>
+      <.link patch={@patch <> "/add_payment"}>
         <.button class="btn-primary my-4">Add Payment Method</.button>
       </.link>
 
-      <.modal
-        :if={@action == :add_payment}
-        id="payment-modal"
-        show
-        on_cancel={JS.patch(~p"/accounts/#{@account}")}
-      >
+      <.modal :if={@action == :add_payment} id="payment-modal" show on_cancel={JS.patch(@patch)}>
         <.live_component
           module={DiscussitWeb.AccountLive.PaymentFormComponent}
           id={"#{@account.id}"}
           account={@account}
-          patch={~p"/accounts/#{@account}/edit"}
+          patch={@patch}
           current_user={@current_user}
           title="Add a Credit Card to Your Account"
           subtitle=""
