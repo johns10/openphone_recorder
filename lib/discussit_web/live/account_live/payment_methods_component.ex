@@ -7,10 +7,6 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
   def render(assigns) do
     ~H"""
     <div>
-      <div class="my-4">
-        <.header>Payment Methods</.header>
-      </div>
-
       <div :if={@default} class="flex flex-row">
         <.button class="rounded-r-none btn-success">
           <.icon name="hero-check-circle" />

@@ -43,7 +43,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           options={Ecto.Enum.values(Discussit.Accounts.Account, :plan)}
         />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Account</.button>
+          <.button class="btn-success" phx-disable-with="Saving...">Save Account</.button>
         </:actions>
       </.simple_form>
 
@@ -66,6 +66,35 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         current_user={@current_user}
         account_user={%Discussit.AccountUsers.AccountUser{}}
       />
+
+      <.header class="my-4">Payment Methods</.header>
+
+      <.live_component
+        id={@account.id}
+        module={DiscussitWeb.AccountLive.PaymentMethodsComponent}
+        account={@account}
+      />
+
+      <.link patch={~p{/accounts/#{@account.id}/edit/add_payment}}>
+        <.button class="btn-primary my-4">Add Payment Method</.button>
+      </.link>
+
+      <.modal
+        :if={@action == :add_payment}
+        id="payment-modal"
+        show
+        on_cancel={JS.patch(~p"/accounts/#{@account}")}
+      >
+        <.live_component
+          module={DiscussitWeb.AccountLive.PaymentFormComponent}
+          id={"#{@account.id}"}
+          account={@account}
+          patch={~p"/accounts/#{@account}/edit"}
+          current_user={@current_user}
+          title="Add a Credit Card to Your Account"
+          subtitle=""
+        />
+      </.modal>
     </div>
     """
   end
@@ -104,7 +133,6 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   def handle_event("delete-account-user", %{"id" => id}, socket) do
-    IO.puts("d")
     account_user = AccountUsers.get_account_user!(id)
     {:ok, _} = AccountUsers.delete_account_user(account_user)
     account = socket.assigns.account

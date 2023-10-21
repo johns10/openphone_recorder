@@ -17,7 +17,7 @@ defmodule DiscussitWeb.AccountLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, action, %{"id" => id}) when action in [:edit, :add_payment] do
     socket
     |> assign(:page_title, "Edit Account")
     |> assign(:account, Accounts.get_account!(id, preloads: @preloads))
