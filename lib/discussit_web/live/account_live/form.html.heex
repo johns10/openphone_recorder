@@ -1,7 +1,7 @@
 <div class="p-4 w-full overflow-y-scroll">
   <.live_component
     module={DiscussitWeb.AccountLive.FormComponent}
-    id={:new}
+    id={@account.id || :new}
     title={@page_title}
     action={@live_action}
     account={@account}

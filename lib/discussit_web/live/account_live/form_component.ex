@@ -47,49 +47,51 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         </:actions>
       </.simple_form>
 
-      <.header class="pt-4">Account Users</.header>
+      <%= if @action != :new do %>
+        <.header class="pt-4">Account Users</.header>
 
-      <.table class="!mb-0" id="account_users" rows={@account.account_users}>
-        <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
-        <:action :let={account_user}>
-          <.link phx-click="delete-account-user" phx-value-id={account_user.id} phx-target={@myself}>
-            Remove
-          </.link>
-        </:action>
-      </.table>
+        <.table class="!mb-0" id="account_users" rows={@account.account_users}>
+          <:col :let={account_user} label="Email"><%= account_user.user.email %></:col>
+          <:action :let={account_user}>
+            <.link phx-click="delete-account-user" phx-value-id={account_user.id} phx-target={@myself}>
+              Remove
+            </.link>
+          </:action>
+        </.table>
 
-      <.live_component
-        module={DiscussitWeb.AccountUserLive.FormComponent}
-        id="account-user-form"
-        account_id={@account.id}
-        patch={@patch}
-        current_user={@current_user}
-        account_user={%Discussit.AccountUsers.AccountUser{}}
-      />
-
-      <.header class="my-4">Payment Methods</.header>
-
-      <.live_component
-        id={@account.id}
-        module={DiscussitWeb.AccountLive.PaymentMethodsComponent}
-        account={@account}
-      />
-
-      <.link patch={@patch <> "/add_payment"}>
-        <.button class="btn-primary my-4">Add Payment Method</.button>
-      </.link>
-
-      <.modal :if={@action == :add_payment} id="payment-modal" show on_cancel={JS.patch(@patch)}>
         <.live_component
-          module={DiscussitWeb.AccountLive.PaymentFormComponent}
-          id={"#{@account.id}"}
-          account={@account}
+          module={DiscussitWeb.AccountUserLive.FormComponent}
+          id="account-user-form"
+          account_id={@account.id}
           patch={@patch}
           current_user={@current_user}
-          title="Add a Credit Card to Your Account"
-          subtitle=""
+          account_user={%Discussit.AccountUsers.AccountUser{}}
         />
-      </.modal>
+
+        <.header class="my-4">Payment Methods</.header>
+
+        <.live_component
+          id={@account.id || :new}
+          module={DiscussitWeb.AccountLive.PaymentMethodsComponent}
+          account={@account}
+        />
+
+        <.link patch={@patch <> "/add_payment"}>
+          <.button class="btn-primary my-4">Add Payment Method</.button>
+        </.link>
+
+        <.modal :if={@action == :add_payment} id="payment-modal" show on_cancel={JS.patch(@patch)}>
+          <.live_component
+            module={DiscussitWeb.AccountLive.PaymentFormComponent}
+            id={"#{@account.id}"}
+            account={@account}
+            patch={@patch}
+            current_user={@current_user}
+            title="Add a Credit Card to Your Account"
+            subtitle=""
+          />
+        </.modal>
+      <% end %>
     </div>
     """
   end

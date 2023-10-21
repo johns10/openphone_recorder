@@ -1,14 +1,14 @@
 [
   {
     "request": {
-      "body": "email=user-576460752303422655%40example.com&name=Legros%2C+Terry+and+Glover",
+      "body": "email=user-576460752303422142%40example.com&name=Kertzmann+LLC",
       "headers": {
         "Accept": "application/json; charset=utf8",
         "Accept-Encoding": "gzip",
         "Authorization": "***",
         "Connection": "keep-alive",
         "Content-Type": "application/x-www-form-urlencoded",
-        "Idempotency-Key": "2u2sj8u74dngfvcrm80000r2",
+        "Idempotency-Key": "2u831jkhqr5ar1d8140001b3",
         "Stripe-Version": "2020-08-27",
         "User-Agent": "Stripe/v1 stripe-elixir/2020-08-27"
       },
@@ -22,12 +22,12 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cus_Oel6OhgCznTXas\",\n  \"object\": \"customer\",\n  \"address\": null,\n  \"balance\": 0,\n  \"created\": 1694982541,\n  \"currency\": null,\n  \"default_currency\": null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"user-576460752303422655@example.com\",\n  \"invoice_prefix\": \"5F214705\",\n  \"invoice_settings\": {\n    \"custom_fields\": null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\": null\n  },\n  \"livemode\": true,\n  \"metadata\": {},\n  \"name\": \"Legros, Terry and Glover\",\n  \"next_invoice_sequence\": 1,\n  \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n  \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}",
+      "body": "{\n  \"id\": \"cus_OrSF1HZ7Snh1bS\",\n  \"object\": \"customer\",\n  \"address\": null,\n  \"balance\": 0,\n  \"created\": 1697910723,\n  \"currency\": null,\n  \"default_currency\": null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"user-576460752303422142@example.com\",\n  \"invoice_prefix\": \"5246FE7D\",\n  \"invoice_settings\": {\n    \"custom_fields\": null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\": null\n  },\n  \"livemode\": false,\n  \"metadata\": {},\n  \"name\": \"Kertzmann LLC\",\n  \"next_invoice_sequence\": 1,\n  \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n  \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 17 Sep 2023 20:29:01 GMT",
+        "Date": "Sat, 21 Oct 2023 17:52:03 GMT",
         "Content-Type": "application/json",
-        "Content-Length": "696",
+        "Content-Length": "686",
         "Connection": "keep-alive",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -35,13 +35,14 @@
         "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
         "Access-Control-Max-Age": "300",
         "Cache-Control": "no-cache, no-store",
-        "Idempotency-Key": "2u2sj8u74dngfvcrm80000r2",
-        "Original-Request": "req_kDTytTAI9ZiYwR",
-        "Request-Id": "req_kDTytTAI9ZiYwR",
+        "Content-Security-Policy-Report-Only": "report-uri https://q.stripe.com/csp-report?p=v1%2Fcustomers; block-all-mixed-content; default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'",
+        "Idempotency-Key": "2u831jkhqr5ar1d8140001b3",
+        "Original-Request": "req_ENuAJ8pYn91SNn",
+        "Request-Id": "req_ENuAJ8pYn91SNn",
         "Stripe-Should-Retry": "false",
         "Stripe-Version": "2020-08-27",
         "Vary": "Origin",
-        "X-Stripe-Routing-Context-Priority-Tier": "livemode-critical",
+        "X-Stripe-Routing-Context-Priority-Tier": "api-testmode",
         "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
       },
       "status_code": 200,
@@ -50,14 +51,106 @@
   },
   {
     "request": {
-      "body": "email=user-576460752303422655%40example.com&name=some+updated+name",
+      "body": "",
       "headers": {
         "Accept": "application/json; charset=utf8",
         "Accept-Encoding": "gzip",
-        "Authorization": "Bearer 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",
+        "Authorization": "Bearer sk_test_51NJe4fD6og6lHPCfa6owXQgLFdeVH92aXx9xjE8YT3AiDEPm27iE4a67FbOp2xE05CRQeSHd3eUUI2rI8oviZikM00BmWogCCm",
         "Connection": "keep-alive",
         "Content-Type": "application/x-www-form-urlencoded",
-        "Idempotency-Key": "2u2sj905bbmvsbg0s40000v2",
+        "Stripe-Version": "2020-08-27",
+        "User-Agent": "Stripe/v1 stripe-elixir/2020-08-27"
+      },
+      "method": "get",
+      "options": {
+        "pool": "Elixir.Stripe.API",
+        "with_body": "true"
+      },
+      "request_body": "",
+      "url": "https://api.stripe.com/v1/customers/cus_OrSF1HZ7Snh1bS"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"id\": \"cus_OrSF1HZ7Snh1bS\",\n  \"object\": \"customer\",\n  \"address\": null,\n  \"balance\": 0,\n  \"created\": 1697910723,\n  \"currency\": null,\n  \"default_currency\": null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"user-576460752303422142@example.com\",\n  \"invoice_prefix\": \"5246FE7D\",\n  \"invoice_settings\": {\n    \"custom_fields\": null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\": null\n  },\n  \"livemode\": false,\n  \"metadata\": {},\n  \"name\": \"Kertzmann LLC\",\n  \"next_invoice_sequence\": 1,\n  \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n  \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Sat, 21 Oct 2023 17:52:03 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "686",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
+        "Access-Control-Max-Age": "300",
+        "Cache-Control": "no-cache, no-store",
+        "Content-Security-Policy-Report-Only": "report-uri https://q.stripe.com/csp-report?p=v1%2Fcustomers%2F%3Acustomer; block-all-mixed-content; default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'",
+        "Request-Id": "req_O314K7xIvmz2wt",
+        "Stripe-Version": "2020-08-27",
+        "Vary": "Origin",
+        "X-Stripe-Routing-Context-Priority-Tier": "api-testmode",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json; charset=utf8",
+        "Accept-Encoding": "gzip",
+        "Authorization": "Bearer sk_test_51NJe4fD6og6lHPCfa6owXQgLFdeVH92aXx9xjE8YT3AiDEPm27iE4a67FbOp2xE05CRQeSHd3eUUI2rI8oviZikM00BmWogCCm",
+        "Connection": "keep-alive",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Stripe-Version": "2020-08-27",
+        "User-Agent": "Stripe/v1 stripe-elixir/2020-08-27"
+      },
+      "method": "get",
+      "options": {
+        "pool": "Elixir.Stripe.API",
+        "with_body": "true"
+      },
+      "request_body": "",
+      "url": "https://api.stripe.com/v1/payment_methods?customer=cus_OrSF1HZ7Snh1bS"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\n  \"object\": \"list\",\n  \"data\": [],\n  \"has_more\": false,\n  \"url\": \"/v1/payment_methods\"\n}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Sat, 21 Oct 2023 17:52:03 GMT",
+        "Content-Type": "application/json",
+        "Content-Length": "89",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
+        "Access-Control-Max-Age": "300",
+        "Cache-Control": "no-cache, no-store",
+        "Content-Security-Policy-Report-Only": "report-uri https://q.stripe.com/csp-report?p=v1%2Fpayment_methods; block-all-mixed-content; default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'",
+        "Request-Id": "req_lC3i6JsJL85ImP",
+        "Stripe-Version": "2020-08-27",
+        "Vary": "Origin",
+        "X-Stripe-Routing-Context-Priority-Tier": "api-testmode",
+        "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "email=user-576460752303422142%40example.com&name=some+updated+name",
+      "headers": {
+        "Accept": "application/json; charset=utf8",
+        "Accept-Encoding": "gzip",
+        "Authorization": "Bearer sk_test_51NJe4fD6og6lHPCfa6owXQgLFdeVH92aXx9xjE8YT3AiDEPm27iE4a67FbOp2xE05CRQeSHd3eUUI2rI8oviZikM00BmWogCCm",
+        "Connection": "keep-alive",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Idempotency-Key": "2u831jlog4boanqt0o0001c3",
         "Stripe-Version": "2020-08-27",
         "User-Agent": "Stripe/v1 stripe-elixir/2020-08-27"
       },
@@ -67,16 +160,16 @@
         "with_body": "true"
       },
       "request_body": "",
-      "url": "https://api.stripe.com/v1/customers/cus_Oel6OhgCznTXas"
+      "url": "https://api.stripe.com/v1/customers/cus_OrSF1HZ7Snh1bS"
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cus_Oel6OhgCznTXas\",\n  \"object\": \"customer\",\n  \"address\": null,\n  \"balance\": 0,\n  \"created\": 1694982541,\n  \"currency\": null,\n  \"default_currency\": null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"user-576460752303422655@example.com\",\n  \"invoice_prefix\": \"5F214705\",\n  \"invoice_settings\": {\n    \"custom_fields\": null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\": null\n  },\n  \"livemode\": true,\n  \"metadata\": {},\n  \"name\": \"some updated name\",\n  \"next_invoice_sequence\": 1,\n  \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n  \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}",
+      "body": "{\n  \"id\": \"cus_OrSF1HZ7Snh1bS\",\n  \"object\": \"customer\",\n  \"address\": null,\n  \"balance\": 0,\n  \"created\": 1697910723,\n  \"currency\": null,\n  \"default_currency\": null,\n  \"default_source\": null,\n  \"delinquent\": false,\n  \"description\": null,\n  \"discount\": null,\n  \"email\": \"user-576460752303422142@example.com\",\n  \"invoice_prefix\": \"5246FE7D\",\n  \"invoice_settings\": {\n    \"custom_fields\": null,\n    \"default_payment_method\": null,\n    \"footer\": null,\n    \"rendering_options\": null\n  },\n  \"livemode\": false,\n  \"metadata\": {},\n  \"name\": \"some updated name\",\n  \"next_invoice_sequence\": 1,\n  \"phone\": null,\n  \"preferred_locales\": [],\n  \"shipping\": null,\n  \"tax_exempt\": \"none\",\n  \"test_clock\": null\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 17 Sep 2023 20:29:01 GMT",
+        "Date": "Sat, 21 Oct 2023 17:52:04 GMT",
         "Content-Type": "application/json",
-        "Content-Length": "689",
+        "Content-Length": "690",
         "Connection": "keep-alive",
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
@@ -84,13 +177,14 @@
         "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
         "Access-Control-Max-Age": "300",
         "Cache-Control": "no-cache, no-store",
-        "Idempotency-Key": "2u2sj905bbmvsbg0s40000v2",
-        "Original-Request": "req_FvVRIiY88gOW2V",
-        "Request-Id": "req_FvVRIiY88gOW2V",
+        "Content-Security-Policy-Report-Only": "report-uri https://q.stripe.com/csp-report?p=v1%2Fcustomers%2F%3Acustomer; block-all-mixed-content; default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'",
+        "Idempotency-Key": "2u831jlog4boanqt0o0001c3",
+        "Original-Request": "req_nMILk7Hu2usHqx",
+        "Request-Id": "req_nMILk7Hu2usHqx",
         "Stripe-Should-Retry": "false",
         "Stripe-Version": "2020-08-27",
         "Vary": "Origin",
-        "X-Stripe-Routing-Context-Priority-Tier": "livemode-critical",
+        "X-Stripe-Routing-Context-Priority-Tier": "api-testmode",
         "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
       },
       "status_code": 200,
@@ -115,14 +209,14 @@
         "with_body": "true"
       },
       "request_body": "",
-      "url": "https://api.stripe.com/v1/customers/cus_Oel6OhgCznTXas"
+      "url": "https://api.stripe.com/v1/customers/cus_OrSF1HZ7Snh1bS"
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"cus_Oel6OhgCznTXas\",\n  \"object\": \"customer\",\n  \"deleted\": true\n}",
+      "body": "{\n  \"id\": \"cus_OrSF1HZ7Snh1bS\",\n  \"object\": \"customer\",\n  \"deleted\": true\n}",
       "headers": {
         "Server": "nginx",
-        "Date": "Sun, 17 Sep 2023 20:29:01 GMT",
+        "Date": "Sat, 21 Oct 2023 17:52:04 GMT",
         "Content-Type": "application/json",
         "Content-Length": "75",
         "Connection": "keep-alive",
@@ -132,10 +226,11 @@
         "Access-Control-Expose-Headers": "Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required",
         "Access-Control-Max-Age": "300",
         "Cache-Control": "no-cache, no-store",
-        "Request-Id": "req_az6dLrAZHq4113",
+        "Content-Security-Policy-Report-Only": "report-uri https://q.stripe.com/csp-report?p=v1%2Fcustomers%2F%3Acustomer; block-all-mixed-content; default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; img-src 'self'; script-src 'self' 'report-sample'; style-src 'self'",
+        "Request-Id": "req_ZVqQMzM9k9DyYZ",
         "Stripe-Version": "2020-08-27",
         "Vary": "Origin",
-        "X-Stripe-Routing-Context-Priority-Tier": "livemode",
+        "X-Stripe-Routing-Context-Priority-Tier": "api-testmode",
         "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload"
       },
       "status_code": 200,

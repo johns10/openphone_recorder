@@ -76,7 +76,7 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
     stripe_customer_id =
       if is_nil(stripe_customer_id) and not is_nil(billing_user_id) do
         with %{email: email} <- Discussit.Users.get_user!(billing_user_id),
-             {:ok, %{id: id}} <- Sripe.Customer.create(%{email: email, name: account.name}),
+             {:ok, %{id: id}} <- Stripe.Customer.create(%{email: email, name: account.name}),
              {:ok, _account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
           id
         end

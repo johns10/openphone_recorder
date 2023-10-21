@@ -26,7 +26,7 @@ defmodule DiscussitWeb.AccountLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Account")
-    |> assign(:account, %Account{})
+    |> assign(:account, %Account{account_users: []})
   end
 
   defp apply_action(socket, :index, _params) do

@@ -35,7 +35,7 @@ defmodule DiscussitWeb.ContactLiveTest do
     test "saves new contact", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, ~p"/contacts")
 
-      assert index_live |> element("a", "New Contact") |> render_click() =~
+      assert index_live |> element("a", "+") |> render_click() =~
                "New Contact"
 
       assert_patch(index_live, ~p"/contacts/new")
@@ -105,7 +105,7 @@ defmodule DiscussitWeb.ContactLiveTest do
         )
 
       assert index_live
-             |> element("#add-phone-number", "Add a phone number")
+             |> element("#add-phone-number")
              |> render_click() =~ "Enter phone number"
 
       refute index_live
@@ -113,7 +113,7 @@ defmodule DiscussitWeb.ContactLiveTest do
              |> render_click() =~ "Enter phone number"
 
       assert index_live
-             |> element("#add-phone-number", "Add a phone number")
+             |> element("#add-phone-number")
              |> render_click() =~ "Enter phone number"
 
       assert index_live
@@ -146,7 +146,7 @@ defmodule DiscussitWeb.ContactLiveTest do
         )
 
       index_live
-      |> element("#add-phone-number", "Add a phone number")
+      |> element("#add-phone-number", "+")
       |> render_click() =~ "Enter phone number"
 
       index_live
