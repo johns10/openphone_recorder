@@ -11,7 +11,7 @@ defmodule DiscussitWeb.ContactLive.Index do
     contacts =
       case socket.assigns.current_user.selected_account_id do
         nil -> []
-        account_id -> Contacts.list_contacts(filters: [account_id: account_id])
+        account_id -> Contacts.list_contacts(filters: [account_id: account_id], limit: 20)
       end
 
     {:ok,
@@ -91,6 +91,7 @@ defmodule DiscussitWeb.ContactLive.Index do
   end
 
   defp append(socket, new_page) when new_page >= 1 do
+    IO.puts("next page")
     %{per_page: per_page} = socket.assigns
 
     contacts =
@@ -102,6 +103,7 @@ defmodule DiscussitWeb.ContactLive.Index do
 
     case contacts do
       [] ->
+        IO.puts("done")
         assign(socket, end_of_timeline?: true)
 
       [_ | _] = contacts ->
