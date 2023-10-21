@@ -37,68 +37,19 @@
 <.live_component
   module={DiscussitWeb.AccountUserLive.FormComponent}
   id="account-user-form"
+  account
   account_id={@account.id}
   patch={~p"/accounts/#{@account}"}
   current_user={@current_user}
   account_user={%Discussit.AccountUsers.AccountUser{}}
 />
 
-<div class="my-4">
-  <.header>Payment Methods</.header>
-</div>
+<.live_component
+  id={@account.id}
+  module={DiscussitWeb.AccountLive.PaymentMethodsComponent}
+  account={@account}
+/>
 
-<div :if={@default} class="flex flex-row">
-  <.button class="rounded-r-none btn-success">
-    <.icon name="hero-check-circle" />
-  </.button>
-  <div class="bg-success flex flex-row py-2 px-4 items-center space-x-8">
-    <div>
-      <p class="font-medium tracking-more-wider text-secondary-content">
-        <%= "****  ****  ****  #{@default.card.last4}" %>
-      </p>
-    </div>
-    <div>
-      <p class="font-medium tracking-wider text-secondary-content">
-        <%= @default.card.exp_month %>/<%= @default.card.exp_year %>
-      </p>
-    </div>
-  </div>
-  <.button
-    phx-click="remove-card"
-    phx-value-id={@default.id}
-    class="rounded-l-none btn-error"
-    disabled
-  >
-    <.icon name="hero-trash" />
-  </.button>
-</div>
-
-<div :if={length(@payment_methods) > 0} class="flex flex-col space-y-4 my-4">
-  <div :for={method <- @payment_methods} class="flex flex-row">
-    <.button
-      class="rounded-r-none btn-success"
-      phx-click="default-payment-method"
-      phx-value-id={method.id}
-    >
-      <.icon name="hero-check-circle" />
-    </.button>
-    <div class="bg-secondary flex flex-row py-2 px-4 items-center space-x-8">
-      <div>
-        <p class="font-medium tracking-more-wider text-secondary-content">
-          <%= "****  ****  ****  #{method.card.last4}" %>
-        </p>
-      </div>
-      <div>
-        <p class="font-medium tracking-wider text-secondary-content">
-          <%= method.card.exp_month %>/<%= method.card.exp_year %>
-        </p>
-      </div>
-    </div>
-    <.button phx-click="remove-card" phx-value-id={method.id} class="rounded-l-none btn-error">
-      <.icon name="hero-trash" />
-    </.button>
-  </div>
-</div>
 <.link patch={~p{/accounts/#{@account.id}/show/add_payment}}>
   <.button class="btn-primary my-4">Add Payment Method</.button>
 </.link>

@@ -16,35 +16,10 @@ defmodule DiscussitWeb.AccountLive.Show do
 
     case Bodyguard.permit(Accounts, :get_account!, socket.assigns.current_user, id) do
       :ok ->
-        {default, payment_methods} =
-          with id when is_binary(id) <- Map.get(account, :stripe_customer_id, nil),
-               {:ok, customer} <- Stripe.Customer.retrieve(id),
-               {:ok, %{data: methods}} <- Stripe.PaymentMethod.list(%{customer: customer}),
-               {default, methods} <- find_default_method(customer, methods) do
-            {default, methods}
-          else
-            nil ->
-              with %{billing_user_id: user_id} when not is_nil(user_id) <- account,
-                   %{email: email} <- Discussit.Users.get_user!(user_id),
-                   {:ok, %{id: id}} <-
-                     Stripe.Customer.create(%{email: email, name: account.name}),
-                   {:ok, _account} <- Accounts.update_account(account, %{stripe_customer_id: id}) do
-                {nil, []}
-              else
-                %{billing_user_id: nil} ->
-                  {nil, []}
-              end
-
-            _ ->
-              {nil, []}
-          end
-
         {:noreply,
          socket
          |> assign(:page_title, page_title(socket.assigns.live_action))
-         |> assign(:account, account)
-         |> assign(:payment_methods, payment_methods)
-         |> assign(:default, default)}
+         |> assign(:account, account)}
 
       {:error, _} ->
         {:noreply,
@@ -89,18 +64,6 @@ defmodule DiscussitWeb.AccountLive.Show do
       {:error, %Stripe.Error{message: message}} ->
         Logger.error(message)
         {:noreply, socket}
-    end
-  end
-
-  defp find_default_method(customer, payment_methods) do
-    if customer.invoice_settings.default_payment_method do
-      {Enum.find(
-         payment_methods,
-         &(&1.id == customer.invoice_settings.default_payment_method)
-       ),
-       Enum.reject(payment_methods, &(&1.id == customer.invoice_settings.default_payment_method))}
-    else
-      {nil, payment_methods}
     end
   end
 
