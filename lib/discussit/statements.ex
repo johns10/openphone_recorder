@@ -26,6 +26,28 @@ defmodule Discussit.Statements do
     |> Repo.all()
   end
 
+  def count_statements(opts \\ []) do
+    filters = Keyword.get(opts, :filters, [])
+    order_by = Keyword.get(opts, :order_by, [])
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Statement
+    |> maybe_filter_by_call_id(filters[:call_id])
+    |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> maybe_filter_by_meeting_id(filters[:meeting_id])
+    |> maybe_filter_by_account_id(filters[:account_id])
+    |> maybe_order_by_occurred_at(order_by[:occurred_at])
+    |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
+    |> maybe_filter_by_before(filters[:before])
+    |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
+    |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
+    |> maybe_filter_embedded(filters[:embedded])
+    |> maybe_limit(opts[:limit])
+    |> maybe_offset(opts[:offset])
+    |> preload(^preloads)
+    |> Repo.aggregate(:count, :id)
+  end
+
   def get_statement!(id), do: Repo.get!(Statement, id)
 
   defp maybe_filter_by_conversation_id(query, nil), do: query
