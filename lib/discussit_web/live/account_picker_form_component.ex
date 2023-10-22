@@ -8,35 +8,38 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="flex flex-row items-center justify-items-end">
-      <details class="dropdown dropdown-right">
-        <summary class="btn btn-ghost btn-sm px-2">
-          <.icon name="hero-user-group" class={"w-5 h-5 #{@accounts == [] && "animate-pulse"}"} />
-        </summary>
-        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-52">
-          <%= for account <- @accounts do %>
-            <li>
-              <.link phx-click="select-account" phx-value-id={account.id} phx-target={@myself}>
+    <div class="dropdown dropdown-right">
+      <label tabindex="0">
+        <div class="flex flex-row items-center justify-items-end hover:cursor-pointer">
+          <div class="btn btn-ghost btn-sm px-2">
+            <.icon name="hero-user-group" class={"w-5 h-5 #{@accounts == [] && "animate-pulse"}"} />
+          </div>
+          <%= if @user.selected_account_id do %>
+            <div class="dropdown-label mr-2" style="display: none;">
+              <%= @account.name %>
+            </div>
+          <% end %>
+        </div>
+      </label>
+      <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-200 rounded-box w-64">
+        <%= for account <- @accounts do %>
+          <li>
+            <div class="flex flex-row justify-between">
+              <.link
+                phx-click={JS.push("select-account", value: %{id: account.id})}
+                phx-target={@myself}
+              >
                 <%= account.name %>
               </.link>
-            </li>
-          <% end %>
-          <li>
-            <.link href={~p{/accounts/new_standalone?#{[user_id: @user.id]}}}>
-              Create New Account
-            </.link>
+            </div>
           </li>
-        </ul>
-      </details>
-      <%= if @user.selected_account_id do %>
-        <.link
-          class="dropdown-label mr-2 hover:cursor-pointer"
-          style="display: none;"
-          href={~p"/accounts/#{@user.selected_account_id}"}
-        >
-          <%= @account.name %>
-        </.link>
-      <% end %>
+        <% end %>
+        <li>
+          <.link href={~p{/accounts/new_standalone?#{[user_id: @user.id]}}}>
+            Create New Account
+          </.link>
+        </li>
+      </ul>
     </div>
     """
   end
