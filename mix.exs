@@ -71,6 +71,7 @@ defmodule Discussit.MixProject do
       {:ssl_verify_fun, "~> 1.1"},
       {:floki, ">= 0.30.0"},
       {:recase, "~> 0.5"},
+      {:pgvector, "~> 0.2.0"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},

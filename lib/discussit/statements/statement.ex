@@ -6,6 +6,7 @@ defmodule Discussit.Statements.Statement do
   alias Discussit.Calls.Call
   alias Discussit.StatementSummaries.StatementSummary
   alias Discussit.Participants.Participant
+  alias Discussit.Embeddings.Embedding
   alias PgRanges.TsRange
 
   @primary_key {:id, :binary_id, autogenerate: false}
@@ -16,11 +17,15 @@ defmodule Discussit.Statements.Statement do
     field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
     field :ts_range, TsRange
+    field :all_stopwords, :boolean
+    field :unprocessable, :boolean
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
+
+    has_one :embedding, Embedding
 
     has_many :statement_summaries, StatementSummary
     has_many :summaries, through: [:statement_summaries, :summary]
@@ -41,7 +46,9 @@ defmodule Discussit.Statements.Statement do
       :occurred_at,
       :type,
       :call_id,
-      :ts_range
+      :ts_range,
+      :all_stopwords,
+      :unprocessable
     ])
     |> validate_required([:occurred_at, :type, :participant_id])
     |> foreign_key_constraint(:conversation_id)

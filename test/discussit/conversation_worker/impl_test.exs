@@ -663,9 +663,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
           |> Enum.at(0)
           |> Map.get(:statements)
 
-        statements |> Enum.count()
-
-        assert Enum.count(statements) in [19, 20, 21]
+        assert Enum.count(statements) == 25
       end
     end
 
