@@ -44,11 +44,19 @@ defmodule Discussit.Embeddings.Impl do
     |> Flow.from_enumerable(max_demand: 1)
     |> Flow.flat_map(& &1)
     |> Flow.map(&%{status: :ok, source: &1})
+    |> Flow.map(&check_model/1)
     |> Flow.map(&filter_unprocessable/1)
     |> Flow.map(&filter_all_stopwords/1)
     |> Flow.map(&create_embedding/1)
     |> Flow.map(&put_vector/1)
     |> Enum.map(& &1)
+  end
+
+  defp check_model(state) do
+    case Discussit.Embeddings.Server.get_status() do
+      :started -> state
+      :not_started -> Map.put(state, :status, :model_not_started)
+    end
   end
 
   defp filter_unprocessable(
@@ -66,6 +74,8 @@ defmodule Discussit.Embeddings.Impl do
         |> Map.put(:source, statement)
     end
   end
+
+  defp filter_unprocessable(state), do: state
 
   defp filter_all_stopwords(%{status: :ok, source: %Statement{} = statement} = state) do
     %{content: content} = statement
@@ -156,6 +166,7 @@ defmodule Discussit.Embeddings.Impl do
     else
       {:ok, %{status_code: 503, body: json}} ->
         with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
+          Discussit.Embeddings.Server.set_status(:not_started)
           Logger.warning("#{error}, eta: #{eta}")
           {:error, :not_started}
         end

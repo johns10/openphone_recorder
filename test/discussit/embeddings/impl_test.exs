@@ -11,6 +11,7 @@ defmodule Discussit.Embeddings.ImplTest do
       ExVCR.Config.filter_request_headers("Authorization")
       account = account_fixture(%{enable_embeddings: true})
       conversation = conversation_fixture(%{account_id: account.id})
+      Discussit.Embeddings.Server.set_status(:started)
 
       %{account: account, conversation: conversation}
     end
@@ -93,6 +94,12 @@ defmodule Discussit.Embeddings.ImplTest do
         Impl.embed_statements()
         assert Discussit.Usages.list_usages() |> Enum.count() == 1
       end
+    end
+
+    test "setting the server status stops the flow", %{conversation: conversation} do
+      statement_fixture(%{conversation_id: conversation.id})
+      Discussit.Embeddings.Server.set_status(:not_started)
+      assert [%{status: :model_not_started}] = Impl.embed_statements(100)
     end
 
     test "only embeds statements in accounts with embeddings enabled", context do
