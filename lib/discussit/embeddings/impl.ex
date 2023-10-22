@@ -26,17 +26,11 @@ defmodule Discussit.Embeddings.Impl do
   end
 
   def embed_statements(limit \\ 500) do
+    Logger.info("#{__MODULE__}.embed_statements")
+
     Stream.resource(
       fn -> 0 end,
       fn acc ->
-        count =
-          Statements.list_statements(
-            filters: [embedded: false, all_stopwords: false, embedding_enabled: true],
-            preloads: [conversation: :account]
-          )
-
-        Logger.info("Embedding statements with #{count} left")
-
         case Statements.list_statements(
                limit: limit,
                offset: acc,
