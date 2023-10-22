@@ -81,6 +81,7 @@ defmodule Discussit.Events.Consumer do
     |> Projector.apply(event.account_id)
     |> case do
       {:ok, _} ->
+        Discussit.Embeddings.Server.start_embedding()
         Discussit.Events.update_event(event, %{processed: true})
 
       {:error, error} ->

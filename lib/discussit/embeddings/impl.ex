@@ -29,8 +29,6 @@ defmodule Discussit.Embeddings.Impl do
     Stream.resource(
       fn -> 0 end,
       fn acc ->
-        IO.puts("listing statements")
-
         case Statements.list_statements(
                limit: limit,
                offset: acc,
