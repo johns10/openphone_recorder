@@ -59,23 +59,28 @@ defmodule Discussit.Embeddings.Impl do
     end
   end
 
-  defp filter_unprocessable(
-         %{status: :ok, source: %Statement{content: content} = statement} = state
-       ) do
+  defp filter_unprocessable(%{status: :ok, source: %Statement{content: nil}} = state),
+    do: handle_unprocessable(state)
+
+  defp filter_unprocessable(%{status: :ok, source: %Statement{content: content}} = state) do
     with {:integer, :error} <- {:integer, Integer.parse(content)} do
       state
     else
       {:integer, {_int, _rem}} ->
-        {:ok, statement} = Statements.update_statement(statement, %{unprocessable: true})
-
-        state
-        |> Map.put(:status, :skipped)
-        |> Map.put(:status_detail, "Integer")
-        |> Map.put(:source, statement)
+        handle_unprocessable(state)
     end
   end
 
   defp filter_unprocessable(state), do: state
+
+  defp handle_unprocessable(%{source: statement} = state) do
+    {:ok, statement} = Statements.update_statement(statement, %{unprocessable: true})
+
+    state
+    |> Map.put(:status, :skipped)
+    |> Map.put(:status_detail, "Integer")
+    |> Map.put(:source, statement)
+  end
 
   defp filter_all_stopwords(%{status: :ok, source: %Statement{} = statement} = state) do
     %{content: content} = statement
