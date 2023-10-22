@@ -105,10 +105,17 @@ defmodule DiscussitWeb.ContactLive.Index do
         assign(socket, end_of_timeline?: true)
 
       [_ | _] = contacts ->
-        socket
-        |> assign(end_of_timeline?: false)
-        |> assign(:page, new_page)
-        |> stream(:contacts, contacts, at: -1)
+        socket =
+          socket
+          |> assign(end_of_timeline?: false)
+          |> assign(:page, new_page)
+          |> stream(:contacts, contacts, at: -1)
+
+        if Enum.count(contacts) < per_page do
+          assign(socket, :end_of_timeline?, true)
+        else
+          socket
+        end
     end
   end
 end

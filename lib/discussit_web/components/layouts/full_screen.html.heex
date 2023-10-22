@@ -16,11 +16,33 @@
   <.flash_group flash={@flash} />
   <div class="flex flex-row flex-grow overflow-hidden">
     <div class="flex flex-col space-y-2 overflow-y-none flex-grow-0 bg-base-300 p-2">
+      <.link href={~p"/home"} class="hover:cursor-pointer">
+        <div class="btn btn-ghost btn-sm px-2">
+          <svg
+            zoomAndPan="magnify"
+            viewBox="0 0 375 374.999991"
+            preserveAspectRatio="xMidYMid meet"
+            version="1.0"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+          >
+            <ellipse cx="91.196" cy="140.366" rx="31.022" ry="31.022"></ellipse>
+            <path
+              d="M 119.578 279.914 L 166.215 279.914 C 217.613 279.914 259.289 238.258 259.289 186.883 C 259.289 135.504 217.613 93.852 166.215 93.852 L 63.609 93.648 L 63.609 37.449 L 166.215 37.449 C 248.777 37.449 315.715 104.355 315.715 186.883 C 315.715 269.406 248.777 336.316 166.215 336.316 L 63.609 336.316 L 63.609 183.745 L 119.578 183.72 L 119.578 279.914"
+              fill-opacity="1"
+              fill-rule="nonzero"
+              clip-path="url(#76231ff092)"
+              fill="#0963DB"
+            >
+            </path>
+          </svg>
+        </div>
+      </.link>
       <div class="dropdown dropdown-right">
         <label tabindex="0">
           <div class="flex flex-row items-center justify-items-end hover:cursor-pointer">
             <div class="btn btn-ghost btn-sm px-2">
-              <.icon name="hero-user" class="w-5 h-5" />
+              <.icon name="hero-cog-6-tooth" class="w-5 h-5" />
             </div>
             <div class="dropdown-label mr-2" style="display: none;">
               <%= @current_user.email %>

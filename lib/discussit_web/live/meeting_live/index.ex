@@ -167,10 +167,17 @@ defmodule DiscussitWeb.MeetingLive.Index do
         assign(socket, end_of_timeline?: true)
 
       [_ | _] = meetings ->
-        socket
-        |> assign(end_of_timeline?: false)
-        |> assign(:page, new_page)
-        |> stream(:meetings, meetings, at: -1)
+        socket =
+          socket
+          |> assign(:page, new_page)
+          |> stream(:meetings, meetings, at: -1)
+          |> assign(:end_of_timeline?, false)
+
+        if Enum.count(meetings) < per_page do
+          assign(socket, :end_of_timeline?, true)
+        else
+          socket
+        end
     end
   end
 

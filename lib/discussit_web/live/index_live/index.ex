@@ -264,10 +264,17 @@ defmodule DiscussitWeb.IndexLive.Index do
         assign(socket, end_of_timeline?: true)
 
       [_ | _] = conversations ->
-        socket
-        |> assign(end_of_timeline?: false)
-        |> assign(:conversation_page, new_page)
-        |> stream(:conversations, conversations, at: -1)
+        socket =
+          socket
+          |> assign(end_of_timeline?: false)
+          |> assign(:conversation_page, new_page)
+          |> stream(:conversations, conversations, at: -1)
+
+        if Enum.count(conversations) < per_page do
+          assign(socket, :end_of_timeline?, true)
+        else
+          socket
+        end
     end
   end
 
