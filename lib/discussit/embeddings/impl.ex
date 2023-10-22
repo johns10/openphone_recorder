@@ -53,7 +53,7 @@ defmodule Discussit.Embeddings.Impl do
   end
 
   defp check_model(state) do
-    case Discussit.Embeddings.Server.get_status() do
+    case Discussit.Embeddings.ModelStatus.get() do
       :started -> state
       :not_started -> Map.put(state, :status, :model_not_started)
     end
@@ -166,7 +166,7 @@ defmodule Discussit.Embeddings.Impl do
     else
       {:ok, %{status_code: 503, body: json}} ->
         with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
-          Discussit.Embeddings.Server.set_status(:not_started)
+          Discussit.Embeddings.ModelStatus.set(:not_started)
           Logger.warning("#{error}, eta: #{eta}")
           {:error, :not_started}
         end
