@@ -71,6 +71,14 @@ defmodule Discussit.Embeddings.ImplTest do
       end
     end
 
+    test "integer filtering works", %{conversation: conversation} do
+      content = "1234"
+      statement_fixture(%{conversation_id: conversation.id, content: content})
+
+      assert [%{status: :skipped, status_detail: "Integer", source: %{unprocessable: true}}] =
+               Impl.embed_statements(100)
+    end
+
     test "filtered statements don't come back", %{conversation: conversation} do
       content = "thanks yes"
       statement_fixture(%{conversation_id: conversation.id, content: content})

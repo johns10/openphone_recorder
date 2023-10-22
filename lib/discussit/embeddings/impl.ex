@@ -1,5 +1,4 @@
 defmodule Discussit.Embeddings.Impl do
-  @endpoint_id "aws-bge-large-en-v1-5-9988"
   @model_id "BAAI/bge-large-en-v1.5"
   alias Discussit.Embeddings.Embedding
   alias Discussit.Tokens
@@ -12,19 +11,13 @@ defmodule Discussit.Embeddings.Impl do
 
   def start_model() do
     case get_embedding("") do
-      {:ok, %{status_code: 200}} ->
+      {:ok, %Pgvector{}} ->
         Logger.info("Model started")
         :ok
 
-      {:ok, %{status_code: 503, body: json}} ->
-        with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
-          Logger.info("#{error}, eta: #{eta}")
-          :ok
-        end
-
-      {:ok, %{status_code: code}} ->
-        Logger.error("Call to model failed with code #{code}")
-        :error
+      {:ok, %{status_code: 200}} ->
+        Logger.info("Model started")
+        :ok
 
       {:error, error} ->
         Logger.info("Model not started because #{inspect(error)}")
@@ -36,6 +29,8 @@ defmodule Discussit.Embeddings.Impl do
     Stream.resource(
       fn -> 0 end,
       fn acc ->
+        IO.puts("listing statements")
+
         case Statements.list_statements(
                limit: limit,
                offset: acc,
@@ -51,10 +46,27 @@ defmodule Discussit.Embeddings.Impl do
     |> Flow.from_enumerable(max_demand: 1)
     |> Flow.flat_map(& &1)
     |> Flow.map(&%{status: :ok, source: &1})
+    |> Flow.map(&filter_unprocessable/1)
     |> Flow.map(&filter_all_stopwords/1)
     |> Flow.map(&create_embedding/1)
     |> Flow.map(&put_vector/1)
     |> Enum.map(& &1)
+  end
+
+  defp filter_unprocessable(
+         %{status: :ok, source: %Statement{content: content} = statement} = state
+       ) do
+    with {:integer, :error} <- {:integer, Integer.parse(content)} do
+      state
+    else
+      {:integer, {_int, _rem}} ->
+        {:ok, statement} = Statements.update_statement(statement, %{unprocessable: true})
+
+        state
+        |> Map.put(:status, :skipped)
+        |> Map.put(:status_detail, "Integer")
+        |> Map.put(:source, statement)
+    end
   end
 
   defp filter_all_stopwords(%{status: :ok, source: %Statement{} = statement} = state) do
@@ -77,6 +89,8 @@ defmodule Discussit.Embeddings.Impl do
         |> Map.put(:status_detail, changeset)
     end
   end
+
+  defp filter_all_stopwords(state), do: state
 
   defp create_embedding(%{status: :ok, source: %Statement{} = statement} = state) do
     %{id: statement_id} = statement
@@ -112,11 +126,20 @@ defmodule Discussit.Embeddings.Impl do
       })
 
     with {:ok, embedding} <- Embeddings.update_embedding(embedding, %{status: :running}),
-         {:ok, vector} <- get_embedding(content),
+         {:ok, %Pgvector{} = vector} <- get_embedding(content),
          {:ok, _usage} <- Usages.create_usage(usage_attrs),
          {:ok, embedding} <-
            Embeddings.update_embedding(embedding, %{vector: vector, status: :complete}) do
       Map.put(state, :embedding, embedding)
+    else
+      {:error, :not_started} ->
+        Embeddings.delete_embedding(embedding)
+        Map.put(state, :status, :error)
+
+      {:error, error} ->
+        Logger.error(error)
+        Embeddings.delete_embedding(embedding)
+        Map.put(state, :status, :error)
     end
   end
 
@@ -132,6 +155,21 @@ defmodule Discussit.Embeddings.Impl do
          {:ok, list} <- Jason.decode(body),
          vector <- Pgvector.new(list) do
       {:ok, vector}
+    else
+      {:ok, %{status_code: 503, body: json}} ->
+        with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
+          Logger.warning("#{error}, eta: #{eta}")
+          {:error, :not_started}
+        end
+
+      {:ok, %{status_code: status_code, body: json}} ->
+        with {:ok, %{"error" => error}} <- Jason.decode(json) do
+          Logger.warning(
+            "#{__MODULE__}.get_embedding failed with status code #{status_code}: #{error}"
+          )
+
+          {:error, error}
+        end
     end
   end
 end

@@ -18,12 +18,13 @@ defmodule Discussit.Statements.Statement do
     field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
     field :ts_range, TsRange
     field :all_stopwords, :boolean
+    field :unprocessable, :boolean
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
-    
+
     has_one :embedding, Embedding
 
     has_many :statement_summaries, StatementSummary
@@ -46,7 +47,8 @@ defmodule Discussit.Statements.Statement do
       :type,
       :call_id,
       :ts_range,
-      :all_stopwords
+      :all_stopwords,
+      :unprocessable
     ])
     |> validate_required([:occurred_at, :type, :participant_id])
     |> foreign_key_constraint(:conversation_id)

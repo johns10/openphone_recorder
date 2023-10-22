@@ -50,7 +50,11 @@ defmodule Discussit.Tokens do
 
   def count(string), do: Gpt3Tokenizer.token_count(string)
 
-  def all_stopwords?(text, _opts \\ []) do
+  def all_stopwords?(text, opts \\ [])
+  def all_stopwords?(nil, _opts), do: true
+  def all_stopwords?("", _opts), do: true
+
+  def all_stopwords?(text, _opts) do
     text
     |> Gpt3Tokenizer.encode()
     |> Enum.map(&(&1 in Stopwords.list(:english)))
