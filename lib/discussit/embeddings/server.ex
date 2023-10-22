@@ -36,7 +36,7 @@ defmodule Discussit.Embeddings.Server do
   end
 
   def start_embedding(state) do
-    Impl.embed_statements(500)
+    Impl.embed_statements(50)
     {:noreply, state}
   end
 end
