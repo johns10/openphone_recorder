@@ -16,6 +16,16 @@ defmodule Discussit.Embeddings.Impl do
         Logger.info("Model started")
         :ok
 
+      {:ok, %{status_code: 503, body: json}} ->
+        with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
+          Logger.info("#{error}, eta: #{eta}")
+          :ok
+        end
+
+      {:ok, %{status_code: code}} ->
+        Logger.error("Call to model failed with code #{code}")
+        :error
+
       {:error, error} ->
         Logger.info("Model not started because #{inspect(error)}")
         :error

@@ -8,6 +8,8 @@ defmodule Discussit.Embeddings.Server do
     GenServer.start_link(__MODULE__, %__MODULE__{}, name: name)
   end
 
+  def start(), do: GenServer.cast(__MODULE__, :start)
+
   @impl true
   def init(_) do
     {:ok, %__MODULE__{}, {:continue, :start_model}}
