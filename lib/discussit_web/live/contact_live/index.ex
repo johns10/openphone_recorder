@@ -91,7 +91,6 @@ defmodule DiscussitWeb.ContactLive.Index do
   end
 
   defp append(socket, new_page) when new_page >= 1 do
-    IO.puts("next page")
     %{per_page: per_page} = socket.assigns
 
     contacts =
@@ -103,7 +102,6 @@ defmodule DiscussitWeb.ContactLive.Index do
 
     case contacts do
       [] ->
-        IO.puts("done")
         assign(socket, end_of_timeline?: true)
 
       [_ | _] = contacts ->

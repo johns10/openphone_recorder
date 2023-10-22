@@ -156,8 +156,4 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
       {nil, payment_methods}
     end
   end
-
-  defp assign_form(socket, %Ecto.Changeset{} = changeset) do
-    assign(socket, :form, to_form(changeset))
-  end
 end

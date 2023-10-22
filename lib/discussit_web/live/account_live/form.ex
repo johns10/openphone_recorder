@@ -37,15 +37,15 @@ defmodule DiscussitWeb.AccountLive.Form do
     {:noreply, assign(socket, :account, account)}
   end
 
+  def handle_info({_, {:saved, account}}, socket) do
+    {:noreply, assign(socket, :account, account)}
+  end
+
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     account = Accounts.get_account!(id)
     {:ok, _} = Accounts.delete_account(account)
 
     {:noreply, stream_delete(socket, :accounts, account)}
-  end
-
-  def handle_info({_, {:saved, account}}, socket) do
-    {:noreply, assign(socket, :account, account)}
   end
 end

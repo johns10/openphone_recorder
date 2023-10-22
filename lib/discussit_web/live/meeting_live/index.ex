@@ -7,13 +7,19 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    DiscussitWeb.Endpoint.subscribe("user_#{socket.assigns.current_user.id}")
+    user_id = socket.assigns.current_user.id
+    DiscussitWeb.Endpoint.subscribe("user_#{user_id}")
 
     {:ok,
      socket
-     |> stream(:meetings, Meetings.list_meetings())
-     |> assign(:directories, nil)
-     |> assign(:uploaded, nil)}
+     |> stream(:meetings, Meetings.list_meetings(limit: 20, filters: [user_id: user_id]))
+     |> assign(
+       per_page: 20,
+       page: 1,
+       end_of_timeline?: false,
+       uploaded: nil,
+       directories: nil
+     ), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
@@ -27,10 +33,23 @@ defmodule DiscussitWeb.MeetingLive.Index do
     |> assign(:meeting, nil)
   end
 
-  @impl true
-  def handle_info({DiscussitWeb.MeetingLive.FormComponent, {:saved, meeting}}, socket) do
-    {:noreply, stream_insert(socket, :meetings, meeting)}
+  defp apply_action(socket, :show, %{"id" => id}) do
+    meeting = Meetings.get_meeting!(id, preload: [participants: :contact])
+
+    case Bodyguard.permit(Meetings, :get_meeting!, socket.assigns.current_user, meeting) do
+      :ok ->
+        socket
+        |> assign(:page_title, "Show Meeting")
+        |> assign(:meeting, meeting)
+
+      {:error, _} ->
+        socket
+        |> push_redirect(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this meeting")
+    end
   end
+
+  @impl true
 
   def handle_info(%{event: "meeting_transcription_progress", payload: meeting}, socket) do
     {:noreply, stream_insert(socket, :meetings, meeting)}
@@ -128,13 +147,34 @@ defmodule DiscussitWeb.MeetingLive.Index do
     {:noreply, socket}
   end
 
-  defp transcribe_meeting_button(assigns) do
-    ~H"""
-    <.button class="btn-xs" disabled={@meeting.projector_status != :not_started}>
-      <.link phx-click={paywall("transcribe", @account)} phx-value-id={@meeting.id}>
-        Transcribe
-      </.link>
-    </.button>
-    """
+  def handle_event("next-page", _, socket) do
+    {:noreply, append(socket, socket.assigns.page + 1)}
   end
+
+  defp append(socket, new_page) when new_page >= 1 do
+    %{per_page: per_page} = socket.assigns
+    new_page = socket.assigns.page + 1
+
+    meetings =
+      Meetings.list_meetings(
+        filters: [user_id: socket.assigns.current_user.id],
+        offset: (new_page - 1) * per_page,
+        limit: per_page
+      )
+
+    case meetings do
+      [] ->
+        assign(socket, end_of_timeline?: true)
+
+      [_ | _] = meetings ->
+        socket
+        |> assign(end_of_timeline?: false)
+        |> assign(:page, new_page)
+        |> stream(:meetings, meetings, at: -1)
+    end
+  end
+
+  defp progress(nil, nil), do: 100
+  defp progress(_, 0), do: 100
+  defp progress(uploaded, directories), do: uploaded / directories * 100
 end

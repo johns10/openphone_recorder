@@ -8,12 +8,20 @@ defmodule Discussit.Meetings do
 
   alias Discussit.Meetings.Meeting
 
+  def authorize(:get_meeting!, %{id: user_id}, %{user_id: user_id}), do: :ok
+  def authorize(:get_meeting!, _user, _meeting), do: :error
+
   def list_meetings(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
+    offset = Keyword.get(opts, :offset, nil)
+    limit = Keyword.get(opts, :limit, nil)
 
     Meeting
     |> select([s], ^only())
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
+    |> maybe_limit(limit)
+    |> maybe_offset(offset)
+    |> filter_by_user_id(filters[:user_id])
     |> Repo.all()
   end
 
@@ -53,6 +61,18 @@ defmodule Discussit.Meetings do
   defp maybe_filter_by_conversation_id(query, conversation_id) do
     query
     |> where([p], p.conversation_id == ^conversation_id)
+  end
+
+  defp maybe_limit(query, nil), do: query
+  defp maybe_limit(query, value), do: limit(query, ^value)
+  defp maybe_offset(query, nil), do: query
+  defp maybe_offset(query, limit), do: offset(query, ^limit)
+
+  defp filter_by_user_id(query, nil), do: query
+
+  defp filter_by_user_id(query, user_id) do
+    query
+    |> where([m], m.user_id == ^user_id)
   end
 
   def create_meeting(attrs \\ %{}) do

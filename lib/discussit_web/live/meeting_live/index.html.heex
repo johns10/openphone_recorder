@@ -1,97 +1,119 @@
-<.header>
-  Listing Meetings
-  <:actions>
-    <.link phx-hook="ImportZoomMeetings" id="import-zoom-meetings">
-      <div
-        :if={@directories}
-        class="radial-progress mr-2"
-        style={"--value:#{floor(@uploaded / @directories * 100)}; --size:2rem;"}
-      />
-      <.button>Import Zoom Meetings</.button>
-    </.link>
-  </:actions>
-</.header>
-
-<.table
-  id="meetings"
-  rows={@streams.meetings}
-  row_click={fn {_id, meeting} -> JS.navigate(~p"/meetings/#{meeting}") end}
->
-  <:col :let={{_id, meeting}} label="Name"><%= meeting.name %></:col>
-  <:col :let={{_id, meeting}} label="Provider"><%= meeting.source %></:col>
-  <:col :let={{_id, meeting}} label="Occurred at"><%= meeting.occurred_at %></:col>
-  <:col :let={{_id, meeting}} label="Files">
-    <.icon
-      :if={meeting.upload_status == :created}
-      name="hero-ellipsis-horizontal"
-      class="w-4 h-4"
-    />
-    <.icon
-      :if={meeting.upload_status == :files_uploading}
-      name="hero-arrow-path"
-      class="w-4 h-4 animate-spin"
-    />
-    <.icon
-      :if={meeting.upload_status == :files_uploaded}
-      name="hero-check"
-      class="w-4 h-4 bg-success"
-    />
-  </:col>
-  <:col :let={{_id, meeting}} label="Transcript">
-    <div id={"projector-status-#{meeting.id}"}>
-      <.icon
-        :if={meeting.projector_status == :not_started}
-        name="hero-ellipsis-horizontal"
-        class="w-4 h-4"
-      />
-      <.icon
-        :if={meeting.projector_status == :in_progress}
-        name="hero-arrow-path"
-        class="w-4 h-4 animate-spin"
-      />
-      <.icon :if={meeting.projector_status == :done} name="hero-check" class="w-4 h-4 bg-success" />
+<div class="flex flex-row overflow-y-hidden w-screen">
+  <div class="flex flex-col overflow-y-scroll min-w-fit h-screen">
+    <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+      Meetings
+      <div phx-hook="ImportZoomMeetings" id="import-zoom-meetings">
+        <.link :if={progress(@uploaded, @directories) == 100}>
+          <.button class="btn-sm btn-success">
+            <.icon name="hero-plus" class="w-4 h-4" />
+          </.button>
+        </.link>
+        <div :if={progress(@uploaded, @directories) < 100}>
+          <.button class="btn-sm btn-disabled">
+            <div
+              class="radial-progress"
+              style={"--value:#{progress(@uploaded, @directories)}; --size:1rem;"}
+            />
+          </.button>
+        </div>
+      </div>
     </div>
-  </:col>
-  <:col :let={{_id, meeting}} label="Assigned">
-    <div id={"assignment-status-#{meeting.id}"}>
-      <.icon :if={meeting.conversation_id} name="hero-check" class="w-4 h-4 bg-success" />
-      <.icon :if={!meeting.conversation_id} name="hero-ellipsis-horizontal" class="w-4 h-4" />
-    </div>
-  </:col>
-  <:action :let={{_id, meeting}}>
-    <div class="sr-only">
-      <.link navigate={~p"/meetings/#{meeting}"}>Show</.link>
-    </div>
-  </:action>
-  <:action :let={{id, meeting}}>
-    <.button class="btn-xs">
-      <.link
-        phx-click={JS.push("delete", value: %{id: meeting.id}) |> hide("##{id}")}
-        data-confirm="Are you sure?"
-      >
-        Delete
-      </.link>
-    </.button>
-  </:action>
-  <:action :let={{_id, meeting}}>
-    <.transcribe_meeting_button meeting={meeting} account={@current_user.selected_account} />
-  </:action>
-</.table>
+    <div id="meetings" phx-update="stream">
+      <div :for={{id, meeting} <- @streams.meetings} class="flex flex-row justify-between" id={id}>
+        <.link phx-click={JS.patch(~p"/meetings/#{meeting.id}/show")} class="hover:bg-base-200">
+          <div class="flex flex-row items-center">
+            <div class="flex flex-col">
+              <div class="flex flex-row">
+                <%= Calendar.strftime(meeting.occurred_at, "%y-%m-%d %I:%M %p") %>, <%= meeting.source
+                |> Atom.to_string()
+                |> Recase.to_sentence() %>
+              </div>
+              <div class="text-xs w-48">
+                <%= meeting.name %>
+              </div>
+            </div>
+          </div>
+        </.link>
+        <div class="flex flex-row">
+          <div class="items-center">
+            <.icon
+              :if={meeting.upload_status == :created}
+              name="hero-ellipsis-horizontal"
+              class="w-4 h-4 m-1"
+            />
+            <.icon
+              :if={meeting.upload_status == :files_uploading}
+              name="hero-arrow-path"
+              class="w-4 h-4 animate-spin m-1"
+            />
+            <.icon
+              :if={meeting.upload_status == :files_uploaded}
+              name="hero-check"
+              class="w-4 h-4 bg-success m-1"
+            />
+          </div>
+          <div
+            id={"projector-status-#{meeting.id}"}
+            class="tooltip tooltip-left"
+            data-tip="Transcribe"
+          >
+            <.link
+              :if={meeting.projector_status == :not_started}
+              id={"transcribe-#{id}"}
+              phx-click={paywall("transcribe", @current_user.selected_account)}
+              phx-value-id={meeting.id}
+            >
+              <.icon name="hero-microphone" class="w-4 h-4 m-1" />
+            </.link>
 
-<.modal
-  :if={@live_action in [:new, :edit]}
-  id="meeting-modal"
-  show
-  on_cancel={JS.patch(~p"/meetings")}
->
-  <.live_component
-    module={DiscussitWeb.MeetingLive.FormComponent}
-    id={@meeting.id || :new}
-    title={@page_title}
-    action={@live_action}
-    meeting={@meeting}
-    patch={~p"/meetings"}
-  />
-</.modal>
-
-<.paywall_modal current_user={@current_user} hide_modal={true} />
+            <.icon
+              :if={meeting.projector_status == :in_progress}
+              name="hero-arrow-path"
+              class="w-4 h-4 animate-spin m-1"
+            />
+            <.icon
+              :if={meeting.projector_status == :done}
+              name="hero-check"
+              class="w-4 h-4 bg-success m-1"
+            />
+          </div>
+          <div id={"assignment-status-#{meeting.id}"}>
+            <.icon :if={meeting.conversation_id} name="hero-check" class="w-4 h-4 bg-success m-1" />
+            <.icon
+              :if={!meeting.conversation_id}
+              name="hero-ellipsis-horizontal"
+              class="w-4 h-4 m-1"
+            />
+          </div>
+          <.link
+            phx-click={JS.push("delete", value: %{id: meeting.id}) |> hide("##{id}")}
+            data-confirm="Are you sure?"
+            class="hover:bg-base-200 items-center"
+            id={"delete-#{id}"}
+          >
+            <.icon name="hero-trash" class="w-4 h-4 m-1" />
+          </.link>
+        </div>
+      </div>
+    </div>
+    <div
+      :if={!@end_of_timeline?}
+      id="last-element"
+      phx-hook="ElementVisible"
+      class="pb-[calc(100vh)]"
+    />
+    <div :if={@end_of_timeline?} id="last-element" class="mx-2">Last Meeting</div>
+  </div>
+  <div class="flex flex-col overflow-y-auto overflow-x-hidden flex-grow">
+    <div class="p-4">
+      <.live_component
+        :if={@meeting}
+        module={DiscussitWeb.MeetingLive.ShowComponent}
+        meeting={@meeting}
+        id={@meeting.id}
+        current_user={@current_user}
+        action={@live_action}
+      />
+    </div>
+  </div>
+</div>

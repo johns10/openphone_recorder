@@ -29,8 +29,8 @@ defmodule DiscussitWeb.MeetingLiveTest do
     %{account: account, user: user}
   end
 
-  defp create_meeting(_) do
-    meeting = meeting_fixture()
+  defp create_meeting(%{user: user}) do
+    meeting = meeting_fixture(%{user_id: user.id, projector_status: :not_started})
     %{meeting: meeting}
   end
 
@@ -85,7 +85,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
     test "deletes meeting in listing", %{conn: conn, meeting: meeting} do
       {:ok, index_live, _html} = live(conn, ~p"/meetings")
 
-      assert index_live |> element("#meetings-#{meeting.id} a", "Delete") |> render_click()
+      assert index_live |> element("#delete-meetings-#{meeting.id}") |> render_click()
       refute has_element?(index_live, "#meetings-#{meeting.id}")
     end
 
@@ -95,7 +95,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
       DiscussitWeb.Endpoint.subscribe("user_#{user.id}")
 
       assert index_live
-             |> element("#meetings-#{meeting.id} a", "Transcribe")
+             |> element("#transcribe-meetings-#{meeting.id}")
              |> render_click()
 
       assert_receive(%{
@@ -230,6 +230,10 @@ defmodule DiscussitWeb.MeetingLiveTest do
         {"", {:participant_contact_set, %{participant | contact: contact}}},
         []
       )
+
+      show_live |> element("#participant-#{participant.id}-contact-#{contact.id}") |> render_click
+
+      :timer.sleep(1000)
 
       refute show_live |> element("#create-conversation") |> render_click =~ "unassigned"
       [%{id: conversation_id}] = Conversations.list_conversations()

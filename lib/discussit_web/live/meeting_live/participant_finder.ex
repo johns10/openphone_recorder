@@ -52,6 +52,7 @@ defmodule DiscussitWeb.MeetingLive.ParticipantFinder do
             }
             phx-value-participant-id={@participant.id}
             phx-value-contact-id={contact.id}
+            phx-value-meeting-id={@meeting.id}
             phx-target={@myself}
           >
             <%= contact.first_name %> <%= contact.last_name %>
@@ -86,15 +87,23 @@ defmodule DiscussitWeb.MeetingLive.ParticipantFinder do
     {:noreply, socket}
   end
 
-  def handle_event("set-participant-contact", %{"contact-id" => contact_id}, socket) do
+  def handle_event(
+        "set-participant-contact",
+        %{"contact-id" => contact_id, "meeting-id" => meeting_id},
+        socket
+      ) do
     {:ok, participant} =
       Participants.update_participant(socket.assigns.participant, %{contact_id: contact_id})
 
     contact = Contacts.get_contact!(contact_id)
     participant = Map.put(participant, :contact, contact)
-    notify_parent({:participant_contact_set, participant})
+
+    send_update(socket.assigns.notify, %{
+      id: meeting_id,
+      event: :participant_contact_set,
+      participant: participant
+    })
+
     {:noreply, socket |> assign(:participant, participant)}
   end
-
-  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end
