@@ -24,6 +24,7 @@ defmodule Discussit.Statements.Statement do
     belongs_to :call, Call, type: :binary_id
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
+    belongs_to :topic, Topic
 
     has_one :embedding, Embedding
 
@@ -41,6 +42,7 @@ defmodule Discussit.Statements.Statement do
       :conversation_id,
       :participant_id,
       :meeting_id,
+      :topic_id,
       :source,
       :content,
       :occurred_at,
@@ -55,6 +57,7 @@ defmodule Discussit.Statements.Statement do
     |> foreign_key_constraint(:participant_id)
     |> foreign_key_constraint(:call_id)
     |> foreign_key_constraint(:meeting_id)
+    |> foreign_key_constraint(:topic_id)
     |> cast_id()
     |> unique_constraint([:id], name: :statements_pkey)
   end
