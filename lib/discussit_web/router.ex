@@ -138,6 +138,12 @@ defmodule DiscussitWeb.Router do
       live("/meetings", MeetingLive.Index, :index)
       live("/meetings/:id/show/", MeetingLive.Index, :show)
       live("/meetings/:id", MeetingLive.Show, :show)
+
+      live("/topics", TopicLive.Index, :index)
+      live("/topics/:id/edit", TopicLive.Index, :edit)
+
+      live("/topics/:id", TopicLive.Show, :show)
+      live("/topics/:id/show/edit", TopicLive.Show, :edit)
     end
   end
 
