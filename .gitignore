@@ -46,3 +46,5 @@ npm-debug.log
 
 /data/.minio.sys/*
 /data/*
+
+**/__pycache__/*
