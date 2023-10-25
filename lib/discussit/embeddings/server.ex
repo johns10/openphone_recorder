@@ -11,7 +11,7 @@ defmodule Discussit.Embeddings.Server do
   def start_embedding(), do: GenServer.cast(__MODULE__, :start_embedding)
 
   @impl true
-  def init(_), do: {:ok, %__MODULE__{}}
+  def init(_), do: {:ok, %__MODULE__{}, {:continue, :check_model}}
 
   @impl true
   def handle_cast(:start_embedding, state), do: check_model(state)
@@ -21,6 +21,7 @@ defmodule Discussit.Embeddings.Server do
 
   @impl true
   def handle_continue(:start_embedding, state), do: start_embedding(state)
+  def handle_continue(:check_model, state), do: check_model(state)
 
   defp check_model(state) do
     case Impl.start_model() do
