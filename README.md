@@ -22,6 +22,9 @@ bin/discussit eval 'Discussit.Release.migrate()'
 ```
 
 ./bin/discussit eval 'Discussit.Events.list_unprocessed_events()'
+Discussit.Embeddings.Server.start_embedding()
+Discussit.Embeddings.Embedding |> Discussit.Repo.aggregate(:count, :id)
+
 
 ## Data
 
