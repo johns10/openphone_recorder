@@ -33,6 +33,7 @@ defmodule Discussit.Accounts.Account do
   def changeset(account, attrs) do
     account
     |> cast(attrs, [
+      :id,
       :name,
       :plan,
       :openphone_signing_secret,

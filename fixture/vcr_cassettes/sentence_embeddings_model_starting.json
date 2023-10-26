@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"error\":[\"field required: `source_sentence` in `parameters`\",\"field required: `sentences` in `parameters`\"]}",
+      "headers": {
+        "Date": "Thu, 26 Oct 2023 20:44:12 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "vary": "Origin, Access-Control-Request-Method, Access-Control-Request-Headers",
+        "x-request-id": "iBASObqZpy_9FxnvR4xSJ",
+        "x-sha": "7dbbc90392e2f80f3d3c277d6e90027e55de9125",
+        "access-control-allow-credentials": "true",
+        "server": "uvicorn"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]
