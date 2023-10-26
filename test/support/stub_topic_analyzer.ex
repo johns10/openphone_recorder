@@ -5,7 +5,7 @@ defmodule Discussit.StubTopicAnalyzer do
   def init_model(topics, _account_id), do: {:ok, Enum.map(topics, fn _ -> 1 end)}
 
   @impl true
-  def train_model(topics, _account_id), do: Enum.map(topics, fn _ -> 1 end)
+  def train_model(topics, _account_id), do: {:ok, Enum.map(topics, fn _ -> 1 end)}
 
   @impl true
   def get_topics(_account_id), do: {:ok, %{0 => "Topic 1", 1 => "Topic 2"}}

@@ -83,4 +83,69 @@ defmodule Discussit.TopicAnalyzerTest do
       assert Statements.list_statements() |> Enum.all?(&(&1.topic_id != nil))
     end
   end
+
+  describe "Topic Analyzer training" do
+    setup do
+      account = account_fixture(%{id: "a4370693-d267-40aa-9b5e-5454cf7ac996"})
+      bucket = Application.get_env(:discussit, :bucket)
+      object = TopicAnalyzer.model_path(account)
+
+      %{account: account, bucket: bucket, object: object}
+    end
+
+    test "training works", %{account: account} do
+      conversation = conversation_fixture(%{account_id: account.id})
+      statement_fixture(%{conversation_id: conversation.id})
+
+      use_cassette("no existing_object") do
+        TopicAnalyzer.init(account)
+      end
+
+      statement_fixture(%{conversation_id: conversation.id})
+
+      use_cassette("existing_object") do
+        assert {:ok, [_]} = TopicAnalyzer.train(account)
+      end
+    end
+
+    @tag :integration
+    test "training", %{account: account} do
+      Application.put_env(:discussit, :topic_analysis_provider, Discussit.TopicAnalyzer.Local)
+      conversation = conversation_fixture(%{account_id: account.id})
+
+      # initial_statements =
+      (floor_cleaning_content() ++ bathtub_cleaning_content())
+      |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+
+      use_cassette("no existing_object") do
+        TopicAnalyzer.init(account)
+      end
+
+      topics_after_initialization = Topics.list_topics() |> Enum.count()
+      assert topics_after_initialization in 7..9
+
+      # training_statements =
+      (toilet_cleaning_content() ++ shower_cleaning_content())
+      |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+
+      use_cassette("existing_object") do
+        TopicAnalyzer.train(account)
+      end
+
+      topics_after_training = Topics.list_topics() |> Enum.count()
+      assert topics_after_training in 21..23
+
+      # IO.puts("""
+      # Initialization statements: #{Enum.count(initial_statements)}
+      # Topics after initialization: #{topics_after_initialization}
+      # Training statements: #{Enum.count(training_statements)}
+      # Topics after training: #{topics_after_training}
+      # """)
+
+      Topics.list_topics()
+      |> Enum.map(&IO.puts(&1.model_title))
+
+      assert Statements.list_statements() |> Enum.all?(&(&1.topic_id != nil))
+    end
+  end
 end

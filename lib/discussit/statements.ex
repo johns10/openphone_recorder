@@ -19,6 +19,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
     |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
+    |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
@@ -41,6 +42,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
     |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
+    |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
@@ -105,6 +107,14 @@ defmodule Discussit.Statements do
       |> join(:left, [conversation: c], a in assoc(c, :account), as: :account)
       |> where([account: a], a.enable_embeddings == true)
       |> or_where([account: a], is_nil(a.enable_embeddings))
+
+  defp maybe_filter_nil_topic_id(query, true),
+    do: where(query, [s], is_nil(s.topic_id))
+
+  defp maybe_filter_nil_topic_id(query, false),
+    do: where(query, [s], not is_nil(s.topic_id))
+
+  defp maybe_filter_nil_topic_id(query, _), do: query
 
   defp maybe_filter_embedded(query, nil), do: query
 

@@ -24,10 +24,6 @@ def save_new_model(topic_model, path):
     return topic_model
 
 
-def load_model(path):
-    return BERTopic.load(path)
-
-
 def init_model(statements, account_id):
     model_path = get_path(account_id)
     cluster_model = River(cluster.DBSTREAM())
@@ -50,9 +46,9 @@ def init_model(statements, account_id):
 def train_model(statements, account_id):
     model_path = get_path(account_id)
     topic_model = BERTopic.load(model_path)
-    topic_model = fit_topics(topic_model, statements)
+    new_topics = fit_topics(topic_model, statements)
     save_model(topic_model, model_path)
-    return model_path
+    return new_topics
 
 
 def fit_topics(model, statements):
