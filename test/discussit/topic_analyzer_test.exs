@@ -14,7 +14,7 @@ defmodule Discussit.TopicAnalyzerTest do
     setup do
       account = account_fixture(%{id: "a4370693-d267-40aa-9b5e-5454cf7ac996"})
       bucket = Application.get_env(:discussit, :bucket)
-      object = TopicAnalyzer.model_path(account)
+      object = TopicAnalyzer.object_path(account)
 
       %{account: account, bucket: bucket, object: object}
     end
@@ -94,7 +94,7 @@ defmodule Discussit.TopicAnalyzerTest do
     setup do
       account = account_fixture(%{id: "a4370693-d267-40aa-9b5e-5454cf7ac996"})
       bucket = Application.get_env(:discussit, :bucket)
-      object = TopicAnalyzer.model_path(account)
+      object = TopicAnalyzer.object_path(account)
 
       %{account: account, bucket: bucket, object: object}
     end

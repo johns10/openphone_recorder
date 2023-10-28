@@ -47,3 +47,5 @@ config :exvcr,
 config :openai,
   api_key: System.get_env("OPENAI_API_KEY"),
   http_options: [recv_timeout: 10 * 60 * 1000]
+
+config :discussit, model_path: Path.expand("./test/support/fixtures/")

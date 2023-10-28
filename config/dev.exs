@@ -53,3 +53,4 @@ config :ex_aws, :s3,
 
 config :swoosh, :api_client, false
 config :discussit, Discussit.Mailer, adapter: Swoosh.Adapters.Local
+config :discussit, model_path: Path.expand("./priv")

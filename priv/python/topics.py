@@ -11,11 +11,6 @@ from river_partial_fit import River
 from umap import UMAP
 
 
-def get_path(account_id):
-    account_string = account_id.decode()
-    return f"/Users/johndavenport/Documents/github/openphone_recorder/priv/python/{account_string}"
-
-
 def save_model(topic_model, path):
     backup_path = f"{path}_old"
     os.rename(path, backup_path)
@@ -29,8 +24,8 @@ def save_new_model(topic_model, path):
     return topic_model
 
 
-def init_model(statements, embeddings, account_id):
-    model_path = get_path(account_id)
+def init_model(statements, embeddings, model_path_bytes):
+    model_path = model_path_bytes.decode()
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     cluster_model = River(cluster.DBSTREAM())
     vectorizer_model = OnlineCountVectorizer(
@@ -72,9 +67,9 @@ def init_model(statements, embeddings, account_id):
     return new_topics
 
 
-def train_model(statements, embeddings, account_id):
-    model_path = get_path(account_id)
-    topic_model = BERTopic.load(model_path)
+def train_model(statements, embeddings, model_path_bytes):
+    model_path = model_path_bytes.decode()
+    topic_model = BERTopic.load()
     new_topics = fit_topics(topic_model, statements, embeddings)
     save_model(topic_model, model_path)
     return new_topics
@@ -91,8 +86,9 @@ def fit_topics(model, statements, embeddings):
     return new_topics
 
 
-def get_topics(account_id):
-    model_path = get_path(account_id)
+def get_topics(model_path_bytes):
+    model_path = model_path_bytes.decode()
+    print(model_path)
     topic_model = BERTopic.load(model_path)
     return topic_model.topic_labels_
 

@@ -6,16 +6,17 @@ defmodule Discussit.TopicAnalyzer do
 
   def init(%Account{} = account) do
     bucket = Application.get_env(:discussit, :bucket)
-    object = model_path(account)
+    object = object_path(account)
     query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
 
     with false <- check_object?(bucket, object),
          :ok <- create_model(bucket, object),
          statements <- Statements.list_statements(query_opts),
          {content, embeddings} <- map_content_vector(statements),
-         {:ok, statement_topics} <- provider().init_model(content, embeddings, account.id),
+         {:ok, statement_topics} <-
+           provider().init_model(content, embeddings, local_path(account)),
          # TODO Implement model backup here
-         {:ok, model_topics} <- provider().get_topics(account.id),
+         {:ok, model_topics} <- provider().get_topics(local_path(account)),
          topics <- insert_new_topics(model_topics, account.id),
          statements <- update_statement_topics(statements, statement_topics, topics) do
       {:ok, statements}
@@ -26,16 +27,17 @@ defmodule Discussit.TopicAnalyzer do
 
   def train(%Account{} = account) do
     bucket = Application.get_env(:discussit, :bucket)
-    object = model_path(account)
+    object = object_path(account)
     query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
 
     with true <- check_object?(bucket, object),
          statements <- Statements.list_statements(query_opts),
          content = Enum.map(statements, & &1.content),
          {content, embeddings} <- map_content_vector(statements),
-         {:ok, statement_topics} <- provider().train_model(content, embeddings, account.id),
+         {:ok, statement_topics} <-
+           provider().train_model(content, embeddings, local_path(account)),
          # TODO Implement model backup here
-         {:ok, model_topics} <- provider().get_topics(account.id),
+         {:ok, model_topics} <- provider().get_topics(local_path(account)),
          topics <- insert_new_topics(model_topics, account.id),
          statements <- update_statement_topics(statements, statement_topics, topics) do
       {:ok, statements}
@@ -111,7 +113,10 @@ defmodule Discussit.TopicAnalyzer do
     end
   end
 
-  def model_path(%Account{id: id}), do: "/topic_analyzer_models/#{id}"
+  def object_path(%Account{id: id}), do: "/topic_analyzer_models/#{id}"
+
+  defp local_path(%Account{id: id}),
+    do: "#{Application.get_env(:discussit, :model_path)}/#{id}.model"
 
   defp provider(),
     do: Application.get_env(:discussit, :topic_analysis_provider, Discussit.TopicAnalyzer.Local)
