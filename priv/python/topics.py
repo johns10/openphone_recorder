@@ -24,7 +24,7 @@ def save_new_model(topic_model, path):
     return topic_model
 
 
-def init_model(statements, embeddings, model_path_bytes):
+def init_model(statements, embeddings, model_path_bytes, api_key):
     model_path = model_path_bytes.decode()
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     cluster_model = River(cluster.DBSTREAM())
@@ -38,7 +38,7 @@ def init_model(statements, embeddings, model_path_bytes):
         n_neighbors=15, n_components=5, min_dist=0.0, metric="cosine", random_state=42
     )
     keybert_model = KeyBERTInspired()
-    openai.api_key = "sk-..."
+    openai.api_key = api_key
     prompt = """
     I have a topic that contains the following documents: 
     [DOCUMENTS]
@@ -69,7 +69,7 @@ def init_model(statements, embeddings, model_path_bytes):
 
 def train_model(statements, embeddings, model_path_bytes):
     model_path = model_path_bytes.decode()
-    topic_model = BERTopic.load()
+    topic_model = BERTopic.load(model_path)
     new_topics = fit_topics(topic_model, statements, embeddings)
     save_model(topic_model, model_path)
     return new_topics

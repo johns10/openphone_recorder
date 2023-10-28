@@ -9,12 +9,16 @@ defmodule Discussit.TopicAnalyzer do
     object = object_path(account)
     query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
 
+    model_attrs = %{
+      model_path: local_path(account),
+      openai_api_key: Application.get_env(:openai, :api_key)
+    }
+
     with false <- check_object?(bucket, object),
          :ok <- create_model(bucket, object),
          statements <- Statements.list_statements(query_opts),
          {content, embeddings} <- map_content_vector(statements),
-         {:ok, statement_topics} <-
-           provider().init_model(content, embeddings, local_path(account)),
+         {:ok, statement_topics} <- provider().init_model(content, embeddings, model_attrs),
          # TODO Implement model backup here
          {:ok, model_topics} <- provider().get_topics(local_path(account)),
          topics <- insert_new_topics(model_topics, account.id),
