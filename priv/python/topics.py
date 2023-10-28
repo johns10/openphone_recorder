@@ -1,10 +1,14 @@
 import os
+import openai
+import numpy
 from bertopic import BERTopic
 from bertopic.vectorizers import OnlineCountVectorizer
 from bertopic.vectorizers import ClassTfidfTransformer
+from sentence_transformers import SentenceTransformer
+from bertopic.representation import KeyBERTInspired, OpenAI
 from river import cluster
 from river_partial_fit import River
-import numpy
+from umap import UMAP
 
 
 def get_path(account_id):
@@ -27,16 +31,40 @@ def save_new_model(topic_model, path):
 
 def init_model(statements, embeddings, account_id):
     model_path = get_path(account_id)
+    embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     cluster_model = River(cluster.DBSTREAM())
-    vectorizer_model = OnlineCountVectorizer(stop_words="english")
+    vectorizer_model = OnlineCountVectorizer(
+        stop_words="english", min_df=2, ngram_range=(1, 2)
+    )
     ctfidf_model = ClassTfidfTransformer(
         reduce_frequent_words=True, bm25_weighting=True
     )
+    umap_model = UMAP(
+        n_neighbors=15, n_components=5, min_dist=0.0, metric="cosine", random_state=42
+    )
+    keybert_model = KeyBERTInspired()
+    openai.api_key = "sk-..."
+    prompt = """
+    I have a topic that contains the following documents: 
+    [DOCUMENTS]
+    The topic is described by the following keywords: [KEYWORDS]
+
+    Based on the information above, extract a short but highly descriptive topic label of at most 5 words. Make sure it is in the following format:
+    topic: <topic label>
+    """
+    openai_model = OpenAI(
+        model="gpt-3.5-turbo", exponential_backoff=True, chat=True, prompt=prompt
+    )
 
     topic_model = BERTopic(
+        embedding_model=embedding_model,
         hdbscan_model=cluster_model,
         vectorizer_model=vectorizer_model,
         ctfidf_model=ctfidf_model,
+        umap_model=umap_model,
+        representation_model=keybert_model,
+        top_n_words=10,
+        verbose=True,
     )
 
     new_topics = fit_topics(topic_model, statements, embeddings)
@@ -55,7 +83,6 @@ def train_model(statements, embeddings, account_id):
 def fit_topics(model, statements, embeddings):
     topics = []
     input = [str(s) for s in statements]
-    print(embeddings)
     numpy_embeddings = [numpy.asarray(embedding) for embedding in embeddings]
     model.partial_fit(input, numpy.asarray(numpy_embeddings))
     topics.extend(model.topics_)
