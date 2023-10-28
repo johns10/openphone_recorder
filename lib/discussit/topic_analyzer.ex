@@ -2,16 +2,18 @@ defmodule Discussit.TopicAnalyzer do
   alias Discussit.Accounts.Account
   alias Discussit.Statements
   alias Discussit.Topics
+  require Logger
 
   def init(%Account{} = account) do
     bucket = Application.get_env(:discussit, :bucket)
     object = model_path(account)
+    query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
 
     with false <- check_object?(bucket, object),
          :ok <- create_model(bucket, object),
-         statements <- Statements.list_statements(filters: [account_id: account.id]),
-         content = Enum.map(statements, & &1.content),
-         {:ok, statement_topics} <- provider().init_model(content, account.id),
+         statements <- Statements.list_statements(query_opts),
+         {content, embeddings} <- map_content_vector(statements),
+         {:ok, statement_topics} <- provider().init_model(content, embeddings, account.id),
          # TODO Implement model backup here
          {:ok, model_topics} <- provider().get_topics(account.id),
          topics <- insert_new_topics(model_topics, account.id),
@@ -25,12 +27,13 @@ defmodule Discussit.TopicAnalyzer do
   def train(%Account{} = account) do
     bucket = Application.get_env(:discussit, :bucket)
     object = model_path(account)
-    query_opts = [filters: [account_id: account.id, nil_topic_id: true]]
+    query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
 
     with true <- check_object?(bucket, object),
          statements <- Statements.list_statements(query_opts),
          content = Enum.map(statements, & &1.content),
-         {:ok, statement_topics} <- provider().train_model(content, account.id),
+         {content, embeddings} <- map_content_vector(statements),
+         {:ok, statement_topics} <- provider().train_model(content, embeddings, account.id),
          # TODO Implement model backup here
          {:ok, model_topics} <- provider().get_topics(account.id),
          topics <- insert_new_topics(model_topics, account.id),
@@ -41,6 +44,13 @@ defmodule Discussit.TopicAnalyzer do
     end
   end
 
+  defp map_content_vector(statements) do
+    Enum.map(statements, fn %{embedding: %{vector: vector}, content: content} ->
+      {content, Pgvector.to_list(vector)}
+    end)
+    |> Enum.unzip()
+  end
+
   defp update_statement_topics(statements, statement_topics, topics) do
     topic_map = Enum.reduce(topics, %{}, fn topic, acc -> Map.put(acc, topic.model_id, topic) end)
 
@@ -49,8 +59,13 @@ defmodule Discussit.TopicAnalyzer do
       topic_id = topic_map |> Map.get(statement_topic) |> Map.get(:id)
 
       case Statements.update_statement(statement, %{topic_id: topic_id}) do
-        {:ok, statement} -> statement
-        {:error, changeset} -> IO.inspect(changeset)
+        {:ok, statement} ->
+          statement
+
+        {:error, changeset} ->
+          Logger.error(
+            "#{__MODULE__}.update_statement_topics failed due to #{inspect(changeset)}"
+          )
       end
     end)
   end

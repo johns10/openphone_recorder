@@ -18,6 +18,7 @@ defmodule Discussit.Accounts.Account do
     field :stripe_customer_id, :string
     field :default_payment_method_id, :string
     field :enable_embeddings, :boolean
+    field :enable_topic_analysis, :boolean
 
     field :available_credits, :float, virtual: true
 
@@ -42,7 +43,8 @@ defmodule Discussit.Accounts.Account do
       :billing_user_id,
       :stripe_customer_id,
       :default_payment_method_id,
-      :enable_embeddings
+      :enable_embeddings,
+      :enable_topic_analysis
     ])
     |> foreign_key_constraint(:billing_user_id)
     |> validate_required([:name, :plan])

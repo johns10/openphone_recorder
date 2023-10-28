@@ -1,17 +1,17 @@
 defmodule Discussit.TopicAnalyzer.Local do
   @behaviour Discussit.TopicAnalyzer.Behaviour
 
-  def init_model(statements, account_id) do
+  def init_model(statements, embeddings, account_id) do
     with {:ok, pid} <- start_python do
-      topics = :python.call(pid, :topics, :init_model, [statements, account_id])
+      topics = :python.call(pid, :topics, :init_model, [statements, embeddings, account_id])
       :python.stop(pid)
       {:ok, topics}
     end
   end
 
-  def train_model(statements, account_id) do
+  def train_model(statements, embeddings, account_id) do
     with {:ok, pid} <- start_python do
-      topics = :python.call(pid, :topics, :train_model, [statements, account_id])
+      topics = :python.call(pid, :topics, :train_model, [statements, embeddings, account_id])
       :python.stop(pid)
       {:ok, topics}
     end

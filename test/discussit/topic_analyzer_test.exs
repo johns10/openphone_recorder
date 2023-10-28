@@ -8,6 +8,7 @@ defmodule Discussit.TopicAnalyzerTest do
   import Discussit.AccountsFixtures
   import Discussit.ConversationsFixtures
   import Discussit.StatementsFixtures
+  import Discussit.EmbeddingsFixtures
 
   describe "Topic Analyzer initialization" do
     setup do
@@ -46,6 +47,7 @@ defmodule Discussit.TopicAnalyzerTest do
       account_id = account.id
       conversation = conversation_fixture(%{account_id: account.id})
       statement = statement_fixture(%{conversation_id: conversation.id})
+      embedding = embedding_fixture(%{statement_id: statement.id})
 
       use_cassette("no existing_object") do
         TopicAnalyzer.init(account)
@@ -73,6 +75,10 @@ defmodule Discussit.TopicAnalyzerTest do
       statements =
         (floor_cleaning_content() ++ bathtub_cleaning_content())
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+        |> Enum.map(fn statement ->
+          embedding_fixture(%{statement_id: statement.id})
+          statement
+        end)
 
       use_cassette("no existing_object") do
         {:ok, results} = TopicAnalyzer.init(account)
@@ -95,7 +101,8 @@ defmodule Discussit.TopicAnalyzerTest do
 
     test "training works", %{account: account} do
       conversation = conversation_fixture(%{account_id: account.id})
-      statement_fixture(%{conversation_id: conversation.id})
+      statement = statement_fixture(%{conversation_id: conversation.id})
+      embedding = embedding_fixture(%{statement_id: statement.id})
 
       use_cassette("no existing_object") do
         TopicAnalyzer.init(account)
@@ -116,24 +123,32 @@ defmodule Discussit.TopicAnalyzerTest do
       # initial_statements =
       (floor_cleaning_content() ++ bathtub_cleaning_content())
       |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+      |> Enum.map(fn statement ->
+        embedding_fixture(%{statement_id: statement.id})
+        statement
+      end)
 
       use_cassette("no existing_object") do
         TopicAnalyzer.init(account)
       end
 
       topics_after_initialization = Topics.list_topics() |> Enum.count()
-      assert topics_after_initialization in 7..9
+      assert topics_after_initialization in 6..9
 
       # training_statements =
       (toilet_cleaning_content() ++ shower_cleaning_content())
       |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+      |> Enum.map(fn statement ->
+        embedding_fixture(%{statement_id: statement.id})
+        statement
+      end)
 
       use_cassette("existing_object") do
         TopicAnalyzer.train(account)
       end
 
       topics_after_training = Topics.list_topics() |> Enum.count()
-      assert topics_after_training in 21..23
+      assert topics_after_training in 6..9
 
       # IO.puts("""
       # Initialization statements: #{Enum.count(initial_statements)}

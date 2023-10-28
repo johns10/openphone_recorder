@@ -4,6 +4,7 @@ from bertopic.vectorizers import OnlineCountVectorizer
 from bertopic.vectorizers import ClassTfidfTransformer
 from river import cluster
 from river_partial_fit import River
+import numpy
 
 
 def get_path(account_id):
@@ -24,7 +25,7 @@ def save_new_model(topic_model, path):
     return topic_model
 
 
-def init_model(statements, account_id):
+def init_model(statements, embeddings, account_id):
     model_path = get_path(account_id)
     cluster_model = River(cluster.DBSTREAM())
     vectorizer_model = OnlineCountVectorizer(stop_words="english")
@@ -38,23 +39,25 @@ def init_model(statements, account_id):
         ctfidf_model=ctfidf_model,
     )
 
-    new_topics = fit_topics(topic_model, statements)
+    new_topics = fit_topics(topic_model, statements, embeddings)
     save_new_model(topic_model, model_path)
     return new_topics
 
 
-def train_model(statements, account_id):
+def train_model(statements, embeddings, account_id):
     model_path = get_path(account_id)
     topic_model = BERTopic.load(model_path)
-    new_topics = fit_topics(topic_model, statements)
+    new_topics = fit_topics(topic_model, statements, embeddings)
     save_model(topic_model, model_path)
     return new_topics
 
 
-def fit_topics(model, statements):
+def fit_topics(model, statements, embeddings):
     topics = []
     input = [str(s) for s in statements]
-    model.partial_fit(input)
+    print(embeddings)
+    numpy_embeddings = [numpy.asarray(embedding) for embedding in embeddings]
+    model.partial_fit(input, numpy.asarray(numpy_embeddings))
     topics.extend(model.topics_)
     # We will have to slice the topic assignment out of this list
     new_topics = model.topics_[-input.__len__() :]
