@@ -9,12 +9,24 @@ defmodule Discussit.TopicAnalyzerTest do
   import Discussit.ConversationsFixtures
   import Discussit.StatementsFixtures
   import Discussit.EmbeddingsFixtures
+  import Discussit.ParticipantsFixtures
 
   describe "Topic Analyzer initialization" do
     setup do
-      account = account_fixture(%{id: "a4370693-d267-40aa-9b5e-5454cf7ac996"})
+      account =
+        account_fixture(%{id: "a4370693-d267-40aa-9b5e-5454cf7ac996", enable_embeddings: true})
+
       bucket = Application.get_env(:discussit, :bucket)
       object = TopicAnalyzer.object_path(account)
+
+      on_exit(fn ->
+        TopicAnalyzer.local_path(account) |> File.rm_rf()
+
+        case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
+          {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
+          _ -> nil
+        end
+      end)
 
       %{account: account, bucket: bucket, object: object}
     end
@@ -28,26 +40,19 @@ defmodule Discussit.TopicAnalyzerTest do
       end
     end
 
-    test "creates the model", %{account: account, bucket: bucket, object: object} do
+    test "creates the model", %{account: account} do
       use_cassette("no existing_object") do
         assert {:ok, _} = TopicAnalyzer.init(account)
       end
-
-      # case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
-      #   {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
-      #   _ -> nil
-      # end
     end
 
     test "creates new topics, and matches the generated topics to the statements", %{
-      account: account,
-      bucket: bucket,
-      object: object
+      account: account
     } do
       account_id = account.id
       conversation = conversation_fixture(%{account_id: account.id})
       statement = statement_fixture(%{conversation_id: conversation.id})
-      embedding = embedding_fixture(%{statement_id: statement.id})
+      embedding_fixture(%{statement_id: statement.id})
 
       use_cassette("no existing_object") do
         TopicAnalyzer.init(account)
@@ -59,33 +64,49 @@ defmodule Discussit.TopicAnalyzerTest do
              ] = Topics.list_topics()
 
       assert %{topic_id: ^topic_id} = Statements.get_statement!(statement.id)
-
-      # case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
-      #   {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
-      #   _ -> nil
-      # end
     end
 
     @tag :integration
-    test "integration", %{account: account} do
+    test "integration", %{account: account, bucket: bucket, object: object} do
       Application.put_env(:discussit, :topic_analysis_provider, Discussit.TopicAnalyzer.Local)
+      :ok = Discussit.TopicAnalyzer.Server.ensure_started()
+      on_exit(fn -> Discussit.TopicAnalyzer.Server.stop() end)
 
       conversation = conversation_fixture(%{account_id: account.id})
+      participant = participant_fixture()
+
+      case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
+        {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
+        _ -> nil
+      end
 
       statements =
-        (floor_cleaning_content() ++ bathtub_cleaning_content())
+        (bathtub_cleaning_content() ++
+           sink_cleaning_contant() ++
+           floor_cleaning_content() ++
+           toilet_cleaning_content() ++
+           shower_cleaning_content() ++
+           floor_cleaning_content_2() ++
+           oven_cleaning_content() ++
+           cabinet_cleaning_content() ++
+           baseboard_cleaning_content() ++
+           wall_cleaning_content() ++ ceiling_fan_cleaning_content())
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+
+      use_cassette("embedding_calls", match_requests_on: [:request_body]) do
+        statements
         |> Enum.map(fn statement ->
-          embedding_fixture(%{statement_id: statement.id})
-          statement
+          {:ok, vector} = Discussit.Embeddings.Impl.get_embedding(statement.content)
+          embedding_fixture(%{statement_id: statement.id, vector: vector})
         end)
+      end
 
       use_cassette("no existing_object") do
         {:ok, results} = TopicAnalyzer.init(account)
         assert Enum.count(results) == Enum.count(statements)
       end
 
-      assert (Topics.list_topics() |> Enum.count()) in 7..9
+      assert Topics.list_topics() |> Enum.count() == 10
       assert Statements.list_statements() |> Enum.all?(&(&1.topic_id != nil))
     end
   end
@@ -102,7 +123,7 @@ defmodule Discussit.TopicAnalyzerTest do
     test "training works", %{account: account} do
       conversation = conversation_fixture(%{account_id: account.id})
       statement = statement_fixture(%{conversation_id: conversation.id})
-      embedding = embedding_fixture(%{statement_id: statement.id})
+      embedding_fixture(%{statement_id: statement.id})
 
       use_cassette("no existing_object") do
         TopicAnalyzer.init(account)

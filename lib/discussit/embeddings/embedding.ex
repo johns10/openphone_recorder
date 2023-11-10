@@ -4,6 +4,14 @@ defmodule Discussit.Embeddings.Embedding do
   alias Discussit.Statements.Statement
   alias Discussit.Summaries.Summary
 
+  defimpl Jason.Encoder, for: Discussit.Embeddings.Embedding do
+    def encode(value, opts) do
+      Map.take(value, [:status, :model])
+      |> Map.put(:vector, Pgvector.to_list(value.vector))
+      |> Jason.Encode.map(opts)
+    end
+  end
+
   schema "embeddings" do
     field :vector, Pgvector.Ecto.Vector
     field :status, Ecto.Enum, values: [:created, :running, :complete, :error]

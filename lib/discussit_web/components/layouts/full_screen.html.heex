@@ -73,7 +73,7 @@
         <div class="btn btn-ghost btn-sm px-2">
           <.icon name="hero-book-open" class="w-5 h-5" />
         </div>
-        <div href={~p"/contacts"} class="dropdown-label mr-2" style="display: none;">
+        <div class="dropdown-label mr-2" style="display: none;">
           Contacts
         </div>
       </.link>
@@ -84,8 +84,19 @@
         <div class="btn btn-ghost btn-sm px-2">
           <.icon name="hero-chat-bubble-left-right" class="w-5 h-5" />
         </div>
-        <div href={~p"/contacts"} class="dropdown-label mr-2" style="display: none;">
+        <div class="dropdown-label mr-2" style="display: none;">
           Conversations
+        </div>
+      </.link>
+      <.link
+        href={~p"/topics"}
+        class="flex flex-row items-center justify-items-end hover:cursor-pointer"
+      >
+        <div class="btn btn-ghost btn-sm px-2">
+          <.icon name="hero-rectangle-group" class="w-5 h-5" />
+        </div>
+        <div class="dropdown-label mr-2" style="display: none;">
+          Topics
         </div>
       </.link>
       <.link

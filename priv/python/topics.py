@@ -2,13 +2,12 @@ import os
 import openai
 import numpy
 from bertopic import BERTopic
-from bertopic.vectorizers import OnlineCountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from bertopic.vectorizers import ClassTfidfTransformer
 from sentence_transformers import SentenceTransformer
 from bertopic.representation import KeyBERTInspired, OpenAI
-from river import cluster
-from river_partial_fit import River
 from umap import UMAP
+from hdbscan import HDBSCAN
 
 
 def save_model(topic_model, path):
@@ -20,51 +19,94 @@ def save_model(topic_model, path):
 
 
 def save_new_model(topic_model, path):
-    topic_model.save(path, serialization="pickle", save_ctfidf=True)
+    topic_model.save(path, serialization="safetensors", save_ctfidf=True)
     return topic_model
 
 
-def init_model(statements, embeddings, model_path_bytes, api_key):
-    model_path = model_path_bytes.decode()
+def new_model(api_key, items_count):
+    min_cluster_size = 25
+    n_neighbors = 15
+    n_components = 5
+    top_n_words = 10
+
+    if items_count < 1000:
+        min_cluster_size = 10
+
+    if items_count < 250:
+        min_cluster_size = 5
+
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
-    cluster_model = River(cluster.DBSTREAM())
-    vectorizer_model = OnlineCountVectorizer(
-        stop_words="english", min_df=2, ngram_range=(1, 2)
+    hdbscan_model = HDBSCAN(
+        min_cluster_size=min_cluster_size,
+        metric="euclidean",
+        cluster_selection_method="eom",
+        prediction_data=True,
+    )
+    vectorizer_model = CountVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2),
+        # min_df=2,
     )
     ctfidf_model = ClassTfidfTransformer(
-        reduce_frequent_words=True, bm25_weighting=True
+        # reduce_frequent_words=True, bm25_weighting=True
     )
     umap_model = UMAP(
-        n_neighbors=15, n_components=5, min_dist=0.0, metric="cosine", random_state=42
+        n_neighbors=n_neighbors,
+        n_components=n_components,
+        min_dist=0.0,
+        metric="cosine",
+        random_state=42,
     )
-    keybert_model = KeyBERTInspired()
     openai.api_key = api_key
-    prompt = """
+    title_prompt = """
     I have a topic that contains the following documents: 
     [DOCUMENTS]
     The topic is described by the following keywords: [KEYWORDS]
 
-    Based on the information above, extract a short but highly descriptive topic label of at most 5 words. Make sure it is in the following format:
-    topic: <topic label>
+    Based on the information above, extract a short but highly descriptive topic label of at most 5 words. 
+    Make sure it is in the following format:
+    <topic label>
     """
-    openai_model = OpenAI(
-        model="gpt-3.5-turbo", exponential_backoff=True, chat=True, prompt=prompt
-    )
+    description_prompt = """
+    I have a topic that contains the following documents: 
+    [DOCUMENTS]
+    The topic is described by the following keywords: [KEYWORDS]
 
-    topic_model = BERTopic(
+    Based on the information above, extract a short but highly descriptive topic description of at most 100 words. 
+    Make sure it is in the following format:
+    <topic description>
+    """
+    title_model = OpenAI(
+        model="gpt-3.5-turbo", exponential_backoff=True, chat=True, prompt=title_prompt
+    )
+    description_model = OpenAI(
+        model="gpt-3.5-turbo",
+        exponential_backoff=True,
+        chat=True,
+        prompt=description_prompt,
+    )
+    representation_model = {
+        "keywords": KeyBERTInspired(),
+        "model_title": KeyBERTInspired(),
+        "model_description": KeyBERTInspired(),
+    }
+    return BERTopic(
         embedding_model=embedding_model,
-        hdbscan_model=cluster_model,
+        umap_model=umap_model,
+        hdbscan_model=hdbscan_model,
         vectorizer_model=vectorizer_model,
         ctfidf_model=ctfidf_model,
-        umap_model=umap_model,
-        representation_model=keybert_model,
-        top_n_words=10,
+        representation_model=representation_model,
+        top_n_words=top_n_words,
         verbose=True,
     )
 
-    new_topics = fit_topics(topic_model, statements, embeddings)
+
+def init_model(content, embeddings, model_path, api_key):
+    topic_model = new_model(api_key, content.__len__())
+    new_topics = fit_topics(topic_model, content, embeddings)
     save_new_model(topic_model, model_path)
-    return new_topics
+    return new_topics, topic_model
 
 
 def train_model(statements, embeddings, model_path_bytes):
@@ -76,21 +118,57 @@ def train_model(statements, embeddings, model_path_bytes):
 
 
 def fit_topics(model, statements, embeddings):
-    topics = []
-    input = [str(s) for s in statements]
-    numpy_embeddings = [numpy.asarray(embedding) for embedding in embeddings]
-    model.partial_fit(input, numpy.asarray(numpy_embeddings))
-    topics.extend(model.topics_)
-    # We will have to slice the topic assignment out of this list
-    new_topics = model.topics_[-input.__len__() :]
-    return new_topics
+    topics, probs = model.fit_transform(statements, embeddings)
+    return topics
 
 
-def get_topics(model_path_bytes):
+def load_model(model_path):
+    return BERTopic.load(model_path)
+
+
+def get_topics(topic_model):
+    return topic_model.topic_aspects_
+
+
+def cast_topics(topics):
+    results = []
+    for key, aspects in topics.items():
+        values = []
+        for id, value in aspects.items():
+            values = values + [assign_values(key, value, id)]
+        if results == []:
+            results = values
+        else:
+            results = [v | r for v, r in zip(values, results)]
+    return results
+
+
+def assign_values(key, value, id):
+    return {key: format_value(key, value), "model_id": id}
+
+
+def format_value(key, value):
+    if key == "keywords":
+        return [
+            {"keyword": keyword[0], "probability": str(keyword[1])} for keyword in value
+        ]
+    if key in ["model_title", "model_description"]:
+        result = ""
+        for item in value:
+            result = result + " " + item[0]
+        return result
+
+
+def get_hierarchical_topics(topic_model, docs):
+    hierarchical_topics = topic_model.hierarchical_topics(docs)
+    return hierarchical_topics
+
+
+def regenerate_labels(model_path_bytes):
     model_path = model_path_bytes.decode()
-    print(model_path)
     topic_model = BERTopic.load(model_path)
-    return topic_model.topic_labels_
+    topic_labels = topic_model.generate_topic_labels(nr_words=2, separator=", ")
+    return topic_labels
 
 
 def atexit_handler():

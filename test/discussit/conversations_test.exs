@@ -26,10 +26,32 @@ defmodule Discussit.ConversationsTest do
     test "ordering by last statement" do
       %{id: con_id} = con = conversation_fixture()
       %{id: con2_id} = con2 = conversation_fixture()
-      statement_fixture(%{conversation_id: con.id, occurred_at: thirty_minutes_ago()})
-      statement_fixture(%{conversation_id: con.id, occurred_at: ten_minutes_ago()})
-      statement_fixture(%{conversation_id: con2.id, occurred_at: thirty_minutes_ago()})
-      statement_fixture(%{conversation_id: con2.id, occurred_at: forty_minutes_ago()})
+      pn = phone_number_fixture()
+      p = participant_fixture(%{conversation_id: con.id, phone_number_id: pn.id})
+
+      statement_fixture(%{
+        conversation_id: con.id,
+        occurred_at: thirty_minutes_ago(),
+        participant_id: p.id
+      })
+
+      statement_fixture(%{
+        conversation_id: con.id,
+        occurred_at: ten_minutes_ago(),
+        participant_id: p.id
+      })
+
+      statement_fixture(%{
+        conversation_id: con2.id,
+        occurred_at: thirty_minutes_ago(),
+        participant_id: p.id
+      })
+
+      statement_fixture(%{
+        conversation_id: con2.id,
+        occurred_at: forty_minutes_ago(),
+        participant_id: p.id
+      })
 
       assert [%{id: ^con_id}, %{id: ^con2_id}] =
                Conversations.list_conversations(order_bys: [last_statement_occurred_at: :desc])

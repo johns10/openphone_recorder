@@ -74,6 +74,7 @@ defmodule Discussit.MixProject do
       {:pgvector, "~> 0.2.0"},
       {:erlport, "~> 0.10.1"},
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
+      {:websockex, "~> 0.4.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},

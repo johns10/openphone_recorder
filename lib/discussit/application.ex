@@ -21,7 +21,8 @@ defmodule Discussit.Application do
         DiscussitWeb.Endpoint,
         {Discussit.Events.Consumer, %{count: :inf}},
         {Discussit.Embeddings.Server, %{}},
-        {Discussit.Embeddings.ModelStatus, %{}}
+        {Discussit.Embeddings.ModelStatus, %{}},
+        {Discussit.TopicAnalyzer.Server, %{}}
       ]
       |> minio()
 

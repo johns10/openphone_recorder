@@ -7,8 +7,22 @@ defmodule Discussit.Statements.Statement do
   alias Discussit.StatementSummaries.StatementSummary
   alias Discussit.Participants.Participant
   alias Discussit.Embeddings.Embedding
+  alias Discussit.Topics.Topic
   alias PgRanges.TsRange
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :external_id,
+             :source,
+             :content,
+             :occurred_at,
+             :type,
+             :ts_range,
+             :all_stopwords,
+             :unprocessable,
+             :embedding
+           ]}
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do
     field :external_id, :string
@@ -52,7 +66,7 @@ defmodule Discussit.Statements.Statement do
       :all_stopwords,
       :unprocessable
     ])
-    |> validate_required([:occurred_at, :type, :participant_id])
+    |> validate_required([:occurred_at, :type])
     |> foreign_key_constraint(:conversation_id)
     |> foreign_key_constraint(:participant_id)
     |> foreign_key_constraint(:call_id)

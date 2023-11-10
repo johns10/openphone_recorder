@@ -21,6 +21,7 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:name]} type="text" label="Name" />
+
         <.input field={@form[:openphone_signing_secret]} type="text" label="Signing Secret" />
         <.input field={@form[:openai_api_key]} type="text" label="OpenAI API Key" />
         <.input
@@ -34,7 +35,45 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
           }
           selected={@current_user.id}
         />
-
+        <div class="dropdown w-full">
+          <div phx-feedback-for={@form[:timezone].name} class="form-control w-full">
+            <.label for={@form[:timezone].id}>Timezone</.label>
+            <div class="flex flex-row">
+              <.input
+                field={@form[:timezone]}
+                type="raw_input"
+                prompt="Choose a value"
+                class="input w-full rounded-r-none"
+                autocomplete="off"
+                value={@timezone_string}
+              />
+              <button
+                type="button"
+                class="btn btn-ghost rounded-l-none"
+                phx-click={
+                  JS.focus(to: "#account_timezone")
+                  |> JS.push("reset-timezone", target: @myself)
+                }
+              >
+                <.icon name="hero-chevron-down" />
+              </button>
+            </div>
+            <.error :for={msg <- Enum.map(@form[:timezone].errors, &translate_error(&1))}>
+              <%= msg %>
+            </.error>
+          </div>
+          <ul class="menu menu-compact dropdown-content bg-base-300 top-20 max-h-96 overflow-hidden flex-col rounded-md">
+            <li
+              :for={{key, value} <- filter_timezone_options(@timezone_string)}
+              key={key}
+              class="border-b border-b-base-content/10 w-full"
+              phx-click={JS.push("pick-timezone", target: @myself)}
+              phx-value-val={key}
+            >
+              <button type="button"><%= value %></button>
+            </li>
+          </ul>
+        </div>
         <.input
           field={@form[:plan]}
           type="select"
@@ -105,29 +144,36 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
      socket
      |> assign(assigns)
      |> assign(:attrs, %{})
+     |> assign(:timezone_string, Atom.to_string(account.timezone))
      |> assign_form(changeset)}
   end
 
   @impl true
   def handle_event("validate", %{"account" => account_params}, socket) do
+    %{"timezone" => timezone} = account_params
+
     changeset =
       socket.assigns.account
       |> Accounts.change_account(account_params)
       |> Map.put(:action, :validate)
 
-    {:noreply, socket |> assign_form(changeset) |> assign(:attrs, account_params)}
+    {:noreply,
+     socket
+     |> assign_form(changeset)
+     |> assign(:attrs, account_params)
+     |> assign(:timezone_string, timezone)}
   end
 
   def handle_event("save", %{"account" => account_params}, socket) do
     save_account(socket, socket.assigns.action, account_params)
   end
 
-  def handle_event("reset-timezone", _, socket) do
-    changeset =
-      socket.assigns.form.source
-      |> Ecto.Changeset.put_change(:timezone, "")
+  def handle_event("pick-timezone", %{"val" => timezone}, socket) do
+    {:noreply, assign(socket, :timezone_string, timezone)}
+  end
 
-    {:noreply, assign_form(socket, changeset)}
+  def handle_event("reset-timezone", _, socket) do
+    {:noreply, assign(socket, :timezone_string, "")}
   end
 
   def handle_event("delete-account-user", %{"id" => id}, socket) do
@@ -216,4 +262,15 @@ defmodule DiscussitWeb.AccountLive.FormComponent do
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
+
+  defp filter_timezone_options(nil) do
+    select_options(Discussit.Accounts.Account, :timezone)
+  end
+
+  defp filter_timezone_options(input_value) do
+    select_options(Discussit.Accounts.Account, :timezone)
+    |> Enum.filter(fn {_key, value} ->
+      String.contains?(String.upcase(value), String.upcase(input_value))
+    end)
+  end
 end

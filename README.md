@@ -36,7 +36,7 @@ together = Gpt3Tokenizer.encode(stopwords)
 
 apart = String.split(stopwords, " ") |> Enum.map(&Gpt3Tokenizer.encode/1) |> Enum.reduce([], fn item, acc -> item ++ acc end)
 
-(together ++ apart) |> Enum.uniq() |> IO.inspect(limit: :infinity)
+(together ++ apart) |> Enum.uniq()
 
 ```
 
@@ -68,4 +68,75 @@ meeting_id = 253
 meeting = Discussit.Meetings.get_meeting!(meeting_id)
 {:ok, participant} = Discussit.Participants.create_participant(%{meeting_id: meeting_id, name: "speaker a"})
 {:ok, statement} = Discussit.Statements.create_statement(%{occurred_at: NaiveDateTime.utc_now, type: :meeting, participant_id: 4826, meeting_id: meeting_id, content: "this is a statement", source: :zoom, external_id: "lsieh843h5t", conversation_id: "0ef85a92-f64b-5ce4-89bb-2e403dca3aa1"})
+```
+
+### Model Experimentation
+
+Here's a python script you can use to do some playing with the model:
+
+```python
+import os
+import openai
+import numpy
+from bertopic import BERTopic
+from sklearn.feature_extraction.text import CountVectorizer
+from bertopic.vectorizers import ClassTfidfTransformer
+from sentence_transformers import SentenceTransformer
+from bertopic.representation import KeyBERTInspired, OpenAI
+from umap import UMAP
+from hdbscan import HDBSCAN
+from sklearn.datasets import fetch_20newsgroups
+
+min_cluster_size = 150
+n_neighbors = 15
+n_components = 5
+top_n_words = 10
+
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+hdbscan_model = HDBSCAN(
+    # min_cluster_size=min_cluster_size,
+    metric="euclidean",
+    cluster_selection_method="eom",
+    prediction_data=True,
+)
+vectorizer_model = CountVectorizer(
+    stop_words="english",
+    ngram_range=(1, 2),
+    # min_df=2,
+)
+ctfidf_model = ClassTfidfTransformer(
+    # reduce_frequent_words=True, bm25_weighting=True
+)
+umap_model = UMAP(
+    # n_neighbors=n_neighbors,
+    # n_components=n_components,
+    # min_dist=0.0,
+    # metric="cosine",
+    # random_state=42,
+)
+
+topic_model = BERTopic(
+    embedding_model=embedding_model,
+    umap_model=umap_model,
+    hdbscan_model=hdbscan_model,
+    vectorizer_model=vectorizer_model,
+    ctfidf_model=ctfidf_model,
+    # representation_model=representation_model,
+    top_n_words=top_n_words,
+    verbose=True,
+)
+
+docs = fetch_20newsgroups(subset='all',  remove=('headers', 'footers', 'quotes'))['data']
+embeddings = embedding_model.encode(docs, show_progress_bar=True)
+topics, probs = topic_model.fit_transform(docs, embeddings)
+
+doc_chunks = [docs[i:i+1000] for i in range(0, len(docs), 1000)]
+
+# for docs in doc_chunks:
+
+topics = []
+topic_model.partial_fit(doc_chunks[2])
+topics.extend(topic_model.topics_)
+print(topic_model.topic_aspects_["KeyBERT"])
+topic_model.topic_aspects_["KeyBERT"]
 ```

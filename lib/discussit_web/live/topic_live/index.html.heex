@@ -1,38 +1,60 @@
-<.header>
-  Listing Topics
-</.header>
-
-<.table
-  id="topics"
-  rows={@streams.topics}
-  row_click={fn {_id, topic} -> JS.navigate(~p"/topics/#{topic}") end}
->
-  <:col :let={{_id, topic}} label="Title"><%= topic.title %></:col>
-  <:col :let={{_id, topic}} label="Summary"><%= topic.summary %></:col>
-  <:col :let={{_id, topic}} label="Sentiment"><%= topic.sentiment %></:col>
-  <:action :let={{_id, topic}}>
-    <div class="sr-only">
-      <.link navigate={~p"/topics/#{topic}"}>Show</.link>
-    </div>
-    <.link patch={~p"/topics/#{topic}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, topic}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: topic.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
+<div class="flex flex-col w-full">
+  <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+    Topics
+    <.link :if={!@model_exists?} phx-click="generate-topics">
+      <.button class="btn-sm btn-success">Generate</.button>
     </.link>
-  </:action>
-</.table>
 
-<.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>
-  <.live_component
-    module={DiscussitWeb.TopicLive.FormComponent}
-    id={@topic.id}
-    title={@page_title}
-    action={@live_action}
-    topic={@topic}
-    patch={~p"/topics"}
-  />
-</.modal>
+    <div>
+      <.link
+        :if={@model_exists?}
+        phx-click="regenerate-labels"
+        data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
+      >
+        <.button class="btn-sm btn-success">Relabel</.button>
+      </.link>
+      <.link
+        :if={@model_exists?}
+        phx-click="remove-topics"
+        data-confirm="Are you sure? Regenerating topics will delete all your existing topics."
+      >
+        <.button class="btn-sm btn-success">Remove</.button>
+      </.link>
+    </div>
+  </div>
+
+  <.table
+    id="topics"
+    rows={@streams.topics}
+    row_click={fn {_id, topic} -> JS.navigate(~p"/topics/#{topic}") end}
+  >
+    <:col :let={{_id, topic}} label="Title"><%= topic.title || topic.model_title %></:col>
+    <:col :let={{_id, topic}} label="Summary"><%= topic.summary %></:col>
+    <:col :let={{_id, topic}} label="Sentiment"><%= topic.sentiment %></:col>
+    <:action :let={{_id, topic}}>
+      <div class="sr-only">
+        <.link navigate={~p"/topics/#{topic}"}>Show</.link>
+      </div>
+      <.link patch={~p"/topics/#{topic}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{id, topic}}>
+      <.link
+        phx-click={JS.push("delete", value: %{id: topic.id}) |> hide("##{id}")}
+        data-confirm="Are you sure?"
+      >
+        Delete
+      </.link>
+    </:action>
+  </.table>
+
+  <.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>
+    <.live_component
+      module={DiscussitWeb.TopicLive.FormComponent}
+      id={@topic.id}
+      title={@page_title}
+      action={@live_action}
+      topic={@topic}
+      patch={~p"/topics"}
+    />
+  </.modal>
+</div>
