@@ -3,15 +3,20 @@ from flask_sock import Sock
 from topics import (
     init_model,
     get_topics,
-    get_hierarchical_topics,
     load_model,
     cast_topics,
+    cleanup_modules,
 )
 import json
 import numpy
+import threading
+from erlport.erlterms import Atom
+from erlport.erlang import set_message_handler, cast
 
 app = Flask(__name__)
+app.debug = False
 sock = Sock(app)
+server_thread = None
 
 TRAINING_DATA = []
 
@@ -70,3 +75,24 @@ def echo(ws):
             result = {"message_type": "topics_received", "payload": {"topics": topics}}
             json_result = json.dumps(result)
             ws.send(json_result)
+        if data["message_type"] == "shutdown":
+            msg = {"status": "stopped"}
+            json_msg = json.dumps(msg)
+            ws.send(msg)
+
+
+def start_server():
+    global server_thread
+    if server_thread == None or not server_thread.is_alive():
+        try:
+            server_thread = threading.Thread(
+                target=lambda: app.run(
+                    host="localhost", port=5001, debug=True, use_reloader=False
+                )
+            )
+            server_thread.start()
+            return {"status": "started", "port": 5001}
+        except:
+            return {"status": "not_started", "port": None}
+    else:
+        return {"status": "started", "port": 5001}

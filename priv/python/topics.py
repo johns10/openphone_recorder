@@ -29,11 +29,11 @@ def new_model(api_key, items_count):
     n_components = 5
     top_n_words = 10
 
-    if items_count < 1000:
-        min_cluster_size = 10
+    if items_count < 1000 and items_count < 10000:
+        min_cluster_size = 5
 
     if items_count < 250:
-        min_cluster_size = 5
+        min_cluster_size = 3
 
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     hdbscan_model = HDBSCAN(
@@ -171,8 +171,11 @@ def regenerate_labels(model_path_bytes):
     return topic_labels
 
 
-def atexit_handler():
-    try:
-        print("atexit")
-    except SystemExit:
-        pass
+def cleanup_modules():
+    del CountVectorizer
+    del ClassTfidfTransformer
+    del SentenceTransformer
+    del KeyBERTInspired
+    del OpenAI
+    del UMAP
+    del HDBSCAN

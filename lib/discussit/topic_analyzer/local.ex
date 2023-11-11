@@ -1,41 +1,22 @@
 defmodule Discussit.TopicAnalyzer.Local do
   # @behaviour Discussit.TopicAnalyzer.Behaviour
-
-  def init_model(pid, statements, embeddings, %{model_path: model_path, openai_api_key: api_key}) do
-    :ok = :python.call(pid, :topics, :register_handler, [])
-
-    Enum.zip(statements, embeddings)
-    |> Enum.map(fn {e, s} -> :python.cast(pid, {:save_item, e, s}) end)
-
-    topics = :python.call(pid, :topics, :init_model, [model_path, api_key])
-
-    {:ok, topics}
-  end
-
-  def train_model(pid, statements, embeddings, model_path) do
-    topics = :python.call(pid, :topics, :train_model, [statements, embeddings, model_path])
-
-    {:ok, topics}
-  end
-
-  def get_topics(pid, model_path) do
-    topics = :python.call(pid, :topics, :get_topics, [model_path])
-    {:ok, topics}
-  end
-
-  def regenerate_labels(pid, model_path) do
-    topics = :python.call(pid, :topics, :regenerate_labels, [model_path])
-    {:ok, topics}
-  end
+  require Logger
 
   def start() do
-    cwd = File.cwd!()
+    Logger.info("#{__MODULE__} starting a python instance")
     path = [:code.priv_dir(:discussit), "python"] |> Path.join()
-    File.cd!(path)
-    # pid = spawn(fn -> MuonTrap.cmd("flask", ["--app", "topics_server", "run"]) end)
-    File.cd!(cwd)
+    :python.start([{:python_path, to_charlist(path)}, {:python, 'python3'}])
+  end
 
-    {:ok, nil}
+  def start_server(pid) do
+    IO.puts("start server called in elixir")
+    %{'port' => port, 'status' => status} = :python.call(pid, :topics_server, :start_server, [])
+    {:ok, %{port: port, status: status |> to_string() |> String.to_atom()}}
+  end
+
+  def stop_server(pid) do
+    stop(pid)
+    start()
   end
 
   def stop(pid) do
