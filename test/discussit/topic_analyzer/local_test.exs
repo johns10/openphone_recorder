@@ -3,12 +3,14 @@ defmodule Discussit.TopicAnalyzer.LocalTest do
   alias Discussit.TopicAnalyzer.Local
 
   describe "Local Python Server" do
+    @tag :integration
     test "starting and works" do
       {:ok, pid} = Local.start()
       assert is_pid(pid)
       assert :ok = Local.stop(pid)
     end
 
+    @tag :integration
     test "starting the server works" do
       {:ok, pid} = Local.start()
       assert {:ok, %{port: _, status: :started}} = Local.start_server(pid)

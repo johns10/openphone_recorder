@@ -20,7 +20,7 @@ defmodule DiscussitWeb.TopicLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:summary]} type="text" label="Summary" />
+        <.input field={@form[:description]} type="text" label="Description" />
         <.input field={@form[:sentiment]} type="number" label="Sentiment" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Topic</.button>

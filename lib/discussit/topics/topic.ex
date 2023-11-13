@@ -33,7 +33,8 @@ defmodule Discussit.Topics.Topic do
       :sentiment,
       :parent_topic_id,
       :account_id,
-      :keywords
+      :keywords,
+      :account_id
     ])
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)

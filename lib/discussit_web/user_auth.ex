@@ -118,7 +118,7 @@ defmodule DiscussitWeb.UserAuth do
   defp maybe_preload_user(%Discussit.Users.User{} = user),
     do:
       Map.put(user, :selected_account, %Discussit.Accounts.Account{
-        id: "user-1",
+        id: Ecto.UUID.generate(),
         name: "No Account Selected"
       })
 

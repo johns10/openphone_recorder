@@ -8,7 +8,7 @@ defmodule Discussit.TopicsTest do
 
     import Discussit.TopicsFixtures
 
-    @invalid_attrs %{sentiment: nil, summary: nil, model_title: nil}
+    @invalid_attrs %{sentiment: nil, description: nil, model_title: nil}
 
     test "list_topics/0 returns all topics" do
       topic = topic_fixture()
@@ -25,7 +25,7 @@ defmodule Discussit.TopicsTest do
 
       valid_attrs = %{
         sentiment: 42,
-        summary: "some summary",
+        description: "some description",
         title: "some title",
         model_title: "some title",
         model_id: 1,
@@ -34,7 +34,7 @@ defmodule Discussit.TopicsTest do
 
       assert {:ok, %Topic{} = topic} = Topics.create_topic(valid_attrs)
       assert topic.sentiment == 42
-      assert topic.summary == "some summary"
+      assert topic.description == "some description"
       assert topic.title == "some title"
     end
 
@@ -48,14 +48,14 @@ defmodule Discussit.TopicsTest do
 
       update_attrs = %{
         sentiment: 43,
-        summary: "some updated summary",
+        description: "some updated description",
         title: "some updated title",
         parent_topic_id: parent_topic.id
       }
 
       assert {:ok, %Topic{} = topic} = Topics.update_topic(topic, update_attrs)
       assert topic.sentiment == 43
-      assert topic.summary == "some updated summary"
+      assert topic.description == "some updated description"
       assert topic.title == "some updated title"
     end
 

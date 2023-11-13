@@ -9,7 +9,6 @@ defmodule Discussit.TopicAnalyzer.Local do
   end
 
   def start_server(pid) do
-    IO.puts("start server called in elixir")
     %{'port' => port, 'status' => status} = :python.call(pid, :topics_server, :start_server, [])
     {:ok, %{port: port, status: status |> to_string() |> String.to_atom()}}
   end

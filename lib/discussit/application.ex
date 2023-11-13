@@ -7,24 +7,20 @@ defmodule Discussit.Application do
 
   @impl true
   def start(_type, _args) do
+    # Start the Telemetry supervisor
+    # Start the Ecto repository
+    # Start the PubSub system
+    # Start Finch
+    # Start the Endpoint (http/https)
     children =
       [
-        # Start the Telemetry supervisor
         DiscussitWeb.Telemetry,
-        # Start the Ecto repository
         Discussit.Repo,
-        # Start the PubSub system
         {Phoenix.PubSub, name: Discussit.PubSub},
-        # Start Finch
         {Finch, name: Discussit.Finch},
-        # Start the Endpoint (http/https)
         DiscussitWeb.Endpoint,
-        {Discussit.Events.Consumer, %{count: :inf}},
-        {Discussit.Embeddings.Server, %{}},
-        {Discussit.Embeddings.ModelStatus, %{}},
-        {Discussit.TopicAnalyzer.Server, %{}}
-      ]
-      |> minio()
+        {Oban, Application.fetch_env!(:discussit, Oban)}
+      ] ++ children(Mix.env())
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -32,18 +28,25 @@ defmodule Discussit.Application do
     Supervisor.start_link(children, opts)
   end
 
+  def children(:test), do: []
+
+  def children(:dev), do: [{MinioServer, Application.get_env(:ex_aws, :s3)} | children(:prod)]
+
+  def children(:prod),
+    do: [
+      {Discussit.Events.Consumer, %{count: :inf}},
+      {Discussit.Embeddings.Server, %{}},
+      {Discussit.Embeddings.ModelStatus, %{}},
+      {Discussit.TopicAnalyzer.Server, %{}},
+      {DynamicSupervisor, strategy: :one_for_one, name: Discussit.TopicAnalyzer.StatusSupervisor},
+      {Registry, keys: :unique, name: TopicAnalyzerRegistry}
+    ]
+
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   @impl true
   def config_change(changed, _new, removed) do
     DiscussitWeb.Endpoint.config_change(changed, removed)
     :ok
-  end
-
-  def minio(children) do
-    case Application.get_env(:discussit, :minio, nil) do
-      nil -> children
-      true -> children ++ [{MinioServer, Application.get_env(:ex_aws, :s3)}]
-    end
   end
 end

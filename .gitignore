@@ -42,6 +42,9 @@ npm-debug.log
 /priv/static/robots*
 /priv/static/favicon*
 
+# ignore models
+/priv/*.model
+
 /.elixir_ls
 
 /data/.minio.sys/*
