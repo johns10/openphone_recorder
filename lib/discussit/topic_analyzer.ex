@@ -53,18 +53,22 @@ defmodule Discussit.TopicAnalyzer do
     topic_map = Enum.reduce(topics, %{}, fn topic, acc -> Map.put(acc, topic.model_id, topic) end)
 
     Enum.zip(statements, statement_topics)
-    |> Enum.map(fn {statement, %{topic: topic_id}} ->
-      topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
+    |> Enum.map(fn
+      {statement, %{topic: -1}} ->
+        statement
 
-      case Statements.update_statement(statement, %{topic_id: topic_id}) do
-        {:ok, statement} ->
-          statement
+      {statement, %{topic: topic_id}} ->
+        topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
 
-        {:error, changeset} ->
-          Logger.error(
-            "#{__MODULE__}.update_statement_topics failed due to #{inspect(changeset)}"
-          )
-      end
+        case Statements.update_statement(statement, %{topic_id: topic_id}) do
+          {:ok, statement} ->
+            statement
+
+          {:error, changeset} ->
+            Logger.error(
+              "#{__MODULE__}.update_statement_topics failed due to #{inspect(changeset)}"
+            )
+        end
     end)
   end
 
@@ -78,10 +82,17 @@ defmodule Discussit.TopicAnalyzer do
 
     new_topics =
       new_model_topics
+      |> Enum.filter(&(&1.model_id != -1))
       |> Enum.map(fn attrs ->
-        case Topics.create_topic(attrs) do
-          {:ok, topic} -> topic
-          {:error, changeset} -> IO.inspect(changeset, label: :"#{__MODULE__}.insert_new_topics}")
+        attrs
+        |> Map.put(:account_id, account_id)
+        |> Topics.create_topic()
+        |> case do
+          {:ok, topic} ->
+            topic
+
+          {:error, changeset} ->
+            Logger.error("#{__MODULE__}.insert_new_topics failed because #{inspect(changeset)}")
         end
       end)
 
@@ -128,5 +139,5 @@ defmodule Discussit.TopicAnalyzer do
     do: "#{Application.get_env(:discussit, :model_path)}/#{id}.model"
 
   def provider(),
-    do: Application.get_env(:discussit, :topic_analysis_provider, Discussit.TopicAnalyzer.Local)
+    do: Application.get_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
 end

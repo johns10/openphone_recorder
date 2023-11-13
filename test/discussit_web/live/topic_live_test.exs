@@ -3,13 +3,24 @@ defmodule DiscussitWeb.TopicLiveTest do
 
   import Phoenix.LiveViewTest
   import Discussit.TopicsFixtures
+  import Discussit.AccountsFixtures
 
-  @create_attrs %{sentiment: 42, summary: "some summary", title: "some title"}
-  @update_attrs %{sentiment: 43, summary: "some updated summary", title: "some updated title"}
-  @invalid_attrs %{sentiment: nil, summary: nil, title: nil}
+  @create_attrs %{sentiment: 42, description: "some description", title: "some title"}
+  @update_attrs %{
+    sentiment: 43,
+    description: "some updated description",
+    title: "some updated title"
+  }
+  @invalid_attrs %{sentiment: nil, description: nil, title: nil}
 
-  defp create_topic(_) do
-    topic = topic_fixture()
+  defp create_topic(%{user: user}) do
+    account = account_fixture()
+
+    {:ok, user} =
+      Discussit.Users.update_selected_account(user, %{selected_account_id: account.id})
+
+    topic = topic_fixture(%{account_id: account.id})
+
     %{topic: topic}
   end
 
@@ -20,7 +31,7 @@ defmodule DiscussitWeb.TopicLiveTest do
       {:ok, _index_live, html} = live(conn, ~p"/topics")
 
       assert html =~ "Listing Topics"
-      assert html =~ topic.summary
+      assert html =~ topic.description
     end
 
     test "updates topic in listing", %{conn: conn, topic: topic} do
@@ -43,7 +54,7 @@ defmodule DiscussitWeb.TopicLiveTest do
 
       html = render(index_live)
       assert html =~ "Topic updated successfully"
-      assert html =~ "some updated summary"
+      assert html =~ "some updated description"
     end
 
     test "deletes topic in listing", %{conn: conn, topic: topic} do
@@ -61,7 +72,7 @@ defmodule DiscussitWeb.TopicLiveTest do
       {:ok, _show_live, html} = live(conn, ~p"/topics/#{topic}")
 
       assert html =~ "Show Topic"
-      assert html =~ topic.summary
+      assert html =~ topic.description
     end
 
     test "updates topic within modal", %{conn: conn, topic: topic} do
@@ -84,7 +95,7 @@ defmodule DiscussitWeb.TopicLiveTest do
 
       html = render(show_live)
       assert html =~ "Topic updated successfully"
-      assert html =~ "some updated summary"
+      assert html =~ "some updated description"
     end
   end
 end

@@ -35,13 +35,18 @@ defmodule Discussit.SummarizersTest do
       summarizer = summarizer_fixture()
       update_attrs = %{prompt: "some updated prompt"}
 
-      assert {:ok, %Summarizer{} = summarizer} = Summarizers.update_summarizer(summarizer, update_attrs)
+      assert {:ok, %Summarizer{} = summarizer} =
+               Summarizers.update_summarizer(summarizer, update_attrs)
+
       assert summarizer.prompt == "some updated prompt"
     end
 
     test "update_summarizer/2 with invalid data returns error changeset" do
       summarizer = summarizer_fixture()
-      assert {:error, %Ecto.Changeset{}} = Summarizers.update_summarizer(summarizer, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Summarizers.update_summarizer(summarizer, @invalid_attrs)
+
       assert summarizer == Summarizers.get_summarizer!(summarizer.id)
     end
 

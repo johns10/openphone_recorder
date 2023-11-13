@@ -39,7 +39,10 @@ defmodule Discussit.AccountUsersTest do
 
     test "update_account_user/2 with invalid data returns error changeset" do
       account_user = account_user_fixture()
-      assert {:error, %Ecto.Changeset{}} = AccountUsers.update_account_user(account_user, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               AccountUsers.update_account_user(account_user, @invalid_attrs)
+
       assert account_user == AccountUsers.get_account_user!(account_user.id)
     end
 

@@ -3,16 +3,21 @@ defmodule DiscussitWeb.TopicLive.Index do
 
   alias Discussit.Topics
   alias Discussit.TopicAnalyzer
+  alias Discussit.TopicAnalyzer.Workers
+  alias Discussit.TopicAnalyzer.Status
 
   @impl true
   def mount(_params, _session, socket) do
+    account = socket.assigns.current_user.selected_account
+    Topics.list_topics(filters: [account_id: account.id])
+    DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
+
     {:ok,
      socket
-     |> stream(:topics, Topics.list_topics())
-     |> assign(
-       :model_exists?,
-       TopicAnalyzer.model_exists?(socket.assigns.current_user.selected_account)
-     ), layout: {DiscussitWeb.Layouts, :full_screen}}
+     |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]))
+     |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
+     |> assign(:analyzer_available?, Status.available?(account.id)),
+     layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
@@ -37,6 +42,20 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, stream_insert(socket, :topics, topic)}
   end
 
+  def handle_info(
+        %{topic: "account" <> _, event: "topic_analysis_availability"},
+        socket
+      ) do
+    account = socket.assigns.current_user.selected_account
+
+    {:noreply,
+     socket
+     |> push_patch(to: ~p"/topics")
+     |> assign(:analyzer_available?, Status.available?(account.id))
+     |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
+     |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]), reset: true)}
+  end
+
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     topic = Topics.get_topic!(id)
@@ -46,9 +65,9 @@ defmodule DiscussitWeb.TopicLive.Index do
   end
 
   def handle_event("generate-topics", _, socket) do
-    # Task.start(fn ->
-    TopicAnalyzer.init(socket.assigns.current_user.selected_account)
-    #  end)
+    %{account_id: socket.assigns.current_user.selected_account.id}
+    |> Workers.Initialization.new()
+    |> Oban.insert()
 
     {:noreply, socket}
   end
@@ -61,12 +80,15 @@ defmodule DiscussitWeb.TopicLive.Index do
            :ok <- delete_topics(account) do
         socket
         |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
+        |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]), reset: true)
+        |> assign(:analyzer_available?, Status.available?(account.id))
         |> put_flash(:success, "Regenerating topics")
         |> push_patch(to: ~p"/topics")
       else
         _ ->
           socket
           |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
+          |> assign(:analyzer_available?, Status.available?(account.id))
           |> put_flash(:error, "Failed to regenerate topics")
           |> push_patch(to: ~p"/topics")
       end

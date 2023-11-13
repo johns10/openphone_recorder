@@ -49,3 +49,5 @@ config :openai,
   http_options: [recv_timeout: 10 * 60 * 1000]
 
 config :discussit, model_path: Path.expand("./test/support/fixtures/")
+
+config :discussit, Oban, testing: :inline

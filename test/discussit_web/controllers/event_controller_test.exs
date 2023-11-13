@@ -31,6 +31,7 @@ defmodule DiscussitWeb.EventControllerTest do
 
   describe "create event" do
     setup %{conn: conn} do
+      {:ok, _} = start_supervised({Discussit.Events.Consumer, %{count: :inf}})
       Consumer.set_subscriber(self())
       pid = Process.whereis(Consumer)
       Ecto.Adapters.SQL.Sandbox.allow(Discussit.Repo, self(), pid)

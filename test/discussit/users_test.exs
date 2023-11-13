@@ -203,8 +203,7 @@ defmodule Discussit.UsersTest do
     end
 
     test "validates current password", %{user: user} do
-      {:error, changeset} =
-        Users.apply_user_email(user, "invalid", %{email: unique_user_email()})
+      {:error, changeset} = Users.apply_user_email(user, "invalid", %{email: unique_user_email()})
 
       assert %{current_password: ["is not valid"]} = errors_on(changeset)
     end

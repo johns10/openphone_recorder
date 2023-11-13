@@ -12,6 +12,7 @@ import numpy
 import threading
 from erlport.erlterms import Atom
 from erlport.erlang import set_message_handler, cast
+import socket
 
 app = Flask(__name__)
 app.debug = False
@@ -53,7 +54,6 @@ def echo(ws):
             )
             topics = get_topics(topic_model)
             casted_topics = cast_topics(topics)
-            print(casted_topics)
             zipped_topic_assignments = [
                 {"id": item[0], "topic": item[1]}
                 for item in zip(ids, topic_assignments)
@@ -83,16 +83,20 @@ def echo(ws):
 
 def start_server():
     global server_thread
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind(("localhost", 0))
+    port = sock.getsockname()[1]
+    sock.close()
     if server_thread == None or not server_thread.is_alive():
         try:
             server_thread = threading.Thread(
                 target=lambda: app.run(
-                    host="localhost", port=5001, debug=True, use_reloader=False
+                    host="localhost", port=port, debug=True, use_reloader=False
                 )
             )
             server_thread.start()
-            return {"status": "started", "port": 5001}
+            return {"status": "started", "port": port}
         except:
             return {"status": "not_started", "port": None}
     else:
-        return {"status": "started", "port": 5001}
+        return {"status": "started", "port": port}

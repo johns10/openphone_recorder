@@ -14,7 +14,12 @@
 
 <.back navigate={~p"/summarizers"}>Back to summarizers</.back>
 
-<.modal :if={@live_action == :edit} id="summarizer-modal" show on_cancel={JS.patch(~p"/summarizers/#{@summarizer}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="summarizer-modal"
+  show
+  on_cancel={JS.patch(~p"/summarizers/#{@summarizer}")}
+>
   <.live_component
     module={DiscussitWeb.SummarizerLive.FormComponent}
     id={@summarizer.id}

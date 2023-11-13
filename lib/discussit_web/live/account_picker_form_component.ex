@@ -53,7 +53,7 @@ defmodule DiscussitWeb.AccountPickerFormComponent do
       if user.selected_account_id do
         Accounts.get_account!(user.selected_account_id)
       else
-        %Account{name: "No Account Selected"}
+        %Account{name: "No Account Selected", id: Ecto.UUID.generate()}
       end
 
     {:ok,

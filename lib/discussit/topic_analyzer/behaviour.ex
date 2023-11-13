@@ -1,5 +1,6 @@
 defmodule Discussit.TopicAnalyzer.Behaviour do
-  @callback init_model(List.t(), List.t(), Integer.t()) :: List.t()
-  @callback train_model(List.t(), List.t(), Integer.t()) :: List.t()
-  @callback get_topics(Integer.t()) :: Map.t()
+  @callback start() :: {:ok, Pid.t()}
+  @callback stop(Pid.t()) :: :ok
+  @callback start_server(Pid.t()) :: {:ok, Map.t()}
+  @callback stop_server(Pid.t()) :: {:ok, Pid.t()}
 end

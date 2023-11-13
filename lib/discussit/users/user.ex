@@ -1,7 +1,7 @@
 defmodule Discussit.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discussit.AccountUsers.AccountUser 
+  alias Discussit.AccountUsers.AccountUser
   alias Discussit.Accounts.Account
   @tz_options Discussit.TimeZoneOptions.tz_options()
 
