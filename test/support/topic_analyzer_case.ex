@@ -1,8 +1,8 @@
 defmodule Discussit.TopicAnalyzerCase do
   use ExUnit.CaseTemplate
 
-  setup do
-    Application.put_env(:discussit, :topic_analysis_provider, Discussit.MockTopicAnalyzer)
+  setup _ do
+    Application.put_env(:discussit, :topic_analysis_server, Discussit.MockTopicAnalyzer)
     Mox.stub_with(Discussit.MockTopicAnalyzer, Discussit.StubTopicAnalyzer)
 
     :ok

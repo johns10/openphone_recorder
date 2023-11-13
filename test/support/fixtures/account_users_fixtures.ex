@@ -10,9 +10,7 @@ defmodule Discussit.AccountUsersFixtures do
   def account_user_fixture(attrs \\ %{}) do
     {:ok, account_user} =
       attrs
-      |> Enum.into(%{
-
-      })
+      |> Enum.into(%{})
       |> Discussit.AccountUsers.create_account_user()
 
     account_user

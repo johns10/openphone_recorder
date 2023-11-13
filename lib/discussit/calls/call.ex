@@ -16,7 +16,14 @@ defmodule Discussit.Calls.Call do
     field :completed_at, :naive_datetime_usec
 
     field :status, Ecto.Enum,
-      values: [:created, :upload_failed, :upload_empty, :file_uploaded, :transcribing, :transcribed]
+      values: [
+        :created,
+        :upload_failed,
+        :upload_empty,
+        :file_uploaded,
+        :transcribing,
+        :transcribed
+      ]
 
     field :from_channel, Ecto.Enum, values: @channels
     field :to_channel, Ecto.Enum, values: @channels
