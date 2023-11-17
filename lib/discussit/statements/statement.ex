@@ -76,6 +76,8 @@ defmodule Discussit.Statements.Statement do
     |> foreign_key_constraint(:call_id)
     |> foreign_key_constraint(:meeting_id)
     |> foreign_key_constraint(:topic_id)
+    |> foreign_key_constraint(:model_topic_id)
+    |> foreign_key_constraint(:labelled_topic_id)
     |> cast_id()
     |> unique_constraint([:id], name: :statements_pkey)
   end

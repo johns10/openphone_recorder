@@ -3,8 +3,8 @@ defmodule Discussit.Repo.Migrations.AddTopicClassificationToStatements do
 
   def change do
     alter table(:statements) do
-      add :model_topic_id, references(:topics)
-      add :labelled_topic_id, references(:topics)
+      add :model_topic_id, references(:topics, on_delete: :nilify_all)
+      add :labelled_topic_id, references(:topics, on_delete: :nilify_all)
 
       references(:model_topic_id, on_delete: :nilify_all)
       references(:labelled_topic_id, on_delete: :nilify_all)
