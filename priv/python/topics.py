@@ -29,11 +29,13 @@ def new_model(api_key, items_count):
     n_components = 5
     top_n_words = 10
 
-    if items_count < 1000 and items_count < 10000:
+    if items_count > 1000 and items_count < 10000:
         min_cluster_size = 5
+        n_neighbors = 5
 
     if items_count < 250:
-        min_cluster_size = 3
+        min_cluster_size = 2
+        n_neighbors = 2
 
     embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
     hdbscan_model = HDBSCAN(
