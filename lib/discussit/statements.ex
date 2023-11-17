@@ -50,7 +50,13 @@ defmodule Discussit.Statements do
     |> Repo.aggregate(:count, :id)
   end
 
-  def get_statement!(id), do: Repo.get!(Statement, id)
+  def get_statement!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Statement
+    |> preload(^preloads)
+    |> Repo.get!(id)
+  end
 
   defp maybe_filter_by_conversation_id(query, nil), do: query
 

@@ -39,6 +39,8 @@ defmodule Discussit.Statements.Statement do
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :topic, Topic
+    belongs_to :model_topic, Topic
+    belongs_to :labelled_topic, Topic
 
     has_one :embedding, Embedding
 
@@ -64,7 +66,9 @@ defmodule Discussit.Statements.Statement do
       :call_id,
       :ts_range,
       :all_stopwords,
-      :unprocessable
+      :unprocessable,
+      :model_topic_id,
+      :labelled_topic_id
     ])
     |> validate_required([:occurred_at, :type])
     |> foreign_key_constraint(:conversation_id)
