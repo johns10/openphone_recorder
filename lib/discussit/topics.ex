@@ -13,6 +13,8 @@ defmodule Discussit.Topics do
 
     Topic
     |> filter_by_account_id(filters[:account_id])
+    |> search(filters[:search])
+    |> maybe_limit(opts[:limit])
     |> Repo.all()
   end
 
@@ -20,6 +22,17 @@ defmodule Discussit.Topics do
 
   defp filter_by_account_id(query, nil), do: query
   defp filter_by_account_id(query, account_id), do: where(query, [c], c.account_id == ^account_id)
+
+  defp search(query, nil), do: query
+
+  defp search(query, text) do
+    query
+    |> where([t], ilike(t.title, ^"%#{text}%"))
+    |> or_where([t], ilike(t.model_title, ^"%#{text}%"))
+  end
+
+  defp maybe_limit(query, nil), do: query
+  defp maybe_limit(query, value), do: limit(query, ^value)
 
   def create_topic(attrs \\ %{}) do
     %Topic{}

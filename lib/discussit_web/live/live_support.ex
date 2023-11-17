@@ -2,6 +2,9 @@ defmodule DiscussitWeb.LiveSupport do
   def select_options([%Discussit.Users.User{} | _] = users),
     do: Enum.map(users, fn user -> {user.name, user.id} end)
 
+  def select_options([%Discussit.Topics.Topic{} | _] = topics),
+    do: Enum.map(topics, &%{label: &1.title || &1.model_title, value: &1.id})
+
   def select_options(list) when list == [], do: []
 
   def select_options(module, field) do

@@ -681,6 +681,84 @@ defmodule DiscussitWeb.CoreComponents do
     <% end %>
     """
 
+  attr(:id, :string, required: true)
+  attr(:parent_id, :string, required: false)
+  attr(:initial_value, :string, required: false)
+  attr(:search_results, :list, default: [])
+
+  def searchable_drop_down(assigns) do
+    ~H"""
+    <.form
+      :let={f}
+      for={%{"search_phrase" => @initial_value, "parent_id" => @parent_id}}
+      id={@id}
+      phx-change="search"
+      phx-submit="search_option_selected"
+      class="flex-grow max-w-content"
+    >
+      <input
+        type="hidden"
+        id={f["parent_id"].id}
+        name={f["parent_id"].name}
+        value={f["parent_id"].value}
+      />
+      <div class="flex flex-row flex-grow">
+        <input
+          type="text"
+          id={"search-phrase-#{@id}"}
+          name={f["search_phrase"].name}
+          class="btn btn-sm normal-case rounded-r-none text-left flex-grow"
+          value={@initial_value}
+          phx-debounce="500"
+          placeholder="Search..."
+          phx-focus={enable("#options-#{@id}", "#search-phrase-#{@id}")}
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          class="btn btn-sm btn-ghost rounded-l-none"
+          phx-click={JS.focus(to: "#search-phrase-#{@id}")}
+        >
+          <.icon name="hero-chevron-down" />
+        </button>
+      </div>
+      <div
+        class="relative hidden"
+        id={"options-#{@id}"}
+        phx-click-away={disable("#options-#{@id}", "#search-phrase-#{@id}")}
+      >
+        <ul class="menu menu-compact dropdown-content bg-base-300 overflow-hidden flex-col absolute z-50 w-full">
+          <%= for search_result <- @search_results do %>
+            <li
+              class="border-b border-b-base-content/10 w-full"
+              phx-click={
+                disable("#options-#{@id}", "#search-phrase-#{@id}")
+                |> JS.push("select-search-result",
+                  value: %{id: search_result.value, parent_id: @parent_id, context: "statement-topic"}
+                )
+              }
+            >
+              <p class="w-full truncate"><%= search_result.label %></p>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </.form>
+    """
+  end
+
+  def enable(options_id, input_id) do
+    JS.show(to: options_id)
+    |> JS.add_class("input input-sm", to: input_id)
+    |> JS.remove_class("btn btn-sm", to: input_id)
+  end
+
+  def disable(options_id, input_id) do
+    JS.hide(to: options_id)
+    |> JS.add_class("btn btn-sm", to: input_id)
+    |> JS.remove_class("input input-sm", to: input_id)
+  end
+
   ## JS Commands
   def paywall(action, %{default_payment_method_id: id}) when is_binary(id), do: action
 

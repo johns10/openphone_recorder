@@ -52,17 +52,27 @@
         <% %{type: "statement", data: statement} -> %>
           <div id={id}>
             <div class="px-4 w-full flex flex-row items-center space-x-2">
-              <.participant participant={statement.participant} class="" />
               <div class="text-xs">
                 <%= render_date(statement.occurred_at, @current_user) %>
               </div>
             </div>
-            <div class="chat chat-start">
+            <div class="card bg-neutral mx-2 my-2">
               <div class={[
-                "chat-bubble z-0",
+                "card-body p-4",
                 if(statement.call_id, do: "chat-bubble-accent"),
                 if(statement.meeting_id, do: "chat-bubble-primary")
               ]}>
+                <div class="card-title text-base">
+                  <div class="flex flex-grow justify-between">
+                    <.participant participant={statement.participant} class="" />
+                    <.searchable_drop_down
+                      parent_id={statement.id}
+                      initial_value={safe_topic_title(statement)}
+                      id={"#{statement.id}"}
+                      search_results={@search_results}
+                    />
+                  </div>
+                </div>
                 <%= statement.content %>
               </div>
             </div>

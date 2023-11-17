@@ -8,13 +8,24 @@ defmodule DiscussitWeb.IndexLive.Index do
   on_mount({DiscussitWeb.UserAuth, :mount_current_user})
 
   import DiscussitWeb.IndexLive.Components
+  import DiscussitWeb.LiveSupport
 
   alias Discussit.Conversations
+  alias Discussit.Topics
   alias Discussit.Calls
   alias Discussit.Statements
+  alias Discussit.Statements.Statement
   alias Discussit.Participants
   alias Discussit.ConversationWorker
   alias Discussit.Summaries.Summary
+  alias Discussit.Topics.Topic
+
+  @statement_preloads [
+    :model_topic,
+    :labelled_topic,
+    :participant,
+    [participant: [:contact, [phone_number: :contacts]]]
+  ]
 
   @impl true
   def mount(_, _, %{assigns: %{current_user: %{selected_account_id: nil}}} = socket) do
@@ -36,6 +47,10 @@ defmodule DiscussitWeb.IndexLive.Index do
       socket.assigns.current_user.selected_account_id
       |> Conversations.list_conversation_summary(limit: 20)
 
+    topics =
+      Topics.list_topics(limit: 5)
+      |> select_options()
+
     {:ok,
      socket
      |> assign(:zoom_level, 0)
@@ -46,7 +61,8 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> stream(:conversations, conversations)
      |> assign(:end_of_timeline?, false)
      |> assign(:worker_busy?, true)
-     |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
+     |> stream(:conversation_items, [])
+     |> assign(:search_results, topics), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
@@ -129,6 +145,40 @@ defmodule DiscussitWeb.IndexLive.Index do
     ConversationWorker.transcribe_calls(socket.assigns.conversation, ids)
 
     {:noreply, socket}
+  end
+
+  def handle_event("search", payload, socket) do
+    %{"parent_id" => statement_id, "search_phrase" => search} = payload
+
+    topics =
+      Topics.list_topics(filters: [search: search], limit: 5)
+      |> select_options()
+
+    statement =
+      Statements.get_statement!(statement_id, preloads: @statement_preloads)
+      |> cast_conversation_item()
+
+    {:noreply,
+     socket
+     |> assign(:search_results, topics)
+     |> stream_insert(:conversation_items, statement, at: -1)}
+  end
+
+  def handle_event("select-search-result", payload, socket) do
+    %{"id" => topic_id, "parent_id" => statement_id} = payload
+    topic = Topics.get_topic!(topic_id)
+
+    {:ok, statement} =
+      statement_id
+      |> Statements.get_statement!(preloads: @statement_preloads)
+      |> Statements.update_statement(%{labelled_topic_id: topic_id})
+
+    statement =
+      statement
+      |> Map.put(:labelled_topic, topic)
+      |> cast_conversation_item()
+
+    {:noreply, socket |> stream_insert(:conversation_items, statement, at: -1)}
   end
 
   defp apply_action(%{assigns: %{current_user: %{selected_account_id: nil}}} = socket, _, _),
@@ -292,11 +342,9 @@ defmodule DiscussitWeb.IndexLive.Index do
         statements =
           Statements.list_statements(
             filters: [conversation_id: conversation_id],
-            preloads: [:participant, [participant: [:contact, [phone_number: :contacts]]]]
+            preloads: @statement_preloads
           )
-          |> Enum.map(
-            &%{type: "statement", data: &1, id: "statement-#{&1.id}", timestamp: &1.occurred_at}
-          )
+          |> Enum.map(&cast_conversation_item/1)
 
         calls =
           [
@@ -366,6 +414,14 @@ defmodule DiscussitWeb.IndexLive.Index do
     end
   end
 
+  def cast_conversation_item(%Statement{} = statement),
+    do: %{
+      type: "statement",
+      data: statement,
+      id: "statement-#{statement.id}",
+      timestamp: statement.occurred_at
+    }
+
   defp map_summaries_to_conversation_items(summaries) do
     Enum.map(summaries, &map_summary_to_conversation_item/1)
   end
@@ -405,5 +461,18 @@ defmodule DiscussitWeb.IndexLive.Index do
       end)
 
     assign(socket, :transcription_status, status)
+  end
+
+  def safe_topic_title(statement) do
+    topic =
+      case statement do
+        %{labelled_topic: %Topic{} = labelled_topic} -> labelled_topic
+        %{model_topic: %Topic{} = model_topic} -> model_topic
+        _ -> nil
+      end
+
+    if is_struct(topic, Topic),
+      do: topic.title || topic.model_title,
+      else: ""
   end
 end
