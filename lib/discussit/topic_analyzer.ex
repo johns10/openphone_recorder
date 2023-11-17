@@ -60,7 +60,7 @@ defmodule Discussit.TopicAnalyzer do
       {statement, %{topic: topic_id}} ->
         topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
 
-        case Statements.update_statement(statement, %{topic_id: topic_id}) do
+        case Statements.update_statement(statement, %{model_topic_id: topic_id}) do
           {:ok, statement} ->
             statement
 
