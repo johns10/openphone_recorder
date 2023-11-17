@@ -34,10 +34,12 @@ defmodule Discussit.TopicAnalyzer.Client do
   end
 
   @impl true
-  def handle_info({:EXIT, pid, :normal}, state) do
-    Logger.info("#{__MODULE__} received an exit signal")
+  def handle_info({:EXIT, pid, :normal}, %{websocket_pid: websocket_pid, owner: owner} = state) do
+    Logger.error(
+      "#{__MODULE__} received an exit signal from pid #{inspect(pid)} (alive: #{Process.alive?(pid)}), client pid is #{inspect(websocket_pid)}, owner pid is #{inspect(owner)}"
+    )
 
-    case Process.alive?(pid) do
+    case Process.alive?(pid) || owner == pid do
       false -> {:noreply, state}
       true -> {:stop, :shutdown, state}
     end
@@ -97,6 +99,10 @@ defmodule Discussit.TopicAnalyzer.WebsocketClient do
     %{payload: %{topics: topics}} = msg
     Process.send(pid, {:topics_received, topics}, [])
     {:ok, state}
+  end
+
+  def handle_disconnect(_conn, _state) do
+    Logger.warn("Websocket Disconnected!")
   end
 
   def send_statement(statement) do
