@@ -104,11 +104,22 @@ def new_model(api_key, items_count):
     )
 
 
-def init_model(content, embeddings, model_path, api_key):
+def init_model(data, model_path, api_key):
+    content = [item["content"] for item in data]
+    embeddings = numpy.asarray([item["vector"] for item in data])
+    ids = [item["id"] for item in data]
     topic_model = new_model(api_key, content.__len__())
     new_topics = fit_topics(topic_model, content, embeddings)
+    doc_info = topic_model.get_document_info(content)
+    doc_info["id"] = ids
+    doc_info = doc_info.rename(
+        columns=({"Topic": "topic_id", "Representative_document": "representative_doc"})
+    )
+    new_topics = doc_info.get(["id", "topic_id", "representative_doc"])
+    topics = get_topics(topic_model)
     save_new_model(topic_model, model_path)
-    return new_topics, topic_model
+    del topic_model
+    return new_topics.to_dict(orient="records"), cast_topics(topics)
 
 
 def train_model(statements, embeddings, model_path_bytes):

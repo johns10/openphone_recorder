@@ -43,26 +43,16 @@ def echo(ws):
             ws.send(json_result)
         if data["message_type"] == "init_model":
             payload = data["payload"]
-            content = [item["content"] for item in TRAINING_DATA]
-            embeddings = numpy.asarray([item["vector"] for item in TRAINING_DATA])
-            ids = [item["id"] for item in TRAINING_DATA]
             model_path = payload["model_path"]
             api_key = payload["openai_api_key"]
+            ids = [item["id"] for item in TRAINING_DATA]
+            topic_assignments, topics = init_model(TRAINING_DATA, model_path, api_key)
             TRAINING_DATA.clear()
-            topic_assignments, topic_model = init_model(
-                content, embeddings, model_path, api_key
-            )
-            topics = get_topics(topic_model)
-            casted_topics = cast_topics(topics)
-            zipped_topic_assignments = [
-                {"id": item[0], "topic": item[1]}
-                for item in zip(ids, topic_assignments)
-            ]
             result = {
                 "message_type": "model_initialized",
                 "payload": {
-                    "topic_assignments": zipped_topic_assignments,
-                    "topics": casted_topics,
+                    "topic_assignments": topic_assignments,
+                    "topics": topics,
                 },
             }
             json_result = json.dumps(result)

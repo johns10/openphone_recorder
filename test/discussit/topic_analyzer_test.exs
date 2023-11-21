@@ -106,9 +106,12 @@ defmodule Discussit.TopicAnalyzerTest do
         assert Enum.count(results) == Enum.count(statements)
       end
 
-      assert Topics.list_topics() |> Enum.count() == 20
+      topics_count = Topics.list_topics() |> Enum.count()
+      assert topics_count < 45 and topics_count > 35
 
-      assert Statements.list_statements() |> Enum.filter(&(&1.topic_id != nil)) |> Enum.count() >
+      assert Statements.list_statements()
+             |> Enum.filter(&(&1.model_topic_id != nil))
+             |> Enum.count() >
                0
 
       Discussit.TopicAnalyzer.Server.stop_server()

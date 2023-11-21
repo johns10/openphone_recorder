@@ -31,12 +31,13 @@ defmodule Discussit.TopicAnalyzer do
 
   def train(%Account{} = account) do
     query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
+    model_path = local_path(account)
 
     with true <- model_exists?(account),
          statements <- Statements.list_statements(query_opts),
-         {:ok, statement_topics} <- provider().train_model(statements, local_path(account)),
+         {:ok, statement_topics} <- provider().train_model(statements, model_path),
          # TODO Implement model backup here
-         {:ok, model_topics} <- provider().get_topics(local_path(account)),
+         {:ok, model_topics} <- provider().get_topics(model_path),
          topics <- insert_new_topics(model_topics, account.id),
          statements <- update_statement_topics(statements, statement_topics, topics) do
       {:ok, statements}
@@ -54,13 +55,13 @@ defmodule Discussit.TopicAnalyzer do
 
     Enum.zip(statements, statement_topics)
     |> Enum.map(fn
-      {statement, %{topic: -1}} ->
+      {statement, %{topic_id: -1}} ->
         statement
 
-      {statement, %{topic: topic_id}} ->
-        topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
+      {statement, %{topic_id: topic_id}} ->
+        model_topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
 
-        case Statements.update_statement(statement, %{model_topic_id: topic_id}) do
+        case Statements.update_statement(statement, %{model_topic_id: model_topic_id}) do
           {:ok, statement} ->
             statement
 
