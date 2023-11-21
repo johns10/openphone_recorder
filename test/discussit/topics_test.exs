@@ -15,6 +15,12 @@ defmodule Discussit.TopicsTest do
       assert Topics.list_topics() == [topic]
     end
 
+    test "list_topics/1 returns topics with nil title" do
+      topic = topic_fixture(%{title: nil})
+      topic_fixture()
+      assert Topics.list_topics(filters: [title_is_nil: true]) == [topic]
+    end
+
     test "get_topic!/1 returns the topic with given id" do
       topic = topic_fixture()
       assert Topics.get_topic!(topic.id) == topic

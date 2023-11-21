@@ -13,6 +13,7 @@ defmodule Discussit.Topics do
 
     Topic
     |> filter_by_account_id(filters[:account_id])
+    |> filter_by_title_is_nil(filters[:title_is_nil])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
     |> Repo.all()
@@ -21,7 +22,10 @@ defmodule Discussit.Topics do
   def get_topic!(id), do: Repo.get!(Topic, id)
 
   defp filter_by_account_id(query, nil), do: query
-  defp filter_by_account_id(query, account_id), do: where(query, [c], c.account_id == ^account_id)
+  defp filter_by_account_id(query, account_id), do: where(query, [t], t.account_id == ^account_id)
+
+  defp filter_by_title_is_nil(query, nil), do: query
+  defp filter_by_title_is_nil(query, _), do: where(query, [t], is_nil(t.title))
 
   defp search(query, nil), do: query
 
