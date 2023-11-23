@@ -51,7 +51,9 @@ defmodule Discussit.Topics do
   end
 
   def delete_topic(%Topic{} = topic) do
-    Repo.delete(topic)
+    topic
+    |> Topic.changeset(%{})
+    |> Repo.delete()
   end
 
   def change_topic(%Topic{} = topic, attrs \\ %{}) do

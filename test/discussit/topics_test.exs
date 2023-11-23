@@ -2,11 +2,14 @@ defmodule Discussit.TopicsTest do
   use Discussit.DataCase
 
   alias Discussit.Topics
+  alias Discussit.Statements
 
   describe "topics" do
     alias Discussit.Topics.Topic
+    alias Discussit.Statements.Statement
 
     import Discussit.TopicsFixtures
+    import Discussit.StatementsFixtures
 
     @invalid_attrs %{sentiment: nil, description: nil, model_title: nil}
 
@@ -75,6 +78,20 @@ defmodule Discussit.TopicsTest do
       topic = topic_fixture()
       assert {:ok, %Topic{}} = Topics.delete_topic(topic)
       assert_raise Ecto.NoResultsError, fn -> Topics.get_topic!(topic.id) end
+    end
+
+    test "delete_topic/1 deletes a topic and dereferences statement with model_topic_id" do
+      topic = topic_fixture()
+      statement = statement_fixture(%{model_topic_id: topic.id})
+      assert {:ok, %Topic{}} = Topics.delete_topic(topic)
+      assert %Statement{model_topic_id: nil} = Statements.get_statement!(statement.id)
+    end
+
+    test "delete_topic/1 fails when a statement has labelled_topic_id" do
+      topic = topic_fixture()
+      statement = statement_fixture(%{labelled_topic_id: topic.id})
+      assert {:error, %{errors: [labelled_statements: _]}} = Topics.delete_topic(topic)
+      assert statement == Statements.get_statement!(statement.id)
     end
 
     test "change_topic/1 returns a topic changeset" do

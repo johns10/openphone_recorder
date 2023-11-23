@@ -17,6 +17,8 @@ defmodule Discussit.Topics.Topic do
     belongs_to :account, Account, type: :binary_id
 
     has_many :statements, Statement
+    has_many :model_statements, Statement, foreign_key: :model_topic_id
+    has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
 
     timestamps()
   end
@@ -38,6 +40,7 @@ defmodule Discussit.Topics.Topic do
     ])
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)
+    |> no_assoc_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
     |> validate_required([:model_id, :model_title])
   end
 
