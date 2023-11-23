@@ -5,6 +5,7 @@ defmodule Discussit.Repo.Migrations.AddTopicClassificationToStatements do
     alter table(:statements) do
       add :model_topic_id, references(:topics, on_delete: :nilify_all)
       add :labelled_topic_id, references(:topics, on_delete: :nothing)
+      add :representative, :boolean
     end
 
     create index(:statements, [:model_topic_id])

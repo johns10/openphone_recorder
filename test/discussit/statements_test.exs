@@ -105,13 +105,15 @@ defmodule Discussit.StatementsTest do
         source: :openphone,
         content: "some content",
         occurred_at: ~U[2023-03-28 10:21:00Z],
-        type: :call
+        type: :call,
+        representative: true
       }
 
       assert {:ok, %Statement{} = statement} = Statements.create_statement(valid_attrs)
       assert statement.content == "some content"
       assert statement.occurred_at == ~N[2023-03-28 10:21:00.000000Z]
       assert statement.type == :call
+      assert statement.representative == true
     end
 
     test "create_statement/1 with invalid data returns error changeset" do
@@ -124,7 +126,8 @@ defmodule Discussit.StatementsTest do
       update_attrs = %{
         content: "some updated content",
         occurred_at: ~U[2023-03-29 10:21:00Z],
-        type: :voicemail
+        type: :voicemail,
+        representative: false
       }
 
       assert {:ok, %Statement{} = statement} =
@@ -133,6 +136,7 @@ defmodule Discussit.StatementsTest do
       assert statement.content == "some updated content"
       assert statement.occurred_at == ~N[2023-03-29 10:21:00.000000Z]
       assert statement.type == :voicemail
+      assert statement.representative == false
     end
 
     test "update_statement/2 with invalid data returns error changeset" do

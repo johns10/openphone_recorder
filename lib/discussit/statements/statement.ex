@@ -33,6 +33,7 @@ defmodule Discussit.Statements.Statement do
     field :ts_range, TsRange
     field :all_stopwords, :boolean
     field :unprocessable, :boolean
+    field :representative, :boolean
 
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
@@ -68,7 +69,8 @@ defmodule Discussit.Statements.Statement do
       :all_stopwords,
       :unprocessable,
       :model_topic_id,
-      :labelled_topic_id
+      :labelled_topic_id,
+      :representative
     ])
     |> validate_required([:occurred_at, :type])
     |> foreign_key_constraint(:conversation_id)
