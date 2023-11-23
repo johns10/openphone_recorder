@@ -104,10 +104,11 @@ defmodule DiscussitWeb.TopicLive.Index do
   end
 
   def delete_topics(account) do
-    Topics.list_topics(filters: [account_id: account.id])
+    Topics.list_topics(filters: [account_id: account.id, title_is_nil: true])
     |> Enum.reduce_while(:ok, fn topic, _ ->
       case Topics.delete_topic(topic) do
         {:ok, _} -> {:cont, :ok}
+        {:error, %{errors: [labelled_statements: _]}} -> {:cont, :ok}
         {:error, _} -> {:halt, :error}
       end
     end)
