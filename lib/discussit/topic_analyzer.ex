@@ -55,13 +55,14 @@ defmodule Discussit.TopicAnalyzer do
 
     Enum.zip(statements, statement_topics)
     |> Enum.map(fn
-      {statement, %{topic_id: -1}} ->
+      {statement, %{model_topic_id: -1}} ->
         statement
 
-      {statement, %{topic_id: topic_id}} ->
+      {statement, %{model_topic_id: topic_id, representative: representative}} ->
         model_topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
+        attrs = %{model_topic_id: model_topic_id, representative: representative}
 
-        case Statements.update_statement(statement, %{model_topic_id: model_topic_id}) do
+        case Statements.update_statement(statement, attrs) do
           {:ok, statement} ->
             statement
 

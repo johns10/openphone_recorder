@@ -113,9 +113,11 @@ def init_model(data, model_path, api_key):
     doc_info = topic_model.get_document_info(content)
     doc_info["id"] = ids
     doc_info = doc_info.rename(
-        columns=({"Topic": "topic_id", "Representative_document": "representative_doc"})
+        columns=(
+            {"Topic": "model_topic_id", "Representative_document": "representative"}
+        )
     )
-    new_topics = doc_info.get(["id", "topic_id", "representative_doc"])
+    new_topics = doc_info.get(["id", "model_topic_id", "representative"])
     topics = get_topics(topic_model)
     save_new_model(topic_model, model_path)
     del topic_model
