@@ -10,6 +10,7 @@ defmodule Discussit.TopicAnalyzerTest do
   import Discussit.StatementsFixtures
   import Discussit.EmbeddingsFixtures
   import Discussit.ParticipantsFixtures
+  import Discussit.TopicsFixtures
 
   describe "Topic Analyzer initialization" do
     setup do
@@ -67,7 +68,7 @@ defmodule Discussit.TopicAnalyzerTest do
     end
 
     @tag :integration
-    test "integration", %{account: account, bucket: bucket, object: object} do
+    test "empty initialization works", %{account: account, bucket: bucket, object: object} do
       Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
       {:ok, _} = start_supervised({Discussit.TopicAnalyzer.Server, %{}})
       :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
@@ -111,10 +112,73 @@ defmodule Discussit.TopicAnalyzerTest do
 
       assert Statements.list_statements()
              |> Enum.filter(&(&1.model_topic_id != nil))
-             |> Enum.count() >
-               0
+             |> Enum.count() > 0
 
       Discussit.TopicAnalyzer.Server.stop_server()
+    end
+
+    @tag :integration
+    test "labelled initialization works", %{account: account, bucket: bucket, object: object} do
+      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
+      {:ok, _} = start_supervised({Discussit.TopicAnalyzer.Server, %{}})
+      :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
+
+      conversation = conversation_fixture(%{account_id: account.id})
+      bathtub_topic = topic_fixture(%{title: "Bathtub cleaning", model_id: 1})
+      sink_topic = topic_fixture(%{title: "Sink cleaning", model_id: 2})
+      floor_topic = topic_fixture(%{title: "Floor cleaning", model_id: 3})
+
+      case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
+        {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
+        _ -> nil
+      end
+
+      bathtub_statements =
+        bathtub_cleaning_content()
+        |> Enum.map(
+          &statement_fixture(%{
+            content: &1,
+            conversation_id: conversation.id,
+            labelled_topic_id: bathtub_topic.id
+          })
+        )
+
+      sink_statements =
+        sink_cleaning_contant()
+        |> Enum.map(
+          &statement_fixture(%{
+            content: &1,
+            conversation_id: conversation.id,
+            labelled_topic_id: sink_topic.id
+          })
+        )
+
+      floor_statements =
+        floor_cleaning_content()
+        |> Enum.map(
+          &statement_fixture(%{
+            content: &1,
+            conversation_id: conversation.id,
+            labelled_topic_id: floor_topic.id
+          })
+        )
+
+      statements = bathtub_statements ++ sink_statements ++ floor_statements
+
+      use_cassette("embedding_calls", match_requests_on: [:request_body]) do
+        statements
+        |> Enum.map(fn statement ->
+          {:ok, vector} = Discussit.Embeddings.Impl.get_embedding(statement.content)
+          embedding_fixture(%{statement_id: statement.id, vector: vector})
+        end)
+      end
+
+      use_cassette("no existing_object") do
+        {:ok, results} = TopicAnalyzer.init(account)
+      end
+
+      topics_count = Topics.list_topics() |> Enum.count()
+      assert topics_count == 16
     end
   end
 

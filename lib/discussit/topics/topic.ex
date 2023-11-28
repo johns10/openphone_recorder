@@ -4,6 +4,15 @@ defmodule Discussit.Topics.Topic do
   alias Discussit.Accounts.Account
   alias Discussit.Statements.Statement
 
+  @derive {Jason.Encoder,
+           only: [
+             :id,
+             :model_id,
+             :title,
+             :model_title,
+             :description,
+             :model_description
+           ]}
   schema "topics" do
     field :model_id, :integer
     field :sentiment, :integer

@@ -21,7 +21,8 @@ defmodule Discussit.Statements.Statement do
              :ts_range,
              :all_stopwords,
              :unprocessable,
-             :embedding
+             :embedding,
+             :labelled_topic
            ]}
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "statements" do

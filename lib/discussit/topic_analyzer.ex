@@ -8,7 +8,11 @@ defmodule Discussit.TopicAnalyzer do
   def init(%Account{} = account) do
     bucket = Application.get_env(:discussit, :bucket)
     object = object_path(account)
-    query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
+
+    query_opts = [
+      filters: [embedded: true, account_id: account.id],
+      preloads: [:embedding, :labelled_topic]
+    ]
 
     model_attrs = %{
       model_path: local_path(account),

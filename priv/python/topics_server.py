@@ -1,12 +1,6 @@
 from flask import Flask
 from flask_sock import Sock
-from topics import (
-    init_model,
-    get_topics,
-    load_model,
-    cast_topics,
-    cleanup_modules,
-)
+from topics import init_model, get_topics, load_model
 import json
 import numpy
 import threading
@@ -38,7 +32,14 @@ def echo(ws):
             id = payload["id"]
             content = payload["content"]
             vector = numpy.asarray(payload["embedding"]["vector"])
-            TRAINING_DATA.append({"id": id, "content": content, "vector": vector})
+            TRAINING_DATA.append(
+                {
+                    "id": id,
+                    "content": content,
+                    "vector": vector,
+                    "labelled_topic": payload["labelled_topic"],
+                }
+            )
             json_result = json.dumps({"message_type": "statement_received", "id": id})
             ws.send(json_result)
         if data["message_type"] == "init_model":

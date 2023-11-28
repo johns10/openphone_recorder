@@ -107,9 +107,10 @@ def new_model(api_key, items_count):
 def init_model(data, model_path, api_key):
     content = [item["content"] for item in data]
     embeddings = numpy.asarray([item["vector"] for item in data])
+    labels = cast_statements_and_topics(data)
     ids = [item["id"] for item in data]
     topic_model = new_model(api_key, content.__len__())
-    new_topics = fit_topics(topic_model, content, embeddings)
+    new_topics = fit_topics(topic_model, content, embeddings, labels)
     doc_info = topic_model.get_document_info(content)
     doc_info["id"] = ids
     doc_info = doc_info.rename(
@@ -132,8 +133,8 @@ def train_model(statements, embeddings, model_path_bytes):
     return new_topics
 
 
-def fit_topics(model, statements, embeddings):
-    topics, probs = model.fit_transform(statements, embeddings)
+def fit_topics(model, statements, embeddings, labels):
+    topics, probs = model.fit_transform(statements, embeddings, y=labels)
     return topics
 
 
@@ -156,6 +157,17 @@ def cast_topics(topics):
         else:
             results = [v | r for v, r in zip(values, results)]
     return results
+
+
+def cast_statements_and_topics(statements):
+    result = []
+    for statement in statements:
+        if "labelled_topic" in statement:
+            if statement["labelled_topic"]["title"]:
+                result.append(statement["labelled_topic"]["model_id"])
+        else:
+            result.append(-1)
+    return result
 
 
 def assign_values(key, value, id):
