@@ -180,6 +180,76 @@ defmodule Discussit.TopicAnalyzerTest do
       topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count == 14
     end
+
+    @tag :integration
+    test "label reuse", %{account: account, bucket: bucket, object: object} do
+      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
+      {:ok, _} = start_supervised({Discussit.TopicAnalyzer.Server, %{}})
+      :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
+
+      conversation = conversation_fixture(%{account_id: account.id})
+      participant = participant_fixture()
+
+      case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
+        {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
+        _ -> nil
+      end
+
+      statements =
+        (bathtub_cleaning_content() ++
+           sink_cleaning_contant() ++
+           floor_cleaning_content())
+        |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+
+      use_cassette("embedding_calls", match_requests_on: [:request_body]) do
+        statements
+        |> Enum.map(fn statement ->
+          {:ok, vector} = Discussit.Embeddings.Impl.get_embedding(statement.content)
+          embedding_fixture(%{statement_id: statement.id, vector: vector})
+        end)
+      end
+
+      use_cassette("no existing_object") do
+        {:ok, results} = TopicAnalyzer.init(account)
+        assert Enum.count(results) == Enum.count(statements)
+      end
+
+      topics_count = Topics.list_topics() |> Enum.count()
+      assert topics_count in [12, 13, 14, 15]
+
+      Topics.list_topics()
+      |> Enum.map(&IO.inspect(&1.model_title))
+
+      Statements.list_statements()
+      |> Enum.map(fn statements -> 
+        Statements.update_statement(statements, %{labelled_topic_id: statements.model_topic_id}) 
+      end)
+
+      more_statements =
+        (toilet_cleaning_content() ++
+           shower_cleaning_content() ++
+           floor_cleaning_content_2())
+        |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
+      
+      use_cassette("embedding_calls", match_requests_on: [:request_body]) do
+        more_statements
+        |> Enum.map(fn statement ->
+          {:ok, vector} = Discussit.Embeddings.Impl.get_embedding(statement.content)
+          embedding_fixture(%{statement_id: statement.id, vector: vector})
+        end)
+      end
+
+      use_cassette("no existing_object") do
+        {:ok, results} = TopicAnalyzer.init(account)
+        assert Enum.count(results) == Enum.count(statements ++ more_statements)
+      end
+
+      topics_count = Topics.list_topics() |> Enum.count()
+      assert topics_count in [22, 23, 24, 25, 26, 27, 28]
+
+      Topics.list_topics()
+      |> Enum.map(&IO.inspect(&1.model_title))
+    end
   end
 
   describe "Topic Analyzer training" do

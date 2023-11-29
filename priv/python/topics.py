@@ -165,6 +165,8 @@ def cast_statements_and_topics(statements):
         if "labelled_topic" in statement and statement["labelled_topic"] != None:
             if statement["labelled_topic"]["title"]:
                 result.append(statement["labelled_topic"]["model_id"])
+            else:
+                result.append(-1)
         else:
             result.append(-1)
     return result

@@ -80,8 +80,8 @@ defmodule Discussit.TopicAnalyzer do
       attrs = Map.put(model_topic, :account_id, account_id)
 
       case Topics.get_topic_by(%{model_id: model_id, account_id: account_id}) do
-        nil ->  Topics.create_topic(attrs)
-        %Topic{} = topic -> Topics.update_topic(topic, attrs)
+        nil ->   Topics.create_topic(attrs)
+        %Topic{} = topic ->   Topics.update_topic(topic, attrs)
       end
       |> case do
         {:ok, topic} -> topic
