@@ -10,6 +10,7 @@ defmodule Discussit.TopicsTest do
 
     import Discussit.TopicsFixtures
     import Discussit.StatementsFixtures
+    import Discussit.AccountsFixtures
 
     @invalid_attrs %{sentiment: nil, description: nil, model_title: nil}
 
@@ -27,6 +28,12 @@ defmodule Discussit.TopicsTest do
     test "get_topic!/1 returns the topic with given id" do
       topic = topic_fixture()
       assert Topics.get_topic!(topic.id) == topic
+    end
+
+    test "get_topic_by/1 returns the topic with the given model id" do
+      account = account_fixture()
+      topic = topic_fixture(%{account_id: account.id, model_id: 5})
+      assert Topics.get_topic_by(%{account_id: account.id, model_id: 5}) == topic
     end
 
     test "create_topic/1 with valid data creates a topic" do

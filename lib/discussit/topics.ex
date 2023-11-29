@@ -21,6 +21,10 @@ defmodule Discussit.Topics do
 
   def get_topic!(id), do: Repo.get!(Topic, id)
 
+  def get_topic_by(filters \\ []) do
+    Repo.get_by(Topic, filters)
+  end
+
   defp filter_by_account_id(query, nil), do: query
   defp filter_by_account_id(query, account_id), do: where(query, [t], t.account_id == ^account_id)
 
