@@ -124,9 +124,9 @@ defmodule Discussit.TopicAnalyzerTest do
       :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
 
       conversation = conversation_fixture(%{account_id: account.id})
-      bathtub_topic = topic_fixture(%{title: "Bathtub cleaning", model_id: 1})
-      sink_topic = topic_fixture(%{title: "Sink cleaning", model_id: 2})
-      floor_topic = topic_fixture(%{title: "Floor cleaning", model_id: 3})
+      bathtub_topic = topic_fixture(%{title: "Bathtub cleaning", model_id: 1, account_id: account.id})
+      sink_topic = topic_fixture(%{title: "Sink cleaning", model_id: 2, account_id: account.id})
+      floor_topic = topic_fixture(%{title: "Floor cleaning", model_id: 3, account_id: account.id})
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
         {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
@@ -178,7 +178,7 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       topics_count = Topics.list_topics() |> Enum.count()
-      assert topics_count == 16
+      assert topics_count == 14
     end
   end
 

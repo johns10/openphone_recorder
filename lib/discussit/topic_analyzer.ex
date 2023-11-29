@@ -2,6 +2,7 @@ defmodule Discussit.TopicAnalyzer do
   alias Discussit.Accounts.Account
   alias Discussit.Statements
   alias Discussit.Topics
+  alias Discussit.Topics.Topic
   alias Discussit.TopicAnalyzer.Server
   require Logger
 
@@ -67,42 +68,26 @@ defmodule Discussit.TopicAnalyzer do
         attrs = %{model_topic_id: model_topic_id, representative: representative}
 
         case Statements.update_statement(statement, attrs) do
-          {:ok, statement} ->
-            statement
-
-          {:error, changeset} ->
-            Logger.error(
-              "#{__MODULE__}.update_statement_topics failed due to #{inspect(changeset)}"
-            )
+          {:ok, statement} -> statement
+          {:error, c} -> Logger.error("#{__MODULE__}.update_statement_topics #{inspect(c)}")
         end
     end)
   end
 
   defp insert_new_topics(model_topics, account_id) do
-    topics = Topics.list_topics(filters: [account_id: account_id])
+    model_topics
+    |> Enum.map(fn %{model_id: model_id} = model_topic ->
+      attrs = Map.put(model_topic, :account_id, account_id)
 
-    new_model_topics =
-      Enum.reduce(topics, model_topics, fn topic, acc ->
-        Map.delete(acc, topic.model_id)
-      end)
-
-    new_topics =
-      new_model_topics
-      |> Enum.filter(&(&1.model_id != -1))
-      |> Enum.map(fn attrs ->
-        attrs
-        |> Map.put(:account_id, account_id)
-        |> Topics.create_topic()
-        |> case do
-          {:ok, topic} ->
-            topic
-
-          {:error, changeset} ->
-            Logger.error("#{__MODULE__}.insert_new_topics failed because #{inspect(changeset)}")
-        end
-      end)
-
-    Enum.uniq(new_topics ++ topics)
+      case Topics.get_topic_by(%{model_id: model_id, account_id: account_id}) do
+        nil ->  Topics.create_topic(attrs)
+        %Topic{} = topic -> Topics.update_topic(topic, attrs)
+      end
+      |> case do
+        {:ok, topic} -> topic
+        {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
+      end
+    end)
   end
 
   defp create_model(bucket, object) do
