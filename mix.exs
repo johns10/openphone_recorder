@@ -78,7 +78,7 @@ defmodule Discussit.MixProject do
       {:oban, "~> 2.16"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
-      {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},
       {:minio_server, "~> 0.3.2", only: :dev},
       {:mix_test_watch, "~> 1.0", runtime: false},
       {:mox, "~> 1.0", only: :test},
