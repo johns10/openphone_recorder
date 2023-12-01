@@ -1,5 +1,19 @@
+<style>
+  body {
+    min-height: 100vh;
+    min-height: -moz-available;
+    min-height: -webkit-fill-available;
+    min-height: fill-available;
+  }
+
+  html {
+    height: fill-available;
+    height: -webkit-fill-available;
+  }
+</style>
+
 <div class="flex flex-col w-full overflow-y-scroll">
-  <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+  <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
     Topics
     <div>
       <.button
@@ -32,29 +46,57 @@
     </div>
   </div>
 
-  <.table
+  <div
+    class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 m-4"
     id="topics"
-    rows={@streams.topics}
-    row_click={fn {_id, topic} -> JS.navigate(~p"/topics/#{topic}") end}
+    phx-update="stream"
   >
-    <:col :let={{_id, topic}} label="Title"><%= topic.title || topic.model_title %></:col>
-    <:col :let={{_id, topic}} label="Description"><%= topic.description %></:col>
-    <:col :let={{_id, topic}} label="Sentiment"><%= topic.sentiment %></:col>
-    <:action :let={{_id, topic}}>
-      <div class="sr-only">
-        <.link navigate={~p"/topics/#{topic}"}>Show</.link>
+    <div :for={{id, topic} <- @streams.topics} id={id} class="card bg-base-200 shadow-xl w-full">
+      <div class="card-body">
+        <div class="flex flex-row">
+          <h2 class="card-title line-clamp-2">
+            <%= topic.title || topic.model_title %>
+          </h2>
+        </div>
+        <p class="line-clamp-6"><%= topic.description %></p>
+        <div class="flex flex-row flex-wrap w-full line-clamp-3 max-h-14">
+          <div
+            :for={%{"keyword" => kw, "probability" => probability} <- topic.keywords}
+            class={[
+              "badge m-1",
+              case probability do
+                p when p < 0.1 -> "bg-primary"
+                p when p > 0.1 and p < 0.2 -> "bg-primary/10"
+                p when p > 0.2 and p < 0.3 -> "bg-primary/20"
+                p when p > 0.3 and p < 0.4 -> "bg-primary/30"
+                p when p > 0.4 and p < 0.5 -> "bg-primary/40"
+                p when p > 0.5 and p < 0.6 -> "bg-primary/50"
+                p when p > 0.6 and p < 0.7 -> "bg-primary/60"
+                p when p > 0.7 and p < 0.8 -> "bg-primary/70"
+                p when p > 0.8 and p < 0.9 -> "bg-primary/80"
+                p when p > 0.9 and p < 1.0 -> "bg-primary/90"
+                p when p >= 1.0 -> "bg-primary/100"
+              end
+            ]}
+          >
+            <%= kw %>
+          </div>
+        </div>
+        <div class="card-actions">
+          <.link patch={~p"/topics/#{topic}/edit"}>
+            <div class="btn btn-square btn-sm btn-outline my-0">
+              <.icon name="hero-pencil-square" class="w-5 h-5" />
+            </div>
+          </.link>
+          <.link patch={~p"/topics/#{topic}"}>
+            <div class="btn btn-square btn-sm btn-outline my-0">
+              <.icon name="hero-magnifying-glass" class="w-5 h-5" />
+            </div>
+          </.link>
+        </div>
       </div>
-      <.link patch={~p"/topics/#{topic}/edit"}>Edit</.link>
-    </:action>
-    <:action :let={{id, topic}}>
-      <.link
-        phx-click={JS.push("delete", value: %{id: topic.id}) |> hide("##{id}")}
-        data-confirm="Are you sure?"
-      >
-        Delete
-      </.link>
-    </:action>
-  </.table>
+    </div>
+  </div>
 
   <.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>
     <.live_component
