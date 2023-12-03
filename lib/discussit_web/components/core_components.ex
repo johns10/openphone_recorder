@@ -650,6 +650,7 @@ defmodule DiscussitWeb.CoreComponents do
   """
   attr(:name, :string, required: true)
   attr(:class, :string, default: nil)
+  attr(:type, :string)
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""
@@ -694,7 +695,8 @@ defmodule DiscussitWeb.CoreComponents do
       id={@id}
       phx-change="search"
       phx-submit="search_option_selected"
-      class="flex-grow max-w-content"
+      phx-hook="InputSizer"
+      data-id={@id}
     >
       <input
         type="hidden"
@@ -702,12 +704,15 @@ defmodule DiscussitWeb.CoreComponents do
         name={f["parent_id"].name}
         value={f["parent_id"].value}
       />
-      <div class="flex flex-row flex-grow">
+      <div class="flex flex-row relative">
+        <span id={"width-machine-#{@id}"} aria-hidden="true" class="text-sm pr-2">
+          <%= @initial_value %>
+        </span>
         <input
           type="text"
           id={"search-phrase-#{@id}"}
           name={f["search_phrase"].name}
-          class="btn btn-sm normal-case rounded-r-none text-left flex-grow"
+          class="btn btn-sm normal-case rounded-r-none text-left absolute w-full"
           value={@initial_value}
           phx-debounce="500"
           placeholder="Search..."
@@ -738,7 +743,9 @@ defmodule DiscussitWeb.CoreComponents do
                 )
               }
             >
-              <p class="w-full truncate"><%= search_result.label %></p>
+              <p class="w-full truncate" id={"search-option-#{@id}-#{search_result.value}"}>
+                <%= search_result.label %>
+              </p>
             </li>
           <% end %>
         </ul>
