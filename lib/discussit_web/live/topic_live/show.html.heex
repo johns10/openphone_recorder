@@ -37,8 +37,9 @@
                 <.searchable_drop_down
                   parent_id={statement.id}
                   initial_value={safe_topic_title(statement)}
-                  id={"#{statement.id}"}
+                  id={statement.id}
                   search_results={@search_results}
+                  model_topic_id={statement.model_topic_id}
                 />
                 <div
                   :if={representative}

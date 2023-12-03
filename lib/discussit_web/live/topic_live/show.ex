@@ -72,4 +72,20 @@ defmodule DiscussitWeb.TopicLive.Show do
 
     {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
   end
+
+  def handle_event("confirm-label", payload, socket) do
+    %{"topic-id" => topic_id, "parent-id" => statement_id} = payload
+    topic = Topics.get_topic!(topic_id)
+
+    {:ok, statement} =
+      statement_id
+      |> Statements.get_statement!(preloads: @statement_preloads)
+      |> Statements.update_statement(%{labelled_topic_id: topic_id})
+
+    statement =
+      statement
+      |> Map.put(:labelled_topic, topic)
+
+    {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
+  end
 end
