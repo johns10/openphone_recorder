@@ -1,3 +1,4 @@
+<.back navigate={~p"/topics"}>Back to topics</.back>
 <.header>
   Topic <%= @topic.id %>
   <:subtitle>This is a topic record from your database.</:subtitle>
@@ -14,7 +15,68 @@
   <:item title="Sentiment"><%= @topic.sentiment %></:item>
 </.list>
 
-<.back navigate={~p"/topics"}>Back to topics</.back>
+<div id="statements" phx-update="stream">
+  <%= for {id, %{labelled_topic_id: labelled_topic_id, representative: representative} = statement} <- @streams.statements do %>
+    <div id={id}>
+      <div class="px-4 w-full flex flex-row items-center space-x-2">
+        <div class="text-xs">
+          <%= render_date(statement.occurred_at, @current_user) %>
+        </div>
+      </div>
+      <div class="card bg-neutral mx-2 my-2">
+        <div class={[
+          "card-body p-4",
+          if(statement.call_id, do: "chat-bubble-accent"),
+          if(statement.meeting_id, do: "chat-bubble-primary")
+        ]}>
+          <div class="card-title text-base">
+            <div class="flex flex-grow justify-between items-center">
+              <.participant participant={statement.participant} class="" />
+              <div class="flex flex-row flex-grow space-x-4">
+                <div class="flex-grow max-w-full" />
+                <.searchable_drop_down
+                  parent_id={statement.id}
+                  initial_value={safe_topic_title(statement)}
+                  id={"#{statement.id}"}
+                  search_results={@search_results}
+                />
+                <div
+                  :if={representative}
+                  class="tooltip tooltip-left"
+                  data-tip="This is highly representative of the topic"
+                >
+                  <.icon name="hero-star-solid" class="w-5 h-5" />
+                </div>
+                <div
+                  :if={!representative}
+                  class="tooltip tooltip-left"
+                  data-tip="This is not highly representative of the topic"
+                >
+                  <.icon name="hero-star" class="w-5 h-5" />
+                </div>
+                <div
+                  :if={labelled_topic_id}
+                  class="tooltip tooltip-left"
+                  data-tip="You labelled this, or confirmed Discussit's label"
+                >
+                  <.icon name="hero-check" class="bg-success" />
+                </div>
+                <div
+                  :if={!labelled_topic_id}
+                  class="tooltip tooltip-left"
+                  data-tip="Discussit labelled this automatically"
+                >
+                  <.icon name="hero-x-mark" class="bg-warning" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <%= statement.content %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
 <.modal
   :if={@live_action == :edit}
