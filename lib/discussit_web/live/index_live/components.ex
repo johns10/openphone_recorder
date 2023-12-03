@@ -7,6 +7,7 @@ defmodule DiscussitWeb.IndexLive.Components do
   alias Discussit.Conversations.Conversation
   alias Discussit.Users.User
   alias Discussit.PhoneNumbers.PhoneNumber
+  alias Discussit.Topics.Topic
 
   attr(:conversation, Conversation, default: nil)
   attr(:zoom_level, :integer, default: 0)
@@ -246,5 +247,18 @@ defmodule DiscussitWeb.IndexLive.Components do
     timezone = Keyword.get(options, user.timezone, "Etc/UTC")
     %{month: month} = DateTime.from_naive!(date_time, timezone)
     "#{Timex.month_name(month)}"
+  end
+
+  def safe_topic_title(statement) do
+    topic =
+      case statement do
+        %{labelled_topic: %Topic{} = labelled_topic} -> labelled_topic
+        %{model_topic: %Topic{} = model_topic} -> model_topic
+        _ -> nil
+      end
+
+    if is_struct(topic, Topic),
+      do: topic.title || topic.model_title,
+      else: ""
   end
 end

@@ -18,7 +18,6 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Participants
   alias Discussit.ConversationWorker
   alias Discussit.Summaries.Summary
-  alias Discussit.Topics.Topic
 
   @statement_preloads [
     :model_topic,
@@ -461,18 +460,5 @@ defmodule DiscussitWeb.IndexLive.Index do
       end)
 
     assign(socket, :transcription_status, status)
-  end
-
-  def safe_topic_title(statement) do
-    topic =
-      case statement do
-        %{labelled_topic: %Topic{} = labelled_topic} -> labelled_topic
-        %{model_topic: %Topic{} = model_topic} -> model_topic
-        _ -> nil
-      end
-
-    if is_struct(topic, Topic),
-      do: topic.title || topic.model_title,
-      else: ""
   end
 end
