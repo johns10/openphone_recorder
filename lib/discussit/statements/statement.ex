@@ -36,6 +36,8 @@ defmodule Discussit.Statements.Statement do
     field :unprocessable, :boolean
     field :representative, :boolean
 
+    field :cumulative_length, :integer, virtual: true
+
     belongs_to :participant, Participant
     belongs_to :call, Call, type: :binary_id
     belongs_to :meeting, Meeting

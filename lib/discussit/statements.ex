@@ -23,6 +23,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
     |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
+    |> maybe_filter_cumulative_content_length(filters[:cumulative_content_length])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
     |> preload(^preloads)
@@ -48,6 +49,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
     |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
+    |> maybe_filter_cumulative_content_length(filters[:cumulative_content_length])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
     |> preload(^preloads)
@@ -186,6 +188,18 @@ defmodule Discussit.Statements do
   defp maybe_offset(query, nil), do: query
 
   defp maybe_offset(query, offset), do: offset(query, [s], ^offset)
+
+  defp maybe_filter_cumulative_content_length(query, nil), do: query
+
+  defp maybe_filter_cumulative_content_length(query, content_length) do
+    cumulative_length_query =
+      select(query, [s], %{
+        s
+        | cumulative_length: over(sum(fragment("length(?)", s.content)), order_by: :id)
+      })
+
+    from s in subquery(cumulative_length_query), where: s.cumulative_length < ^content_length
+  end
 
   def create_statement(attrs \\ %{}) do
     %Statement{}

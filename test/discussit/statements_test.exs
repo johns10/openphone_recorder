@@ -88,6 +88,33 @@ defmodule Discussit.StatementsTest do
       assert Statements.list_statements() == [statement]
     end
 
+    test "list_statements/1 limits results by total content length" do
+      statement =
+        statement_fixture(%{
+          participant_id: participant_fixture().id,
+          content: Faker.String.base64(25)
+        })
+
+      statement_2 =
+        statement_fixture(%{
+          participant_id: participant_fixture().id,
+          content: Faker.String.base64(25)
+        })
+
+      statement_3 =
+        statement_fixture(%{
+          participant_id: participant_fixture().id,
+          content: Faker.String.base64(100)
+        })
+
+      statement_ids =
+        Statements.list_statements(filters: [cumulative_content_length: 100]) |> Enum.map(& &1.id)
+
+      assert statement.id in statement_ids
+      assert statement_2.id in statement_ids
+      assert statement_3.id not in statement_ids
+    end
+
     test "count_statements/0 returns all statements" do
       statement_fixture(%{participant_id: participant_fixture().id})
       assert Statements.count_statements() == 1
