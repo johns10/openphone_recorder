@@ -14,7 +14,9 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_filter_by_meeting_id(filters[:meeting_id])
     |> maybe_filter_by_account_id(filters[:account_id])
+    |> maybe_filter_by_topic_id(filters[:topic_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
+    |> maybe_order_by_representative(order_by[:representative])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
@@ -37,7 +39,9 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_filter_by_meeting_id(filters[:meeting_id])
     |> maybe_filter_by_account_id(filters[:account_id])
+    |> maybe_filter_by_topic_id(filters[:topic_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
+    |> maybe_order_by_representative(order_by[:representative])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
@@ -78,6 +82,14 @@ defmodule Discussit.Statements do
     query
     |> join(:left, [s], c in assoc(s, :conversation), as: :conversation)
     |> where([conversation: c], c.account_id == ^account_id)
+  end
+
+  defp maybe_filter_by_topic_id(query, nil), do: query
+
+  defp maybe_filter_by_topic_id(query, topic_id) do
+    query
+    |> where([s], s.labelled_topic_id == ^topic_id)
+    |> or_where([s], s.model_topic_id == ^topic_id)
   end
 
   defp maybe_filter_by_call_id(query, nil), do: query
@@ -153,6 +165,13 @@ defmodule Discussit.Statements do
   defp maybe_order_by_occurred_at(query, :desc) do
     query
     |> order_by([s], desc: s.occurred_at)
+  end
+
+  defp maybe_order_by_representative(query, nil), do: query
+
+  defp maybe_order_by_representative(query, :desc) do
+    query
+    |> order_by([s], desc: s.representative)
   end
 
   defp maybe_order_by_occurred_at(query, :asc) do
