@@ -88,4 +88,11 @@ defmodule DiscussitWeb.TopicLive.Show do
 
     {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
   end
+
+  def handle_event("summarize-topic", %{"topic-id" => topic_id}, socket) do
+    {:ok, topic} = Topics.Summarizer.apply(topic_id, account_id(socket))
+    {:noreply, socket |> assign(:topic, topic)}
+  end
+
+  defp account_id(socket), do: socket.assigns.current_user.selected_account_id
 end

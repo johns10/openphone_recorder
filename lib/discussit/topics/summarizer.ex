@@ -10,6 +10,7 @@ defmodule Discussit.Topics.Summarizer do
 
     with %Topic{} = topic = Topics.get_topic!(topic_id),
          content <- get_content(topic.id),
+         IO.inspect(String.length(content)),
          messages = [%{role: :user, content: prompt(topic, content)}],
          {:ok, response} <- ExOpenAI.Chat.create_chat_completion(messages, model, opts),
          {:ok, _usage} <- ResponseHandlers.chat_completion(response, opts),
@@ -23,8 +24,8 @@ defmodule Discussit.Topics.Summarizer do
 
   defp get_content(topic_id) do
     Statements.list_statements(
-      filter: [topic_id: topic_id],
-      order_by: [cumulative_content_length: 3000, representative: :desc]
+      filters: [cumulative_content_length: 3000, topic_id: topic_id],
+      order_by: [representative: :desc]
     )
     |> Enum.map(& &1.content)
     |> Enum.join(" ")

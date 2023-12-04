@@ -3,6 +3,9 @@
   Topic <%= @topic.id %>
   <:subtitle>This is a topic record from your database.</:subtitle>
   <:actions>
+    <.link phx-click="summarize-topic" phx-value-topic-id={@topic.id}>
+      <.button>Summarize topic</.button>
+    </.link>
     <.link patch={~p"/topics/#{@topic}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit topic</.button>
     </.link>
@@ -10,8 +13,8 @@
 </.header>
 
 <.list>
-  <:item title="Title"><%= @topic.title %></:item>
-  <:item title="Description"><%= @topic.description %></:item>
+  <:item title="Title"><%= @topic.title || @topic.model_title %></:item>
+  <:item title="Description"><%= @topic.description || @topic.model_description %></:item>
   <:item title="Sentiment"><%= @topic.sentiment %></:item>
 </.list>
 
