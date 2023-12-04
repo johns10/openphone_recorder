@@ -696,7 +696,6 @@ defmodule DiscussitWeb.CoreComponents do
       id={@id}
       phx-change="search"
       phx-submit="search_option_selected"
-      phx-hook="InputSizer"
       data-id={@id}
       class="flex flex-row"
     >
@@ -715,57 +714,59 @@ defmodule DiscussitWeb.CoreComponents do
       >
         <.icon name="hero-check" class="bg-success" />
       </button>
-      <div class="flex flex-col">
-        <div class="flex flex-row relative">
-          <span id={"width-machine-#{@id}"} aria-hidden="true" class="text-sm pr-2">
-            <%= @initial_value %>
-          </span>
-          <input
-            type="text"
-            id={"search-phrase-#{@id}"}
-            name={f["search_phrase"].name}
-            class="btn btn-sm normal-case rounded-none text-left absolute w-full"
-            value={@initial_value}
-            phx-debounce="500"
-            placeholder="Search..."
-            phx-focus={enable("#options-#{@id}", "#search-phrase-#{@id}")}
-            autocomplete="off"
-          />
-          <button
-            type="button"
-            class="btn btn-sm btn-ghost rounded-l-none"
-            phx-click={JS.focus(to: "#search-phrase-#{@id}")}
-          >
-            <.icon name="hero-chevron-down" />
-          </button>
-        </div>
+      <div class="flex flex-row">
         <div
-          class="relative hidden"
-          id={"options-#{@id}"}
+          class="flex flex-col"
           phx-click-away={disable("#options-#{@id}", "#search-phrase-#{@id}")}
         >
-          <ul class="menu menu-compact dropdown-content bg-base-300 overflow-hidden flex-col absolute z-50 w-full">
-            <%= for search_result <- @search_results do %>
-              <li
-                class="border-b border-b-base-content/10 w-full"
-                phx-click={
-                  disable("#options-#{@id}", "#search-phrase-#{@id}")
-                  |> JS.push("select-search-result",
-                    value: %{
-                      id: search_result.value,
-                      parent_id: @parent_id,
-                      context: "statement-topic"
-                    }
-                  )
-                }
-              >
-                <p class="w-full truncate" id={"search-option-#{@id}-#{search_result.value}"}>
-                  <%= search_result.label %>
-                </p>
-              </li>
-            <% end %>
-          </ul>
+          <div class="flex flex-row relative overflow-y-clip">
+            <span id={"width-machine-#{@id}"} aria-hidden="true" class="text-sm px-4 h-8">
+              <%= @initial_value %>
+            </span>
+            <input
+              type="text"
+              id={"search-phrase-#{@id}"}
+              name={f["search_phrase"].name}
+              class="btn btn-sm normal-case rounded-none absolute w-full"
+              value={@initial_value}
+              phx-debounce="500"
+              placeholder="Search..."
+              phx-focus={enable("#options-#{@id}", "#search-phrase-#{@id}")}
+              autocomplete="off"
+            />
+          </div>
+          <div class="relative hidden" id={"options-#{@id}"}>
+            <ul class="menu menu-compact dropdown-content bg-base-300 overflow-hidden flex-col absolute z-50 w-full">
+              <%= for search_result <- @search_results do %>
+                <li
+                  class="border-b border-b-base-content/10 w-full"
+                  phx-click={
+                    disable("#options-#{@id}", "#search-phrase-#{@id}")
+                    |> JS.push("select-search-result",
+                      value: %{
+                        id: search_result.value,
+                        parent_id: @parent_id,
+                        context: "statement-topic"
+                      }
+                    )
+                  }
+                >
+                  <p class="w-full truncate" id={"search-option-#{@id}-#{search_result.value}"}>
+                    <%= search_result.label %>
+                  </p>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
+
+        <button
+          type="button"
+          class="btn btn-sm btn-ghost rounded-l-none"
+          phx-click={JS.focus(to: "#search-phrase-#{@id}")}
+        >
+          <.icon name="hero-chevron-down" />
+        </button>
       </div>
     </.form>
     """
