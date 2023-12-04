@@ -11,6 +11,7 @@ defmodule Discussit.Summaries.Summarize do
   alias PgRanges.TsRange
   alias Discussit.DateSupport
   alias Discussit.Summarizers.Summarizer
+  alias Discussit.Usages.ResponseHandlers
 
   def map_summarize(items, opts), do: Enum.map(items, &create_summary(&1, opts))
 
@@ -245,31 +246,12 @@ defmodule Discussit.Summaries.Summarize do
     messages = [%{role: :user, content: prompt}]
     model = "gpt-3.5-turbo"
     account_id = opts[:account_id] || raise("Account id required to create usage")
+    opts = [max_tokens: max_tokens, temperature: 0, model: model, account_id: account_id]
 
-    ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
-    |> case do
-      {:ok, %{choices: [%{message: %{content: content}}], usage: usage}} ->
-        %{
-          meta: usage,
-          model: model,
-          product: :chat_completions,
-          provider: :openai,
-          account_id: account_id
-        }
-        |> Discussit.Usages.calculate_total()
-        |> Discussit.Usages.create_usage()
-        |> case do
-          {:error, changeset} ->
-            Logger.error("Failed to create completion usage", changeset: changeset)
-
-          _ ->
-            nil
-        end
-
-        {:ok, content}
-
-      {:error, %{error: %{message: message}}} ->
-        {:error, message}
+    with {:ok, response} <- ExOpenAI.Chat.create_chat_completion(messages, model, opts),
+         {:ok, _usage} <- ResponseHandlers.chat_completion(response, opts),
+         %{choices: [%{message: %{content: content}}]} <- response do
+      {:ok, content}
     end
   end
 end
