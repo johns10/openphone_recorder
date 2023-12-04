@@ -63,4 +63,29 @@ defmodule Discussit.Topics do
   def change_topic(%Topic{} = topic, attrs \\ %{}) do
     Topic.changeset(topic, attrs)
   end
+
+  def summarize_topic(topic_id) do
+    topic = get_topic!(topic_id)
+
+    content =
+      Discussit.Statements.list_statements(
+        filter: [topic_id: topic_id],
+        order_by: [cumulative_content_length: 3000, representative: :desc]
+      )
+      |> Enum.map(& &1.content)
+      |> Enum.join(" ")
+
+    prompt = """
+    I have a topic that contains the following documents: 
+    #{content}
+    The topic is described by the following keywords:
+    #{Enum.map(topic.keywords, fn %{"keyword" => keyword} -> keyword end) |> Enum.join(", ")}
+
+    Based on the information above: 
+    Extract a short but highly descriptive topic label of at most 5 words. 
+    Extract a short but highly descriptive topic description of at most 100 words
+    Return the result in the following format
+    <topic label> | <topic description>
+    """
+  end
 end
