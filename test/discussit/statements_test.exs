@@ -92,23 +92,30 @@ defmodule Discussit.StatementsTest do
       statement =
         statement_fixture(%{
           participant_id: participant_fixture().id,
-          content: Faker.String.base64(25)
+          content: Faker.String.base64(25),
+          representative: true
         })
 
       statement_2 =
         statement_fixture(%{
           participant_id: participant_fixture().id,
-          content: Faker.String.base64(25)
+          content: Faker.String.base64(25),
+          representative: true
         })
 
       statement_3 =
         statement_fixture(%{
           participant_id: participant_fixture().id,
-          content: Faker.String.base64(100)
+          content: Faker.String.base64(100),
+          representative: false
         })
 
       statement_ids =
-        Statements.list_statements(filters: [cumulative_content_length: 100]) |> Enum.map(& &1.id)
+        Statements.list_statements(
+          filters: [cumulative_content_length: 95],
+          order_by: [representative: :desc]
+        )
+        |> Enum.map(& &1.id)
 
       assert statement.id in statement_ids
       assert statement_2.id in statement_ids

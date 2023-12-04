@@ -195,7 +195,8 @@ defmodule Discussit.Statements do
     cumulative_length_query =
       select(query, [s], %{
         s
-        | cumulative_length: over(sum(fragment("length(?)", s.content)), order_by: :id)
+        | cumulative_length:
+            over(sum(fragment("length(?)", s.content)), order_by: [desc: :representative])
       })
 
     from s in subquery(cumulative_length_query), where: s.cumulative_length < ^content_length
