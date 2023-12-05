@@ -14,6 +14,8 @@ defmodule Discussit.Topics.SummarizerTest do
       bathtub_cleaning_content()
       |> Enum.map(&statement_fixture(%{topic_id: topic.id, content: &1}))
 
+      ExVCR.Config.filter_request_headers("Authorization")
+
       use_cassette("summarizer_test_apply_summarizes", match_requests_on: [:request_body]) do
         assert {:ok, _} = Summarizer.apply(topic.id, account.id)
       end

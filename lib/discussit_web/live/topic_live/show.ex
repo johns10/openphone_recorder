@@ -1,7 +1,9 @@
 defmodule DiscussitWeb.TopicLive.Show do
   use DiscussitWeb, :live_view
   alias Discussit.Topics
+  alias Discussit.Topics.Topic
   alias Discussit.Statements
+  alias Discussit.StatusAgent
   import DiscussitWeb.IndexLive.Components
   import DiscussitWeb.LiveSupport
 
@@ -19,23 +21,23 @@ defmodule DiscussitWeb.TopicLive.Show do
 
   @impl true
   def handle_params(%{"id" => id}, _, socket) do
+    topic = Topics.get_topic!(id)
+
     topics =
       Topics.list_topics(limit: 5)
       |> select_options()
 
+    name = StatusAgent.topic_summarizer_name(topic)
+    {:ok, status} = StatusAgent.get(name)
+    DiscussitWeb.Endpoint.subscribe(Atom.to_string(name))
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:topic, Topics.get_topic!(id))
-     |> stream(
-       :statements,
-       Statements.list_statements(
-         filters: [topic_id: id],
-         preloads: @statement_preloads,
-         order_by: [representative: :desc]
-       )
-     )
-     |> assign(:search_results, topics)}
+     |> assign(:topic, topic)
+     |> stream(:statements, list_statements(id))
+     |> assign(:search_results, topics)
+     |> assign(:summarizer_status, status)}
   end
 
   defp page_title(:show), do: "Show Topic"
@@ -90,8 +92,56 @@ defmodule DiscussitWeb.TopicLive.Show do
   end
 
   def handle_event("summarize-topic", %{"topic-id" => topic_id}, socket) do
-    {:ok, topic} = Topics.Summarizer.apply(topic_id, account_id(socket))
-    {:noreply, socket |> assign(:topic, topic)}
+    fn ->
+      Topics.Summarizer.apply(topic_id, account_id(socket))
+    end
+    |> Task.start()
+
+    {:noreply, socket}
+  end
+
+  def handle_event("confirm-topic", %{"topic-id" => id}, socket) do
+    with %Topic{model_title: t, model_description: d} = topic <- Topics.get_topic!(id),
+         {:ok, topic} <- Topics.update_topic(topic, %{title: t, description: d}) do
+      {:noreply,
+       socket
+       |> assign(:topic, topic)
+       |> stream(:statements, list_statements(topic.id), reset: true)}
+    end
+  end
+
+  def handle_event("confirm-topic", %{"topic-id" => id}, socket) do
+    with %Topic{model_title: t, model_description: d} = topic <- Topics.get_topic!(id),
+         {:ok, topic} <- Topics.update_topic(topic, %{title: t, description: d}) do
+      {:noreply,
+       socket
+       |> assign(:topic, topic)
+       |> stream(:statements, list_statements(topic.id), reset: true)}
+    end
+  end
+
+  @impl true
+
+  def handle_info(%{event: "status_update", payload: :finished}, socket) do
+    topic = Topics.get_topic!(socket.assigns.topic.id)
+
+    {:noreply,
+     socket
+     |> assign(:summarizer_status, :not_started)
+     |> assign(:topic, topic)
+     |> stream(:statements, list_statements(topic.id), reset: true)}
+  end
+
+  def handle_info(%{event: "status_update", payload: status}, socket) do
+    {:noreply, socket |> assign(:summarizer_status, status)}
+  end
+
+  defp list_statements(topic_id) do
+    Statements.list_statements(
+      filters: [topic_id: topic_id],
+      preloads: @statement_preloads,
+      order_by: [representative: :desc]
+    )
   end
 
   defp account_id(socket), do: socket.assigns.current_user.selected_account_id

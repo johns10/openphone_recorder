@@ -3,18 +3,36 @@
   Topic <%= @topic.id %>
   <:subtitle>This is a topic record from your database.</:subtitle>
   <:actions>
-    <.link phx-click="summarize-topic" phx-value-topic-id={@topic.id}>
-      <.button>Summarize topic</.button>
-    </.link>
-    <.link patch={~p"/topics/#{@topic}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit topic</.button>
-    </.link>
+    <div class="flex items-center space-x-2">
+      <.link
+        phx-click="summarize-topic"
+        phx-value-topic-id={@topic.id}
+        class={["btn", if(@summarizer_status == :not_started, do: "", else: "btn-disabled")]}
+      >
+        <span :if={@summarizer_status != :not_started} class="loading loading-spinner loading-xs" />
+        Summarize topic
+      </.link>
+      <.link class="btn" patch={~p"/topics/#{@topic}/show/edit"} phx-click={JS.push_focus()}>
+        Edit topic
+      </.link>
+      <.link class="btn" phx-click="confirm-topic" phx-value-topic-id={@topic.id}>
+        Confirm topic
+      </.link>
+    </div>
   </:actions>
 </.header>
 
 <.list>
-  <:item title="Title"><%= @topic.title || @topic.model_title %></:item>
-  <:item title="Description"><%= @topic.description || @topic.model_description %></:item>
+  <:item title="Title">
+    <.icon :if={!@topic.title} name="hero-question-mark-circle" class="bg-warning " />
+    <.icon :if={@topic.title} name="hero-check-circle" class="bg-success" />
+    <%= @topic.title || @topic.model_title %>
+  </:item>
+  <:item title="Description">
+    <.icon :if={!@topic.description} name="hero-question-mark-circle" class="bg-warning" />
+    <.icon :if={@topic.description} name="hero-check-circle" class="bg-success" />
+    <%= @topic.description || @topic.model_description %>
+  </:item>
   <:item title="Sentiment"><%= @topic.sentiment %></:item>
 </.list>
 

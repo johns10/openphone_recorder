@@ -124,7 +124,10 @@ defmodule Discussit.TopicAnalyzerTest do
       :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
 
       conversation = conversation_fixture(%{account_id: account.id})
-      bathtub_topic = topic_fixture(%{title: "Bathtub cleaning", model_id: 1, account_id: account.id})
+
+      bathtub_topic =
+        topic_fixture(%{title: "Bathtub cleaning", model_id: 1, account_id: account.id})
+
       sink_topic = topic_fixture(%{title: "Sink cleaning", model_id: 2, account_id: account.id})
       floor_topic = topic_fixture(%{title: "Floor cleaning", model_id: 3, account_id: account.id})
 
@@ -217,12 +220,9 @@ defmodule Discussit.TopicAnalyzerTest do
       topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count in [12, 13, 14, 15]
 
-      Topics.list_topics()
-      |> Enum.map(&IO.inspect(&1.model_title))
-
       Statements.list_statements()
-      |> Enum.map(fn statements -> 
-        Statements.update_statement(statements, %{labelled_topic_id: statements.model_topic_id}) 
+      |> Enum.map(fn statements ->
+        Statements.update_statement(statements, %{labelled_topic_id: statements.model_topic_id})
       end)
 
       more_statements =
@@ -230,7 +230,7 @@ defmodule Discussit.TopicAnalyzerTest do
            shower_cleaning_content() ++
            floor_cleaning_content_2())
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
-      
+
       use_cassette("embedding_calls", match_requests_on: [:request_body]) do
         more_statements
         |> Enum.map(fn statement ->
@@ -246,9 +246,6 @@ defmodule Discussit.TopicAnalyzerTest do
 
       topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count in [22, 23, 24, 25, 26, 27, 28]
-
-      Topics.list_topics()
-      |> Enum.map(&IO.inspect(&1.model_title))
     end
   end
 

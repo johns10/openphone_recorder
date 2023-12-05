@@ -3,21 +3,25 @@ defmodule Discussit.Topics.Summarizer do
   alias Discussit.Topics.Topic
   alias Discussit.Statements
   alias Discussit.Usages.ResponseHandlers
+  alias Discussit.StatusAgent
 
   def apply(topic_id, account_id) do
     model = "gpt-3.5-turbo"
     opts = [max_tokens: 110, temperature: 0, model: model, account_id: account_id]
 
     with %Topic{} = topic = Topics.get_topic!(topic_id),
+         name = StatusAgent.topic_summarizer_name(topic),
+         {:ok, name} <- StatusAgent.new(name),
+         {:ok, :started} <- StatusAgent.set(name, :started),
          content <- get_content(topic.id),
-         IO.inspect(String.length(content)),
          messages = [%{role: :user, content: prompt(topic, content)}],
          {:ok, response} <- ExOpenAI.Chat.create_chat_completion(messages, model, opts),
          {:ok, _usage} <- ResponseHandlers.chat_completion(response, opts),
          %{choices: [%{message: %{content: content}}]} <- response,
          [title, description] <- String.split(content, "|"),
          attrs = %{model_title: title, model_description: description},
-         {:ok, topic} <- Topics.update_topic(topic, attrs) do
+         {:ok, topic} <- Topics.update_topic(topic, attrs),
+         {:ok, :not_started} <- StatusAgent.set(name, :finished) do
       {:ok, topic}
     end
   end
@@ -31,7 +35,7 @@ defmodule Discussit.Topics.Summarizer do
     |> Enum.join(" ")
   end
 
-  defp prompt(%Topic{keywords: keywords} = topic, content) do
+  defp prompt(%Topic{keywords: keywords}, content) do
     """
     I have a topic that contains the following documents: 
     #{content}

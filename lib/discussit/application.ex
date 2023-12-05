@@ -19,7 +19,9 @@ defmodule Discussit.Application do
         {Phoenix.PubSub, name: Discussit.PubSub},
         {Finch, name: Discussit.Finch},
         DiscussitWeb.Endpoint,
-        {Oban, Application.fetch_env!(:discussit, Oban)}
+        {Oban, Application.fetch_env!(:discussit, Oban)},
+        {DynamicSupervisor, strategy: :one_for_one, name: Discussit.StatusSupervisor},
+        {Registry, keys: :unique, name: Discussit.StatusRegistry}
       ] ++ children(Mix.env())
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -37,9 +39,7 @@ defmodule Discussit.Application do
       {Discussit.Events.Consumer, %{count: :inf}},
       {Discussit.Embeddings.Server, %{}},
       {Discussit.Embeddings.ModelStatus, %{}},
-      {Discussit.TopicAnalyzer.Server, %{}},
-      {DynamicSupervisor, strategy: :one_for_one, name: Discussit.TopicAnalyzer.StatusSupervisor},
-      {Registry, keys: :unique, name: TopicAnalyzerRegistry}
+      {Discussit.TopicAnalyzer.Server, %{}}
     ]
 
   # Tell Phoenix to update the endpoint configuration
