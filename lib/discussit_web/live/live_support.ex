@@ -13,4 +13,6 @@ defmodule DiscussitWeb.LiveSupport do
       Ecto.Enum.dump_values(module, field)
     )
   end
+
+  def account_id(socket), do: socket.assigns.current_user.selected_account_id
 end

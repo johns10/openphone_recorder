@@ -121,7 +121,6 @@ defmodule DiscussitWeb.TopicLive.Show do
   end
 
   @impl true
-
   def handle_info(%{event: "status_update", payload: :finished}, socket) do
     topic = Topics.get_topic!(socket.assigns.topic.id)
 
@@ -143,6 +142,4 @@ defmodule DiscussitWeb.TopicLive.Show do
       order_by: [representative: :desc]
     )
   end
-
-  defp account_id(socket), do: socket.assigns.current_user.selected_account_id
 end

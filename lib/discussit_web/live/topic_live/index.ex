@@ -1,20 +1,31 @@
 defmodule DiscussitWeb.TopicLive.Index do
   use DiscussitWeb, :live_view
 
+  alias Discussit.StatusAgent
   alias Discussit.Topics
   alias Discussit.TopicAnalyzer
   alias Discussit.TopicAnalyzer.Workers
   alias Discussit.TopicAnalyzer.Status
+  import DiscussitWeb.LiveSupport
 
   @impl true
   def mount(_params, _session, socket) do
     account = socket.assigns.current_user.selected_account
-    Topics.list_topics(filters: [account_id: account.id])
+
+    topics =
+      Topics.list_topics(filters: [account_id: account.id])
+      |> Enum.map(fn topic ->
+        name = StatusAgent.topic_summarizer_name(topic)
+        {:ok, status} = StatusAgent.get(name)
+        DiscussitWeb.Endpoint.subscribe(Atom.to_string(name))
+        Map.put(topic, :summarizer_status, status)
+      end)
+
     DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
 
     {:ok,
      socket
-     |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]))
+     |> stream(:topics, topics)
      |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
      |> assign(:analyzer_available?, Status.available?(account.id)),
      layout: {DiscussitWeb.Layouts, :full_screen}}
@@ -101,6 +112,36 @@ defmodule DiscussitWeb.TopicLive.Index do
     TopicAnalyzer.regenerate_labels(account)
 
     {:noreply, socket}
+  end
+
+  def handle_event("summarize-topic", %{"topic-id" => topic_id}, socket) do
+    fn ->
+      Topics.Summarizer.apply(topic_id, account_id(socket))
+    end
+    |> Task.start()
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info(%{topic: topic, event: "status_update", payload: :finished}, socket) do
+    "topic_summarizer_" <> id = topic
+
+    topic =
+      Topics.get_topic!(id)
+      |> Map.put(:summarizer_status, :not_started)
+
+    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
+  end
+
+  def handle_info(%{topic: topic, event: "status_update", payload: status}, socket) do
+    "topic_summarizer_" <> id = topic
+
+    topic =
+      Topics.get_topic!(id)
+      |> Map.put(:summarizer_status, status)
+
+    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
   end
 
   def delete_topics(account) do
