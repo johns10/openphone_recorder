@@ -1,27 +1,20 @@
 defmodule Discussit.Topics.Keywords do
   alias Discussit.Topics
   @doc "Takes a list of topics, and a list of model attrs, and updates matching topics"
-  def match(topics, models_attrs) do
-    models_attrs = cast_models_attrs(models_attrs)
-    topic_scores = topic_scores(topics, models_attrs)
-    model_scores = model_attr_scores(topics, models_attrs)
-
-    init = %{topics: [], topic_scores: topic_scores, model_scores: model_scores}
+  def match(topics, raw_models_attrs) do
+    initial_acc = %{models_attrs: cast_models_attrs(raw_models_attrs), topics: []}
 
     topics
-    |> Enum.reduce(init, fn topic, acc ->
-      topic_scores = topic_scores[topic.id]
-      topic_score = Enum.max(topic_scores, fn score1, score2 -> score1.score >= score2.score end)
-      %{model_id: model_id} = topic_score
-      model_score = model_scores[topic_score.model_id] |> Enum.find(&(&1.topic_id == topic.id))
-      model_attrs = Enum.find(models_attrs, &(&1.model_id == topic_score.model_id))
+    |> Enum.reduce(initial_acc, fn topic, %{models_attrs: models_attrs} = acc ->
+      %{score: best_score, model_id: model_id} =
+        best_match =
+        topic_scores(topic, models_attrs)
+        |> Enum.max(fn score1, score2 -> score1.score >= score2.score end)
 
-      case calculate_total_score(topic_score, model_score) do
-        score when score >= 0.85 ->
-          Topics.update_topic(topic, model_attrs)
-
-          remove_model_score(acc, model_id)
-          |> remove_topic_score(topic.id)
+      case best_score do
+        score when score >= 0.80 ->
+          Topics.update_topic(topic, best_match)
+          remove_model_attrs(acc, model_id)
 
         _score ->
           %{acc | topics: [topic | acc.topics]}
@@ -29,44 +22,19 @@ defmodule Discussit.Topics.Keywords do
     end)
   end
 
-  defp remove_model_score(%{model_scores: model_scores} = state, model_id) do
-    model_scores = model_scores |> Enum.filter(fn {id, _} -> id == model_id end)
-    %{state | model_scores: model_scores}
+  defp remove_model_attrs(%{models_attrs: models_attrs} = state, model_id) do
+    models_attrs = models_attrs |> Enum.filter(fn %{model_id: id} -> id != model_id end)
+    %{state | models_attrs: models_attrs}
   end
 
-  defp remove_topic_score(%{topic_scores: topic_scores} = state, topic_id) do
-    topic_scores |> Enum.filter(fn {id, _} -> id == topic_id end)
-    %{state | topic_scores: topic_scores}
-  end
+  defp topic_scores(%{keywords: t_kw} = topic, models_attrs) do
+    Enum.map(models_attrs, fn %{keywords: m_kw} = model_attrs ->
+      score = sum_score(t_kw, m_kw) + sum_score(m_kw, t_kw)
+      total = sum_total(topic.keywords) + sum_total(model_attrs.keywords)
 
-  defp topic_scores(topics, models_attrs) do
-    topics
-    |> Enum.reduce(%{}, fn topic, acc ->
-      row =
-        Enum.map(models_attrs, fn model_attrs ->
-          cast_score(model_attrs.keywords, topic.keywords)
-          |> Map.put(:model_id, model_attrs.model_id)
-        end)
-
-      Map.put(acc, topic.id, row)
+      model_attrs
+      |> Map.put(:score, score / total)
     end)
-  end
-
-  defp model_attr_scores(topics, models_attrs) do
-    models_attrs
-    |> Enum.reduce(%{}, fn model_attrs, acc ->
-      row =
-        Enum.map(topics, fn topic ->
-          cast_score(topic.keywords, model_attrs.keywords)
-          |> Map.put(:topic_id, topic.id)
-        end)
-
-      Map.put(acc, model_attrs.model_id, row)
-    end)
-  end
-
-  defp cast_score(one, two) do
-    %{score: sum_score(one, two), total: sum_total(one)}
   end
 
   defp sum_total(keywords),
@@ -94,9 +62,5 @@ defmodule Discussit.Topics.Keywords do
 
       %{item | keywords: keywords}
     end)
-  end
-
-  defp calculate_total_score(one, two) do
-    (one.score + two.score) / (one.total + two.total)
   end
 end

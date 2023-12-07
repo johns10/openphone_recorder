@@ -10,8 +10,13 @@ defmodule Discussit.Topics.KeywordsTest do
         |> Enum.map(&topic_fixture/1)
         |> Keywords.match(second())
 
-      Enum.count(topics)
-      |> IO.inspect()
+      IO.puts("""
+      There were #{Enum.count(first())} topics in the first epoch.
+      There were #{Enum.count(second())} topics in the second epoch.
+      There are #{Enum.count(topics)} topics remaining
+      """)
+
+      assert Enum.count(topics) == 8
     end
 
     test "limited case" do
@@ -214,7 +219,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "got", "probability" => 0.6358658},
           %{"keyword" => "okay got", "probability" => 0.6313292},
           %{"keyword" => "got got", "probability" => 0.6167079},
-          %{"keyword" => "okay", "probability" => 0.49623924},
+          %{"keyword" => "okay", "probability" => 0.49623913},
           %{"keyword" => "", "probability" => 0.34581763},
           %{"keyword" => "", "probability" => 0.34581763},
           %{"keyword" => "", "probability" => 0.34581763},
@@ -270,7 +275,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaning", "probability" => 0.46893758},
           %{"keyword" => "cleaning solutions", "probability" => 0.46000427},
           %{"keyword" => "sparkling toilet", "probability" => 0.41110045},
-          %{"keyword" => "tub", "probability" => 0.40560123}
+          %{"keyword" => "tub", "probability" => 0.40560132}
         ],
         model_id: 1
       },
@@ -445,12 +450,12 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "okay got", "probability" => 0.6313292},
           %{"keyword" => "got got", "probability" => 0.6167079},
           %{"keyword" => "okay", "probability" => 0.49623913},
-          %{"keyword" => "", "probability" => 0.34581763},
-          %{"keyword" => "", "probability" => 0.34581763},
-          %{"keyword" => "", "probability" => 0.34581763},
-          %{"keyword" => "", "probability" => 0.34581763},
-          %{"keyword" => "", "probability" => 0.34581763},
-          %{"keyword" => "", "probability" => 0.34581763}
+          %{"keyword" => "", "probability" => 0.34581771},
+          %{"keyword" => "", "probability" => 0.34581771},
+          %{"keyword" => "", "probability" => 0.34581771},
+          %{"keyword" => "", "probability" => 0.34581771},
+          %{"keyword" => "", "probability" => 0.34581771},
+          %{"keyword" => "", "probability" => 0.34581771}
         ],
         model_id: 13
       },
@@ -506,11 +511,11 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "bowl polish", "probability" => 0.62830055},
           %{"keyword" => "toilet bowl", "probability" => 0.6152599},
           %{"keyword" => "porcelain bowl", "probability" => 0.61018527},
-          %{"keyword" => "using mayonnaise", "probability" => 0.59805715},
+          %{"keyword" => "using mayonnaise", "probability" => 0.59805727},
           %{"keyword" => "toilet glossy", "probability" => 0.5544933},
           %{"keyword" => "oils mayo", "probability" => 0.5507549},
           %{"keyword" => "mayonnaise", "probability" => 0.547457},
-          %{"keyword" => "mayo", "probability" => 0.515586}
+          %{"keyword" => "mayo", "probability" => 0.5155859}
         ],
         model_id: 17
       },
@@ -537,7 +542,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "frogs harmonious", "probability" => 0.5575019},
           %{"keyword" => "frogs", "probability" => 0.5154263},
           %{"keyword" => "frog good", "probability" => 0.4999822},
-          %{"keyword" => "frog", "probability" => 0.47669995},
+          %{"keyword" => "frog", "probability" => 0.47669986},
           %{"keyword" => "seen frog", "probability" => 0.45635265},
           %{"keyword" => "dirt chittering", "probability" => 0.45279613},
           %{"keyword" => "paws scrub", "probability" => 0.41407514}
