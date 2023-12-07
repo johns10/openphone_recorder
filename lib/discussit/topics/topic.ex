@@ -60,12 +60,21 @@ defmodule Discussit.Topics.Topic do
 
       keywords ->
         casted_keywords =
-          Enum.map(keywords, fn %{keyword: keyword, probability: probability} ->
-            {float, _} = Float.parse(probability)
-            %{keyword: keyword, probability: float}
+          Enum.map(keywords, fn
+            %{"keyword" => k, "probability" => p} -> cast_keyword(k, p)
+            %{keyword: k, probability: p} -> cast_keyword(k, p)
           end)
 
         put_change(changeset, :keywords, casted_keywords)
     end
+  end
+
+  def cast_keyword(keyword, probability) when is_binary(probability) do
+    {float, _} = Float.parse(probability)
+    %{keyword: keyword, probability: float}
+  end
+
+  def cast_keyword(keyword, probability) when is_float(probability) do
+    %{keyword: keyword, probability: probability}
   end
 end

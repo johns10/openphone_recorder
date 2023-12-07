@@ -74,7 +74,6 @@ defmodule Discussit.TopicAnalyzerTest do
       :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
 
       conversation = conversation_fixture(%{account_id: account.id})
-      participant = participant_fixture()
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
         {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
@@ -220,11 +219,6 @@ defmodule Discussit.TopicAnalyzerTest do
       topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count in [12, 13, 14, 15]
 
-      Statements.list_statements()
-      |> Enum.map(fn statements ->
-        Statements.update_statement(statements, %{labelled_topic_id: statements.model_topic_id})
-      end)
-
       more_statements =
         (toilet_cleaning_content() ++
            shower_cleaning_content() ++
@@ -308,10 +302,6 @@ defmodule Discussit.TopicAnalyzerTest do
 
       topics_after_training = Topics.list_topics() |> Enum.count()
       assert topics_after_training in 6..9
-
-      Topics.list_topics()
-      |> Enum.map(&IO.puts(&1.model_title))
-
       assert Statements.list_statements() |> Enum.all?(&(&1.topic_id != nil))
     end
   end
