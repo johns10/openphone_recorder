@@ -12,14 +12,7 @@ defmodule DiscussitWeb.TopicLive.Index do
   def mount(_params, _session, socket) do
     account = socket.assigns.current_user.selected_account
 
-    topics =
-      Topics.list_topics(filters: [account_id: account.id])
-      |> Enum.map(fn topic ->
-        name = StatusAgent.topic_summarizer_name(topic)
-        {:ok, status} = StatusAgent.get(name)
-        DiscussitWeb.Endpoint.subscribe(Atom.to_string(name))
-        Map.put(topic, :summarizer_status, status)
-      end)
+    topics = list_topics(account) |> init_status_agents() |> assign_status()
 
     DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
 
@@ -64,7 +57,7 @@ defmodule DiscussitWeb.TopicLive.Index do
      |> push_patch(to: ~p"/topics")
      |> assign(:analyzer_available?, Status.available?(account.id))
      |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
-     |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]), reset: true)}
+     |> stream(:topics, list_topics_with_status(account), reset: true)}
   end
 
   @impl true
@@ -91,7 +84,7 @@ defmodule DiscussitWeb.TopicLive.Index do
            :ok <- delete_topics(account) do
         socket
         |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
-        |> stream(:topics, Topics.list_topics(filters: [account_id: account.id]), reset: true)
+        |> stream(:topics, list_topics_with_status(account), reset: true)
         |> assign(:analyzer_available?, Status.available?(account.id))
         |> put_flash(:success, "Regenerating topics")
         |> push_patch(to: ~p"/topics")
@@ -144,7 +137,28 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
   end
 
-  def delete_topics(account) do
+  defp list_topics_with_status(account), do: list_topics(account) |> assign_status()
+
+  defp list_topics(%{id: account_id}), do: Topics.list_topics(filters: [account_id: account_id])
+
+  defp assign_status(topics) do
+    topics
+    |> Enum.map(fn topic ->
+      name = StatusAgent.topic_summarizer_name(topic)
+      {:ok, status} = StatusAgent.get(name)
+      Map.put(topic, :summarizer_status, status)
+    end)
+  end
+
+  defp init_status_agents(topics) do
+    Enum.map(topics, fn topic ->
+      name = StatusAgent.topic_summarizer_name(topic)
+      DiscussitWeb.Endpoint.subscribe(Atom.to_string(name))
+      topic
+    end)
+  end
+
+  defp delete_topics(account) do
     Topics.list_topics(filters: [account_id: account.id, title_is_nil: true])
     |> Enum.reduce_while(:ok, fn topic, _ ->
       case Topics.delete_topic(topic) do
