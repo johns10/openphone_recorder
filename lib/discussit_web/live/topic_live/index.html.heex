@@ -16,33 +16,32 @@
   <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
     Topics
     <div>
-      <.button
-        :if={!@model_exists?}
-        class={["btn-sm", if(@analyzer_available?, do: "", else: "btn-disabled")]}
+      <.link
+        :if={!@model}
+        class={["btn btn-sm", if(@analyzer_available?, do: "", else: "btn-disabled")]}
+        phx-click="discover-topics"
         phx-disable-with="Generating ..."
       >
-        <.link phx-click="generate-topics">
-          Generate
-        </.link>
-      </.button>
+        Discover
+      </.link>
 
-      <.button :if={@model_exists?} class="btn-sm">
-        <.link
-          phx-click="regenerate-labels"
-          data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
-        >
-          Relabel
-        </.link>
-      </.button>
+      <.link
+        :if={@model}
+        class="btn btn-sm"
+        phx-click="regenerate-labels"
+        data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
+      >
+        Relabel
+      </.link>
 
-      <.button :if={@model_exists?} class="btn-sm">
-        <.link
-          phx-click="remove-topics"
-          data-confirm="Are you sure? Regenerating topics will delete all your existing topics."
-        >
-          Remove
-        </.link>
-      </.button>
+      <.link
+        :if={@model}
+        class="btn btn-sm"
+        phx-click="reset-model"
+        data-confirm="Are you sure? Regenerating topics will delete all your existing topics."
+      >
+        Reset
+      </.link>
     </div>
   </div>
 

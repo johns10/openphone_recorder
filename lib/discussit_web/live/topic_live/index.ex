@@ -2,24 +2,28 @@ defmodule DiscussitWeb.TopicLive.Index do
   use DiscussitWeb, :live_view
 
   alias Discussit.StatusAgent
-  alias Discussit.Topics
+  alias Discussit.{Topics, Models}
   alias Discussit.TopicAnalyzer
-  alias Discussit.TopicAnalyzer.Workers
-  alias Discussit.TopicAnalyzer.Status
+  alias Discussit.TopicAnalyzer.{Workers, Status}
   import DiscussitWeb.LiveSupport
 
   @impl true
   def mount(_params, _session, socket) do
     account = socket.assigns.current_user.selected_account
 
-    topics = list_topics(account) |> init_status_agents() |> assign_status()
+    model =
+      [filters: [account_id: account.id], order_by: [inserted_at: :desc], limit: 1]
+      |> Models.list_models()
+      |> Enum.at(0)
+
+    topics = list_topics(account, model) |> init_status_agents() |> assign_status()
 
     DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
 
     {:ok,
      socket
      |> stream(:topics, topics)
-     |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
+     |> assign(:model, model)
      |> assign(:analyzer_available?, Status.available?(account.id)),
      layout: {DiscussitWeb.Layouts, :full_screen}}
   end
@@ -51,13 +55,13 @@ defmodule DiscussitWeb.TopicLive.Index do
         socket
       ) do
     account = socket.assigns.current_user.selected_account
+    model = socket.assigns.model
 
     {:noreply,
      socket
      |> push_patch(to: ~p"/topics")
      |> assign(:analyzer_available?, Status.available?(account.id))
-     |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
-     |> stream(:topics, list_topics_with_status(account), reset: true)}
+     |> stream(:topics, list_topics_with_status(account, model), reset: true)}
   end
 
   @impl true
@@ -68,7 +72,7 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, stream_delete(socket, :topics, topic)}
   end
 
-  def handle_event("generate-topics", _, socket) do
+  def handle_event("discover-topics", _, socket) do
     %{account_id: socket.assigns.current_user.selected_account.id}
     |> Workers.Initialization.new()
     |> Oban.insert()
@@ -76,22 +80,21 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("remove-topics", _, socket) do
+  def handle_event("reset-model", _, socket) do
     account = socket.assigns.current_user.selected_account
+    model = socket.assigns.model
 
     socket =
       with :ok <- TopicAnalyzer.delete_model(account),
            :ok <- delete_topics(account) do
         socket
-        |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
-        |> stream(:topics, list_topics_with_status(account), reset: true)
+        |> stream(:topics, list_topics_with_status(account, model), reset: true)
         |> assign(:analyzer_available?, Status.available?(account.id))
         |> put_flash(:success, "Regenerating topics")
         |> push_patch(to: ~p"/topics")
       else
         _ ->
           socket
-          |> assign(:model_exists?, TopicAnalyzer.model_exists?(account))
           |> assign(:analyzer_available?, Status.available?(account.id))
           |> put_flash(:error, "Failed to regenerate topics")
           |> push_patch(to: ~p"/topics")
@@ -137,9 +140,10 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
   end
 
-  defp list_topics_with_status(account), do: list_topics(account) |> assign_status()
+  defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
 
-  defp list_topics(%{id: account_id}), do: Topics.list_topics(filters: [account_id: account_id])
+  defp list_topics(%{id: account_id}, %{id: model_id}),
+    do: Topics.list_topics(filters: [account_id: account_id, model_id: model_id])
 
   defp assign_status(topics) do
     topics

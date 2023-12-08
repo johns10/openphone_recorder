@@ -10,9 +10,11 @@ defmodule Discussit.Models do
 
   def list_models(opts \\ []) do
     order_by = Keyword.get(opts, :order_by, [])
+    filters = Keyword.get(opts, :filters, [])
 
     Model
-    |> maybe_order_by_inserted_at(order_by[:inserted_at])
+    |> filter_by_account_id(filters[:account_id])
+    |> order_by_inserted_at(order_by[:inserted_at])
     |> maybe_limit(opts[:limit])
     |> Repo.all()
   end
@@ -75,20 +77,14 @@ defmodule Discussit.Models do
     |> Enum.each(&delete_model/1)
   end
 
-  defp maybe_order_by_inserted_at(query, nil), do: query
+  defp filter_by_account_id(query, nil), do: query
+  defp filter_by_account_id(query, account_id), do: where(query, [t], t.account_id == ^account_id)
 
-  defp maybe_order_by_inserted_at(query, :desc) do
-    query
-    |> order_by([s], desc: s.inserted_at)
-  end
-
-  defp maybe_order_by_inserted_at(query, :asc) do
-    query
-    |> order_by([s], asc: s.inserted_at)
-  end
+  defp order_by_inserted_at(query, nil), do: query
+  defp order_by_inserted_at(query, :desc), do: order_by(query, [s], desc: s.inserted_at)
+  defp order_by_inserted_at(query, :asc), do: order_by(query, [s], asc: s.inserted_at)
 
   defp maybe_limit(query, nil), do: query
-
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)
 
   defp model_name(id), do: "#{id}-model"

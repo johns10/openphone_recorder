@@ -18,7 +18,7 @@ defmodule Discussit.Topics.Topic do
     field :topic_model_id, :integer
     field :sentiment, :integer
     field :title, :string
-    field :model_title, :string, default: "Model couldn't create title"
+    field :model_title, :string
     field :description, :string
     field :model_description, :string
     field :keywords, {:array, :map}
