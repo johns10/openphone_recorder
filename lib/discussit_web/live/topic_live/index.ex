@@ -33,6 +33,11 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
+  defp apply_action(socket, :train, _) do
+    socket
+    |> assign(:page_title, "Train Model")
+  end
+
   defp apply_action(socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Topic")
@@ -141,6 +146,9 @@ defmodule DiscussitWeb.TopicLive.Index do
   end
 
   defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
+
+  defp list_topics(%{id: account_id}, nil),
+    do: Topics.list_topics(filters: [account_id: account_id])
 
   defp list_topics(%{id: account_id}, %{id: model_id}),
     do: Topics.list_topics(filters: [account_id: account_id, model_id: model_id])
