@@ -44,10 +44,9 @@ def echo(ws):
             ws.send(json_result)
         if data["message_type"] == "init_model":
             payload = data["payload"]
-            model_path = payload["model_path"]
-            api_key = payload["openai_api_key"]
-            ids = [item["id"] for item in TRAINING_DATA]
-            topic_assignments, topics = init_model(TRAINING_DATA, model_path, api_key)
+            model_url = payload["model_url"]
+            id = payload["id"]
+            topic_assignments, topics = init_model(TRAINING_DATA, id, model_url)
             TRAINING_DATA.clear()
             result = {
                 "message_type": "model_initialized",

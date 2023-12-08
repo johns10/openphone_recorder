@@ -1,31 +1,22 @@
 defmodule Discussit.TopicAnalyzer do
   alias Discussit.Accounts.Account
-  alias Discussit.Statements
-  alias Discussit.Topics
+  alias Discussit.{Statements, Topics, Models}
   alias Discussit.Topics.Topic
   alias Discussit.TopicAnalyzer.Server
   require Logger
 
-  def init(%Account{} = account) do
-    bucket = Application.get_env(:discussit, :bucket)
-    object = object_path(account)
-
+  def init(%Account{id: account_id} = account) do
     query_opts = [
       filters: [embedded: true, account_id: account.id],
       preloads: [:embedding, :labelled_topic]
     ]
 
-    model_attrs = %{
-      model_path: local_path(account),
-      openai_api_key: Application.get_env(:openai, :api_key)
-    }
-
     with false <- model_exists?(account),
-         :ok <- create_model(bucket, object),
+         {:ok, model} <- Models.create_model(%{account_id: account_id}),
+         {:ok, urls} <- Models.get_model_urls(model.id, :put),
          statements <- Statements.list_statements(query_opts),
          {:ok, %{topic_assignments: topic_assignments, topics: model_topics}} <-
-           Server.init_model(statements, model_attrs),
-         # TODO Implement model backup hered
+           Server.init_model(statements, urls |> Map.put(:id, model.id)),
          topics <- insert_new_topics(model_topics, account.id),
          statements <- update_statement_topics(statements, topic_assignments, topics) do
       {:ok, statements}
@@ -80,8 +71,8 @@ defmodule Discussit.TopicAnalyzer do
       attrs = Map.put(model_topic, :account_id, account_id)
 
       case Topics.get_topic_by(%{model_id: model_id, account_id: account_id}) do
-        nil ->   Topics.create_topic(attrs)
-        %Topic{} = topic ->   Topics.update_topic(topic, attrs)
+        nil -> Topics.create_topic(attrs)
+        %Topic{} = topic -> Topics.update_topic(topic, attrs)
       end
       |> case do
         {:ok, topic} -> topic

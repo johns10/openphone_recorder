@@ -1,6 +1,7 @@
 import os
-import openai
+import requests
 import numpy
+import shutil
 from bertopic import BERTopic
 from sklearn.feature_extraction.text import CountVectorizer
 from bertopic.vectorizers import ClassTfidfTransformer
@@ -18,12 +19,16 @@ def save_model(topic_model, path):
     return topic_model
 
 
-def save_new_model(topic_model, path):
+def save_new_model(topic_model, id, model_url):
+    path = f"{id}-model"
     topic_model.save(path, serialization="safetensors", save_ctfidf=True)
+    shutil.make_archive(f"{id}-model", "zip", path)
+    files = {"upload_file": open(f"{id}-model.zip", "rb")}
+    requests.put(model_url, files=files)
     return topic_model
 
 
-def new_model(api_key, items_count):
+def new_model(items_count):
     min_cluster_size = 25
     n_neighbors = 15
     n_components = 5
@@ -59,39 +64,7 @@ def new_model(api_key, items_count):
         metric="cosine",
         random_state=42,
     )
-    openai.api_key = api_key
-    title_prompt = """
-    I have a topic that contains the following documents: 
-    [DOCUMENTS]
-    The topic is described by the following keywords: [KEYWORDS]
-
-    Based on the information above, extract a short but highly descriptive topic label of at most 5 words. 
-    Make sure it is in the following format:
-    <topic label>
-    """
-    description_prompt = """
-    I have a topic that contains the following documents: 
-    [DOCUMENTS]
-    The topic is described by the following keywords: [KEYWORDS]
-
-    Based on the information above, extract a short but highly descriptive topic description of at most 100 words. 
-    Make sure it is in the following format:
-    <topic description>
-    """
-    title_model = OpenAI(
-        model="gpt-3.5-turbo", exponential_backoff=True, chat=True, prompt=title_prompt
-    )
-    description_model = OpenAI(
-        model="gpt-3.5-turbo",
-        exponential_backoff=True,
-        chat=True,
-        prompt=description_prompt,
-    )
-    representation_model = {
-        "keywords": KeyBERTInspired(),
-        "model_title": KeyBERTInspired(),
-        "model_description": KeyBERTInspired(),
-    }
+    representation_model = {"keywords": KeyBERTInspired()}
     return BERTopic(
         embedding_model=embedding_model,
         umap_model=umap_model,
@@ -104,12 +77,12 @@ def new_model(api_key, items_count):
     )
 
 
-def init_model(data, model_path, api_key):
+def init_model(data, id, model_url):
     content = [item["content"] for item in data]
     embeddings = numpy.asarray([item["vector"] for item in data])
     labels = cast_statements_and_topics(data)
     ids = [item["id"] for item in data]
-    topic_model = new_model(api_key, content.__len__())
+    topic_model = new_model(content.__len__())
     new_topics = fit_topics(topic_model, content, embeddings, labels)
     doc_info = topic_model.get_document_info(content)
     doc_info["id"] = ids
@@ -120,7 +93,7 @@ def init_model(data, model_path, api_key):
     )
     new_topics = doc_info.get(["id", "model_topic_id", "representative"])
     topics = get_topics(topic_model)
-    save_new_model(topic_model, model_path)
+    save_new_model(topic_model, id, model_url)
     del topic_model
     return new_topics.to_dict(orient="records"), cast_topics(topics)
 
