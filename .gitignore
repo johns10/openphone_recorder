@@ -43,7 +43,8 @@ npm-debug.log
 /priv/static/favicon*
 
 # ignore models
-/priv/*.model
+/**/*-model/*
+/**/*-model.zip
 
 /.elixir_ls
 
