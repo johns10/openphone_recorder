@@ -1,0 +1,132 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20231207T032559Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "put",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "113I5t+lB3l0gAGlprJP2fidrKO4exLXEXSRyXSDprlo5HyIoycTPZbctuS2KlBlsl6RBASkQuA=",
+        "x-amz-request-id": "QSJGBZB3R5B1PW5D",
+        "Date": "Thu, 07 Dec 2023 03:26:00 GMT",
+        "x-amz-server-side-encryption": "AES256",
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "Server": "AmazonS3",
+        "Content-Length": "0"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20231207T032559Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "put",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-merge-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "qrx6Fa3Nx3thbIJwNT66tFuuHOlSh+hbrBDr8Au3Fs0dnFUDkMtX6OiCViGl8JjV8lqFa498IbY=",
+        "x-amz-request-id": "QSJN8EP5HGD8C24C",
+        "Date": "Thu, 07 Dec 2023 03:26:00 GMT",
+        "x-amz-server-side-encryption": "AES256",
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "Server": "AmazonS3",
+        "Content-Length": "0"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20231207T032559Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "delete",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "5MdHvubkyNyfhRVLNzRdSDN169DPCbq1Sd5hB1bqyXFhIBt9qiC+Bl9UhzUjUVrlvuvGbsWmyGQ=",
+        "x-amz-request-id": "QSJH3RP8EMN663KZ",
+        "Date": "Thu, 07 Dec 2023 03:26:00 GMT",
+        "Server": "AmazonS3"
+      },
+      "status_code": 204,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20231207T032559Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "delete",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-merge-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "n/Ja7dl1c6Kvx4npHgBgqMmPePLg9MH2Jq5pomdMxafAeH0Bk6kdD02XwfmVTimuHwNemarBkes=",
+        "x-amz-request-id": "V4Y46PC085Y610AC",
+        "Date": "Thu, 07 Dec 2023 03:26:01 GMT",
+        "Server": "AmazonS3"
+      },
+      "status_code": 204,
+      "type": "ok"
+    }
+  }
+]
