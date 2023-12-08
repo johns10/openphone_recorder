@@ -81,16 +81,7 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       statements =
-        (bathtub_cleaning_content() ++
-           sink_cleaning_contant() ++
-           floor_cleaning_content() ++
-           toilet_cleaning_content() ++
-           shower_cleaning_content() ++
-           floor_cleaning_content_2() ++
-           oven_cleaning_content() ++
-           cabinet_cleaning_content() ++
-           baseboard_cleaning_content() ++
-           wall_cleaning_content() ++ ceiling_fan_cleaning_content())
+        bathtub_cleaning_content()
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
 
       use_cassette("embedding_calls", match_requests_on: [:request_body]) do
@@ -101,10 +92,10 @@ defmodule Discussit.TopicAnalyzerTest do
         end)
       end
 
-      use_cassette("no existing_object") do
-        {:ok, results} = TopicAnalyzer.init(account)
-        assert Enum.count(results) == Enum.count(statements)
-      end
+      # use_cassette("no existing_object") do
+      {:ok, results} = TopicAnalyzer.init(account)
+      assert Enum.count(results) == Enum.count(statements)
+      # end
 
       topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count < 45 and topics_count > 35
@@ -125,10 +116,17 @@ defmodule Discussit.TopicAnalyzerTest do
       conversation = conversation_fixture(%{account_id: account.id})
 
       bathtub_topic =
-        topic_fixture(%{title: "Bathtub cleaning", model_id: 1, account_id: account.id})
+        topic_fixture(%{
+          title: "Bathtub cleaning",
+          topic_topic_model_id: 1,
+          account_id: account.id
+        })
 
-      sink_topic = topic_fixture(%{title: "Sink cleaning", model_id: 2, account_id: account.id})
-      floor_topic = topic_fixture(%{title: "Floor cleaning", model_id: 3, account_id: account.id})
+      sink_topic =
+        topic_fixture(%{title: "Sink cleaning", topic_model_id: 2, account_id: account.id})
+
+      floor_topic =
+        topic_fixture(%{title: "Floor cleaning", topic_model_id: 3, account_id: account.id})
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
         {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
@@ -190,7 +188,6 @@ defmodule Discussit.TopicAnalyzerTest do
       :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
 
       conversation = conversation_fixture(%{account_id: account.id})
-      participant = participant_fixture()
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
         {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()

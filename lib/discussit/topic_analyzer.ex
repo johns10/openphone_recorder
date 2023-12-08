@@ -47,7 +47,8 @@ defmodule Discussit.TopicAnalyzer do
   end
 
   defp update_statement_topics(statements, statement_topics, topics) do
-    topic_map = Enum.reduce(topics, %{}, fn topic, acc -> Map.put(acc, topic.model_id, topic) end)
+    topic_map =
+      Enum.reduce(topics, %{}, fn topic, acc -> Map.put(acc, topic.topic_model_id, topic) end)
 
     Enum.zip(statements, statement_topics)
     |> Enum.map(fn
@@ -67,10 +68,10 @@ defmodule Discussit.TopicAnalyzer do
 
   defp insert_new_topics(model_topics, account_id) do
     model_topics
-    |> Enum.map(fn %{model_id: model_id} = model_topic ->
+    |> Enum.map(fn %{topic_model_id: topic_model_id} = model_topic ->
       attrs = Map.put(model_topic, :account_id, account_id)
 
-      case Topics.get_topic_by(%{model_id: model_id, account_id: account_id}) do
+      case Topics.get_topic_by(%{topic_model_id: topic_model_id, account_id: account_id}) do
         nil -> Topics.create_topic(attrs)
         %Topic{} = topic -> Topics.update_topic(topic, attrs)
       end

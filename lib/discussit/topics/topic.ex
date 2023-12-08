@@ -3,18 +3,19 @@ defmodule Discussit.Topics.Topic do
   import Ecto.Changeset
   alias Discussit.Accounts.Account
   alias Discussit.Statements.Statement
+  alias Discussit.Models.Model
 
   @derive {Jason.Encoder,
            only: [
              :id,
-             :model_id,
+             :topic_model_id,
              :title,
              :model_title,
              :description,
              :model_description
            ]}
   schema "topics" do
-    field :model_id, :integer
+    field :topic_model_id, :integer
     field :sentiment, :integer
     field :title, :string
     field :model_title, :string, default: "Model couldn't create title"
@@ -24,6 +25,7 @@ defmodule Discussit.Topics.Topic do
 
     belongs_to :parent_topic, __MODULE__
     belongs_to :account, Account, type: :binary_id
+    belongs_to :model, Model
 
     has_many :statements, Statement
     has_many :model_statements, Statement, foreign_key: :model_topic_id
@@ -36,7 +38,7 @@ defmodule Discussit.Topics.Topic do
   def changeset(topic, attrs) do
     topic
     |> cast(attrs, [
-      :model_id,
+      :topic_model_id,
       :title,
       :model_title,
       :description,
@@ -50,7 +52,7 @@ defmodule Discussit.Topics.Topic do
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)
     |> no_assoc_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
-    |> validate_required([:model_id, :model_title])
+    |> validate_required([:topic_model_id, :model_title])
   end
 
   def cast_keywords(changeset) do

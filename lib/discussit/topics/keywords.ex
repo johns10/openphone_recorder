@@ -6,7 +6,7 @@ defmodule Discussit.Topics.Keywords do
 
     topics
     |> Enum.reduce(initial_acc, fn topic, %{models_attrs: models_attrs} = acc ->
-      %{score: best_score, model_id: model_id} =
+      %{score: best_score, topic_model_id: topic_model_id} =
         best_match =
         topic_scores(topic, models_attrs)
         |> Enum.max(fn score1, score2 -> score1.score >= score2.score end)
@@ -14,7 +14,7 @@ defmodule Discussit.Topics.Keywords do
       case best_score do
         score when score >= 0.80 ->
           Topics.update_topic(topic, best_match)
-          remove_model_attrs(acc, model_id)
+          remove_model_attrs(acc, topic_model_id)
 
         _score ->
           %{acc | topics: [topic | acc.topics]}
@@ -22,8 +22,10 @@ defmodule Discussit.Topics.Keywords do
     end)
   end
 
-  defp remove_model_attrs(%{models_attrs: models_attrs} = state, model_id) do
-    models_attrs = models_attrs |> Enum.filter(fn %{model_id: id} -> id != model_id end)
+  defp remove_model_attrs(%{models_attrs: models_attrs} = state, topic_model_id) do
+    models_attrs =
+      models_attrs |> Enum.filter(fn %{topic_model_id: id} -> id != topic_model_id end)
+
     %{state | models_attrs: models_attrs}
   end
 

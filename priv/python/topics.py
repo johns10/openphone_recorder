@@ -137,7 +137,7 @@ def cast_statements_and_topics(statements):
     for statement in statements:
         if "labelled_topic" in statement and statement["labelled_topic"] != None:
             if statement["labelled_topic"]["title"]:
-                result.append(statement["labelled_topic"]["model_id"])
+                result.append(statement["labelled_topic"]["topic_model_id"])
             else:
                 result.append(-1)
         else:
@@ -146,7 +146,7 @@ def cast_statements_and_topics(statements):
 
 
 def assign_values(key, value, id):
-    return {key: format_value(key, value), "model_id": id}
+    return {key: format_value(key, value), "topic_model_id": id}
 
 
 def format_value(key, value):

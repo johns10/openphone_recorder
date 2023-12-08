@@ -32,8 +32,8 @@ defmodule Discussit.TopicsTest do
 
     test "get_topic_by/1 returns the topic with the given model id" do
       account = account_fixture()
-      topic = topic_fixture(%{account_id: account.id, model_id: 5})
-      assert Topics.get_topic_by(%{account_id: account.id, model_id: 5}) == topic
+      topic = topic_fixture(%{account_id: account.id, topic_model_id: 5})
+      assert Topics.get_topic_by(%{account_id: account.id, topic_model_id: 5}) == topic
     end
 
     test "create_topic/1 with valid data creates a topic" do
@@ -44,7 +44,7 @@ defmodule Discussit.TopicsTest do
         description: "some description",
         title: "some title",
         model_title: "some title",
-        model_id: 1,
+        topic_model_id: 1,
         parent_topic_id: parent_topic.id
       }
 

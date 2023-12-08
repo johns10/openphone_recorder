@@ -47,7 +47,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaning supplies", "probability" => 0.40605402},
           %{"keyword" => "bathroom", "probability" => 0.39413086}
         ],
-        model_id: 0
+        topic_model_id: 0
       },
       %{
         keywords: [
@@ -62,7 +62,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "scrub brush", "probability" => 0.48412168},
           %{"keyword" => "cleaner soap", "probability" => 0.47029287}
         ],
-        model_id: 1
+        topic_model_id: 1
       },
       %{
         keywords: [
@@ -77,7 +77,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "clean sparkling", "probability" => 0.4391232},
           %{"keyword" => "bathtub sparkle", "probability" => 0.4198135}
         ],
-        model_id: 2
+        topic_model_id: 2
       },
       %{
         keywords: [
@@ -92,7 +92,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "milk sounds", "probability" => 0.4582525},
           %{"keyword" => "breaks stains", "probability" => 0.44087112}
         ],
-        model_id: 3
+        topic_model_id: 3
       },
       %{
         keywords: [
@@ -107,7 +107,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "mustard", "probability" => 0.4772008},
           %{"keyword" => "secret cleaning", "probability" => 0.44034266}
         ],
-        model_id: 4
+        topic_model_id: 4
       },
       %{
         keywords: [
@@ -122,7 +122,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "scrub brush", "probability" => 0.48342696},
           %{"keyword" => "proper cleaning", "probability" => 0.48328942}
         ],
-        model_id: 5
+        topic_model_id: 5
       },
       %{
         keywords: [
@@ -137,7 +137,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "mop", "probability" => 0.397649},
           %{"keyword" => "hey cleaned", "probability" => 0.3898036}
         ],
-        model_id: 6
+        topic_model_id: 6
       },
       %{
         keywords: [
@@ -152,7 +152,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "toothbrush", "probability" => 0.34154588},
           %{"keyword" => "scrub", "probability" => 0.33318907}
         ],
-        model_id: 7
+        topic_model_id: 7
       },
       %{
         keywords: [
@@ -167,7 +167,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "stubborn stains", "probability" => 0.5396198},
           %{"keyword" => "stains great", "probability" => 0.5349237}
         ],
-        model_id: 8
+        topic_model_id: 8
       },
       %{
         keywords: [
@@ -182,7 +182,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "power unicorn", "probability" => 0.36946088},
           %{"keyword" => "dust", "probability" => 0.3653178}
         ],
-        model_id: 9
+        topic_model_id: 9
       },
       %{
         keywords: [
@@ -197,7 +197,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "supplies clear", "probability" => 0.4312837},
           %{"keyword" => "sink wet", "probability" => 0.4288413}
         ],
-        model_id: 10
+        topic_model_id: 10
       },
       %{
         keywords: [
@@ -212,7 +212,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaning", "probability" => 0.6133715},
           %{"keyword" => "use clean", "probability" => 0.5969031}
         ],
-        model_id: 11
+        topic_model_id: 11
       },
       %{
         keywords: [
@@ -227,7 +227,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "", "probability" => 0.34581763},
           %{"keyword" => "", "probability" => 0.34581763}
         ],
-        model_id: 12
+        topic_model_id: 12
       }
     ]
   end
@@ -247,7 +247,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaning", "probability" => 0.51907945},
           %{"keyword" => "handle toilet", "probability" => 0.51608133}
         ],
-        model_id: -1
+        topic_model_id: -1
       },
       %{
         keywords: [
@@ -262,7 +262,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "scrub thoroughly", "probability" => 0.5716615},
           %{"keyword" => "thorough cleaning", "probability" => 0.56721294}
         ],
-        model_id: 0
+        topic_model_id: 0
       },
       %{
         keywords: [
@@ -277,7 +277,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "sparkling toilet", "probability" => 0.41110045},
           %{"keyword" => "tub", "probability" => 0.40560132}
         ],
-        model_id: 1
+        topic_model_id: 1
       },
       %{
         keywords: [
@@ -292,7 +292,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaning power", "probability" => 0.49852383},
           %{"keyword" => "grab toothbrush", "probability" => 0.48372585}
         ],
-        model_id: 2
+        topic_model_id: 2
       },
       %{
         keywords: [
@@ -307,7 +307,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "oils peanut", "probability" => 0.4746549},
           %{"keyword" => "shower yeah", "probability" => 0.46833783}
         ],
-        model_id: 3
+        topic_model_id: 3
       },
       %{
         keywords: [
@@ -322,7 +322,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "giving toilet", "probability" => 0.48646224},
           %{"keyword" => "clean", "probability" => 0.47657418}
         ],
-        model_id: 4
+        topic_model_id: 4
       },
       %{
         keywords: [
@@ -337,7 +337,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "clean sparkling", "probability" => 0.4391232},
           %{"keyword" => "bathtub sparkle", "probability" => 0.4198135}
         ],
-        model_id: 5
+        topic_model_id: 5
       },
       %{
         keywords: [
@@ -352,7 +352,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "turn cleaning", "probability" => 0.5646954},
           %{"keyword" => "proper cleaning", "probability" => 0.5626953}
         ],
-        model_id: 6
+        topic_model_id: 6
       },
       %{
         keywords: [
@@ -367,7 +367,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cream", "probability" => 0.49050784},
           %{"keyword" => "trick milk", "probability" => 0.4799421}
         ],
-        model_id: 7
+        topic_model_id: 7
       },
       %{
         keywords: [
@@ -382,7 +382,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaner", "probability" => 0.52925533},
           %{"keyword" => "methods toilet", "probability" => 0.5073811}
         ],
-        model_id: 8
+        topic_model_id: 8
       },
       %{
         keywords: [
@@ -397,7 +397,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "mustard", "probability" => 0.52895516},
           %{"keyword" => "secret cleaning", "probability" => 0.49773055}
         ],
-        model_id: 9
+        topic_model_id: 9
       },
       %{
         keywords: [
@@ -412,7 +412,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "sponge isn", "probability" => 0.40580803},
           %{"keyword" => "reach crevices", "probability" => 0.39995152}
         ],
-        model_id: 10
+        topic_model_id: 10
       },
       %{
         keywords: [
@@ -427,7 +427,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "absolutely rinse", "probability" => 0.4958886},
           %{"keyword" => "sink", "probability" => 0.49121183}
         ],
-        model_id: 11
+        topic_model_id: 11
       },
       %{
         keywords: [
@@ -442,7 +442,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "cleaner", "probability" => 0.48335677},
           %{"keyword" => "cleaning planning", "probability" => 0.48156598}
         ],
-        model_id: 12
+        topic_model_id: 12
       },
       %{
         keywords: [
@@ -457,7 +457,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "", "probability" => 0.34581771},
           %{"keyword" => "", "probability" => 0.34581771}
         ],
-        model_id: 13
+        topic_model_id: 13
       },
       %{
         keywords: [
@@ -472,7 +472,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "scrub brush", "probability" => 0.49724096},
           %{"keyword" => "sink desperate", "probability" => 0.49425477}
         ],
-        model_id: 14
+        topic_model_id: 14
       },
       %{
         keywords: [
@@ -487,7 +487,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "power unicorn", "probability" => 0.36946088},
           %{"keyword" => "dust", "probability" => 0.3653178}
         ],
-        model_id: 15
+        topic_model_id: 15
       },
       %{
         keywords: [
@@ -502,7 +502,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "remember toilets", "probability" => 0.41837123},
           %{"keyword" => "little excitement", "probability" => 0.41415465}
         ],
-        model_id: 16
+        topic_model_id: 16
       },
       %{
         keywords: [
@@ -517,7 +517,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "mayonnaise", "probability" => 0.547457},
           %{"keyword" => "mayo", "probability" => 0.5155859}
         ],
-        model_id: 17
+        topic_model_id: 17
       },
       %{
         keywords: [
@@ -532,7 +532,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "stains just", "probability" => 0.45990717},
           %{"keyword" => "acid milk", "probability" => 0.4347621}
         ],
-        model_id: 18
+        topic_model_id: 18
       },
       %{
         keywords: [
@@ -547,7 +547,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "dirt chittering", "probability" => 0.45279613},
           %{"keyword" => "paws scrub", "probability" => 0.41407514}
         ],
-        model_id: 19
+        topic_model_id: 19
       },
       %{
         keywords: [
@@ -562,7 +562,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "socks", "probability" => 0.58890486},
           %{"keyword" => "ninja cleaning", "probability" => 0.526647}
         ],
-        model_id: 20
+        topic_model_id: 20
       },
       %{
         keywords: [
@@ -577,7 +577,7 @@ defmodule Discussit.Topics.KeywordsTest do
           %{"keyword" => "mop floor", "probability" => 0.4205572},
           %{"keyword" => "like cleaning", "probability" => 0.4108179}
         ],
-        model_id: 21
+        topic_model_id: 21
       }
     ]
   end

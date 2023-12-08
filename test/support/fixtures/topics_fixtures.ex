@@ -15,7 +15,7 @@ defmodule Discussit.TopicsFixtures do
         description: "some description",
         title: "some title",
         model_title: "some model title",
-        model_id: 1,
+        topic_model_id: 1,
         account_id: Map.get(attrs, :account_id, nil)
       })
       |> Discussit.Topics.create_topic()
