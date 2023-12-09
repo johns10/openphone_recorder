@@ -130,39 +130,19 @@ defmodule Discussit.Statements do
   end
 
   defp maybe_filter_by_before(query, nil), do: query
-
-  defp maybe_filter_by_before(query, before) do
-    query
-    |> where([s], s.occurred_at < ^before)
-  end
-
+  defp maybe_filter_by_before(query, before), do: where(query, [s], s.occurred_at < ^before)
   defp maybe_order_by_occurred_at(query, nil), do: query
-
-  defp maybe_order_by_occurred_at(query, :desc) do
-    query
-    |> order_by([s], desc: s.occurred_at)
-  end
-
+  defp maybe_order_by_occurred_at(query, :desc), do: order_by(query, [s], desc: s.occurred_at)
+  defp maybe_order_by_occurred_at(query, :asc), do: order_by(query, [s], asc: s.occurred_at)
   defp maybe_order_by_representative(query, nil), do: query
 
-  defp maybe_order_by_representative(query, :desc) do
-    query
-    |> order_by([s], desc: s.representative)
-  end
-
-  defp maybe_order_by_occurred_at(query, :asc) do
-    query
-    |> order_by([s], asc: s.occurred_at)
-  end
+  defp maybe_order_by_representative(query, :desc),
+    do: order_by(query, [s], desc: s.representative)
 
   defp maybe_limit(query, nil), do: query
-
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)
-
   defp maybe_offset(query, nil), do: query
-
   defp maybe_offset(query, offset), do: offset(query, [s], ^offset)
-
   defp maybe_filter_cumulative_content_length(query, nil), do: query
 
   defp maybe_filter_cumulative_content_length(query, content_length) do
