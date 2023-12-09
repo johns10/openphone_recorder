@@ -124,7 +124,7 @@ defmodule Discussit.StatementsTest do
 
     test "count_statements/0 returns all statements" do
       statement_fixture(%{participant_id: participant_fixture().id})
-      assert Statements.count_statements() == 1
+      assert Statements.list_statements(count: true) == 1
     end
 
     test "get_statement!/1 returns the statement with given id" do

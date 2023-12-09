@@ -27,33 +27,7 @@ defmodule Discussit.Statements do
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
     |> preload(^preloads)
-    |> Repo.all()
-  end
-
-  def count_statements(opts \\ []) do
-    filters = Keyword.get(opts, :filters, [])
-    order_by = Keyword.get(opts, :order_by, [])
-    preloads = Keyword.get(opts, :preloads, [])
-
-    Statement
-    |> maybe_filter_by_call_id(filters[:call_id])
-    |> maybe_filter_by_conversation_id(filters[:conversation_id])
-    |> maybe_filter_by_meeting_id(filters[:meeting_id])
-    |> maybe_filter_by_account_id(filters[:account_id])
-    |> maybe_filter_by_topic_id(filters[:topic_id])
-    |> maybe_order_by_occurred_at(order_by[:occurred_at])
-    |> maybe_order_by_representative(order_by[:representative])
-    |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
-    |> maybe_filter_by_before(filters[:before])
-    |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
-    |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
-    |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
-    |> maybe_filter_embedded(filters[:embedded])
-    |> maybe_filter_cumulative_content_length(filters[:cumulative_content_length])
-    |> maybe_limit(opts[:limit])
-    |> maybe_offset(opts[:offset])
-    |> preload(^preloads)
-    |> Repo.aggregate(:count, :id)
+    |> handle_query(opts[:count])
   end
 
   def get_statement!(id, opts \\ []) do
@@ -201,6 +175,9 @@ defmodule Discussit.Statements do
 
     from s in subquery(cumulative_length_query), where: s.cumulative_length < ^content_length
   end
+
+  defp handle_query(query, true), do: Repo.aggregate(query, :count, :id)
+  defp handle_query(query, _), do: Repo.all(query)
 
   def create_statement(attrs \\ %{}) do
     %Statement{}
