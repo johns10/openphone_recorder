@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.TopicLive.Index do
+  # TODO: Get rid of summarizer_status
   use DiscussitWeb, :live_view
 
   alias Discussit.StatusAgent

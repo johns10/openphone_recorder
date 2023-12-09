@@ -88,10 +88,10 @@ def init_model(data, id, model_url):
     doc_info["id"] = ids
     doc_info = doc_info.rename(
         columns=(
-            {"Topic": "model_topic_id", "Representative_document": "representative"}
+            {"Topic": "trained_topic_id", "Representative_document": "representative"}
         )
     )
-    new_topics = doc_info.get(["id", "model_topic_id", "representative"])
+    new_topics = doc_info.get(["id", "trained_topic_id", "representative"])
     topics = get_topics(topic_model)
     save_new_model(topic_model, id, model_url)
     del topic_model

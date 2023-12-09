@@ -43,7 +43,7 @@ defmodule Discussit.Statements.Statement do
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :topic, Topic
-    belongs_to :model_topic, Topic
+    belongs_to :trained_topic, Topic
     belongs_to :labelled_topic, Topic
 
     has_one :embedding, Embedding
@@ -71,7 +71,7 @@ defmodule Discussit.Statements.Statement do
       :ts_range,
       :all_stopwords,
       :unprocessable,
-      :model_topic_id,
+      :trained_topic_id,
       :labelled_topic_id,
       :representative
     ])
@@ -81,7 +81,7 @@ defmodule Discussit.Statements.Statement do
     |> foreign_key_constraint(:call_id)
     |> foreign_key_constraint(:meeting_id)
     |> foreign_key_constraint(:topic_id)
-    |> foreign_key_constraint(:model_topic_id)
+    |> foreign_key_constraint(:trained_topic_id)
     |> foreign_key_constraint(:labelled_topic_id)
     |> cast_id()
     |> unique_constraint([:id], name: :statements_pkey)

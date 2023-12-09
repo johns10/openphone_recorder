@@ -20,7 +20,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Summaries.Summary
 
   @statement_preloads [
-    :model_topic,
+    :trained_topic,
     :labelled_topic,
     :participant,
     [participant: [:contact, [phone_number: :contacts]]]

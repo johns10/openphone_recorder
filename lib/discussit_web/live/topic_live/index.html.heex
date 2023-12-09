@@ -64,7 +64,8 @@
         <p class="line-clamp-6"><%= topic.description %></p>
         <div class="flex flex-row flex-wrap w-full line-clamp-3 max-h-14">
           <div
-            :for={%{"keyword" => kw, "probability" => probability} <- topic.keywords}
+            :for={%{"keyword" => kw, "probability" => probability} <- topic.keywords || []}
+            :if={topic.keywords}
             class={[
               "badge m-1",
               case probability do
@@ -86,7 +87,11 @@
           </div>
         </div>
         <div class="card-actions">
-          <.link class="btn btn-square btn-sm btn-outline my-0" patch={~p"/topics/#{topic}/edit"}>
+          <.link
+            id={"edit-topic-#{topic.id}"}
+            class="btn btn-square btn-sm btn-outline my-0"
+            patch={~p"/topics/#{topic}/edit"}
+          >
             <.icon name="hero-pencil-square" class="w-5 h-5" />
           </.link>
           <.link class="btn btn-square btn-sm btn-outline my-0" patch={~p"/topics/#{topic}"}>

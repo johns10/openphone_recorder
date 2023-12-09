@@ -9,7 +9,6 @@ defmodule Discussit.TopicAnalyzerTest do
   import Discussit.ConversationsFixtures
   import Discussit.StatementsFixtures
   import Discussit.EmbeddingsFixtures
-  import Discussit.ParticipantsFixtures
   import Discussit.TopicsFixtures
 
   describe "Topic Analyzer initialization" do
@@ -81,7 +80,16 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       statements =
-        bathtub_cleaning_content()
+        (bathtub_cleaning_content() ++
+           sink_cleaning_contant() ++
+           floor_cleaning_content() ++
+           toilet_cleaning_content() ++
+           shower_cleaning_content() ++
+           floor_cleaning_content_2() ++
+           oven_cleaning_content() ++
+           cabinet_cleaning_content() ++
+           baseboard_cleaning_content() ++
+           wall_cleaning_content() ++ ceiling_fan_cleaning_content())
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
 
       use_cassette("embedding_calls", match_requests_on: [:request_body]) do
@@ -97,11 +105,11 @@ defmodule Discussit.TopicAnalyzerTest do
       assert Enum.count(results) == Enum.count(statements)
       # end
 
-      topics_count = Topics.list_topics() |> Enum.count()
+      topics_count = Topics.list_topics() |> Enum.count() |> IO.inspect()
       assert topics_count < 45 and topics_count > 35
 
       assert Statements.list_statements()
-             |> Enum.filter(&(&1.model_topic_id != nil))
+             |> Enum.filter(&(&1.trained_topic_id != nil))
              |> Enum.count() > 0
 
       Discussit.TopicAnalyzer.Server.stop_server()
@@ -174,7 +182,7 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       use_cassette("no existing_object") do
-        {:ok, results} = TopicAnalyzer.init(account)
+        {:ok, _} = TopicAnalyzer.init(account)
       end
 
       topics_count = Topics.list_topics() |> Enum.count()

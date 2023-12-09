@@ -684,7 +684,7 @@ defmodule DiscussitWeb.CoreComponents do
 
   attr(:id, :string, required: true)
   attr(:parent_id, :string, required: false)
-  attr(:model_topic_id, :string, required: false)
+  attr(:trained_topic_id, :string, required: false)
   attr(:initial_value, :string, required: false)
   attr(:search_results, :list, default: [])
 
@@ -709,7 +709,7 @@ defmodule DiscussitWeb.CoreComponents do
         type="button"
         class="btn btn-sm btn-ghost rounded-r-none"
         phx-click="confirm-label"
-        phx-value-topic-id={@model_topic_id}
+        phx-value-topic-id={@trained_topic_id}
         phx-value-parent-id={@parent_id}
       >
         <.icon name="hero-check" class="bg-success" />

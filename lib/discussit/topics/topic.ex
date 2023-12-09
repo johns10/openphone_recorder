@@ -23,12 +23,17 @@ defmodule Discussit.Topics.Topic do
     field :model_description, :string
     field :keywords, {:array, :map}
 
+    field :summarizer_status, Ecto.Enum,
+      values: [:not_started, :started],
+      virtual: true,
+      default: :not_started
+
     belongs_to :parent_topic, __MODULE__
     belongs_to :account, Account, type: :binary_id
     belongs_to :model, Model
 
     has_many :statements, Statement
-    has_many :model_statements, Statement, foreign_key: :model_topic_id
+    has_many :model_statements, Statement, foreign_key: :trained_topic_id
     has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
 
     timestamps()
@@ -52,7 +57,7 @@ defmodule Discussit.Topics.Topic do
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)
     |> no_assoc_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
-    |> validate_required([:topic_model_id, :model_title])
+    |> validate_required([])
   end
 
   def cast_keywords(changeset) do

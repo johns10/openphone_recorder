@@ -1,4 +1,5 @@
 defmodule Discussit.Usages.ResponseHandlers do
+  require Logger
   def chat_completion({:ok, response}), do: chat_completion(response)
   def chat_completion({:error, _} = response), do: response
 

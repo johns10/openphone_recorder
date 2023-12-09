@@ -65,7 +65,7 @@ defmodule Discussit.Statements do
   defp maybe_filter_by_topic_id(query, topic_id) do
     query
     |> where([s], s.labelled_topic_id == ^topic_id)
-    |> or_where([s], s.model_topic_id == ^topic_id)
+    |> or_where([s], s.trained_topic_id == ^topic_id)
   end
 
   defp maybe_filter_by_call_id(query, nil), do: query

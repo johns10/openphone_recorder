@@ -110,16 +110,6 @@ defmodule DiscussitWeb.TopicLive.Show do
     end
   end
 
-  def handle_event("confirm-topic", %{"topic-id" => id}, socket) do
-    with %Topic{model_title: t, model_description: d} = topic <- Topics.get_topic!(id),
-         {:ok, topic} <- Topics.update_topic(topic, %{title: t, description: d}) do
-      {:noreply,
-       socket
-       |> assign(:topic, topic)
-       |> stream(:statements, list_statements(topic.id), reset: true)}
-    end
-  end
-
   @impl true
   def handle_info(%{event: "status_update", payload: :finished}, socket) do
     topic = Topics.get_topic!(socket.assigns.topic.id)
@@ -133,6 +123,10 @@ defmodule DiscussitWeb.TopicLive.Show do
 
   def handle_info(%{event: "status_update", payload: status}, socket) do
     {:noreply, socket |> assign(:summarizer_status, status)}
+  end
+
+  def handle_info({DiscussitWeb.TopicLive.FormComponent, {:saved, topic}}, socket) do
+    {:noreply, assign(socket, :topic, topic)}
   end
 
   defp list_statements(topic_id) do

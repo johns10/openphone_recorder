@@ -87,11 +87,11 @@ defmodule Discussit.TopicsTest do
       assert_raise Ecto.NoResultsError, fn -> Topics.get_topic!(topic.id) end
     end
 
-    test "delete_topic/1 deletes a topic and dereferences statement with model_topic_id" do
+    test "delete_topic/1 deletes a topic and dereferences statement with trained_topic_id" do
       topic = topic_fixture()
-      statement = statement_fixture(%{model_topic_id: topic.id})
+      statement = statement_fixture(%{trained_topic_id: topic.id})
       assert {:ok, %Topic{}} = Topics.delete_topic(topic)
-      assert %Statement{model_topic_id: nil} = Statements.get_statement!(statement.id)
+      assert %Statement{trained_topic_id: nil} = Statements.get_statement!(statement.id)
     end
 
     test "delete_topic/1 fails when a statement has labelled_topic_id" do
