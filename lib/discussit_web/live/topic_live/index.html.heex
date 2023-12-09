@@ -34,11 +34,15 @@
         Relabel
       </.link>
 
+      <.link :if={@model} class="btn btn-sm" patch={~p"/topics/train"} phx-click={JS.push_focus()}>
+        Train
+      </.link>
+
       <.link
         :if={@model}
         class="btn btn-sm"
         phx-click="reset-model"
-        data-confirm="Are you sure? Regenerating topics will delete all your existing topics."
+        data-confirm="This action will delete all automatically generated topics that haven't been used in your conversations."
       >
         Reset
       </.link>
@@ -109,6 +113,8 @@
     </div>
   </div>
 
+  <%= @live_action %>
+
   <.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>
     <.live_component
       module={DiscussitWeb.TopicLive.FormComponent}
@@ -117,6 +123,16 @@
       action={@live_action}
       topic={@topic}
       patch={~p"/topics"}
+    />
+  </.modal>
+  <.modal :if={@live_action == :train} id="training-modal" show on_cancel={JS.patch(~p"/topics")}>
+    <.live_component
+      module={DiscussitWeb.TopicLive.TrainingFormComponent}
+      id={@model.id || "training-form"}
+      title={@page_title}
+      patch={~p"/topics"}
+      model_id={@model.id}
+      account_id={@current_user.selected_account.id}
     />
   </.modal>
 </div>
