@@ -8,7 +8,7 @@ defmodule Discussit.Repo.Migrations.CreateModels do
       add :merge_object, :string
       add :account_id, references(:accounts, on_delete: :nothing, type: :binary_id)
 
-      timestamps()
+      timestamps(type: :naive_datetime_usec)
     end
 
     create index(:models, [:account_id])

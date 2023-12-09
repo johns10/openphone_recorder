@@ -24,9 +24,14 @@ defmodule Discussit.Models do
   def create_model(attrs \\ %{}) do
     id = Map.get(attrs, :id, Ecto.UUID.generate())
 
-    with {:ok, _} <- create_object(model_name(id)),
-         {:ok, _} <- create_object(merge_model_name(id)) do
-      %Model{id: id, merge_object: merge_model_name(id), model_object: model_name(id)}
+    with {:ok, merge_object} <- handle_create_object(id, attrs, :merge_object),
+         {:ok, model_object} <- handle_create_object(id, attrs, :model_object) do
+      attrs =
+        attrs
+        |> Map.put(:merge_object, merge_object)
+        |> Map.put(:model_object, model_object)
+
+      %Model{id: id}
       |> Model.changeset(attrs)
       |> Repo.insert()
     end
@@ -38,9 +43,9 @@ defmodule Discussit.Models do
     |> Repo.update()
   end
 
-  def delete_model(%Model{id: id} = model) do
-    with {:ok, _} <- delete_object(model_name(id)),
-         {:ok, _} <- delete_object(merge_model_name(id)) do
+  def delete_model(%Model{} = model) do
+    with {:ok, _} <- handle_delete_object(model, :merge_object),
+         {:ok, _} <- handle_delete_object(model, :model_object) do
       Repo.delete(model)
     end
   end
@@ -67,7 +72,7 @@ defmodule Discussit.Models do
   end
 
   def reset_model(%Discussit.Accounts.Account{id: account_id}) do
-    [_latest | rest] =
+    [latest | rest] =
       Discussit.Models.list_models(
         order_by: [inserted_at: :desc],
         filters: [account_id: account_id]
@@ -75,6 +80,12 @@ defmodule Discussit.Models do
 
     rest
     |> Enum.each(&delete_model/1)
+
+    with {:ok, _} <- handle_delete_object(latest, :merge_object),
+         {:ok, _} <- handle_delete_object(latest, :model_object),
+         {:ok, model} <- update_model(latest, %{merge_object: nil, model_object: nil}) do
+      {:ok, model}
+    end
   end
 
   defp filter_by_account_id(query, nil), do: query
@@ -87,8 +98,34 @@ defmodule Discussit.Models do
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)
 
-  defp model_name(id), do: "#{id}-model"
-  defp merge_model_name(id), do: "#{id}-merge-model"
+  defp object_name(id, :merge_object), do: "#{id}-merge-model"
+  defp object_name(id, :model_object), do: "#{id}-model"
+
+  defp handle_create_object(id, attrs, key) do
+    if Map.get(attrs, key, false) do
+      name = object_name(id, key)
+
+      case create_object(name) do
+        {:ok, _} -> {:ok, name}
+        other -> other
+      end
+    else
+      {:ok, nil}
+    end
+  end
+
+  defp handle_delete_object(model, key) do
+    name = Map.get(model, key, nil)
+
+    if name do
+      case delete_object(name) do
+        {:ok, _} -> {:ok, name}
+        other -> other
+      end
+    else
+      {:ok, nil}
+    end
+  end
 
   defp create_object(object) do
     bucket = Application.get_env(:discussit, :bucket)

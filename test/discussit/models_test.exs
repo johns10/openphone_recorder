@@ -10,7 +10,7 @@ defmodule Discussit.ModelsTest do
 
     import Discussit.ModelsFixtures
 
-    @invalid_attrs %{merge_object: nil, model_object: nil}
+    @invalid_attrs %{id: nil}
 
     test "list_models/0 returns all models" do
       ExVCR.Config.filter_request_headers("Authorization")
@@ -33,13 +33,25 @@ defmodule Discussit.ModelsTest do
     test "create_model/1 with valid data creates a model" do
       valid_attrs = %{
         id: @id,
-        merge_object: "some merge_object",
-        model_object: "some model_object"
+        merge_object: true,
+        model_object: true
       }
 
       assert {:ok, %Model{} = model} = Models.create_model(valid_attrs)
-      assert model.merge_object == "some merge_object"
-      assert model.model_object == "some model_object"
+      assert model.merge_object == "#{model.id}-merge-model"
+      assert model.model_object == "#{model.id}-model"
+    end
+
+    test "create_model/1 specifying S3 objects works" do
+      valid_attrs = %{
+        id: @id,
+        merge_object: true,
+        model_object: false
+      }
+
+      assert {:ok, %Model{} = model} = Models.create_model(valid_attrs)
+      assert model.merge_object
+      refute model.model_object
     end
 
     test "create_model/1 with invalid data returns error changeset" do
@@ -83,21 +95,19 @@ defmodule Discussit.ModelsTest do
 
     test "reset model works" do
       import Discussit.AccountsFixtures
-      import Discussit.TopicsFixtures
       account = account_fixture()
 
       use_cassette("delete_models") do
-        m2 =
-          %{id: "4989bedd-adf3-4a66-a1d0-86fce4f98e75", account_id: account.id}
-          |> model_fixture()
-
-        topic = topic_fixture(%{model_id: m2.id})
+        %{id: "4989bedd-adf3-4a66-a1d0-86fce4f98e75", account_id: account.id}
+        |> model_fixture()
 
         model = model_fixture(%{id: @id, account_id: account.id})
-        topic = topic_fixture(%{model_id: model.id})
         Models.reset_model(account)
 
-        assert [model] = Models.list_models()
+        [remaining_model] = Models.list_models()
+        assert remaining_model.id == model.id
+        refute remaining_model.merge_object
+        refute remaining_model.model_object
       end
     end
 
