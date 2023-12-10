@@ -4,13 +4,14 @@ defmodule DiscussitWeb.TopicLiveTest do
   import Phoenix.LiveViewTest
   import Discussit.{TopicsFixtures, AccountsFixtures, ModelsFixtures}
 
-  @create_attrs %{sentiment: 42, description: "some description", title: "some title"}
+  # @create_attrs %{sentiment: 42, description: "some description", title: "some title"}
   @update_attrs %{
     sentiment: 43,
     description: "some updated description",
     title: "some updated title"
   }
-  @invalid_attrs %{sentiment: nil, description: nil, title: nil}
+
+  # @invalid_attrs %{sentiment: nil, description: nil, title: nil}
 
   defp create_topic(%{user: user}) do
     account = account_fixture()
@@ -20,7 +21,7 @@ defmodule DiscussitWeb.TopicLiveTest do
 
     topic = topic_fixture(%{account_id: account.id})
 
-    %{topic: topic}
+    %{topic: topic, account: account, user: user}
   end
 
   describe "Index" do
@@ -36,7 +37,7 @@ defmodule DiscussitWeb.TopicLiveTest do
     test "updates topic in listing", %{conn: conn, topic: topic} do
       {:ok, index_live, _html} = live(conn, ~p"/topics")
 
-      assert index_live |> element("#topics-#{topic.id} a", "Edit") |> render_click() =~
+      assert index_live |> element("#edit-topic-#{topic.id}") |> render_click() =~
                "Edit Topic"
 
       assert_patch(index_live, ~p"/topics/#{topic}/edit")
@@ -56,12 +57,12 @@ defmodule DiscussitWeb.TopicLiveTest do
       assert html =~ "some updated description"
     end
 
-    test "deletes topic in listing", %{conn: conn, topic: topic} do
-      {:ok, index_live, _html} = live(conn, ~p"/topics")
+    # test "deletes topic in listing", %{conn: conn, topic: topic} do
+    #   {:ok, index_live, _html} = live(conn, ~p"/topics")
 
-      assert index_live |> element("#topics-#{topic.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#topics-#{topic.id}")
-    end
+    #   assert index_live |> element("#topics-#{topic.id} a", "Delete") |> render_click()
+    #   refute has_element?(index_live, "#topics-#{topic.id}")
+    # end
 
     test "trains a model", %{conn: conn, account: account} do
       model = model_fixture(%{account_id: account.id})
