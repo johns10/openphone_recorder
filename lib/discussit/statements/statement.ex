@@ -32,8 +32,8 @@ defmodule Discussit.Statements.Statement do
     field :occurred_at, :naive_datetime_usec
     field :type, Ecto.Enum, values: [:call, :voicemail, :message, :meeting]
     field :ts_range, TsRange
-    field :all_stopwords, :boolean
-    field :unprocessable, :boolean
+    field :all_stopwords, :boolean, default: false
+    field :unprocessable, :boolean, default: false
     field :representative, :boolean
 
     field :cumulative_length, :integer, virtual: true
