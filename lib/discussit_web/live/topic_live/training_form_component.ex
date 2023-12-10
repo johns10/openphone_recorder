@@ -22,6 +22,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
         phx-change="validate"
         phx-submit="save"
       >
+        <.input field={@form[:model_id]} type="hidden" value={@model_id} />
         <div phx-feedback-for={@form[:statements_count].name} class="form-control w-full">
           <label class="label">
             <span class="label-text">
@@ -99,7 +100,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
     |> TrainingForm.changeset(params)
     |> Ecto.Changeset.apply_action(:insert)
     |> case do
-      {:ok, _} -> submit_form(socket, params)
+      {:ok, form} -> submit_form(socket, params)
       {:error, %Ecto.Changeset{} = changeset} -> {:noreply, assign_form(socket, changeset)}
     end
   end
