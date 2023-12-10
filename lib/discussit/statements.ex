@@ -17,6 +17,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_topic_id(filters[:topic_id])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
     |> maybe_order_by_representative(order_by[:representative])
+    |> maybe_order_by_labelled_topic_id(order_by[:labelled_topic_id])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
@@ -153,6 +154,11 @@ defmodule Discussit.Statements do
 
   defp maybe_order_by_representative(query, :desc),
     do: order_by(query, [s], desc: s.representative)
+
+  defp maybe_order_by_labelled_topic_id(query, nil), do: query
+
+  defp maybe_order_by_labelled_topic_id(query, :desc),
+    do: order_by(query, [s], desc: s.labelled_topic_id)
 
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)

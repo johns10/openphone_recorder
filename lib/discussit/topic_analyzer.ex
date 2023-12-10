@@ -7,8 +7,15 @@ defmodule Discussit.TopicAnalyzer do
 
   def init(%Account{id: account_id} = account, statements_count) do
     query_opts = [
-      filters: [embedded: true, trained: false, account_id: account.id],
+      filters: [
+        embedded: true,
+        trained: false,
+        all_stopwords: false,
+        unprocessable: false,
+        account_id: account.id
+      ],
       preloads: [:embedding, :labelled_topic],
+      order_by: [labelled_topic_id: true],
       limit: statements_count
     ]
 
@@ -53,9 +60,6 @@ defmodule Discussit.TopicAnalyzer do
 
     Enum.zip(statements, statement_topics)
     |> Enum.map(fn
-      {statement, %{trained_topic_id: -1}} ->
-        statement
-
       {statement, %{trained_topic_id: topic_id, representative: representative}} ->
         trained_topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
         attrs = %{trained_topic_id: trained_topic_id, representative: representative}
@@ -71,6 +75,7 @@ defmodule Discussit.TopicAnalyzer do
     model_topics
     |> Enum.map(fn %{topic_model_id: topic_model_id} = model_topic ->
       attrs = Map.put(model_topic, :account_id, account_id)
+      attrs = if(topic_model_id == -1, do: Map.put(attrs, :title, "Outliers"), else: attrs)
 
       case Topics.get_topic_by(%{topic_model_id: topic_model_id, account_id: account_id}) do
         nil -> Topics.create_topic(attrs)
