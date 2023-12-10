@@ -253,7 +253,7 @@ defmodule DiscussitWeb.IndexLive.Components do
     topic =
       case statement do
         %{labelled_topic: %Topic{} = labelled_topic} -> labelled_topic
-        %{model_topic: %Topic{} = model_topic} -> model_topic
+        %{trained_topic: %Topic{} = trained_topic} -> trained_topic
         _ -> nil
       end
 
