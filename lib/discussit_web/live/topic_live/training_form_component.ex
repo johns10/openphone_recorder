@@ -3,6 +3,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
 
   alias DiscussitWeb.TopicLive.TrainingForm
   alias Discussit.{Statements}
+  alias Discussit.TopicAnalyzer.Workers
 
   @impl true
   def render(assigns) do
@@ -23,27 +24,36 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
         <div phx-feedback-for={@form[:statements_count].name} class="form-control w-full">
           <label class="label">
             <span class="label-text">
-              Train model on <%= @form[:statements_count].value %> statements
+              Train model on <%= @form[:statements_count].value %> of <%= @statements_counts.total %> statements
             </span>
           </label>
           <input
             id={@form[:statements_count].id}
             name={@form[:statements_count].name}
-            value={@form[:statements_count].value}
+            value={@statements_counts.labelled}
             type="range"
             min="0"
-            max={@statements_count}
+            max={@statements_counts.unlabelled}
             class="range"
             phx-debounce="500"
           />
-          <div class="w-full flex justify-between text-xs px-2">
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
-            <span>|</span>
+        </div>
+        <div class="relative text-xs">
+          <div class="overflow-hidden h-4 text-xs flex rounded">
+            <div
+              style={"width: #{labelled_percentage(@statements_counts)}%"}
+              class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary"
+            >
+            </div>
+            <div
+              style={"width: #{unlabelled_percentage(@statements_counts)}%"}
+              class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-secondary"
+            >
+            </div>
           </div>
         </div>
+        <div class="badge badge-primary">Labelled</div>
+        <div class="badge badge-secondary">Unlabelled</div>
         <:actions>
           <.button phx-disable-with="Training...">Train</.button>
         </:actions>
@@ -54,14 +64,14 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
 
   @impl true
   def update(%{model_id: model_id, account_id: account_id} = assigns, socket) do
-    training_form = %TrainingForm{statements_count: 0}
+    statements_counts = statement_counts(account_id)
+    training_form = %TrainingForm{statements_count: statements_counts.labelled}
     changeset = TrainingForm.changeset(training_form, %{model_id: model_id})
-    statements_count = Statements.list_statements(filters: [account_id: account_id], count: true)
 
     {:ok,
      socket
      |> assign(assigns)
-     |> assign(:statements_count, statements_count)
+     |> assign(:statements_counts, statements_counts)
      |> assign(:training_form, training_form)
      |> assign_form(changeset)}
   end
@@ -80,7 +90,57 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
     submit_form(socket, params)
   end
 
-  defp submit_form(socket, params) do
+  defp statement_counts(account_id),
+    do: %{
+      labelled:
+        Statements.list_statements(
+          filters: [
+            account_id: account_id,
+            all_stopwords: false,
+            unprocessable: false,
+            labelled: true,
+            trained: false
+          ],
+          count: true
+        ),
+      unlabelled:
+        Statements.list_statements(
+          filters: [
+            account_id: account_id,
+            all_stopwords: false,
+            unprocessable: false,
+            trained: false,
+            labelled: false
+          ],
+          count: true
+        ),
+      total:
+        Statements.list_statements(
+          filters: [
+            account_id: account_id,
+            all_stopwords: false,
+            unprocessable: false,
+            trained: false
+          ],
+          count: true
+        )
+    }
+
+  defp labelled_percentage(%{labelled: _labelled, unlabelled: 0}), do: 0
+
+  defp labelled_percentage(%{labelled: labelled, unlabelled: unlabelled}),
+    do: labelled / unlabelled * 100
+
+  defp unlabelled_percentage(%{labelled: _labelled, unlabelled: 0}), do: 0
+
+  defp unlabelled_percentage(%{labelled: labelled, unlabelled: unlabelled}),
+    do: (1 - labelled / unlabelled) * 100
+
+  defp submit_form(socket, _params) do
+    %{account_id: socket.assigns.current_user.selected_account.id}
+    |> Workers.Initialization.new()
+    |> Oban.insert()
+
     {:noreply, socket}
   end
 
