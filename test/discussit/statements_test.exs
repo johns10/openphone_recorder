@@ -122,6 +122,33 @@ defmodule Discussit.StatementsTest do
       assert statement_3.id not in statement_ids
     end
 
+    test "list_statements counts with all_stopwords" do
+      statement = statement_fixture(%{all_stopwords: true})
+      assert [statement] == Statements.list_statements(filters: [all_stopwords: true])
+      assert [] == Statements.list_statements(filters: [all_stopwords: false])
+    end
+
+    test "list_statements counts with unprocessable" do
+      statement = statement_fixture(%{unprocessable: true})
+      assert [statement] == Statements.list_statements(filters: [unprocessable: true])
+      assert [] == Statements.list_statements(filters: [unprocessable: false])
+    end
+
+    test "list statements with all stopwords and unprocessable" do
+      statement_fixture(%{unprocessable: false, all_stopwords: true})
+      statement = statement_fixture(%{unprocessable: false, all_stopwords: false})
+
+      assert [statement] ==
+               Statements.list_statements(
+                 filters: [
+                   unprocessable: false,
+                   all_stopwords: false,
+                   trained: false,
+                   labelled: false
+                 ]
+               )
+    end
+
     test "count_statements/0 returns all statements" do
       statement_fixture(%{participant_id: participant_fixture().id})
       assert Statements.list_statements(count: true) == 1

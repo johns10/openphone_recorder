@@ -20,6 +20,7 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
     |> maybe_filter_by_before(filters[:before])
     |> maybe_filter_by_all_stopwords(filters[:all_stopwords])
+    |> maybe_filter_by_unprocessable(filters[:unprocessable])
     |> maybe_filter_by_embedding_enabled(filters[:embedding_enabled])
     |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
@@ -89,9 +90,15 @@ defmodule Discussit.Statements do
     do: where(query, [s], s.all_stopwords == true)
 
   defp maybe_filter_by_all_stopwords(query, false),
-    do:
-      where(query, [s], s.all_stopwords == false)
-      |> or_where([s], is_nil(s.all_stopwords))
+    do: where(query, [s], s.all_stopwords == false)
+
+  defp maybe_filter_by_unprocessable(query, nil), do: query
+
+  defp maybe_filter_by_unprocessable(query, true),
+    do: where(query, [s], s.unprocessable == true)
+
+  defp maybe_filter_by_unprocessable(query, false),
+    do: where(query, [s], s.unprocessable == false)
 
   defp maybe_filter_by_embedding_enabled(query, nil), do: query
 
