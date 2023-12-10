@@ -5,10 +5,11 @@ defmodule Discussit.TopicAnalyzer do
   alias Discussit.TopicAnalyzer.Server
   require Logger
 
-  def init(%Account{id: account_id} = account) do
+  def init(%Account{id: account_id} = account, statements_count) do
     query_opts = [
-      filters: [embedded: true, account_id: account.id],
-      preloads: [:embedding, :labelled_topic]
+      filters: [embedded: true, trained: false, account_id: account.id],
+      preloads: [:embedding, :labelled_topic],
+      limit: statements_count
     ]
 
     with false <- model_exists?(account),
@@ -88,18 +89,6 @@ defmodule Discussit.TopicAnalyzer do
     |> case do
       {:ok, _} -> :ok
       e -> e
-    end
-  end
-
-  def delete_model(account) do
-    bucket = Application.get_env(:discussit, :bucket)
-    object = object_path(account)
-
-    ExAws.S3.delete_object(bucket, object)
-    |> ExAws.request()
-    |> case do
-      {:ok, %{status_code: 204}} -> :ok
-      _ -> :error
     end
   end
 
