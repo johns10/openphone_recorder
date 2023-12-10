@@ -22,7 +22,6 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:model_id]} type="hidden" value={@model_id} />
         <div phx-feedback-for={@form[:statements_count].name} class="form-control w-full">
           <label class="label">
             <span class="label-text">
@@ -74,7 +73,12 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
     default_count =
       if(statements_counts.labelled < 1000, do: 1000, else: statements_counts.labelled)
 
-    training_form = %TrainingForm{statements_count: default_count}
+    training_form = %TrainingForm{
+      statements_count: default_count,
+      model_id: model_id,
+      account_id: account_id
+    }
+
     changeset = TrainingForm.changeset(training_form, %{model_id: model_id})
 
     {:ok,
@@ -100,7 +104,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
     |> TrainingForm.changeset(params)
     |> Ecto.Changeset.apply_action(:insert)
     |> case do
-      {:ok, form} -> submit_form(socket, params)
+      {:ok, form} -> submit_form(socket, form)
       {:error, %Ecto.Changeset{} = changeset} -> {:noreply, assign_form(socket, changeset)}
     end
   end
@@ -151,8 +155,8 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
   defp unlabelled_percentage(%{labelled: labelled, unlabelled: unlabelled}),
     do: (1 - labelled / unlabelled) * 100
 
-  defp submit_form(socket, _params) do
-    %{account_id: socket.assigns.current_user.selected_account.id}
+  defp submit_form(socket, training_form) do
+    training_form
     |> Workers.Initialization.new()
     |> Oban.insert()
 
