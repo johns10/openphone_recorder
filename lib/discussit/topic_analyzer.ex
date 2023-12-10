@@ -27,7 +27,7 @@ defmodule Discussit.TopicAnalyzer do
            Server.init_model(statements, urls |> Map.put(:id, model.id)),
          topics <- insert_new_topics(model_topics, model, account.id),
          statements <- update_statement_topics(statements, topic_assignments, topics) do
-      {:ok, statements}
+      {:ok, %{statements: statements, topics: topics, model: model}}
     else
       true -> {:error, "analyzer model already exists"}
     end
@@ -78,14 +78,11 @@ defmodule Discussit.TopicAnalyzer do
       %{topic_model_id: -1} = model_topic ->
         ensure_outliers_topic(model_topic, model, account_id)
 
-      %{topic_model_id: topic_model_id} = model_topic ->
-        attrs = Map.put(model_topic, :account_id, account_id)
-        attrs = if(topic_model_id == -1, do: Map.put(attrs, :title, "Outliers"), else: attrs)
-
-        case Topics.get_topic_by(%{topic_model_id: topic_model_id, account_id: account_id}) do
-          nil -> Topics.create_topic(attrs)
-          %Topic{} = topic -> Topics.update_topic(topic, attrs)
-        end
+      model_topic ->
+        model_topic
+        |> Map.put(:account_id, account_id)
+        |> Map.put(:model_id, model.id)
+        |> Topics.create_topic()
         |> case do
           {:ok, topic} -> topic
           {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
@@ -101,10 +98,15 @@ defmodule Discussit.TopicAnalyzer do
         |> Map.put(:description, "These are outliers, which couldn't be assigned to any topic.")
         |> Map.put(:topic_model_id, -1)
         |> Map.put(:account_id, account_id)
+        |> Map.put(:model_id, model_id)
         |> Topics.create_topic()
 
       %Topic{} = topic ->
-        attrs = Map.put(attrs, :model_id, model_id)
+        attrs =
+          attrs
+          |> Map.put(:model_id, model_id)
+          |> Map.put(:topic_model_id, -1)
+
         Topics.update_topic(topic, attrs)
     end
     |> case do

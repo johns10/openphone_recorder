@@ -13,6 +13,7 @@ defmodule Discussit.Topics do
 
     Topic
     |> filter_by_account_id(filters[:account_id])
+    |> filter_by_model_id(filters[:model_id])
     |> filter_by_title_is_nil(filters[:title_is_nil])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
@@ -27,6 +28,9 @@ defmodule Discussit.Topics do
 
   defp filter_by_account_id(query, nil), do: query
   defp filter_by_account_id(query, account_id), do: where(query, [t], t.account_id == ^account_id)
+
+  defp filter_by_model_id(query, nil), do: query
+  defp filter_by_model_id(query, model_id), do: where(query, [t], t.model_id == ^model_id)
 
   defp filter_by_title_is_nil(query, nil), do: query
   defp filter_by_title_is_nil(query, _), do: where(query, [t], is_nil(t.title))
@@ -76,13 +80,13 @@ defmodule Discussit.Topics do
       |> Enum.join(" ")
 
     prompt = """
-    I have a topic that contains the following documents: 
+    I have a topic that contains the following documents:
     #{content}
     The topic is described by the following keywords:
     #{Enum.map(topic.keywords, fn %{"keyword" => keyword} -> keyword end) |> Enum.join(", ")}
 
-    Based on the information above: 
-    Extract a short but highly descriptive topic label of at most 5 words. 
+    Based on the information above:
+    Extract a short but highly descriptive topic label of at most 5 words.
     Extract a short but highly descriptive topic description of at most 100 words
     Return the result in the following format
     <topic label> | <topic description>

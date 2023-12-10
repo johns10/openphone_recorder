@@ -102,7 +102,7 @@ defmodule Discussit.TopicAnalyzerTest do
 
       # use_cassette("no existing_object") do
       {:ok, results} = TopicAnalyzer.init(account)
-      assert Enum.count(results) == Enum.count(statements)
+      assert Enum.count(results.statements) == Enum.count(statements)
       # end
 
       topics_count = Topics.list_topics() |> Enum.count()
@@ -219,13 +219,25 @@ defmodule Discussit.TopicAnalyzerTest do
         end)
       end
 
-      use_cassette("no existing_object") do
-        {:ok, results} = TopicAnalyzer.init(account)
-        assert Enum.count(results) == Enum.count(statements)
-      end
+      results =
+        use_cassette("no existing_object") do
+          {:ok, results} = TopicAnalyzer.init(account)
+          results
+        end
 
-      topics_count = Topics.list_topics() |> Enum.count()
+      assert Enum.count(results.statements) == Enum.count(statements)
+
+      %{id: first_model_id} = results.model
+      topics = Topics.list_topics()
+      topics_count = Enum.count(topics)
       assert topics_count in [12, 13, 14, 15]
+
+      Statements.list_statements()
+      |> Enum.map(fn s ->
+        Statements.update_statement(s, %{labelled_topic_id: s.trained_topic_id})
+      end)
+
+      Discussit.Accounts.ResetAccountModels.execute(account)
 
       more_statements =
         (toilet_cleaning_content() ++
@@ -241,13 +253,22 @@ defmodule Discussit.TopicAnalyzerTest do
         end)
       end
 
-      use_cassette("no existing_object") do
-        {:ok, results} = TopicAnalyzer.init(account)
-        assert Enum.count(results) == Enum.count(statements ++ more_statements)
-      end
+      results =
+        use_cassette("no existing_object") do
+          {:ok, results} = TopicAnalyzer.init(account)
+          results
+        end
 
-      topics_count = Topics.list_topics() |> Enum.count()
-      assert topics_count in [22, 23, 24, 25, 26, 27, 28]
+      assert Enum.count(results.statements) == Enum.count(statements ++ more_statements)
+
+      old_topics = Topics.list_topics(filters: [model_id: first_model_id])
+      # The outlier topic isn't getting created in the first run
+      assert Enum.count(old_topics) == topics_count
+
+      new_model_id = results.model.id
+      new_topics = Topics.list_topics(filters: [model_id: new_model_id])
+      new_topics_count = Enum.count(new_topics)
+      assert new_topics_count in [22, 23, 24, 25, 26, 27, 28]
     end
   end
 
