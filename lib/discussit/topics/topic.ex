@@ -1,4 +1,7 @@
 defmodule Discussit.Topics.Topic do
+  @moduledoc """
+  `topic_model_id` represents the topic id assigned by the topic model.
+  """
   use Ecto.Schema
   import Ecto.Changeset
   alias Discussit.Accounts.Account
