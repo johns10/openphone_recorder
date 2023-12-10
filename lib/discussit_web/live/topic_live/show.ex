@@ -8,7 +8,7 @@ defmodule DiscussitWeb.TopicLive.Show do
   import DiscussitWeb.LiveSupport
 
   @statement_preloads [
-    :model_topic,
+    :trained_topic,
     :labelled_topic,
     :participant,
     [participant: [:contact, [phone_number: :contacts]]]
