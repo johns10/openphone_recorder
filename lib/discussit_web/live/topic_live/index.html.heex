@@ -17,15 +17,6 @@
     Topics
     <div>
       <.link
-        :if={!@model}
-        class={["btn btn-sm", if(@analyzer_available?, do: "", else: "btn-disabled")]}
-        phx-click="discover-topics"
-        phx-disable-with="Generating ..."
-      >
-        Discover
-      </.link>
-
-      <.link
         :if={@model}
         class="btn btn-sm"
         phx-click="regenerate-labels"
@@ -34,7 +25,7 @@
         Relabel
       </.link>
 
-      <.link :if={@model} class="btn btn-sm" patch={~p"/topics/train"} phx-click={JS.push_focus()}>
+      <.link class="btn btn-sm" patch={~p"/topics/train"} phx-click={JS.push_focus()}>
         Train
       </.link>
 
@@ -49,6 +40,7 @@
     </div>
   </div>
 
+  <%= inspect(@model) %>
   <div
     class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 m-4"
     id="topics"
@@ -133,11 +125,12 @@
   <.modal :if={@live_action == :train} id="training-modal" show on_cancel={JS.patch(~p"/topics")}>
     <.live_component
       module={DiscussitWeb.TopicLive.TrainingFormComponent}
-      id={@model.id || "training-form"}
+      id={if(@model, do: @model.id, else: nil) || "training-form"}
       title={@page_title}
       patch={~p"/topics"}
-      model_id={@model.id}
+      model_id={if(@model, do: @model.id, else: nil)}
       account_id={@current_user.selected_account.id}
+      current_user={@current_user}
     />
   </.modal>
 </div>

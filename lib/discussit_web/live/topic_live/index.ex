@@ -3,9 +3,9 @@ defmodule DiscussitWeb.TopicLive.Index do
   use DiscussitWeb, :live_view
 
   alias Discussit.StatusAgent
-  alias Discussit.{Topics, Models}
+  alias Discussit.{Topics, Models, Statements}
   alias Discussit.TopicAnalyzer
-  alias Discussit.TopicAnalyzer.{Workers, Status}
+  alias Discussit.TopicAnalyzer.{Status}
   import DiscussitWeb.LiveSupport
 
   @impl true
@@ -70,6 +70,26 @@ defmodule DiscussitWeb.TopicLive.Index do
      |> stream(:topics, list_topics_with_status(account, model), reset: true)}
   end
 
+  def handle_info(%{topic: topic, event: "status_update", payload: :finished}, socket) do
+    "topic_summarizer_" <> id = topic
+
+    topic =
+      Topics.get_topic!(id)
+      |> Map.put(:summarizer_status, :not_started)
+
+    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
+  end
+
+  def handle_info(%{topic: topic, event: "status_update", payload: status}, socket) do
+    "topic_summarizer_" <> id = topic
+
+    topic =
+      Topics.get_topic!(id)
+      |> Map.put(:summarizer_status, status)
+
+    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
+  end
+
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     topic = Topics.get_topic!(id)
@@ -78,31 +98,27 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, stream_delete(socket, :topics, topic)}
   end
 
-  def handle_event("discover-topics", _, socket) do
-    %{account_id: socket.assigns.current_user.selected_account.id}
-    |> Workers.Initialization.new()
-    |> Oban.insert()
-
-    {:noreply, socket}
-  end
-
   def handle_event("reset-model", _, socket) do
+    # TODO: Refactor to context functions
     account = socket.assigns.current_user.selected_account
     model = socket.assigns.model
 
     socket =
-      with :ok <- TopicAnalyzer.delete_model(account),
-           :ok <- delete_topics(account) do
+      with {:ok, model} <- Models.reset_model(account),
+           :ok <- delete_topics(account),
+           :ok <- purge_trained_ids(account) do
         socket
         |> stream(:topics, list_topics_with_status(account, model), reset: true)
         |> assign(:analyzer_available?, Status.available?(account.id))
-        |> put_flash(:success, "Regenerating topics")
+        |> put_flash(:success, "Reset Model")
         |> push_patch(to: ~p"/topics")
       else
-        _ ->
+        o ->
+          IO.inspect(o, label: :other)
+
           socket
           |> assign(:analyzer_available?, Status.available?(account.id))
-          |> put_flash(:error, "Failed to regenerate topics")
+          |> put_flash(:error, "Failed to reset model")
           |> push_patch(to: ~p"/topics")
       end
 
@@ -123,27 +139,6 @@ defmodule DiscussitWeb.TopicLive.Index do
     |> Task.start()
 
     {:noreply, socket}
-  end
-
-  @impl true
-  def handle_info(%{topic: topic, event: "status_update", payload: :finished}, socket) do
-    "topic_summarizer_" <> id = topic
-
-    topic =
-      Topics.get_topic!(id)
-      |> Map.put(:summarizer_status, :not_started)
-
-    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
-  end
-
-  def handle_info(%{topic: topic, event: "status_update", payload: status}, socket) do
-    "topic_summarizer_" <> id = topic
-
-    topic =
-      Topics.get_topic!(id)
-      |> Map.put(:summarizer_status, status)
-
-    {:noreply, socket |> stream_insert(:topics, topic, at: -1)}
   end
 
   defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
@@ -179,6 +174,13 @@ defmodule DiscussitWeb.TopicLive.Index do
         {:error, %{errors: [labelled_statements: _]}} -> {:cont, :ok}
         {:error, _} -> {:halt, :error}
       end
+    end)
+  end
+
+  defp purge_trained_ids(account) do
+    Statements.list_statements(filters: [account_id: account.id])
+    |> Enum.each(fn statement ->
+      Statements.update_statement(statement, %{trained_topic_id: nil})
     end)
   end
 end
