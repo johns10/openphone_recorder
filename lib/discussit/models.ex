@@ -71,19 +71,10 @@ defmodule Discussit.Models do
     end
   end
 
-  def reset_model(%Discussit.Accounts.Account{id: account_id}) do
-    [latest | rest] =
-      Discussit.Models.list_models(
-        order_by: [inserted_at: :desc],
-        filters: [account_id: account_id]
-      )
-
-    rest
-    |> Enum.each(&delete_model/1)
-
-    with {:ok, _} <- handle_delete_object(latest, :merge_object),
-         {:ok, _} <- handle_delete_object(latest, :model_object),
-         {:ok, model} <- update_model(latest, %{merge_object: nil, model_object: nil}) do
+  def clear_model_s3_objects(model) do
+    with {:ok, _} <- handle_delete_object(model, :merge_object),
+         {:ok, _} <- handle_delete_object(model, :model_object),
+         {:ok, model} <- update_model(model, %{merge_object: nil, model_object: nil}) do
       {:ok, model}
     end
   end

@@ -93,24 +93,6 @@ defmodule Discussit.ModelsTest do
       end
     end
 
-    test "reset model works" do
-      import Discussit.AccountsFixtures
-      account = account_fixture()
-
-      use_cassette("delete_models") do
-        %{id: "4989bedd-adf3-4a66-a1d0-86fce4f98e75", account_id: account.id}
-        |> model_fixture()
-
-        model = model_fixture(%{id: @id, account_id: account.id})
-        Models.reset_model(account)
-
-        [remaining_model] = Models.list_models()
-        assert remaining_model.id == model.id
-        refute remaining_model.merge_object
-        refute remaining_model.model_object
-      end
-    end
-
     test "change_model/1 returns a model changeset" do
       ExVCR.Config.filter_request_headers("Authorization")
 

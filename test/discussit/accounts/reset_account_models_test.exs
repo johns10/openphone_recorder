@@ -20,16 +20,12 @@ defmodule Discussit.Models.ResetModelTest do
         topic_fixture(%{model_id: old_model.id})
         old_topic = topic_fixture(%{model_id: old_model.id, title: "title"})
 
-        statement =
-          model =
+        model =
           model_fixture(%{id: "4989bedd-adf3-4a66-a1d0-86fce4f98e74", account_id: account.id})
 
         topic = topic_fixture(%{model_id: model.id})
         conversation = conversation_fixture(%{account_id: account.id})
-
-        statement =
-          statement_fixture(%{trained_topic_id: topic.id, conversation_id: conversation.id})
-
+        statement_fixture(%{trained_topic_id: topic.id, conversation_id: conversation.id})
         ResetAccountModels.execute(account)
 
         [remaining_model] = Models.list_models()

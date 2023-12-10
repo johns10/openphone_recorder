@@ -2,6 +2,7 @@ defmodule DiscussitWeb.TopicLive.Index do
   # TODO: Get rid of summarizer_status
   use DiscussitWeb, :live_view
 
+  alias Discussit.Accounts.ResetAccountModels
   alias Discussit.StatusAgent
   alias Discussit.{Topics, Models, Statements}
   alias Discussit.TopicAnalyzer
@@ -101,21 +102,16 @@ defmodule DiscussitWeb.TopicLive.Index do
   def handle_event("reset-model", _, socket) do
     # TODO: Refactor to context functions
     account = socket.assigns.current_user.selected_account
-    model = socket.assigns.model
 
     socket =
-      with {:ok, model} <- Models.reset_model(account),
-           :ok <- delete_topics(account),
-           :ok <- purge_trained_ids(account) do
+      with {:ok, model} <- ResetAccountModels.execute(account) do
         socket
         |> stream(:topics, list_topics_with_status(account, model), reset: true)
         |> assign(:analyzer_available?, Status.available?(account.id))
         |> put_flash(:success, "Reset Model")
         |> push_patch(to: ~p"/topics")
       else
-        o ->
-          IO.inspect(o, label: :other)
-
+        _ ->
           socket
           |> assign(:analyzer_available?, Status.available?(account.id))
           |> put_flash(:error, "Failed to reset model")
@@ -163,24 +159,6 @@ defmodule DiscussitWeb.TopicLive.Index do
       name = StatusAgent.topic_summarizer_name(topic)
       DiscussitWeb.Endpoint.subscribe(Atom.to_string(name))
       topic
-    end)
-  end
-
-  defp delete_topics(account) do
-    Topics.list_topics(filters: [account_id: account.id, title_is_nil: true])
-    |> Enum.reduce_while(:ok, fn topic, _ ->
-      case Topics.delete_topic(topic) do
-        {:ok, _} -> {:cont, :ok}
-        {:error, %{errors: [labelled_statements: _]}} -> {:cont, :ok}
-        {:error, _} -> {:halt, :error}
-      end
-    end)
-  end
-
-  defp purge_trained_ids(account) do
-    Statements.list_statements(filters: [account_id: account.id])
-    |> Enum.each(fn statement ->
-      Statements.update_statement(statement, %{trained_topic_id: nil})
     end)
   end
 end
