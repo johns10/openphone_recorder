@@ -24,6 +24,9 @@ defmodule Discussit.Statements do
     |> maybe_filter_nil_topic_id(filters[:nil_topic_id])
     |> maybe_filter_embedded(filters[:embedded])
     |> maybe_filter_cumulative_content_length(filters[:cumulative_content_length])
+    |> maybe_filter_labelled(filters[:labelled])
+    |> maybe_filter_trained(filters[:trained])
+    |> maybe_filter_inferred(filters[:inferred])
     |> maybe_limit(opts[:limit])
     |> maybe_offset(opts[:offset])
     |> preload(^preloads)
@@ -38,19 +41,24 @@ defmodule Discussit.Statements do
     |> Repo.get!(id)
   end
 
+  defp maybe_filter_labelled(query, nil), do: query
+  defp maybe_filter_labelled(query, false), do: where(query, [s], is_nil(s.labelled_topic_id))
+  defp maybe_filter_labelled(query, true), do: where(query, [s], not is_nil(s.labelled_topic_id))
+  defp maybe_filter_trained(query, nil), do: query
+  defp maybe_filter_trained(query, false), do: where(query, [s], is_nil(s.trained_topic_id))
+  defp maybe_filter_trained(query, true), do: where(query, [s], not is_nil(s.trained_topic_id))
+  defp maybe_filter_inferred(query, nil), do: query
+  defp maybe_filter_inferred(query, false), do: where(query, [s], is_nil(s.inferred_topic_id))
+  defp maybe_filter_inferred(query, true), do: where(query, [s], not is_nil(s.inferred_topic_id))
   defp maybe_filter_by_conversation_id(query, nil), do: query
 
-  defp maybe_filter_by_conversation_id(query, conversation_id) do
-    query
-    |> where([s], s.conversation_id == ^conversation_id)
-  end
+  defp maybe_filter_by_conversation_id(query, conversation_id),
+    do: where(query, [s], s.conversation_id == ^conversation_id)
 
   defp maybe_filter_by_meeting_id(query, nil), do: query
 
-  defp maybe_filter_by_meeting_id(query, meeting_id) do
-    query
-    |> where([s], s.meeting_id == ^meeting_id)
-  end
+  defp maybe_filter_by_meeting_id(query, meeting_id),
+    do: where(query, [s], s.meeting_id == ^meeting_id)
 
   defp maybe_filter_by_account_id(query, nil), do: query
 

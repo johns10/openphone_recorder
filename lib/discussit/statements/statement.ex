@@ -43,6 +43,7 @@ defmodule Discussit.Statements.Statement do
     belongs_to :meeting, Meeting
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :topic, Topic
+    belongs_to :inferred_topic, Topic
     belongs_to :trained_topic, Topic
     belongs_to :labelled_topic, Topic
 
