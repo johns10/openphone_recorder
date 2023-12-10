@@ -11,5 +11,6 @@ defmodule DiscussitWeb.TopicLive.TrainingForm do
     form
     |> cast(attrs, [:model_id, :statements_count])
     |> validate_required([:model_id, :statements_count])
+    |> validate_number(:statements_count, greater_than: 1000)
   end
 end

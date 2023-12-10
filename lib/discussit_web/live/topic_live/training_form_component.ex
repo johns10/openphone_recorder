@@ -1,5 +1,6 @@
 defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
   use DiscussitWeb, :live_component
+  import DiscussitWeb.CoreComponents
 
   alias DiscussitWeb.TopicLive.TrainingForm
   alias Discussit.{Statements}
@@ -30,7 +31,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
           <input
             id={@form[:statements_count].id}
             name={@form[:statements_count].name}
-            value={@statements_counts.labelled}
+            value={@form[:statements_count].value}
             type="range"
             min="0"
             max={@statements_counts.unlabelled}
@@ -54,6 +55,9 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
         </div>
         <div class="badge badge-primary">Labelled</div>
         <div class="badge badge-secondary">Unlabelled</div>
+        <.error :for={msg <- @form[:statements_count].errors |> Enum.map(&translate_error(&1))}>
+          <%= msg %>
+        </.error>
         <:actions>
           <.button phx-disable-with="Training...">Train</.button>
         </:actions>
@@ -65,7 +69,11 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
   @impl true
   def update(%{model_id: model_id, account_id: account_id} = assigns, socket) do
     statements_counts = statement_counts(account_id)
-    training_form = %TrainingForm{statements_count: statements_counts.labelled}
+
+    default_count =
+      if(statements_counts.labelled < 1000, do: 1000, else: statements_counts.labelled)
+
+    training_form = %TrainingForm{statements_count: default_count}
     changeset = TrainingForm.changeset(training_form, %{model_id: model_id})
 
     {:ok,
@@ -87,7 +95,13 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
   end
 
   def handle_event("save", %{"training_form" => params}, socket) do
-    submit_form(socket, params)
+    socket.assigns.training_form
+    |> TrainingForm.changeset(params)
+    |> Ecto.Changeset.apply_action(:insert)
+    |> case do
+      {:ok, _} -> submit_form(socket, params)
+      {:error, %Ecto.Changeset{} = changeset} -> {:noreply, assign_form(socket, changeset)}
+    end
   end
 
   defp statement_counts(account_id),
