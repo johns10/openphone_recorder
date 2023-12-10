@@ -112,6 +112,9 @@ defmodule Discussit.TopicAnalyzerTest do
              |> Enum.filter(&(&1.trained_topic_id != nil))
              |> Enum.count() > 0
 
+      assert %{topic_model_id: -1} =
+               Topics.get_topic_by(%{topic_model_id: -1, account_id: account.id})
+
       Discussit.TopicAnalyzer.Server.stop_server()
     end
 

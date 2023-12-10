@@ -5,7 +5,7 @@ defmodule Discussit.TopicAnalyzer do
   alias Discussit.TopicAnalyzer.Server
   require Logger
 
-  def init(%Account{id: account_id} = account, statements_count) do
+  def init(%Account{id: account_id} = account, statements_count \\ 1_000_000) do
     query_opts = [
       filters: [
         embedded: true,
@@ -15,7 +15,7 @@ defmodule Discussit.TopicAnalyzer do
         account_id: account.id
       ],
       preloads: [:embedding, :labelled_topic],
-      order_by: [labelled_topic_id: true],
+      order_by: [labelled_topic_id: :desc],
       limit: statements_count
     ]
 
@@ -25,7 +25,7 @@ defmodule Discussit.TopicAnalyzer do
          statements <- Statements.list_statements(query_opts),
          {:ok, %{topic_assignments: topic_assignments, topics: model_topics}} <-
            Server.init_model(statements, urls |> Map.put(:id, model.id)),
-         topics <- insert_new_topics(model_topics, account.id),
+         topics <- insert_new_topics(model_topics, model, account.id),
          statements <- update_statement_topics(statements, topic_assignments, topics) do
       {:ok, statements}
     else
@@ -38,11 +38,12 @@ defmodule Discussit.TopicAnalyzer do
     model_path = local_path(account)
 
     with true <- model_exists?(account),
+         {:ok, model} <- Models.create_model(%{account_id: account.id}),
          statements <- Statements.list_statements(query_opts),
          {:ok, statement_topics} <- provider().train_model(statements, model_path),
          # TODO Implement model backup here
          {:ok, model_topics} <- provider().get_topics(model_path),
-         topics <- insert_new_topics(model_topics, account.id),
+         topics <- insert_new_topics(model_topics, model, account.id),
          statements <- update_statement_topics(statements, statement_topics, topics) do
       {:ok, statements}
     else
@@ -71,21 +72,45 @@ defmodule Discussit.TopicAnalyzer do
     end)
   end
 
-  defp insert_new_topics(model_topics, account_id) do
+  defp insert_new_topics(model_topics, model, account_id) do
     model_topics
-    |> Enum.map(fn %{topic_model_id: topic_model_id} = model_topic ->
-      attrs = Map.put(model_topic, :account_id, account_id)
-      attrs = if(topic_model_id == -1, do: Map.put(attrs, :title, "Outliers"), else: attrs)
+    |> Enum.map(fn
+      %{topic_model_id: -1} = model_topic ->
+        ensure_outliers_topic(model_topic, model, account_id)
 
-      case Topics.get_topic_by(%{topic_model_id: topic_model_id, account_id: account_id}) do
-        nil -> Topics.create_topic(attrs)
-        %Topic{} = topic -> Topics.update_topic(topic, attrs)
-      end
-      |> case do
-        {:ok, topic} -> topic
-        {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
-      end
+      %{topic_model_id: topic_model_id} = model_topic ->
+        attrs = Map.put(model_topic, :account_id, account_id)
+        attrs = if(topic_model_id == -1, do: Map.put(attrs, :title, "Outliers"), else: attrs)
+
+        case Topics.get_topic_by(%{topic_model_id: topic_model_id, account_id: account_id}) do
+          nil -> Topics.create_topic(attrs)
+          %Topic{} = topic -> Topics.update_topic(topic, attrs)
+        end
+        |> case do
+          {:ok, topic} -> topic
+          {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
+        end
     end)
+  end
+
+  defp ensure_outliers_topic(attrs, %{id: model_id}, account_id) do
+    case Topics.get_topic_by(%{topic_model_id: -1, account_id: account_id}) do
+      nil ->
+        attrs
+        |> Map.put(:title, "Outliers")
+        |> Map.put(:description, "These are outliers, which couldn't be assigned to any topic.")
+        |> Map.put(:topic_model_id, -1)
+        |> Map.put(:account_id, account_id)
+        |> Topics.create_topic()
+
+      %Topic{} = topic ->
+        attrs = Map.put(attrs, :model_id, model_id)
+        Topics.update_topic(topic, attrs)
+    end
+    |> case do
+      {:ok, topic} -> topic
+      {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
+    end
   end
 
   defp create_model(bucket, object) do
