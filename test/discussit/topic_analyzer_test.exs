@@ -105,7 +105,7 @@ defmodule Discussit.TopicAnalyzerTest do
       assert Enum.count(results) == Enum.count(statements)
       # end
 
-      topics_count = Topics.list_topics() |> Enum.count() |> IO.inspect()
+      topics_count = Topics.list_topics() |> Enum.count()
       assert topics_count < 45 and topics_count > 35
 
       assert Statements.list_statements()
