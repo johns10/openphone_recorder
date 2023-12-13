@@ -5,10 +5,15 @@ defmodule Discussit.Topics.KeywordsTest do
 
   describe "matcher" do
     test "base case" do
-      %{topics: topics} =
+      first_topics =
         first()
         |> Enum.map(&topic_fixture/1)
-        |> Keywords.match(second())
+
+      second_topics =
+        second()
+        |> Enum.map(&topic_fixture/1)
+
+      %{topics: topics} = Keywords.match(first_topics, second_topics)
 
       IO.puts("""
       There were #{Enum.count(first())} topics in the first epoch.
@@ -20,15 +25,12 @@ defmodule Discussit.Topics.KeywordsTest do
     end
 
     test "limited case" do
-      first = first() |> Enum.slice(1..5)
-      second = second() |> Enum.slice(1..5)
+      first = first() |> Enum.map(&topic_fixture/1) |> Enum.slice(1..5)
+      second = second() |> Enum.map(&topic_fixture/1) |> Enum.slice(1..5)
 
-      %{topics: topics} =
-        first
-        |> Enum.map(&topic_fixture/1)
-        |> Keywords.match(second())
+      %{topics: topics} = Keywords.match(first, second)
 
-      assert Enum.count(topics) == 3
+      assert Enum.count(topics) == 5
     end
   end
 
