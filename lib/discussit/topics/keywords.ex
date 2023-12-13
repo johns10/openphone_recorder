@@ -7,16 +7,16 @@ defmodule Discussit.Topics.Keywords do
     topics
     |> Enum.reduce(initial_acc, fn topic, %{new_topics: new_topics} = acc ->
       %{score: best_score, topic_model_id: topic_model_id, id: topic_id} =
+        match =
         topic_scores(topic, new_topics)
         |> Enum.max(fn score1, score2 -> score1.score >= score2.score end)
 
       case best_score do
         score when score >= 0.80 ->
-          Topics.update_topic(topic, %{from_topic_id: topic_id})
+          Topics.update_topic(match, %{from_topic_id: topic_id})
           remove_model_attrs(acc, topic_id)
 
         score ->
-          IO.puts("Remaining: #{Enum.count(acc.topics)}, #{score}")
           %{acc | topics: [topic | acc.topics]}
       end
     end)
@@ -28,12 +28,12 @@ defmodule Discussit.Topics.Keywords do
     %{state | new_topics: new_topics}
   end
 
-  defp topic_scores(%{keywords: t_kw} = topic, new_topics) do
-    Enum.map(new_topics, fn %{keywords: m_kw} = model_attrs ->
-      score = sum_score(t_kw, m_kw) + sum_score(m_kw, t_kw)
-      total = sum_total(topic.keywords) + sum_total(model_attrs.keywords)
+  defp topic_scores(%{keywords: one_kw} = one, new_topics) do
+    Enum.map(new_topics, fn %{keywords: two_kw} = two ->
+      score = sum_score(one_kw, two_kw) + sum_score(two_kw, one_kw)
+      total = sum_total(one.keywords) + sum_total(two.keywords)
 
-      model_attrs
+      two
       |> Map.put(:score, score / total)
     end)
   end
@@ -42,14 +42,28 @@ defmodule Discussit.Topics.Keywords do
     do:
       Enum.reduce(keywords, 0, fn
         %{probability: p}, acc -> acc + p
+        %{"probability" => p}, acc -> acc + p
       end)
 
   defp sum_score(one, two) do
-    Enum.reduce(one, 0, fn %{keyword: keyword, probability: probability}, acc ->
-      case Enum.find(two, &(&1.keyword == keyword)) do
-        %{} -> acc + probability
-        nil -> acc
-      end
+    Enum.reduce(one, 0, fn
+      %{keyword: keyword, probability: probability}, acc ->
+        find_matching_keyword(acc, two, keyword, probability)
+
+      %{"keyword" => keyword, "probability" => probability}, acc ->
+        find_matching_keyword(acc, two, keyword, probability)
     end)
+  end
+
+  defp find_matching_keyword(acc, two, match_kw, probability) do
+    two
+    |> Enum.find(fn
+      %{"keyword" => keyword} -> match_kw == keyword
+      %{keyword: keyword} -> match_kw == keyword
+    end)
+    |> case do
+      %{} -> acc + probability
+      nil -> acc
+    end
   end
 end

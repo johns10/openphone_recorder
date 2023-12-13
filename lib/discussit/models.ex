@@ -21,6 +21,14 @@ defmodule Discussit.Models do
 
   def get_model!(id), do: Repo.get!(Model, id)
 
+  def get_latest_model!(account_id) do
+    list_models(filters: [account_id: account_id], order_by: [inserted_at: :desc], limit: 1)
+    |> case do
+      [model] -> model
+      _ -> nil
+    end
+  end
+
   def create_model(attrs \\ %{}) do
     id = Map.get(attrs, :id, Ecto.UUID.generate())
 

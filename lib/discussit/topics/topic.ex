@@ -35,7 +35,7 @@ defmodule Discussit.Topics.Topic do
     belongs_to :parent_topic, __MODULE__
     belongs_to :account, Account, type: :binary_id
     belongs_to :model, Model, type: :binary_id
-    belongs_to :from_topic, Topic, type: :binary_id
+    belongs_to :from_topic, Topic
 
     has_many :statements, Statement
     has_many :model_statements, Statement, foreign_key: :trained_topic_id
@@ -58,11 +58,13 @@ defmodule Discussit.Topics.Topic do
       :account_id,
       :keywords,
       :account_id,
-      :model_id
+      :model_id,
+      :from_topic_id
     ])
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)
     |> foreign_key_constraint(:model_id)
+    |> foreign_key_constraint(:from_topic_id)
     |> no_assoc_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
     |> validate_required([])
   end

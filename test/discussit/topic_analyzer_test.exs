@@ -269,6 +269,12 @@ defmodule Discussit.TopicAnalyzerTest do
       new_topics = Topics.list_topics(filters: [model_id: new_model_id])
       new_topics_count = Enum.count(new_topics)
       assert new_topics_count in [22, 23, 24, 25, 26, 27, 28]
+
+      mapped_topics =
+        new_topics
+        |> Enum.filter(&(&1.from_topic_id != nil))
+
+      assert Enum.count(mapped_topics) > 0
     end
   end
 

@@ -1,8 +1,10 @@
 defmodule Discussit.TopicAnalyzer do
+  alias Discussit.Models.Model
   alias Discussit.Accounts.Account
   alias Discussit.{Statements, Topics, Models}
   alias Discussit.Topics.Topic
   alias Discussit.TopicAnalyzer.Server
+  alias Discussit.Topics.Keywords
   require Logger
 
   def init(%Account{id: account_id} = account, statements_count \\ 1_000_000) do
@@ -19,14 +21,20 @@ defmodule Discussit.TopicAnalyzer do
       limit: statements_count
     ]
 
-    with false <- model_exists?(account),
-         {:ok, model} <- Models.create_model(%{account_id: account_id}),
+    last_topics =
+      case Models.get_latest_model!(account_id) do
+        %Model{id: id} -> Topics.list_topics(filters: [model_id: id])
+        nil -> []
+      end
+
+    with {:ok, model} <- Models.create_model(%{account_id: account_id}),
          {:ok, urls} <- Models.get_model_urls(model.id, :put),
          statements <- Statements.list_statements(query_opts),
          {:ok, %{topic_assignments: topic_assignments, topics: model_topics}} <-
            Server.init_model(statements, urls |> Map.put(:id, model.id)),
          topics <- insert_new_topics(model_topics, model, account.id),
-         statements <- update_statement_topics(statements, topic_assignments, topics) do
+         statements <- update_statement_topics(statements, topic_assignments, topics),
+         Keywords.match(last_topics, topics) do
       {:ok, %{statements: statements, topics: topics, model: model}}
     else
       true -> {:error, "analyzer model already exists"}
@@ -112,15 +120,6 @@ defmodule Discussit.TopicAnalyzer do
     |> case do
       {:ok, topic} -> topic
       {:error, c} -> Logger.error("#{__MODULE__}.insert_new_topics #{inspect(c)}")
-    end
-  end
-
-  defp create_model(bucket, object) do
-    ExAws.S3.put_object(bucket, object, "")
-    |> ExAws.request()
-    |> case do
-      {:ok, _} -> :ok
-      e -> e
     end
   end
 
