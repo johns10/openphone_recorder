@@ -1,29 +1,7 @@
-<.back navigate={~p"/topics"}>Back to topics</.back>
-<.header>
-  Topic <%= @topic.id %>
-  <:subtitle>This is a topic record from your database.</:subtitle>
-  <:actions>
-    <div class="flex items-center space-x-2">
-      <.link
-        phx-click="summarize-topic"
-        phx-value-topic-id={@topic.id}
-        class={["btn", if(@summarizer_status == :not_started, do: "", else: "btn-disabled")]}
-      >
-        <span :if={@summarizer_status != :not_started} class="loading loading-spinner loading-xs" />
-        Summarize topic
-      </.link>
-      <.link class="btn" patch={~p"/topics/#{@topic}/show/edit"} phx-click={JS.push_focus()}>
-        Edit topic
-      </.link>
-      <.link class="btn" phx-click="confirm-topic" phx-value-topic-id={@topic.id}>
-        Confirm topic
-      </.link>
-    </div>
-  </:actions>
-</.header>
-
-<.topic_list topic={@topic} />
-
+<.back class="py-2" navigate={~p"/topics"}>Back to topics</.back>
+<div class="flex gap-x-4">
+  <.topic_card show_actions="true" topic={@topic} />
+</div>
 <div id="statements" phx-update="stream">
   <%= for {id, %{labelled_topic_id: labelled_topic_id, representative: representative} = statement} <- @streams.statements do %>
     <div id={id}>

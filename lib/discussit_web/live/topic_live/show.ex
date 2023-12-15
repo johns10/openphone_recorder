@@ -5,6 +5,7 @@ defmodule DiscussitWeb.TopicLive.Show do
   alias Discussit.Statements
   alias Discussit.StatusAgent
   import DiscussitWeb.IndexLive.Components
+  import DiscussitWeb.TopicLive.Components
   import DiscussitWeb.LiveSupport
 
   @statement_preloads [
