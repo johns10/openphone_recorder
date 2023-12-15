@@ -14,10 +14,26 @@
 
 <div class="flex flex-col w-full overflow-y-scroll">
   <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
-    Topics
+    <div class="flex flex-row items-center gap-x-8">
+      Topics
+      <div role="tablist" class="tabs tabs-bordered">
+        <.link href={~p"/topics"} role="tab" class={["tab", if(@tab == :index, do: "tab-active")]}>
+          Index
+        </.link>
+        <.link
+          :if={@last_model}
+          patch={~p"/topics/?#{[model_id: @last_model.id]}"}
+          role="tab"
+          class={["tab", if(@tab == :migrate, do: "tab-active")]}
+        >
+          Migrate
+        </.link>
+        <a role="tab" class="tab">Heirarchy</a>
+      </div>
+    </div>
     <div>
       <.link
-        :if={@model}
+        :if={@latest_model}
         class="btn btn-sm"
         phx-click="regenerate-labels"
         data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
@@ -30,7 +46,7 @@
       </.link>
 
       <.link
-        :if={@model}
+        :if={@latest_model}
         class="btn btn-sm"
         phx-click="reset-model"
         data-confirm="This action will delete all automatically generated topics that haven't been used in your conversations."
@@ -40,7 +56,6 @@
     </div>
   </div>
 
-  <%= inspect(@model) %>
   <div
     class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 m-4"
     id="topics"
@@ -110,8 +125,6 @@
     </div>
   </div>
 
-  <%= @live_action %>
-
   <.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>
     <.live_component
       module={DiscussitWeb.TopicLive.FormComponent}
@@ -125,10 +138,10 @@
   <.modal :if={@live_action == :train} id="training-modal" show on_cancel={JS.patch(~p"/topics")}>
     <.live_component
       module={DiscussitWeb.TopicLive.TrainingFormComponent}
-      id={if(@model, do: @model.id, else: nil) || "training-form"}
+      id="training-form"
       title={@page_title}
       patch={~p"/topics"}
-      model_id={if(@model, do: @model.id, else: nil)}
+      model_id={if(@latest_model, do: @latest_model.id, else: nil)}
       account_id={@current_user.selected_account.id}
       current_user={@current_user}
     />

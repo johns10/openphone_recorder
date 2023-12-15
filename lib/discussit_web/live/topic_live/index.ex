@@ -12,20 +12,15 @@ defmodule DiscussitWeb.TopicLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     account = socket.assigns.current_user.selected_account
-
-    model =
-      [filters: [account_id: account.id], order_by: [inserted_at: :desc], limit: 1]
-      |> Models.list_models()
-      |> Enum.at(0)
-
-    topics = list_topics(account, model) |> init_status_agents() |> assign_status()
-
+    [latest_model, last_model] = list_latest_models(account) |> IO.inspect()
+    topics = list_topics(account, latest_model) |> init_status_agents() |> assign_status()
     DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
 
     {:ok,
      socket
      |> stream(:topics, topics)
-     |> assign(:model, model)
+     |> assign(:latest_model, latest_model)
+     |> assign(:last_model, last_model)
      |> assign(:analyzer_available?, Status.available?(account.id)),
      layout: {DiscussitWeb.Layouts, :full_screen}}
   end
@@ -46,9 +41,21 @@ defmodule DiscussitWeb.TopicLive.Index do
     |> assign(:topic, Topics.get_topic!(id))
   end
 
+  defp apply_action(socket, :index, %{"model_id" => model_id}) do
+    account = socket.assigns.current_user.selected_account
+
+    socket
+    |> assign(:model_id, model_id)
+    |> assign(:tab, :migrate)
+    |> stream(:topics, list_topics(account, model_id), reset: true)
+    |> assign(:page_title, "Listing Topics")
+    |> assign(:topic, nil)
+  end
+
   defp apply_action(socket, :index, _params) do
     socket
     |> assign(:page_title, "Listing Topics")
+    |> assign(:tab, :index)
     |> assign(:topic, nil)
   end
 
@@ -137,12 +144,24 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, socket}
   end
 
+  defp list_latest_models(account) do
+    Models.list_models(
+      order_by: [inserted_at: :desc],
+      filters: [account_id: account.id],
+      limit: 2
+    )
+    |> case do
+      [latest, last] -> [latest, last]
+      [latest] -> [latest, nil]
+      [] -> [nil, nil]
+    end
+  end
+
   defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
+  defp list_topics(%{id: id}, nil), do: Topics.list_topics(filters: [account_id: id])
+  defp list_topics(account, %{id: model_id}), do: list_topics(account, model_id)
 
-  defp list_topics(%{id: account_id}, nil),
-    do: Topics.list_topics(filters: [account_id: account_id])
-
-  defp list_topics(%{id: account_id}, %{id: model_id}),
+  defp list_topics(%{id: account_id}, model_id),
     do: Topics.list_topics(filters: [account_id: account_id, model_id: model_id])
 
   defp assign_status(topics) do

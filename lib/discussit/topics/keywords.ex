@@ -16,7 +16,7 @@ defmodule Discussit.Topics.Keywords do
           Topics.update_topic(match, %{from_topic_id: topic_id})
           remove_model_attrs(acc, topic_id)
 
-        score ->
+        _ ->
           %{acc | topics: [topic | acc.topics]}
       end
     end)
