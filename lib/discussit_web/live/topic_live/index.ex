@@ -10,24 +10,34 @@ defmodule DiscussitWeb.TopicLive.Index do
   import DiscussitWeb.LiveSupport
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     account = socket.assigns.current_user.selected_account
-    [latest_model, last_model] = list_latest_models(account) |> IO.inspect()
-    topics = list_topics(account, latest_model) |> init_status_agents() |> assign_status()
+    [latest_model, last_model] = list_latest_models(account)
+    model_id = Map.get(params, "model_id", nil)
+
+    topics =
+      list_topics(account, model_id || latest_model)
+      |> init_status_agents()
+      |> assign_status()
+
     DiscussitWeb.Endpoint.subscribe("account_#{account.id}")
 
     {:ok,
      socket
-     |> stream(:topics, topics)
+     |> stream(:topics, topics, reset: true)
      |> assign(:latest_model, latest_model)
      |> assign(:last_model, last_model)
+     |> assign_tab(params)
      |> assign(:analyzer_available?, Status.available?(account.id)),
      layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(params, url, socket) do
+    {:noreply,
+     socket
+     |> assign(:return_to, url)
+     |> apply_action(socket.assigns.live_action, params)}
   end
 
   defp apply_action(socket, :train, _) do
@@ -41,22 +51,12 @@ defmodule DiscussitWeb.TopicLive.Index do
     |> assign(:topic, Topics.get_topic!(id))
   end
 
-  defp apply_action(socket, :index, %{"model_id" => model_id}) do
-    account = socket.assigns.current_user.selected_account
-
-    socket
-    |> assign(:model_id, model_id)
-    |> assign(:tab, :migrate)
-    |> stream(:topics, list_topics(account, model_id), reset: true)
-    |> assign(:page_title, "Listing Topics")
-    |> assign(:topic, nil)
-  end
-
-  defp apply_action(socket, :index, _params) do
+  defp apply_action(socket, :index, params) do
     socket
     |> assign(:page_title, "Listing Topics")
     |> assign(:tab, :index)
     |> assign(:topic, nil)
+    |> assign_tab(params)
   end
 
   @impl true
@@ -180,4 +180,8 @@ defmodule DiscussitWeb.TopicLive.Index do
       topic
     end)
   end
+
+  defp assign_tab(socket, %{"tab" => "index"}), do: socket |> assign(:tab, :index)
+  defp assign_tab(socket, %{"tab" => "migrate"}), do: socket |> assign(:tab, :migrate)
+  defp assign_tab(socket, _), do: socket |> assign(:tab, :index)
 end

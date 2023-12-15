@@ -17,12 +17,16 @@
     <div class="flex flex-row items-center gap-x-8">
       Topics
       <div role="tablist" class="tabs tabs-bordered">
-        <.link href={~p"/topics"} role="tab" class={["tab", if(@tab == :index, do: "tab-active")]}>
+        <.link
+          navigate={~p"/topics?tab=index"}
+          role="tab"
+          class={["tab", if(@tab == :index, do: "tab-active")]}
+        >
           Index
         </.link>
         <.link
           :if={@last_model}
-          patch={~p"/topics/?#{[model_id: @last_model.id]}"}
+          navigate={~p"/topics/?#{[model_id: @last_model.id]}&tab=migrate"}
           role="tab"
           class={["tab", if(@tab == :migrate, do: "tab-active")]}
         >
@@ -101,7 +105,18 @@
           >
             <.icon name="hero-pencil-square" class="w-5 h-5" />
           </.link>
-          <.link class="btn btn-square btn-sm btn-outline my-0" patch={~p"/topics/#{topic}"}>
+          <.link
+            :if={@tab == :index}
+            class="btn btn-square btn-sm btn-outline my-0"
+            patch={~p"/topics/#{topic}"}
+          >
+            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
+          </.link>
+          <.link
+            :if={@tab == :migrate}
+            class="btn btn-square btn-sm btn-outline my-0"
+            patch={~p"/topics/#{topic}/show/migrate/#{@latest_model}"}
+          >
             <.icon name="hero-magnifying-glass" class="w-5 h-5" />
           </.link>
           <.link
