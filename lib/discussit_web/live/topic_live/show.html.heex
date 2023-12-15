@@ -22,19 +22,7 @@
   </:actions>
 </.header>
 
-<.list>
-  <:item title="Title">
-    <.icon :if={!@topic.title} name="hero-question-mark-circle" class="bg-warning " />
-    <.icon :if={@topic.title} name="hero-check-circle" class="bg-success" />
-    <%= @topic.title || @topic.model_title %>
-  </:item>
-  <:item title="Description">
-    <.icon :if={!@topic.description} name="hero-question-mark-circle" class="bg-warning" />
-    <.icon :if={@topic.description} name="hero-check-circle" class="bg-success" />
-    <%= @topic.description || @topic.model_description %>
-  </:item>
-  <:item title="Sentiment"><%= @topic.sentiment %></:item>
-</.list>
+<.topic_list topic={@topic} />
 
 <div id="statements" phx-update="stream">
   <%= for {id, %{labelled_topic_id: labelled_topic_id, representative: representative} = statement} <- @streams.statements do %>
