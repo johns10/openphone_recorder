@@ -22,13 +22,16 @@ defmodule Discussit.Topics.Keywords do
     end)
   end
 
+  def to_string(%{keywords: [%{"keyword" => _} | _] = keywords} = _topic),
+    do: Enum.map(keywords, fn %{"keyword" => keyword} -> keyword end) |> Enum.join(", ")
+
   defp remove_model_attrs(%{new_topics: new_topics} = state, topic_id) do
     new_topics = new_topics |> Enum.filter(fn %{id: id} -> id != topic_id end)
 
     %{state | new_topics: new_topics}
   end
 
-  defp topic_scores(%{keywords: one_kw} = one, new_topics) do
+  def topic_scores(%{keywords: one_kw} = one, new_topics) do
     Enum.map(new_topics, fn %{keywords: two_kw} = two ->
       score = sum_score(one_kw, two_kw) + sum_score(two_kw, one_kw)
       total = sum_total(one.keywords) + sum_total(two.keywords)
