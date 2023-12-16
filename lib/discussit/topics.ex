@@ -10,6 +10,7 @@ defmodule Discussit.Topics do
 
   def list_topics(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
+    preload = Keyword.get(opts, :preload, [])
 
     Topic
     |> filter_by_account_id(filters[:account_id])
@@ -17,10 +18,17 @@ defmodule Discussit.Topics do
     |> filter_by_title_is_nil(filters[:title_is_nil])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
+    |> preload(^preload)
     |> Repo.all()
   end
 
-  def get_topic!(id), do: Repo.get!(Topic, id)
+  def get_topic!(id, opts \\ []) do
+    preload = Keyword.get(opts, :preload, [])
+
+    Topic
+    |> preload(^preload)
+    |> Repo.get!(id)
+  end
 
   def get_topic_by(filters \\ []) do
     Repo.get_by(Topic, filters)
