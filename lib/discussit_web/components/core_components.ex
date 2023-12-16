@@ -772,6 +772,37 @@ defmodule DiscussitWeb.CoreComponents do
     """
   end
 
+  attr(:topic, Discussit.Topics.Topic, required: true)
+
+  def keyword_badges(assigns) do
+    ~H"""
+    <div class="flex flex-row flex-wrap w-full line-clamp-3 max-h-14">
+      <div
+        :for={%{"keyword" => kw, "probability" => probability} <- @topic.keywords || []}
+        :if={@topic.keywords}
+        class={[
+          "badge m-1",
+          case probability do
+            p when p < 0.1 -> "bg-primary"
+            p when p > 0.1 and p < 0.2 -> "bg-primary/10"
+            p when p > 0.2 and p < 0.3 -> "bg-primary/20"
+            p when p > 0.3 and p < 0.4 -> "bg-primary/30"
+            p when p > 0.4 and p < 0.5 -> "bg-primary/40"
+            p when p > 0.5 and p < 0.6 -> "bg-primary/50"
+            p when p > 0.6 and p < 0.7 -> "bg-primary/60"
+            p when p > 0.7 and p < 0.8 -> "bg-primary/70"
+            p when p > 0.8 and p < 0.9 -> "bg-primary/80"
+            p when p > 0.9 and p < 1.0 -> "bg-primary/90"
+            p when p >= 1.0 -> "bg-primary/100"
+          end
+        ]}
+      >
+        <%= kw %>
+      </div>
+    </div>
+    """
+  end
+
   def enable(options_id, input_id) do
     JS.show(to: options_id)
     |> JS.add_class("input input-sm", to: input_id)
