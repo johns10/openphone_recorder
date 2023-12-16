@@ -9,10 +9,11 @@ defmodule DiscussitWeb.TopicLive.Components do
 
   attr(:topic, Discussit.Topics.Topic, required: true)
   attr(:show_actions, :boolean, default: true)
+  attr(:summarizer_status, :atom, default: :not_started)
 
   def topic_card(assigns) do
     ~H"""
-    <div class="card bg-base-300 rounded-box w-3/4">
+    <div class="card bg-base-300 rounded-box">
       <div class="card-body">
         <.header class="card-title">
           Topic
@@ -65,6 +66,9 @@ defmodule DiscussitWeb.TopicLive.Components do
         <.icon :if={!@topic.description} name="hero-question-mark-circle" class="bg-warning" />
         <.icon :if={@topic.description} name="hero-check-circle" class="bg-success" />
         <%= @topic.description || @topic.model_description %>
+      </:item>
+      <:item title="Keywords">
+        <.keyword_badges topic={@topic} />
       </:item>
       <:item title="Sentiment"><%= @topic.sentiment %></:item>
     </.list>
