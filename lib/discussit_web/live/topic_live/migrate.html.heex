@@ -1,0 +1,32 @@
+<.back class="py-2" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
+  Back to topics
+</.back>
+<div class="flex gap-x-4">
+  <div class="w-1/2">
+    <.topic_card show_actions={false} topic={@topic} />
+  </div>
+  <div class="w-1/2">
+    <div class="card bg-base-300">
+      <div class="card-body">
+        <ul class="menu bg-base-300 w-full p-0">
+          <li :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}>
+            <a
+              class={if(@to_topic_id == new_topic.id, do: "active", else: "")}
+              phx-click="select-to-topic"
+              phx-value-topic-id={new_topic.id}
+            >
+              <.icon
+                :if={@to_topic_id == new_topic.id}
+                name="hero-check-circle"
+                class="w-5 h-5 bg-success"
+              />
+              <span class="pr-2"><%= floor(new_topic.score * 100) %>%</span>
+              <div />
+              <span><%= Keywords.to_string(new_topic) %></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
