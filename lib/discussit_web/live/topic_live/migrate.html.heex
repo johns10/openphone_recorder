@@ -1,31 +1,46 @@
-<.back class="py-2" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
-  Back to topics
-</.back>
-<div class="flex gap-x-4">
-  <div class="w-1/2">
-    <.topic_card show_actions={false} topic={@topic} />
+<div class="flex flex-col">
+  <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
+    <div class="flex flex-row items-center gap-x-8">
+      Migrate <%= @topic.title %> to new topic
+    </div>
   </div>
-  <div class="w-1/2">
-    <div class="card bg-base-300">
-      <div class="card-body">
-        <ul class="menu bg-base-300 w-full p-0">
-          <li :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}>
-            <a
-              class={if(@to_topic_id == new_topic.id, do: "active", else: "")}
-              phx-click="select-to-topic"
-              phx-value-topic-id={new_topic.id}
-            >
-              <.icon
-                :if={@to_topic_id == new_topic.id}
-                name="hero-check-circle"
-                class="w-5 h-5 bg-success"
-              />
-              <span class="pr-2"><%= floor(new_topic.score * 100) %>%</span>
-              <div />
-              <span><%= Keywords.to_string(new_topic) %></span>
-            </a>
-          </li>
-        </ul>
+  <div class="flex flex-col m-4">
+    <.back class="py-2" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
+      Back to migrate
+    </.back>
+    <div class="flex gap-x-4">
+      <div class="w-1/2">
+        <.topic_card show_actions={false} topic={@topic} />
+      </div>
+      <div class="w-1/2">
+        <div class="card bg-base-300">
+          <div class="card-body">
+            <div class="card-title flex justify-between">
+              Pick the matching topic
+              <a :if={@to_topic_id} class="btn btn-error btn-sm" phx-click="unmatch">
+                <.icon name="hero-trash" class="w-5 h-5" /> Unmatch
+              </a>
+            </div>
+            <ul class="menu bg-base-300 w-full p-0">
+              <li :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}>
+                <a
+                  class={if(@to_topic_id == new_topic.id, do: "active", else: "")}
+                  phx-click="select-to-topic"
+                  phx-value-topic-id={new_topic.id}
+                >
+                  <.icon
+                    :if={@to_topic_id == new_topic.id}
+                    name="hero-check-circle"
+                    class="w-5 h-5 bg-success"
+                  />
+                  <span class="pr-2"><%= floor(new_topic.score * 100) %>%</span>
+                  <div />
+                  <span><%= Keywords.to_string(new_topic) %></span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

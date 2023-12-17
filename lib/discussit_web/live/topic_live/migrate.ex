@@ -6,14 +6,21 @@ defmodule DiscussitWeb.TopicLive.Migrate do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, socket}
+    {:ok, socket, layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true
   def handle_params(%{"id" => id, "model_id" => model_id}, _, socket) do
     account = socket.assigns.current_user.selected_account
     topic = get_topic!(id)
-    to_topic_id = Map.get(topic, :to_topic, %{}) |> Map.get(:id, nil)
+
+    to_topic_id =
+      topic
+      |> Map.get(:to_topic, %{})
+      |> case do
+        nil -> nil
+        map -> Map.get(map, :id, nil)
+      end
 
     new_topics =
       [filters: [account_id: account.id, model_id: model_id]]
@@ -49,6 +56,23 @@ defmodule DiscussitWeb.TopicLive.Migrate do
          socket
          |> assign(:topic, get_topic!(socket.assigns.topic.id))
          |> assign(:to_topic_id, String.to_integer(to_topic_id))}
+
+      {:error, _changeset} ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("unmatch", _, socket) do
+    case Topics.get_topic_by(%{from_topic_id: socket.assigns.topic.id}) do
+      nil -> nil
+      %Topic{} = topic -> Topics.update_topic(topic, %{from_topic_id: nil})
+    end
+    |> case do
+      {:ok, _topic} ->
+        {:noreply,
+         socket
+         |> assign(:topic, get_topic!(socket.assigns.topic.id))
+         |> assign(:to_topic_id, nil)}
 
       {:error, _changeset} ->
         {:noreply, socket}
