@@ -69,7 +69,7 @@ defmodule DiscussitWeb.TopicLive.Index do
         socket
       ) do
     account = socket.assigns.current_user.selected_account
-    model = socket.assigns.model
+    model = socket.assigns.latest_model
 
     {:noreply,
      socket
