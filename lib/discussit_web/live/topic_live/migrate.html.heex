@@ -1,18 +1,23 @@
-<div class="flex flex-col">
+<div class="flex flex-col overflow-y-hidden">
   <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
     <div class="flex flex-row items-center gap-x-8">
-      Migrate <%= @topic.title %> to new topic
+      Migrate topic <%= @topic.title %> to new topic
     </div>
   </div>
-  <div class="flex flex-col m-4">
-    <.back class="py-2" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
+  <div class="flex flex-col m-4 overflow-y-hidden">
+    <.back class="pb-4" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
       Back to migrate
     </.back>
-    <div class="flex gap-x-4">
-      <div class="w-1/2">
+    <div class="flex gap-x-4 flex-grow overflow-y-hidden">
+      <div name="last-topic" class="flex flex-col gap-y-8 w-1/2 overflow-y-hidden">
         <.topic_card show_actions={false} topic={@topic} />
+        <.statements_table
+          statements={@streams.old_statements}
+          id="old_statements"
+          title="Labelled Statements"
+        />
       </div>
-      <div class="w-1/2">
+      <div name="last-topic" class="flex flex-col gap-y-8 w-1/2 overflow-y-hidden">
         <div class="card bg-base-300">
           <div class="card-body">
             <div class="card-title flex justify-between">
@@ -41,6 +46,11 @@
             </ul>
           </div>
         </div>
+        <.statements_table
+          statements={@streams.new_statements}
+          id="new_statements"
+          title="New Statements"
+        />
       </div>
     </div>
   </div>
