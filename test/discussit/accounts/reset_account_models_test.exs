@@ -34,7 +34,7 @@ defmodule Discussit.Models.ResetModelTest do
         refute remaining_model.model_object
 
         topic_ids = Topics.list_topics() |> Enum.map(& &1.id)
-        assert old_topic.id in topic_ids
+        assert old_topic.id not in topic_ids
         assert topic.id in topic_ids
 
         [%{trained_topic_id: nil}] = Statements.list_statements()
