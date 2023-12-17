@@ -8,6 +8,6 @@ defmodule Discussit.Repo.Migrations.AddModelIdToTopicId do
     end
 
     create index(:topics, [:model_id])
-    create index(:topics, [:from_topic_id])
+    create unique_index(:topics, [:from_topic_id])
   end
 end
