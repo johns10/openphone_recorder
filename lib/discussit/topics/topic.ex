@@ -40,6 +40,7 @@ defmodule Discussit.Topics.Topic do
     has_many :statements, Statement
     has_many :model_statements, Statement, foreign_key: :trained_topic_id
     has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
+    has_one :to_topic, Topic, foreign_key: :from_topic_id
 
     timestamps()
   end
