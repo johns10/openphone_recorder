@@ -12,7 +12,7 @@ defmodule Discussit.TopicsTest do
     import Discussit.StatementsFixtures
     import Discussit.AccountsFixtures
 
-    @invalid_attrs %{sentiment: nil, description: nil, model_title: nil}
+    @invalid_attrs %{topic_model_id: "a string"}
 
     test "list_topics/0 returns all topics" do
       topic = topic_fixture()
