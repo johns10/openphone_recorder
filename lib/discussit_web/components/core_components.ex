@@ -594,9 +594,11 @@ defmodule DiscussitWeb.CoreComponents do
     attr(:title, :string, required: true)
   end
 
+  attr(:class, :string, default: "")
+
   def list(assigns) do
     ~H"""
-    <div class="mt-14">
+    <div class={@class}>
       <dl class="-my-4 divide-y divide-zinc-100">
         <div :for={item <- @item} class="flex gap-4 py-4 sm:gap-8">
           <dt class="w-1/4 flex-none text-[0.8125rem] leading-6 "><%= item.title %></dt>
@@ -616,10 +618,11 @@ defmodule DiscussitWeb.CoreComponents do
   """
   attr(:navigate, :any, required: true)
   slot(:inner_block, required: true)
+  attr(:class, :string, default: "")
 
   def back(assigns) do
     ~H"""
-    <div class="mt-16">
+    <div class={@class}>
       <.link navigate={@navigate} class="text-sm font-semibold leading-6  hover:">
         <.icon name="hero-arrow-left-solid" class="w-3 h-3" />
         <%= render_slot(@inner_block) %>
