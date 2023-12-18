@@ -93,7 +93,7 @@ defmodule Discussit.Calls do
     |> File.changeset(%{call_recording_attrs | metadata: metadata_attrs})
     |> case do
       %{changes: changes} when changes == %{} -> {:ok, call}
-      changed -> {:error, "Cannot change call recording"}
+      _changed -> {:error, "Cannot change call recording"}
     end
   end
 

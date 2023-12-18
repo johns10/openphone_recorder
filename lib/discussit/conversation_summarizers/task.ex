@@ -26,6 +26,7 @@ defmodule Discussit.ConversationSummarizers.Task do
     )
 
     StatusAgent.set(name, :done)
+    StatusAgent.unlink(name)
     StatusAgent.terminate(name)
 
     :ok

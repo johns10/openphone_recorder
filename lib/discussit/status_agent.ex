@@ -46,6 +46,16 @@ defmodule Discussit.StatusAgent do
     end
   end
 
+  def unlink(name) do
+    with {:ok, pid} when not is_nil(pid) <- lookup(name),
+         true <- Process.unlink(pid) do
+      {:ok, :unlinked}
+    else
+      {:ok, nil} -> {:ok, :unlinked}
+      false -> {:ok, :unlinked}
+    end
+  end
+
   def alive?(name) do
     case lookup(name) do
       {:ok, nil} -> false
