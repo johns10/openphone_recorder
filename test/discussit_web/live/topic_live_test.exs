@@ -66,7 +66,7 @@ defmodule DiscussitWeb.TopicLiveTest do
 
     test "trains a model", %{conn: conn, account: account} do
       model = model_fixture(%{account_id: account.id})
-      {:ok, index_live, _html} = live(conn, ~p"/topics/train")
+      {:ok, _index_live, _html} = live(conn, ~p"/topics/train")
 
       # assert index_live |> element("#topics-#{topic.id} a", "Delete") |> render_click()
       # refute has_element?(index_live, "#topics-#{topic.id}")
