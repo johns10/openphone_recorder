@@ -15,7 +15,7 @@ defmodule DiscussitWeb.TopicLive.Components do
 
   def show_topic_card(assigns) do
     ~H"""
-    <div class="card bg-base-300 rounded-box">
+    <div class="card bg-base-300 rounded-box w-full">
       <div class="card-body">
         <.header class="card-title">
           Topic
