@@ -54,7 +54,9 @@ defmodule Discussit.Models do
   def delete_model(%Model{} = model) do
     with {:ok, _} <- handle_delete_object(model, :merge_object),
          {:ok, _} <- handle_delete_object(model, :model_object) do
-      Repo.delete(model)
+      model
+      |> Model.changeset(%{})
+      |> Repo.delete()
     end
   end
 

@@ -8,14 +8,16 @@ defmodule Discussit.Models.Model do
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discussit.Topics.Topic
+  alias Discussit.Accounts.Account
+  alias Discussit.Statements.Statement
 
   @primary_key {:id, :binary_id, autogenerate: false}
   @foreign_key_type :binary_id
   schema "models" do
     field :merge_object, :string
     field :model_object, :string
-    belongs_to :account, Topic
+    belongs_to :account, Account
+    has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
 
     timestamps(type: :naive_datetime_usec)
   end
@@ -25,6 +27,7 @@ defmodule Discussit.Models.Model do
     model
     |> cast(attrs, [:id, :model_object, :merge_object, :account_id])
     |> foreign_key_constraint(:account_id)
+    |> foreign_key_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
     |> validate_required([:id])
   end
 end
