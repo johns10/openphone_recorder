@@ -2,6 +2,7 @@ defmodule DiscussitWeb.TopicLive.Index do
   # TODO: Get rid of summarizer_status
   use DiscussitWeb, :live_view
 
+  alias Discussit.Topics.Topic
   alias Discussit.Accounts.ResetAccountModels
   alias Discussit.{StatusAgent, TopicAnalyzer}
   alias Discussit.{Topics, Models}
@@ -133,6 +134,15 @@ defmodule DiscussitWeb.TopicLive.Index do
     TopicAnalyzer.regenerate_labels(account)
 
     {:noreply, socket}
+  end
+
+  def handle_event("confirm-topic", %{"topic-id" => id}, socket) do
+    with %Topic{model_title: t, model_description: d} = topic <- Topics.get_topic!(id),
+         {:ok, topic} <- Topics.update_topic(topic, %{title: t, description: d}) do
+      {:noreply,
+       socket
+       |> stream_insert(:topics, topic, at: -1)}
+    end
   end
 
   def handle_event("summarize-topic", %{"topic-id" => topic_id}, socket) do

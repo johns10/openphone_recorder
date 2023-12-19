@@ -63,19 +63,21 @@ defmodule DiscussitWeb.TopicLive.Components do
     ~H"""
     <div id={@id} class="card bg-base-200 shadow-xl w-full">
       <div class="card-body">
-        <div class="flex flex-row">
+        <div class="flex flex-row items-center justify-between">
           <h2 class="card-title line-clamp-2">
             <%= @topic.title || @topic.model_title %>
           </h2>
+          <.icon :if={!@topic.title} name="hero-question-mark-circle" class="bg-warning " />
+          <.icon :if={@topic.title} name="hero-check-circle" class="bg-success" />
         </div>
-        <p class="line-clamp-6"><%= @topic.description %></p>
+        <p class="line-clamp-6"><%= @topic.description || @topic.model_description %></p>
         <.keyword_badges topic={@topic} />
         <div class="card-actions">
-          <.link class="btn btn-square btn-sm btn-outline my-0" patch={~p"/topics/#{@topic}"}>
-            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
+          <.link class="btn btn-sm btn-outline my-0" patch={~p"/topics/#{@topic}"}>
+            <.icon name="hero-magnifying-glass" class="w-5 h-5" /> Show
           </.link>
           <.link
-            class="btn btn-square btn-sm btn-outline my-0"
+            class="btn btn-sm btn-outline my-0"
             phx-click="summarize-topic"
             phx-value-topic-id={@topic.id}
           >
@@ -89,6 +91,14 @@ defmodule DiscussitWeb.TopicLive.Components do
               class="loading loading-spinner loading-xs"
             >
             </span>
+            Summarize
+          </.link>
+          <.link
+            class="btn btn-sm btn-outline my-0"
+            phx-click="confirm-topic"
+            phx-value-topic-id={@topic.id}
+          >
+            <.icon name="hero-check" class="w-5 h-5" /> Confirm
           </.link>
         </div>
       </div>
@@ -105,7 +115,7 @@ defmodule DiscussitWeb.TopicLive.Components do
             <%= @topic.title || @topic.model_title %>
           </h2>
         </div>
-        <p class="line-clamp-6"><%= @topic.description %></p>
+        <p class="line-clamp-6"><%= @topic.description || @topic.model_description %></p>
         <.keyword_badges topic={@topic} />
         <div class="card-actions justify-between">
           <div class="flex gap-x-2">
