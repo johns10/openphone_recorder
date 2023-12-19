@@ -3,11 +3,11 @@ defmodule DiscussitWeb.TopicLive.Index do
   use DiscussitWeb, :live_view
 
   alias Discussit.Accounts.ResetAccountModels
-  alias Discussit.StatusAgent
-  alias Discussit.{Topics, Models, Statements}
-  alias Discussit.TopicAnalyzer
-  alias Discussit.TopicAnalyzer.{Status}
+  alias Discussit.{StatusAgent, TopicAnalyzer}
+  alias Discussit.{Topics, Models}
+  alias Discussit.TopicAnalyzer.Status
   import DiscussitWeb.LiveSupport
+  import DiscussitWeb.TopicLive.Components
 
   @impl true
   def mount(params, _session, socket) do
@@ -158,11 +158,18 @@ defmodule DiscussitWeb.TopicLive.Index do
   end
 
   defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
-  defp list_topics(%{id: id}, nil), do: Topics.list_topics(filters: [account_id: id])
+
+  defp list_topics(%{id: id}, nil),
+    do: Topics.list_topics(filters: [account_id: id], preload: [:to_topic])
+
   defp list_topics(account, %{id: model_id}), do: list_topics(account, model_id)
 
   defp list_topics(%{id: account_id}, model_id),
-    do: Topics.list_topics(filters: [account_id: account_id, model_id: model_id])
+    do:
+      Topics.list_topics(
+        filters: [account_id: account_id, model_id: model_id],
+        preload: [:to_topic]
+      )
 
   defp assign_status(topics) do
     topics

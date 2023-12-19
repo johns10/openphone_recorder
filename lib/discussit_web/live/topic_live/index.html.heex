@@ -65,56 +65,13 @@
     id="topics"
     phx-update="stream"
   >
-    <div :for={{id, topic} <- @streams.topics} id={id} class="card bg-base-200 shadow-xl w-full">
-      <div class="card-body">
-        <div class="flex flex-row">
-          <h2 class="card-title line-clamp-2">
-            <%= topic.title || topic.model_title %>
-          </h2>
-        </div>
-        <p class="line-clamp-6"><%= topic.description %></p>
-        <.keyword_badges topic={topic} />
-        <div class="card-actions">
-          <.link
-            id={"edit-topic-#{topic.id}"}
-            class="btn btn-square btn-sm btn-outline my-0"
-            patch={~p"/topics/#{topic}/edit"}
-          >
-            <.icon name="hero-pencil-square" class="w-5 h-5" />
-          </.link>
-          <.link
-            :if={@tab == :index}
-            class="btn btn-square btn-sm btn-outline my-0"
-            patch={~p"/topics/#{topic}"}
-          >
-            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
-          </.link>
-          <.link
-            :if={@tab == :migrate}
-            class="btn btn-square btn-sm btn-outline my-0"
-            patch={~p"/topics/#{topic}/show/migrate/#{@latest_model}"}
-          >
-            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
-          </.link>
-          <.link
-            class="btn btn-square btn-sm btn-outline my-0"
-            phx-click="summarize-topic"
-            phx-value-topic-id={topic.id}
-          >
-            <.icon
-              :if={topic.summarizer_status == :not_started}
-              name="hero-document-text"
-              class="w-5 h-5"
-            />
-            <span
-              :if={topic.summarizer_status != :not_started}
-              class="loading loading-spinner loading-xs"
-            >
-            </span>
-          </.link>
-        </div>
-      </div>
-    </div>
+    <.topic_card
+      :for={{id, topic} <- @streams.topics}
+      topic={topic}
+      to_model={@latest_model}
+      id={id}
+      mode={@tab}
+    />
   </div>
 
   <.modal :if={@live_action in [:edit]} id="topic-modal" show on_cancel={JS.patch(~p"/topics")}>

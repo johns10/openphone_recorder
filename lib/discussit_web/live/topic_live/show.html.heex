@@ -1,6 +1,6 @@
 <.back class="py-2" navigate={~p"/topics"}>Back to topics</.back>
 <div class="flex gap-x-4">
-  <.topic_card show_actions="true" topic={@topic} summarizer_status={@summarizer_status} />
+  <.show_topic_card show_actions={true} topic={@topic} summarizer_status={@summarizer_status} />
 </div>
 <div id="statements" phx-update="stream">
   <%= for {id, %{labelled_topic_id: labelled_topic_id, representative: representative} = statement} <- @streams.statements do %>

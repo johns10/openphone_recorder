@@ -44,6 +44,7 @@ defmodule DiscussitWeb.TopicLive.Migrate do
      |> assign(:page_title, "Migrate Topic")
      |> assign(:topic_id, id)
      |> assign(:to_topic_id, to_topic_id)
+     |> assign(:to_topic, nil)
      |> assign(:model_id, model_id)
      |> assign(:topic, topic)
      |> assign(:new_topics, new_topics)
@@ -60,16 +61,41 @@ defmodule DiscussitWeb.TopicLive.Migrate do
       %Topic{} = topic -> Topics.update_topic(topic, %{from_topic_id: nil})
     end
 
-    to_topic_id
-    |> Topics.get_topic!()
-    |> Topics.update_topic(%{from_topic_id: socket.assigns.topic.id})
+    to_topic = get_topic!(to_topic_id)
+
+    to_topic
+    |> Topics.change_topic(%{from_topic_id: socket.assigns.topic.id})
+    |> Ecto.Changeset.apply_action(:insert)
+    |> case do
+      {:ok, _to_topic} ->
+        {:noreply,
+         socket
+         |> assign(:to_topic, to_topic)
+         |> assign(:to_topic_id, String.to_integer(to_topic_id))
+         |> stream(:new_statements, list_statements(account, to_topic_id), reset: true)}
+
+      {:error, _changeset} ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("copy", _, socket) do
+    from_topic = socket.assigns.topic
+    to_topic = socket.assigns.to_topic
+
+    attrs =
+      from_topic
+      |> Map.from_struct()
+      |> Map.take([:title, :model_title, :description, :model_description])
+      |> Map.put(:from_topic_id, from_topic.id)
+
+    to_topic
+    |> Topics.update_topic(attrs)
     |> case do
       {:ok, _topic} ->
         {:noreply,
          socket
-         |> assign(:topic, get_topic!(socket.assigns.topic.id))
-         |> assign(:to_topic_id, String.to_integer(to_topic_id))
-         |> stream(:new_statements, list_statements(account, to_topic_id), reset: true)}
+         |> assign(:topic, get_topic!(socket.assigns.topic.id))}
 
       {:error, _changeset} ->
         {:noreply, socket}

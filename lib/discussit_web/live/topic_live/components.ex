@@ -1,5 +1,7 @@
 defmodule DiscussitWeb.TopicLive.Components do
+  alias Discussit.Models.Model
   alias Phoenix.LiveView.JS
+  alias Discussit.Topics.Topic
   import DiscussitWeb.CoreComponents
   use Phoenix.Component
 
@@ -7,11 +9,11 @@ defmodule DiscussitWeb.TopicLive.Components do
     endpoint: DiscussitWeb.Endpoint,
     router: DiscussitWeb.Router
 
-  attr(:topic, Discussit.Topics.Topic, required: true)
+  attr(:topic, Topic, required: true)
   attr(:show_actions, :boolean, default: true)
   attr(:summarizer_status, :atom, default: :not_started)
 
-  def topic_card(assigns) do
+  def show_topic_card(assigns) do
     ~H"""
     <div class="card bg-base-300 rounded-box">
       <div class="card-body">
@@ -52,7 +54,91 @@ defmodule DiscussitWeb.TopicLive.Components do
     """
   end
 
-  attr(:topic, Discussit.Topics.Topic, required: true)
+  attr(:topic, Topic, required: true)
+  attr(:to_model, Model)
+  attr(:mode, :atom, default: :index)
+  attr(:id, :string, required: true)
+
+  def topic_card(%{mode: :index} = assigns) do
+    ~H"""
+    <div id={@id} class="card bg-base-200 shadow-xl w-full">
+      <div class="card-body">
+        <div class="flex flex-row">
+          <h2 class="card-title line-clamp-2">
+            <%= @topic.title || @topic.model_title %>
+          </h2>
+        </div>
+        <p class="line-clamp-6"><%= @topic.description %></p>
+        <.keyword_badges topic={@topic} />
+        <div class="card-actions">
+          <.link class="btn btn-square btn-sm btn-outline my-0" patch={~p"/topics/#{@topic}"}>
+            <.icon name="hero-magnifying-glass" class="w-5 h-5" />
+          </.link>
+          <.link
+            class="btn btn-square btn-sm btn-outline my-0"
+            phx-click="summarize-topic"
+            phx-value-topic-id={@topic.id}
+          >
+            <.icon
+              :if={@topic.summarizer_status == :not_started}
+              name="hero-document-text"
+              class="w-5 h-5"
+            />
+            <span
+              :if={@topic.summarizer_status != :not_started}
+              class="loading loading-spinner loading-xs"
+            >
+            </span>
+          </.link>
+        </div>
+      </div>
+    </div>
+    """
+  end
+
+  def topic_card(%{mode: :migrate} = assigns) do
+    ~H"""
+    <div id={@id} class="card bg-base-200 shadow-xl w-full">
+      <div class="card-body">
+        <div class="flex flex-row">
+          <h2 class="card-title line-clamp-2">
+            <%= @topic.title || @topic.model_title %>
+          </h2>
+        </div>
+        <p class="line-clamp-6"><%= @topic.description %></p>
+        <.keyword_badges topic={@topic} />
+        <div class="card-actions justify-between">
+          <div class="flex gap-x-2">
+            <.link
+              class="btn btn-square btn-sm btn-outline my-0"
+              patch={~p"/topics/#{@topic}/show/migrate/#{@to_model}"}
+            >
+              <.icon name="hero-arrows-right-left" class="w-5 h-5" />
+            </.link>
+            <.link
+              class="btn btn-square btn-sm btn-outline my-0"
+              phx-click="summarize-topic"
+              phx-value-topic-id={@topic.id}
+            >
+              <.icon
+                :if={@topic.summarizer_status == :not_started}
+                name="hero-document-text"
+                class="w-5 h-5"
+              />
+              <span
+                :if={@topic.summarizer_status != :not_started}
+                class="loading loading-spinner loading-xs"
+              >
+              </span>
+            </.link>
+          </div>
+        </div>
+      </div>
+    </div>
+    """
+  end
+
+  attr(:topic, Topic, required: true)
 
   def topic_list(assigns) do
     ~H"""
