@@ -730,6 +730,7 @@ defmodule DiscussitWeb.CoreComponents do
           placeholder="Search..."
           style={:daisyui}
           text_input_extra_class="h-8 rounded-l-none"
+          options={@search_results}
         />
       </.form>
     </div>
