@@ -76,6 +76,7 @@ defmodule Discussit.MixProject do
       {:pg_ranges, git: "https://github.com/johns10/pg_ranges"},
       {:websockex, "~> 0.4.3"},
       {:oban, "~> 2.16"},
+      {:live_select, "~> 1.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},

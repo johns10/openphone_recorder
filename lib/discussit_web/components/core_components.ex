@@ -16,8 +16,10 @@ defmodule DiscussitWeb.CoreComponents do
 
   alias Discussit.Accounts.Account
   alias Discussit.Contacts.Contact
+  alias Discussit.Statements.Statement
   alias Phoenix.LiveView.JS
   import DiscussitWeb.Gettext
+  import LiveSelect
 
   @doc """
   Renders a modal.
@@ -685,93 +687,52 @@ defmodule DiscussitWeb.CoreComponents do
     <% end %>
     """
 
-  attr(:id, :string, required: true)
-  attr(:parent_id, :string, required: false)
-  attr(:trained_topic_id, :string, required: false)
+  attr(:statement, Statement, required: true)
   attr(:initial_value, :string, required: false)
   attr(:search_results, :list, default: [])
 
   def searchable_drop_down(assigns) do
     ~H"""
-    <.form
-      :let={f}
-      for={%{"search_phrase" => @initial_value, "parent_id" => @parent_id}}
-      id={@id}
-      phx-change="search"
-      phx-submit="search_option_selected"
-      data-id={@id}
-      class="flex flex-row"
-    >
-      <input
-        type="hidden"
-        id={f["parent_id"].id}
-        name={f["parent_id"].name}
-        value={f["parent_id"].value}
-      />
-      <button
-        type="button"
-        class="btn btn-sm btn-ghost rounded-r-none"
-        phx-click="confirm-label"
-        phx-value-topic-id={@trained_topic_id}
-        phx-value-parent-id={@parent_id}
+    <div class="flex">
+      <.link
+        :if={!@statement.labelled_topic_id}
+        class="btn btn-sm btn-primary rounded-r-none"
+        phx-click="set-labelled-topic"
+        phx-value-topic-id={@statement.trained_topic_id}
+        phx-value-statement-id={@statement.id}
       >
         <.icon name="hero-check" class="bg-success" />
-      </button>
-      <div class="flex flex-row">
-        <div
-          class="flex flex-col"
-          phx-click-away={disable("#options-#{@id}", "#search-phrase-#{@id}")}
-        >
-          <div class="flex flex-row relative overflow-y-clip">
-            <span id={"width-machine-#{@id}"} aria-hidden="true" class="text-sm px-4 h-8">
-              <%= @initial_value %>
-            </span>
-            <input
-              type="text"
-              id={"search-phrase-#{@id}"}
-              name={f["search_phrase"].name}
-              class="btn btn-sm normal-case rounded-none absolute w-full"
-              value={@initial_value}
-              phx-debounce="500"
-              placeholder="Search..."
-              phx-focus={enable("#options-#{@id}", "#search-phrase-#{@id}")}
-              autocomplete="off"
-            />
-          </div>
-          <div class="relative hidden" id={"options-#{@id}"}>
-            <ul class="menu menu-compact dropdown-content bg-base-300 overflow-hidden flex-col absolute z-50 w-full">
-              <%= for search_result <- @search_results do %>
-                <li
-                  class="border-b border-b-base-content/10 w-full"
-                  phx-click={
-                    disable("#options-#{@id}", "#search-phrase-#{@id}")
-                    |> JS.push("select-search-result",
-                      value: %{
-                        id: search_result.value,
-                        parent_id: @parent_id,
-                        context: "statement-topic"
-                      }
-                    )
-                  }
-                >
-                  <p class="w-full truncate" id={"search-option-#{@id}-#{search_result.value}"}>
-                    <%= search_result.label %>
-                  </p>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          class="btn btn-sm btn-ghost rounded-l-none"
-          phx-click={JS.focus(to: "#search-phrase-#{@id}")}
-        >
-          <.icon name="hero-chevron-down" />
-        </button>
-      </div>
-    </.form>
+      </.link>
+      <.link
+        :if={@statement.labelled_topic_id}
+        class="btn btn-sm btn-primary rounded-r-none"
+        phx-click="remove-label"
+        phx-value-statement-id={@statement.id}
+      >
+        <.icon name="hero-x-mark" class="bg-error" />
+      </.link>
+      <.form
+        :let={f}
+        for={%{"topic" => @initial_value, "statement_id" => @statement.id}}
+        class="flex flex-row"
+        phx-change="change"
+      >
+        <input
+          type="hidden"
+          id={f["statement_id"].id}
+          name={f["statement_id"].name}
+          value={f["statement_id"].value}
+        />
+        <.live_select
+          field={f["topic"]}
+          id={"topic-#{@statement.id}"}
+          debounce={500}
+          placeholder="Search..."
+          style={:daisyui}
+          text_input_extra_class="h-8 rounded-l-none"
+        />
+      </.form>
+    </div>
     """
   end
 
@@ -804,18 +765,6 @@ defmodule DiscussitWeb.CoreComponents do
       </div>
     </div>
     """
-  end
-
-  def enable(options_id, input_id) do
-    JS.show(to: options_id)
-    |> JS.add_class("input input-sm", to: input_id)
-    |> JS.remove_class("btn btn-sm", to: input_id)
-  end
-
-  def disable(options_id, input_id) do
-    JS.hide(to: options_id)
-    |> JS.add_class("btn btn-sm", to: input_id)
-    |> JS.remove_class("input input-sm", to: input_id)
   end
 
   ## JS Commands

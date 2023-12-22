@@ -22,11 +22,9 @@
               <div class="flex flex-row flex-grow space-x-4">
                 <div class="flex-grow max-w-full" />
                 <.searchable_drop_down
-                  parent_id={statement.id}
+                  statement={statement}
                   initial_value={safe_topic_title(statement)}
-                  id={statement.id}
                   search_results={@search_results}
-                  trained_topic_id={statement.trained_topic_id}
                 />
                 <div
                   :if={representative}

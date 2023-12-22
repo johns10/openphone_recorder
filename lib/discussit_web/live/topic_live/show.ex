@@ -45,23 +45,7 @@ defmodule DiscussitWeb.TopicLive.Show do
   defp page_title(:edit), do: "Edit Topic"
 
   @impl true
-  def handle_event("search", payload, socket) do
-    %{"parent_id" => statement_id, "search_phrase" => search} = payload
-
-    topics =
-      Topics.list_topics(filters: [search: search], limit: 5)
-      |> select_options()
-
-    statement = Statements.get_statement!(statement_id, preloads: @statement_preloads)
-
-    {:noreply,
-     socket
-     |> assign(:search_results, topics)
-     |> stream_insert(:statements, statement, at: -1)}
-  end
-
-  def handle_event("select-search-result", payload, socket) do
-    %{"id" => topic_id, "parent_id" => statement_id} = payload
+  def handle_event("change", %{"topic" => topic_id, "statement_id" => statement_id}, socket) do
     topic = Topics.get_topic!(topic_id)
 
     {:ok, statement} =
@@ -76,8 +60,24 @@ defmodule DiscussitWeb.TopicLive.Show do
     {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
   end
 
-  def handle_event("confirm-label", payload, socket) do
-    %{"topic-id" => topic_id, "parent-id" => statement_id} = payload
+  def handle_event("live_select_change", %{"id" => id, "text" => text}, socket) do
+    "topic-" <> statement_id = id
+    topics = Topics.list_topics(filters: [search: text], limit: 5) |> select_options()
+    send_update(LiveSelect.Component, id: id, options: topics)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("options_recovery", options, socket) do
+    IO.inspect(options)
+    {:noreply, socket}
+  end
+
+  def handle_event(
+        "set-labelled-topic",
+        %{"topic-id" => topic_id, "statement-id" => statement_id},
+        socket
+      ) do
     topic = Topics.get_topic!(topic_id)
 
     {:ok, statement} =
@@ -88,6 +88,17 @@ defmodule DiscussitWeb.TopicLive.Show do
     statement =
       statement
       |> Map.put(:labelled_topic, topic)
+
+    {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
+  end
+
+  def handle_event("remove-label", payload, socket) do
+    %{"statement-id" => statement_id} = payload
+
+    {:ok, statement} =
+      statement_id
+      |> Statements.get_statement!(preloads: @statement_preloads)
+      |> Statements.update_statement(%{labelled_topic_id: nil})
 
     {:noreply, socket |> stream_insert(:statements, statement, at: -1)}
   end
