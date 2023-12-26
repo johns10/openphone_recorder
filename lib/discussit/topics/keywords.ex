@@ -31,14 +31,17 @@ defmodule Discussit.Topics.Keywords do
     %{state | new_topics: new_topics}
   end
 
-  def topic_scores(%{keywords: one_kw} = one, new_topics) do
-    Enum.map(new_topics, fn %{keywords: two_kw} = two ->
-      score = sum_score(one_kw, two_kw) + sum_score(two_kw, one_kw)
-      total = sum_total(one.keywords) + sum_total(two.keywords)
-
-      two
-      |> Map.put(:score, score / total)
+  @spec topic_scores(%{:keywords => any(), optional(any()) => any()}, any()) :: list()
+  def topic_scores(one, new_topics) do
+    Enum.map(new_topics, fn two ->
+      Map.put(two, :score, calculate_score(one, two))
     end)
+  end
+
+  def calculate_score(%{keywords: kw_one}, %{keywords: kw_two}) do
+    score = sum_score(kw_one, kw_two) + sum_score(kw_two, kw_one)
+    total = sum_total(kw_one) + sum_total(kw_two)
+    score / total
   end
 
   defp sum_total(keywords),

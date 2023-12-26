@@ -2,6 +2,7 @@ defmodule DiscussitWeb.TopicLive.Components do
   alias Discussit.Models.Model
   alias Phoenix.LiveView.JS
   alias Discussit.Topics.Topic
+  alias Discussit.Topics.Keywords
   import DiscussitWeb.CoreComponents
   use Phoenix.Component
 
@@ -110,10 +111,16 @@ defmodule DiscussitWeb.TopicLive.Components do
     ~H"""
     <div id={@id} class="card bg-base-200 shadow-xl w-full">
       <div class="card-body">
-        <div class="flex flex-row">
+        <div class="flex flex-row justify-between items-center">
           <h2 class="card-title line-clamp-2">
             <%= @topic.title || @topic.model_title %>
           </h2>
+          <%= case migration_status(@topic) do %>
+            <% :migrated -> %>
+              <span class="text-success"><%= score(@topic) %>%</span>
+            <% nil -> %>
+              <.icon name="hero-x-mark-solid" class="w-5 h-5 bg-error" />
+          <% end %>
         </div>
         <p class="line-clamp-6"><%= @topic.description || @topic.model_description %></p>
         <.keyword_badges topic={@topic} />
@@ -170,4 +177,23 @@ defmodule DiscussitWeb.TopicLive.Components do
     </.list>
     """
   end
+
+  defp migration_status(%Topic{to_topic: nil}), do: nil
+
+  defp migration_status(%Topic{to_topic: %Topic{} = to_topic} = topic) do
+    attrs =
+      to_topic
+      |> Map.from_struct()
+      |> Map.take([:title, :model_title, :description, :model_description])
+
+    Topic.changeset(topic, attrs)
+    |> case do
+      %{changes: changes} when changes == %{} -> :migrated
+    end
+  end
+
+  defp score(%Topic{to_topic: nil}), do: 0
+
+  defp score(%Topic{to_topic: %Topic{} = to} = topic),
+    do: floor(Keywords.calculate_score(topic, to) * 100)
 end
