@@ -44,20 +44,17 @@
               </li>
             </ul>
             <ul class="menu bg-base-300 w-full p-0">
-              <li :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}>
+              <li
+                :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}
+                class="w-full"
+              >
                 <a
-                  class={if(@to_topic_id == new_topic.id, do: "active", else: "")}
+                  class={["w-full", if(@to_topic_id == new_topic.id, do: "active", else: "")]}
                   phx-click="select-to-topic"
                   phx-value-topic-id={new_topic.id}
                 >
-                  <.icon
-                    :if={@to_topic_id == new_topic.id}
-                    name="hero-check-circle"
-                    class="w-5 h-5 bg-success"
-                  />
                   <span class="pr-2"><%= floor(new_topic.score * 100) %>%</span>
-                  <div />
-                  <span><%= Keywords.to_string(new_topic) %></span>
+                  <.keyword_badges topic={new_topic} />
                 </a>
               </li>
             </ul>
