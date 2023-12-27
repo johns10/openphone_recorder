@@ -13,7 +13,7 @@ defmodule DiscussitWeb.TopicLive.Migrate do
   @impl true
   def handle_params(%{"id" => id, "model_id" => model_id}, _, socket) do
     account = socket.assigns.current_user.selected_account
-    topic = get_topic!(id)
+    %{model_id: old_model_id} = topic = get_topic!(id)
 
     to_topic_id =
       topic
@@ -47,6 +47,7 @@ defmodule DiscussitWeb.TopicLive.Migrate do
      |> assign(:to_topic, nil)
      |> assign(:model_id, model_id)
      |> assign(:topic, topic)
+     |> assign(:next_topic, Topics.get_next_unmigrated_topic!(topic.id, old_model_id))
      |> assign(:new_topics, new_topics)
      |> stream(:old_statements, old_statements)
      |> stream(:new_statements, new_statements)}

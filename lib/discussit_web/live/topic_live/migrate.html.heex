@@ -5,9 +5,18 @@
     </div>
   </div>
   <div class="flex flex-col m-4 overflow-y-hidden">
-    <.back class="pb-4" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
-      Back to migrate
-    </.back>
+    <div class="flex justify-between">
+      <.back class="pb-4" navigate={~p"/topics?model_id=#{@topic.model_id}&tab=migrate"}>
+        Back to migrate
+      </.back>
+      <.link
+        :if={@next_topic}
+        navigate={~p"/topics/#{@next_topic}/show/migrate/#{@model_id}"}
+        class="text-sm font-semibold leading-6  hover:"
+      >
+        Next unmigrated topic <.icon name="hero-arrow-right-solid" class="w-3 h-3" />
+      </.link>
+    </div>
     <div class="flex gap-x-4 flex-grow overflow-y-hidden">
       <div name="last-topic" class="flex flex-col gap-y-8 w-1/2 overflow-y-hidden">
         <.show_topic_card show_actions={false} topic={@topic} />
@@ -43,7 +52,7 @@
                 Copied
               </li>
             </ul>
-            <ul class="menu bg-base-300 w-full p-0">
+            <ul class="menu flex-col flex-nowrap bg-base-300 w-full p-0 max-h-80 overflow-y-auto w-full">
               <li
                 :for={new_topic <- Enum.sort(@new_topics, &(&1.score > &2.score))}
                 class="w-full"

@@ -30,6 +30,21 @@ defmodule Discussit.Topics do
     |> Repo.get!(id)
   end
 
+  def get_next_unmigrated_topic!(id, model_id) do
+    Topic
+    |> filter_by_model_id(model_id)
+    |> join(:full, [t], to in assoc(t, :to_topic), as: :to)
+    |> where([to: to], is_nil(to.from_topic_id))
+    |> where([t], t.id != ^id)
+    |> limit(1)
+    |> Repo.all()
+    |> IO.inspect()
+    |> case do
+      [topic] -> topic
+      _ -> nil
+    end
+  end
+
   def get_topic_by(filters \\ []) do
     Repo.get_by(Topic, filters)
   end
