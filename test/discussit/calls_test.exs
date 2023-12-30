@@ -47,6 +47,24 @@ defmodule Discussit.CallsTest do
       assert call == Calls.get_call!(call.id)
     end
 
+    test "update_call_recording/2 when call.call_recording is nil" do
+      call = call_fixture(%{call_recording: nil})
+
+      assert {:ok, %{call_recording: %{bucket: "test"}}} =
+               Calls.update_call_recording(call, %{
+                 call_recording: %{bucket: "test", key: "test", metadata: %{}}
+               })
+    end
+
+    test "update_call_recording/2 when call.call_recording is the same" do
+      call = call_fixture(%{call_recording: %{bucket: "test", key: "test", metadata: %{}}})
+
+      assert {:ok, %{call_recording: %{bucket: "test"}}} =
+               Calls.update_call_recording(call, %{
+                 call_recording: %{bucket: "test", key: "test", metadata: %{}}
+               })
+    end
+
     test "upsert_call/2 doesn't overwrite the record" do
       valid_attrs = %{external_id: "some external_id", source: :openphone}
       call = call_fixture(valid_attrs)

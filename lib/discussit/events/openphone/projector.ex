@@ -57,7 +57,7 @@ defmodule Discussit.Events.Openphone.Projector do
           {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.update_call(call, attrs)
+      Calls.update_call_recording(call, attrs)
     end
   end
 
@@ -72,7 +72,7 @@ defmodule Discussit.Events.Openphone.Projector do
           {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.update_call(call, attrs)
+      Calls.update_call_recording(call, attrs)
     end
   end
 
