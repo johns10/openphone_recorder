@@ -3,6 +3,7 @@ defmodule Discussit.Calls do
   alias Discussit.Repo
 
   alias Discussit.Calls.Call
+  alias Discussit.Files.File
 
   def list_calls(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
@@ -71,6 +72,27 @@ defmodule Discussit.Calls do
     |> Call.update_changeset(attrs)
     |> Repo.update()
   end
+
+  def update_call_recording(%Call{call_recording: nil} = call, attrs) do
+    call
+    |> Call.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_call_recording(
+        %Call{call_recording: call_recording} = call,
+        %{call_recording: call_recording_attrs}
+      ) do
+    call_recording
+    |> File.changeset(call_recording_attrs)
+    |> case do
+      %{changes: changes} when changes == %{} -> {:ok, call}
+      _changed -> {:error, "Cannot change call recording"}
+    end
+  end
+
+  def update_call_recording(%Call{} = call, %{status: :upload_empty}),
+    do: update_call(call, %{status: :upload_empty})
 
   def delete_call(%Call{} = call) do
     Repo.delete(call)
