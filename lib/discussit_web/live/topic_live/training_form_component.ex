@@ -118,6 +118,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
             all_stopwords: false,
             unprocessable: false,
             labelled: true,
+            embedded: true,
             trained: false
           ],
           count: true
@@ -129,6 +130,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
             all_stopwords: false,
             unprocessable: false,
             trained: false,
+            embedded: true,
             labelled: false
           ],
           count: true
@@ -139,6 +141,7 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
             account_id: account_id,
             all_stopwords: false,
             unprocessable: false,
+            embedded: true,
             trained: false
           ],
           count: true
