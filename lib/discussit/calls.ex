@@ -81,13 +81,19 @@ defmodule Discussit.Calls do
 
   def update_call_recording(
         %Call{call_recording: call_recording} = call,
-        %{call_recording: call_recording_attrs}
+        %{call_recording: %{metadata: metadata} = call_recording_attrs}
       ) do
+    metadata_attrs =
+      Map.new(metadata, fn
+        {k, v} when is_binary(k) -> {k, v}
+        {k, v} when is_atom(k) -> {Atom.to_string(k), v}
+      end)
+
     call_recording
-    |> File.changeset(call_recording_attrs)
+    |> File.changeset(%{call_recording_attrs | metadata: metadata_attrs})
     |> case do
       %{changes: changes} when changes == %{} -> {:ok, call}
-      _changed -> {:error, "Cannot change call recording"}
+      changed -> {:error, "Cannot change call recording"}
     end
   end
 
