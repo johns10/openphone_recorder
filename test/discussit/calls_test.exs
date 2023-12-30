@@ -52,16 +52,19 @@ defmodule Discussit.CallsTest do
 
       assert {:ok, %{call_recording: %{bucket: "test"}}} =
                Calls.update_call_recording(call, %{
-                 call_recording: %{bucket: "test", key: "test", metadata: %{}}
+                 call_recording: %{bucket: "test", key: "test", metadata: %{"type" => "value"}}
                })
     end
 
     test "update_call_recording/2 when call.call_recording is the same" do
-      call = call_fixture(%{call_recording: %{bucket: "test", key: "test", metadata: %{}}})
+      call =
+        call_fixture(%{
+          call_recording: %{bucket: "test", key: "test", metadata: %{"type" => "value"}}
+        })
 
       assert {:ok, %{call_recording: %{bucket: "test"}}} =
                Calls.update_call_recording(call, %{
-                 call_recording: %{bucket: "test", key: "test", metadata: %{}}
+                 call_recording: %{bucket: "test", key: "test", metadata: %{"type" => "value"}}
                })
     end
 
