@@ -91,7 +91,7 @@ defmodule Discussit.Statements do
     do: where(query, [s], s.all_stopwords == true)
 
   defp maybe_filter_by_all_stopwords(query, false),
-    do: where(query, [s], s.all_stopwords == false)
+    do: where(query, [s], s.all_stopwords == false) |> or_where([s], is_nil(s.all_stopwords))
 
   defp maybe_filter_by_unprocessable(query, nil), do: query
 
@@ -99,7 +99,7 @@ defmodule Discussit.Statements do
     do: where(query, [s], s.unprocessable == true)
 
   defp maybe_filter_by_unprocessable(query, false),
-    do: where(query, [s], s.unprocessable == false)
+    do: where(query, [s], s.unprocessable == false) |> or_where([s], is_nil(s.unprocessable))
 
   defp maybe_filter_by_embedding_enabled(query, nil), do: query
 
