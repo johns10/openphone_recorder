@@ -19,12 +19,10 @@ def save_model(topic_model, path):
     return topic_model
 
 
-def save_new_model(topic_model, id, model_url):
-    path = f"{id}-model"
+def save_new_model(topic_model, model_path):
+    path = f"{model_path}/model"
     topic_model.save(path, serialization="safetensors", save_ctfidf=True)
-    shutil.make_archive(f"{id}-model", "zip", path)
-    files = {"upload_file": open(f"{id}-model.zip", "rb")}
-    requests.put(model_url, files=files)
+    r = shutil.make_archive(path, "zip", model_path, "model")
     return topic_model
 
 
@@ -77,7 +75,7 @@ def new_model(items_count):
     )
 
 
-def init_model(data, id, model_url):
+def init_model(data, model_path):
     content = [item["content"] for item in data]
     embeddings = numpy.asarray([item["vector"] for item in data])
     labels = cast_statements_and_topics(data)
@@ -93,7 +91,7 @@ def init_model(data, id, model_url):
     )
     new_topics = doc_info.get(["id", "trained_topic_id", "representative"])
     topics = get_topics(topic_model)
-    save_new_model(topic_model, id, model_url)
+    save_new_model(topic_model, model_path)
     del topic_model
     return new_topics.to_dict(orient="records"), cast_topics(topics)
 

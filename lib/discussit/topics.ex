@@ -38,7 +38,6 @@ defmodule Discussit.Topics do
     |> where([t], t.id != ^id)
     |> limit(1)
     |> Repo.all()
-    |> IO.inspect()
     |> case do
       [topic] -> topic
       _ -> nil
@@ -102,7 +101,7 @@ defmodule Discussit.Topics do
       |> Enum.map(& &1.content)
       |> Enum.join(" ")
 
-    prompt = """
+    """
     I have a topic that contains the following documents:
     #{content}
     The topic is described by the following keywords:

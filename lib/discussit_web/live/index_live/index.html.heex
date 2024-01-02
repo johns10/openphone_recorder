@@ -66,11 +66,9 @@
                   <div class="flex flex-grow justify-between">
                     <.participant participant={statement.participant} class="" />
                     <.searchable_drop_down
-                      parent_id={statement.id}
+                      statement={statement}
                       initial_value={safe_topic_title(statement)}
-                      id={"#{statement.id}"}
                       search_results={@search_results}
-                      trained_topic_id={statement.trained_topic_id}
                     />
                   </div>
                 </div>

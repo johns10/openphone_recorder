@@ -18,7 +18,6 @@ defmodule Discussit.Statements.Statement do
              :content,
              :occurred_at,
              :type,
-             :ts_range,
              :all_stopwords,
              :unprocessable,
              :embedding,

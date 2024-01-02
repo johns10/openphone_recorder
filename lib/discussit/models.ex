@@ -30,7 +30,7 @@ defmodule Discussit.Models do
   end
 
   def create_model(attrs \\ %{}) do
-    id = Map.get(attrs, :id, Ecto.UUID.generate())
+    id = Map.get(attrs, :id, Ecto.UUID.generate()) || Ecto.UUID.generate() |> IO.inspect()
 
     with {:ok, merge_object} <- handle_create_object(id, attrs, :merge_object),
          {:ok, model_object} <- handle_create_object(id, attrs, :model_object) do
@@ -38,6 +38,7 @@ defmodule Discussit.Models do
         attrs
         |> Map.put(:merge_object, merge_object)
         |> Map.put(:model_object, model_object)
+        |> Map.delete(:id)
 
       %Model{id: id}
       |> Model.changeset(attrs)

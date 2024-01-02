@@ -7,14 +7,25 @@ defmodule DiscussitWeb.AccountLiveTest do
   import Discussit.AccountUsersFixtures
   alias Discussit.Accounts
 
-  @create_attrs %{name: "some name", plan: :free, enable_embeddings: false}
-  @update_attrs %{name: "some updated name", plan: :basic, enable_embeddings: true}
+  @create_attrs %{
+    name: "some name",
+    plan: :free,
+    enable_embeddings: false,
+    timezone: "Africa/Abidjan"
+  }
+  @update_attrs %{
+    name: "some updated name",
+    plan: :basic,
+    enable_embeddings: true,
+    timezone: "Africa/Abidjan"
+  }
   @invalid_attrs %{name: nil, plan: nil}
 
   describe "Index" do
     setup [:register_and_log_in_administrator, :user_setup]
 
     test "lists all accounts", %{conn: conn, account: account} do
+      Process.sleep(10)
       {:ok, _index_live, html} = live(conn, ~p"/accounts")
 
       assert html =~ "Listing Accounts"

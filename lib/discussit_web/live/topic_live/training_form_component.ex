@@ -169,6 +169,4 @@ defmodule DiscussitWeb.TopicLive.TrainingFormComponent do
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
     assign(socket, :form, to_form(changeset))
   end
-
-  defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
 end

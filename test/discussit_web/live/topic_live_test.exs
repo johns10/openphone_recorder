@@ -83,7 +83,7 @@ defmodule DiscussitWeb.TopicLiveTest do
       assert html =~ topic.description
     end
 
-    test "updates topic wi, topi different songc: topic}" do
+    test "updates topic within modal", %{conn: conn, topic: topic} do
       {:ok, show_live, _html} = live(conn, ~p"/topics/#{topic}")
 
       assert show_live |> element("a", "Edit") |> render_click() =~

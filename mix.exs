@@ -77,6 +77,7 @@ defmodule Discussit.MixProject do
       {:websockex, "~> 0.4.3"},
       {:oban, "~> 2.16"},
       {:live_select, "~> 1.0"},
+      {:flame, "~> 0.1.7"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.2", runtime: Mix.env() == :dev},

@@ -79,6 +79,13 @@ defmodule DiscussitWeb.TopicLive.Components do
           </.link>
           <.link
             class="btn btn-sm btn-outline my-0"
+            patch={~p"/topics/#{@topic}/edit"}
+            id={"edit-topic-#{@topic.id}"}
+          >
+            <.icon name="hero-pencil" class="w-5 h-5" /> Edit
+          </.link>
+          <.link
+            class="btn btn-sm btn-outline my-0"
             phx-click="summarize-topic"
             phx-value-topic-id={@topic.id}
           >

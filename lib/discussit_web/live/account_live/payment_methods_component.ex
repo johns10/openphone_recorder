@@ -133,6 +133,9 @@ defmodule DiscussitWeb.AccountLive.PaymentMethodsComponent do
     end
   end
 
+  defp assign_methods(socket, nil),
+    do: socket |> assign(:default, nil) |> assign(:payment_methods, [])
+
   defp assign_methods(socket, customer_id) do
     with {:ok, customer} <- Stripe.Customer.retrieve(customer_id),
          {:ok, %{data: methods}} <- Stripe.PaymentMethod.list(%{customer: customer_id}),

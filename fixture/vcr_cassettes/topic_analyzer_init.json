@@ -3,9 +3,9 @@
     "request": {
       "body": "",
       "headers": {
-        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240102/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=edd27f6a915aae99a6c598948e7ee22db52469936a6b8480eabc591e9da982e9",
+        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240101/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=0ea6aaa7c7afb2a27eda94bac043bdbf7d11788cb129f8e9fcd0018bcb6a2dc3",
         "host": "s3.us-east-2.amazonaws.com",
-        "x-amz-date": "***",
+        "x-amz-date": "20240101T153852Z",
         "content-length": "0",
         "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -21,9 +21,9 @@
       "binary": false,
       "body": "",
       "headers": {
-        "x-amz-id-2": "zPAYTXcHbWC8jEI11g66G1z/TnCBJw3ssxbT+7rb6rLei5xg41zmyYfeTtVs3APW+d0+jJCmrbE=",
-        "x-amz-request-id": "0228VGBBZCGA8MPS",
-        "Date": "Tue, 02 Jan 2024 04:06:05 GMT",
+        "x-amz-id-2": "4uANj4DIRrCJ2ARLYWEiAHCzq9kPV1BRJsa2vZbJ4hupm2AI37bQ+WDOEsHl1yn+4KeYjJPaEtk=",
+        "x-amz-request-id": "P3R28JS40M00QBBW",
+        "Date": "Mon, 01 Jan 2024 15:38:53 GMT",
         "x-amz-server-side-encryption": "AES256",
         "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
         "Server": "AmazonS3",

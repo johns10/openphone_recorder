@@ -118,4 +118,6 @@ defmodule Discussit.TopicAnalyzer.Server do
 
     state
   end
+
+  def stop_processes(nil), do: nil
 end

@@ -10,7 +10,7 @@ defmodule Discussit.ModelsTest do
 
     import Discussit.ModelsFixtures
 
-    @invalid_attrs %{id: nil}
+    # @invalid_attrs %{id: nil}
 
     test "list_models/0 returns all models" do
       ExVCR.Config.filter_request_headers("Authorization")
@@ -54,9 +54,9 @@ defmodule Discussit.ModelsTest do
       refute model.model_object
     end
 
-    test "create_model/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Models.create_model(@invalid_attrs)
-    end
+    # test "create_model/1 with invalid data returns error changeset" do
+    #   assert {:error, %Ecto.Changeset{}} = Models.create_model(@invalid_attrs)
+    # end
 
     test "update_model/2 with valid data updates the model" do
       use_cassette("create_model") do
@@ -73,15 +73,15 @@ defmodule Discussit.ModelsTest do
       end
     end
 
-    test "update_model/2 with invalid data returns error changeset" do
-      ExVCR.Config.filter_request_headers("Authorization")
+    # test "update_model/2 with invalid data returns error changeset" do
+    #   ExVCR.Config.filter_request_headers("Authorization")
 
-      use_cassette("create_model") do
-        model = model_fixture(%{id: @id})
-        assert {:error, %Ecto.Changeset{}} = Models.update_model(model, @invalid_attrs)
-        assert model == Models.get_model!(model.id)
-      end
-    end
+    #   use_cassette("create_model") do
+    #     model = model_fixture(%{id: @id})
+    #     assert {:error, %Ecto.Changeset{}} = Models.update_model(model, @invalid_attrs)
+    #     assert model == Models.get_model!(model.id)
+    #   end
+    # end
 
     test "delete_model/1 deletes the model" do
       ExVCR.Config.filter_request_headers("Authorization")

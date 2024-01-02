@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"max_tokens\":110,\"messages\":[{\"content\":\"I have a topic that contains the following documents: \\n\\nThe topic is described by the following keywords:\\nkey\\n\\nBased on the information above: \\nExtract a short but highly descriptive topic label of at most 5 words. \\nExtract a short but highly descriptive topic description of at most 100 words\\nReturn the result in the following format\\n<topic label> | <topic description>\\n\",\"role\":\"user\"}],\"model\":\"gpt-3.5-turbo\",\"temperature\":0}",
+      "body": "{\"max_tokens\":110,\"messages\":[{\"content\":\"I have a topic that contains the following documents:\\n\\nThe topic is described by the following keywords:\\nkey\\n\\nBased on the information above:\\nExtract a short but highly descriptive topic label of at most 5 words.\\nExtract a short but highly descriptive topic description of at most 100 words\\nReturn the result in the following format\\n<topic label> | <topic description>\\n\",\"role\":\"user\"}],\"model\":\"gpt-3.5-turbo\",\"temperature\":0}",
       "headers": {
         "Authorization": "***",
         "Content-type": "application/json"
@@ -15,17 +15,17 @@
     },
     "response": {
       "binary": false,
-      "body": "{\n  \"id\": \"chatcmpl-8SF0jAPTr2W4D3Uw5N5c3jkyDqqZf\",\n  \"object\": \"chat.completion\",\n  \"created\": 1701741577,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"key | Topic related to the keyword \\\"key\\\"\"\n      },\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 84,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 94\n  },\n  \"system_fingerprint\": null\n}\n",
+      "body": "{\n  \"id\": \"chatcmpl-8cQa0F1C6tAeo15GwcCsOLB0ueV8o\",\n  \"object\": \"chat.completion\",\n  \"created\": 1704169328,\n  \"model\": \"gpt-3.5-turbo-0613\",\n  \"choices\": [\n    {\n      \"index\": 0,\n      \"message\": {\n        \"role\": \"assistant\",\n        \"content\": \"key | Topic related to the keyword \\\"key\\\"\"\n      },\n      \"logprobs\": null,\n      \"finish_reason\": \"stop\"\n    }\n  ],\n  \"usage\": {\n    \"prompt_tokens\": 81,\n    \"completion_tokens\": 10,\n    \"total_tokens\": 91\n  },\n  \"system_fingerprint\": null\n}\n",
       "headers": {
-        "Date": "Tue, 05 Dec 2023 01:59:37 GMT",
+        "Date": "Tue, 02 Jan 2024 04:22:08 GMT",
         "Content-Type": "application/json",
-        "Content-Length": "468",
+        "Content-Length": "492",
         "Connection": "keep-alive",
         "access-control-allow-origin": "*",
         "Cache-Control": "no-cache, must-revalidate",
         "openai-model": "gpt-3.5-turbo-0613",
         "openai-organization": "user-5x8uzxoc4fqkgcgg4tmmuuru",
-        "openai-processing-ms": "364",
+        "openai-processing-ms": "521",
         "openai-version": "2020-10-01",
         "strict-transport-security": "max-age=15724800; includeSubDomains",
         "x-ratelimit-limit-requests": "5000",
@@ -37,11 +37,11 @@
         "x-ratelimit-reset-requests": "12ms",
         "x-ratelimit-reset-tokens": "76ms",
         "x-ratelimit-reset-tokens_usage_based": "76ms",
-        "x-request-id": "532ae6f4a7eea16db0e330ddeab88d8e",
+        "x-request-id": "f9511fbab25b863585aa28375ad5d764",
         "CF-Cache-Status": "DYNAMIC",
-        "Set-Cookie": "__cf_bm=4wL3pJBNHCnKjnJlgehT2uTb6zOei717OPSgXXisBJ4-1701741577-0-Acr9dbJPgKBjyHLBQRyqmz4h1H5XkdgOXub85n5SRrSdpTqhsCLm6hEBoLjCJTNK1hrnpPavzDgPjmNU4yoSYDM=; path=/; expires=Tue, 05-Dec-23 02:29:37 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "Set-Cookie": "__cf_bm=Xw76e0PSXsr9YhyRHEIEkAPVp1az2AKIdZMzrwnaWyM-1704169328-1-AZCNemDSL48QNdfx0qCtWwKJRgsFu1fM7IHCb5qYTb6fSiTr2P7TZ5QtrXca1ZClIkoKkUMa9MrvDR46hNWgK1E=; path=/; expires=Tue, 02-Jan-24 04:52:08 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
         "Server": "cloudflare",
-        "CF-RAY": "8308b0d87983a252-YYZ",
+        "CF-RAY": "83f03819cdf436a2-YYZ",
         "alt-svc": "h3=\":443\"; ma=86400"
       },
       "status_code": 200,

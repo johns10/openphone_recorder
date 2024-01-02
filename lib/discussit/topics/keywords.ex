@@ -6,7 +6,7 @@ defmodule Discussit.Topics.Keywords do
 
     topics
     |> Enum.reduce(initial_acc, fn topic, %{new_topics: new_topics} = acc ->
-      %{score: best_score, topic_model_id: topic_model_id, id: topic_id} =
+      %{score: best_score, id: topic_id} =
         match =
         topic_scores(topic, new_topics)
         |> Enum.max(fn score1, score2 -> score1.score >= score2.score end)

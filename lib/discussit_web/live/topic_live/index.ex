@@ -4,7 +4,7 @@ defmodule DiscussitWeb.TopicLive.Index do
 
   alias Discussit.Topics.Topic
   alias Discussit.Accounts.ResetAccountModels
-  alias Discussit.{StatusAgent, TopicAnalyzer}
+  alias Discussit.StatusAgent
   alias Discussit.{Topics, Models}
   alias Discussit.TopicAnalyzer.Status
   import DiscussitWeb.LiveSupport
@@ -130,9 +130,6 @@ defmodule DiscussitWeb.TopicLive.Index do
   end
 
   def handle_event("regenerate-labels", _, socket) do
-    account = socket.assigns.current_user.selected_account
-    TopicAnalyzer.regenerate_labels(account)
-
     {:noreply, socket}
   end
 

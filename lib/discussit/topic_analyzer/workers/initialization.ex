@@ -15,9 +15,12 @@ defmodule Discussit.TopicAnalyzer.Workers.Initialization do
     } = args
 
     DiscussitWeb.Endpoint.broadcast("account_#{account_id}", "topic_analysis_availability", false)
-    account = Accounts.get_account!(account_id)
-    TopicAnalyzer.Server.ensure_server_started()
-    TopicAnalyzer.init(account, statements_count)
+
+    FLAME.call(Discussit.TopicAnalyzer.Runner, fn ->
+      account = Accounts.get_account!(account_id)
+      TopicAnalyzer.init(account, statement_count: statements_count)
+    end)
+
     DiscussitWeb.Endpoint.broadcast("account_#{account_id}", "topic_analysis_availability", true)
 
     :ok

@@ -79,6 +79,7 @@ defmodule Discussit.Topics.Topic do
         casted_keywords =
           Enum.map(keywords, fn
             %{"keyword" => k, "probability" => p} -> cast_keyword(k, p)
+            %{'keyword' => k, 'probability' => p} -> cast_keyword(k, p)
             %{keyword: k, probability: p} -> cast_keyword(k, p)
           end)
 
@@ -93,5 +94,10 @@ defmodule Discussit.Topics.Topic do
 
   def cast_keyword(keyword, probability) when is_float(probability) do
     %{keyword: keyword, probability: probability}
+  end
+
+  def cast_keyword(keyword, probability) when is_list(probability) do
+    {float, _} = probability |> to_string() |> Float.parse()
+    %{keyword: keyword, probability: float}
   end
 end

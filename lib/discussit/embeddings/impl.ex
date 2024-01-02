@@ -186,6 +186,9 @@ defmodule Discussit.Embeddings.Impl do
 
           {:error, error}
         end
+
+      {:error, error} ->
+        {:error, error}
     end
   end
 end

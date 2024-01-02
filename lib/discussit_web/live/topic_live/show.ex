@@ -61,7 +61,6 @@ defmodule DiscussitWeb.TopicLive.Show do
   end
 
   def handle_event("live_select_change", %{"id" => id, "text" => text}, socket) do
-    "topic-" <> statement_id = id
     topics = Topics.list_topics(filters: [search: text], limit: 5) |> select_options()
     send_update(LiveSelect.Component, id: id, options: topics)
 

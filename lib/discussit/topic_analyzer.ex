@@ -3,11 +3,16 @@ defmodule Discussit.TopicAnalyzer do
   alias Discussit.Accounts.Account
   alias Discussit.{Statements, Topics, Models}
   alias Discussit.Topics.Topic
-  alias Discussit.TopicAnalyzer.Server
   alias Discussit.Topics.Keywords
   require Logger
 
-  def init(%Account{id: account_id} = account, statements_count \\ 1_000_000) do
+  @default_opts [statement_count: 1_000_000]
+
+  def init(%Account{id: account_id} = account, opts \\ @default_opts) do
+    statements_count = Keyword.get(opts, :statement_count)
+    model_id = Keyword.get(opts, :model_id, nil)
+    impl = Application.get_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
+
     query_opts = [
       filters: [
         embedded: true,
@@ -27,30 +32,32 @@ defmodule Discussit.TopicAnalyzer do
         nil -> []
       end
 
-    with {:ok, model} <- Models.create_model(%{account_id: account_id}),
-         {:ok, urls} <- Models.get_model_urls(model.id, :put),
+    with {:ok, path} = Briefly.create(directory: true),
+         {:ok, model} <- Models.create_model(%{id: model_id, account_id: account_id}),
+         {:ok, pid} <-
+           impl.start_link(%{model_id: model.id, account_id: account_id, parent: self()}),
          statements <- Statements.list_statements(query_opts),
-         {:ok, %{topic_assignments: topic_assignments, topics: model_topics}} <-
-           Server.init_model(statements, urls |> Map.put(:id, model.id)),
-         topics <- insert_new_topics(model_topics, model, account.id),
-         statements <- update_statement_topics(statements, topic_assignments, topics),
-         Keywords.match(last_topics, topics) do
-      {:ok, %{statements: statements, topics: topics, model: model}}
-    else
-      true -> {:error, "analyzer model already exists"}
+         :ok <- impl.init_model(pid, statements, path) do
+      receive do
+        {:done, topics} ->
+          {:ok, _} = put_object(model_path(model), "#{path}/model.zip")
+          Keywords.match(last_topics, topics)
+          {:ok, %{statements: statements, topics: topics, model: model}}
+      after
+        360_000 -> Logger.error("Initialization receive block failed")
+      end
     end
   end
 
   def train(%Account{} = account) do
     query_opts = [filters: [embedded: true, account_id: account.id], preloads: [:embedding]]
-    model_path = local_path(account)
 
-    with true <- model_exists?(account),
+    with {:ok, path} = Briefly.create(),
          {:ok, model} <- Models.create_model(%{account_id: account.id}),
          statements <- Statements.list_statements(query_opts),
-         {:ok, statement_topics} <- provider().train_model(statements, model_path),
+         {:ok, statement_topics} <- provider().train_model(statements, path),
          # TODO Implement model backup here
-         {:ok, model_topics} <- provider().get_topics(model_path),
+         {:ok, model_topics} <- provider().get_topics(path),
          topics <- insert_new_topics(model_topics, model, account.id),
          statements <- update_statement_topics(statements, statement_topics, topics) do
       {:ok, statements}
@@ -59,19 +66,16 @@ defmodule Discussit.TopicAnalyzer do
     end
   end
 
-  def regenerate_labels(account) do
-    provider().regenerate_labels(local_path(account))
-  end
-
   defp update_statement_topics(statements, statement_topics, topics) do
     topic_map =
       Enum.reduce(topics, %{}, fn topic, acc -> Map.put(acc, topic.topic_model_id, topic) end)
 
     Enum.zip(statements, statement_topics)
     |> Enum.map(fn
-      {statement, %{trained_topic_id: topic_id, representative: representative}} ->
+      {statement, attrs} ->
+        %{trained_topic_id: topic_id, representative: rep} = cast_statement_topic_attrs(attrs)
         trained_topic_id = topic_map |> Map.get(topic_id) |> Map.get(:id)
-        attrs = %{trained_topic_id: trained_topic_id, representative: representative}
+        attrs = %{trained_topic_id: trained_topic_id, representative: rep}
 
         case Statements.update_statement(statement, attrs) do
           {:ok, statement} -> statement
@@ -88,6 +92,7 @@ defmodule Discussit.TopicAnalyzer do
 
       model_topic ->
         model_topic
+        |> cast_model_topic()
         |> Map.put(:account_id, account_id)
         |> Map.put(:model_id, model.id)
         |> Topics.create_topic()
@@ -123,24 +128,22 @@ defmodule Discussit.TopicAnalyzer do
     end
   end
 
-  def model_exists?(account) do
+  def model_path(%Model{id: id}), do: "/topic_analyzer_models/#{id}-model"
+  def merge_path(%Model{id: id}), do: "/topic_analyzer_models/#{id}-merge"
+
+  defp put_object(object, path) do
     bucket = Application.get_env(:discussit, :bucket)
-    object = object_path(account)
 
-    ExAws.S3.head_object(bucket, object)
+    ExAws.S3.put_object(bucket, object, File.read!(path))
     |> ExAws.request()
-    |> case do
-      {:error, {:http_error, 404, %{status_code: 404}}} -> false
-      {:ok, _} -> true
-      _ -> {:error, "uncaught error in #{__MODULE__}.check_object"}
-    end
   end
-
-  def object_path(%Account{id: id}), do: "/topic_analyzer_models/#{id}"
-
-  def local_path(%Account{id: id}),
-    do: "#{Application.get_env(:discussit, :model_path)}/#{id}.model"
 
   def provider(),
     do: Application.get_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
+
+  defp cast_model_topic(%{'topic_model_id' => topic_model_id, 'keywords' => keywords}),
+    do: %{topic_model_id: topic_model_id, keywords: keywords}
+
+  defp cast_statement_topic_attrs(%{'trained_topic_id' => t_id, 'representative' => r}),
+    do: %{trained_topic_id: t_id, representative: r}
 end
