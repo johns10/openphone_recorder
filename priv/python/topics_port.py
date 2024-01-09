@@ -50,6 +50,11 @@ def init_model(path, dest):
     cast(dest, (Atom(b"done")))
 
 
+def merge_models(models, path):
+    topics_impl.merge_models(models, codecs.decode(path))
+    return Atom(b"ok")
+
+
 def translate(target):
     if isinstance(target, List):
         res = list(target)

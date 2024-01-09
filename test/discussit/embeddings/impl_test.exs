@@ -8,7 +8,7 @@ defmodule Discussit.Embeddings.ImplTest do
 
   describe "Embeddings" do
     setup do
-      {:ok, _} = start_supervised(Discussit.Embeddings.ModelStatus)
+      # {:ok, _} = start_supervised(Discussit.Embeddings.ModelStatus)
       ExVCR.Config.filter_request_headers("Authorization")
       account = account_fixture(%{enable_embeddings: true})
       conversation = conversation_fixture(%{account_id: account.id})

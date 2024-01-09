@@ -16,6 +16,7 @@ defmodule Discussit.Topics do
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_model_id(filters[:model_id])
     |> filter_by_title_is_nil(filters[:title_is_nil])
+    |> include_previous_versions(filters[:previous_versions])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
     |> preload(^preload)
@@ -56,6 +57,19 @@ defmodule Discussit.Topics do
 
   defp filter_by_title_is_nil(query, nil), do: query
   defp filter_by_title_is_nil(query, _), do: where(query, [t], is_nil(t.title))
+
+  defp include_previous_versions(query, nil), do: query
+
+  defp include_previous_versions(query, topic_id) do
+    initial_query = Topic |> where([t], t.id == ^topic_id)
+    recursion_query = join(Topic, :inner, [t], pt in "prev", on: pt.from_topic_id == t.id)
+    cte_query = union_all(initial_query, ^recursion_query)
+
+    query
+    |> recursive_ctes(true)
+    |> with_cte("prev", as: ^cte_query)
+    |> join(:inner, [t], pt in "prev", on: pt.id == t.id)
+  end
 
   defp search(query, nil), do: query
 

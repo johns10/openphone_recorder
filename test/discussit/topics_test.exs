@@ -30,6 +30,26 @@ defmodule Discussit.TopicsTest do
       assert Topics.get_topic!(topic.id) == topic
     end
 
+    test "include_previous_versions" do
+      account = account_fixture()
+      %{id: id_none} = topic_fixture(%{account_id: account.id, topic_model_id: 4})
+      %{id: id_one} = topic_fixture(%{account_id: account.id, topic_model_id: 5})
+
+      %{id: id_two} =
+        topic_fixture(%{account_id: account.id, topic_model_id: 6, from_topic_id: id_one})
+
+      %{id: id_three} =
+        topic_fixture(%{account_id: account.id, topic_model_id: 7, from_topic_id: id_two})
+
+      topics = Topics.list_topics(filters: [previous_versions: id_three])
+
+      assert Enum.count(topics) == 3
+      assert %{id: ^id_one} = Enum.find(topics, &(&1.id == id_one))
+      assert %{id: ^id_two} = Enum.find(topics, &(&1.id == id_two))
+      assert %{id: ^id_three} = Enum.find(topics, &(&1.id == id_three))
+      assert is_nil(Enum.find(topics, &(&1.id == id_none)))
+    end
+
     test "get_topic_by/1 returns the topic with the given model id" do
       account = account_fixture()
       topic = topic_fixture(%{account_id: account.id, topic_model_id: 5})

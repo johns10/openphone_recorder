@@ -3,43 +3,9 @@
     "request": {
       "body": "",
       "headers": {
-        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240102/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=0bd76ab391c6bf560ecd3da295a996fc51b027525554d12211f796d5d9eb5a88",
+        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240107/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=0af7f71df1fa642381be432fb412ac725befaf421b8e672129c36bd024d0394f",
         "host": "s3.us-east-2.amazonaws.com",
-        "x-amz-date": "20240102T035959Z",
-        "content-length": "0",
-        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-      },
-      "method": "put",
-      "options": {
-        "with_body": "true",
-        "recv_timeout": 30000
-      },
-      "request_body": "",
-      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/65a52fad-e74d-4700-8e40-219bdc26743d"
-    },
-    "response": {
-      "binary": false,
-      "body": "",
-      "headers": {
-        "x-amz-id-2": "jSwQBTCNXx1TB5Lku48Xa02ynXhthnKvxIypaQq/VwF02p90/bzXkMt3wWaXiGx2oA+PieBe2ts=",
-        "x-amz-request-id": "KBQB6HCM9RN5FSM7",
-        "Date": "Tue, 02 Jan 2024 04:00:01 GMT",
-        "x-amz-server-side-encryption": "AES256",
-        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
-        "Server": "AmazonS3",
-        "Content-Length": "0"
-      },
-      "status_code": 200,
-      "type": "ok"
-    }
-  },
-  {
-    "request": {
-      "body": "",
-      "headers": {
-        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240102/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=409536437a10cf3320aa911acb5cd72049441e638a825d14de9bea9c3703dc96",
-        "host": "s3.us-east-2.amazonaws.com",
-        "x-amz-date": "20240102T040000Z",
+        "x-amz-date": "20240107T220059Z",
         "content-length": "0",
         "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
@@ -55,9 +21,43 @@
       "binary": false,
       "body": "",
       "headers": {
-        "x-amz-id-2": "39zE1fA0jh5y3eNHYizXfWH7JFSh/THtJMl1nLeYspbtJZ+udOHr7NqA5HD1hoNQYv4vMl6hpgM=",
-        "x-amz-request-id": "KBQ3MB741FBF3GG8",
-        "Date": "Tue, 02 Jan 2024 04:00:01 GMT",
+        "x-amz-id-2": "1bdj/u9XB8t3J/tr3xnyBbskx8A6teRsQ1so2yw4XonrDLXOi36wpIKuOt4vuMK617PPKwwxtVE=",
+        "x-amz-request-id": "REASX5ZKVTGECZX0",
+        "Date": "Sun, 07 Jan 2024 22:01:00 GMT",
+        "x-amz-server-side-encryption": "AES256",
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "Server": "AmazonS3",
+        "Content-Length": "0"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "AWS4-HMAC-SHA256 Credential=AKIA45HMJC5K6US4E4G4/20240107/us-east-2/s3/aws4_request,SignedHeaders=content-length;host;x-amz-content-sha256;x-amz-date,Signature=2ea5abe80913491ce0a795427d25bfff057700d593125f857f5dca3d261fdd57",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20240107T220100Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "put",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/topic_analyzer_models/65a52fad-e74d-4700-8e40-219bdc26743d-merge"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "RuumU48oDORHKugss6Kb8w+17rdkdR5MHAW2TVwMW8kCEbrBfktjXrdAlO06+W0t8NW4vXNxyg4=",
+        "x-amz-request-id": "6638SKD8YQZCH3JZ",
+        "Date": "Sun, 07 Jan 2024 22:01:01 GMT",
         "x-amz-server-side-encryption": "AES256",
         "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
         "Server": "AmazonS3",

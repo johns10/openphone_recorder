@@ -96,12 +96,11 @@ def init_model(data, model_path):
     return new_topics.to_dict(orient="records"), cast_topics(topics)
 
 
-def train_model(statements, embeddings, model_path_bytes):
-    model_path = model_path_bytes.decode()
-    topic_model = BERTopic.load(model_path)
-    new_topics = fit_topics(topic_model, statements, embeddings)
-    save_model(topic_model, model_path)
-    return new_topics
+def merge_models(models, path):
+    merged = BERTopic.merge_models(models)
+    save_new_model(
+        topic_model,
+    )
 
 
 def fit_topics(model, statements, embeddings, labels):

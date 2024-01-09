@@ -1,5 +1,4 @@
 defmodule Discussit.TopicAnalyzer.JobTest do
-  import Mox
   use Discussit.DataCase
   use Discussit.TopicAnalyzerCase
   use Discussit.ClientCase

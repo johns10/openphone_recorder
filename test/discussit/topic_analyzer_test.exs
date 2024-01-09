@@ -3,44 +3,94 @@ defmodule Discussit.TopicAnalyzerTest do
   use Discussit.DataCase
   use Discussit.TopicAnalyzerCase
   alias Discussit.Topics
+  alias Discussit.Models
   alias Discussit.Statements
   alias Discussit.TopicAnalyzer
-  import Mox
   import Discussit.AccountsFixtures
   import Discussit.ConversationsFixtures
   import Discussit.StatementsFixtures
   import Discussit.EmbeddingsFixtures
   import Discussit.TopicsFixtures
+  import Discussit.ModelsFixtures
+
+  defp base_setup() do
+    account = account_fixture(%{enable_embeddings: true})
+    bucket = Application.get_env(:discussit, :bucket)
+    model_id = "65a52fad-e74d-4700-8e40-219bdc26743d"
+    object = Models.model_path(%Models.Model{id: model_id})
+
+    on_exit(fn ->
+      case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
+        {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
+        _ -> nil
+      end
+    end)
+
+    %{account: account, bucket: bucket, object: object, model_id: model_id}
+  end
+
+  describe "Stubbed python" do
+    setup do
+      Application.put_env(:discussit, :topic_analyzer_impl, Elixir.Discussit.StubTopicAnalyzer)
+
+      on_exit(fn ->
+        Application.put_env(:discussit, :topic_analyzer_impl, Elixir.Discussit.Local)
+      end)
+
+      base_setup()
+    end
+
+    test "handles existing model object", context do
+      %{account: account, bucket: bucket, object: object, model_id: model_id} = context
+
+      use_cassette("existing_object") do
+        ExAws.S3.put_object(bucket, object, "") |> ExAws.request()
+        assert {:ok, pid} = TopicAnalyzer.start_link(%{account: account})
+        {:ok, %{model: model}} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
+        assert model.model_object == Models.model_path(model)
+        assert model.merge_object == Models.merge_path(model)
+      end
+    end
+
+    test "creates the model", %{account: account, model_id: model_id} do
+      use_cassette("no existing_object") do
+        assert {:ok, pid} = TopicAnalyzer.start_link(%{account: account})
+        {:ok, %{model: model}} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
+        assert model.model_object == Models.model_path(model)
+        assert model.merge_object == Models.merge_path(model)
+      end
+    end
+
+    test "trains a model", %{account: account, bucket: bucket, model_id: model_id} do
+      file_path = './test/support/fixtures/text.txt'
+      archive_path = './test/support/fixtures/file.zip'
+      File.touch(file_path)
+      {:ok, _filename} = :zip.create(archive_path, [file_path])
+
+      last_model =
+        %{account_id: account.id, id: "83e84c72-d524-4e93-8d29-d468b1b2a866"}
+        |> model_fixture()
+
+      use_cassette("old_object") do
+        old_object = Models.model_path(last_model)
+        ExAws.S3.put_object(bucket, old_object, File.read!(archive_path)) |> ExAws.request()
+      end
+
+      use_cassette("train_existing_model") do
+        assert {:ok, pid} = TopicAnalyzer.start_link(%{account: account})
+        {:ok, %{model: model}} = TopicAnalyzer.train(pid, account, model_id: model_id)
+        assert model.model_object == Models.model_path(model)
+        assert model.merge_object == Models.merge_path(model)
+      end
+
+      File.rm!(file_path)
+      File.rm!(archive_path)
+    end
+  end
 
   describe "Topic Analyzer initialization" do
     setup do
-      account = account_fixture(%{enable_embeddings: true})
-      bucket = Application.get_env(:discussit, :bucket)
-      object = "65a52fad-e74d-4700-8e40-219bdc26743d"
-
-      on_exit(fn ->
-        case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
-          {:ok, _} -> ExAws.S3.delete_object(bucket, object) |> ExAws.request()
-          _ -> nil
-        end
-      end)
-
-      %{account: account, bucket: bucket, object: object}
-    end
-
-    test "handles existing model object", %{account: account, bucket: bucket, object: object} do
-      use_cassette("existing_object") do
-        ExAws.S3.put_object(bucket, object, "")
-        |> ExAws.request()
-
-        assert {:ok, %{model: _}} = TopicAnalyzer.init(account, model_id: object)
-      end
-    end
-
-    test "creates the model", %{account: account, object: object} do
-      use_cassette("no existing_object") do
-        assert {:ok, %{model: _}} = TopicAnalyzer.init(account, model_id: object)
-      end
+      base_setup()
     end
 
     # test "creates new topics, and matches the generated topics to the statements", %{
@@ -65,8 +115,12 @@ defmodule Discussit.TopicAnalyzerTest do
     # end
 
     @tag :integration
-    test "empty initialization works", %{account: account, bucket: bucket, object: object} do
-      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
+    test "empty initialization works", %{
+      account: account,
+      bucket: bucket,
+      object: object,
+      model_id: model_id
+    } do
       conversation = conversation_fixture(%{account_id: account.id})
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
@@ -95,13 +149,13 @@ defmodule Discussit.TopicAnalyzerTest do
         end)
       end
 
-      # use_cassette("no existing_object") do
+      use_cassette("no existing_object") do
+        {:ok, pid} = TopicAnalyzer.start_link(%{})
+        assert {:ok, results} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
+        assert Enum.count(results.statements) == Enum.count(statements)
+      end
 
-      :ok = TopicAnalyzer.init(account, model_id: object)
-      # assert Enum.count(results.statements) == Enum.count(statements)
-      # end
-
-      topics_count = Topics.list_topics() |> Enum.count()
+      topics_count = Topics.list_topics() |> Enum.count() |> IO.inspect()
       assert topics_count < 45 and topics_count > 35
 
       assert Statements.list_statements()
@@ -111,13 +165,16 @@ defmodule Discussit.TopicAnalyzerTest do
       assert %{topic_model_id: -1} =
                Topics.get_topic_by(%{topic_model_id: -1, account_id: account.id})
 
-      Discussit.TopicAnalyzer.Server.stop_server()
+      assert [_model] = Models.list_models()
     end
 
     @tag :integration
-    test "labelled initialization works", %{account: account, bucket: bucket, object: object} do
-      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
-
+    test "labelled initialization works", %{
+      account: account,
+      bucket: bucket,
+      object: object,
+      model_id: model_id
+    } do
       conversation = conversation_fixture(%{account_id: account.id})
 
       bathtub_topic =
@@ -179,7 +236,8 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       use_cassette("topic_analyzer_init") do
-        {:ok, _} = TopicAnalyzer.init(account, model_id: object)
+        {:ok, pid} = TopicAnalyzer.start_link(%{})
+        assert {:ok, _} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
       end
 
       topics_count = Topics.list_topics() |> Enum.count()
@@ -187,11 +245,7 @@ defmodule Discussit.TopicAnalyzerTest do
     end
 
     @tag :integration
-    test "label reuse", %{account: account, bucket: bucket, object: object} do
-      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
-      {:ok, _} = start_supervised({Discussit.TopicAnalyzer.Server, %{}})
-      :ok = Discussit.TopicAnalyzer.Server.ensure_server_started()
-
+    test "label reuse", %{account: account, bucket: bucket, object: object, model_id: model_id} do
       conversation = conversation_fixture(%{account_id: account.id})
 
       case ExAws.S3.head_object(bucket, object) |> ExAws.request() do
@@ -215,7 +269,8 @@ defmodule Discussit.TopicAnalyzerTest do
 
       results =
         use_cassette("no existing_object") do
-          {:ok, results} = TopicAnalyzer.init(account)
+          {:ok, pid} = TopicAnalyzer.start_link(%{})
+          assert {:ok, results} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
           results
         end
 
@@ -249,7 +304,8 @@ defmodule Discussit.TopicAnalyzerTest do
 
       results =
         use_cassette("no existing_object") do
-          {:ok, results} = TopicAnalyzer.init(account)
+          {:ok, pid} = TopicAnalyzer.start_link(%{})
+          assert {:ok, results} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
           results
         end
 
@@ -299,7 +355,6 @@ defmodule Discussit.TopicAnalyzerTest do
 
     @tag :integration
     test "training", %{account: account} do
-      Application.put_env(:discussit, :topic_analysis_server, Discussit.TopicAnalyzer.Local)
       conversation = conversation_fixture(%{account_id: account.id})
 
       # initial_statements =

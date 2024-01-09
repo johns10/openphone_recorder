@@ -20,6 +20,7 @@ defmodule Discussit.Models do
   end
 
   def get_model!(id), do: Repo.get!(Model, id)
+  def get_model(id), do: Repo.get(Model, id)
 
   def get_latest_model!(account_id) do
     list_models(filters: [account_id: account_id], order_by: [inserted_at: :desc], limit: 1)
@@ -30,7 +31,7 @@ defmodule Discussit.Models do
   end
 
   def create_model(attrs \\ %{}) do
-    id = Map.get(attrs, :id, Ecto.UUID.generate()) || Ecto.UUID.generate() |> IO.inspect()
+    id = Map.get(attrs, :id, Ecto.UUID.generate()) || Ecto.UUID.generate()
 
     with {:ok, merge_object} <- handle_create_object(id, attrs, :merge_object),
          {:ok, model_object} <- handle_create_object(id, attrs, :model_object) do
@@ -100,8 +101,10 @@ defmodule Discussit.Models do
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)
 
-  defp object_name(id, :merge_object), do: "#{id}-merge-model"
-  defp object_name(id, :model_object), do: "#{id}-model"
+  def merge_path(%Model{id: id}), do: object_name(id, :merge_object)
+  def model_path(%Model{id: id}), do: object_name(id, :model_object)
+  defp object_name(id, :merge_object), do: "/topic_analyzer_models/#{id}-merge"
+  defp object_name(id, :model_object), do: "/topic_analyzer_models/#{id}-model"
 
   defp handle_create_object(id, attrs, key) do
     if Map.get(attrs, key, false) do

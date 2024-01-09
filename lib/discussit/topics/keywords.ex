@@ -41,7 +41,12 @@ defmodule Discussit.Topics.Keywords do
   def calculate_score(%{keywords: kw_one}, %{keywords: kw_two}) do
     score = sum_score(kw_one, kw_two) + sum_score(kw_two, kw_one)
     total = sum_total(kw_one) + sum_total(kw_two)
-    score / total
+
+    case {score, total} do
+      {0, _} -> 0
+      {_, 0} -> 0
+      {score, total} -> score / total
+    end
   end
 
   defp sum_total(keywords),

@@ -67,8 +67,7 @@ defmodule DiscussitWeb.TopicLive.Show do
     {:noreply, socket}
   end
 
-  def handle_event("options_recovery", options, socket) do
-    IO.inspect(options)
+  def handle_event("options_recovery", _options, socket) do
     {:noreply, socket}
   end
 

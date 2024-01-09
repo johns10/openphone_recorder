@@ -18,7 +18,8 @@ defmodule Discussit.TopicAnalyzer.Workers.Initialization do
 
     FLAME.call(Discussit.TopicAnalyzer.Runner, fn ->
       account = Accounts.get_account!(account_id)
-      TopicAnalyzer.init(account, statement_count: statements_count)
+      {:ok, pid} = TopicAnalyzer.start_link(%{})
+      TopicAnalyzer.initialize(pid, account, statement_count: statements_count)
     end)
 
     DiscussitWeb.Endpoint.broadcast("account_#{account_id}", "topic_analysis_availability", true)
