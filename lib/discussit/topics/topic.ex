@@ -26,6 +26,7 @@ defmodule Discussit.Topics.Topic do
     field :description, :string
     field :model_description, :string
     field :keywords, {:array, :map}
+    field :hierarchy?, :boolean, source: :is_hierarchy
 
     field :summarizer_status, Ecto.Enum,
       values: [:not_started, :started],
@@ -60,7 +61,8 @@ defmodule Discussit.Topics.Topic do
       :keywords,
       :account_id,
       :model_id,
-      :from_topic_id
+      :from_topic_id,
+      :hierarchy?
     ])
     |> cast_keywords()
     |> foreign_key_constraint(:parent_topic_id)

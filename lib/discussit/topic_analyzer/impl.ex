@@ -56,11 +56,7 @@ defmodule Discussit.TopicAnalyzer.Impl do
          {:ok, _} <- put_object(model_object, archive_path),
          {:ok, model} <- Models.update_model(model, attrs),
          :ok <- :python.stop(pid) do
-      case Models.get_latest_model!(account_id) do
-        %Model{id: id} -> Topics.list_topics(filters: [model_id: id])
-        nil -> []
-      end
-      |> Keywords.match(topics)
+      match_topics(account_id, topics)
 
       {:ok, model}
     end
@@ -99,12 +95,7 @@ defmodule Discussit.TopicAnalyzer.Impl do
          {:ok, _} <- put_object(merge_object, archive_path),
          {:ok, _} <- put_object(model_object, "#{model_path}/model.zip"),
          {:ok, model} <- Models.update_model(model, attrs) do
-      case Models.get_latest_model!(account_id) do
-        %Model{id: id} -> Topics.list_topics(filters: [model_id: id])
-        nil -> []
-      end
-      |> Keywords.match(topics)
-
+      match_topics(account_id, topics)
       {:ok, model}
     end
   end
@@ -188,6 +179,17 @@ defmodule Discussit.TopicAnalyzer.Impl do
     |> Statements.update_statement(attrs)
   end
 
+  def update_topic_hierarchy(attrs, %{topics: topics}) do
+    %{topic_model_id: topic_model_id, parent_topic_model_id: parent_topic_model_id} =
+      cast_hierarchy_attrs(attrs)
+
+    parent_topic_id =
+      Enum.find(topics, &(&1.topic_model_id == parent_topic_model_id)) |> Map.get(:id)
+
+    Enum.find(topics, &(&1.topic_model_id == topic_model_id))
+    |> Topics.update_topic(%{parent_topic_id: parent_topic_id})
+  end
+
   defp put_object(object, path) do
     bucket = Application.get_env(:discussit, :bucket)
 
@@ -201,9 +203,23 @@ defmodule Discussit.TopicAnalyzer.Impl do
   defp cast_statement_attrs(%{'id' => id, 'trained_topic_id' => t_id, 'representative' => r}),
     do: %{id: to_string(id), trained_topic_id: t_id, representative: r}
 
+  defp cast_hierarchy_attrs(%{
+         'parent_topic_model_id' => parent_id,
+         'topic_model_id' => topic_model_id
+       }),
+       do: %{parent_topic_model_id: parent_id, topic_model_id: topic_model_id}
+
   defp list_model_files(model_path) do
     File.ls!(model_path)
     |> Enum.map(&Path.join(model_path, &1))
     |> Enum.map(&to_charlist/1)
+  end
+
+  def match_topics(account_id, topics) do
+    case Models.get_latest_model!(account_id) do
+      %Model{id: id} -> Topics.list_topics(filters: [model_id: id, hierarchy?: false])
+      nil -> []
+    end
+    |> Keywords.match(topics)
   end
 end

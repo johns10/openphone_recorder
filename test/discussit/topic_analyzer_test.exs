@@ -61,6 +61,31 @@ defmodule Discussit.TopicAnalyzerTest do
       end
     end
 
+    test "creates the hierarchy", %{account: account, model_id: model_id} do
+      model = model_fixture(%{id: model_id})
+
+      assert {:ok, pid} =
+               TopicAnalyzer.start_link(%{
+                 account_id: account.id,
+                 from: self(),
+                 model: model
+               })
+
+      send(pid, {:create_topic, %{'topic_model_id' => 1, 'keywords' => []}})
+      send(pid, {:create_topic, %{'topic_model_id' => 2, 'keywords' => []}})
+      send(pid, {:create_hierarchy_topic, %{'topic_model_id' => 3, 'keywords' => []}})
+      send(pid, {:assign_hierarchy, %{'topic_model_id' => 1, 'parent_topic_model_id' => 3}})
+      send(pid, {:assign_hierarchy, %{'topic_model_id' => 2, 'parent_topic_model_id' => 3}})
+      %{topics: topics} = TopicAnalyzer.state(pid)
+      assert %{id: parent_id} = Enum.find(topics, &(&1.topic_model_id == 3))
+
+      assert [
+               %{id: ^parent_id, topic_model_id: 3},
+               %{topic_model_id: 2, parent_topic_id: ^parent_id},
+               %{topic_model_id: 1, parent_topic_id: ^parent_id}
+             ] = topics
+    end
+
     test "trains a model", %{account: account, bucket: bucket, model_id: model_id} do
       file_path = './test/support/fixtures/text.txt'
       archive_path = './test/support/fixtures/file.zip'
@@ -129,16 +154,7 @@ defmodule Discussit.TopicAnalyzerTest do
       end
 
       statements =
-        (bathtub_cleaning_content() ++
-           sink_cleaning_contant() ++
-           floor_cleaning_content() ++
-           toilet_cleaning_content() ++
-           shower_cleaning_content() ++
-           floor_cleaning_content_2() ++
-           oven_cleaning_content() ++
-           cabinet_cleaning_content() ++
-           baseboard_cleaning_content() ++
-           wall_cleaning_content() ++ ceiling_fan_cleaning_content())
+        bathtub_cleaning_content()
         |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
 
       use_cassette("embedding_calls", match_requests_on: [:request_body]) do

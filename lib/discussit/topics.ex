@@ -16,6 +16,7 @@ defmodule Discussit.Topics do
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_model_id(filters[:model_id])
     |> filter_by_title_is_nil(filters[:title_is_nil])
+    |> filter_by_hierarchy(filters[:hierarchy?])
     |> include_previous_versions(filters[:previous_versions])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
@@ -57,6 +58,13 @@ defmodule Discussit.Topics do
 
   defp filter_by_title_is_nil(query, nil), do: query
   defp filter_by_title_is_nil(query, _), do: where(query, [t], is_nil(t.title))
+
+  defp filter_by_hierarchy(query, nil), do: query
+
+  defp filter_by_hierarchy(query, false),
+    do: where(query, [t], t.hierarchy? == false or is_nil(t.hierarchy?))
+
+  defp filter_by_hierarchy(query, true), do: where(query, [t], t.hierarchy? == true)
 
   defp include_previous_versions(query, nil), do: query
 

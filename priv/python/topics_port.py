@@ -41,11 +41,20 @@ def save_item(message):
 
 
 def init_model(path, dest):
-    topic_assignments, topics = topics_impl.init_model(TRAINING_DATA, path)
+    (
+        topic_assignments,
+        topics,
+        hierarchy,
+        hierarchy_assignments,
+    ) = topics_impl.init_model(TRAINING_DATA, path)
     for topic in topics:
         cast(dest, (Atom(b"create_topic"), topic))
+    for topic in hierarchy:
+        cast(dest, (Atom(b"create_hierarchy_topic"), topic))
     for topic_assignment in topic_assignments:
         cast(dest, (Atom(b"assign_topic"), topic_assignment))
+    for hierarchy_assignment in hierarchy_assignments:
+        cast(dest, Atom(b"assign_hierarchy"), hierarchy_assignment)
 
     cast(dest, (Atom(b"done")))
 

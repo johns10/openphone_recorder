@@ -50,6 +50,14 @@ defmodule Discussit.TopicsTest do
       assert is_nil(Enum.find(topics, &(&1.id == id_none)))
     end
 
+    test "hierarchy filter" do
+      h_topic = topic_fixture(%{hierarchy?: true})
+      topic = topic_fixture(%{hierarchy?: false})
+
+      assert [^h_topic] = Topics.list_topics(filters: [hierarchy?: true])
+      assert [^topic] = Topics.list_topics(filters: [hierarchy?: false])
+    end
+
     test "get_topic_by/1 returns the topic with the given model id" do
       account = account_fixture()
       topic = topic_fixture(%{account_id: account.id, topic_model_id: 5})

@@ -82,6 +82,16 @@ def init_model(data, model_path):
     ids = [item["id"] for item in data]
     topic_model = new_model(content.__len__())
     new_topics = fit_topics(topic_model, content, embeddings, labels)
+    hierarchy = topic_model.hierarchical_topics(content)
+    # for i in hierarchy.index:
+    #     print("topic")
+    #     print(hierarchy["Parent_ID"][i])
+    #     print(hierarchy["Parent_Name"][i])
+    #     print(hierarchy["Topics"][i])
+    # for topic in hierarchy:
+    #     print(topic)
+    # tree = topic_model.get_topic_tree(hierarchy)
+    # print(tree)
     doc_info = topic_model.get_document_info(content)
     doc_info["id"] = ids
     doc_info = doc_info.rename(
@@ -93,14 +103,17 @@ def init_model(data, model_path):
     topics = get_topics(topic_model)
     save_new_model(topic_model, model_path)
     del topic_model
-    return new_topics.to_dict(orient="records"), cast_topics(topics)
+    return (
+        new_topics.to_dict(orient="records"),
+        cast_topics(topics),
+        cast_hierarchy_topics(hierarchy),
+        cast_hierarchy_assignments(hierarchy),
+    )
 
 
 def merge_models(models, path):
     merged = BERTopic.merge_models(models)
-    save_new_model(
-        topic_model,
-    )
+    save_new_model(merged)
 
 
 def fit_topics(model, statements, embeddings, labels):
@@ -127,6 +140,36 @@ def cast_topics(topics):
         else:
             results = [v | r for v, r in zip(values, results)]
     return results
+
+
+def cast_hierarchy_topics(hierarchy_topics):
+    result = (
+        hierarchy_topics.get(["Parent_ID", "Parent_Name"])
+        .rename(columns={"Parent_ID": "topic_model_id", "Parent_Name": "model_title"})
+        .to_dict(orient="records")
+    )
+    return result
+
+
+def cast_hierarchy_assignments(hierarchy_topics):
+    assignments = []
+    records = hierarchy_topics.get(
+        ["Parent_ID", "Child_Right_ID", "Child_Left_ID"]
+    ).to_dict(orient="records")
+    for record in records:
+        assignments.append(
+            {
+                "parent_topic_model_id": record["Parent_ID"],
+                "topic_model_id": record["Child_Left_ID"],
+            }
+        )
+        assignments.append(
+            {
+                "parent_topic_model_id": record["Parent_ID"],
+                "topic_model_id": record["Child_Right_ID"],
+            }
+        )
+    return assignments
 
 
 def cast_statements_and_topics(statements):

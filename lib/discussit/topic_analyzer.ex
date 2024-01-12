@@ -18,4 +18,6 @@ defmodule Discussit.TopicAnalyzer do
   def train(pid, %Account{} = account, opts \\ @default_opts) do
     GenServer.call(pid, {:train, account, opts}, 360_000)
   end
+
+  def state(pid), do: GenServer.call(pid, :state)
 end
