@@ -50,6 +50,26 @@ defmodule Discussit.TopicsTest do
       assert is_nil(Enum.find(topics, &(&1.id == id_none)))
     end
 
+    test "leaves" do
+      account = account_fixture()
+      %{id: id_none} = topic_fixture(%{account_id: account.id, topic_model_id: 4})
+      %{id: id_one} = topic_fixture(%{account_id: account.id, topic_model_id: 5})
+
+      %{id: id_two} =
+        topic_fixture(%{account_id: account.id, topic_model_id: 6, parent_id: id_one})
+
+      %{id: id_three} =
+        topic_fixture(%{account_id: account.id, topic_model_id: 7, parent_id: id_one})
+
+      topics = Topics.list_topics(filters: [leaves: id_one])
+
+      assert Enum.count(topics) == 3
+      assert %{id: ^id_one} = Enum.find(topics, &(&1.id == id_one))
+      assert %{id: ^id_two} = Enum.find(topics, &(&1.id == id_two))
+      assert %{id: ^id_three} = Enum.find(topics, &(&1.id == id_three))
+      assert is_nil(Enum.find(topics, &(&1.id == id_none)))
+    end
+
     test "hierarchy filter" do
       h_topic = topic_fixture(%{hierarchy?: true})
       topic = topic_fixture(%{hierarchy?: false})
@@ -73,7 +93,7 @@ defmodule Discussit.TopicsTest do
         title: "some title",
         model_title: "some title",
         topic_model_id: 1,
-        parent_topic_id: parent_topic.id
+        parent_id: parent_topic.id
       }
 
       assert {:ok, %Topic{} = topic} = Topics.create_topic(valid_attrs)
@@ -94,7 +114,7 @@ defmodule Discussit.TopicsTest do
         sentiment: 43,
         description: "some updated description",
         title: "some updated title",
-        parent_topic_id: parent_topic.id
+        parent_id: parent_topic.id
       }
 
       assert {:ok, %Topic{} = topic} = Topics.update_topic(topic, update_attrs)

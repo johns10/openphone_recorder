@@ -5,10 +5,11 @@ defmodule DiscussitWeb.TopicLive.Index do
   alias Discussit.Topics.Topic
   alias Discussit.Accounts.ResetAccountModels
   alias Discussit.StatusAgent
-  alias Discussit.{Topics, Models}
+  alias Discussit.Topics
   alias Discussit.TopicAnalyzer.Status
   import DiscussitWeb.LiveSupport
   import DiscussitWeb.TopicLive.Components
+  import DiscussitWeb.TopicLive.Support
 
   @impl true
   def mount(params, _session, socket) do
@@ -151,19 +152,6 @@ defmodule DiscussitWeb.TopicLive.Index do
     {:noreply, socket}
   end
 
-  defp list_latest_models(account) do
-    Models.list_models(
-      order_by: [inserted_at: :desc],
-      filters: [account_id: account.id],
-      limit: 2
-    )
-    |> case do
-      [latest, last] -> [latest, last]
-      [latest] -> [latest, nil]
-      [] -> [nil, nil]
-    end
-  end
-
   defp list_topics_with_status(account, model), do: list_topics(account, model) |> assign_status()
 
   defp list_topics(%{id: id}, nil),
@@ -174,7 +162,7 @@ defmodule DiscussitWeb.TopicLive.Index do
   defp list_topics(%{id: account_id}, model_id),
     do:
       Topics.list_topics(
-        filters: [account_id: account_id, model_id: model_id],
+        filters: [account_id: account_id, model_id: model_id, hierarchy?: false],
         preload: [:to_topic]
       )
 

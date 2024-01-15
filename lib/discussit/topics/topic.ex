@@ -3,8 +3,8 @@ defmodule Discussit.Topics.Topic do
   `topic_model_id` represents the topic id assigned by the topic model.
   """
   use Ecto.Schema
+  use Arbor.Tree
   import Ecto.Changeset
-  alias Discussit.Topics.Topic
   alias Discussit.Accounts.Account
   alias Discussit.Statements.Statement
   alias Discussit.Models.Model
@@ -33,15 +33,16 @@ defmodule Discussit.Topics.Topic do
       virtual: true,
       default: :not_started
 
-    belongs_to :parent_topic, __MODULE__
+    belongs_to :parent, __MODULE__
     belongs_to :account, Account, type: :binary_id
     belongs_to :model, Model, type: :binary_id
-    belongs_to :from_topic, Topic
+    belongs_to :from_topic, __MODULE__
 
     has_many :statements, Statement
     has_many :model_statements, Statement, foreign_key: :trained_topic_id
     has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
-    has_one :to_topic, Topic, foreign_key: :from_topic_id
+    has_many :child_topics, __MODULE__, foreign_key: :parent_topic_id
+    has_one :to_topic, __MODULE__, foreign_key: :from_topic_id
 
     timestamps()
   end
@@ -56,7 +57,7 @@ defmodule Discussit.Topics.Topic do
       :description,
       :model_description,
       :sentiment,
-      :parent_topic_id,
+      :parent_id,
       :account_id,
       :keywords,
       :account_id,
@@ -65,7 +66,7 @@ defmodule Discussit.Topics.Topic do
       :hierarchy?
     ])
     |> cast_keywords()
-    |> foreign_key_constraint(:parent_topic_id)
+    |> foreign_key_constraint(:parent_id)
     |> foreign_key_constraint(:model_id)
     |> foreign_key_constraint(:from_topic_id)
     |> no_assoc_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)

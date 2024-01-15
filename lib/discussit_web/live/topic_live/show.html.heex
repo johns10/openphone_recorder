@@ -1,4 +1,6 @@
-<.back class="py-2" navigate={~p"/topics"}>Back to topics</.back>
+<.link id="topics-back" class="text-sm font-semibold leading-6  hover:" phx-hook="BackHook">
+  <.icon name="hero-arrow-left-solid" class="w-3 h-3" /> Back to Topics
+</.link>
 <div class="flex gap-x-4">
   <.show_topic_card show_actions={true} topic={@topic} summarizer_status={@summarizer_status} />
 </div>

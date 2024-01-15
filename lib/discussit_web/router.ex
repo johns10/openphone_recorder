@@ -141,6 +141,7 @@ defmodule DiscussitWeb.Router do
 
       live("/topics", TopicLive.Index, :index)
       live("/topics/train", TopicLive.Index, :train)
+      live("/topics/hierarchy", TopicLive.Hierarchy, :index)
       live("/topics/:id/edit", TopicLive.Index, :edit)
 
       live("/topics/:id", TopicLive.Show, :show)

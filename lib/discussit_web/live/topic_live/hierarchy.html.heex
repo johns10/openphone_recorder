@@ -1,0 +1,23 @@
+<style>
+  body {
+    min-height: 100vh;
+    min-height: -moz-available;
+    min-height: -webkit-fill-available;
+    min-height: fill-available;
+  }
+
+  html {
+    height: fill-available;
+    height: -webkit-fill-available;
+  }
+</style>
+
+<div class="flex flex-col w-full overflow-y-scroll">
+  <.topics_header
+    tab={@tab}
+    latest_model={@latest_model}
+    last_model={@last_model}
+    tab={:hierarchy}
+  />
+  <.topic_outline topic={@topic} />
+</div>

@@ -53,7 +53,8 @@ defmodule Discussit.TopicAnalyzer.Server do
   def handle_call(:state, _from, state), do: {:reply, state, state}
 
   @impl true
-  def handle_info({:create_topic, attrs}, state), do: Impl.create_topic(attrs, state)
+  def handle_info({:create_topic, attrs}, state),
+    do: attrs |> Map.put(:hierarchy?, false) |> Impl.create_topic(state)
 
   def handle_info({:create_hierarchy_topic, attrs}, state),
     do: attrs |> Map.put(:hierarchy?, true) |> Impl.create_topic(state)

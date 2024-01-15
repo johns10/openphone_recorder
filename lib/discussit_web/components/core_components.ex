@@ -656,10 +656,11 @@ defmodule DiscussitWeb.CoreComponents do
   attr(:name, :string, required: true)
   attr(:class, :string, default: nil)
   attr(:type, :string)
+  attr(:id, :string, required: false, default: nil)
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""
-    <span class={[@name, @class]} />
+    <span id={@id} class={[@name, @class]} />
     """
   end
 

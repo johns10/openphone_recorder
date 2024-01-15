@@ -56,7 +56,8 @@ defmodule Discussit.TopicAnalyzer.Impl do
          {:ok, _} <- put_object(model_object, archive_path),
          {:ok, model} <- Models.update_model(model, attrs),
          :ok <- :python.stop(pid) do
-      match_topics(account_id, topics)
+      candidates = Enum.filter(topics, &(&1.hierarchy? == false))
+      match_topics(account_id, candidates)
 
       {:ok, model}
     end
@@ -93,7 +94,7 @@ defmodule Discussit.TopicAnalyzer.Impl do
          {:ok, archive_path} <-
            :zip.create(to_charlist(archive_path), list_model_files(model_path)),
          {:ok, _} <- put_object(merge_object, archive_path),
-         {:ok, _} <- put_object(model_object, "#{model_path}/model.zip"),
+         {:ok, _} <- put_object(model_object, archive_path),
          {:ok, model} <- Models.update_model(model, attrs) do
       match_topics(account_id, topics)
       {:ok, model}
@@ -183,11 +184,10 @@ defmodule Discussit.TopicAnalyzer.Impl do
     %{topic_model_id: topic_model_id, parent_topic_model_id: parent_topic_model_id} =
       cast_hierarchy_attrs(attrs)
 
-    parent_topic_id =
-      Enum.find(topics, &(&1.topic_model_id == parent_topic_model_id)) |> Map.get(:id)
+    parent_id = Enum.find(topics, &(&1.topic_model_id == parent_topic_model_id)) |> Map.get(:id)
 
     Enum.find(topics, &(&1.topic_model_id == topic_model_id))
-    |> Topics.update_topic(%{parent_topic_id: parent_topic_id})
+    |> Topics.update_topic(%{parent_id: parent_id})
   end
 
   defp put_object(object, path) do
@@ -197,17 +197,68 @@ defmodule Discussit.TopicAnalyzer.Impl do
     |> ExAws.request()
   end
 
-  defp cast_topic_attrs(%{'topic_model_id' => topic_model_id, 'keywords' => keywords}),
-    do: %{topic_model_id: topic_model_id, keywords: keywords}
+  defp cast_topic_attrs(%{
+         'topic_model_id' => topic_model_id,
+         'keywords' => keywords,
+         :hierarchy? => hierarchy?
+       }),
+       do: %{topic_model_id: topic_model_id, keywords: keywords, hierarchy?: hierarchy?}
+
+  defp cast_topic_attrs(attrs),
+    do:
+      %{}
+      |> cast_field(attrs, 'model_title')
+      |> cast_field(attrs, 'topic_model_id')
+      |> cast_field(attrs, :hierarchy?)
 
   defp cast_statement_attrs(%{'id' => id, 'trained_topic_id' => t_id, 'representative' => r}),
     do: %{id: to_string(id), trained_topic_id: t_id, representative: r}
 
-  defp cast_hierarchy_attrs(%{
-         'parent_topic_model_id' => parent_id,
-         'topic_model_id' => topic_model_id
-       }),
-       do: %{parent_topic_model_id: parent_id, topic_model_id: topic_model_id}
+  defp cast_hierarchy_attrs(attrs) do
+    %{}
+    |> cast_field(attrs, 'parent_topic_model_id')
+    |> cast_field(attrs, 'topic_model_id')
+  end
+
+  defp cast_field(result, attrs, name) when name in ['parent_topic_model_id', 'topic_model_id'] do
+    case Map.has_key?(attrs, name) do
+      true ->
+        value =
+          Map.get(attrs, name)
+          |> to_string()
+          |> String.to_integer()
+
+        key = name |> to_string() |> String.to_atom()
+
+        Map.put(result, key, value)
+
+      false ->
+        result
+    end
+  end
+
+  defp cast_field(result, attrs, name) when name in ['model_title'] do
+    case Map.has_key?(attrs, name) do
+      true ->
+        value =
+          Map.get(attrs, name)
+          |> to_string()
+
+        key = name |> to_string() |> String.to_atom()
+
+        Map.put(result, key, value)
+
+      false ->
+        result
+    end
+  end
+
+  defp cast_field(result, attrs, name) when is_atom(name) do
+    case Map.has_key?(attrs, name) do
+      true -> Map.put(result, name, attrs[name])
+      false -> result
+    end
+  end
 
   defp list_model_files(model_path) do
     File.ls!(model_path)

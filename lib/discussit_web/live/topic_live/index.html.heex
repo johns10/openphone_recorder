@@ -13,53 +13,7 @@
 </style>
 
 <div class="flex flex-col w-full overflow-y-scroll">
-  <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
-    <div class="flex flex-row items-center gap-x-8">
-      Topics
-      <div role="tablist" class="tabs tabs-bordered">
-        <.link
-          navigate={~p"/topics?tab=index"}
-          role="tab"
-          class={["tab", if(@tab == :index, do: "tab-active")]}
-        >
-          Index
-        </.link>
-        <.link
-          :if={@last_model}
-          navigate={~p"/topics/?#{[model_id: @last_model.id]}&tab=migrate"}
-          role="tab"
-          class={["tab", if(@tab == :migrate, do: "tab-active")]}
-        >
-          Migrate
-        </.link>
-        <a role="tab" class="tab">Heirarchy</a>
-      </div>
-    </div>
-    <div>
-      <.link
-        :if={@latest_model}
-        class="btn btn-sm"
-        phx-click="regenerate-labels"
-        data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
-      >
-        Relabel
-      </.link>
-
-      <.link class="btn btn-sm" patch={~p"/topics/train"} phx-click={JS.push_focus()}>
-        Train
-      </.link>
-
-      <.link
-        :if={@latest_model}
-        class="btn btn-sm"
-        phx-click="reset-model"
-        data-confirm="This action will delete all automatically generated topics that haven't been used in your conversations."
-      >
-        Reset
-      </.link>
-    </div>
-  </div>
-
+  <.topics_header tab={@tab} last_model={@last_model} latest_model={@latest_model} />
   <div
     class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 m-4"
     id="topics"

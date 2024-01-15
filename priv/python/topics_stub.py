@@ -18,7 +18,7 @@ def init_model(data, model_path):
         assignments.append(
             {"trained_topic_id": 1, "representative": True, "id": statement["id"]}
         )
-    return assignments, topics
+    return assignments, topics, [], []
 
 
 def merge_models(models, model_path):

@@ -49,11 +49,11 @@ def new_model(items_count):
     )
     vectorizer_model = CountVectorizer(
         stop_words="english",
-        ngram_range=(1, 2),
-        # min_df=2,
+        ngram_range=(2, 3),
+        min_df=2,
     )
     ctfidf_model = ClassTfidfTransformer(
-        # reduce_frequent_words=True, bm25_weighting=True
+        reduce_frequent_words=True, bm25_weighting=True
     )
     umap_model = UMAP(
         n_neighbors=n_neighbors,
@@ -83,15 +83,7 @@ def init_model(data, model_path):
     topic_model = new_model(content.__len__())
     new_topics = fit_topics(topic_model, content, embeddings, labels)
     hierarchy = topic_model.hierarchical_topics(content)
-    # for i in hierarchy.index:
-    #     print("topic")
-    #     print(hierarchy["Parent_ID"][i])
-    #     print(hierarchy["Parent_Name"][i])
-    #     print(hierarchy["Topics"][i])
-    # for topic in hierarchy:
-    #     print(topic)
-    # tree = topic_model.get_topic_tree(hierarchy)
-    # print(tree)
+
     doc_info = topic_model.get_document_info(content)
     doc_info["id"] = ids
     doc_info = doc_info.rename(
@@ -100,9 +92,12 @@ def init_model(data, model_path):
         )
     )
     new_topics = doc_info.get(["id", "trained_topic_id", "representative"])
+
     topics = get_topics(topic_model)
+
     save_new_model(topic_model, model_path)
     del topic_model
+
     return (
         new_topics.to_dict(orient="records"),
         cast_topics(topics),

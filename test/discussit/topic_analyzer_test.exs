@@ -81,8 +81,8 @@ defmodule Discussit.TopicAnalyzerTest do
 
       assert [
                %{id: ^parent_id, topic_model_id: 3},
-               %{topic_model_id: 2, parent_topic_id: ^parent_id},
-               %{topic_model_id: 1, parent_topic_id: ^parent_id}
+               %{topic_model_id: 2, parent_id: ^parent_id},
+               %{topic_model_id: 1, parent_id: ^parent_id}
              ] = topics
     end
 

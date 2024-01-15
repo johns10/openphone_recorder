@@ -15,8 +15,10 @@ defmodule Discussit.Topics do
     Topic
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_model_id(filters[:model_id])
+    |> filter_by_parent_id_is_nil(filters[:parent_id_is_nil])
     |> filter_by_title_is_nil(filters[:title_is_nil])
     |> filter_by_hierarchy(filters[:hierarchy?])
+    |> leaves(filters[:leaves])
     |> include_previous_versions(filters[:previous_versions])
     |> search(filters[:search])
     |> maybe_limit(opts[:limit])
@@ -56,6 +58,9 @@ defmodule Discussit.Topics do
   defp filter_by_model_id(query, nil), do: query
   defp filter_by_model_id(query, model_id), do: where(query, [t], t.model_id == ^model_id)
 
+  defp filter_by_parent_id_is_nil(query, nil), do: query
+  defp filter_by_parent_id_is_nil(query, _), do: where(query, [t], is_nil(t.parent_id))
+
   defp filter_by_title_is_nil(query, nil), do: query
   defp filter_by_title_is_nil(query, _), do: where(query, [t], is_nil(t.title))
 
@@ -77,6 +82,19 @@ defmodule Discussit.Topics do
     |> recursive_ctes(true)
     |> with_cte("prev", as: ^cte_query)
     |> join(:inner, [t], pt in "prev", on: pt.id == t.id)
+  end
+
+  defp leaves(query, nil), do: query
+
+  defp leaves(query, topic_id) do
+    initial_query = Topic |> where([t], t.id == ^topic_id)
+    recursion_query = join(Topic, :inner, [t], ct in "children", on: ct.id == t.parent_id)
+    cte_query = union_all(initial_query, ^recursion_query)
+
+    query
+    |> recursive_ctes(true)
+    |> with_cte("children", as: ^cte_query)
+    |> join(:inner, [t], ct in "children", on: ct.id == t.id)
   end
 
   defp search(query, nil), do: query

@@ -5,6 +5,7 @@ defmodule Discussit.Topics.Keywords do
     initial_acc = %{new_topics: new_topics, topics: []}
 
     topics
+    |> Enum.filter(&(&1.hierarchy? != true))
     |> Enum.reduce(initial_acc, fn topic, %{new_topics: new_topics} = acc ->
       %{score: best_score, id: topic_id} =
         match =

@@ -185,6 +185,166 @@ defmodule DiscussitWeb.TopicLive.Components do
     """
   end
 
+  attr(:tab, :atom, required: true)
+  attr(:last_model, Model, required: false, default: nil)
+  attr(:latest_model, Model, required: false)
+
+  def topics_header(assigns) do
+    ~H"""
+    <div class="flex flex-row w-full bg-base-300 items-center justify-between py-2 px-4 sticky top-0 z-10">
+      <div class="flex flex-row items-center gap-x-8">
+        Topics
+        <div role="tablist" class="tabs tabs-bordered">
+          <.link
+            navigate={~p"/topics?tab=index"}
+            role="tab"
+            class={["tab", if(@tab == :index, do: "tab-active")]}
+          >
+            Index
+          </.link>
+          <.link
+            :if={@last_model}
+            navigate={~p"/topics/?#{[model_id: @last_model.id]}&tab=migrate"}
+            role="tab"
+            class={["tab", if(@tab == :migrate, do: "tab-active")]}
+          >
+            Migrate
+          </.link>
+          <.link
+            role="tab"
+            class={["tab", if(@tab == :hierarchy, do: "tab-active")]}
+            navigate={~p"/topics/hierarchy"}
+          >
+            Hierarchy
+          </.link>
+        </div>
+      </div>
+      <div>
+        <.link
+          :if={@latest_model}
+          class="btn btn-sm"
+          phx-click="regenerate-labels"
+          data-confirm="Are you sure? Regenerating topics will relabel all your existing topics."
+        >
+          Relabel
+        </.link>
+
+        <.link class="btn btn-sm" patch={~p"/topics/train"} phx-click={JS.push_focus()}>
+          Train
+        </.link>
+
+        <.link
+          :if={@latest_model}
+          class="btn btn-sm"
+          phx-click="reset-model"
+          data-confirm="This action will delete all automatically generated topics that haven't been used in your conversations."
+        >
+          Reset
+        </.link>
+      </div>
+    </div>
+    """
+  end
+
+  attr(:topic, Topic, required: true)
+  attr(:index, :integer, required: false, default: nil)
+  attr(:count, :integer, required: false, default: nil)
+
+  def topic_outline(assigns) do
+    ~H"""
+    <div class="flex flex-col">
+      <div class="flex flex-row items-center">
+        <.expander topic={@topic} />
+        <.topic_hierarchy_name topic={@topic} />
+        <.topic_merge_button topic={@topic} />
+      </div>
+      <div class="flex flex-col" id={"topic-outline-#{@topic.id}"}>
+        <div :for={{topic, index} <- Enum.with_index(@topic.child_topics)} class="flex flex-row">
+          <.nesting_indicator index={index} count={Enum.count(@topic.child_topics) - 1} />
+          <.topic_outline topic={topic} index={index} count={Enum.count(@topic.child_topics) - 1} />
+        </div>
+      </div>
+    </div>
+    """
+  end
+
+  defp expander(%{topic: %{child_topics: [_ | _]}} = assigns) do
+    ~H"""
+    <.link phx-click={
+      JS.toggle(to: "#expander-#{@topic.id}")
+      |> JS.toggle(to: "#topic-outline-#{@topic.id}")
+      |> JS.toggle(to: "#unexpander-#{@topic.id}")
+    }>
+      <span
+        id={"unexpander-#{@topic.id}"}
+        class="hero-chevron-right mt-0.5 w-5 h-5 flex-none"
+        style="display: block;"
+      />
+      <span
+        id={"expander-#{@topic.id}"}
+        class="hero-chevron-down mt-0.5 w-5 h-5 flex-none"
+        style="display: none;"
+      />
+    </.link>
+    """
+  end
+
+  defp expander(%{topic: %{child_topics: []}} = assigns), do: ~H""
+
+  defp topic_merge_button(%{topic: %{hierarchy?: false}} = assigns), do: ~H""
+
+  defp topic_merge_button(%{topic: %{hierarchy?: true}} = assigns) do
+    ~H"""
+    <.link phx-click="merge-topic" phx-value-topic-id={@topic.id}>
+      <.icon name="hero-plus" class="h-5 w-5" />
+    </.link>
+    """
+  end
+
+  attr(:index, :integer, required: false, default: nil)
+  attr(:count, :integer, required: false, default: nil)
+
+  defp nesting_indicator(%{index: index, count: count} = assigns) when index == 0 and count > 0 do
+    ~H"""
+    <div class="border-r border-secondary mx-2 w-0" />
+    """
+  end
+
+  defp nesting_indicator(assigns) do
+    ~H"""
+    <div class="px-2"></div>
+    """
+  end
+
+  attr(:topic, Topic, required: true)
+
+  defp topic_hierarchy_name(%{topic: %{hierarchy?: true}} = assigns) do
+    ~H"""
+    <div class="p-1">
+      <%= @topic.model_title %>
+    </div>
+    """
+  end
+
+  defp topic_hierarchy_name(%{topic: %{hierarchy?: false}} = assigns) do
+    ~H"""
+    <.link patch={~p"/topics/#{@topic}"} class="p-1 underline">
+      <%= @topic.title || name_from_keywords(@topic) %>
+    </.link>
+    """
+  end
+
+  defp topic_hierarchy_name(assigns) do
+    ~H"""
+    <div class="p-1">
+      <%= @topic.model_title %>
+    </div>
+    """
+  end
+
+  defp name_from_keywords(%{keywords: keywords}),
+    do: Enum.map(keywords, & &1["keyword"]) |> Enum.join("\n")
+
   defp migration_status(%Topic{to_topic: nil}), do: nil
 
   defp migration_status(%Topic{to_topic: %Topic{} = to_topic} = topic) do
