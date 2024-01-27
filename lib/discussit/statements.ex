@@ -15,7 +15,9 @@ defmodule Discussit.Statements do
     |> maybe_filter_by_meeting_id(filters[:meeting_id])
     |> maybe_filter_by_account_id(filters[:account_id])
     |> maybe_filter_by_topic_id(filters[:topic_id])
+    |> maybe_filter_by_ids(filters[:ids])
     |> maybe_order_by_occurred_at(order_by[:occurred_at])
+    |> maybe_order_by_inserted_at(order_by[:inserted_at])
     |> maybe_order_by_representative(order_by[:representative])
     |> maybe_order_by_labelled_topic_id(order_by[:labelled_topic_id])
     |> maybe_filter_by_not_summarizer_id(filters[:not_summarizer_id])
@@ -52,6 +54,8 @@ defmodule Discussit.Statements do
   defp maybe_filter_inferred(query, nil), do: query
   defp maybe_filter_inferred(query, false), do: where(query, [s], is_nil(s.inferred_topic_id))
   defp maybe_filter_inferred(query, true), do: where(query, [s], not is_nil(s.inferred_topic_id))
+  defp maybe_filter_by_ids(query, nil), do: query
+  defp maybe_filter_by_ids(query, ids), do: where(query, [s], s.id in ^ids)
   defp maybe_filter_by_conversation_id(query, nil), do: query
 
   defp maybe_filter_by_conversation_id(query, conversation_id),
@@ -150,6 +154,9 @@ defmodule Discussit.Statements do
   defp maybe_order_by_occurred_at(query, nil), do: query
   defp maybe_order_by_occurred_at(query, :desc), do: order_by(query, [s], desc: s.occurred_at)
   defp maybe_order_by_occurred_at(query, :asc), do: order_by(query, [s], asc: s.occurred_at)
+  defp maybe_order_by_inserted_at(query, nil), do: query
+  defp maybe_order_by_inserted_at(query, :desc), do: order_by(query, [s], desc: s.inserted_at)
+  defp maybe_order_by_inserted_at(query, :asc), do: order_by(query, [s], asc: s.inserted_at)
   defp maybe_order_by_representative(query, nil), do: query
 
   defp maybe_order_by_representative(query, :desc),

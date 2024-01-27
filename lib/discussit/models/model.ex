@@ -16,6 +16,7 @@ defmodule Discussit.Models.Model do
   schema "models" do
     field :merge_object, :string
     field :model_object, :string
+    field :trained_ids, {:array, :string}
     belongs_to :account, Account
     has_many :labelled_statements, Statement, foreign_key: :labelled_topic_id
 
@@ -25,7 +26,7 @@ defmodule Discussit.Models.Model do
   @doc false
   def changeset(model, attrs) do
     model
-    |> cast(attrs, [:id, :model_object, :merge_object, :account_id])
+    |> cast(attrs, [:id, :model_object, :merge_object, :account_id, :trained_ids])
     |> foreign_key_constraint(:account_id)
     |> foreign_key_constraint(:labelled_statements, name: :statements_labelled_topic_id_fkey)
     |> validate_required([:id])

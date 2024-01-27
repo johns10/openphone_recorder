@@ -64,6 +64,12 @@ def merge_models(models, path):
     return Atom(b"ok")
 
 
+def merge_topics(model_path, topic_ids):
+    model_path = codecs.decode(model_path)
+    topics_impl.merge_topics(TRAINING_DATA, model_path, topic_ids)
+    return Atom(b"ok")
+
+
 def translate(target):
     if isinstance(target, List):
         res = list(target)

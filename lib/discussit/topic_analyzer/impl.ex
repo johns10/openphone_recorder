@@ -20,14 +20,16 @@ defmodule Discussit.TopicAnalyzer.Impl do
         account_id: account.id
       ],
       preloads: [:embedding, :labelled_topic],
-      order_by: [labelled_topic_id: :desc],
+      order_by: [inserted_at: :desc],
       limit: statements_count
     ]
 
     with {:ok, model_path} = Briefly.create(directory: true),
-         {:ok, model} <- Models.create_model(%{id: model_id, account_id: account_id}),
          {:ok, pid} <- start_python(),
-         statements <- Statements.list_statements(query_opts) do
+         statements <- Statements.list_statements(query_opts),
+         ids <- Enum.map(statements, & &1.id),
+         {:ok, model} <-
+           Models.create_model(%{id: model_id, account_id: account_id, trained_ids: ids}) do
       Enum.map(statements, fn %{embedding: %{vector: vector} = embedding} = statement ->
         statement = %{statement | embedding: %{embedding | vector: Pgvector.to_list(vector)}}
         :python.call(pid, :topics_port, :save_item, [statement])
@@ -36,6 +38,44 @@ defmodule Discussit.TopicAnalyzer.Impl do
       :python.cast(pid, {:init_model, model_path})
       {:ok, %{model: model, model_path: model_path, python_pid: pid}}
     end
+  end
+
+  def merge_topics(model_id, topic_ids, _opts) do
+    bucket = Application.get_env(:discussit, :bucket)
+
+    %{trained_ids: ids} = model = Models.get_model!(model_id)
+
+    statements =
+      Statements.list_statements(
+        filters: [ids: ids],
+        order_by: [inserted_at: :desc],
+        preloads: [:embedding, :labelled_topic]
+      )
+
+    object = Models.merge_path(model)
+
+    {:ok, pid} = start_python()
+
+    {:ok, archive_path} = Briefly.create(extname: ".zip")
+    {:ok, model_path} = Briefly.create(directory: true)
+    {:ok, %{body: binary}} = ExAws.S3.get_object(bucket, object) |> ExAws.request()
+    :ok = File.write(archive_path, binary)
+
+    {:ok, files} = :zip.unzip(to_charlist(archive_path), [:memory])
+
+    Enum.each(files, fn {filename, binary} ->
+      base_name = Path.basename(filename)
+      new_filename = Path.join(model_path, base_name)
+      :ok = File.touch!(new_filename)
+      :ok = File.write!(new_filename, binary)
+    end)
+
+    Enum.map(statements, fn %{embedding: %{vector: vector} = embedding} = statement ->
+      statement = %{statement | embedding: %{embedding | vector: Pgvector.to_list(vector)}}
+      :python.call(pid, :topics_port, :save_item, [statement])
+    end)
+
+    :python.call(pid, :topics_port, :merge_topics, [model_path, topic_ids])
   end
 
   def finish_initialization(%{
@@ -194,6 +234,13 @@ defmodule Discussit.TopicAnalyzer.Impl do
     bucket = Application.get_env(:discussit, :bucket)
 
     ExAws.S3.put_object(bucket, object, File.read!(path))
+    |> ExAws.request()
+  end
+
+  defp get_object(object, path) do
+    bucket = Application.get_env(:discussit, :bucket)
+
+    ExAws.S3.get_object(bucket, object)
     |> ExAws.request()
   end
 

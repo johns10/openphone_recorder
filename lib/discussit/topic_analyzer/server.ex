@@ -50,6 +50,12 @@ defmodule Discussit.TopicAnalyzer.Server do
      }}
   end
 
+  def handle_call({:merge, model_id, topic_ids, opts}, _from, state) do
+    Impl.merge_topics(model_id, topic_ids, opts)
+
+    {:reply, :ok, state}
+  end
+
   def handle_call(:state, _from, state), do: {:reply, state, state}
 
   @impl true

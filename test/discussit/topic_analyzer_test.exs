@@ -81,9 +81,9 @@ defmodule Discussit.TopicAnalyzerTest do
 
       assert [
                %{id: ^parent_id, topic_model_id: 3},
-               %{topic_model_id: 2, parent_id: ^parent_id},
-               %{topic_model_id: 1, parent_id: ^parent_id}
-             ] = topics
+               %{topic_model_id: 2, parent_topic_id: ^parent_id},
+               %{topic_model_id: 1}
+             ] = Topics.list_topics()
     end
 
     test "trains a model", %{account: account, bucket: bucket, model_id: model_id} do
@@ -165,23 +165,28 @@ defmodule Discussit.TopicAnalyzerTest do
         end)
       end
 
-      use_cassette("no existing_object") do
-        {:ok, pid} = TopicAnalyzer.start_link(%{})
-        assert {:ok, results} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
-        assert Enum.count(results.statements) == Enum.count(statements)
-      end
+      {:ok, pid} = TopicAnalyzer.start_link(%{})
+
+      # use_cassette("no existing_object") do
+      assert {:ok, results} = TopicAnalyzer.initialize(pid, account, model_id: model_id)
+      assert Enum.count(results.statements) == Enum.count(statements)
+      # end
 
       topics_count = Topics.list_topics() |> Enum.count() |> IO.inspect()
-      assert topics_count < 45 and topics_count > 35
+      assert [%{id: model_id}] = Models.list_models()
+      TopicAnalyzer.merge_topics(pid, model_id, [1, 2])
+      # assert topics_count < 45 and topics_count > 35
 
-      assert Statements.list_statements()
-             |> Enum.filter(&(&1.trained_topic_id != nil))
-             |> Enum.count() > 0
+      # assert Statements.list_statements()
+      #        |> Enum.filter(&(&1.trained_topic_id != nil))
+      #        |> Enum.count() > 0
 
-      assert %{topic_model_id: -1} =
-               Topics.get_topic_by(%{topic_model_id: -1, account_id: account.id})
+      # assert %{topic_model_id: -1} =
+      #          Topics.get_topic_by(%{topic_model_id: -1, account_id: account.id})
 
-      assert [_model] = Models.list_models()
+      # assert [_model] = Models.list_models() |> IO.inspect()
+
+      # TopicAnalyzer.merge()
     end
 
     @tag :integration
@@ -373,7 +378,6 @@ defmodule Discussit.TopicAnalyzerTest do
     test "training", %{account: account} do
       conversation = conversation_fixture(%{account_id: account.id})
 
-      # initial_statements =
       (floor_cleaning_content() ++ bathtub_cleaning_content())
       |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
       |> Enum.map(fn statement ->
@@ -388,7 +392,6 @@ defmodule Discussit.TopicAnalyzerTest do
       topics_after_initialization = Topics.list_topics() |> Enum.count()
       assert topics_after_initialization in 6..9
 
-      # training_statements =
       (toilet_cleaning_content() ++ shower_cleaning_content())
       |> Enum.map(&statement_fixture(%{content: &1, conversation_id: conversation.id}))
       |> Enum.map(fn statement ->

@@ -20,9 +20,7 @@ def save_model(topic_model, path):
 
 
 def save_new_model(topic_model, model_path):
-    path = f"{model_path}/model"
-    topic_model.save(path, serialization="safetensors", save_ctfidf=True)
-    r = shutil.make_archive(path, "zip", model_path, "model")
+    topic_model.save(model_path, serialization="safetensors", save_ctfidf=True)
     return topic_model
 
 
@@ -50,7 +48,7 @@ def new_model(items_count):
     vectorizer_model = CountVectorizer(
         stop_words="english",
         ngram_range=(2, 3),
-        min_df=2,
+        # min_df=2,
     )
     ctfidf_model = ClassTfidfTransformer(
         reduce_frequent_words=True, bm25_weighting=True
@@ -111,12 +109,23 @@ def merge_models(models, path):
     save_new_model(merged)
 
 
+def merge_topics(data, path, ids):
+    docs = [item["content"] for item in data]
+    model = load_model(path)
+    hierarchy = model.hierarchical_topics(docs)
+    print(hierarchy)
+    model.merge_topics(docs, ids)
+    hierarchy = model.hierarchical_topics(docs)
+    print(hierarchy)
+
+
 def fit_topics(model, statements, embeddings, labels):
     topics, probs = model.fit_transform(statements, embeddings, y=labels)
     return topics
 
 
 def load_model(model_path):
+    print(model_path)
     return BERTopic.load(model_path)
 
 
