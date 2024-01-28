@@ -360,14 +360,28 @@ defmodule DiscussitWeb.CoreComponents do
         id={@id || @name}
         name={@name}
         class={[
-          "mt-2 block min-h-[6rem] w-full rounded-lg border-zinc-300 py-[7px] px-[11px]",
-          "focus:border-zinc-400 focus:outline-none focus:ring-4 focus:ring-zinc-800/5 sm:text-sm sm:leading-6",
-          "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400 phx-no-feedback:focus:ring-zinc-800/5",
-          "border-zinc-300 focus:border-zinc-400 focus:ring-zinc-800/5",
-          @errors != [] && "border-rose-400 focus:border-rose-400 focus:ring-rose-400/10"
+          "textarea textarea-bordered w-full",
+          @errors != [] && "textarea-error"
         ]}
         {@rest}
       ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
+      <.error :for={msg <- @errors}><%= msg %></.error>
+    </div>
+    """
+  end
+
+  def input(%{type: "range"} = assigns) do
+    ~H"""
+    <div phx-feedback-for={@name} class="w-full">
+      <.label for={@id}><%= @label %></.label>
+      <input
+        id={@id || @name}
+        name={@name}
+        type="range"
+        class="range w-full"
+        phx-debounce="500"
+        {@rest}
+      />
       <.error :for={msg <- @errors}><%= msg %></.error>
     </div>
     """
@@ -552,7 +566,7 @@ defmodule DiscussitWeb.CoreComponents do
 
     ~H"""
     <div>
-      <table class={["table w-full my-4", @class]}>
+      <table class={["table my-4", @class]}>
         <thead>
           <tr>
             <th :for={col <- @col}><%= col[:label] %></th>
@@ -675,9 +689,10 @@ defmodule DiscussitWeb.CoreComponents do
 
   def render_contact_name(assigns),
     do: ~H"""
-      <%= @contact.first_name %><%= if(@contact.last_name && @contact.last_name != "") do %>
+    <%= @contact.first_name %>
+    <%= if(@contact.last_name && @contact.last_name != "") do %>
       <%= @contact.last_name %>
-      <% end %>
+    <% end %>
     """
 
   ## JS Commands

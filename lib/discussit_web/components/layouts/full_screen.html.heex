@@ -99,6 +99,17 @@
           Import
         </div>
       </.link>
+      <.link
+        href={~p"/summarizers"}
+        class="flex flex-row items-center justify-items-end hover:cursor-pointer"
+      >
+        <div class="btn btn-ghost btn-sm px-2">
+          <.icon name="hero-clipboard-document-list" class="w-5 h-5" />
+        </div>
+        <div href={~p"/contacts"} class="dropdown-label mr-2" style="display: none;">
+          Import
+        </div>
+      </.link>
       <div
         class="flex-grow"
         phx-click={JS.toggle(to: ".dropdown-label", in: "fade-in-scale", out: "fade-out-scale")}
