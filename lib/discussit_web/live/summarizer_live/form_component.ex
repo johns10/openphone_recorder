@@ -109,7 +109,6 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
       socket.assigns.summarizer
       |> Summarizers.change_summarizer(%{fixed_reduction: nil})
       |> Map.put(:action, :validate)
-      |> IO.inspect()
 
     {:noreply, assign_form(socket, changeset) |> assign(:reduction_mode, :percentage)}
   end
@@ -133,7 +132,6 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
   end
 
   def handle_event("save", %{"summarizer" => summarizer_params}, socket) do
-    IO.inspect(summarizer_params)
     save_summarizer(socket, socket.assigns.action, summarizer_params)
   end
 

@@ -6,7 +6,13 @@ defmodule DiscussitWeb.SummarizerLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :summarizers, Summarizers.list_summarizers())}
+    account_id = socket.assigns.current_user.selected_account_id
+
+    summarizers =
+      Summarizers.list_summarizers(filters: [nil_account_id: true]) ++
+        Summarizers.list_summarizers(filters: [account_id: account_id])
+
+    {:ok, stream(socket, :summarizers, summarizers), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
   @impl true

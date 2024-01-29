@@ -22,7 +22,7 @@ defmodule Discussit.Summaries.Summarize do
     |> case do
       {:ok, summary} ->
         create_relationships(item, summary)
-        opts[:broadcast_function].("summary_created", summary)
+        if opts[:broadcast_function], do: opts[:broadcast_function].("summary_created", summary)
         summary
 
       {:error, _changeset} ->
@@ -169,7 +169,7 @@ defmodule Discussit.Summaries.Summarize do
       level: Summary.daily(),
       summarizer_id: opts[:summarizer_id],
       summary_interval: range,
-      time_zome: Keyword.get(opts, :timezone, "Etc/UTC"),
+      time_zone: Keyword.get(opts, :timezone, "Etc/UTC"),
       conversation_summarizer_id: opts[:conversation_summarizer_id]
     }
   end
@@ -215,7 +215,7 @@ defmodule Discussit.Summaries.Summarize do
       level: level,
       summarizer_id: opts[:summarizer_id],
       summary_interval: range,
-      time_zome: Keyword.get(opts, :timezone, "Etc/UTC"),
+      time_zone: Keyword.get(opts, :timezone, "Etc/UTC"),
       conversation_summarizer_id: opts[:conversation_summarizer_id]
     }
   end

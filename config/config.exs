@@ -88,6 +88,11 @@ config :discussit, aai_api_key: System.get_env("AAI_API_KEY")
 config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
 
+config :discussit, Oban,
+  queues: [conversation_summarizer: 100],
+  repo: Discussit.Repo,
+  plugins: [{Oban.Plugins.Pruner, max_age: 300}]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

@@ -19,9 +19,9 @@ defmodule Discussit.ConversationSummarizersTest do
 
     @invalid_attrs %{conversation_id: nil, summarizer_id: nil}
 
-    test "list_conversation_summaries/0 returns all conversation_summaries" do
+    test "list_conversation_summarizers/0 returns all conversation_summaries" do
       conversation_summarizer = conversation_summarizer_fixture()
-      assert ConversationSummarizers.list_conversation_summaries() == [conversation_summarizer]
+      assert ConversationSummarizers.list_conversation_summarizers() == [conversation_summarizer]
     end
 
     test "get_conversation_summarizer!/1 returns the conversation_summarizer with given id" do

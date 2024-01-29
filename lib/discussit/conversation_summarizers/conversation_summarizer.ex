@@ -1,12 +1,15 @@
 defmodule Discussit.ConversationSummarizers.ConversationSummarizer do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Discussit.Summaries.Summary
   alias Discussit.Conversations.Conversation
   alias Discussit.Summarizers.Summarizer
 
   schema "conversation_summarizers" do
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :summarizer, Summarizer
+
+    has_many :summaries, Summary
 
     timestamps(type: :naive_datetime_usec)
   end

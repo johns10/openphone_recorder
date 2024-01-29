@@ -176,6 +176,24 @@ defmodule Discussit.ChunkerTest do
       assert Enum.count(chunk1) == 3
     end
 
+    test "ordering" do
+      id1 = Ecto.UUID.generate()
+      id2 = Ecto.UUID.generate()
+      id3 = Ecto.UUID.generate()
+
+      queue =
+        [
+          %Statement{id: id1, content: fifteen_token_sentence()},
+          %Statement{id: id2, content: twenty_token_sentence()},
+          %Statement{id: id3, content: twenty_token_sentence()}
+        ]
+        |> Enum.map(&Map.put(&1, :participant, participant()))
+
+      assert [[%{id: ^id1}, %{id: ^id2}, %{id: ^id3}]] =
+               Queue.acc(queue)
+               |> TokenCount.chunk_items(max_tokens: 100)
+    end
+
     test "chunks apart" do
       queue =
         [

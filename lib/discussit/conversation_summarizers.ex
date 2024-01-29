@@ -8,19 +8,31 @@ defmodule Discussit.ConversationSummarizers do
 
   alias Discussit.ConversationSummarizers.ConversationSummarizer
 
-  def list_conversation_summaries(opts \\ []) do
+  def list_conversation_summarizers(opts \\ []) do
     filters = Keyword.get(opts, :filters, [])
+    preloads = Keyword.get(opts, :preloads, [])
 
     ConversationSummarizer
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_filter_by_summarizer_id(filters[:summarizer_id])
+    |> preload(^preloads)
     |> Repo.all()
   end
 
-  def get_conversation_summarizer!(id), do: Repo.get!(ConversationSummarizer, id)
+  def get_conversation_summarizer!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
 
-  def get_conversation_summarizer_by(filters \\ []) do
-    Repo.get_by(ConversationSummarizer, filters)
+    ConversationSummarizer
+    |> preload(^preloads)
+    |> Repo.get!(id)
+  end
+
+  def get_conversation_summarizer_by(filters \\ [], opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    ConversationSummarizer
+    |> preload(^preloads)
+    |> Repo.get_by(filters)
   end
 
   def create_conversation_summarizer(attrs \\ %{}) do

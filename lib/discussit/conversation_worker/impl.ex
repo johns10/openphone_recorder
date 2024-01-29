@@ -27,6 +27,30 @@ defmodule Discussit.ConversationWorker.Impl do
     |> Enum.map(&Support.prepare_return/1)
   end
 
+  def create_custom_summary(
+        %ConversationSummarizer{
+          conversation: %Conversation{} = conversation,
+          summarizer: %Summarizer{} = summarizer
+        } = conversation_summarizer,
+        opts
+      ) do
+    opts = Summarize.cast_opts(opts, conversation_summarizer)
+
+    Statements.list_statements(
+      filters: [
+        conversation_id: conversation.id,
+        not_summarizer_id: summarizer.id
+      ],
+      preloads: [
+        participant: [:phone_number, :contact]
+      ],
+      order_by: [occurred_at: :asc]
+    )
+    |> Chunker.apply(opts)
+    |> Summarize.map_summarize(opts)
+    |> Enum.map(&Map.put(&1, :conversation_summarizer, conversation_summarizer))
+  end
+
   def create_daily_summaries(
         %ConversationSummarizer{
           conversation: %Conversation{} = conversation,

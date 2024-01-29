@@ -9,49 +9,18 @@ defmodule DiscussitWeb.IndexLive.Components do
   alias Discussit.PhoneNumbers.PhoneNumber
 
   attr(:conversation, Conversation, default: nil)
-  attr(:zoom_level, :integer, default: 0)
-  attr(:worker_busy?, :boolean, default: true)
-  attr(:transcription_status, :map, default: %{})
-  attr(:current_user, User, required: true)
 
   def participant_header(%{conversation: nil} = assigns), do: ~H""
 
   def participant_header(assigns) do
     ~H"""
-    <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10 mb-2">
-      <div class="flex flex-row space-x-4 flex-wrap">
-        <.participant_picker
-          :for={participant <- @conversation.participants}
-          participant={participant}
-          class=""
-          last={false}
-        />
-      </div>
-      <div class="flex flex-row items-center space-x-4">
-        <.transcribe_conversation_button
-          conversation={@conversation}
-          worker_busy?={@worker_busy?}
-          transcription_status={@transcription_status}
-          account={@current_user.selected_account}
-        />
-        <.summarize_conversation_button
-          account={@current_user.selected_account}
-          worker_busy?={@worker_busy?}
-        />
-        <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
-          <input
-            type="range"
-            min="0"
-            max="3"
-            value={@zoom_level}
-            class="range"
-            step="1"
-            name="zoom"
-            id="zoom-input"
-            phx-debounce="500"
-          />
-        </.form>
-      </div>
+    <div class="flex flex-row space-x-4 flex-wrap">
+      <.participant_picker
+        :for={participant <- @conversation.participants}
+        participant={participant}
+        class=""
+        last={false}
+      />
     </div>
     """
   end
@@ -72,6 +41,7 @@ defmodule DiscussitWeb.IndexLive.Components do
     ~H"""
     <div class="flex flex-col">
       <button
+        :if={@conversation}
         class="btn btn-xs btn-secondary rounded-b-none"
         phx-click={paywall("transcribe_conversation_calls", @account)}
         phx-value-conversation-id={@conversation.id}

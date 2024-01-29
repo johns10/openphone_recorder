@@ -39,13 +39,86 @@
   <div :if={@end_of_timeline?} id="last-element" class="mx-2">Last Conversation</div>
 </div>
 <div class="flex flex-col overflow-y-scroll overflow-x-hidden flex-grow">
-  <.participant_header
-    conversation={@conversation}
-    worker_busy?={@worker_busy?}
-    zoom_level={@zoom_level}
-    transcription_status={@transcription_status}
-    current_user={@current_user}
-  />
+  <div class="flex w-full bg-base-300 justify-between py-2 px-4 sticky top-0 z-10 mb-2">
+    <.participant_header conversation={@conversation} />
+    <.transcribe_conversation_button
+      conversation={@conversation}
+      worker_busy?={@worker_busy?}
+      transcription_status={@transcription_status}
+      account={@current_user.selected_account}
+    />
+    <div class="flex flex-row items-center space-x-4">
+      <details :if={length(@summarizers) > 0} class="dropdown" id="summarizers-dropdown">
+        <summary class="m-1 btn btn-xs">
+          <%= if(@summarizer, do: @summarizer.name, else: "Summarizer") %>
+          <.icon name="hero-chevron-down" class="w-4 h-4" />
+        </summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+          <li :for={summarizer <- @summarizers}>
+            <.link phx-click={
+              JS.remove_attribute("open", to: "#summarizers-dropdown")
+              |> JS.push("set-summarizer", value: %{summarizer_id: summarizer.id})
+            }>
+              <%= summarizer.name %>
+            </.link>
+          </li>
+        </ul>
+      </details>
+      <div class="join">
+        <.link
+          :if={!@summarizer || @conversation_summarizer_status == :running}
+          class="btn btn-xs btn-secondary join-item btn-disabled"
+        >
+          <.icon
+            name="hero-arrow-path"
+            class={[
+              "w-4 h-4",
+              if(@conversation_summarizer_status == :running, do: "animate-spin")
+            ]}
+          />
+        </.link>
+        <.link
+          :if={@summarizer && @conversation_summarizer_status in [nil, :not_started, :done]}
+          class="btn btn-xs btn-secondary join-item"
+          phx-click="summarize"
+          phx-value-summarizer-id={@summarizer.id}
+        >
+          <.icon name="hero-arrow-path" class="w-4 h-4" />
+        </.link>
+        <.link
+          :if={!@conversation_summarizer}
+          class="btn btn-xs btn-secondary join-item btn-disabled"
+        >
+          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+        </.link>
+        <.link
+          :if={@conversation_summarizer}
+          href={~p"/conversation_summarizers/#{@conversation_summarizer}"}
+          class="btn btn-xs btn-secondary join-item"
+        >
+          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+        </.link>
+      </div>
+
+      <.summarize_conversation_button
+        account={@current_user.selected_account}
+        worker_busy?={@worker_busy?}
+      />
+      <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
+        <input
+          type="range"
+          min="0"
+          max="3"
+          value={@zoom_level}
+          class="range"
+          step="1"
+          name="zoom"
+          id="zoom-input"
+          phx-debounce="500"
+        />
+      </.form>
+    </div>
+  </div>
   <div id="statements" class="flex flex-col" phx-update="stream">
     <%= for {id, conversation_item} <- @streams.conversation_items do %>
       <%= case conversation_item do %>
