@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.Index do
+  alias Discussit.Transcription
   alias Discussit.ConversationSummarizers.ConversationSummarizer
   alias Discussit.Meetings
   use DiscussitWeb, :html_helpers
@@ -12,6 +13,7 @@ defmodule DiscussitWeb.IndexLive.Index do
 
   alias Discussit.Conversations
   alias Discussit.Calls
+  alias Discussit.Calls.Call
   alias Discussit.Statements
   alias Discussit.Participants
   alias Discussit.ConversationWorker
@@ -40,9 +42,9 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def mount(_params, _session, socket) do
-    conversations =
-      socket.assigns.current_user.selected_account_id
-      |> Conversations.list_conversation_summary(limit: 20)
+    account_id = socket.assigns.current_user.selected_account_id
+    conversations = Conversations.list_conversation_summary(account_id, limit: 20)
+    DiscussitWeb.Endpoint.subscribe("account_#{account_id}")
 
     {:ok,
      socket
@@ -160,9 +162,19 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_event("transcribe", %{"call-id" => call_id}, socket) do
-    ConversationWorker.transcribe_call(socket.assigns.conversation, call_id)
+    with %Call{} = call <- Calls.get_call!(call_id, preloads: [:conversation]),
+         {:ok, call} <- Calls.update_call(call, %{status: :transcribing}) do
+      Transcription.transcribe(call)
 
-    {:noreply, socket}
+      ended = %{
+        type: "call_ended",
+        data: call,
+        timestamp: call.completed_at,
+        id: "call-completed-#{call.id}"
+      }
+
+      {:noreply, socket |> stream_insert(:conversation_items, ended)}
+    end
   end
 
   def handle_event("transcribe_conversation_calls", _, socket) do
@@ -301,27 +313,12 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_info(
-        %{event: "call_transcription_progress", payload: %{status: :transcribing} = call},
+        %{topic: "calls", event: "call_updated", payload: _},
         socket
       ) do
-    ended = %{
-      type: "call_ended",
-      data: call,
-      timestamp: call.completed_at,
-      id: "call-completed-#{call.id}"
-    }
-
     {:noreply,
      socket
-     |> stream_insert(:conversation_items, ended)
-     |> assign_transcription_status(socket.assigns.conversation.id)}
-  end
-
-  def handle_info(%{event: "call_transcription_progress", payload: %{status: _}}, socket) do
-    {:noreply,
-     socket
-     |> replace_conversation_items(socket.assigns.conversation.id)
-     |> assign_transcription_status(socket.assigns.conversation.id)}
+     |> replace_conversation_items(socket.assigns.conversation.id)}
   end
 
   def handle_info(%{event: "status_update", payload: status}, socket) do
@@ -481,6 +478,9 @@ defmodule DiscussitWeb.IndexLive.Index do
 
         %{count: count, status: :upload_empty}, acc ->
           Map.put(acc, :warning, floor(count / total * 100) + acc.warning)
+
+        %{count: count, status: :transcription_failed}, acc ->
+          Map.put(acc, :error, floor(count / total * 100) + acc.error)
       end)
 
     assign(socket, :transcription_status, status)

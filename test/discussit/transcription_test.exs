@@ -27,10 +27,12 @@ defmodule Discussit.TranscriptionTest do
         meeting =
           meeting_fixture(%{files: [%{key: key, bucket: bucket, metadata: %{type: "audio/mp4"}}]})
 
-        Transcription.transcribe([meeting.id], %Meeting{},
-          user_id: user.id,
-          account_id: account.id
-        )
+        use_cassette("256_to_623_retrieve_transcript_call") do
+          Transcription.transcribe([meeting.id], %Meeting{},
+            user_id: user.id,
+            account_id: account.id
+          )
+        end
       end
     end
   end

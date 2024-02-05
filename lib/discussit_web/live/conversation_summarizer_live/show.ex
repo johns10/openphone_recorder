@@ -1,5 +1,4 @@
 defmodule DiscussitWeb.ConversationSummarizerLive.Show do
-  alias Discussit.Conversations.Conversation
   use DiscussitWeb, :live_view
 
   alias Discussit.ConversationSummarizers

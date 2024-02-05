@@ -17,7 +17,6 @@ defmodule Discussit.Meetings do
     limit = Keyword.get(opts, :limit, nil)
 
     Meeting
-    |> select([s], ^only())
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_limit(limit)
     |> maybe_offset(offset)
@@ -30,7 +29,6 @@ defmodule Discussit.Meetings do
 
     Meeting
     |> preload(^preload)
-    |> select([s], ^only())
     |> Repo.get!(id)
   end
 
@@ -94,6 +92,4 @@ defmodule Discussit.Meetings do
   def change_meeting(%Meeting{} = meeting, attrs \\ %{}) do
     Meeting.changeset(meeting, attrs)
   end
-
-  def only(), do: Meeting.__schema__(:fields) -- [:segments]
 end

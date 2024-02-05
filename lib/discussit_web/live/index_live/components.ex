@@ -79,13 +79,14 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def transcribe_call_button(assigns) do
     ~H"""
-    <.button
-      class="btn-primary btn-xs transcribe-button"
+    <.link
+      id={"transcribe-call-#{@call.id}"}
+      class={["btn btn-primary btn-xs transcribe-button"]}
       phx-click={paywall("transcribe", @account)}
       phx-value-call-id={@call.id}
     >
       Transcribe
-    </.button>
+    </.link>
     """
   end
 

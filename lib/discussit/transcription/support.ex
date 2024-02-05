@@ -5,19 +5,20 @@ defmodule Discussit.Transcription.Support do
   alias Discussit.Calls.Call
   alias Discussit.Meetings.Meeting
   alias Discussit.Meetings
-  alias Discussit.Tokens
   alias Discussit.Statements
   alias Discussit.Statements.Statement
-  alias Discussit.Audio
-  alias Discussit.Transcription.OpenAI
   alias Discussit.Transcription.AssemblyAI
+
+  @channel_mapping %{
+    "1" => :left,
+    "2" => :right
+  }
 
   def get_data(id, type, opts \\ [])
 
   def get_data(id, %Meeting{}, opts) do
     with %Meeting{} = meeting <- Meetings.get_meeting!(id),
-         {:ok, %{files: files} = meeting} <-
-           Meetings.update_meeting(meeting, %{projector_status: :in_progress}) do
+         {:ok, meeting} <- Meetings.update_meeting(meeting, %{projector_status: :in_progress}) do
       user_id = opts[:user_id] || raise("cannot send meeting updates without user id")
 
       DiscussitWeb.Endpoint.broadcast(
@@ -26,43 +27,14 @@ defmodule Discussit.Transcription.Support do
         meeting |> Map.put(:statements, [])
       )
 
-      recordings =
-        Enum.filter(files, fn
-          %{metadata: %{type: type}} when type in ["audio/mp4"] -> true
-          _ -> false
-        end)
-
       %{
         data: meeting,
-        recordings: recordings,
         status: :ok,
         message: ""
       }
     else
       {:error, changeset} ->
         put_error(%{}, changeset_error_to_string(changeset))
-    end
-  end
-
-  def get_data(%{call_id: id, conversation: conversation} = state, %Call{}, _opts) do
-    with %Call{} = call <- Calls.get_call!(id),
-         {:ok, call} <- Calls.update_call(call, %{status: :transcribing}) do
-      DiscussitWeb.Endpoint.broadcast(
-        Discussit.ConversationWorker.name(conversation) |> to_string(),
-        "call_transcription_progress",
-        call |> Map.put(:statements, [])
-      )
-
-      state
-      |> Map.put(:data, call)
-      |> Map.put(:status, :ok)
-      |> Map.put(:message, "")
-    else
-      nil ->
-        Map.put(state, :error, "call id does not exist")
-
-      {:error, changeset} ->
-        Map.put(state, :error, changeset_error_to_string(changeset))
     end
   end
 
@@ -75,7 +47,7 @@ defmodule Discussit.Transcription.Support do
       end)
       |> Enum.map(fn %{bucket: bucket, key: key} = file ->
         {:ok, url} =
-          ExAws.Config.new(:s3)
+          Discussit.Config.ex_aws_s3_config()
           |> ExAws.S3.presigned_url(:get, bucket, key)
 
         Map.put(file, :url, url)
@@ -92,7 +64,7 @@ defmodule Discussit.Transcription.Support do
 
         %{bucket: bucket, key: key} = chat ->
           {:ok, url} =
-            ExAws.Config.new(:s3)
+            Discussit.Config.ex_aws_s3_config()
             |> ExAws.S3.presigned_url(:get, bucket, key)
 
           %{chat | url: url}
@@ -103,62 +75,70 @@ defmodule Discussit.Transcription.Support do
     |> Map.put(:chat, chat)
   end
 
-  def prepare_files(%{data: %Call{}} = state), do: state
+  def prepare_files(%{data: %Call{voicemail: file, call_recording: nil}} = state),
+    do: Map.put(state, :recordings, [put_presigned_url(file)])
+
+  def prepare_files(%{data: %Call{voicemail: nil, call_recording: file}} = state),
+    do: Map.put(state, :recordings, [put_presigned_url(file)])
 
   def prepare_files(%{status: :error} = state), do: state
 
-  def transcribe(%{status: :ok, data: %Meeting{} = meeting, recordings: recordings} = state, opts) do
-    updater = &Meetings.update_meeting(meeting, %{transcript_id: &1})
-    opts = Keyword.put(opts, :update_transcript_id, updater)
+  def put_presigned_url(%{bucket: bucket, key: key} = file) do
+    {:ok, url} =
+      Discussit.Config.ex_aws_s3_config()
+      |> ExAws.S3.presigned_url(:get, bucket, key)
 
-    # when multiple recordings, set the start of next and end of previous, and add to durations
-    {transcripts, duration} =
-      Enum.map_reduce(recordings, 0, fn %{url: url}, acc ->
-        with {:ok, %{duration: duration, segments: segments} = transcript} <-
-               AssemblyAI.transcribe(url, opts) do
-          segments =
-            Enum.map(segments, fn %{"start" => start, "end" => end_time, "words" => words} =
-                                    segment ->
-              words =
-                Enum.map(words, fn %{"start" => start, "end" => end_time} = word ->
-                  %{word | "start" => start + acc, "end" => end_time + acc}
-                end)
-
-              %{segment | "start" => start + acc, "end" => end_time + acc, "words" => words}
-            end)
-
-          {%{transcript | segments: segments}, acc + duration * 1000}
-        end
-      end)
-
-    segments = Enum.flat_map(transcripts, &Map.get(&1, :segments))
-    {:ok, meeting} = Meetings.update_meeting(meeting, %{segments: segments})
-
-    state
-    |> Map.put(:segments, segments)
-    |> Map.put(:duration, duration)
-    |> Map.put(:meeting, meeting)
-    |> Map.put(:type, :meeting)
-    |> Map.put(
-      :message,
-      state.message <> "Found #{Enum.count(segments)} segments over #{duration}."
-    )
+    Map.put(file, :url, url)
   end
 
-  def transcribe(
-        %{status: :ok, data: %Call{voicemail: %{bucket: bucket, key: key}, call_recording: nil}} =
-          state,
-        opts
-      ) do
-    with {:ok, path} = Briefly.create(extname: ".mp3"),
-         request = ExAws.S3.download_file(bucket, key, path),
-         {:ok, :done} = ExAws.request(request),
-         {:ok, duration} <- Audio.duration(path),
-         {:ok, segments} <- OpenAI.transcribe(path, duration, opts) do
+  def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state) do
+    opts = %{speaker_labels: true}
+
+    with {:ok, transcript_ids} <- start_transcriptions(rs, opts),
+         {:ok, meeting} <- Meetings.update_meeting(meeting, %{transcript_ids: transcript_ids}) do
+      Map.put(state, :data, meeting)
+    else
+      _ ->
+        state
+        |> Map.put(:status, :error)
+        |> Map.put(:error, "error starting transcription")
+    end
+  end
+
+  def start_transcribing(%{status: :ok, data: %Call{} = call, recordings: recordings} = state) do
+    opts = %{dual_channel: true}
+
+    with {:ok, transcript_ids} <- start_transcriptions(recordings, opts),
+         {:ok, call} <- Calls.update_call(call, %{transcript_ids: transcript_ids}) do
+      Map.put(state, :data, call)
+    else
+      _ ->
+        state
+        |> Map.put(:status, :error)
+        |> Map.put(:error, "error starting transcription")
+    end
+  end
+
+  def start_transcribing(%{status: :error} = state), do: state
+
+  defp start_transcriptions(recordings, opts) do
+    Enum.reduce_while(recordings, {:ok, []}, fn %{url: url}, {:ok, acc} ->
+      case AssemblyAI.start_transcription(url, opts) do
+        {:ok, id} -> {:cont, {:ok, [id | acc]}}
+        _ -> {:halt, {:error, acc}}
+      end
+    end)
+  end
+
+  def finish_transcribing(state, opts \\ [])
+
+  def finish_transcribing(%{status: :ok, data: %{transcript_ids: ids}} = state, opts) do
+    with {:ok, transcripts} <- await_transcription_results(ids, opts),
+         {:ok, result} <- process_transcription_results(transcripts),
+         %{segments: segments, duration: duration} <- result do
       state
       |> Map.put(:segments, segments)
       |> Map.put(:duration, duration)
-      |> Map.put(:type, :voicemail)
       |> Map.put(
         :message,
         state.message <> "Found #{Enum.count(segments)} segments over #{duration}."
@@ -166,72 +146,47 @@ defmodule Discussit.Transcription.Support do
     end
   end
 
-  def transcribe(
-        %{status: :ok, data: %Call{voicemail: nil, call_recording: %{bucket: bucket, key: key}}} =
-          state,
-        opts
-      ) do
-    with {:ok, path} = Briefly.create(extname: ".mp3"),
-         request = ExAws.S3.download_file(bucket, key, path),
-         {:ok, :done} = ExAws.request(request),
-         {:ok, duration} <- Audio.duration(path),
-         {:ok, %{left: left, right: right}} <- Audio.split(path),
-         {:ok, left_segments} <- OpenAI.transcribe(left, duration, opts),
-         {:ok, right_segments} <- OpenAI.transcribe(right, duration, opts) do
-      segments =
-        Enum.map(left_segments, &Map.put(&1, "channel", :left)) ++
-          Enum.map(right_segments, &Map.put(&1, "channel", :right))
+  def finish_transcribing(%{status: :error} = state, _opts), do: state
 
-      state
-      |> Map.put(:segments, segments)
-      |> Map.put(:duration, duration)
-      |> Map.put(:type, :call)
-      |> Map.put(
-        :message,
-        state.message <> "Found #{Enum.count(segments)} segments over #{duration}.  "
-      )
-    else
-      _ ->
-        put_error(state, "failed to transcribe audio")
-    end
-  end
-
-  def transcribe(%{status: :error} = state), do: state
-
-  def ignore_segments(%{data: %Meeting{}} = state),
-    do: Map.put(state, :message, state.message <> "Doesn't ignore in meetings. ")
-
-  def ignore_segments(%{status: :ok, segments: segments} = state) do
-    segments =
-      Enum.map(segments, fn %{"text" => text} = segment ->
-        text
-        |> String.downcase()
-        |> String.trim()
-        |> String.replace(~r/[\p{P}\p{S}]/, "")
-        |> Tokens.all_stopwords?()
-        |> if(
-          do: Map.put(segment, "ignore", true),
-          else: segment
-        )
+  defp await_transcription_results(ids, opts) do
+    transcripts =
+      Enum.map(ids, fn id ->
+        with {:ok, transcript} <- AssemblyAI.finish_transcription(id, opts) do
+          transcript
+        end
       end)
 
-    state
-    |> Map.put(:segments, segments)
-    |> Map.put(
-      :message,
-      state.message <>
-        "Ignored #{segments |> Enum.filter(&(&1["ignore"] == true)) |> Enum.count()} segments.  "
-    )
+    {:ok, transcripts}
   end
 
-  def ignore_segments(%{status: :error} = state), do: state
+  def process_transcription_results(transcripts) do
+    {transcripts, duration} =
+      Enum.map_reduce(transcripts, 0, fn transcript, acc ->
+        %{duration: duration, segments: segments} = transcript
+
+        segments =
+          Enum.map(segments, fn %{"start" => start, "end" => end_time, "words" => words} = segment ->
+            words =
+              Enum.map(words, fn %{"start" => start, "end" => end_time} = word ->
+                %{word | "start" => start + acc, "end" => end_time + acc}
+              end)
+
+            %{segment | "start" => start + acc, "end" => end_time + acc, "words" => words}
+          end)
+
+        {%{transcript | segments: segments}, acc + duration * 1000}
+      end)
+
+    segments = Enum.flat_map(transcripts, &Map.get(&1, :segments))
+
+    {:ok, %{segments: segments, duration: duration}}
+  end
 
   def build_statement_attrs(
         %{
           status: :ok,
           segments: segments,
-          data: %Meeting{} = meeting,
-          type: type
+          data: %Meeting{} = meeting
         } = state
       ) do
     %{occurred_at: occurred_at} = meeting
@@ -272,8 +227,8 @@ defmodule Discussit.Transcription.Support do
           meeting_id: meeting.id,
           inserted_at: now,
           updated_at: now,
+          type: :meeting,
           source: :transcription,
-          type: type,
           id: UUID.uuid4()
         }
       end)
@@ -287,10 +242,8 @@ defmodule Discussit.Transcription.Support do
         %{
           status: :ok,
           segments: segments,
-          data: %Call{} = call,
-          duration: duration,
-          type: type,
-          conversation: conversation
+          data: %Call{conversation_id: conversation_id} = call,
+          duration: duration
         } = state
       ) do
     %{
@@ -320,22 +273,22 @@ defmodule Discussit.Transcription.Support do
         %{segment: segment, attrs: attrs}
       end)
       |> Enum.map(fn %{segment: segment} ->
-        from = NaiveDateTime.add(start_time, cast_microseconds(segment["start"]), :millisecond)
+        from = NaiveDateTime.add(start_time, segment["start"], :millisecond)
 
-        to = NaiveDateTime.add(start_time, cast_microseconds(segment["end"]), :millisecond)
+        to = NaiveDateTime.add(start_time, segment["end"], :millisecond)
         range = PgRanges.TsRange.new(from, to)
 
         %{
           occurred_at: from,
           ts_range: range,
           content: segment["text"] |> String.trim(),
-          participant_id: participants[segment["channel"]],
-          conversation_id: conversation.id,
+          participant_id: participants[@channel_mapping[segment["channel"]]],
+          conversation_id: conversation_id,
           call_id: call.id,
           inserted_at: now,
           updated_at: now,
           source: :transcription,
-          type: type,
+          type: :call,
           id: UUID.uuid4()
         }
       end)
@@ -346,49 +299,6 @@ defmodule Discussit.Transcription.Support do
   end
 
   def build_statement_attrs(%{status: :error} = state), do: state
-
-  def group_statement_attrs(%{status: :ok, statement_attrs: attrs, data: %Meeting{}} = state) do
-    Map.put(
-      state,
-      :message,
-      state.message <> "No grouping on meetings, passed #{Enum.count(attrs)} attrs."
-    )
-  end
-
-  def group_statement_attrs(%{status: :ok, statement_attrs: attrs, data: %Call{}} = state) do
-    attrs =
-      attrs
-      |> Enum.sort(&(NaiveDateTime.compare(&1.occurred_at, &2.occurred_at) != :gt))
-      |> Enum.group_by(& &1.participant_id)
-      |> Enum.flat_map(fn {_participant_id, attrs} ->
-        Enum.reduce(attrs, %{last: nil, results: []}, fn
-          attr, %{last: nil} = state ->
-            %{state | last: attr}
-
-          this, %{last: last, results: results} = state ->
-            case NaiveDateTime.diff(this.ts_range.lower, last.ts_range.upper) do
-              diff when diff < 1 ->
-                ts_range = PgRanges.TsRange.new(last.ts_range.lower, this.ts_range.upper)
-                content = last.content <> " " <> this.content
-                attrs = %{last | ts_range: ts_range, content: content}
-                %{state | last: attrs}
-
-              diff when diff >= 1 ->
-                %{results: [last | results], last: this}
-            end
-        end)
-        |> case do
-          %{last: nil, results: results} -> results
-          %{last: last, results: results} -> [last | results]
-        end
-      end)
-
-    state
-    |> Map.put(:statement_attrs, attrs)
-    |> Map.put(:message, state.message <> "Grouped attrs into #{Enum.count(attrs)} groups.")
-  end
-
-  def group_statement_attrs(%{status: :error} = state), do: state
 
   def create_statements(%{status: :ok, statement_attrs: attrs} = state) do
     changesets = Enum.map(attrs, &Statements.change_statement(%Statement{}, &1))
@@ -422,35 +332,15 @@ defmodule Discussit.Transcription.Support do
   def update_data(state, opts \\ [])
 
   def update_data(%{data: %Meeting{} = meeting, statements: statements} = state, opts) do
-    user_id = opts[:user_id] || raise("cannot send meeting updates without user id")
-
     case Meetings.update_meeting(meeting, %{projector_status: :done}) do
-      {:ok, meeting} ->
-        DiscussitWeb.Endpoint.broadcast(
-          "user_#{user_id}",
-          "meeting_transcription_progress",
-          meeting |> Map.put(:statements, statements)
-        )
-
-        %{state | data: meeting}
-
-      {:error, _changeset} ->
-        put_error(state, "failed to update call")
+      {:ok, meeting} -> %{state | data: meeting}
+      {:error, _changeset} -> put_error(state, "failed to update call")
     end
   end
 
-  def update_data(
-        %{data: %Call{} = call, statements: statements, conversation: conversation} = state,
-        _opts
-      ) do
+  def update_data(%{data: %Call{} = call} = state, _opts) do
     case Calls.update_call(call, %{status: :transcribed}) do
       {:ok, call} ->
-        DiscussitWeb.Endpoint.broadcast(
-          Discussit.ConversationWorker.name(conversation) |> to_string(),
-          "call_transcription_progress",
-          call |> Map.put(:statements, statements)
-        )
-
         %{state | data: call}
 
       {:error, _changeset} ->

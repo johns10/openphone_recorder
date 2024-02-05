@@ -10,22 +10,6 @@ defmodule Discussit.ConversationWorker.Impl do
   alias Discussit.Summaries
   alias Discussit.Summaries.Summary
   alias Discussit.Summaries.Summarize
-  alias Discussit.Calls.Call
-  alias Discussit.Transcription.Support
-
-  def transcribe_call(call_ids, conversation, opts) do
-    call_ids
-    |> Flow.from_enumerable()
-    |> Flow.map(&Support.get_data(%{call_id: &1, conversation: conversation}, %Call{}))
-    |> Flow.map(&Support.prepare_files/1)
-    |> Flow.map(&Support.transcribe(&1, opts))
-    |> Flow.map(&Support.ignore_segments/1)
-    |> Flow.map(&Support.build_statement_attrs/1)
-    |> Flow.map(&Support.group_statement_attrs/1)
-    |> Flow.map(&Support.create_statements/1)
-    |> Flow.map(&Support.update_data/1)
-    |> Enum.map(&Support.prepare_return/1)
-  end
 
   def create_custom_summary(
         %ConversationSummarizer{

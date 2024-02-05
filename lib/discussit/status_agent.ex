@@ -1,5 +1,6 @@
 defmodule Discussit.StatusAgent do
   use Agent
+  alias Discussit.Calls.Call
   alias Discussit.StatusRegistry
   alias Discussit.ConversationSummarizers.ConversationSummarizer
 
@@ -23,7 +24,6 @@ defmodule Discussit.StatusAgent do
     end
   end
 
-  @spec set(any(), any()) :: {:error, :not_started} | {:ok, any()}
   def set(name, state) do
     with {:ok, pid} when not is_nil(pid) <- lookup(name),
          :ok <- Agent.update(pid, fn _ -> state end) do
@@ -72,4 +72,6 @@ defmodule Discussit.StatusAgent do
 
   def name(%ConversationSummarizer{id: id}),
     do: :"conversation_summarizer_#{id}"
+
+  def transcriber_name(%Call{id: id}), do: :"call_transcriber_#{id}"
 end

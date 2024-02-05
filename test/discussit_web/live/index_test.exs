@@ -1,4 +1,8 @@
 defmodule DiscussitWeb.IndexLive.IndexTest do
+  alias Discussit.Calls
+  alias Discussit.Files.File
+  alias Discussit.ParticipantsFixtures
+  alias Discussit.CallsFixtures
   alias PgRanges.TsRange
   use DiscussitWeb.ConnCase
 
@@ -162,6 +166,50 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
 
       assert render(index_live) =~ "First Summary"
       assert render(index_live) =~ "Second Summary"
+    end
+
+    test "transcription", %{conn: conn, conversation: conversation} do
+      %{id: pone_id} = ParticipantsFixtures.participant_fixture()
+      %{id: ptwo_id} = ParticipantsFixtures.participant_fixture()
+
+      call =
+        CallsFixtures.call_fixture(%{
+          conversation_id: conversation.id,
+          status: :file_uploaded,
+          answered_at: ~U[2020-01-01 00:00:00Z],
+          completed_at: ~U[2020-01-01 00:00:00Z],
+          from_participant_id: pone_id,
+          to_participant_id: ptwo_id,
+          call_recording: %{bucket: "test", key: "test", metadata: %{"type" => "audio/mp4"}}
+        })
+
+      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
+
+      index_live
+      |> element("a#transcribe-call-#{call.id}")
+      |> render_click()
+
+      Calls.update_call(call, %{status: :transcribing})
+
+      payload = %{
+        topic: "call_transcriber_#{call.id}",
+        event: "status_update",
+        payload: :transcribing
+      }
+
+      Process.send(index_live.pid, payload, [])
+
+      assert render(index_live) =~ "Transcribing"
+
+      Calls.update_call(call, %{status: :transcribed})
+
+      payload = %{
+        topic: "call_transcriber_#{call.id}",
+        event: "status_update",
+        payload: :transcribed
+      }
+
+      Process.send(index_live.pid, payload, [])
     end
   end
 end

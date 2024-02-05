@@ -56,15 +56,4 @@ defmodule Discussit.ConversationWorker.Server do
     [_daily, _weekly, _monthly, _yearly] = cs = Impl.ensure_conversation_summarizers_exist(state)
     {:noreply, %{state | conversation_summarizers: cs}}
   end
-
-  def handle_cast(
-        {:transcribe_calls, call_ids},
-        %{conversation: conversation, opts: opts} = state
-      ) do
-    Impl.broadcast_busy(state)
-    Impl.transcribe_call(call_ids, conversation, opts)
-    Impl.broadcast_idle(state)
-
-    {:noreply, state}
-  end
 end

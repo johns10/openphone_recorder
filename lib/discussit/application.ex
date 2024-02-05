@@ -9,15 +9,11 @@ defmodule Discussit.Application do
   def start(_type, _args) do
     children =
       [
-        # Start the Telemetry supervisor
         DiscussitWeb.Telemetry,
-        # Start the Ecto repository
         Discussit.Repo,
-        # Start the PubSub system
+        Discussit.Transcription.Resolver,
         {Phoenix.PubSub, name: Discussit.PubSub},
-        # Start Finch
         {Finch, name: Discussit.Finch},
-        # Start the Endpoint (http/https)
         DiscussitWeb.Endpoint,
         {Oban, Application.fetch_env!(:discussit, Oban)},
         {Discussit.Events.Consumer, %{count: :inf}},
@@ -27,6 +23,7 @@ defmodule Discussit.Application do
         {Registry, keys: :unique, name: Discussit.StatusRegistry}
       ]
       |> minio()
+      |> ngrok()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -46,6 +43,13 @@ defmodule Discussit.Application do
     case Application.get_env(:discussit, :minio, nil) do
       nil -> children
       true -> children ++ [{MinioServer, Application.get_env(:ex_aws, :s3)}]
+    end
+  end
+
+  def ngrok(children) do
+    case Application.get_env(:discussit, :use_ngrok, nil) do
+      nil -> children
+      true -> children ++ [{Ngrok, port: 9000, name: Discussit.MinioNgrok}]
     end
   end
 end

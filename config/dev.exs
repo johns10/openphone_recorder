@@ -35,12 +35,11 @@ config :discussit,
   signing_secret: "TGNwdWZzbjhSVmRaQ0NBZTJtN3FRdU05QkF1amd1Z1E="
 
 config :logger, :console, format: "[$level] $message\n"
-
 config :phoenix, :stacktrace_depth, 20
-
 config :phoenix, :plug_init_mode, :runtime
-
 config :discussit, :minio, true
+config :discussit, :use_ngrok, true
+config :ngrok, executable: "/opt/homebrew/bin/ngrok"
 
 config :ex_aws, :s3,
   access_key_id: "minio_key",

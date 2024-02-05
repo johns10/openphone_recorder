@@ -16,10 +16,21 @@ defmodule Discussit.Calls.Call do
     field :completed_at, :naive_datetime_usec
 
     field :status, Ecto.Enum,
-      values: [:created, :upload_failed, :upload_empty, :file_uploaded, :transcribing, :transcribed]
+      values: [
+        :created,
+        :upload_failed,
+        :upload_empty,
+        :file_uploaded,
+        :transcribing,
+        :transcribed,
+        :transcription_failed,
+        :processed
+      ]
 
     field :from_channel, Ecto.Enum, values: @channels
     field :to_channel, Ecto.Enum, values: @channels
+
+    field :transcript_ids, {:array, :string}
 
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :from_participant, Participant
@@ -29,6 +40,8 @@ defmodule Discussit.Calls.Call do
     embeds_one :voicemail, File
 
     has_many :statements, Statement
+
+    embeds_many :files, File
 
     timestamps type: :naive_datetime_usec
   end
@@ -46,7 +59,8 @@ defmodule Discussit.Calls.Call do
       :from_channel,
       :to_participant_id,
       :to_channel,
-      :status
+      :status,
+      :transcript_ids
     ])
     |> cast_embed(:call_recording)
     |> cast_embed(:voicemail)
@@ -58,7 +72,8 @@ defmodule Discussit.Calls.Call do
   def update_changeset(call, attrs) do
     call
     |> cast(attrs, [
-      :status
+      :status,
+      :transcript_ids
     ])
     |> cast_embed(:call_recording)
     |> cast_embed(:voicemail)

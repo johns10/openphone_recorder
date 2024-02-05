@@ -189,6 +189,9 @@
                   <% %{status: :upload_failed} -> %>
                     <.icon name="hero-exclamation-circle" class="ml-4 w-5 h-5 bg-warning" />
                     <span class="text-error">Error Uploading Recording</span>
+                  <% %{status: :transcription_failed} -> %>
+                    <.icon name="hero-exclamation-circle" class="ml-4 w-5 h-5 bg-warning" />
+                    <span class="text-error">Error Transcribing Recording</span>
                 <% end %>
               </div>
             </div>

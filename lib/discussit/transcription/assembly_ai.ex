@@ -9,16 +9,12 @@ defmodule Discussit.Transcription.AssemblyAI do
   @base_url "https://api.assemblyai.com/v2"
 
   def transcribe(link, opts) do
-    body = %{"audio_url" => link, "speaker_labels" => "true"} |> Jason.encode!()
     updater = Keyword.get(opts, :update_transcript_id, fn _ -> nil end)
 
-    with {:ok, %{status_code: 200, body: body}} <-
-           HTTP.post(@base_url <> "/transcript", body, headers()),
-         {:ok, %{"id" => id}} <- Jason.decode(body),
+    with {:ok, id} <- start_transcription(link),
          updater.(id),
-         {:ok, response} <- get_transcript(id),
-         {:ok, _usage} <- create_usage(response, opts) do
-      %{"utterances" => utterances, "audio_duration" => duration} = response
+         {:ok, %{"utterances" => utterances, "audio_duration" => duration}} <-
+           finish_transcription(id, opts) do
       {:ok, %{segments: utterances, duration: duration}}
     else
       {:ok, %{status_code: _}} ->
@@ -31,14 +27,53 @@ defmodule Discussit.Transcription.AssemblyAI do
     end
   end
 
-  defp get_transcript(id) do
-    retry_while with: linear_backoff(500, 1) |> expiry(800_000) do
-      url = @base_url <> "/transcript/#{id}"
-      # Uncomment when you need a vcr
-      # :timer.sleep(10000)
+  def start_transcription(link, opts \\ %{}) do
+    body = Map.put(opts, :audio_url, link) |> Jason.encode!()
+    url = @base_url <> "/transcript"
 
-      with {:ok, %{status_code: 200, body: body}} <- HTTP.get(url, headers()),
-           {:ok, json} <- Jason.decode(body) do
+    with {:ok, %{status_code: 200, body: body}} <- HTTP.post(url, body, headers()),
+         {:ok, %{"id" => id}} <- Jason.decode(body) do
+      {:ok, id}
+    end
+  end
+
+  def finish_transcription(id, opts) do
+    with {:ok, response} <- wait_until_transcription_completes(id),
+         {:ok, _usage} <- create_usage(response, opts) do
+      %{"utterances" => utterances, "audio_duration" => duration} = response
+      {:ok, %{segments: utterances, duration: duration}}
+    end
+  end
+
+  def get_all_completed_transcripts(ids) do
+    Enum.reduce_while(ids, {:ok, []}, fn id, {:ok, acc} ->
+      case get_transcript(id) do
+        {:ok, %{"status" => "completed"} = result} ->
+          {:cont, {:ok, [result | acc]}}
+
+        {:ok, %{"status" => "error"}} = result ->
+          Logger.warn("Transcript #{id}", result: result)
+          IO.inspect(result)
+          {:halt, {:error, acc}}
+
+        _ ->
+          {:halt, {:stop, acc}}
+      end
+    end)
+  end
+
+  def get_transcript(id) do
+    url = @base_url <> "/transcript/#{id}"
+
+    with {:ok, %{status_code: 200, body: body}} <- HTTP.get(url, headers()),
+         {:ok, json} <- Jason.decode(body) do
+      {:ok, json}
+    end
+  end
+
+  defp wait_until_transcription_completes(id) do
+    retry_while with: linear_backoff(500, 1) |> expiry(100_000_000) do
+      with {:ok, json} <- get_transcript(id) do
         case json do
           %{"status" => "completed"} = response ->
             {:halt, {:ok, response}}

@@ -629,6 +629,7 @@ defmodule DiscussitWeb.CoreComponents do
       <.back navigate={~p"/posts"}>Back to posts</.back>
   """
   attr(:navigate, :any, required: true)
+  attr(:class, :string || {:array, :string})
   slot(:inner_block, required: true)
 
   def back(assigns) do
@@ -663,7 +664,7 @@ defmodule DiscussitWeb.CoreComponents do
       <.icon name="hero-bolt" class="bg-blue-500 w-10 h-10" />
   """
   attr(:name, :string, required: true)
-  attr(:class, :string, default: nil)
+  attr(:class, :any, default: nil)
 
   def icon(%{name: "hero-" <> _} = assigns) do
     ~H"""

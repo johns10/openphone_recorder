@@ -38,7 +38,13 @@ defmodule Discussit.Calls do
     |> where([p], p.status == ^status)
   end
 
-  def get_call!(id), do: Repo.get!(Call, id)
+  def get_call!(id, opts \\ []) do
+    preloads = Keyword.get(opts, :preloads, [])
+
+    Call
+    |> preload(^preloads)
+    |> Repo.get!(id)
+  end
 
   def create_call(attrs \\ %{}) do
     %Call{}
