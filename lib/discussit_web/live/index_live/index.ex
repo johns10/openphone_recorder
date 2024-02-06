@@ -164,7 +164,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   def handle_event("transcribe", %{"call-id" => call_id}, socket) do
     with %Call{} = call <- Calls.get_call!(call_id, preloads: [:conversation]),
          {:ok, call} <- Calls.update_call(call, %{status: :transcribing}) do
-      Transcription.transcribe(call)
+      Transcription.start(call)
 
       ended = %{
         type: "call_ended",
@@ -312,10 +312,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     end
   end
 
-  def handle_info(
-        %{topic: "calls", event: "call_updated", payload: _},
-        socket
-      ) do
+  def handle_info(%{event: "call_updated", payload: _}, socket) do
     {:noreply,
      socket
      |> replace_conversation_items(socket.assigns.conversation.id)}

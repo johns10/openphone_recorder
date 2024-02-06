@@ -46,15 +46,17 @@ defmodule Discussit.Transcription.AssemblyAI do
   end
 
   def get_all_completed_transcripts(ids) do
-    Enum.reduce_while(ids, {:ok, []}, fn id, {:ok, acc} ->
+    Enum.reduce_while(ids, {:ok, []}, fn id, {status, acc} ->
       case get_transcript(id) do
         {:ok, %{"status" => "completed"} = result} ->
-          {:cont, {:ok, [result | acc]}}
+          {:cont, {status, [result | acc]}}
 
-        {:ok, %{"status" => "error"}} = result ->
+        {:ok, %{"status" => "error"} = result} ->
           Logger.warn("Transcript #{id}", result: result)
-          IO.inspect(result)
-          {:halt, {:error, acc}}
+          {:cont, {:error, [result | acc]}}
+
+        {:ok, %{"status" => "processing"} = result} ->
+          {:cont, {:stop, [result | acc]}}
 
         _ ->
           {:halt, {:stop, acc}}

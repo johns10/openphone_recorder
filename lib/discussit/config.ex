@@ -1,14 +1,13 @@
 defmodule Discussit.Config do
   def ex_aws_s3_config() do
-    case Application.get_env(:discussit, :use_ngrok, false) do
-      false ->
+    case Application.get_env(:discussit, :ngrok_host, nil) do
+      nil ->
         ExAws.Config.new(:s3)
 
-      true ->
-        host = Ngrok.public_url(Discussit.MinioNgrok) |> String.replace("https://", "")
-
+      host ->
         ExAws.Config.new(:s3)
         |> Map.put(:host, host)
+        |> Map.put(:port, nil)
     end
   end
 end

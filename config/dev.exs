@@ -38,13 +38,12 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 config :phoenix, :plug_init_mode, :runtime
 config :discussit, :minio, true
-config :discussit, :use_ngrok, true
-config :ngrok, executable: "/opt/homebrew/bin/ngrok"
+config :discussit, :ngrok_host, "thankful-wildcat-seriously.ngrok-free.app"
 
 config :ex_aws, :s3,
   access_key_id: "minio_key",
   secret_access_key: "minio_secret",
-  scheme: "http://",
+  scheme: "https://",
   region: "local",
   host: "127.0.0.1",
   port: 9000,

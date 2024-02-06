@@ -1,13 +1,18 @@
 defmodule Discussit.Transcription do
-  @moduledoc """
-  The Transcription context.
-  """
-
   alias Discussit.Transcription.Support
 
-  def transcribe(struct) do
+  def start(struct) do
     %{data: struct, status: :ok}
     |> Support.prepare_files()
     |> Support.start_transcribing()
+  end
+
+  def finish(struct, account_id) do
+    %{status: :ok, data: struct, message: ""}
+    |> Support.finish_transcribing(account_id: account_id)
+    |> Support.build_statement_attrs()
+    |> Support.create_statements()
+    |> Support.update_data()
+    |> Support.prepare_return()
   end
 end

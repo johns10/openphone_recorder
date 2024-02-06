@@ -22,7 +22,7 @@ defmodule Discussit.Transcription.Resolver do
     calls
     |> Enum.filter(& &1.transcript_ids)
     |> Enum.reduce([], fn %{id: id, transcript_ids: ids} = call, acc ->
-      {status, _} = AssemblyAI.get_all_completed_transcripts(ids)
+      {status, transcripts} = AssemblyAI.get_all_completed_transcripts(ids)
 
       case status do
         :ok ->
@@ -33,6 +33,13 @@ defmodule Discussit.Transcription.Resolver do
           acc
 
         :error ->
+          error =
+            transcripts
+            |> Enum.filter(&(&1["status"] == "error"))
+            |> Enum.map(& &1["error"])
+            |> Enum.join(" ")
+
+          Logger.error("Transcription failed due to #{error}")
           Calls.update_call(call, %{transcription_ids: nil, status: :transcription_failed})
           acc
       end
@@ -42,8 +49,12 @@ defmodule Discussit.Transcription.Resolver do
     |> Enum.map(&Support.create_statements/1)
     |> Enum.map(&Support.update_data/1)
     |> Enum.map(&Support.prepare_return/1)
-    |> Enum.map(fn %{data: call} ->
-      DiscussitWeb.Endpoint.broadcast("account_#{call.conversation.account_id}", "calls", call)
+    |> Enum.map(fn call ->
+      DiscussitWeb.Endpoint.broadcast(
+        "account_#{call.conversation.account_id}",
+        "call_updated",
+        call
+      )
     end)
 
     Process.send_after(self(), :check_transcripts, 10_000)

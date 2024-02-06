@@ -138,7 +138,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   def handle_event("transcribe", %{"id" => id}, socket) do
     Task.start(fn ->
-      Transcription.transcribe([id], %Meeting{},
+      Transcription.start([id], %Meeting{},
         account_id: socket.assigns.current_user.selected_account_id,
         user_id: socket.assigns.current_user.id
       )

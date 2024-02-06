@@ -23,7 +23,6 @@ defmodule Discussit.Application do
         {Registry, keys: :unique, name: Discussit.StatusRegistry}
       ]
       |> minio()
-      |> ngrok()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -43,13 +42,6 @@ defmodule Discussit.Application do
     case Application.get_env(:discussit, :minio, nil) do
       nil -> children
       true -> children ++ [{MinioServer, Application.get_env(:ex_aws, :s3)}]
-    end
-  end
-
-  def ngrok(children) do
-    case Application.get_env(:discussit, :use_ngrok, nil) do
-      nil -> children
-      true -> children ++ [{Ngrok, port: 9000, name: Discussit.MinioNgrok}]
     end
   end
 end
