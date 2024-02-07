@@ -55,7 +55,6 @@ defmodule DiscussitWeb.MeetingLive.Index do
   @impl true
 
   def handle_info(%{event: "meeting_updated", payload: meeting}, socket) do
-    IO.puts("MU")
     {:noreply, stream_insert(socket, :meetings, meeting)}
   end
 

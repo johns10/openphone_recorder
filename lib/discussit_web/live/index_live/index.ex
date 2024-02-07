@@ -327,8 +327,6 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_info(%{event: "call_updated", payload: _}, socket) do
-    IO.puts("call_updated")
-
     {:noreply,
      socket
      |> replace_conversation_items(socket.assigns.conversation.id)}
