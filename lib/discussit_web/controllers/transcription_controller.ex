@@ -7,7 +7,7 @@ defmodule DiscussitWeb.TranscriptionController do
 
   action_fallback(DiscussitWeb.FallbackController)
 
-  def finish(conn, %{"call_id" => call_id, "status" => status} = payload) do
+  def finish(conn, %{"call_id" => call_id, "status" => status}) do
     call = Calls.get_call!(call_id, preloads: [:conversation])
 
     case status do

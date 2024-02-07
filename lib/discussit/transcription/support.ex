@@ -337,16 +337,16 @@ defmodule Discussit.Transcription.Support do
 
   def create_statements(%{status: :error} = state), do: state
 
-  def update_data(state, opts \\ [])
+  def update_data(state)
 
-  def update_data(%{data: %Meeting{} = meeting, statements: statements} = state, opts) do
+  def update_data(%{data: %Meeting{} = meeting} = state) do
     case Meetings.update_meeting(meeting, %{projector_status: :done}) do
       {:ok, meeting} -> %{state | data: meeting}
       {:error, _changeset} -> put_error(state, "failed to update call")
     end
   end
 
-  def update_data(%{data: %Call{} = call} = state, _opts) do
+  def update_data(%{data: %Call{} = call} = state) do
     case Calls.update_call(call, %{status: :transcribed}) do
       {:ok, call} ->
         %{state | data: call}

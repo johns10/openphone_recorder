@@ -146,6 +146,7 @@ defmodule Discussit.SummarizersFixtures do
     {:ok, summarizer} =
       attrs
       |> Enum.into(%{
+        name: "some name",
         prompt: "some prompt",
         chunker: :daily
       })

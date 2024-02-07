@@ -63,7 +63,7 @@ defmodule Discussit.StatementsFixtures do
     ]
   end
 
-  def sink_cleaning_contant() do
+  def sink_cleaning_content() do
     [
       "Hey, have you noticed how dirty the sink has become? It's in desperate need of cleaning.",
       "Yeah, you're right. It's been a while since we last gave it a thorough cleaning. I think it's time to roll up our sleeves and tackle it.",

@@ -3,6 +3,7 @@ defmodule Discussit.Transcription.Resolver do
   alias Discussit.Calls.Call
   alias Discussit.Transcription.Support
   alias Discussit.Calls
+  alias Discussit.Meetings
   alias Discussit.Transcription.AssemblyAI
 
   def apply(%Call{transcript_ids: ids, conversation: %{account_id: account_id}} = call) do

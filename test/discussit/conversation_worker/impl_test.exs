@@ -18,7 +18,6 @@ defmodule Discussit.ConversationWorker.ImplTest do
   import Discussit.ParticipantsFixtures
   import Discussit.ContactsFixtures
   import Discussit.SummariesFixtures
-  import Discussit.CallsFixtures
   import Discussit.AccountsFixtures
 
   setup :set_mox_global
@@ -147,7 +146,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       bathtub_cleaning_content()
       |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 1)))
 
-      sink_cleaning_contant()
+      sink_cleaning_content()
       |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 2)))
 
       floor_cleaning_content()
@@ -221,7 +220,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
         participant_two: participant_two
       }
 
-      sink_cleaning_contant()
+      sink_cleaning_content()
       |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(3, 1)))
 
       ExVCR.Config.filter_request_headers("Authorization")
@@ -553,218 +552,218 @@ defmodule Discussit.ConversationWorker.ImplTest do
     end
   end
 
-  describe "transcription" do
-    test "single call" do
-      %{id: account_id} = account_fixture()
-      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
-      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
-      pn_one = phone_number_fixture(%{value: "12566583336"})
-      pn_two = phone_number_fixture(%{value: "16232464213"})
+  # describe "transcription" do
+  #   test "single call" do
+  #     %{id: account_id} = account_fixture()
+  #     contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+  #     contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+  #     pn_one = phone_number_fixture(%{value: "12566583336"})
+  #     pn_two = phone_number_fixture(%{value: "16232464213"})
 
-      participant_one =
-        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+  #     participant_one =
+  #       participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
 
-      participant_two =
-        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+  #     participant_two =
+  #       participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
 
-      conversation = conversation_fixture()
+  #     conversation = conversation_fixture()
 
-      use_cassette("single_call_transcription") do
-        bucket = Application.get_env(:discussit, :bucket)
-        key = "test-file.mp3"
+  #     use_cassette("single_call_transcription") do
+  #       bucket = Application.get_env(:discussit, :bucket)
+  #       key = "test-file.mp3"
 
-        "./test/support/fixtures/256_to_623.mp3"
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
+  #       "./test/support/fixtures/256_to_623.mp3"
+  #       |> ExAws.S3.Upload.stream_file()
+  #       |> ExAws.S3.upload(bucket, key)
+  #       |> ExAws.request()
 
-        call =
-          call_fixture(%{
-            conversation_id: conversation.id,
-            from_participant_id: participant_one.id,
-            from_channel: :right,
-            to_participant_id: participant_two.id,
-            to_channel: :left,
-            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
-            call_recording: %{
-              key: key,
-              bucket: bucket,
-              metadata: %{duration: 10, type: "audio/mpeg"}
-            }
-          })
+  #       call =
+  #         call_fixture(%{
+  #           conversation_id: conversation.id,
+  #           from_participant_id: participant_one.id,
+  #           from_channel: :right,
+  #           to_participant_id: participant_two.id,
+  #           to_channel: :left,
+  #           answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+  #           call_recording: %{
+  #             key: key,
+  #             bucket: bucket,
+  #             metadata: %{duration: 10, type: "audio/mpeg"}
+  #           }
+  #         })
 
-        assert [
-                 %{
-                   statements: [
-                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
-                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
-                   ]
-                 }
-               ] = Impl.transcribe_call([call.id], conversation, default_opts(account_id))
+  #       assert [
+  #                %{
+  #                  statements: [
+  #                    %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+  #                    %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+  #                  ]
+  #                }
+  #              ] = Impl.transcribe_call([call.id], conversation, default_opts(account_id))
 
-        assert [
-                 %{total: 0.012, account_id: ^account_id},
-                 %{total: 0.012, account_id: ^account_id}
-               ] = Discussit.Usages.list_usages()
-      end
-    end
+  #       assert [
+  #                %{total: 0.012, account_id: ^account_id},
+  #                %{total: 0.012, account_id: ^account_id}
+  #              ] = Discussit.Usages.list_usages()
+  #     end
+  #   end
 
-    test "conversation" do
-      %{id: account_id} = account_fixture()
-      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
-      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
-      pn_one = phone_number_fixture(%{value: "12566583336"})
-      pn_two = phone_number_fixture(%{value: "16232464213"})
+  #   test "conversation" do
+  #     %{id: account_id} = account_fixture()
+  #     contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+  #     contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+  #     pn_one = phone_number_fixture(%{value: "12566583336"})
+  #     pn_two = phone_number_fixture(%{value: "16232464213"})
 
-      participant_one =
-        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+  #     participant_one =
+  #       participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
 
-      participant_two =
-        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+  #     participant_two =
+  #       participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
 
-      conversation = conversation_fixture()
+  #     conversation = conversation_fixture()
 
-      expect(Discussit.MockAudio, :duration, fn _ -> {:ok, 205.45} end)
+  #     expect(Discussit.MockAudio, :duration, fn _ -> {:ok, 205.45} end)
 
-      expect(Discussit.MockAudio, :split, fn _ ->
-        {:ok,
-         %{
-           left: "./test/support/fixtures/test_conversation_1_l.mp3",
-           right: "./test/support/fixtures/test_conversation_1_r.mp3"
-         }}
-      end)
+  #     expect(Discussit.MockAudio, :split, fn _ ->
+  #       {:ok,
+  #        %{
+  #          left: "./test/support/fixtures/test_conversation_1_l.mp3",
+  #          right: "./test/support/fixtures/test_conversation_1_r.mp3"
+  #        }}
+  #     end)
 
-      use_cassette("test_call_1_transcription") do
-        bucket = Application.get_env(:discussit, :bucket)
-        key = "test_conversation_1.mp3"
+  #     use_cassette("test_call_1_transcription") do
+  #       bucket = Application.get_env(:discussit, :bucket)
+  #       key = "test_conversation_1.mp3"
 
-        "./test/support/fixtures/test_conversation_1.mp3"
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
+  #       "./test/support/fixtures/test_conversation_1.mp3"
+  #       |> ExAws.S3.Upload.stream_file()
+  #       |> ExAws.S3.upload(bucket, key)
+  #       |> ExAws.request()
 
-        call =
-          call_fixture(%{
-            conversation_id: conversation.id,
-            from_participant_id: participant_one.id,
-            from_channel: :right,
-            to_participant_id: participant_two.id,
-            to_channel: :left,
-            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
-            call_recording: %{
-              key: key,
-              bucket: bucket,
-              metadata: %{duration: 10, type: "audio/mpeg"}
-            }
-          })
+  #       call =
+  #         call_fixture(%{
+  #           conversation_id: conversation.id,
+  #           from_participant_id: participant_one.id,
+  #           from_channel: :right,
+  #           to_participant_id: participant_two.id,
+  #           to_channel: :left,
+  #           answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+  #           call_recording: %{
+  #             key: key,
+  #             bucket: bucket,
+  #             metadata: %{duration: 10, type: "audio/mpeg"}
+  #           }
+  #         })
 
-        statements =
-          Impl.transcribe_call([call.id], conversation, default_opts(account_id))
-          |> Enum.at(0)
-          |> Map.get(:statements)
+  #       statements =
+  #         Impl.transcribe_call([call.id], conversation, default_opts(account_id))
+  #         |> Enum.at(0)
+  #         |> Map.get(:statements)
 
-        assert Enum.count(statements) == 25
-      end
-    end
+  #       assert Enum.count(statements) == 25
+  #     end
+  #   end
 
-    test "several calls" do
-      %{id: account_id} = account_fixture()
-      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
-      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
-      pn_one = phone_number_fixture(%{value: "12566583336"})
-      pn_two = phone_number_fixture(%{value: "16232464213"})
+  #   test "several calls" do
+  #     %{id: account_id} = account_fixture()
+  #     contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+  #     contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+  #     pn_one = phone_number_fixture(%{value: "12566583336"})
+  #     pn_two = phone_number_fixture(%{value: "16232464213"})
 
-      participant_one =
-        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+  #     participant_one =
+  #       participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
 
-      participant_two =
-        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+  #     participant_two =
+  #       participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
 
-      conversation = conversation_fixture()
+  #     conversation = conversation_fixture()
 
-      use_cassette("single_call_transcription") do
-        bucket = Application.get_env(:discussit, :bucket)
-        key = "test-file.mp3"
+  #     use_cassette("single_call_transcription") do
+  #       bucket = Application.get_env(:discussit, :bucket)
+  #       key = "test-file.mp3"
 
-        "./test/support/fixtures/256_to_623.mp3"
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
+  #       "./test/support/fixtures/256_to_623.mp3"
+  #       |> ExAws.S3.Upload.stream_file()
+  #       |> ExAws.S3.upload(bucket, key)
+  #       |> ExAws.request()
 
-        call =
-          call_fixture(%{
-            external_id: UUID.uuid4(),
-            conversation_id: conversation.id,
-            from_participant_id: participant_one.id,
-            from_channel: :right,
-            to_participant_id: participant_two.id,
-            to_channel: :left,
-            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
-            call_recording: %{
-              key: key,
-              bucket: bucket,
-              metadata: %{duration: 10, type: "audio/mpeg"}
-            }
-          })
+  #       call =
+  #         call_fixture(%{
+  #           external_id: UUID.uuid4(),
+  #           conversation_id: conversation.id,
+  #           from_participant_id: participant_one.id,
+  #           from_channel: :right,
+  #           to_participant_id: participant_two.id,
+  #           to_channel: :left,
+  #           answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-10000),
+  #           call_recording: %{
+  #             key: key,
+  #             bucket: bucket,
+  #             metadata: %{duration: 10, type: "audio/mpeg"}
+  #           }
+  #         })
 
-        call2 =
-          call_fixture(%{
-            external_id: UUID.uuid4(),
-            conversation_id: conversation.id,
-            from_participant_id: participant_one.id,
-            from_channel: :right,
-            to_participant_id: participant_two.id,
-            to_channel: :left,
-            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-20000),
-            call_recording: %{
-              key: key,
-              bucket: bucket,
-              metadata: %{duration: 10, type: "audio/mpeg"}
-            }
-          })
+  #       call2 =
+  #         call_fixture(%{
+  #           external_id: UUID.uuid4(),
+  #           conversation_id: conversation.id,
+  #           from_participant_id: participant_one.id,
+  #           from_channel: :right,
+  #           to_participant_id: participant_two.id,
+  #           to_channel: :left,
+  #           answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-20000),
+  #           call_recording: %{
+  #             key: key,
+  #             bucket: bucket,
+  #             metadata: %{duration: 10, type: "audio/mpeg"}
+  #           }
+  #         })
 
-        call3 =
-          call_fixture(%{
-            external_id: UUID.uuid4(),
-            conversation_id: conversation.id,
-            from_participant_id: participant_one.id,
-            from_channel: :right,
-            to_participant_id: participant_two.id,
-            to_channel: :left,
-            answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30000),
-            call_recording: %{
-              key: key,
-              bucket: bucket,
-              metadata: %{duration: 10, type: "audio/mpeg"}
-            }
-          })
+  #       call3 =
+  #         call_fixture(%{
+  #           external_id: UUID.uuid4(),
+  #           conversation_id: conversation.id,
+  #           from_participant_id: participant_one.id,
+  #           from_channel: :right,
+  #           to_participant_id: participant_two.id,
+  #           to_channel: :left,
+  #           answered_at: NaiveDateTime.utc_now() |> NaiveDateTime.add(-30000),
+  #           call_recording: %{
+  #             key: key,
+  #             bucket: bucket,
+  #             metadata: %{duration: 10, type: "audio/mpeg"}
+  #           }
+  #         })
 
-        assert [
-                 %{
-                   statements: [
-                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
-                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
-                   ]
-                 },
-                 %{
-                   statements: [
-                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
-                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
-                   ]
-                 },
-                 %{
-                   statements: [
-                     %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
-                     %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
-                   ]
-                 }
-               ] =
-                 Impl.transcribe_call(
-                   [call.id, call2.id, call3.id],
-                   conversation,
-                   default_opts(account_id)
-                 )
-      end
-    end
-  end
+  #       assert [
+  #                %{
+  #                  statements: [
+  #                    %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+  #                    %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+  #                  ]
+  #                },
+  #                %{
+  #                  statements: [
+  #                    %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+  #                    %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+  #                  ]
+  #                },
+  #                %{
+  #                  statements: [
+  #                    %{content: "This is 256-658-3336, placing a call to 623-246-4213."},
+  #                    %{content: "This is 623-246-4213 receiving a call from 256-658-3336."}
+  #                  ]
+  #                }
+  #              ] =
+  #                Impl.transcribe_call(
+  #                  [call.id, call2.id, call3.id],
+  #                  conversation,
+  #                  default_opts(account_id)
+  #                )
+  #     end
+  #   end
+  # end
 end

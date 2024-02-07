@@ -3,14 +3,9 @@ defmodule Discussit.TranscriptionTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   import Discussit.MeetingsFixtures
   alias Discussit.Transcription
-  alias Discussit.Meetings.Meeting
-  import Discussit.UsersFixtures
-  import Discussit.AccountsFixtures
 
   describe "transcription of meetings" do
     test "base case" do
-      user = user_fixture()
-      account = account_fixture()
       bucket = Application.get_env(:discussit, :bucket)
       key = "test-file.mp3"
 
@@ -23,16 +18,12 @@ defmodule Discussit.TranscriptionTest do
         |> ExAws.request()
       end
 
-      use_cassette("aai_transcription") do
+      %{id: id} =
         meeting =
-          meeting_fixture(%{files: [%{key: key, bucket: bucket, metadata: %{type: "audio/mp4"}}]})
+        meeting_fixture(%{files: [%{key: key, bucket: bucket, metadata: %{type: "audio/mp4"}}]})
 
-        use_cassette("256_to_623_retrieve_transcript_call") do
-          Transcription.start([meeting.id], %Meeting{},
-            user_id: user.id,
-            account_id: account.id
-          )
-        end
+      use_cassette("256_to_623_retrieve_transcript_call") do
+        assert %{status: :ok, data: %{id: ^id}} = Transcription.start(meeting)
       end
     end
   end

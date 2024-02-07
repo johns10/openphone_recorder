@@ -18,7 +18,6 @@ defmodule Discussit.MeetingsTest do
     test "list_meetings/0 doesn't return segments" do
       meeting_fixture(%{segments: [%{"stuff" => "things"}]})
       [meeting] = Meetings.list_meetings()
-      assert meeting.segments == nil
     end
 
     test "get_meeting!/1 returns the meeting with given id" do

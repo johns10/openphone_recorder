@@ -81,7 +81,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       DiscussitWeb.Endpoint.broadcast(
         "user_#{user.id}",
-        "meeting_transcription_progress",
+        "meeting_update",
         meeting |> Map.put(:projector_status, :in_progress)
       )
 
@@ -95,7 +95,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
       refute has_element?(index_live, "#meetings-#{meeting.id}")
     end
 
-    test "transcription", %{conn: conn, meeting: meeting, user: user} do
+    test "transcription", %{conn: conn, meeting: meeting} do
       {:ok, index_live, _html} = live(conn, ~p"/meetings")
 
       use_cassette("256_to_623_aai_call") do

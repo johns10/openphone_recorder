@@ -179,6 +179,8 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
   defp cast_reduction("percentage", percentage, _), do: cast_percent(percentage)
   defp cast_reduction(_, _, _), do: ""
 
+  defp cast_percent(""), do: "0%"
+
   defp cast_percent(percentage) when is_binary(percentage),
     do: percentage |> String.to_float() |> cast_percent()
 
