@@ -13,6 +13,7 @@ defmodule Discussit.Calls do
     |> preload(^preloads)
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_filter_by_status(filters[:status])
+    |> filter_by_inserted_before(filters[:inserted_before])
     |> Repo.all()
   end
 
@@ -37,6 +38,9 @@ defmodule Discussit.Calls do
     query
     |> where([p], p.status == ^status)
   end
+
+  defp filter_by_inserted_before(query, nil), do: query
+  defp filter_by_inserted_before(query, before), do: where(query, [p], p.inserted_at < ^before)
 
   def get_call!(id, opts \\ []) do
     preloads = Keyword.get(opts, :preloads, [])

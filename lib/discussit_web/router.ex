@@ -29,6 +29,7 @@ defmodule DiscussitWeb.Router do
     get("/", PageController, :home)
 
     resources("/events", EventController, except: [:new, :edit])
+    resources("/transcription", EventController, only: [:new, :edit])
   end
 
   scope "/api", DiscussitWeb do
@@ -39,6 +40,7 @@ defmodule DiscussitWeb.Router do
     # get "/events", EventController, :index
     # put "/events/:account_id/:id", EventController, :update
     # delete "/events/:id", EventController, :delete
+    post("/transcription/complete", TranscriptionController, :finish)
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

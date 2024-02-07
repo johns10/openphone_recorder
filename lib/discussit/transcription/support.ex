@@ -106,7 +106,11 @@ defmodule Discussit.Transcription.Support do
   end
 
   def start_transcribing(%{status: :ok, data: %Call{} = call, recordings: recordings} = state) do
-    opts = %{dual_channel: true}
+    opts = %{
+      dual_channel: true,
+      webhook_url:
+        "#{Discussit.Config.public_url()}/api/transcription/complete?call_id=#{call.id}"
+    }
 
     with {:ok, transcript_ids} <- start_transcriptions(recordings, opts),
          {:ok, call} <- Calls.update_call(call, %{transcript_ids: transcript_ids}) do

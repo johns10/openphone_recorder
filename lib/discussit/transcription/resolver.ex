@@ -1,22 +1,33 @@
 defmodule Discussit.Transcription.Resolver do
-  use GenServer
   require Logger
+  alias Discussit.Calls.Call
   alias Discussit.Transcription.Support
   alias Discussit.Calls
   alias Discussit.Transcription.AssemblyAI
 
-  def start_link(_) do
-    GenServer.start_link(__MODULE__, %{})
+  def apply(%Call{transcript_ids: ids, conversation: %{account_id: account_id}} = call) do
+    {status, transcripts} = AssemblyAI.get_all_completed_transcripts(ids)
+
+    case status do
+      :ok ->
+        Discussit.Transcription.finish(call, account_id)
+
+      :stop ->
+        nil
+
+      :error ->
+        error =
+          transcripts
+          |> Enum.filter(&(&1["status"] == "error"))
+          |> Enum.map(& &1["error"])
+          |> Enum.join(" ")
+
+        Logger.error("Transcription failed due to #{error}")
+        Calls.update_call(call, %{transcription_ids: nil, status: :transcription_failed})
+    end
   end
 
-  @impl true
-  def init(_) do
-    Process.send_after(self(), :check_transcripts, 1)
-    {:ok, %{}}
-  end
-
-  @impl true
-  def handle_info(:check_transcripts, state) do
+  def audit_calls() do
     calls = Calls.list_calls(filters: [status: :transcribing], preloads: [:conversation])
 
     calls
@@ -58,7 +69,5 @@ defmodule Discussit.Transcription.Resolver do
     end)
 
     Process.send_after(self(), :check_transcripts, 10_000)
-
-    {:noreply, state}
   end
 end

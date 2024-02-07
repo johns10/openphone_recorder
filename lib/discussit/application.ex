@@ -11,7 +11,6 @@ defmodule Discussit.Application do
       [
         DiscussitWeb.Telemetry,
         Discussit.Repo,
-        Discussit.Transcription.Resolver,
         {Phoenix.PubSub, name: Discussit.PubSub},
         {Finch, name: Discussit.Finch},
         DiscussitWeb.Endpoint,
