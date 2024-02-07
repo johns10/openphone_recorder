@@ -4,15 +4,18 @@ defmodule DiscussitWeb.MeetingLive.Index do
   alias Discussit.Meetings
   alias Discussit.Meetings.Meeting
   alias Discussit.Transcription
+  alias Discussit.Transcription.Resolver
 
   @impl true
   def mount(_params, _session, socket) do
     user_id = socket.assigns.current_user.id
     DiscussitWeb.Endpoint.subscribe("user_#{user_id}")
+    meetings = Meetings.list_meetings(limit: 20, filters: [user_id: user_id])
+    Resolver.audit_meetings(meetings)
 
     {:ok,
      socket
-     |> stream(:meetings, Meetings.list_meetings(limit: 20, filters: [user_id: user_id]))
+     |> stream(:meetings, meetings)
      |> assign(
        per_page: 20,
        page: 1,
@@ -51,7 +54,8 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   @impl true
 
-  def handle_info(%{event: "meeting_transcription_progress", payload: meeting}, socket) do
+  def handle_info(%{event: "meeting_updated", payload: meeting}, socket) do
+    IO.puts("MU")
     {:noreply, stream_insert(socket, :meetings, meeting)}
   end
 
@@ -137,14 +141,13 @@ defmodule DiscussitWeb.MeetingLive.Index do
   end
 
   def handle_event("transcribe", %{"id" => id}, socket) do
-    Task.start(fn ->
-      Transcription.start([id], %Meeting{},
-        account_id: socket.assigns.current_user.selected_account_id,
-        user_id: socket.assigns.current_user.id
-      )
-    end)
-
-    {:noreply, socket}
+    with %Meeting{} = meeting <- Meetings.get_meeting!(id),
+         {:ok, meeting} <- Meetings.update_meeting(meeting, %{projector_status: :in_progress}) do
+      Transcription.start(meeting)
+      {:noreply, socket |> stream_insert(:meetings, meeting)}
+    else
+      _ -> {:noreply, socket}
+    end
   end
 
   def handle_event("next-page", _, socket) do

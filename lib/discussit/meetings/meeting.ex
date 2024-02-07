@@ -15,7 +15,7 @@ defmodule Discussit.Meetings.Meeting do
     field :occurred_at, :naive_datetime_usec
     field :source, Ecto.Enum, values: [:zoom, :teams]
     field :upload_status, Ecto.Enum, values: [:created, :files_uploading, :files_uploaded]
-    field :projector_status, Ecto.Enum, values: [:not_started, :in_progress, :done]
+    field :projector_status, Ecto.Enum, values: [:not_started, :in_progress, :done, :error]
     field :external_id, :string
     field :transcript_ids, {:array, :string}
 

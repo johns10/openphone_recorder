@@ -92,7 +92,11 @@ defmodule Discussit.Transcription.Support do
   end
 
   def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state) do
-    opts = %{speaker_labels: true}
+    opts = %{
+      speaker_labels: true,
+      webhook_url:
+        "#{Discussit.Config.public_url()}/api/transcription/complete?meeting_id=#{meeting.id}"
+    }
 
     with {:ok, transcript_ids} <- start_transcriptions(rs, opts),
          {:ok, meeting} <- Meetings.update_meeting(meeting, %{transcript_ids: transcript_ids}) do

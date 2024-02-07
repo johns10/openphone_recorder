@@ -76,6 +76,11 @@
               name="hero-check"
               class="w-4 h-4 bg-success m-1"
             />
+            <.icon
+              :if={meeting.projector_status == :error}
+              name="hero-x-mark"
+              class="w-4 h-4 bg-error m-1"
+            />
           </div>
           <div id={"assignment-status-#{meeting.id}"}>
             <.icon :if={meeting.conversation_id} name="hero-check" class="w-4 h-4 bg-success m-1" />

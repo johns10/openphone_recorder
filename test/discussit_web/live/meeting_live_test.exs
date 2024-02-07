@@ -3,8 +3,9 @@ defmodule DiscussitWeb.MeetingLiveTest do
   alias Discussit.Statements
   alias Discussit.Meetings
   alias Discussit.Participants
-  use DiscussitWeb.ConnCase
+  alias Discussit.Files.File
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use DiscussitWeb.ConnCase
 
   import Phoenix.LiveViewTest
   import Discussit.MeetingsFixtures
@@ -30,7 +31,12 @@ defmodule DiscussitWeb.MeetingLiveTest do
   end
 
   defp create_meeting(%{user: user}) do
-    meeting = meeting_fixture(%{user_id: user.id, projector_status: :not_started})
+    meeting =
+      meeting_fixture(%{user_id: user.id, projector_status: :not_started})
+      |> Map.put(:files, [
+        %File{bucket: "test", key: "test", metadata: %{"type" => "audio/mp4"}}
+      ])
+
     %{meeting: meeting}
   end
 
@@ -92,21 +98,15 @@ defmodule DiscussitWeb.MeetingLiveTest do
     test "transcription", %{conn: conn, meeting: meeting, user: user} do
       {:ok, index_live, _html} = live(conn, ~p"/meetings")
 
-      DiscussitWeb.Endpoint.subscribe("user_#{user.id}")
+      use_cassette("256_to_623_aai_call") do
+        assert index_live
+               |> element("#transcribe-meetings-#{meeting.id}")
+               |> render_click()
+      end
 
-      assert index_live
-             |> element("#transcribe-meetings-#{meeting.id}")
-             |> render_click()
+      {:ok, meeting} = Meetings.update_meeting(meeting, %{projector_status: :done})
 
-      assert_receive(%{
-        event: "meeting_transcription_progress",
-        payload: %{projector_status: :in_progress}
-      })
-
-      assert_receive(%{
-        event: "meeting_transcription_progress",
-        payload: %{projector_status: :done}
-      })
+      send(index_live.pid, %{event: "meeting_updated", payload: meeting})
 
       assert index_live |> element("#projector-status-#{meeting.id}") |> render() =~
                "hero-check"

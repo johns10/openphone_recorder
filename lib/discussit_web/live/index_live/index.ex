@@ -178,13 +178,27 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_event("transcribe_conversation_calls", _, socket) do
-    ids =
+    socket =
       Calls.list_calls(
         filters: [conversation_id: socket.assigns.conversation.id, status: :file_uploaded]
       )
-      |> Enum.map(& &1.id)
-
-    ConversationWorker.transcribe_calls(socket.assigns.conversation, ids)
+      |> Enum.map(fn call ->
+        with {:ok, call} <- Calls.update_call(call, %{status: :transcribing}),
+             %{status: :ok, data: call} <- Transcription.start(call) do
+          call
+        else
+          _ -> call
+        end
+      end)
+      |> Enum.map(
+        &%{
+          type: "call_ended",
+          data: &1,
+          timestamp: &1.completed_at,
+          id: "call-completed-#{&1.id}"
+        }
+      )
+      |> Enum.reduce(socket, fn call, acc -> stream_insert(acc, :conversation_items, call) end)
 
     {:noreply, socket}
   end
@@ -313,6 +327,8 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_info(%{event: "call_updated", payload: _}, socket) do
+    IO.puts("call_updated")
+
     {:noreply,
      socket
      |> replace_conversation_items(socket.assigns.conversation.id)}
