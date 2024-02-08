@@ -59,7 +59,7 @@ defmodule Discussit.Events.Openphone.Projector do
           {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.update_call_recording(call, attrs)
+      Calls.update_voicemail(call, attrs)
     end
   end
 

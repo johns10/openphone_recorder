@@ -93,12 +93,36 @@ defmodule Discussit.Calls do
     |> File.changeset(%{call_recording_attrs | metadata: metadata_attrs})
     |> case do
       %{changes: changes} when changes == %{} -> {:ok, call}
-      changed -> {:error, "Cannot change call recording"}
+      _changed -> {:error, "Cannot change call recording"}
     end
   end
 
   def update_call_recording(%Call{} = call, %{status: :upload_empty}),
     do: update_call(call, %{status: :upload_empty})
+
+  def update_voicemail(%Call{voicemail: nil} = call, attrs) do
+    call
+    |> Call.update_changeset(attrs)
+    |> Repo.update()
+  end
+
+  def update_voicemail(
+        %Call{voicemail: voicemail} = call,
+        %{voicemail: %{metadata: metadata} = voicemail_attrs}
+      ) do
+    metadata_attrs =
+      Map.new(metadata, fn
+        {k, v} when is_binary(k) -> {k, v}
+        {k, v} when is_atom(k) -> {Atom.to_string(k), v}
+      end)
+
+    voicemail
+    |> File.changeset(%{voicemail_attrs | metadata: metadata_attrs})
+    |> case do
+      %{changes: changes} when changes == %{} -> {:ok, call}
+      _changed -> {:error, "Cannot change call recording"}
+    end
+  end
 
   def delete_call(%Call{} = call) do
     Repo.delete(call)
