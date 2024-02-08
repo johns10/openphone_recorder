@@ -44,6 +44,8 @@ defmodule Discussit.Meetings.Meeting do
       :external_id,
       :conversation_id,
       :transcript_ids
+      :segments,
+      :conversation_id
     ])
     |> cast_embed(:files)
     |> foreign_key_constraint(:user_id)

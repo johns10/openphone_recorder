@@ -194,6 +194,23 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
         assert file.metadata.type == "audio/mpeg"
       end
     end
+
+    test "two voicemails don't get overwritten" do
+      ExVCR.Config.filter_request_headers("Authorization")
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      use_cassette("2_voicemail_call_completed_projection") do
+        {:ok, %Call{voicemail: _file}} =
+          OpenphoneFixtures.call_completed()
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+
+        {:ok, %Call{voicemail: _file}} =
+          OpenphoneFixtures.call_completed()
+          |> Events.cast_event()
+          |> Projector.apply(account.id)
+      end
+    end
   end
 
   describe "CallRecordingCompleted" do
@@ -262,6 +279,22 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
 
         assert not is_nil(call.call_recording)
       end
+    end
+  end
+
+  describe "ContactDeleted" do
+    test "works" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      Discussit.ContactsFixtures.contact_fixture(%{
+        external_id: "CT643452a4da87a11f79bbc55b",
+        source: :openphone
+      })
+
+      assert {:ok, %Contact{}} =
+               OpenphoneFixtures.contact_deleted(%{external_id: "CT643452a4da87a11f79bbc55b"})
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
     end
   end
 

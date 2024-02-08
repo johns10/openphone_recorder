@@ -15,6 +15,7 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Participants.Participant
   alias Discussit.Calls
   alias Discussit.Contacts
+  alias Discussit.Contacts.Contact
 
   alias Discussit.Events.Openphone.CallCompleted
   alias Discussit.Events.Openphone.CallRinging
@@ -24,6 +25,7 @@ defmodule Discussit.Events.Openphone.Projector do
   alias Discussit.Events.Openphone.MessageDelivered
 
   alias Discussit.Events.Openphone.ContactUpdated
+  alias Discussit.Events.Openphone.ContactDeleted
 
   alias Discussit.Events.Openphone.Data.Call
   alias Discussit.Events.Openphone.Data.Media
@@ -57,7 +59,7 @@ defmodule Discussit.Events.Openphone.Projector do
           {:error, :failed_download} -> %{status: :upload_failed}
         end
 
-      Calls.update_call_recording(call, attrs)
+      Calls.update_voicemail(call, attrs)
     end
   end
 
@@ -101,6 +103,15 @@ defmodule Discussit.Events.Openphone.Projector do
          {:ok, %{contact_phone_numbers: _contact_phone_numbers}} <-
            ContactPhoneNumbers.get_or_insert_all_contact_phone_number(cpn_attrs) do
       {:ok, Contacts.get_contact!(contact.id, preloads: [:phone_numbers])}
+    end
+  end
+
+  def apply(%ContactDeleted{data: contact}, account_id) do
+    with contact_attrs <- Contacts.Contact.cast_openphone_contact(contact, account_id),
+         %Contact{} = contact <-
+           Contacts.get_contact_by(%{external_id: contact_attrs.external_id, source: :openphone}),
+         {:ok, contact} <- Contacts.delete_contact(contact) do
+      {:ok, contact}
     end
   end
 
