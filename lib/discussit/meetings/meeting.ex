@@ -43,8 +43,7 @@ defmodule Discussit.Meetings.Meeting do
       :user_id,
       :external_id,
       :conversation_id,
-      :transcript_ids
-      :segments,
+      :transcript_ids,
       :conversation_id
     ])
     |> cast_embed(:files)
