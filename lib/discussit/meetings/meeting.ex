@@ -17,7 +17,6 @@ defmodule Discussit.Meetings.Meeting do
     field :upload_status, Ecto.Enum, values: [:created, :files_uploading, :files_uploaded]
     field :projector_status, Ecto.Enum, values: [:not_started, :in_progress, :done]
     field :external_id, :string
-    field :transcript_id, :string
     field :segments, {:array, :map}
 
     embeds_many :files, File
@@ -44,8 +43,7 @@ defmodule Discussit.Meetings.Meeting do
       :user_id,
       :external_id,
       :segments,
-      :conversation_id,
-      :transcript_id
+      :conversation_id
     ])
     |> cast_embed(:files)
     |> foreign_key_constraint(:user_id)

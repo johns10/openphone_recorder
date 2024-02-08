@@ -12,6 +12,7 @@ defmodule Discussit.Events.Openphone.Helpers do
   alias Discussit.Events.Openphone.MessageDelivered
 
   alias Discussit.Events.Openphone.ContactUpdated
+  alias Discussit.Events.Openphone.ContactDeleted
 
   @call_schemas [
     CallCompleted,
@@ -25,7 +26,8 @@ defmodule Discussit.Events.Openphone.Helpers do
   ]
 
   @contact_schemas [
-    ContactUpdated
+    ContactUpdated,
+    ContactDeleted
   ]
 
   def cast_module_name("call.completed"), do: CallCompleted
@@ -36,6 +38,7 @@ defmodule Discussit.Events.Openphone.Helpers do
   def cast_module_name("message.received"), do: MessageReceived
 
   def cast_module_name("contact.updated"), do: ContactUpdated
+  def cast_module_name("contact.deleted"), do: ContactDeleted
 
   def changeset(event, params \\ %{})
 

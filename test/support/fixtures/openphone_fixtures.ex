@@ -395,4 +395,34 @@ defmodule Discussit.OpenphoneFixtures do
     """
     |> Jason.decode!()
   end
+
+  def contact_deleted(%{external_id: external_id}) do
+    """
+    {
+      "apiVersion": "v3",
+      "createdAt": "2024-02-07T16:16:34.076Z",
+      "data": {
+        "object": {
+          "clientId": "5af42894-e51e-4c31-8e33-6775a466ce12",
+          "createdAt": "2024-02-07T16:16:24.408Z",
+          "firstName": "Leslie",
+          "id": "#{external_id}",
+          "lastName": "",
+          "notes": [],
+          "object": "contact",
+          "sharedWith": [
+            "UShk0sCp2n",
+            "OR60CD87vA"
+          ],
+          "updatedAt": "2024-02-07T16:16:34.066Z",
+          "userId": "UShk0sCp2n"
+        }
+      },
+      "id": "EVb0f620f6907f48f1bf03545694023aeb",
+      "object": "event",
+      "type": "contact.deleted"
+    }
+    """
+    |> Jason.decode!()
+  end
 end

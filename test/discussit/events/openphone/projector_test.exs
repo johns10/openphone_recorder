@@ -265,6 +265,22 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
     end
   end
 
+  describe "ContactDeleted" do
+    test "works" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      Discussit.ContactsFixtures.contact_fixture(%{
+        external_id: "CT643452a4da87a11f79bbc55b",
+        source: :openphone
+      })
+
+      assert {:ok, %Contact{}} =
+               OpenphoneFixtures.contact_deleted(%{external_id: "CT643452a4da87a11f79bbc55b"})
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
+    end
+  end
+
   describe "ContactUpdated" do
     test "Does nothing when the phone number isn't valid" do
       account = Discussit.AccountsFixtures.account_fixture()

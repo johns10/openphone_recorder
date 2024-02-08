@@ -42,6 +42,11 @@ defmodule Discussit.Contacts do
     |> Repo.get!(id)
   end
 
+  def get_contact_by(filters \\ []) do
+    Contact
+    |> Repo.get_by(filters)
+  end
+
   defp filter_by_account_id(query, nil), do: query
 
   defp filter_by_account_id(query, account_id) do
