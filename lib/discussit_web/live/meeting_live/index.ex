@@ -142,7 +142,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
   def handle_event("transcribe", %{"id" => id}, socket) do
     with %Meeting{} = meeting <- Meetings.get_meeting!(id),
          {:ok, meeting} <- Meetings.update_meeting(meeting, %{projector_status: :in_progress}) do
-      Transcription.start(meeting)
+      Transcription.start(meeting, account_id: socket.assigns.current_user.selected_account_id)
       {:noreply, socket |> stream_insert(:meetings, meeting)}
     else
       _ -> {:noreply, socket}

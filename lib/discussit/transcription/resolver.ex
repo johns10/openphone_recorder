@@ -4,7 +4,30 @@ defmodule Discussit.Transcription.Resolver do
   alias Discussit.Transcription.Support
   alias Discussit.Calls
   alias Discussit.Meetings
+  alias Discussit.Meetings.Meeting
   alias Discussit.Transcription.AssemblyAI
+
+  def apply(%Meeting{transcript_ids: ids} = meeting, account_id) do
+    {status, transcripts} = AssemblyAI.get_all_completed_transcripts(ids)
+
+    case status do
+      :ok ->
+        Discussit.Transcription.finish(meeting, account_id)
+
+      :stop ->
+        nil
+
+      :error ->
+        error =
+          transcripts
+          |> Enum.filter(&(&1["status"] == "error"))
+          |> Enum.map(& &1["error"])
+          |> Enum.join(" ")
+
+        Logger.error("Transcription failed due to #{error}")
+        Meetings.update_meeting(meeting, %{transcription_ids: nil, projector_status: :error})
+    end
+  end
 
   def apply(%Call{transcript_ids: ids, conversation: %{account_id: account_id}} = call) do
     {status, transcripts} = AssemblyAI.get_all_completed_transcripts(ids)

@@ -91,11 +91,15 @@ defmodule Discussit.Transcription.Support do
     Map.put(file, :url, url)
   end
 
-  def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state) do
+  def start_transcribing(state, opts \\ [])
+
+  def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state, opts) do
+    account_id = opts[:account_id]
+
     opts = %{
       speaker_labels: true,
       webhook_url:
-        "#{Discussit.Config.public_url()}/api/transcription/complete?meeting_id=#{meeting.id}"
+        "#{Discussit.Config.public_url()}/api/transcription/complete?meeting_id=#{meeting.id}&account_id=#{account_id}"
     }
 
     with {:ok, transcript_ids} <- start_transcriptions(rs, opts),
@@ -109,7 +113,10 @@ defmodule Discussit.Transcription.Support do
     end
   end
 
-  def start_transcribing(%{status: :ok, data: %Call{} = call, recordings: recordings} = state) do
+  def start_transcribing(
+        %{status: :ok, data: %Call{} = call, recordings: recordings} = state,
+        _opts
+      ) do
     opts = %{
       dual_channel: true,
       webhook_url:
@@ -127,7 +134,7 @@ defmodule Discussit.Transcription.Support do
     end
   end
 
-  def start_transcribing(%{status: :error} = state), do: state
+  def start_transcribing(%{status: :error} = state, _opts), do: state
 
   defp start_transcriptions(recordings, opts) do
     Enum.reduce_while(recordings, {:ok, []}, fn %{url: url}, {:ok, acc} ->

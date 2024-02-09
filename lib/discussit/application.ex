@@ -17,7 +17,7 @@ defmodule Discussit.Application do
         {Oban, Application.fetch_env!(:discussit, Oban)},
         {Discussit.Events.Consumer, %{count: :inf}},
         # {Discussit.Embeddings.Server, %{}},
-        {Discussit.Embeddings.ModelStatus, %{}},
+        # {Discussit.Embeddings.ModelStatus, %{}},
         {DynamicSupervisor, strategy: :one_for_one, name: Discussit.StatusSupervisor},
         {Registry, keys: :unique, name: Discussit.StatusRegistry}
       ]

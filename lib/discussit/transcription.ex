@@ -1,10 +1,10 @@
 defmodule Discussit.Transcription do
   alias Discussit.Transcription.Support
 
-  def start(struct) do
+  def start(struct, opts \\ []) do
     %{data: struct, status: :ok}
     |> Support.prepare_files()
-    |> Support.start_transcribing()
+    |> Support.start_transcribing(opts)
   end
 
   def finish(struct, account_id) do

@@ -44,7 +44,7 @@ config :discussit, :ngrok_host, "thankful-wildcat-seriously.ngrok-free.app"
 config :ex_aws, :s3,
   access_key_id: "minio_key",
   secret_access_key: "minio_secret",
-  scheme: "https://",
+  scheme: "http://",
   region: "local",
   host: "127.0.0.1",
   port: 9000,

@@ -29,7 +29,7 @@ defmodule DiscussitWeb.TranscriptionController do
     |> render(:show, %{})
   end
 
-  def finish(conn, %{"meeting_id" => meeting_id, "status" => status}) do
+  def finish(conn, %{"meeting_id" => meeting_id, "status" => status, "account_id" => account_id}) do
     meeting = Meetings.get_meeting!(meeting_id)
 
     case status do
@@ -42,7 +42,7 @@ defmodule DiscussitWeb.TranscriptionController do
         broadcast_meeting(meeting)
 
       "completed" ->
-        meeting = Resolver.apply(meeting)
+        Resolver.apply(meeting, account_id)
         broadcast_meeting(meeting)
     end
 

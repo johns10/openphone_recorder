@@ -10,11 +10,11 @@ ImportZoomMeetings = {
       createMeeting(this)
     })
 
-    this.handleEvent("meeting-created", incoming => {
+    this.handleEvent("meeting-created", async incoming => {
       this.pushEvent("meeting-uploading", { id: incoming.id })
-      uploadMeeting(incoming)
+      await uploadMeeting(incoming)
       this.pushEvent("meeting-uploaded", { id: incoming.id })
-      createMeeting(this)
+      await createMeeting(this)
     })
 
     this.el.addEventListener("click", async e => {
@@ -32,17 +32,17 @@ async function createMeeting(hook) {
 }
 
 async function uploadMeeting(incoming) {
-  incoming.files.map(async incomingFile => {
+  for await (const incomingFile of incoming.files) {
     const file = FILES[incomingFile.key]
     const fileData = await file.handle.getFile();
-    const request = await fetch(incomingFile.url, {
+    return await fetch(incomingFile.url, {
       method: "PUT",
       body: fileData,
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
     });
-  })
+  }
 }
 
 async function getDirectories(handle) {
