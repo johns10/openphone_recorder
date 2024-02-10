@@ -61,12 +61,22 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
   def handle_event("assign-to-conversation", %{"id" => conversation_id}, socket) do
     meeting = socket.assigns.meeting
 
+    statements =
+      Statements.list_statements(
+        filters: [meeting_id: meeting.id],
+        preloads: [:participant, [participant: :contact]],
+        order_by: [occurred_at: :asc]
+      )
+
     Meetings.update_meeting(meeting, %{conversation_id: conversation_id})
     |> case do
       {:ok, meeting} ->
         update_meeting_statements(meeting.id, conversation_id)
         update_meeting_participants(meeting.id, conversation_id)
-        {:noreply, assign(socket, :meeting, meeting)}
+
+        {:noreply,
+         assign(socket, :meeting, meeting)
+         |> stream(:statements, statements, reset: true)}
 
       {:error, _changeset} ->
         {:noreply,
