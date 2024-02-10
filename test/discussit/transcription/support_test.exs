@@ -148,6 +148,20 @@ defmodule Discussit.Transcription.SupportTest do
       end
     end
 
+    test "meeting case failure", %{user: user, account: account} do
+      meeting =
+        MeetingsFixtures.meeting_fixture(%{
+          user_id: user.id,
+          transcript_ids: ["7a2d8e66-8620-4e05-aece-d6dc4812da58"]
+        })
+
+      use_cassette("failure 02092024") do
+        Support.finish_transcribing(%{status: :ok, data: meeting, message: ""},
+          account_id: account.id
+        )
+      end
+    end
+
     test "call case", %{account: account} do
       conversation = ConversationsFixtures.conversation_fixture(%{account_id: account.id})
 

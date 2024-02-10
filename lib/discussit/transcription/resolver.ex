@@ -51,7 +51,7 @@ defmodule Discussit.Transcription.Resolver do
     end
   end
 
-  def audit_meetings(meetings) do
+  def audit_meetings(meetings, account_id) do
     meetings
     |> Enum.filter(& &1.transcript_ids)
     |> Enum.filter(&(&1.projector_status == :in_progress))
@@ -83,7 +83,7 @@ defmodule Discussit.Transcription.Resolver do
           acc
       end
     end)
-    |> Enum.map(&Support.finish_transcribing/1)
+    |> Enum.map(&Support.finish_transcribing(&1, account_id: account_id))
     |> Enum.map(&Support.build_statement_attrs/1)
     |> Enum.map(&Support.create_statements/1)
     |> Enum.map(&Support.update_data/1)

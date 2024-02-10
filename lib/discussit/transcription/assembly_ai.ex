@@ -13,9 +13,8 @@ defmodule Discussit.Transcription.AssemblyAI do
 
     with {:ok, id} <- start_transcription(link),
          updater.(id),
-         {:ok, %{"utterances" => utterances, "audio_duration" => duration}} <-
-           finish_transcription(id, opts) do
-      {:ok, %{segments: utterances, duration: duration}}
+         {:ok, response} <- finish_transcription(id, opts) do
+      {:ok, cast_response(response)}
     else
       {:ok, %{status_code: _}} ->
         Logger.error("Assembly AI call failed")
@@ -40,8 +39,7 @@ defmodule Discussit.Transcription.AssemblyAI do
   def finish_transcription(id, opts) do
     with {:ok, response} <- wait_until_transcription_completes(id),
          {:ok, _usage} <- create_usage(response, opts) do
-      %{"utterances" => utterances, "audio_duration" => duration} = response
-      {:ok, %{segments: utterances, duration: duration}}
+      {:ok, cast_response(response)}
     end
   end
 
@@ -111,4 +109,19 @@ defmodule Discussit.Transcription.AssemblyAI do
     |> Usages.calculate_total()
     |> Usages.create_usage()
   end
+
+  defp cast_response(response) do
+    %{}
+    |> cast_duration(response)
+    |> cast_utterances(response)
+  end
+
+  defp cast_duration(result, %{"audio_duration" => duration}),
+    do: Map.put(result, :duration, duration)
+
+  defp cast_utterances(result, %{"utterances" => nil}),
+    do: Map.put(result, :segments, [])
+
+  defp cast_utterances(result, %{"utterances" => utterances}),
+    do: Map.put(result, :segments, utterances)
 end

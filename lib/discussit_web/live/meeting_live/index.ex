@@ -11,7 +11,7 @@ defmodule DiscussitWeb.MeetingLive.Index do
     user_id = socket.assigns.current_user.id
     DiscussitWeb.Endpoint.subscribe("user_#{user_id}")
     meetings = Meetings.list_meetings(limit: 20, filters: [user_id: user_id])
-    Resolver.audit_meetings(meetings)
+    Resolver.audit_meetings(meetings, socket.assigns.current_user.selected_account_id)
 
     {:ok,
      socket

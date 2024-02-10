@@ -43,9 +43,17 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         preloads: [participants: :contact]
       )
 
+    statements =
+      Statements.list_statements(
+        filters: [meeting_id: meeting.id],
+        preloads: [:participant, [participant: :contact]],
+        order_by: [occurred_at: :asc]
+      )
+
     {:ok,
      socket
      |> assign(:meeting, %{meeting | participants: participants})
+     |> stream(:statements, statements, reset: true)
      |> assign(:conversations, conversations)}
   end
 

@@ -1,0 +1,31 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "a85db95d4747404a883869b1b3a5e50c"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.assemblyai.com/v2/transcript/7a2d8e66-8620-4e05-aece-d6dc4812da58"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"id\": \"7a2d8e66-8620-4e05-aece-d6dc4812da58\", \"language_model\": \"assemblyai_default\", \"acoustic_model\": \"assemblyai_default\", \"language_code\": \"en_us\", \"status\": \"completed\", \"audio_url\": \"https://s3.us-east-2.amazonaws.com/discussit-production/meetings/664ba557-da28-5251-9f5d-e47d83064822?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA45HMJC5K7FGQ6UP3%2F20240209%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20240209T202629Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=81f66575c9c94c85982acfd5e6e4212781ed2219c3b27c5019ee71426b535222\", \"text\": \"\", \"words\": [], \"utterances\": null, \"confidence\": 0.0, \"audio_duration\": 5, \"punctuate\": true, \"format_text\": true, \"dual_channel\": false, \"webhook_url\": \"https://app.discussit.ai/api/transcription/complete?meeting_id=814&account_id=cbab5998-8026-476c-9f0f-2dcb3f065a5c\", \"webhook_status_code\": 500, \"webhook_auth\": false, \"webhook_auth_header_name\": null, \"speed_boost\": false, \"auto_highlights_result\": null, \"auto_highlights\": false, \"audio_start_from\": null, \"audio_end_at\": null, \"word_boost\": [], \"boost_param\": null, \"filter_profanity\": false, \"redact_pii\": false, \"redact_pii_audio\": false, \"redact_pii_audio_quality\": null, \"redact_pii_policies\": null, \"redact_pii_sub\": null, \"speaker_labels\": true, \"content_safety\": false, \"iab_categories\": false, \"content_safety_labels\": {\"status\": \"unavailable\", \"results\": [], \"summary\": {}}, \"iab_categories_result\": {\"status\": \"unavailable\", \"results\": [], \"summary\": {}}, \"language_detection\": false, \"custom_spelling\": null, \"throttled\": null, \"auto_chapters\": false, \"summarization\": false, \"summary_type\": null, \"summary_model\": null, \"custom_topics\": false, \"topics\": [], \"speech_threshold\": null, \"speech_model\": null, \"chapters\": null, \"disfluencies\": false, \"entity_detection\": false, \"entities\": null, \"speakers_expected\": null, \"summary\": null, \"sentiment_analysis\": false, \"sentiment_analysis_results\": null}",
+      "headers": {
+        "Date": "Sat, 10 Feb 2024 03:05:57 GMT",
+        "Content-Type": "application/json; charset=UTF-8",
+        "Content-Length": "1940",
+        "Connection": "keep-alive",
+        "Set-Cookie": "AWSALBTG=FXVRyKs7G1qt4dHGoK94B/kJOsLKxGnuwPY7LD1rZpQF76uf4TGvlMRj3BPJwHDTxpsq2iEDB+xZEKAoXMIwTmlPewFq9gEB1D6jnW839B5w8ZvXbu+rVdjaWc0WBVVHEuXsVkP9RTrkWxlRJ8ijawTw9muXPeaFyNdVjDWv2vF4; Expires=Sat, 17 Feb 2024 03:05:56 GMT; Path=/",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With",
+        "Access-Control-Allow-Methods": "POST, PUT, GET, OPTIONS",
+        "Etag": "\"0f03085946d386ebab4adcc0d2bbdc360570f341\""
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
