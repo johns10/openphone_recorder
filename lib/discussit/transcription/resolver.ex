@@ -15,7 +15,7 @@ defmodule Discussit.Transcription.Resolver do
         Discussit.Transcription.finish(meeting, account_id)
 
       :stop ->
-        nil
+        meeting
 
       :error ->
         error =
@@ -25,7 +25,12 @@ defmodule Discussit.Transcription.Resolver do
           |> Enum.join(" ")
 
         Logger.error("Transcription failed due to #{error}")
+
         Meetings.update_meeting(meeting, %{transcription_ids: nil, projector_status: :error})
+        |> case do
+          {:ok, meeting} -> meeting
+          {:error, _} -> :error
+        end
     end
   end
 
@@ -37,7 +42,7 @@ defmodule Discussit.Transcription.Resolver do
         Discussit.Transcription.finish(call, account_id)
 
       :stop ->
-        nil
+        call
 
       :error ->
         error =

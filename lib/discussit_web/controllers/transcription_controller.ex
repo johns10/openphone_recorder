@@ -43,7 +43,7 @@ defmodule DiscussitWeb.TranscriptionController do
 
       "completed" ->
         Resolver.apply(meeting, account_id)
-        broadcast_meeting(meeting)
+        |> broadcast_meeting()
     end
 
     conn
