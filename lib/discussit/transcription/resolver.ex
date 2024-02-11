@@ -52,7 +52,12 @@ defmodule Discussit.Transcription.Resolver do
           |> Enum.join(" ")
 
         Logger.error("Transcription failed due to #{error}")
+
         Calls.update_call(call, %{transcription_ids: nil, status: :transcription_failed})
+        |> case do
+          {:ok, call} -> call
+          {:error, _} -> :error
+        end
     end
   end
 
