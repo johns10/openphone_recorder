@@ -9,7 +9,7 @@ defmodule Discussit.Summarizers.Summarizer do
     field :reducer_prompt, :string
 
     field :chunker, Ecto.Enum,
-      values: [:daily, :weekly, :monthly, :yearly, :topical, :token_count]
+      values: [:none, :daily, :weekly, :monthly, :yearly, :topical, :token_count]
 
     field :percentage_reduction, :float
     field :fixed_reduction, :integer

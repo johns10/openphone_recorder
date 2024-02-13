@@ -32,6 +32,11 @@ defmodule Discussit.Meetings do
     |> Repo.get!(id)
   end
 
+  def get_meeting_by(filters) do
+    Meeting
+    |> Repo.get_by(filters)
+  end
+
   def get_meeting_summary!(id) do
     Meeting
     |> join(:left, [m], pn in assoc(m, :participants), as: :participant)

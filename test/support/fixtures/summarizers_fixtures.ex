@@ -138,8 +138,45 @@ defmodule Discussit.SummarizersFixtures do
           <%= context %>
           \"\"\"
         ],
-        chunker: :monthly,
+        chunker: :token_count,
         fixed_reduction: 300
+      })
+
+  def custom_summarizer_fixture(),
+    do:
+      summarizer_fixture(%{
+        name: "daily",
+        prompt: ~s[
+          Summarize the following conversation, maintaining the key context and important details:
+          \"\"\"\<%= context %>\"\"\"
+          Be sure to capture any recurring events or topics and provide their respective counts.
+          Your summary should be concise yet comprehensive, focusing on the most relevant information.
+          Summarize the content to approximately <%= percentage_reduction * 100 %>% of its original length.
+        ],
+        reducer_prompt: ~s[
+          <%= if previous_summary == "" do %>
+          The text data for this segment exceeds the context window.
+          Start a summary of the following segment of the conversation, maintaining the key context and important details
+          Assume the conversation will continue.
+          CONVERSATION: \"\"\"
+          <%= context %>
+          \"\"\"
+          Be sure to capture any recurring events or topics and provide their respective counts.
+          Your summary should be concise yet comprehensive, focusing on the most relevant information within the given segment.
+          <% else %>
+          The text data for this segment exceeds the context window.
+          Summarize the following segment of the conversation, maintaining the key context and important details:
+          \"\"\"
+          <%= context %>
+          \"\"\"
+          Be sure to capture any recurring events or topics and provide their respective counts.
+          Your summary should be concise yet comprehensive, focusing on the most relevant information within the given segment.
+          Continue the previous summary:
+          <%= previous_summary %>
+          <% end %>
+        ],
+        percentage_reduction: 0.25,
+        chunker: :none
       })
 
   def summarizer_fixture(attrs \\ %{}) do

@@ -20,7 +20,10 @@
     </div>
     <div id="meetings" phx-update="stream">
       <div :for={{id, meeting} <- @streams.meetings} class="flex flex-row justify-between" id={id}>
-        <.link phx-click={JS.patch(~p"/meetings/#{meeting.id}/show")} class="hover:bg-base-200">
+        <.link
+          phx-click={meeting.id && JS.patch(~p"/meetings/#{meeting.id}/show")}
+          class="hover:bg-base-200"
+        >
           <div class="flex flex-row items-center">
             <div class="flex flex-col">
               <div class="flex flex-row">

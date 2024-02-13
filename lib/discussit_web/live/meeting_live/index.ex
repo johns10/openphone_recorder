@@ -21,7 +21,8 @@ defmodule DiscussitWeb.MeetingLive.Index do
        page: 1,
        end_of_timeline?: false,
        uploaded: nil,
-       directories: nil
+       directories: nil,
+       meeting_changeset: nil
      ), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -71,6 +72,8 @@ defmodule DiscussitWeb.MeetingLive.Index do
   end
 
   def handle_event("create-meeting", %{"name" => name, "files" => files} = attrs, socket) do
+    IO.puts("create meeting #{name}")
+    user_id = socket.assigns.current_user.id
     [date_string, time_string | rest] = String.split(name, " ")
     {:ok, date} = Date.from_iso8601(date_string)
     {:ok, time} = time_string |> String.replace(".", ":") |> Time.from_iso8601()
@@ -94,48 +97,54 @@ defmodule DiscussitWeb.MeetingLive.Index do
         }
       end)
 
-    attrs
-    |> Map.put("name", name)
-    |> Map.put("occurred_at", occurred_at)
-    |> Map.put("files", file_attrs)
-    |> Map.put("user_id", socket.assigns.current_user.id)
-    |> Map.put("projector_status", :not_started)
-    |> Meetings.create_meeting()
-    |> case do
-      {:ok, meeting} ->
-        {:noreply,
-         socket
-         |> stream_insert(:meetings, meeting)
-         |> push_event("meeting-created", meeting)
-         |> assign(:uploaded, socket.assigns.uploaded + 1)}
+    attrs =
+      attrs
+      |> Map.put("name", name)
+      |> Map.put("occurred_at", occurred_at)
+      |> Map.put("files", file_attrs)
+      |> Map.put("user_id", socket.assigns.current_user.id)
+      |> Map.put("projector_status", :not_started)
 
-      {:error, %{errors: [name: {"has already been taken", [{:constraint, :unique} | _]}]}} ->
+    changeset = Meetings.change_meeting(%Meeting{}, attrs)
+
+    with {:ok, meeting} <- Ecto.Changeset.apply_action(changeset, :insert),
+         nil <-
+           Meetings.get_meeting_by(%{user_id: user_id, name: name, occurred_at: occurred_at}) do
+      {:noreply,
+       socket
+       |> stream_insert(:meetings, meeting, at: -1)
+       |> push_event("meeting-created", meeting)
+       |> assign(:meeting_changeset, changeset)
+       |> assign(:uploaded, socket.assigns.uploaded + 1)}
+    else
+      {:error, _changeset} ->
+        {:noreply, put_flash(socket, :error, "Failed to create meeting")}
+
+      %Meeting{} ->
         {:noreply,
          socket
          |> push_event("meeting-exists", %{})
          |> assign(:directories, socket.assigns.directories - 1)}
-
-      {:error, _changeset} ->
-        {:noreply, put_flash(socket, :error, "Failed to create meeting")}
     end
   end
 
-  def handle_event("meeting-uploading", %{"id" => id}, socket) do
+  def handle_event("meeting-uploading", %{"id" => _id}, socket) do
     {:ok, meeting} =
-      id
-      |> Meetings.get_meeting!()
-      |> Meetings.update_meeting(%{upload_status: :files_uploading})
+      socket.assigns.meeting_changeset
+      |> Ecto.Changeset.put_change(:upload_status, :files_uploading)
+      |> Ecto.Changeset.apply_action(:update)
 
     {:noreply, socket |> stream_insert(:meetings, meeting)}
   end
 
-  def handle_event("meeting-uploaded", %{"id" => id}, socket) do
+  def handle_event("meeting-uploaded", %{"id" => _id}, socket) do
     {:ok, meeting} =
-      id
-      |> Meetings.get_meeting!()
-      |> Meetings.update_meeting(%{upload_status: :files_uploaded})
+      socket.assigns.meeting_changeset
+      |> Ecto.Changeset.put_change(:upload_status, :files_uploaded)
+      |> Discussit.Repo.insert()
 
-    {:noreply, socket |> stream_insert(:meetings, meeting)}
+    {:noreply,
+     socket |> stream_insert(:meetings, meeting, at: -1) |> assign(:meeting_changeset, nil)}
   end
 
   def handle_event("transcribe", %{"id" => id}, socket) do

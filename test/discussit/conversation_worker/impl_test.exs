@@ -225,16 +225,9 @@ defmodule Discussit.ConversationWorker.ImplTest do
 
       ExVCR.Config.filter_request_headers("Authorization")
 
-      use_cassette("daily_conversation_summaries",
-        match_requests_on: [:request_body]
-      ) do
-        assert [
-                 %Summary{
-                   content:
-                     "Jane and John discuss the importance of regularly cleaning the sink to maintain" <>
-                       _
-                 }
-               ] = Impl.create_daily_summaries(cs, default_opts(account_id))
+      use_cassette("daily_conversation_summaries", match_requests_on: [:request_body]) do
+        assert [%Summary{content: "Jane and John discuss the importance" <> _}] =
+                 Impl.create_daily_summaries(cs, default_opts(account_id))
       end
     end
   end
@@ -548,6 +541,123 @@ defmodule Discussit.ConversationWorker.ImplTest do
 
       use_cassette("long_monthly_conversation_summary", match_requests_on: [:request_body]) do
         Impl.create_monthly_summaries(cs, default_opts(account_id))
+      end
+    end
+  end
+
+  describe "custom summarizers" do
+    test "summarizes" do
+      %{id: account_id} = account_fixture()
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566786789"})
+      pn_two = phone_number_fixture(%{value: "12566736789"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      %{id: conversation_id} = conversation = conversation_fixture()
+      %{id: summarizer_id} = summarizer = custom_summarizer_fixture()
+
+      cs =
+        conversation_summarizer_fixture(%{
+          summarizer_id: summarizer_id,
+          conversation_id: conversation_id
+        })
+        |> Map.put(:conversation, conversation)
+        |> Map.put(:summarizer, summarizer)
+
+      attrs = %{
+        conversation_id: conversation_id,
+        participant_one: participant_one,
+        participant_two: participant_two
+      }
+
+      sink_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(3, 1)))
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      use_cassette("custom_conversation_summaries",
+        match_requests_on: [:request_body]
+      ) do
+        assert [%Summary{content: "John and Jane notice that the sink is dirty" <> _}] =
+                 Impl.create_custom_summary(cs, default_opts(account_id))
+      end
+    end
+
+    test "custom summarizers over token limit" do
+      %{id: account_id} = account_fixture()
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566786789"})
+      pn_two = phone_number_fixture(%{value: "12566736789"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      %{id: conversation_id} = conversation = conversation_fixture()
+      %{id: daily_id} = daily = daily_summarizer_fixture()
+
+      cs =
+        conversation_summarizer_fixture(%{
+          summarizer_id: daily_id,
+          conversation_id: conversation_id
+        })
+        |> Map.put(:conversation, conversation)
+        |> Map.put(:summarizer, daily)
+
+      attrs = %{
+        conversation_id: conversation_id,
+        participant_one: participant_one,
+        participant_two: participant_two
+      }
+
+      bathtub_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 1)))
+
+      sink_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 2)))
+
+      floor_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 3)))
+
+      toilet_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 4)))
+
+      shower_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 5)))
+
+      floor_cleaning_content_2()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 6)))
+
+      oven_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 7)))
+
+      cabinet_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 8)))
+
+      baseboard_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 9)))
+
+      wall_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 10)))
+
+      ceiling_fan_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(1, 11)))
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      use_cassette("custom_conversation_summaries_over_token_limit",
+        match_requests_on: [:request_body]
+      ) do
+        Impl.create_custom_summary(cs, default_opts(account_id))
       end
     end
   end
