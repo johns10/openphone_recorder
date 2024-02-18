@@ -5,7 +5,6 @@ defmodule Discussit.ConversationSummarizers.Task do
     queue: :conversation_summarizer,
     unique: [fields: [:args], states: [:available, :scheduled, :executing, :retryable]]
 
-  alias Discussit.StatusAgent
   alias Discussit.ConversationSummarizers
   @impl Oban.Worker
   def perform(%Oban.Job{args: args}) do

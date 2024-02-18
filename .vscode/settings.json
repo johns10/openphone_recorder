@@ -3,6 +3,7 @@
     "assemblyai",
     "autoshow",
     "chunker",
+    "chunkers",
     "daisyui",
     "datastructure",
     "describedby",
@@ -32,6 +33,7 @@
     "tabindex",
     "tbody",
     "thead",
+    "upsert",
     "whereis",
     "whootie"
   ]
