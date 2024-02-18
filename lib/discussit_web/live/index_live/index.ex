@@ -177,7 +177,7 @@ defmodule DiscussitWeb.IndexLive.Index do
   defp apply_action(%{assigns: %{current_user: %{selected_account_id: nil}}} = socket, _, _),
     do: socket
 
-  defp apply_action(socket, :index, %{"conversation_id" => _} = params) do
+  defp apply_action(socket, :index, %{"id" => _} = params) do
     socket
     |> handle_conversation_id(params)
     |> handle_summarizer_id(params)
