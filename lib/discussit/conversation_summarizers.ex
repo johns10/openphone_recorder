@@ -47,6 +47,23 @@ defmodule Discussit.ConversationSummarizers do
     |> Repo.update()
   end
 
+  def upsert_conversation_summarizer(attrs \\ %{}) do
+    case get_conversation_summarizer_by(Map.take(attrs, [:conversation_id, :summarizer_id])) do
+      nil -> create_conversation_summarizer(attrs)
+      conversation_summarizer -> {:ok, conversation_summarizer}
+    end
+    |> case do
+      {:ok, conversation_summarizer} ->
+        update_conversation_summarizer(
+          conversation_summarizer,
+          Map.drop(attrs, [:conversation_id, :summarizer_id])
+        )
+
+      other ->
+        other
+    end
+  end
+
   def delete_conversation_summarizer(%ConversationSummarizer{} = conversation_summarizer) do
     Repo.delete(conversation_summarizer)
   end

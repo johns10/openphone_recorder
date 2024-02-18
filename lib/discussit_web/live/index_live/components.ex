@@ -27,11 +27,7 @@ defmodule DiscussitWeb.IndexLive.Components do
 
   def summarize_conversation_button(assigns) do
     ~H"""
-    <button
-      class="btn btn-xs btn-secondary"
-      phx-click={paywall("summarize", @account)}
-      disabled={@worker_busy?}
-    >
+    <button class="btn btn-xs btn-secondary" phx-click={paywall("summarize", @account)}>
       Summarize
     </button>
     """
@@ -45,7 +41,6 @@ defmodule DiscussitWeb.IndexLive.Components do
         class="btn btn-xs btn-secondary rounded-b-none"
         phx-click={paywall("transcribe_conversation_calls", @account)}
         phx-value-conversation-id={@conversation.id}
-        disabled={@worker_busy?}
       >
         Transcribe
       </button>

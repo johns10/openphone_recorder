@@ -16,26 +16,22 @@ defmodule DiscussitWeb.IndexLive.Index do
   alias Discussit.Calls.Call
   alias Discussit.Statements
   alias Discussit.Participants
-  alias Discussit.ConversationWorker
   alias Discussit.Summaries.Summary
   alias Discussit.Summarizers
   alias Discussit.ConversationSummarizers
-  alias Discussit.StatusAgent
 
   @impl true
   def mount(_, _, %{assigns: %{current_user: %{selected_account_id: nil}}} = socket) do
     {:ok,
      socket
      |> assign(:zoom_level, 0)
-     |> assign(:transcription_status, %{error: 0, in_progress: 0, success: 0, not_started: 1})
+     |> assign(:transcription_status, %{error: 0, in_progress: 0, success: 0, not_started: 0})
      |> assign(conversations_per_page: 20, conversation_page: 1)
      |> assign(:conversation, nil)
      |> assign(:conversation_id, nil)
      |> stream(:conversations, [])
      |> assign(:end_of_timeline?, false)
-     |> assign(:worker_busy?, true)
      |> assign(:conversation_summarizer, nil)
-     |> assign(:conversation_summarizer_status, nil)
      |> assign(:summarizers, [])
      |> assign(:summarizer, nil)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
@@ -55,11 +51,9 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> assign(:conversation_id, nil)
      |> stream(:conversations, conversations)
      |> assign(:end_of_timeline?, false)
-     |> assign(:worker_busy?, true)
      |> assign(:summarizers, [])
      |> assign(:summarizer, nil)
      |> assign(:conversation_summarizer, nil)
-     |> assign(:conversation_summarizer_status, nil)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -73,23 +67,12 @@ defmodule DiscussitWeb.IndexLive.Index do
     do: {:noreply, socket}
 
   def handle_event("summarize", %{"summarizer-id" => summarizer_id}, socket) do
-    conversation_summarizer =
-      case ConversationSummarizers.get_conversation_summarizer_by(%{
-             conversation_id: socket.assigns.conversation.id,
-             summarizer_id: summarizer_id
-           }) do
-        nil ->
-          {:ok, conversation_summarizer} =
-            ConversationSummarizers.create_conversation_summarizer(%{
-              conversation_id: socket.assigns.conversation.id,
-              summarizer_id: summarizer_id
-            })
-
-          conversation_summarizer
-
-        conversation_summarizer ->
-          conversation_summarizer
-      end
+    {:ok, conversation_summarizer} =
+      ConversationSummarizers.upsert_conversation_summarizer(%{
+        conversation_id: socket.assigns.conversation.id,
+        summarizer_id: summarizer_id,
+        status: :waiting
+      })
 
     %{
       "conversation_summarizer_id" => conversation_summarizer.id,
@@ -98,18 +81,7 @@ defmodule DiscussitWeb.IndexLive.Index do
     |> Discussit.ConversationSummarizers.Task.new()
     |> Oban.insert()
 
-    conversation_summarizer
-    |> StatusAgent.name()
-    |> Atom.to_string()
-    |> DiscussitWeb.Endpoint.subscribe()
-
-    {:noreply, socket}
-  end
-
-  def handle_event("summarize", _, socket) do
-    # ConversationWorker.run_summarizers(socket.assigns.conversation)
-
-    {:noreply, socket}
+    {:noreply, socket |> assign(:conversation_summarizer, conversation_summarizer)}
   end
 
   def handle_event("zoom", %{"zoom" => "0"}, socket) do
@@ -203,81 +175,13 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket}
   end
 
-  def handle_event("set-summarizer", %{"summarizer_id" => summarizer_id}, socket) do
-    summarizer = Summarizers.get_summarizer!(summarizer_id)
-
-    conversation_summarizer =
-      ConversationSummarizers.get_conversation_summarizer_by(%{
-        summarizer_id: summarizer.id,
-        conversation_id: socket.assigns.conversation.id
-      })
-
-    status =
-      with %ConversationSummarizer{} <- conversation_summarizer,
-           name <- StatusAgent.name(conversation_summarizer),
-           {:ok, status} <- StatusAgent.get(name) do
-        status
-      end
-
-    {
-      :noreply,
-      socket
-      |> assign(:summarizer, summarizer)
-      |> assign(:conversation_summarizer, conversation_summarizer)
-      |> assign(:conversation_summarizer_status, status)
-    }
-  end
-
   defp apply_action(%{assigns: %{current_user: %{selected_account_id: nil}}} = socket, _, _),
     do: socket
 
-  defp apply_action(socket, :index, %{"id" => conversation_id}) do
-    user = socket.assigns.current_user
-
-    conversation =
-      Conversations.get_conversation_summary!(
-        conversation_id,
-        socket.assigns.current_user.selected_account_id
-      )
-
-    conversation
-    |> ConversationWorker.name()
-    |> Atom.to_string()
-    |> DiscussitWeb.Endpoint.subscribe()
-
-    if socket.assigns.conversation,
-      do:
-        socket.assigns.conversation
-        |> ConversationWorker.name()
-        |> Atom.to_string()
-        |> DiscussitWeb.Endpoint.unsubscribe()
-
-    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
-      :ok ->
-        ConversationWorker.new(%{
-          conversation: conversation,
-          account: socket.assigns.current_user.selected_account
-        })
-
-        ConversationWorker.get_conversation_summarizers(conversation)
-        ConversationWorker.busy?(conversation)
-
-        summarizers =
-          Summarizers.list_summarizers(filters: [account_id: user.selected_account_id])
-
-        socket
-        |> replace_conversation_items(conversation_id)
-        |> assign(:page_title, "Listing Conversations")
-        |> assign(:conversation, conversation)
-        |> assign(:summarizers, summarizers)
-        |> assign(:conversation_id, conversation.id)
-        |> assign_transcription_status(conversation_id)
-
-      {:error, :unauthorized} ->
-        socket
-        |> push_patch(to: ~p"/home")
-        |> put_flash(:error, "You cannot access this conversation")
-    end
+  defp apply_action(socket, :index, params) do
+    socket
+    |> handle_conversation_id(params)
+    |> handle_summarizer_id(params)
   end
 
   defp apply_action(socket, :index, _params) do
@@ -304,12 +208,6 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> push_patch(to: ~p"/home")}
   end
 
-  def handle_info(%{event: "busy"}, socket),
-    do: {:noreply, socket |> assign(:worker_busy?, true) |> push_event("worker_busy", %{})}
-
-  def handle_info(%{event: "idle"}, socket),
-    do: {:noreply, socket |> assign(:worker_busy?, false) |> push_event("worker_idle", %{})}
-
   def handle_info(
         %{event: "summary_created", payload: %Summary{level: level} = summary},
         socket
@@ -332,8 +230,11 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> replace_conversation_items(socket.assigns.conversation.id)}
   end
 
-  def handle_info(%{event: "status_update", payload: status}, socket) do
-    {:noreply, socket |> assign(:conversation_summarizer_status, status)}
+  def handle_info(
+        %{event: "conversation_summarizer_updated", payload: %{id: same_id} = cs},
+        %{assigns: %{conversation_summarizer: %{id: same_id}}} = socket
+      ) do
+    {:noreply, socket |> assign(:conversation_summarizer, cs)}
   end
 
   defp append_conversations(socket, new_page) when new_page >= 1 do
@@ -496,4 +397,61 @@ defmodule DiscussitWeb.IndexLive.Index do
 
     assign(socket, :transcription_status, status)
   end
+
+  defp handle_conversation_id(%{assigns: %{conversation: %{id: same_id}}} = socket, %{
+         "id" => same_id
+       }),
+       do: socket
+
+  defp handle_conversation_id(socket, %{"id" => conversation_id}) do
+    user = socket.assigns.current_user
+
+    conversation =
+      Conversations.get_conversation_summary!(
+        conversation_id,
+        socket.assigns.current_user.selected_account_id
+      )
+
+    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
+      :ok ->
+        summarizers =
+          Summarizers.list_summarizers(filters: [account_id: user.selected_account_id])
+
+        socket
+        |> replace_conversation_items(conversation_id)
+        |> assign(:page_title, "Listing Conversations")
+        |> assign(:conversation, conversation)
+        |> assign(:summarizers, summarizers)
+        |> assign(:conversation_id, conversation.id)
+        |> assign_transcription_status(conversation_id)
+
+      {:error, :unauthorized} ->
+        socket
+        |> push_patch(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this conversation")
+    end
+  end
+
+  defp handle_conversation_id(socket, _), do: socket
+
+  defp handle_summarizer_id(%{assigns: %{summarizer: %{id: same_id}}} = socket, %{
+         "summarizer_id" => same_id
+       }),
+       do: socket
+
+  defp handle_summarizer_id(socket, %{"summarizer_id" => summarizer_id}) do
+    summarizer = Summarizers.get_summarizer!(summarizer_id)
+
+    conversation_summarizer =
+      ConversationSummarizers.get_conversation_summarizer_by(%{
+        summarizer_id: summarizer.id,
+        conversation_id: socket.assigns.conversation_id
+      })
+
+    socket
+    |> assign(:summarizer, summarizer)
+    |> assign(:conversation_summarizer, conversation_summarizer)
+  end
+
+  defp handle_summarizer_id(socket, _), do: socket
 end

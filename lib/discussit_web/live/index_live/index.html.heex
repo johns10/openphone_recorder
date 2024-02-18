@@ -43,7 +43,6 @@
     <.participant_header conversation={@conversation} />
     <.transcribe_conversation_button
       conversation={@conversation}
-      worker_busy?={@worker_busy?}
       transcription_status={@transcription_status}
       account={@current_user.selected_account}
     />
@@ -55,41 +54,42 @@
         </summary>
         <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
           <li :for={summarizer <- @summarizers}>
-            <.link phx-click={
-              JS.remove_attribute("open", to: "#summarizers-dropdown")
-              |> JS.push("set-summarizer", value: %{summarizer_id: summarizer.id})
-            }>
+            <.link
+              patch={~p"/conversations/#{@conversation}?summarizer_id=#{summarizer.id}"}
+              id={"summarizer-button-#{summarizer.id}"}
+            >
               <%= summarizer.name %>
             </.link>
           </li>
         </ul>
       </details>
-      <div class="join">
+      <div :if={@summarizer} class="join">
         <.link
-          :if={!@summarizer || @conversation_summarizer_status == :running}
-          class="btn btn-xs btn-secondary join-item btn-disabled"
-        >
-          <.icon
-            name="hero-arrow-path"
-            class={[
-              "w-4 h-4",
-              if(@conversation_summarizer_status == :running, do: "animate-spin")
-            ]}
-          />
-        </.link>
-        <.link
-          :if={@summarizer && @conversation_summarizer_status in [nil, :not_started, :done]}
+          :if={
+            !@conversation_summarizer ||
+              (@conversation_summarizer && @conversation_summarizer.status in [nil, :idle, :done])
+          }
           class="btn btn-xs btn-secondary join-item"
+          id="start-summarizer"
           phx-click="summarize"
           phx-value-summarizer-id={@summarizer.id}
+          class="btn btn-xs btn-secondary join-item"
         >
-          <.icon name="hero-arrow-path" class="w-4 h-4" />
+          <.icon name="hero-play" class="w-4 h-4" />
         </.link>
         <.link
-          :if={!@conversation_summarizer}
+          :if={@conversation_summarizer && @conversation_summarizer.status == :waiting}
+          id="start-summarizer"
           class="btn btn-xs btn-secondary join-item btn-disabled"
         >
-          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+          <.icon name="hero-play" class="w-4 h-4 btn-disabled" />
+        </.link>
+        <.link
+          :if={@conversation_summarizer && @conversation_summarizer.status == :busy}
+          id="start-summarizer"
+          class="btn btn-xs btn-secondary join-item btn-disabled"
+        >
+          <.icon name="hero-arrow-path" class="w-4 h-4 animate-spin" />
         </.link>
         <.link
           :if={@conversation_summarizer}
@@ -98,12 +98,20 @@
         >
           <.icon name="hero-magnifying-glass" class="w-4 h-4" />
         </.link>
+        <.button :if={!@conversation_summarizer} class="btn-xs btn-disabled join-item">
+          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+        </.button>
+      </div>
+      <div :if={!@summarizer} class="join">
+        <.button class="btn btn-xs btn-secondary join-item btn-disabled">
+          <.icon name="hero-play" class="w-4 h-4" />
+        </.button>
+        <.button class="btn btn-xs btn-secondary join-item btn-disabled">
+          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+        </.button>
       </div>
 
-      <.summarize_conversation_button
-        account={@current_user.selected_account}
-        worker_busy?={@worker_busy?}
-      />
+      <.summarize_conversation_button account={@current_user.selected_account} />
       <.form for={%{}} as={:zoom_form} phx-change="zoom" class="w-24" id="zoom-form">
         <input
           type="range"
