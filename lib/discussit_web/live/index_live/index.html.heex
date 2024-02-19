@@ -85,6 +85,15 @@
           <.icon name="hero-play" class="w-4 h-4 btn-disabled" />
         </.link>
         <.link
+          :if={@conversation_summarizer && @conversation_summarizer.status == :waiting}
+          id="cancel-summarizer"
+          phx-click="cancel-summarizer"
+          phx-value-id={@conversation_summarizer.id}
+          class="btn btn-xs btn-secondary join-item"
+        >
+          <.icon name="hero-x-mark" class="w-4 h-4" />
+        </.link>
+        <.link
           :if={@conversation_summarizer && @conversation_summarizer.status == :busy}
           id="start-summarizer"
           class="btn btn-xs btn-secondary join-item btn-disabled"
@@ -92,7 +101,14 @@
           <.icon name="hero-arrow-path" class="w-4 h-4 animate-spin" />
         </.link>
         <.link
-          :if={@conversation_summarizer}
+          :if={@conversation_summarizer && @conversation_summarizer.status == :busy}
+          id="cancel-summarizer"
+          class="btn btn-xs btn-secondary join-item"
+        >
+          <.icon name="hero-x-mark" class="w-4 h-4" />
+        </.link>
+        <.link
+          :if={@conversation_summarizer && @conversation_summarizer.status == :done}
           href={~p"/conversation_summarizers/#{@conversation_summarizer}"}
           class="btn btn-xs btn-secondary join-item"
         >

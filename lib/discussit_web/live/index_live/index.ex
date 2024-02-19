@@ -83,6 +83,12 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket |> assign(:conversation_summarizer, conversation_summarizer)}
   end
 
+  def handle_event("cancel-summarizer", %{"id" => id}, socket) do
+    cs = ConversationSummarizers.get_conversation_summarizer!(id)
+    {:ok, cs} = ConversationSummarizers.update_conversation_summarizer(cs, %{status: :idle})
+    {:noreply, socket |> assign(:conversation_summarizer, cs)}
+  end
+
   def handle_event("zoom", %{"zoom" => "0"}, socket) do
     {:noreply, replace_conversation_items(socket, socket.assigns.conversation.id)}
   end
@@ -235,6 +241,8 @@ defmodule DiscussitWeb.IndexLive.Index do
       ) do
     {:noreply, socket |> assign(:conversation_summarizer, cs)}
   end
+
+  def handle_info(_, socket), do: {:noreply, socket}
 
   defp append_conversations(socket, new_page) when new_page >= 1 do
     %{conversations_per_page: per_page} = socket.assigns
@@ -397,12 +405,13 @@ defmodule DiscussitWeb.IndexLive.Index do
     assign(socket, :transcription_status, status)
   end
 
-  defp handle_conversation_id(%{assigns: %{conversation: %{id: same_id}}} = socket, %{
-         "id" => same_id
-       }),
-       do: socket
+  defp handle_conversation_id(%{assigns: %{conversation: %{id: same}}} = socket, %{"id" => same}) do
+    IO.puts("Same id")
+    socket
+  end
 
   defp handle_conversation_id(socket, %{"id" => conversation_id}) do
+    IO.puts("different")
     user = socket.assigns.current_user
 
     conversation =
@@ -431,7 +440,10 @@ defmodule DiscussitWeb.IndexLive.Index do
     end
   end
 
-  defp handle_conversation_id(socket, _), do: socket
+  defp handle_conversation_id(socket, _) do
+    IO.puts("catchall")
+    socket
+  end
 
   defp handle_summarizer_id(%{assigns: %{summarizer: %{id: same_id}}} = socket, %{
          "summarizer_id" => same_id
