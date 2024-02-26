@@ -15,6 +15,7 @@ defmodule Discussit.ConversationSummarizers do
     ConversationSummarizer
     |> maybe_filter_by_conversation_id(filters[:conversation_id])
     |> maybe_filter_by_summarizer_id(filters[:summarizer_id])
+    |> filter_by_conversation_summarizer_plan_id(filters[:conversation_summarizer_plan_id])
     |> preload(^preloads)
     |> Repo.all()
   end
@@ -84,4 +85,9 @@ defmodule Discussit.ConversationSummarizers do
 
   defp maybe_filter_by_summarizer_id(query, summarizer_id),
     do: where(query, [s], s.summarizer_id == ^summarizer_id)
+
+  defp filter_by_conversation_summarizer_plan_id(query, nil), do: query
+
+  defp filter_by_conversation_summarizer_plan_id(query, conversation_summarizer_plan),
+    do: where(query, [s], s.conversation_summarizer_plan == ^conversation_summarizer_plan)
 end
