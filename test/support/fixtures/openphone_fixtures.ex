@@ -321,13 +321,15 @@ defmodule Discussit.OpenphoneFixtures do
 
   def contact_updated(attrs \\ %{})
 
-  def contact_updated(%{phone_number: nil}) do
+  def contact_updated(%{phone_number: nil} = attrs) do
+    external_id = Map.get(attrs, :external_id, "CT643452a4da87a11f79bbc55b")
+
     """
     {
      "id": "EVf08755a27aed4b4dab904acbb27e1450",
      "data": {
        "object": {
-         "id": "CT643452a4da87a11f79bbc55b",
+         "id": "#{external_id}",
          "notes": [],
          "fields": {},
          "object": "contact",
@@ -369,6 +371,8 @@ defmodule Discussit.OpenphoneFixtures do
           "\"+#{phone_number}\""
       end
 
+    external_id = Map.get(attrs, :external_id, "CT643452a4da87a11f79bbc55b")
+
     """
     {
       "apiVersion": "v3",
@@ -379,7 +383,7 @@ defmodule Discussit.OpenphoneFixtures do
           "createdAt": "2023-03-30T22:32:12.319Z",
           "fields": {"Phone": #{phone_number_string}},
           "firstName": "Jayson",
-          "id": "CT64260c5cd1c90ca558ff6edb",
+          "id": "#{external_id}",
           "lastName": "",
           "notes": [],
           "object": "contact",

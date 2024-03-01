@@ -82,7 +82,7 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         {:noreply,
          socket
          |> put_flash(:error, "Failed to assign meeting to conversation")
-         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
+         |> push_patch(to: ~p"/meetings/#{meeting.id}/show")}
     end
   end
 
@@ -102,7 +102,7 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         {:noreply,
          socket
          |> put_flash(:error, "Failed to remove meeting from conversation")
-         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
+         |> push_patch(to: ~p"/meetings/#{meeting.id}/show")}
     end
   end
 
@@ -121,11 +121,13 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         update_meeting_participants(meeting.id, conversation.id)
         {:noreply, socket |> assign(:meeting, meeting)}
 
-      {:error, _changeset} ->
+      {:error, changeset} ->
+        IO.inspect(changeset)
+
         {:noreply,
          socket
          |> put_flash(:error, "Failed to create conversation for meeting")
-         |> push_patch(to: ~p"/meetings/#{meeting.id}")}
+         |> push_patch(to: ~p"/meetings/#{meeting.id}/show")}
     end
   end
 

@@ -296,6 +296,29 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
                |> Events.cast_event()
                |> Projector.apply(account.id)
     end
+
+    test "two contacts, same phone number" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      OpenphoneFixtures.contact_updated(%{
+        phone_numbers: ["12566581234"],
+        external_id: "CT643452a4da87a11f79bbc55b"
+      })
+      |> Events.cast_event()
+      |> Projector.apply(account.id)
+
+      OpenphoneFixtures.contact_updated(%{
+        phone_numbers: ["12566581234"],
+        external_id: "CT643452a4da87a11f79bbc55c"
+      })
+      |> Events.cast_event()
+      |> Projector.apply(account.id)
+
+      assert {:ok, %Contact{}} =
+               OpenphoneFixtures.contact_deleted(%{external_id: "CT643452a4da87a11f79bbc55b"})
+               |> Events.cast_event()
+               |> Projector.apply(account.id)
+    end
   end
 
   describe "ContactUpdated" do
@@ -354,6 +377,42 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
                OpenphoneFixtures.contact_updated(%{phone_number: nil})
                |> Events.cast_event()
                |> Projector.apply(account.id)
+    end
+
+    test "handles it when another contact gets that phone number" do
+      account = Discussit.AccountsFixtures.account_fixture()
+
+      Discussit.ContactsFixtures.contact_fixture(%{
+        external_id: "CT643452a4da87a11f79bbc55c",
+        source: :openphone
+      })
+
+      Discussit.ContactsFixtures.contact_fixture(%{
+        external_id: "CT643452a4da87a11f79bbc55b",
+        source: :openphone
+      })
+
+      OpenphoneFixtures.contact_updated(%{
+        phone_numbers: ["12566581234"],
+        external_id: "CT643452a4da87a11f79bbc55c"
+      })
+      |> Events.cast_event()
+      |> Projector.apply(account.id)
+
+      OpenphoneFixtures.contact_updated(%{
+        phone_numbers: ["12566581235"],
+        external_id: "CT643452a4da87a11f79bbc55b"
+      })
+      |> Events.cast_event()
+      |> Projector.apply(account.id)
+
+      OpenphoneFixtures.contact_updated(%{
+        phone_numbers: ["12566581234"],
+        external_id: "CT643452a4da87a11f79bbc55b"
+      })
+      |> Events.cast_event()
+      |> Projector.apply(account.id)
+      |> IO.inspect()
     end
   end
 end

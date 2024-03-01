@@ -112,6 +112,8 @@ defmodule Discussit.Events.Openphone.Projector do
            Contacts.get_contact_by(%{external_id: contact_attrs.external_id, source: :openphone}),
          {:ok, contact} <- Contacts.delete_contact(contact) do
       {:ok, contact}
+    else
+      nil -> {:ok, nil}
     end
   end
 
