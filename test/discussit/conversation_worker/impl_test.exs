@@ -653,8 +653,10 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("custom_conversation_summaries_over_token_limit",
         match_requests_on: [:request_body]
       ) do
-        assert [%{content: "Jane and John discuss unconventional wall" <> _}] =
+        assert [%{content: "Jane and John discuss unconventional wall" <> _ = content}] =
                  Impl.create_custom_summary(cs, default_opts(account_id))
+
+        IO.inspect(content)
       end
     end
   end
