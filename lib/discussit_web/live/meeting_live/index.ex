@@ -72,7 +72,6 @@ defmodule DiscussitWeb.MeetingLive.Index do
   end
 
   def handle_event("create-meeting", %{"name" => name, "files" => files} = attrs, socket) do
-    IO.puts("create meeting #{name}")
     user_id = socket.assigns.current_user.id
     [date_string, time_string | rest] = String.split(name, " ")
     {:ok, date} = Date.from_iso8601(date_string)

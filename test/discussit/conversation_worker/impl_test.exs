@@ -184,7 +184,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
         assert [
                  %{
                    content:
-                     "John Doe asks Jane Foe if she has ever cleaned a bathtub before." <> _
+                     "Summary:\nJohn Doe and Jane Foe engage in a whimsical conversation" <> _
                  }
                ] = Impl.create_daily_summaries(cs, default_opts(account_id))
       end
@@ -226,7 +226,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       ExVCR.Config.filter_request_headers("Authorization")
 
       use_cassette("daily_conversation_summaries", match_requests_on: [:request_body]) do
-        assert [%Summary{content: "Jane and John discuss the importance" <> _}] =
+        assert [%Summary{content: "John and Jane notice that the sink is" <> _}] =
                  Impl.create_daily_summaries(cs, default_opts(account_id))
       end
     end
@@ -279,7 +279,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
         assert [
                  %Summary{
                    content:
-                     "John Doe and Jane Foe discuss the process of cleaning a bathtub and sink." <>
+                     "Throughout the week, Jane and John discussed the importance of maintaining" <>
                        _
                  }
                ] = Impl.create_weekly_summaries(cs, default_opts(account_id))

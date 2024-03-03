@@ -121,9 +121,7 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         update_meeting_participants(meeting.id, conversation.id)
         {:noreply, socket |> assign(:meeting, meeting)}
 
-      {:error, changeset} ->
-        IO.inspect(changeset)
-
+      {:error, _changeset} ->
         {:noreply,
          socket
          |> put_flash(:error, "Failed to create conversation for meeting")

@@ -80,7 +80,6 @@ defmodule Discussit.Summaries.Summarize do
   end
 
   def reduce(chunk, opts) do
-    IO.puts("reducing")
     total_tokens = Tokens.count(chunk)
     prompt = opts[:reducer_prompt]
     percentage_reduction = opts[:max_context_count] / total_tokens

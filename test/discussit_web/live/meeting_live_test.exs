@@ -81,7 +81,7 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       DiscussitWeb.Endpoint.broadcast(
         "user_#{user.id}",
-        "meeting_update",
+        "meeting_updated",
         meeting |> Map.put(:projector_status, :in_progress)
       )
 

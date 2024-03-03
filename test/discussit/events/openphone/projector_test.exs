@@ -412,7 +412,6 @@ defmodule Discussit.Events.Openphone.ProjectorTest do
       })
       |> Events.cast_event()
       |> Projector.apply(account.id)
-      |> IO.inspect()
     end
   end
 end
