@@ -14,7 +14,7 @@
               summary.summary_interval.upper
             ) %>
           </h2>
-          <p><%= summary.content %></p>
+          <%= Phoenix.HTML.Format.text_to_html(summary.content) %>
           <div class="card-actions justify-end">
             <.link
               phx-click="delete-summary"

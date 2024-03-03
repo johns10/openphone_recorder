@@ -46,19 +46,20 @@ defmodule Discussit.Summaries.Summarize do
         }
       ) do
     case summarizer do
-      %{percentage_reduction: nil, fixed_reduction: fixed_reduction} ->
-        [
-          max_output_count: fixed_reduction,
-          max_context_count: 4096 - Tokens.count(prompt) - fixed_reduction
-        ]
+      %{percentage_reduction: nil, fixed_reduction: fixed} ->
+        fixed_reduction(fixed, prompt)
 
-      %{percentage_reduction: percentage_reduction, fixed_reduction: nil} ->
-        opts = [prompt: prompt, percentage_reduction: percentage_reduction]
+      %{fixed_reduction: fixed, reduction_mode: :fixed} ->
+        fixed_reduction(fixed, prompt)
 
-        [
-          max_output_count: Tokens.max_text_output_count(opts),
-          max_context_count: Tokens.max_context_count(opts)
-        ]
+      %{percentage_reduction: percent, fixed_reduction: nil} ->
+        percentage_reduction(percent, prompt)
+
+      %{percentage_reduction: percent, reduction_mode: :percentage} ->
+        percentage_reduction(percent, prompt)
+
+      %{fixed_reduction: fixed} ->
+        fixed_reduction(fixed, prompt)
     end
     |> Keyword.merge(
       prompt: prompt,
@@ -69,6 +70,21 @@ defmodule Discussit.Summaries.Summarize do
       fixed_reduction: fixed_reduction
     )
     |> Keyword.merge(opts)
+  end
+
+  def fixed_reduction(fixed_reduction, prompt),
+    do: [
+      max_output_count: fixed_reduction,
+      max_context_count: 4096 - Tokens.count(prompt) - fixed_reduction
+    ]
+
+  def percentage_reduction(percentage_reduction, prompt) do
+    opts = [prompt: prompt, percentage_reduction: percentage_reduction]
+
+    [
+      max_output_count: Tokens.max_text_output_count(opts),
+      max_context_count: Tokens.max_context_count(opts)
+    ]
   end
 
   def handle_reduce(chunk, opts) do
@@ -102,8 +118,6 @@ defmodule Discussit.Summaries.Summarize do
         max_tokens: max_output_count
       )
       |> Enum.reduce(%{previous_summary: "", summaries: []}, fn chunk, acc ->
-        [first | _] = chunk
-
         max_output_count = floor(Tokens.count(chunk) * percentage_reduction)
         context = join_content(chunk)
 
@@ -249,6 +263,8 @@ defmodule Discussit.Summaries.Summarize do
     ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
     |> case do
       {:ok, %{choices: [%{message: %{content: content}}], usage: usage}} ->
+        IO.inspect(content)
+
         %{
           meta: usage,
           model: model,
