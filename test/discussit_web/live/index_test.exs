@@ -14,6 +14,7 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
   import Discussit.AccountsFixtures
   import Discussit.AccountUsersFixtures
   import Discussit.SummarizersFixtures
+  import Discussit.ConversationSummarizersFixtures
   import Discussit.MeetingsFixtures
   import Discussit.StatementsFixtures
 
@@ -83,7 +84,7 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       assert html =~ "calendar-days"
     end
 
-    test "picks summarizer", %{conn: conn, conversation: conversation, account: account} do
+    test "summarizer", %{conn: conn, conversation: conversation, account: account} do
       summarizer = summarizer_fixture(%{account_id: account.id})
       summarizer_fixture(%{account_id: account.id})
 
@@ -94,6 +95,27 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       |> render_click()
 
       assert_patch(index_live, ~p"/conversations/#{conversation}?summarizer_id=#{summarizer.id}")
+
+      refute index_live
+             |> element("a#start-summarizer")
+             |> render() =~ "disabled"
+    end
+
+    test "picks summarizer with conversation summarizer, no job", context do
+      %{conn: conn, conversation: conversation, account: account} = context
+      summarizer = summarizer_fixture(%{account_id: account.id})
+
+      conversation_summarizer =
+        conversation_summarizer_fixture(%{
+          summarizer_id: summarizer.id,
+          conversation_id: conversation.id
+        })
+
+      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
+
+      index_live
+      |> element("a#summarizer-button-#{summarizer.id}")
+      |> render_click()
     end
 
     test "running custom summarizer inserts oban job", %{
@@ -124,25 +146,59 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       {:ok, index_live, _html} =
         live(conn, ~p"/conversations/#{conversation}?summarizer_id=#{summarizer.id}")
 
+      # Start summarizer
+
       index_live
       |> element("a#start-summarizer")
-      |> render_click() =~ "disabled"
+      |> render_click()
+
+      html =
+        index_live
+        |> element("a#start-summarizer")
+        |> render()
+
+      assert html =~ "disabled"
+      refute html =~ "spin"
 
       [cs] = ConversationSummarizers.list_conversation_summarizers()
 
-      {:ok, cs} = ConversationSummarizers.update_conversation_summarizer(cs, %{status: :busy})
-      Process.send(index_live.pid, %{event: "conversation_summarizer_updated", payload: cs}, [])
+      args = %{
+        "conversation_summarizer_id" => cs.id,
+        "account_id" => account.id
+      }
 
-      assert index_live
-             |> element("a#start-summarizer")
-             |> render() =~ "disabled"
+      Process.send(
+        index_live.pid,
+        %{
+          event: "conversation_summarizer_job_updated",
+          payload: %Oban.Job{args: args, state: "executing"}
+        },
+        []
+      )
 
-      {:ok, cs} = ConversationSummarizers.update_conversation_summarizer(cs, %{status: :done})
-      Process.send(index_live.pid, %{event: "conversation_summarizer_updated", payload: cs}, [])
+      html =
+        index_live
+        |> element("a#start-summarizer")
+        |> render()
 
-      refute index_live
-             |> element("a#start-summarizer")
-             |> render() =~ "disabled"
+      assert html =~ "disabled"
+      assert html =~ "spin"
+
+      Process.send(
+        index_live.pid,
+        %{
+          event: "conversation_summarizer_job_updated",
+          payload: %Oban.Job{args: args, state: "completed"}
+        },
+        []
+      )
+
+      html =
+        index_live
+        |> element("a#start-summarizer")
+        |> render()
+
+      assert html
     end
   end
 

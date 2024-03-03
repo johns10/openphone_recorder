@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.Index do
+  alias Discussit.ConversationSummarizers.ConversationSummarizer
   alias Discussit.Transcription
   alias Discussit.Meetings
   use DiscussitWeb, :html_helpers
@@ -30,9 +31,10 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> assign(:conversation_id, nil)
      |> stream(:conversations, [])
      |> assign(:end_of_timeline?, false)
-     |> assign(:conversation_summarizer, nil)
      |> assign(:summarizers, [])
      |> assign(:summarizer, nil)
+     |> assign(:conversation_summarizer, nil)
+     |> assign(:conversation_summarizer_job, nil)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -53,6 +55,7 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> assign(:summarizers, [])
      |> assign(:summarizer, nil)
      |> assign(:conversation_summarizer, nil)
+     |> assign(:conversation_summarizer_job, nil)
      |> stream(:conversation_items, []), layout: {DiscussitWeb.Layouts, :full_screen}}
   end
 
@@ -69,24 +72,36 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:ok, conversation_summarizer} =
       ConversationSummarizers.upsert_conversation_summarizer(%{
         conversation_id: socket.assigns.conversation.id,
-        summarizer_id: summarizer_id,
-        status: :waiting
+        summarizer_id: summarizer_id
       })
 
-    %{
-      "conversation_summarizer_id" => conversation_summarizer.id,
-      "account_id" => socket.assigns.current_user.selected_account_id
-    }
-    |> Discussit.ConversationSummarizers.Task.new()
-    |> Oban.insert()
+    {:ok, job} =
+      %{
+        "conversation_summarizer_id" => conversation_summarizer.id,
+        "account_id" => socket.assigns.current_user.selected_account_id
+      }
+      |> Discussit.ConversationSummarizers.Task.new()
+      |> Oban.insert()
 
-    {:noreply, socket |> assign(:conversation_summarizer, conversation_summarizer)}
+    {:noreply,
+     socket
+     |> assign(:conversation_summarizer, conversation_summarizer)
+     |> assign(:conversation_summarizer_job, job)}
+  end
+
+  def handle_event("reset-summarizer", %{"summarizer-id" => summarizer_id}, socket) do
+    Discussit.Repo.delete(socket.assigns.conversation_summarizer_job)
+    {:noreply, assign(socket, :conversation_summarizer_job, nil)}
   end
 
   def handle_event("cancel-summarizer", %{"id" => id}, socket) do
+    account_id = socket.assigns.current_user.selected_account_id
     cs = ConversationSummarizers.get_conversation_summarizer!(id)
-    {:ok, cs} = ConversationSummarizers.update_conversation_summarizer(cs, %{status: :idle})
-    {:noreply, socket |> assign(:conversation_summarizer, cs)}
+    args = %{"conversation_summarizer_id" => cs.id, "account_id" => account_id}
+    job = Discussit.Repo.get_by(Oban.Job, args: args)
+    Oban.cancel_job(job)
+    job = Map.put(job, :state, "discarded")
+    {:noreply, socket |> assign(:conversation_summarizer_job, job)}
   end
 
   def handle_event("zoom", %{"zoom" => "0"}, socket) do
@@ -236,10 +251,13 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   def handle_info(
-        %{event: "conversation_summarizer_updated", payload: %{id: same_id} = cs},
+        %{
+          event: "conversation_summarizer_job_updated",
+          payload: %{args: %{"conversation_summarizer_id" => same_id}} = job
+        },
         %{assigns: %{conversation_summarizer: %{id: same_id}}} = socket
       ) do
-    {:noreply, socket |> assign(:conversation_summarizer, cs)}
+    {:noreply, socket |> assign(:conversation_summarizer_job, job)}
   end
 
   def handle_info(_, socket), do: {:noreply, socket}
@@ -406,12 +424,10 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   defp handle_conversation_id(%{assigns: %{conversation: %{id: same}}} = socket, %{"id" => same}) do
-    IO.puts("Same id")
     socket
   end
 
   defp handle_conversation_id(socket, %{"id" => conversation_id}) do
-    IO.puts("different")
     user = socket.assigns.current_user
 
     conversation =
@@ -441,7 +457,6 @@ defmodule DiscussitWeb.IndexLive.Index do
   end
 
   defp handle_conversation_id(socket, _) do
-    IO.puts("catchall")
     socket
   end
 
@@ -451,17 +466,33 @@ defmodule DiscussitWeb.IndexLive.Index do
        do: socket
 
   defp handle_summarizer_id(socket, %{"summarizer_id" => summarizer_id}) do
+    account_id = socket.assigns.current_user.selected_account_id
     summarizer = Summarizers.get_summarizer!(summarizer_id)
 
-    conversation_summarizer =
-      ConversationSummarizers.get_conversation_summarizer_by(%{
-        summarizer_id: summarizer.id,
-        conversation_id: socket.assigns.conversation_id
-      })
+    ConversationSummarizers.get_conversation_summarizer_by(%{
+      summarizer_id: summarizer.id,
+      conversation_id: socket.assigns.conversation_id
+    })
+    |> case do
+      nil ->
+        cs = %ConversationSummarizer{
+          summarizer_id: summarizer_id,
+          conversation_id: socket.assigns.conversation.id
+        }
 
-    socket
-    |> assign(:summarizer, summarizer)
-    |> assign(:conversation_summarizer, conversation_summarizer)
+        socket
+        |> assign(:summarizer, summarizer)
+        |> assign(:conversation_summarizer, cs)
+
+      %ConversationSummarizer{} = cs ->
+        args = %{"conversation_summarizer_id" => cs.id, "account_id" => account_id}
+        job = Discussit.Repo.get_by(Oban.Job, args: args)
+
+        socket
+        |> assign(:summarizer, summarizer)
+        |> assign(:conversation_summarizer, cs)
+        |> assign(:conversation_summarizer_job, job)
+    end
   end
 
   defp handle_summarizer_id(socket, _), do: socket

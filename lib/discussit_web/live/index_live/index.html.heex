@@ -64,60 +64,15 @@
         </ul>
       </details>
       <div :if={@summarizer} class="join">
-        <.link
-          :if={
-            !@conversation_summarizer ||
-              (@conversation_summarizer && @conversation_summarizer.status in [nil, :idle, :done])
-          }
-          class="btn btn-xs btn-secondary join-item"
-          id="start-summarizer"
-          phx-click="summarize"
-          phx-value-summarizer-id={@summarizer.id}
-          class="btn btn-xs btn-secondary join-item"
-        >
-          <.icon name="hero-play" class="w-4 h-4" />
-        </.link>
-        <.link
-          :if={@conversation_summarizer && @conversation_summarizer.status == :waiting}
-          id="start-summarizer"
-          class="btn btn-xs btn-secondary join-item btn-disabled"
-        >
-          <.icon name="hero-play" class="w-4 h-4 btn-disabled" />
-        </.link>
-        <.link
-          :if={@conversation_summarizer && @conversation_summarizer.status == :busy}
-          id="start-summarizer"
-          class="btn btn-xs btn-secondary join-item btn-disabled"
-        >
-          <.icon name="hero-arrow-path" class="w-4 h-4 animate-spin" />
-        </.link>
-        <.link
-          :if={@conversation_summarizer && @conversation_summarizer.status in [:waiting, :busy]}
-          id="cancel-summarizer"
-          phx-click="cancel-summarizer"
-          phx-value-id={@conversation_summarizer.id}
-          class="btn btn-xs btn-secondary join-item"
-        >
-          <.icon name="hero-x-mark" class="w-4 h-4" />
-        </.link>
-        <.link
-          :if={@conversation_summarizer && @conversation_summarizer.status == :done}
-          href={~p"/conversation_summarizers/#{@conversation_summarizer}"}
-          class="btn btn-xs btn-secondary join-item"
-        >
-          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
-        </.link>
-        <.button :if={!@conversation_summarizer} class="btn-xs btn-disabled join-item">
-          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
-        </.button>
-      </div>
-      <div :if={!@summarizer} class="join">
-        <.button class="btn btn-xs btn-secondary join-item btn-disabled">
-          <.icon name="hero-play" class="w-4 h-4" />
-        </.button>
-        <.button class="btn btn-xs btn-secondary join-item btn-disabled">
-          <.icon name="hero-magnifying-glass" class="w-4 h-4" />
-        </.button>
+        <.start_summarizer_button summarizer={@summarizer} job={@conversation_summarizer_job} />
+        <.cancel_summarizer_button
+          conversation_summarizer={@conversation_summarizer}
+          job={@conversation_summarizer_job}
+        />
+        <.view_summarizer_button
+          conversation_summarizer={@conversation_summarizer}
+          job={@conversation_summarizer_job}
+        />
       </div>
 
       <.summarize_conversation_button account={@current_user.selected_account} />

@@ -6,7 +6,7 @@ defmodule Discussit.ConversationSummarizers.ConversationSummarizer do
   alias Discussit.Summarizers.Summarizer
 
   schema "conversation_summarizers" do
-    field :status, Ecto.Enum, values: [:idle, :waiting, :busy, :done]
+    field :status, Ecto.Enum, values: [:not_started | Oban.Job.states()]
 
     belongs_to :conversation, Conversation, type: :binary_id
     belongs_to :summarizer, Summarizer

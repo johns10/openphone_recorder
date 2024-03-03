@@ -70,6 +70,8 @@ defmodule Discussit.StatusAgent do
     end
   end
 
+  def name(nil), do: nil
+
   def name(%ConversationSummarizer{id: id}),
     do: :"conversation_summarizer_#{id}"
 

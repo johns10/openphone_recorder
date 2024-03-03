@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.IndexLive.Components do
+  alias Oban.Job
   alias Discussit.Contacts.Contact
   use DiscussitWeb, :html
 
@@ -7,6 +8,8 @@ defmodule DiscussitWeb.IndexLive.Components do
   alias Discussit.Conversations.Conversation
   alias Discussit.Users.User
   alias Discussit.PhoneNumbers.PhoneNumber
+  alias Discussit.Summarizers.Summarizer
+  alias Discussit.ConversationSummarizers.ConversationSummarizer
 
   attr(:conversation, Conversation, default: nil)
 
@@ -184,6 +187,147 @@ defmodule DiscussitWeb.IndexLive.Components do
   def render_phone_number(assigns) do
     ~H"""
     <span class={["whitespace-nowrap", @class]}><%= @phone_number.value |> to_string() %></span>
+    """
+  end
+
+  attr :summarizer, Summarizer, required: false
+  attr :job, Job, default: nil
+
+  def start_summarizer_button(%{summarizer: nil} = assigns), do: ~H""
+
+  def start_summarizer_button(%{job: nil} = assigns),
+    do: enabled_play_button(assigns)
+
+  def start_summarizer_button(%{job: %{state: state}} = assigns)
+      when state in ["completed"],
+      do: done_play_button(assigns)
+
+  def start_summarizer_button(%{job: %{state: state}} = assigns)
+      when state in ["executing", "retryable"],
+      do: running_summarizer_button(assigns)
+
+  def start_summarizer_button(%{job: %{state: state}} = assigns)
+      when state in ["scheduled", "available"],
+      do: disabled_play_button(assigns)
+
+  def start_summarizer_button(%{job: %{state: state}} = assigns)
+      when state in ["discarded", "cancelled"],
+      do: warn_play_button(assigns)
+
+  def start_summarizer_button(assigns),
+    do: ~H""
+
+  def enabled_play_button(assigns) do
+    ~H"""
+    <.link
+      id="start-summarizer"
+      phx-click="summarize"
+      phx-value-summarizer-id={@summarizer.id}
+      class="btn btn-xs btn-secondary join-item"
+    >
+      <.icon name="hero-play" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def disabled_play_button(assigns) do
+    ~H"""
+    <.link
+      id="start-summarizer"
+      phx-click="summarize"
+      phx-value-summarizer-id={@summarizer.id}
+      class="btn btn-xs btn-secondary join-item btn-disabled"
+    >
+      <.icon name="hero-play" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def warn_play_button(assigns) do
+    ~H"""
+    <.link
+      id="start-summarizer"
+      phx-click="reset-summarizer"
+      phx-value-summarizer-id={@summarizer.id}
+      class="btn btn-xs btn-secondary join-item"
+    >
+      <.icon name="hero-exclamation-triangle" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def done_play_button(assigns) do
+    ~H"""
+    <.link
+      id="start-summarizer"
+      phx-click="reset-summarizer"
+      phx-value-summarizer-id={@summarizer.id}
+      class="btn btn-xs btn-secondary join-item"
+    >
+      <.icon name="hero-check" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def disabled_warn_button(assigns) do
+    ~H"""
+    <.link
+      id="start-summarizer"
+      phx-click="summarize"
+      phx-value-summarizer-id={@summarizer.id}
+      class="btn btn-xs btn-secondary join-item btn-disabled animate-pulse"
+    >
+      <.icon name="exclamation-circle" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def running_summarizer_button(assigns) do
+    ~H"""
+    <.link id="start-summarizer" class="btn btn-xs btn-secondary join-item btn-disabled">
+      <.icon name="hero-arrow-path" class="w-4 h-4 animate-spin" />
+    </.link>
+    """
+  end
+
+  def cancel_summarizer_button(%{job: nil} = assigns), do: ~H""
+
+  def cancel_summarizer_button(%{job: %{state: state}} = assigns)
+      when state in ["executing", "scheduled", "available", "retryable"] do
+    ~H"""
+    <.link
+      id="cancel-summarizer"
+      phx-click="cancel-summarizer"
+      phx-value-id={@conversation_summarizer.id}
+      class="btn btn-xs btn-secondary join-item"
+    >
+      <.icon name="hero-x-mark" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def cancel_summarizer_button(assigns), do: ~H""
+
+  attr :conversation_summarizer, ConversationSummarizer, default: nil
+
+  def view_summarizer_button(%{conversation_summarizer: nil} = assigns), do: ~H""
+
+  def view_summarizer_button(%{conversation_summarizer: %{id: nil}} = assigns) do
+    ~H"""
+    <.link class="btn btn-xs btn-secondary join-item btn-disabled">
+      <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+    </.link>
+    """
+  end
+
+  def view_summarizer_button(assigns) do
+    ~H"""
+    <.link
+      href={~p"/conversation_summarizers/#{@conversation_summarizer}"}
+      class="btn btn-xs btn-secondary join-item"
+    >
+      <.icon name="hero-magnifying-glass" class="w-4 h-4" />
+    </.link>
     """
   end
 
