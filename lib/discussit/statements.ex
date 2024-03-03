@@ -120,6 +120,7 @@ defmodule Discussit.Statements do
 
   defp maybe_filter_by_not_summarizer_id(query, summarizer_id) do
     query
+    |> distinct([s], [s.occurred_at, s.id])
     |> join(:left, [s], sum in assoc(s, :summaries), as: :sum)
     |> join(:left, [sum: s], cs in assoc(s, :conversation_summarizer), as: :con_sum)
     |> where([con_sum: cs], cs.summarizer_id != ^summarizer_id or is_nil(cs.summarizer_id))
