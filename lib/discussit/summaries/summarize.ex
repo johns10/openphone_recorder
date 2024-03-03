@@ -102,6 +102,8 @@ defmodule Discussit.Summaries.Summarize do
         max_tokens: max_output_count
       )
       |> Enum.reduce(%{previous_summary: "", summaries: []}, fn chunk, acc ->
+        [first | _] = chunk
+
         max_output_count = floor(Tokens.count(chunk) * percentage_reduction)
         context = join_content(chunk)
 

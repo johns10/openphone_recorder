@@ -599,11 +599,11 @@ defmodule Discussit.ConversationWorker.ImplTest do
         participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
 
       %{id: conversation_id} = conversation = conversation_fixture()
-      %{id: daily_id} = daily = daily_summarizer_fixture()
+      %{id: summarizer_id} = daily = custom_summarizer_fixture()
 
       cs =
         conversation_summarizer_fixture(%{
-          summarizer_id: daily_id,
+          summarizer_id: summarizer_id,
           conversation_id: conversation_id
         })
         |> Map.put(:conversation, conversation)
@@ -653,10 +653,8 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("custom_conversation_summaries_over_token_limit",
         match_requests_on: [:request_body]
       ) do
-        assert [%{content: "Jane and John discuss unconventional wall" <> _ = content}] =
+        assert [%{content: "John Doe seeks cleaning advice from" <> _ = content}] =
                  Impl.create_custom_summary(cs, default_opts(account_id))
-
-        IO.inspect(content)
       end
     end
   end

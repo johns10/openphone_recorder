@@ -7,6 +7,25 @@ defmodule Discussit.SummarizersFixtures do
   @doc """
   Generate a summarizer.
   """
+  def custom_summarizer_fixture(),
+    do:
+      summarizer_fixture(%{
+        name: "custom",
+        prompt: ~s[
+          Summarize the following conversation, maintaining the key context and important details:
+          \"\"\"\<%= context %>\"\"\"
+          Your summary should be concise yet comprehensive, focusing on the most relevant information.
+        ],
+        reducer_prompt: ~s[
+          Summarize the following conversation, maintaining the key context and important details:
+          \"\"\"
+          <%= context %>
+          \"\"\"
+        ],
+        percentage_reduction: 0.25,
+        chunker: :none
+      })
+
   def daily_summarizer_fixture(),
     do:
       summarizer_fixture(%{
