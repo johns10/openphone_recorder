@@ -580,7 +580,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("custom_conversation_summaries",
         match_requests_on: [:request_body]
       ) do
-        assert [%Summary{content: "John and Jane notice that the sink is dirty" <> _}] =
+        assert [%Summary{content: "John and Jane notice the dirty sink and decide" <> _}] =
                  Impl.create_custom_summary(cs, default_opts(account_id))
       end
     end
@@ -653,7 +653,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("custom_conversation_summaries_over_token_limit",
         match_requests_on: [:request_body]
       ) do
-        assert [%{content: "John Doe seeks cleaning advice from" <> _ = content}] =
+        assert [%{content: "John Doe and Jane Foe humorously discuss" <> _}] =
                  Impl.create_custom_summary(cs, default_opts(account_id))
       end
     end

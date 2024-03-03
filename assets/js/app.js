@@ -21,13 +21,13 @@ import "phoenix_html"
 import { Socket } from "phoenix"
 import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
-import StopPropogation from "./hooks/stop_propogation";
+import StopPropagation from "./hooks/stop_propagation";
 import ElementVisible from "./hooks/element_visible";
 import ImportZoomMeetings from "./hooks/import_zoom_meetings";
 import PaymentSetup from "./hooks/payment_setup";
 import MaintainAttrs from "./hooks/maintain_attrs";
 
-let hooks = { StopPropogation, ElementVisible, ImportZoomMeetings, PaymentSetup, MaintainAttrs }
+let hooks = { StopPropagation, ElementVisible, ImportZoomMeetings, PaymentSetup, MaintainAttrs }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: hooks })

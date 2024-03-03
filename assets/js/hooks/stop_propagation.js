@@ -1,4 +1,4 @@
-const StopPropogation = {
+const StopPropagation = {
   mounted() {
     this.el.addEventListener("click", (e) => {
       console.log(e)
@@ -6,4 +6,4 @@ const StopPropogation = {
   },
 };
 
-export default StopPropogation;
+export default StopPropagation;

@@ -105,7 +105,7 @@ defmodule Discussit.ConversationSummarizers.TaskTest do
                  |> Task.perform()
       end
 
-      assert [%Summary{content: "John and Jane notice that the sink is dirty" <> _}] =
+      assert [%Summary{content: "John and Jane notice the dirty sink and" <> _}] =
                Discussit.Summaries.list_summaries()
     end
   end

@@ -7,17 +7,16 @@ defmodule Discussit.SummarizersFixtures do
   @doc """
   Generate a summarizer.
   """
-  def custom_summarizer_fixture(),
+  def bullet_point_summarizer_fixture(),
     do:
       summarizer_fixture(%{
         name: "custom",
         prompt: ~s[
-          Summarize the following conversation, maintaining the key context and important details:
+          Summarize the following content in chronological order, in bullet point form:
           \"\"\"\<%= context %>\"\"\"
-          Your summary should be concise yet comprehensive, focusing on the most relevant information.
         ],
         reducer_prompt: ~s[
-          Summarize the following conversation, maintaining the key context and important details:
+          Summarize the following conversation in chronological order, in bullet point form.
           \"\"\"
           <%= context %>
           \"\"\"
@@ -164,36 +163,18 @@ defmodule Discussit.SummarizersFixtures do
   def custom_summarizer_fixture(),
     do:
       summarizer_fixture(%{
-        name: "daily",
+        name: "custom",
         prompt: ~s[
-          Summarize the following conversation, maintaining the key context and important details:
-          \"\"\"\<%= context %>\"\"\"
-          Be sure to capture any recurring events or topics and provide their respective counts.
-          Your summary should be concise yet comprehensive, focusing on the most relevant information.
-          Summarize the content to approximately <%= percentage_reduction * 100 %>% of its original length.
-        ],
+            Summarize the following conversation, maintaining the key context and important details:
+            \"\"\"\<%= context %>\"\"\"
+            Your summary should be concise yet comprehensive, focusing on the most relevant information.
+          ],
         reducer_prompt: ~s[
-          <%= if previous_summary == "" do %>
-          The text data for this segment exceeds the context window.
-          Start a summary of the following segment of the conversation, maintaining the key context and important details
-          Assume the conversation will continue.
-          CONVERSATION: \"\"\"
-          <%= context %>
-          \"\"\"
-          Be sure to capture any recurring events or topics and provide their respective counts.
-          Your summary should be concise yet comprehensive, focusing on the most relevant information within the given segment.
-          <% else %>
-          The text data for this segment exceeds the context window.
-          Summarize the following segment of the conversation, maintaining the key context and important details:
-          \"\"\"
-          <%= context %>
-          \"\"\"
-          Be sure to capture any recurring events or topics and provide their respective counts.
-          Your summary should be concise yet comprehensive, focusing on the most relevant information within the given segment.
-          Continue the previous summary:
-          <%= previous_summary %>
-          <% end %>
-        ],
+            Summarize the following conversation, maintaining the key context and important details:
+            \"\"\"
+            <%= context %>
+            \"\"\"
+          ],
         percentage_reduction: 0.25,
         chunker: :none
       })
