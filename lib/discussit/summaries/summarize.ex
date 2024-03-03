@@ -16,7 +16,8 @@ defmodule Discussit.Summaries.Summarize do
 
   def create_summary(item, opts) do
     item
-    |> handle_summarize(opts)
+    |> handle_reduce(opts)
+    |> summarize(opts)
     |> summary_attrs(item, opts)
     |> Summaries.create_summary()
     |> case do
@@ -70,12 +71,12 @@ defmodule Discussit.Summaries.Summarize do
     |> Keyword.merge(opts)
   end
 
-  def handle_summarize(chunk, opts) do
+  def handle_reduce(chunk, opts) do
     total_tokens = Tokens.count(chunk)
 
     case total_tokens > opts[:max_context_count] do
       true -> reduce(chunk, opts)
-      false -> summarize(chunk, opts)
+      false -> chunk
     end
   end
 
@@ -86,6 +87,13 @@ defmodule Discussit.Summaries.Summarize do
 
     max_output_count =
       Tokens.max_context_count(prompt: prompt, percentage_reduction: percentage_reduction)
+
+    Logger.info("""
+      We have to reduce the conversation before summarizing it.
+      The conversation is #{total_tokens} long.
+      It must be reduced by #{percentage_reduction * 100} %.
+      Each chunk may be #{max_output_count} long (max).
+    """)
 
     result =
       chunk
@@ -117,17 +125,7 @@ defmodule Discussit.Summaries.Summarize do
         |> Map.put(:summaries, [text | acc.summaries])
       end)
 
-    content =
-      Enum.reverse(result.summaries)
-      |> join_content()
-
-    case Gpt3Tokenizer.token_count(content) < opts[:max_output_count] + 100 do
-      true ->
-        content
-
-      false ->
-        summarize([content], opts)
-    end
+    result.summaries
   end
 
   def summarize(items, opts) do
