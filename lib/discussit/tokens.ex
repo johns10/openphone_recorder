@@ -8,12 +8,13 @@ defmodule Discussit.Tokens do
     fixed_reduction = Keyword.get(opts, :fixed_reduction, nil)
     max_token_count = Keyword.get(opts, :max_tokens, 4096)
     prompt_count = Keyword.get(opts, :prompt) |> count()
+    reduction_mode = Keyword.get(opts, :reduction_mode, :fixed)
 
-    case {percentage_reduction, fixed_reduction} do
-      {nil, fixed} ->
-        fixed
+    case reduction_mode do
+      :fixed ->
+        fixed_reduction
 
-      {percentage_reduction, nil} ->
+      :percentage ->
         ((max_token_count - prompt_count) / (1 / percentage_reduction + 1))
         |> floor()
     end

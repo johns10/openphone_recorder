@@ -75,15 +75,21 @@ defmodule Discussit.Summaries.Summarize do
   def fixed_reduction(fixed_reduction, prompt),
     do: [
       max_output_count: fixed_reduction,
-      max_context_count: 4096 - Tokens.count(prompt) - fixed_reduction
+      max_context_count: 4096 - Tokens.count(prompt) - fixed_reduction,
+      reduction_mode: :fixed
     ]
 
   def percentage_reduction(percentage_reduction, prompt) do
-    opts = [prompt: prompt, percentage_reduction: percentage_reduction]
+    opts = [
+      prompt: prompt,
+      percentage_reduction: percentage_reduction,
+      reduction_mode: :percentage
+    ]
 
     [
       max_output_count: Tokens.max_text_output_count(opts),
-      max_context_count: Tokens.max_context_count(opts)
+      max_context_count: Tokens.max_context_count(opts),
+      reduction_mode: :percentage
     ]
   end
 
@@ -102,7 +108,11 @@ defmodule Discussit.Summaries.Summarize do
     percentage_reduction = opts[:max_context_count] / total_tokens
 
     max_output_count =
-      Tokens.max_context_count(prompt: prompt, percentage_reduction: percentage_reduction)
+      Tokens.max_context_count(
+        prompt: prompt,
+        percentage_reduction: percentage_reduction,
+        reduction_mode: :percentage
+      )
 
     Logger.info("""
       We have to reduce the conversation before summarizing it.
@@ -263,8 +273,6 @@ defmodule Discussit.Summaries.Summarize do
     ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
     |> case do
       {:ok, %{choices: [%{message: %{content: content}}], usage: usage}} ->
-        IO.inspect(content)
-
         %{
           meta: usage,
           model: model,

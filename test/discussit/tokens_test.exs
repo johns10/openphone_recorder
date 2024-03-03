@@ -9,7 +9,8 @@ defmodule Discussit.TokensTest do
                Tokens.max_text_output_count(
                  max_tokens: 100,
                  percentage_reduction: 0.25,
-                 prompt: ""
+                 prompt: "",
+                 reduction_mode: :percentage
                )
     end
 
@@ -19,7 +20,8 @@ defmodule Discussit.TokensTest do
                Tokens.max_text_output_count(
                  max_tokens: 100,
                  fixed_reduction: 20,
-                 prompt: ""
+                 prompt: "",
+                 reduction_mode: :fixed
                )
     end
   end

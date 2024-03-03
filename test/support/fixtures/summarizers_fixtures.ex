@@ -22,7 +22,8 @@ defmodule Discussit.SummarizersFixtures do
           \"\"\"
         ],
         percentage_reduction: 0.25,
-        chunker: :none
+        chunker: :none,
+        reduction_mode: :percentage
       })
 
   def daily_summarizer_fixture(),
@@ -59,7 +60,8 @@ defmodule Discussit.SummarizersFixtures do
           <% end %>
         ],
         percentage_reduction: 0.25,
-        chunker: :daily
+        chunker: :daily,
+        reduction_mode: :percentage
       })
 
   def weekly_summarizer_fixture(),
@@ -97,7 +99,8 @@ defmodule Discussit.SummarizersFixtures do
           <% end %>
         ],
         chunker: :weekly,
-        fixed_reduction: 300
+        fixed_reduction: 300,
+        reduction_mode: :fixed
       })
 
   def monthly_summarizer_fixture(),
@@ -135,7 +138,8 @@ defmodule Discussit.SummarizersFixtures do
           <% end %>
         ],
         chunker: :monthly,
-        fixed_reduction: 800
+        fixed_reduction: 800,
+        reduction_mode: :fixed
       })
 
   def yearly_summarizer_fixture(),
@@ -157,7 +161,8 @@ defmodule Discussit.SummarizersFixtures do
           \"\"\"
         ],
         chunker: :token_count,
-        fixed_reduction: 300
+        fixed_reduction: 300,
+        reduction_mode: :fixed
       })
 
   def custom_summarizer_fixture(),
@@ -176,7 +181,8 @@ defmodule Discussit.SummarizersFixtures do
             \"\"\"
           ],
         percentage_reduction: 0.25,
-        chunker: :none
+        chunker: :none,
+        reduction_mode: :percentage
       })
 
   def summarizer_fixture(attrs \\ %{}) do

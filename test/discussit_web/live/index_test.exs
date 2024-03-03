@@ -105,11 +105,10 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       %{conn: conn, conversation: conversation, account: account} = context
       summarizer = summarizer_fixture(%{account_id: account.id})
 
-      conversation_summarizer =
-        conversation_summarizer_fixture(%{
-          summarizer_id: summarizer.id,
-          conversation_id: conversation.id
-        })
+      conversation_summarizer_fixture(%{
+        summarizer_id: summarizer.id,
+        conversation_id: conversation.id
+      })
 
       {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation}")
 

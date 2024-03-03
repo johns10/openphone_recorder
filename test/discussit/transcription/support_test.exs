@@ -5,14 +5,12 @@ defmodule Discussit.Transcription.SupportTest do
   alias DialyxirVendored.Warnings.Call
   alias Discussit.ConversationsFixtures
   alias Discussit.CallsFixtures
-  alias Discussit.Meetings.Meeting
   alias Discussit.AccountUsersFixtures
   alias Discussit.AccountsFixtures
   alias Discussit.MeetingsFixtures
   alias Discussit.UsersFixtures
   alias Discussit.Transcription.Support
   alias Discussit.Files.File
-  alias Discussit.Calls.Call
 
   describe "prepare files" do
     setup do
