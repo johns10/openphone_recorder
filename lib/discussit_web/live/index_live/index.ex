@@ -89,7 +89,7 @@ defmodule DiscussitWeb.IndexLive.Index do
      |> assign(:conversation_summarizer_job, job)}
   end
 
-  def handle_event("reset-summarizer", %{"summarizer-id" => summarizer_id}, socket) do
+  def handle_event("reset-summarizer", _, socket) do
     Discussit.Repo.delete(socket.assigns.conversation_summarizer_job)
     {:noreply, assign(socket, :conversation_summarizer_job, nil)}
   end
@@ -483,6 +483,7 @@ defmodule DiscussitWeb.IndexLive.Index do
         socket
         |> assign(:summarizer, summarizer)
         |> assign(:conversation_summarizer, cs)
+        |> assign(:conversation_summarizer_job, nil)
 
       %ConversationSummarizer{} = cs ->
         args = %{"conversation_summarizer_id" => cs.id, "account_id" => account_id}
