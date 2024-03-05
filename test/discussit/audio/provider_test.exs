@@ -22,5 +22,25 @@ defmodule Discussit.Audio.ProviderTest do
                |> Path.expand()
                |> Provider.split()
     end
+
+    @tag :integration
+    test "removes m4a correctly" do
+      output = Path.expand("./test/support/fixtures/temp_audio.m4a")
+
+      assert {:ok, output} ==
+               "./test/support/fixtures/short_video.mp4"
+               |> Path.expand()
+               |> Provider.mp4_to_m4a(output)
+
+      File.rm!(output)
+    end
+
+    @tag :integration
+    test "mp4_to_m4a errors correctly" do
+      assert {:error, _} =
+               "asdf"
+               |> Path.expand()
+               |> Provider.split()
+    end
   end
 end

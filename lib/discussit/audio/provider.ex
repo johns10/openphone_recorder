@@ -45,4 +45,12 @@ defmodule Discussit.Audio.Provider do
         {:error, "ffprobe execution failed"}
     end
   end
+
+  def mp4_to_m4a(input_filename, output_filename) do
+    System.cmd("ffmpeg", ["-y", "-i", input_filename, "-vn", "-c:a", "copy", output_filename])
+    |> case do
+      {_, 0} -> {:ok, output_filename}
+      _ -> {:error, "failed_to_transcode"}
+    end
+  end
 end

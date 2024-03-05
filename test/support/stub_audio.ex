@@ -12,4 +12,7 @@ defmodule Discussit.StubAudio do
 
   @impl true
   def duration(_), do: {:ok, 101.0248}
+
+  @impl true
+  def mp4_to_m4a(_input_path, output_path), do: {:ok, output_path}
 end

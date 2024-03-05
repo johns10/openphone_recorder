@@ -9,4 +9,8 @@ defmodule Discussit.Audio do
 
   @impl true
   def duration(file_name), do: provider().duration(file_name)
+
+  @impl true
+  def mp4_to_m4a(input_filename, output_filename),
+    do: provider().mp4_to_m4a(input_filename, output_filename)
 end

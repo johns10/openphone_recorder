@@ -1,4 +1,5 @@
 defmodule DiscussitWeb.MeetingLive.FormComponent do
+  alias Discussit.Files
   use DiscussitWeb, :live_component
 
   alias Discussit.Meetings
@@ -79,7 +80,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
      |> assign(assigns)
      |> assign_form(changeset)
      |> assign(:uploaded_files, [])
-     |> allow_upload(:files, accept: ~w(.m4a), max_entries: 5, max_file_size: 250_000_000)}
+     |> allow_upload(:files, accept: ~w(.m4a .mp4), max_entries: 5, max_file_size: 500_000_000)}
   end
 
   @impl true
@@ -112,25 +113,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
   end
 
   defp save_meeting(socket, :new, meeting_params) do
-    files =
-      consume_uploaded_entries(socket, :files, fn %{path: path}, %{client_name: name} = entry ->
-        key = "/meetings/#{UUID.uuid5(:url, name)}"
-        bucket = Application.get_env(:discussit, :bucket)
-
-        path
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
-
-        {:ok,
-         %{
-           metadata: %{name: name, type: MIME.from_path(name)},
-           bucket: bucket,
-           key: key
-         }}
-      end)
-      |> IO.inspect()
-
+    files = consume_uploaded_entries(socket, :files, &Files.handle_user_upload/2)
     params = Map.put(meeting_params, "files", files)
 
     case Meetings.create_meeting(params) do
