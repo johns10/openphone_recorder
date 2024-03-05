@@ -12,6 +12,12 @@
     <:item title="Occurred at"><%= @meeting.occurred_at %></:item>
   </.list>
 
+  <h2 class="leading-8 font-semibold text-md py-4">Files</h2>
+
+  <p :for={file <- @meeting.files}>
+    <%= file.metadata["name"] %>
+  </p>
+
   <h2 class="leading-8 font-semibold text-md py-4">Participants</h2>
 
   <div class="flex flex-col space-y-4 px-2">

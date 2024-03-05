@@ -94,11 +94,17 @@ defmodule DiscussitWeb.ContactLive.Index do
     %{per_page: per_page} = socket.assigns
 
     contacts =
-      Contacts.list_contacts(
-        filters: [account_id: socket.assigns.current_user.selected_account_id],
-        offset: (new_page - 1) * per_page,
-        limit: per_page
-      )
+      case socket.assigns.current_user.selected_account_id do
+        nil ->
+          []
+
+        account_id ->
+          Contacts.list_contacts(
+            filters: [account_id: account_id],
+            offset: (new_page - 1) * per_page,
+            limit: per_page
+          )
+      end
 
     case contacts do
       [] ->

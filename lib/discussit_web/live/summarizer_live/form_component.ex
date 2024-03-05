@@ -20,7 +20,7 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:account_id]} type="hidden" value={@current_user.selected_account_id} />
-        <.input field={@form[:name]} type="text" label="name" />
+        <.input field={@form[:name]} type="text" label="Name" />
         <.input phx-hook="MaintainAttrs" field={@form[:prompt]} type="textarea" label="Prompt" />
         <.input
           phx-hook="MaintainAttrs"

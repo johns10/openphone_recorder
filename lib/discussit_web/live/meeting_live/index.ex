@@ -37,6 +37,12 @@ defmodule DiscussitWeb.MeetingLive.Index do
     |> assign(:meeting, nil)
   end
 
+  defp apply_action(socket, :new, _params) do
+    socket
+    |> assign(:page_title, "New Meeting")
+    |> assign(:meeting, %Meeting{})
+  end
+
   defp apply_action(socket, :show, %{"id" => id}) do
     meeting = Meetings.get_meeting!(id, preload: [participants: :contact])
 
@@ -193,4 +199,8 @@ defmodule DiscussitWeb.MeetingLive.Index do
   defp progress(nil, nil), do: 100
   defp progress(_, 0), do: 100
   defp progress(uploaded, directories), do: uploaded / directories * 100
+
+  def handle_info({DiscussitWeb.MeetingLive.FormComponent, {:saved, meeting}}, socket) do
+    {:noreply, stream_insert(socket, :meetings, meeting)}
+  end
 end

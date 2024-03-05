@@ -31,7 +31,7 @@ defmodule Discussit.Conversations.Conversation do
     |> cast_id()
     |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :conversations_pkey)
-    |> validate_required([:source, :external_id, :account_id])
+    |> validate_required([:source, :account_id])
   end
 
   defp cast_id(changeset) do
