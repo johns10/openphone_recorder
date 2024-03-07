@@ -2,5 +2,8 @@
   "devDependencies": {
     "daisyui": "^2.51.6",
     "uuid": "^9.0.0"
+  },
+  "dependencies": {
+    "@mux/upchunk": "^3.3.2"
   }
 }

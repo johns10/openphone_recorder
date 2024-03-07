@@ -26,11 +26,12 @@ import ElementVisible from "./hooks/element_visible";
 import ImportZoomMeetings from "./hooks/import_zoom_meetings";
 import PaymentSetup from "./hooks/payment_setup";
 import MaintainAttrs from "./hooks/maintain_attrs";
+import Uploaders from "./uploaders";
 
 let hooks = { StopPropagation, ElementVisible, ImportZoomMeetings, PaymentSetup, MaintainAttrs }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: hooks })
+let liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken }, hooks: hooks, uploaders: Uploaders })
 
 // Show progress bar on live navigation and form submits
 topbar.config({ barColors: { 0: "#29d" }, shadowColor: "rgba(0, 0, 0, .3)" })

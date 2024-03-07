@@ -48,7 +48,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
           <%= for err <- upload_errors(@uploads.files) do %>
             <p class="alert alert-danger"><%= error_to_string(err) %></p>
           <% end %>
-          <div class="flex items-center justify-center w-full">
+          <div class="flex items-center justify-center w-full" id="ffmpeg-wrapper">
             <label class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
               <div class="flex flex-col items-center justify-center pt-5 pb-6">
                 <.icon name="hero-cloud-arrow-up" class="w-12 h-12" />
@@ -56,10 +56,10 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
                   <span class="font-semibold">Click to upload</span> or drag and drop
                 </p>
                 <p class="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  M4A or MP4 (MAX. 500MB)
                 </p>
               </div>
-              <.live_file_input class="hidden" upload={@uploads.files} />
+              <.live_file_input data-file="meeting" class="hidden" upload={@uploads.files} />
             </label>
           </div>
         </section>
@@ -80,7 +80,12 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
      |> assign(assigns)
      |> assign_form(changeset)
      |> assign(:uploaded_files, [])
-     |> allow_upload(:files, accept: ~w(.m4a .mp4), max_entries: 5, max_file_size: 500_000_000)}
+     |> allow_upload(:files,
+       accept: ~w(.m4a .mp4),
+       max_entries: 5,
+       max_file_size: 10_000_000_000,
+       external: &presign_upload/2
+     )}
   end
 
   @impl true
@@ -132,6 +137,17 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
     assign(socket, :form, to_form(changeset))
+  end
+
+  defp presign_upload(%{client_name: name, client_type: type}, socket) do
+    bucket = Application.get_env(:discussit, :bucket)
+    key = "/meetings/#{UUID.uuid5(:url, name)}"
+
+    {:ok, url} =
+      ExAws.Config.new(:s3)
+      |> ExAws.S3.presigned_url(:put, bucket, key)
+
+    {:ok, %{uploader: "S3", endpoint: url}, socket}
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
