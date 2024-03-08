@@ -84,7 +84,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
      |> allow_upload(:files,
        accept: ~w(.m4a .mp4),
        max_entries: 5,
-       max_file_size: 10_000_000_000,
+       max_file_size: 5_368_709_120,
        external: &presign_upload/2
      )}
   end
@@ -149,7 +149,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
       ExAws.Config.new(:s3)
       |> ExAws.S3.presigned_url(:put, bucket, key)
 
-    {:ok, %{uploader: "S3", endpoint: url}, socket}
+    {:ok, %{uploader: "S3", url: url}, socket}
   end
 
   defp notify_parent(msg), do: send(self(), {__MODULE__, msg})
