@@ -2,7 +2,6 @@ defmodule Discussit.Transcription.SupportTest do
   alias Discussit.ParticipantsFixtures
   use Discussit.DataCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-  alias DialyxirVendored.Warnings.Call
   alias Discussit.ConversationsFixtures
   alias Discussit.CallsFixtures
   alias Discussit.AccountUsersFixtures

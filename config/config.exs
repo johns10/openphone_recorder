@@ -89,7 +89,7 @@ config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
 
 config :discussit, Oban,
-  queues: [conversation_summarizer: 100],
+  queues: [conversation_summarizer: 100, media: 1],
   repo: Discussit.Repo,
   plugins: [{Oban.Plugins.Pruner, max_age: 300}]
 

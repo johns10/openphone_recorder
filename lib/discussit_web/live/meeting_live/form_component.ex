@@ -3,6 +3,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
   use DiscussitWeb, :live_component
 
   alias Discussit.Meetings
+  alias Discussit.Meetings.Meeting
 
   @impl true
   def render(assigns) do
@@ -124,6 +125,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
     case Meetings.create_meeting(params) do
       {:ok, meeting} ->
         notify_parent({:saved, meeting})
+        handle_videos(meeting, socket.assigns.current_user.selected_account_id)
 
         {:noreply,
          socket
@@ -139,7 +141,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
     assign(socket, :form, to_form(changeset))
   end
 
-  defp presign_upload(%{client_name: name, client_type: type}, socket) do
+  defp presign_upload(%{client_name: name}, socket) do
     bucket = Application.get_env(:discussit, :bucket)
     key = "/meetings/#{UUID.uuid5(:url, name)}"
 
@@ -155,4 +157,22 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
   defp error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
   defp error_to_string(:external_client_failure), do: "Upload failed"
   defp error_to_string(other), do: to_string(other)
+
+  defp handle_videos(%Meeting{files: []}, _account_id), do: nil
+
+  defp handle_videos(%Meeting{files: files, id: id}, account_id) do
+    Enum.filter(files, &(&1.metadata.type == "video/mp4"))
+    |> case do
+      [] ->
+        nil
+
+      _videos ->
+        %{
+          "meeting_id" => id,
+          "account_id" => account_id
+        }
+        |> Discussit.Files.ConvertVideoTask.new()
+        |> Oban.insert()
+    end
+  end
 end

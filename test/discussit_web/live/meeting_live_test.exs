@@ -15,10 +15,15 @@ defmodule DiscussitWeb.MeetingLiveTest do
   import Discussit.AccountUsersFixtures
   import Discussit.ContactsFixtures
   import Discussit.ConversationsFixtures
+  use Oban.Testing, repo: Discussit.Repo
 
-  # @create_attrs %{occurred_at: "2023-08-27T17:35:00.000000", provider: :zoom}
-  # @update_attrs %{occurred_at: "2023-08-28T17:35:00.000000", provider: :teams}
-  # @invalid_attrs %{occurred_at: nil, provider: nil}
+  @create_attrs %{occurred_at: "2023-08-27T17:35:00.000000", source: :user, name: "some name"}
+  # @update_attrs %{
+  #   occurred_at: "2023-08-28T17:35:00.000000",
+  #   source: :user,
+  #   name: "some updated name"
+  # }
+  @invalid_attrs %{occurred_at: nil, source: :user}
 
   defp account_setup(%{user: user}) do
     account = account_fixture()
@@ -113,6 +118,63 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       assert index_live |> element("#assignment-status-#{meeting.id}") |> render() =~
                "hero-ellipsis-horizontal"
+    end
+
+    test "saves new meeting", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/meetings")
+
+      assert index_live |> element("#new-meeting") |> render_click() =~
+               "New Meeting"
+
+      assert_patch(index_live, ~p"/meetings/new")
+
+      assert index_live
+             |> form("#meeting-form", meeting: @invalid_attrs)
+             |> render_change() =~ "can&#39;t be blank"
+
+      assert index_live
+             |> form("#meeting-form", meeting: @create_attrs)
+             |> render_submit()
+
+      assert_patch(index_live, ~p"/meetings")
+
+      html = render(index_live)
+      assert html =~ "Meeting created successfully"
+      assert html =~ "some name"
+    end
+
+    test "saves new meeting with video files", %{conn: conn} do
+      {:ok, index_live, _html} = live(conn, ~p"/meetings")
+
+      assert index_live |> element("#new-meeting") |> render_click() =~
+               "New Meeting"
+
+      assert_patch(index_live, ~p"/meetings/new")
+
+      files =
+        file_input(index_live, "#meeting-form", :files, [
+          %{
+            last_modified: 1_594_171_879_000,
+            name: "myfile.mp4",
+            content: Elixir.File.read!("./test/support/fixtures/short_video.mp4"),
+            size: 1_396_009,
+            type: "video/mp4"
+          }
+        ])
+
+      assert render_upload(files, "myfile.mp4") =~ "100%"
+
+      assert index_live
+             |> form("#meeting-form", meeting: @create_attrs)
+             |> render_submit()
+
+      assert_patch(index_live, ~p"/meetings")
+
+      html = render(index_live)
+      assert html =~ "Meeting created successfully"
+      assert html =~ "some name"
+
+      assert [%{args: _}] = all_enqueued()
     end
   end
 

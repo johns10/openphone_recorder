@@ -9,9 +9,11 @@ defmodule DiscussitWeb.MeetingLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     user_id = socket.assigns.current_user.id
+    account_id = socket.assigns.current_user.selected_account_id
     DiscussitWeb.Endpoint.subscribe("user_#{user_id}")
     meetings = Meetings.list_meetings(limit: 20, filters: [user_id: user_id])
-    Resolver.audit_meetings(meetings, socket.assigns.current_user.selected_account_id)
+    Resolver.audit_meetings(meetings, account_id)
+    DiscussitWeb.Endpoint.subscribe("account_#{account_id}")
 
     {:ok,
      socket
@@ -61,6 +63,10 @@ defmodule DiscussitWeb.MeetingLive.Index do
 
   @impl true
   def handle_info(%{event: "meeting_updated", payload: meeting}, socket) do
+    {:noreply, stream_insert(socket, :meetings, meeting)}
+  end
+
+  def handle_info({DiscussitWeb.MeetingLive.FormComponent, {:saved, meeting}}, socket) do
     {:noreply, stream_insert(socket, :meetings, meeting)}
   end
 
@@ -199,8 +205,4 @@ defmodule DiscussitWeb.MeetingLive.Index do
   defp progress(nil, nil), do: 100
   defp progress(_, 0), do: 100
   defp progress(uploaded, directories), do: uploaded / directories * 100
-
-  def handle_info({DiscussitWeb.MeetingLive.FormComponent, {:saved, meeting}}, socket) do
-    {:noreply, stream_insert(socket, :meetings, meeting)}
-  end
 end

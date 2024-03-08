@@ -18,7 +18,11 @@
             </.button>
           </div>
         </div>
-        <.link :if={progress(@uploaded, @directories) == 100} patch={~p"/meetings/new"}>
+        <.link
+          :if={progress(@uploaded, @directories) == 100}
+          patch={~p"/meetings/new"}
+          id="new-meeting"
+        >
           <.button class="btn-sm btn-success">
             <.icon name="hero-plus" class="w-4 h-4" />
           </.button>
@@ -57,7 +61,18 @@
               class="w-4 h-4 animate-spin m-1"
             />
             <.icon
-              :if={meeting.upload_status == :files_uploaded}
+              :if={
+                meeting.upload_status == :files_uploaded and
+                  "video/mp4" in (meeting.files |> Enum.map(& &1.metadata["type"]))
+              }
+              name="hero-arrow-path"
+              class="w-4 h-4 animate-spin m-1"
+            />
+            <.icon
+              :if={
+                meeting.upload_status == :files_uploaded and
+                  "video/mp4" not in (meeting.files |> Enum.map(& &1.metadata["type"]))
+              }
               name="hero-check"
               class="w-4 h-4 bg-success m-1"
             />
