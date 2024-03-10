@@ -82,7 +82,7 @@ defmodule DiscussitWeb.MeetingLive.FormComponent do
      |> assign_form(changeset)
      |> assign(:uploaded_files, [])
      |> allow_upload(:files,
-       accept: ~w(.m4a .mp4),
+       accept: ~w(.m4a .mp4 .mp3),
        max_entries: 5,
        max_file_size: 5_368_709_120,
        external: &presign_upload/2
