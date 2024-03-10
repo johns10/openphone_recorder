@@ -9,7 +9,7 @@ defmodule Discussit.Conversations.Conversation do
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
     field :external_id, :string
-    field :source, Ecto.Enum, values: [:openphone, :zoom]
+    field :source, Ecto.Enum, values: [:openphone, :zoom, :user]
     field :occurred_at, :naive_datetime_usec
 
     field :last_occurred_at, :naive_datetime_usec, virtual: true
@@ -44,7 +44,7 @@ defmodule Discussit.Conversations.Conversation do
           {:openphone, external_id} when is_binary(external_id) ->
             put_change(changeset, :id, UUID.uuid5(nil, "openphone-" <> external_id))
 
-          {:zoom, _} ->
+          {_, _} ->
             put_change(changeset, :id, UUID.uuid4())
 
           _ ->

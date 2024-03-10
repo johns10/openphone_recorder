@@ -5,6 +5,7 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
   alias Discussit.Meetings
   alias Discussit.Statements
   alias Discussit.Participants
+  require Logger
 
   @impl true
   def update(%{meeting: meeting} = assigns, socket) do
@@ -121,7 +122,9 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         update_meeting_participants(meeting.id, conversation.id)
         {:noreply, socket |> assign(:meeting, meeting)}
 
-      {:error, _changeset} ->
+      {:error, changeset} ->
+        Logger.error("Failed to create conversation for meeting", changeset: changeset)
+
         {:noreply,
          socket
          |> put_flash(:error, "Failed to create conversation for meeting")
@@ -152,6 +155,8 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
 
   defp render_conversation_name(acc, [%{contact: contact} | participants]),
     do: render_conversation_name(acc <> render_name(contact) <> ", ", participants)
+
+  defp render_conversation_name(acc, []), do: acc
 
   defp render_name(%{first_name: first_name, last_name: last_name}),
     do: first_name <> if(last_name && last_name != "", do: " #{last_name}", else: "")
