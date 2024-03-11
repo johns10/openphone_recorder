@@ -10,6 +10,8 @@ defmodule Discussit.Transcription.Support do
   alias Discussit.Statements.Statement
   alias Discussit.Transcription.AssemblyAI
 
+  @accepted_types File.accepted_audio_mime_types()
+
   @channel_mapping %{
     "1" => :left,
     "2" => :right
@@ -43,7 +45,7 @@ defmodule Discussit.Transcription.Support do
     recordings =
       files
       |> Enum.filter(fn
-        %{metadata: %{"type" => type}} when type in File.accepted_audio_mime_types() ->
+        %{metadata: %{"type" => type}} when type in @accepted_types ->
           true
 
         _ ->
