@@ -2,6 +2,8 @@ defmodule Discussit.Files.File do
   use Ecto.Schema
   import Ecto.Changeset
 
+  def accepted_audio_mime_types, do: ["audio/mp4", "audio/mp3"]
+
   @derive {Jason.Encoder, only: [:bucket, :key, :metadata, :url]}
   embedded_schema do
     field :bucket, :string

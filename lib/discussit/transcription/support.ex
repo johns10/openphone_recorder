@@ -3,6 +3,7 @@ defmodule Discussit.Transcription.Support do
 
   alias Discussit.Calls
   alias Discussit.Calls.Call
+  alias Discussit.Files.File
   alias Discussit.Meetings.Meeting
   alias Discussit.Meetings
   alias Discussit.Statements
@@ -42,8 +43,11 @@ defmodule Discussit.Transcription.Support do
     recordings =
       files
       |> Enum.filter(fn
-        %{metadata: %{"type" => "audio/mp4"}} -> true
-        _ -> false
+        %{metadata: %{"type" => type}} when type in File.accepted_audio_mime_types() ->
+          true
+
+        _ ->
+          false
       end)
       |> Enum.map(fn %{bucket: bucket, key: key} = file ->
         {:ok, url} =
@@ -95,6 +99,7 @@ defmodule Discussit.Transcription.Support do
 
   def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state, opts) do
     account_id = opts[:account_id]
+    IO.puts("Support.start_transcribing")
 
     opts = %{
       speaker_labels: true,
