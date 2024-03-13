@@ -46,7 +46,10 @@
   </div>
 
   <div :if={all_participants_assigned?(@meeting)} id="assign-conversation">
-    <div :if={length(@conversations) == 0 && !@meeting.conversation_id}>
+    <div :if={
+      @meeting.projector_status in [:done] && length(@conversations) == 0 &&
+        !@meeting.conversation_id
+    }>
       <.button
         id="create-conversation"
         class="btn btn-sm btn-success"
