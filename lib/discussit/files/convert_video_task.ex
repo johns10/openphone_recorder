@@ -14,7 +14,7 @@ defmodule Discussit.Files.ConvertVideoTask do
         %{metadata: %{"type" => "video/mp4", "name" => name} = metadata, bucket: bucket, key: key} =
             file ->
           {:ok, video_filename} = Briefly.create(extname: ".mp4")
-          {:ok, audio_filename} = Briefly.create(extname: ".mpa")
+          {:ok, audio_filename} = Briefly.create(extname: ".m4a")
 
           ExAws.S3.download_file(bucket, key, video_filename)
           |> ExAws.request()
