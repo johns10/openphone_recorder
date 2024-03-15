@@ -70,6 +70,8 @@ defmodule DiscussitWeb.MeetingLive.Index do
     {:noreply, stream_insert(socket, :meetings, meeting)}
   end
 
+  def handle_info(_, socket), do: {:noreply, socket}
+
   @impl true
   def handle_event("delete", %{"id" => id}, socket) do
     meeting = Meetings.get_meeting!(id)

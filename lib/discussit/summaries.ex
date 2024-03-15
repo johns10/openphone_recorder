@@ -16,6 +16,7 @@ defmodule Discussit.Summaries do
     |> maybe_filter_by_level(filters[:level])
     |> order_by_lower(order_by[:summary_interval_lower])
     |> filter_by_conversation_id(filters[:conversation_id])
+    |> filter_by_conversation_summarizer_id(filters[:conversation_summarizer_id])
     |> maybe_limit(limit)
     |> preload(^preload)
     |> Repo.all()
@@ -57,6 +58,11 @@ defmodule Discussit.Summaries do
     |> join(:left, [s], cs in assoc(s, :conversation_summarizer), as: :cs)
     |> where([cs: cs], cs.conversation_id == ^conversation_id)
   end
+
+  defp filter_by_conversation_summarizer_id(query, nil), do: query
+
+  defp filter_by_conversation_summarizer_id(query, conversation_summarizer_id),
+    do: where(query, [s], s.conversation_summarizer_id == ^conversation_summarizer_id)
 
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, limit), do: limit(query, ^limit)

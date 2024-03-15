@@ -56,7 +56,21 @@ window.addEventListener("phx:js-exec", ({ detail }) => {
     liveSocket.execJS(el, el.getAttribute(detail.attr))
   })
 })
+window.addEventListener("modal:maybe_close", (e) => {
+  let el = e.detail.dispatcher
 
+  let doClose = () => {
+    liveSocket.execJS(el, el.getAttribute("data-do-cancel"))
+  }
+
+  if (e.detail.close_confirm) {
+    if (confirm(e.detail.close_confirm)) {
+      doClose()
+    }
+  } else {
+    doClose()
+  }
+})
 // connect if there are any LiveViews on the page
 liveSocket.connect()
 

@@ -153,6 +153,7 @@
   id="meeting-modal"
   show
   on_cancel={JS.patch(~p"/meetings")}
+  close_confirm="Are you sure you want to close the modal?"
 >
   <.live_component
     module={DiscussitWeb.MeetingLive.FormComponent}

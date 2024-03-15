@@ -39,16 +39,11 @@ defmodule DiscussitWeb.CoreComponents do
         <:cancel>Cancel</:cancel>
       </.modal>
   """
-  attr(:id, :string, required: true)
-  attr(:show, :boolean, default: false)
-  attr(:on_cancel, JS, default: %JS{})
-  attr(:on_confirm, JS, default: %JS{})
-
-  slot(:inner_block, required: true)
-  slot(:title)
-  slot(:subtitle)
-  slot(:confirm)
-  slot(:cancel)
+  attr :id, :string, required: true
+  attr :show, :boolean, default: false
+  attr :on_cancel, JS, default: %JS{}
+  attr :close_confirm, :string, default: nil
+  slot :inner_block, required: true
 
   def modal(assigns) do
     ~H"""
@@ -56,6 +51,8 @@ defmodule DiscussitWeb.CoreComponents do
       id={@id}
       phx-mounted={@show && show_modal(@id)}
       phx-remove={hide_modal(@id)}
+      data-do-cancel={JS.exec(@on_cancel, "phx-remove")}
+      data-cancel={JS.dispatch("modal:maybe_close", detail: %{close_confirm: @close_confirm})}
       class="relative z-50 hidden"
     >
       <div id={"#{@id}-bg"} class="fixed inset-0 transition-opacity" aria-hidden="true" />
@@ -71,15 +68,14 @@ defmodule DiscussitWeb.CoreComponents do
           <div class="w-full max-w-3xl p-4 sm:p-6 lg:py-8">
             <.focus_wrap
               id={"#{@id}-container"}
-              phx-mounted={@show && show_modal(@id)}
-              phx-window-keydown={hide_modal(@on_cancel, @id)}
+              phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
-              phx-click-away={hide_modal(@on_cancel, @id)}
+              phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
               class="hidden relative rounded-2xl bg-base-200 p-14 shadow-lg shadow-zinc-700/10 ring-1 ring-zinc-700/10 transition"
             >
               <div class="absolute top-6 right-5">
                 <button
-                  phx-click={hide_modal(@on_cancel, @id)}
+                  phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
                   class="-m-3 flex-none p-3 opacity-20 hover:opacity-40"
                   aria-label={gettext("close")}
@@ -88,33 +84,7 @@ defmodule DiscussitWeb.CoreComponents do
                 </button>
               </div>
               <div id={"#{@id}-content"}>
-                <header :if={@title != []}>
-                  <h1 id={"#{@id}-title"} class="text-lg font-semibold leading-8 ">
-                    <%= render_slot(@title) %>
-                  </h1>
-                  <p :if={@subtitle != []} id={"#{@id}-description"} class="mt-2 text-sm leading-6 ">
-                    <%= render_slot(@subtitle) %>
-                  </p>
-                </header>
                 <%= render_slot(@inner_block) %>
-                <div :if={@confirm != [] or @cancel != []} class="ml-6 mb-4 flex items-center gap-5">
-                  <.button
-                    :for={confirm <- @confirm}
-                    id={"#{@id}-confirm"}
-                    phx-click={@on_confirm}
-                    phx-disable-with
-                    class="py-2 px-3"
-                  >
-                    <%= render_slot(confirm) %>
-                  </.button>
-                  <.link
-                    :for={cancel <- @cancel}
-                    phx-click={hide_modal(@on_cancel, @id)}
-                    class="text-sm font-semibold leading-6  hover:"
-                  >
-                    <%= render_slot(cancel) %>
-                  </.link>
-                </div>
               </div>
             </.focus_wrap>
           </div>
