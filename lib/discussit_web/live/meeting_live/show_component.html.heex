@@ -46,34 +46,31 @@
   </div>
 
   <div :if={all_participants_assigned?(@meeting)} id="assign-conversation">
-    <div :if={
-      @meeting.projector_status in [:done] && length(@conversations) == 0 &&
-        !@meeting.conversation_id
-    }>
-      <.button
-        id="create-conversation"
-        class="btn btn-sm btn-success"
-        phx-click={
-          JS.push("create-conversation")
-          |> JS.set_attribute({"disabled", "true"}, to: "#create-conversation")
-        }
-        phx-target={@myself}
-      >
-        Create Conversation
-      </.button>
-    </div>
-    <div :for={conversation <- @conversations} :if={length(@conversations) > 0}>
-      <span :for={participant <- conversation.participants}>
-        <%= participant.contact.first_name %> <%= participant.contact.last_name %>
-      </span>
+    <div :for={conversation <- @conversations} :if={length(@conversations) > 0} class="my-4">
       <.button
         id={"assign-conversation-#{conversation.id}"}
-        class="btn btn-sm btn-success"
+        class="btn btn-sm btn-primary mr-4"
         phx-click="assign-to-conversation"
         phx-value-id={conversation.id}
         phx-target={@myself}
       >
         Assign
+      </.button>
+      <span :if={conversation.name}>
+        <%= conversation.name %>
+      </span>
+      <span :for={participant <- conversation.participants} :if={conversation.name == nil}>
+        <%= participant.contact.first_name %> <%= participant.contact.last_name %>
+      </span>
+    </div>
+    <div :if={@meeting.projector_status in [:done] && !@meeting.conversation_id}>
+      <.button
+        id="create-conversation"
+        class="btn btn-sm btn-success"
+        phx-click={JS.push("create-conversation")}
+        phx-target={@myself}
+      >
+        Create Conversation
       </.button>
     </div>
     <div :if={@meeting.conversation_id} class="flex flex-row items-center space-x-4">
@@ -91,7 +88,7 @@
     </div>
   </div>
 
-  <div class="py-4">
+  <div id="statements" class="py-4" phx-update="stream">
     <%= for {_id, statement} <- @streams.statements do %>
       <div class="px-4 w-full flex flex-row items-center space-x-2">
         <.participant participant={statement.participant} class="" />

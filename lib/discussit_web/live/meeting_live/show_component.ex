@@ -18,11 +18,19 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         order_by: [occurred_at: :asc]
       )
 
+    contact_ids = Enum.map(meeting.participants, & &1.contact_id)
+
+    conversations =
+      Conversations.list_conversations(
+        filters: [exact_contact_ids: contact_ids],
+        preloads: [participants: :contact]
+      )
+
     {:ok,
      socket
      |> assign(assigns)
      |> stream(:statements, statements)
-     |> assign(:conversations, [])}
+     |> assign(:conversations, conversations)}
   end
 
   def update(
@@ -91,6 +99,7 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
 
   def handle_event("remove-from-conversation", _, socket) do
     meeting = socket.assigns.meeting
+
     conversation = Conversations.get_conversation!(meeting.conversation_id)
 
     Meetings.update_meeting(meeting, %{conversation_id: nil})
@@ -99,12 +108,17 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         update_meeting_statements(meeting.id, nil)
         update_meeting_participants(meeting.id, nil)
 
-        case Statements.list_statements(filters: [conversation_id: conversation.id], limit: 1) do
-          [%Statement{}] -> nil
-          [] -> Conversations.delete_conversation(conversation)
-        end
+        conversations =
+          case Statements.list_statements(filters: [conversation_id: conversation.id], limit: 1) do
+            [%Statement{}] ->
+              socket.assigns.conversations
 
-        {:noreply, assign(socket, :meeting, meeting)}
+            [] ->
+              Conversations.delete_conversation(conversation)
+              Enum.filter(socket.assigns.conversations, &(&1.id != conversation.id))
+          end
+
+        {:noreply, socket |> assign(:meeting, meeting) |> assign(:conversations, conversations)}
 
       {:error, _changeset} ->
         {:noreply,
@@ -121,13 +135,17 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
     |> Map.from_struct()
     |> Map.take([:external_id, :source, :occurred_at])
     |> Map.put(:account_id, socket.assigns.current_user.selected_account_id)
+    |> Map.put(:name, meeting.name)
     |> Conversations.create_conversation()
     |> case do
       {:ok, conversation} ->
-        {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
-        update_meeting_statements(meeting.id, conversation.id)
         update_meeting_participants(meeting.id, conversation.id)
-        {:noreply, socket |> assign(:meeting, meeting)}
+
+        conversation =
+          Conversations.get_conversation!(conversation.id, preloads: [participants: :contact])
+
+        conversations = socket.assigns.conversations ++ [conversation]
+        {:noreply, socket |> assign(:conversations, conversations)}
 
       {:error, changeset} ->
         Logger.error("Failed to create conversation for meeting", changeset: changeset)
