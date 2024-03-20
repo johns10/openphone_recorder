@@ -28,7 +28,9 @@
             </.link>
           </div>
         <% %{name: name} -> %>
-          <%= name %>
+          <.link phx-click={JS.patch(~p{/conversations/#{conversation.id}})}>
+            <%= name %>
+          </.link>
       <% end %>
     </div>
   </div>
