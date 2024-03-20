@@ -199,6 +199,33 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
 
       assert html
     end
+
+    test "edit conversation works", %{
+      conn: conn,
+      conversation: conversation,
+      account: account
+    } do
+      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation.id}/edit")
+
+      assert index_live |> element("#edit-contacts-#{contact.id}") |> render_click() =~
+               "Edit Contact"
+
+      assert_patch(index_live, ~p"/contacts/#{contact}/edit")
+
+      # assert index_live
+      #        |> form("#contact-form", contact: @invalid_attrs)
+      #        |> render_change() =~ "can&#39;t be blank"
+
+      assert index_live
+             |> form("#contact-form", contact: @update_attrs)
+             |> render_submit()
+
+      assert_patch(index_live, ~p"/contacts")
+
+      html = render(index_live)
+      assert html =~ "Contact updated successfully"
+      assert html =~ "some updated last_name"
+    end
   end
 
   describe "Unauthorized Show" do

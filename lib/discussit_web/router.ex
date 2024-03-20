@@ -109,6 +109,7 @@ defmodule DiscussitWeb.Router do
 
       live("/home", IndexLive.Index, :index)
       live("/conversations/:id", IndexLive.Index, :index)
+      live("/conversations/:id/edit", IndexLive.Index, :edit)
 
       live("/contacts", ContactLive.Index, :index)
       live("/contacts/new", ContactLive.Index, :new)

@@ -8,6 +8,7 @@ defmodule Discussit.Conversations.Conversation do
 
   @primary_key {:id, :binary_id, autogenerate: false}
   schema "conversations" do
+    field :name, :string
     field :external_id, :string
     field :source, Ecto.Enum, values: [:openphone, :zoom, :user]
     field :occurred_at, :naive_datetime_usec
@@ -27,7 +28,7 @@ defmodule Discussit.Conversations.Conversation do
   @doc false
   def changeset(conversation, attrs) do
     conversation
-    |> cast(attrs, [:source, :external_id, :account_id])
+    |> cast(attrs, [:source, :external_id, :account_id, :name])
     |> cast_id()
     |> foreign_key_constraint(:account_id)
     |> unique_constraint([:id], name: :conversations_pkey)

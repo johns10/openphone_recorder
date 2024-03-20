@@ -198,6 +198,23 @@ defmodule DiscussitWeb.IndexLive.Index do
   defp apply_action(%{assigns: %{current_user: %{selected_account_id: nil}}} = socket, _, _),
     do: socket
 
+  defp apply_action(socket, :edit, %{"id" => id}) do
+    user = socket.assigns.current_user
+    conversation = Conversations.get_conversation_summary!(id, user.selected_account_id)
+
+    case Bodyguard.permit(Conversations, :get_conversation!, user, conversation) do
+      :ok ->
+        socket
+        |> assign(:page_title, "Edit Conversation")
+        |> assign(:conversation, conversation)
+
+      {:error, :unauthorized} ->
+        socket
+        |> push_navigate(to: ~p"/home")
+        |> put_flash(:error, "You cannot access this conversation")
+    end
+  end
+
   defp apply_action(socket, :index, %{"id" => _} = params) do
     socket
     |> handle_conversation_id(params)
