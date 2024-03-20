@@ -1,4 +1,6 @@
 defmodule DiscussitWeb.MeetingLive.ShowComponent do
+  alias Discussit.Statements.Statement
+  alias Discussit.Conversations.Conversation
   use DiscussitWeb, :live_component
   import DiscussitWeb.IndexLive.Components
   alias Discussit.Conversations
@@ -96,7 +98,12 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
       {:ok, meeting} ->
         update_meeting_statements(meeting.id, nil)
         update_meeting_participants(meeting.id, nil)
-        Conversations.delete_conversation(conversation)
+
+        case Statements.list_statements(filters: [conversation_id: conversation.id], limit: 1) do
+          [%Statement{}] -> nil
+          [] -> Conversations.delete_conversation(conversation)
+        end
+
         {:noreply, assign(socket, :meeting, meeting)}
 
       {:error, _changeset} ->
