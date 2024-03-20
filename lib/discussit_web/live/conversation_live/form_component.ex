@@ -3,7 +3,6 @@ defmodule DiscussitWeb.ConversationLive.FormComponent do
   use DiscussitWeb, :live_component
 
   alias Discussit.Conversations
-  alias Discussit.Conversations.Conversation
 
   @impl true
   def render(assigns) do

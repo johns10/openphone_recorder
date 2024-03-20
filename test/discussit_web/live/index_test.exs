@@ -205,26 +205,22 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
       conversation: conversation,
       account: account
     } do
-      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation.id}/edit")
+      {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation.id}")
 
-      assert index_live |> element("#edit-contacts-#{contact.id}") |> render_click() =~
-               "Edit Contact"
+      assert index_live |> element("#edit-conversation-#{conversation.id}") |> render_click() =~
+               "Edit Conversation"
 
-      assert_patch(index_live, ~p"/contacts/#{contact}/edit")
-
-      # assert index_live
-      #        |> form("#contact-form", contact: @invalid_attrs)
-      #        |> render_change() =~ "can&#39;t be blank"
+      assert_patch(index_live, ~p"/conversations/#{conversation}/edit")
 
       assert index_live
-             |> form("#contact-form", contact: @update_attrs)
+             |> form("#conversation-form", conversation: %{name: "some updated name"})
              |> render_submit()
 
-      assert_patch(index_live, ~p"/contacts")
+      assert_patch(index_live, ~p"/conversations/#{conversation.id}")
 
       html = render(index_live)
-      assert html =~ "Contact updated successfully"
-      assert html =~ "some updated last_name"
+      assert html =~ "Conversation updated successfully"
+      assert html =~ "some updated name"
     end
   end
 

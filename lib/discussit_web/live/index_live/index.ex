@@ -277,6 +277,10 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket |> assign(:conversation_summarizer_job, job)}
   end
 
+  def handle_info({DiscussitWeb.ConversationLive.FormComponent, {:saved, conversation}}, socket) do
+    {:noreply, stream_insert(socket, :conversations, conversation)}
+  end
+
   def handle_info(_, socket), do: {:noreply, socket}
 
   defp append_conversations(socket, new_page) when new_page >= 1 do
