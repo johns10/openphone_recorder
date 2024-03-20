@@ -92,7 +92,7 @@
         />
       </.form>
     </div>
-    <.link patch={~p"/conversations/#{@conversation.id}/edit"}>
+    <.link :if={@conversation} patch={~p"/conversations/#{@conversation}/edit"}>
       <.button class="btn-sm btn-success"><.icon name="hero-pencil" /></.button>
     </.link>
   </div>
