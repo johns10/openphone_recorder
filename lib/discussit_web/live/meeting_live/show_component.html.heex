@@ -89,16 +89,18 @@
   </div>
 
   <div id="statements" class="py-4" phx-update="stream">
-    <%= for {_id, statement} <- @streams.statements do %>
-      <div class="px-4 w-full flex flex-row items-center space-x-2">
-        <.participant participant={statement.participant} class="" />
-        <div class="text-xs">
-          <%= render_date(statement.occurred_at, @current_user) %>
+    <%= for {id, statement} <- @streams.statements do %>
+      <div id={id}>
+        <div class="px-4 w-full flex flex-row items-center space-x-2">
+          <.participant participant={statement.participant} class="" />
+          <div class="text-xs">
+            <%= render_date(statement.occurred_at, @current_user) %>
+          </div>
         </div>
-      </div>
-      <div class="chat chat-start">
-        <div class={["chat-bubble z-0", if(statement.call_id, do: "bg-accent")]}>
-          <%= statement.content %>
+        <div class="chat chat-start">
+          <div class={["chat-bubble z-0", if(statement.call_id, do: "bg-accent")]}>
+            <%= statement.content %>
+          </div>
         </div>
       </div>
     <% end %>

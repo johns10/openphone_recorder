@@ -1,5 +1,5 @@
 defmodule DiscussitWeb.LiveSupport do
-  def select_options([%Discussit.Users.User{} | _] = users),
+  def select_options([%{} | _] = users),
     do: Enum.map(users, fn user -> {user.name, user.id} end)
 
   def select_options(list) when list == [], do: []

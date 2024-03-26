@@ -101,7 +101,6 @@ defmodule Discussit.Transcription.Support do
 
   def start_transcribing(%{status: :ok, data: %Meeting{} = meeting, recordings: rs} = state, opts) do
     account_id = opts[:account_id]
-    IO.puts("Support.start_transcribing")
 
     opts = %{
       speaker_labels: true,

@@ -1,7 +1,8 @@
 defmodule DiscussitWeb.SummarizerLive.FormComponent do
   use DiscussitWeb, :live_component
-
+  alias Discussit.Models
   alias Discussit.Summarizers
+  import DiscussitWeb.LiveSupport
 
   @impl true
   def render(assigns) do
@@ -77,6 +78,12 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
             type="number"
           />
         </div>
+        <.input
+          field={@form[:model_id]}
+          type="select"
+          label="Model"
+          options={select_options(@models)}
+        />
         <:actions>
           <.button phx-disable-with="Saving...">Save Summarizer</.button>
         </:actions>
@@ -86,7 +93,7 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
   end
 
   @impl true
-  def update(%{summarizer: summarizer} = assigns, socket) do
+  def update(%{summarizer: summarizer, current_user: user} = assigns, socket) do
     changeset = Summarizers.change_summarizer(summarizer)
 
     reduction_mode =
@@ -96,11 +103,16 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         _ -> nil
       end
 
+    models =
+      Models.list_models(filters: [account_id: user.selected_account_id, type: :llm])
+      |> IO.inspect()
+
     {:ok,
      socket
      |> assign(assigns)
      |> assign_form(changeset)
-     |> assign(:reduction_mode, reduction_mode)}
+     |> assign(:reduction_mode, reduction_mode)
+     |> assign(:models, models)}
   end
 
   @impl true

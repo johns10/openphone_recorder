@@ -104,6 +104,8 @@ defmodule DiscussitWeb.IndexLive.Index do
     {:noreply, socket |> assign(:conversation_summarizer_job, job)}
   end
 
+  def handle_event("zoom", _, %{assigns: %{conversation: nil}}, socket), do: {:noreply, socket}
+
   def handle_event("zoom", %{"zoom" => "0"}, socket) do
     {:noreply, replace_conversation_items(socket, socket.assigns.conversation.id)}
   end

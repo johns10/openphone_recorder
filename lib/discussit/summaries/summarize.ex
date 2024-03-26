@@ -1,6 +1,7 @@
 defmodule Discussit.Summaries.Summarize do
   require Logger
 
+  alias Discussit.Models.Model
   alias Discussit.ConversationSummarizers.ConversationSummarizer
   alias Discussit.Statements.Statement
   alias Discussit.StatementSummaries
@@ -41,10 +42,26 @@ defmodule Discussit.Summaries.Summarize do
               prompt: prompt,
               percentage_reduction: percentage_reduction,
               fixed_reduction: fixed_reduction,
-              chunker: chunker
+              chunker: chunker,
+              model: model,
+              model_id: model_id
             } = summarizer
         }
       ) do
+    reduction_opts(summarizer, prompt)
+    |> Keyword.merge(
+      prompt: prompt,
+      reducer_prompt: reducer_prompt,
+      percentage_reduction: percentage_reduction,
+      conversation_summarizer_id: conversation_summarizer_id,
+      chunkers: [chunker],
+      fixed_reduction: fixed_reduction,
+      model: model_id(model_id, model)
+    )
+    |> Keyword.merge(opts)
+  end
+
+  def reduction_opts(summarizer, prompt) do
     case summarizer do
       %{percentage_reduction: nil, fixed_reduction: fixed} ->
         fixed_reduction(fixed, prompt)
@@ -61,15 +78,6 @@ defmodule Discussit.Summaries.Summarize do
       %{fixed_reduction: fixed} ->
         fixed_reduction(fixed, prompt)
     end
-    |> Keyword.merge(
-      prompt: prompt,
-      reducer_prompt: reducer_prompt,
-      percentage_reduction: percentage_reduction,
-      conversation_summarizer_id: conversation_summarizer_id,
-      chunkers: [chunker],
-      fixed_reduction: fixed_reduction
-    )
-    |> Keyword.merge(opts)
   end
 
   def fixed_reduction(fixed_reduction, prompt),
@@ -92,6 +100,9 @@ defmodule Discussit.Summaries.Summarize do
       reduction_mode: :percentage
     ]
   end
+
+  defp model_id(nil, _), do: nil
+  defp model_id(_model_id, %Model{external_id: external_id}), do: external_id
 
   def handle_reduce(chunk, opts) do
     total_tokens = Tokens.count(chunk)
@@ -267,7 +278,7 @@ defmodule Discussit.Summaries.Summarize do
 
   def create_completion(prompt, max_tokens, opts \\ []) do
     messages = [%{role: :user, content: prompt}]
-    model = "gpt-3.5-turbo"
+    model = opts[:model] || "gpt-3.5-turbo"
     account_id = opts[:account_id] || raise("Account id required to create usage")
 
     ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)

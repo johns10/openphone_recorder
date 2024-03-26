@@ -165,7 +165,7 @@ defmodule Discussit.SummarizersFixtures do
         reduction_mode: :fixed
       })
 
-  def custom_summarizer_fixture(),
+  def custom_summarizer_fixture(attrs \\ []),
     do:
       summarizer_fixture(%{
         name: "custom",
@@ -182,7 +182,8 @@ defmodule Discussit.SummarizersFixtures do
           ],
         percentage_reduction: 0.25,
         chunker: :none,
-        reduction_mode: :percentage
+        reduction_mode: :percentage,
+        model_id: attrs[:model_id]
       })
 
   def summarizer_fixture(attrs \\ %{}) do

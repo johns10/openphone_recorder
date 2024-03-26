@@ -19,6 +19,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
   import Discussit.ContactsFixtures
   import Discussit.SummariesFixtures
   import Discussit.AccountsFixtures
+  import Discussit.ModelsFixtures
 
   setup :set_mox_global
 
@@ -654,6 +655,54 @@ defmodule Discussit.ConversationWorker.ImplTest do
         match_requests_on: [:request_body]
       ) do
         assert [%{content: "John Doe and Jane Foe humorously discuss" <> _}] =
+                 Impl.create_custom_summary(cs, default_opts(account_id))
+      end
+    end
+
+    test "summarizes with model" do
+      %{id: account_id} = account_fixture()
+      model = model_fixture(%{account_id: account_id, external_id: "gpt-3.5-turbo"})
+      contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
+      contact_two = contact_fixture(%{first_name: "Jane", last_name: "Foe"})
+      pn_one = phone_number_fixture(%{value: "12566786789"})
+      pn_two = phone_number_fixture(%{value: "12566736789"})
+
+      participant_one =
+        participant_fixture(%{phone_number_id: pn_one.id, contact_id: contact_one.id})
+
+      participant_two =
+        participant_fixture(%{phone_number_id: pn_two.id, contact_id: contact_two.id})
+
+      %{id: conversation_id} = conversation = conversation_fixture()
+
+      %{id: summarizer_id} =
+        summarizer =
+        custom_summarizer_fixture(%{model_id: model.id})
+        |> Map.put(:model, model)
+
+      cs =
+        conversation_summarizer_fixture(%{
+          summarizer_id: summarizer_id,
+          conversation_id: conversation_id
+        })
+        |> Map.put(:conversation, conversation)
+        |> Map.put(:summarizer, summarizer)
+
+      attrs = %{
+        conversation_id: conversation_id,
+        participant_one: participant_one,
+        participant_two: participant_two
+      }
+
+      sink_cleaning_content()
+      |> statements_fixture(Map.put(attrs, :occurred_at, days_hours_ago(3, 1)))
+
+      ExVCR.Config.filter_request_headers("Authorization")
+
+      use_cassette("custom_conversation_summaries",
+        match_requests_on: [:request_body]
+      ) do
+        assert [%Summary{content: "John and Jane notice the dirty sink and decide" <> _}] =
                  Impl.create_custom_summary(cs, default_opts(account_id))
       end
     end
