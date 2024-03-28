@@ -47,9 +47,6 @@ defmodule Discussit.Conversations.Conversation do
 
           {_, _} ->
             put_change(changeset, :id, UUID.uuid4())
-
-          _ ->
-            add_error(changeset, :id, "insufficient args to generate conversation_id id")
         end
 
       _ ->

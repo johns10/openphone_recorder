@@ -309,6 +309,7 @@ defmodule DiscussitWeb.IndexLive.Components do
   def cancel_summarizer_button(assigns), do: ~H""
 
   attr :conversation_summarizer, ConversationSummarizer, default: nil
+  attr :job, Oban.Job, default: nil
 
   def view_summarizer_button(%{conversation_summarizer: nil} = assigns), do: ~H""
 
