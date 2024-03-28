@@ -293,7 +293,11 @@ defmodule DiscussitWeb.MeetingLiveTest do
         []
       )
 
-      show_live |> element("#participant-#{participant.id}-contact-#{contact.id}") |> render_click
+      Meetings.update_meeting(meeting, %{projector_status: :done})
+
+      show_live
+      |> element("#participant-#{participant.id}-contact-#{contact.id}")
+      |> render_click()
 
       :timer.sleep(1000)
 

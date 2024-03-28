@@ -1,0 +1,70 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20240326T122549Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "put",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-merge-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "3yzgHaCEnMAqC9Oka+R4Jtj7nBJduQxTTdLr/W22NSRfmKT/5nZjLXWS3so5jvSu+8sJJiDboCg=",
+        "x-amz-request-id": "GXXXC18WCE461YR4",
+        "Date": "Tue, 26 Mar 2024 12:25:50 GMT",
+        "x-amz-server-side-encryption": "AES256",
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "Server": "AmazonS3",
+        "Content-Length": "0"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  },
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Authorization": "***",
+        "host": "s3.us-east-2.amazonaws.com",
+        "x-amz-date": "20240326T122549Z",
+        "content-length": "0",
+        "x-amz-content-sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "method": "put",
+      "options": {
+        "with_body": "true",
+        "recv_timeout": 30000
+      },
+      "request_body": "",
+      "url": "https://s3.us-east-2.amazonaws.com/discussit-test/4989bedd-adf3-4a66-a1d0-86fce4f98e74-model"
+    },
+    "response": {
+      "binary": false,
+      "body": "",
+      "headers": {
+        "x-amz-id-2": "RiUAM7r6ykyJjs0p3rg58rNtmynb/95Y/38u5GPAHf4R+Lqh5dAm30NW7+kUtBancTWBkdYHbvA=",
+        "x-amz-request-id": "GXXX150PK909ZK51",
+        "Date": "Tue, 26 Mar 2024 12:25:50 GMT",
+        "x-amz-server-side-encryption": "AES256",
+        "ETag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+        "Server": "AmazonS3",
+        "Content-Length": "0"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
