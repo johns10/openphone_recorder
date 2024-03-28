@@ -8,7 +8,9 @@ defmodule Discussit.Models.Model do
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Discussit.Topics.Topic
+  alias Discussit.Accounts.Account
+
+  def default_llm_id(), do: "gpt-3.5-turbo"
 
   @primary_key {:id, :binary_id, autogenerate: false}
   @foreign_key_type :binary_id
@@ -18,7 +20,7 @@ defmodule Discussit.Models.Model do
     field :type, Ecto.Enum, values: [:llm, :topic]
     field :merge_object, :string
     field :model_object, :string
-    belongs_to :account, Topic
+    belongs_to :account, Account
 
     timestamps(type: :naive_datetime_usec)
   end

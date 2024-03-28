@@ -24,6 +24,16 @@ defmodule Discussit.TokensTest do
                  reduction_mode: :fixed
                )
     end
+
+    test "pass nothing, get max text output" do
+      assert 4096 ==
+               Tokens.max_text_output_count(prompt: "")
+    end
+
+    test "pass nothing, get max text input" do
+      assert 16385 ==
+               Tokens.max_context_count(prompt: "")
+    end
   end
 
   describe "all_stopwords?" do

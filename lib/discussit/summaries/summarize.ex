@@ -101,7 +101,7 @@ defmodule Discussit.Summaries.Summarize do
     ]
   end
 
-  defp model_id(nil, _), do: nil
+  defp model_id(nil, _), do: Model.default_llm_id()
   defp model_id(_model_id, %Model{external_id: external_id}), do: external_id
 
   def handle_reduce(chunk, opts) do

@@ -3,38 +3,40 @@ defmodule Discussit.Tokens do
   alias Discussit.Summaries.Summary
   alias Discussit.Tokens.Stopwords
 
+  defp default_model(), do: Discussit.Models.Model.default_llm_id()
+
   def max_text_output_count(opts \\ []) do
     percentage_reduction = Keyword.get(opts, :percentage_reduction, nil)
     fixed_reduction = Keyword.get(opts, :fixed_reduction, nil)
-    max_token_count = Keyword.get(opts, :max_tokens, 4096)
+    model = Keyword.get(opts, :model, default_model())
+    max_token_count = Keyword.get(opts, :max_tokens, max_output_count(model))
     prompt_count = Keyword.get(opts, :prompt) |> count()
-    reduction_mode = Keyword.get(opts, :reduction_mode, :fixed)
+    reduction_mode = Keyword.get(opts, :reduction_mode)
 
-    case reduction_mode do
-      :fixed ->
-        fixed_reduction
+    result =
+      case reduction_mode do
+        :fixed ->
+          fixed_reduction
 
-      :percentage ->
-        ((max_token_count - prompt_count) / (1 / percentage_reduction + 1))
-        |> floor()
-    end
+        :percentage ->
+          ((max_token_count - prompt_count) / (1 / percentage_reduction + 1))
+          |> floor()
+
+        nil ->
+          default_model() |> max_output_count()
+      end
+
+    Keyword.get(opts, :max_text_output_count, result)
   end
 
-  def max_text_count(opts \\ []) do
-    max_token_count = Keyword.get(opts, :max_tokens, 4096)
-    prompt = Keyword.get(opts, :prompt)
-    prompt_count = count(prompt)
-
-    max_token_count - prompt_count
-  end
+  def max_output_count("gpt-3.5-turbo"), do: 4_096
 
   def max_context_count(opts \\ []) do
-    max_token_count = Keyword.get(opts, :max_tokens, 4096)
-    prompt = Keyword.get(opts, :prompt)
-    prompt_count = count(prompt)
-
-    max_token_count - prompt_count - max_text_output_count(opts)
+    result = opts |> Keyword.get(:model, default_model()) |> max_input_count()
+    Keyword.get(opts, :max_context_count, result)
   end
+
+  def max_input_count("gpt-3.5-turbo"), do: 16_385
 
   def count(statements) when is_list(statements),
     do: statements |> Enum.reduce(0, fn statement, acc -> acc + count(statement) end)

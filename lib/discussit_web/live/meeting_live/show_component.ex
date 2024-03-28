@@ -1,6 +1,5 @@
 defmodule DiscussitWeb.MeetingLive.ShowComponent do
   alias Discussit.Statements.Statement
-  alias Discussit.Conversations.Conversation
   use DiscussitWeb, :live_component
   import DiscussitWeb.IndexLive.Components
   alias Discussit.Conversations

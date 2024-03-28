@@ -182,8 +182,13 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("daily_conversation_summaries_over_token_limit",
         match_requests_on: [:request_body]
       ) do
-        assert [%{content: "John and Jane discuss unconventional" <> _}] =
-                 Impl.create_daily_summaries(cs, default_opts(account_id))
+        opts =
+          default_opts(account_id)
+          |> Keyword.put(:max_text_output_count, 442)
+          |> Keyword.put(:max_context_count, 4096)
+
+        assert [%{content: "Summary:\nJohn Doe consults Jane Foe" <> _}] =
+                 Impl.create_daily_summaries(cs, opts)
       end
     end
 
@@ -654,8 +659,13 @@ defmodule Discussit.ConversationWorker.ImplTest do
       use_cassette("custom_conversation_summaries_over_token_limit",
         match_requests_on: [:request_body]
       ) do
-        assert [%{content: "John Doe and Jane Foe humorously discuss" <> _}] =
-                 Impl.create_custom_summary(cs, default_opts(account_id))
+        opts =
+          default_opts(account_id)
+          |> Keyword.put(:max_text_output_count, 442)
+          |> Keyword.put(:max_context_count, 4096)
+
+        assert [%{content: "John Doe seeks cleaning advice from Jane" <> _}] =
+                 Impl.create_custom_summary(cs, opts)
       end
     end
 

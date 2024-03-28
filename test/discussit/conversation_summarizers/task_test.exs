@@ -1,7 +1,7 @@
 defmodule Discussit.ConversationSummarizers.TaskTest do
   use Discussit.DataCase
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
-  use Oban.Testing, repo: Discussit.Repo
+  use Oban.Testing, repo: Discussit.Repo, testing: :manual
   alias Discussit.ConversationSummarizers.Task
   alias Discussit.Summaries.Summary
   import Discussit.ConversationsFixtures
@@ -16,45 +16,51 @@ defmodule Discussit.ConversationSummarizers.TaskTest do
 
   describe "Task" do
     test "inserts" do
-      %{
-        "conversation_summarizer_id" => "asdf",
-        "account_id" => "jkl;"
-      }
-      |> Discussit.ConversationSummarizers.Task.new()
-      |> Oban.insert()
+      Oban.Testing.with_testing_mode(:manual, fn ->
+        %{
+          "conversation_summarizer_id" => "asdf",
+          "account_id" => "jkl;"
+        }
+        |> Discussit.ConversationSummarizers.Task.new()
+        |> Oban.insert()
 
-      assert [%{args: %{"account_id" => "jkl;", "conversation_summarizer_id" => "asdf"}}] =
-               all_enqueued()
+        assert [%{args: %{"account_id" => "jkl;", "conversation_summarizer_id" => "asdf"}}] =
+                 all_enqueued()
+      end)
     end
 
     test "prevents duplicates" do
-      attrs = %{"conversation_summarizer_id" => "asdf", "account_id" => "jkl;"}
+      Oban.Testing.with_testing_mode(:manual, fn ->
+        attrs = %{"conversation_summarizer_id" => "asdf", "account_id" => "jkl;"}
 
-      attrs
-      |> Discussit.ConversationSummarizers.Task.new()
-      |> Oban.insert()
+        attrs
+        |> Discussit.ConversationSummarizers.Task.new()
+        |> Oban.insert()
 
-      attrs
-      |> Discussit.ConversationSummarizers.Task.new()
-      |> Oban.insert()
+        attrs
+        |> Discussit.ConversationSummarizers.Task.new()
+        |> Oban.insert()
 
-      assert [%{args: %{"account_id" => "jkl;", "conversation_summarizer_id" => "asdf"}}] =
-               all_enqueued()
+        assert [%{args: %{"account_id" => "jkl;", "conversation_summarizer_id" => "asdf"}}] =
+                 all_enqueued()
+      end)
     end
 
     test "actually unique" do
-      %{"conversation_summarizer_id" => "1", "account_id" => "1"}
-      |> Discussit.ConversationSummarizers.Task.new()
-      |> Oban.insert()
+      Oban.Testing.with_testing_mode(:manual, fn ->
+        %{"conversation_summarizer_id" => "1", "account_id" => "1"}
+        |> Discussit.ConversationSummarizers.Task.new()
+        |> Oban.insert()
 
-      %{"conversation_summarizer_id" => "2", "account_id" => "1"}
-      |> Discussit.ConversationSummarizers.Task.new()
-      |> Oban.insert()
+        %{"conversation_summarizer_id" => "2", "account_id" => "1"}
+        |> Discussit.ConversationSummarizers.Task.new()
+        |> Oban.insert()
 
-      assert [
-               %{args: %{"conversation_summarizer_id" => "2"}},
-               %{args: %{"conversation_summarizer_id" => "1"}}
-             ] = all_enqueued()
+        assert [
+                 %{args: %{"conversation_summarizer_id" => "2"}},
+                 %{args: %{"conversation_summarizer_id" => "1"}}
+               ] = all_enqueued()
+      end)
     end
 
     test "perform" do
