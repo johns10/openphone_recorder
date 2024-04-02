@@ -192,7 +192,9 @@ defmodule Discussit.SummarizersFixtures do
       |> Enum.into(%{
         name: "some name",
         prompt: "some prompt",
-        chunker: :daily
+        chunker: :daily,
+        reduction_method: :fixed,
+        fixed_reduction: 100
       })
       |> Discussit.Summarizers.create_summarizer()
 

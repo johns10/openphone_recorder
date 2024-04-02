@@ -48,4 +48,4 @@ config :openai,
   api_key: System.get_env("OPENAI_API_KEY"),
   http_options: [recv_timeout: 10 * 60 * 1000]
 
-config :discussit, Oban, testing: :inline
+config :discussit, Oban, testing: :manual
