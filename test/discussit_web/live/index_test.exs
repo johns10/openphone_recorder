@@ -202,8 +202,7 @@ defmodule DiscussitWeb.IndexLive.IndexTest do
 
     test "edit conversation works", %{
       conn: conn,
-      conversation: conversation,
-      account: account
+      conversation: conversation
     } do
       {:ok, index_live, _html} = live(conn, ~p"/conversations/#{conversation.id}")
 

@@ -143,8 +143,10 @@ defmodule DiscussitWeb.MeetingLive.ShowComponent do
         conversation =
           Conversations.get_conversation!(conversation.id, preloads: [participants: :contact])
 
+        {:ok, meeting} = Meetings.update_meeting(meeting, %{conversation_id: conversation.id})
+
         conversations = socket.assigns.conversations ++ [conversation]
-        {:noreply, socket |> assign(:conversations, conversations)}
+        {:noreply, socket |> assign(:conversations, conversations) |> assign(:meeting, meeting)}
 
       {:error, changeset} ->
         Logger.error("Failed to create conversation for meeting", changeset: changeset)

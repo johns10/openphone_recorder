@@ -268,7 +268,14 @@ defmodule DiscussitWeb.MeetingLiveTest do
       assert %{conversation_id: ^conversation_id} = Statements.get_statement!(statement.id)
     end
 
-    test "creates conversation", context do
+    test "can't create conversation without assigned participants", context do
+      %{conn: conn, meeting: meeting} = context
+
+      {:ok, _show_live, html} = live(conn, ~p"/meetings/#{meeting}")
+      refute html =~ "Create Conversation"
+    end
+
+    test "creates conversations", context do
       %{
         conn: conn,
         meeting: meeting,
@@ -277,23 +284,15 @@ defmodule DiscussitWeb.MeetingLiveTest do
       } = context
 
       contact = contact_fixture(%{account_id: account.id})
-      {:ok, show_live, html} = live(conn, ~p"/meetings/#{meeting}")
-      refute html =~ "Create Conversation"
       {:ok, participant} = Participants.update_participant(participant, %{contact_id: contact.id})
-
-      statement =
-        statement_fixture(%{
-          meeting_id: meeting.id,
-          participant_id: participant.id
-        })
+      {:ok, meeting} = Meetings.update_meeting(meeting, %{projector_status: :done})
+      {:ok, show_live, _html} = live(conn, ~p"/meetings/#{meeting}")
 
       Process.send(
         show_live.pid,
         {"", {:participant_contact_set, %{participant | contact: contact}}},
         []
       )
-
-      Meetings.update_meeting(meeting, %{projector_status: :done})
 
       show_live
       |> element("#participant-#{participant.id}-contact-#{contact.id}")
@@ -303,7 +302,6 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       refute show_live |> element("#create-conversation") |> render_click =~ "unassigned"
       [%{id: conversation_id}] = Conversations.list_conversations()
-      assert %{conversation_id: ^conversation_id} = Statements.get_statement!(statement.id)
       assert %{conversation_id: ^conversation_id} = Meetings.get_meeting!(meeting.id)
     end
 
