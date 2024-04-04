@@ -78,3 +78,10 @@ meeting = Discussit.Meetings.get_meeting!(meeting_id)
 
 postmaster.pid is in `/opt/homebrew/var/postgresql@15`
 
+### Creating Models
+
+```elixir
+attrs = %{name: "Tingbot Longform", external_id: "ft:gpt-3.5-turbo-0125:personal:tingbot-longform-1:97NiFVBZ", type: :llm, belongs_to: "6da36d41-8dd1-46f3-81f4-16eedb33dc46"}
+attrs = %{name: "GPT 3.5 Turbo", external_id: "gpt-3.5-turbo", type: :llm}
+{:ok, model} = Discussit.Models.create_model(attrs)
+```

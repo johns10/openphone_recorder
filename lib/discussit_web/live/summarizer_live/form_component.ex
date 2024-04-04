@@ -103,7 +103,11 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         _ -> nil
       end
 
-    models = Models.list_models(filters: [account_id: user.selected_account_id, type: :llm])
+    models =
+      Models.list_models(
+        filters: [account_id: user.selected_account_id, type: :llm],
+        order_by: [account_id: :desc]
+      )
 
     {:ok,
      socket

@@ -16,6 +16,7 @@ defmodule Discussit.Models do
     |> filter_by_account_id(filters[:account_id])
     |> filter_by_type(filters[:type])
     |> order_by_inserted_at(order_by[:inserted_at])
+    |> order_by_account_id(order_by[:account_id])
     |> maybe_limit(opts[:limit])
     |> Repo.all()
   end
@@ -112,6 +113,10 @@ defmodule Discussit.Models do
   defp order_by_inserted_at(query, nil), do: query
   defp order_by_inserted_at(query, :desc), do: order_by(query, [s], desc: s.inserted_at)
   defp order_by_inserted_at(query, :asc), do: order_by(query, [s], asc: s.inserted_at)
+
+  defp order_by_account_id(query, nil), do: query
+  defp order_by_account_id(query, :desc), do: order_by(query, [s], desc: s.account_id)
+  defp order_by_account_id(query, :asc), do: order_by(query, [s], asc: s.account_id)
 
   defp maybe_limit(query, nil), do: query
   defp maybe_limit(query, limit), do: limit(query, [s], ^limit)
