@@ -14,9 +14,8 @@ Kickoff
 
 ---
 
-![bg left:40% 80%](architecture.png)
-## **Vision**
-We get conversation data from everywhere, and provide the natural language tools analyze, understand, and leverage it with Artificial Intelligence.
+![bg left:25% 25%](discussit_logo.svg)
+# **Courseware Development for OpenRoom**
 
 We will be the source of conversation data for Artificial Intelligence and Machine Learning.
 
