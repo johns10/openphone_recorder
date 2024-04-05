@@ -39,7 +39,7 @@ defmodule Discussit.Chunker.TokenCount do
   end
 
   def chunk_items(%{queue: [head | _], current: current} = acc, opts) do
-    max_text_count = Keyword.get(opts, :max_tokens, 4096)
+    max_text_count = Keyword.get(opts, :max_tokens, Tokens.max_context_count(opts))
     current_count = Tokens.count(current)
     head_count = Tokens.count(head)
 

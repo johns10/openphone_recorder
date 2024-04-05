@@ -48,7 +48,7 @@ defmodule Discussit.Summaries.Summarize do
             } = summarizer
         }
       ) do
-    reduction_opts(summarizer, prompt)
+    reduction_opts(summarizer, prompt, model)
     |> Keyword.merge(
       prompt: prompt,
       reducer_prompt: reducer_prompt,
@@ -61,13 +61,13 @@ defmodule Discussit.Summaries.Summarize do
     |> Keyword.merge(opts)
   end
 
-  def reduction_opts(summarizer, prompt) do
+  def reduction_opts(summarizer, prompt, model) do
     case summarizer do
       %{percentage_reduction: nil, fixed_reduction: fixed} ->
-        fixed_reduction(fixed, prompt)
+        fixed_reduction(fixed, prompt, model)
 
       %{fixed_reduction: fixed, reduction_mode: :fixed} ->
-        fixed_reduction(fixed, prompt)
+        fixed_reduction(fixed, prompt, model)
 
       %{percentage_reduction: percent, fixed_reduction: nil} ->
         percentage_reduction(percent, prompt)
@@ -76,14 +76,14 @@ defmodule Discussit.Summaries.Summarize do
         percentage_reduction(percent, prompt)
 
       %{fixed_reduction: fixed} ->
-        fixed_reduction(fixed, prompt)
+        fixed_reduction(fixed, prompt, model)
     end
   end
 
-  def fixed_reduction(fixed_reduction, prompt),
+  def fixed_reduction(fixed_reduction, prompt, model),
     do: [
       max_output_count: fixed_reduction,
-      max_context_count: 4096 - Tokens.count(prompt) - fixed_reduction,
+      max_context_count: Tokens.max_context_count(prompt: prompt, model: model),
       reduction_mode: :fixed
     ]
 
@@ -136,7 +136,8 @@ defmodule Discussit.Summaries.Summarize do
       chunk
       |> Chunker.apply(
         chunkers: [:token_count],
-        max_tokens: max_output_count
+        max_tokens: max_output_count,
+        prompt: prompt
       )
       |> Enum.reduce(%{previous_summary: "", summaries: []}, fn chunk, acc ->
         max_output_count = floor(Tokens.count(chunk) * percentage_reduction)

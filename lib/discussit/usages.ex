@@ -72,6 +72,21 @@ defmodule Discussit.Usages do
   def calculate_total(
         %{
           provider: :openai,
+          model: _,
+          meta: %{
+            completion_tokens: completion_tokens,
+            prompt_tokens: prompt_tokens,
+            total_tokens: _
+          }
+        } = attrs
+      ) do
+    total = 0.0000015 * prompt_tokens + 0.000002 * completion_tokens
+    Map.put(attrs, :total, total)
+  end
+
+  def calculate_total(
+        %{
+          provider: :openai,
           model: "whisper-1",
           meta: %{
             duration: duration

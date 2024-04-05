@@ -25,14 +25,38 @@ defmodule Discussit.TokensTest do
                )
     end
 
+    test "max_text_percentage_count near maximum" do
+      # max = 16385, prompt = 0, input = 13108, output = 3277
+      assert 3277 ==
+               Tokens.max_text_output_count(
+                 max_tokens: 16385,
+                 percentage_reduction: 0.25,
+                 prompt: "",
+                 reduction_mode: :percentage
+               )
+
+      assert 13108 ==
+               Tokens.max_context_count(
+                 model: "gpt-3.5-turbo",
+                 prompt: "",
+                 reduction_mode: :percentage,
+                 percentage_reduction: 0.25
+               )
+    end
+
     test "pass nothing, get max text output" do
       assert 4096 ==
                Tokens.max_text_output_count(prompt: "")
     end
 
     test "pass nothing, get max text input" do
-      assert 16385 ==
+      assert 16385 - 4096 ==
                Tokens.max_context_count(prompt: "")
+    end
+
+    test "pass prompt, get less than max text input" do
+      assert 16385 - 4096 - 5 ==
+               Tokens.max_context_count(prompt: "tokens tokens tokens")
     end
   end
 

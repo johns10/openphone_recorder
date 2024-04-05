@@ -9,7 +9,7 @@ defmodule Discussit.Tokens do
     percentage_reduction = Keyword.get(opts, :percentage_reduction, nil)
     fixed_reduction = Keyword.get(opts, :fixed_reduction, nil)
     model = Keyword.get(opts, :model, default_model())
-    max_token_count = Keyword.get(opts, :max_tokens, max_output_count(model))
+    max_token_count = Keyword.get(opts, :max_tokens, max_input_count(model))
     prompt_count = Keyword.get(opts, :prompt) |> count()
     reduction_mode = Keyword.get(opts, :reduction_mode)
 
@@ -30,13 +30,18 @@ defmodule Discussit.Tokens do
   end
 
   def max_output_count("gpt-3.5-turbo"), do: 4_096
-
-  def max_context_count(opts \\ []) do
-    result = opts |> Keyword.get(:model, default_model()) |> max_input_count()
-    Keyword.get(opts, :max_context_count, result)
-  end
+  def max_output_count(_), do: 4_096
 
   def max_input_count("gpt-3.5-turbo"), do: 16_385
+  def max_input_count(_), do: 16_385
+
+  def max_context_count(opts \\ []) do
+    max_token_count = opts |> Keyword.get(:model, default_model()) |> max_input_count()
+    prompt = Keyword.get(opts, :prompt)
+    prompt_count = count(prompt)
+
+    max_token_count - prompt_count - max_text_output_count(opts)
+  end
 
   def count(statements) when is_list(statements),
     do: statements |> Enum.reduce(0, fn statement, acc -> acc + count(statement) end)
