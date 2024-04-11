@@ -117,26 +117,32 @@ defmodule Discussit.Summaries.Summarize do
     total_tokens = Tokens.count(chunk)
     prompt = opts[:reducer_prompt]
     percentage_reduction = opts[:max_context_count] / total_tokens
+    model = opts[:model] || Discussit.Models.Model.default_llm_id()
 
-    max_output_count =
+    total_output_count =
       Tokens.max_context_count(
         prompt: prompt,
         percentage_reduction: percentage_reduction,
         reduction_mode: :percentage
       )
 
-    Logger.info("""
+    total_chunks = ceil(total_output_count / Tokens.max_output_count(model))
+    chunk_count = ceil(total_tokens / total_chunks)
+
+    Logger.warning("""
       We have to reduce the conversation before summarizing it.
       The conversation is #{total_tokens} long.
       It must be reduced by #{percentage_reduction * 100} %.
-      Each chunk may be #{max_output_count} long (max).
+      The total output should be #{total_output_count} long (max).
+      There will be #{total_chunks} chunks.
+      Each chunk will be #{chunk_count} long.
     """)
 
     result =
       chunk
       |> Chunker.apply(
         chunkers: [:token_count],
-        max_tokens: max_output_count,
+        max_tokens: chunk_count,
         prompt: prompt
       )
       |> Enum.reduce(%{previous_summary: "", summaries: []}, fn chunk, acc ->
@@ -279,7 +285,7 @@ defmodule Discussit.Summaries.Summarize do
 
   def create_completion(prompt, max_tokens, opts \\ []) do
     messages = [%{role: :user, content: prompt}]
-    model = opts[:model] || "gpt-3.5-turbo"
+    model = opts[:model] || Discussit.Models.Model.default_llm_id()
     account_id = opts[:account_id] || raise("Account id required to create usage")
 
     ExOpenAI.Chat.create_chat_completion(messages, model, max_tokens: max_tokens, temperature: 0)
@@ -305,6 +311,11 @@ defmodule Discussit.Summaries.Summarize do
         {:ok, content}
 
       {:error, %{error: %{message: message}}} ->
+        Logger.error(message)
+        {:error, message}
+
+      {:error, %{"error" => %{"message" => message}}} ->
+        Logger.error(message)
         {:error, message}
     end
   end

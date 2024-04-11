@@ -10,6 +10,7 @@ defmodule Discussit.Usages.Usage do
     field :model, Ecto.Enum,
       values: [
         "gpt-3.5-turbo": "gpt-3.5-turbo",
+        "ft:gpt-3.5-turbo-0125:personal:tingbot-longform-1:97NiFVBZ": "tingbot-longform",
         "whisper-1": "whisper-1",
         assemblyai_default: "assemblyai_default",
         "BAAI/bge-large-en-v1.5": "BAAI/bge-large-en-v1.5"
