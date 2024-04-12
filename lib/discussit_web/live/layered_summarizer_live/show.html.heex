@@ -1,0 +1,35 @@
+<.header>
+  Layered summarizer <%= @layered_summarizer.id %>
+  <:subtitle>This is a layered_summarizer record from your database.</:subtitle>
+  <:actions>
+    <.link
+      patch={~p"/layered_summarizers/#{@layered_summarizer}/show/edit"}
+      phx-click={JS.push_focus()}
+    >
+      <.button>Edit layered_summarizer</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @layered_summarizer.name %></:item>
+</.list>
+
+<.back navigate={~p"/layered_summarizers"}>Back to layered_summarizers</.back>
+
+<.modal
+  :if={@live_action == :edit}
+  id="layered_summarizer-modal"
+  show
+  on_cancel={JS.patch(~p"/layered_summarizers/#{@layered_summarizer}")}
+>
+  <.live_component
+    module={DiscussitWeb.LayeredSummarizerLive.FormComponent}
+    id={@layered_summarizer.id}
+    title={@page_title}
+    action={@live_action}
+    layered_summarizer={@layered_summarizer}
+    patch={~p"/layered_summarizers/#{@layered_summarizer}"}
+    account_id={@current_user.selected_account_id}
+  />
+</.modal>

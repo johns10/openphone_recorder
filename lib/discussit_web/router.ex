@@ -144,6 +144,13 @@ defmodule DiscussitWeb.Router do
       live("/meetings/:id", MeetingLive.Show, :show)
 
       live("/conversation_summarizers/:id", ConversationSummarizerLive.Show, :show)
+
+      live "/layered_summarizers", LayeredSummarizerLive.Index, :index
+      live "/layered_summarizers/new", LayeredSummarizerLive.Index, :new
+      live "/layered_summarizers/:id/edit", LayeredSummarizerLive.Index, :edit
+
+      live "/layered_summarizers/:id", LayeredSummarizerLive.Show, :show
+      live "/layered_summarizers/:id/show/edit", LayeredSummarizerLive.Show, :edit
     end
   end
 

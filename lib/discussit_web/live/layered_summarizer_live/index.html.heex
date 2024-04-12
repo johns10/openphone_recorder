@@ -1,0 +1,51 @@
+<.header>
+  Listing Layered summarizers
+  <:actions>
+    <.link patch={~p"/layered_summarizers/new"}>
+      <.button>New Layered summarizer</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="layered_summarizers"
+  rows={@streams.layered_summarizers}
+  row_click={
+    fn {_id, layered_summarizer} ->
+      JS.navigate(~p"/layered_summarizers/#{layered_summarizer}")
+    end
+  }
+>
+  <:col :let={{_id, layered_summarizer}} label="Name"><%= layered_summarizer.name %></:col>
+  <:action :let={{_id, layered_summarizer}}>
+    <div class="sr-only">
+      <.link navigate={~p"/layered_summarizers/#{layered_summarizer}"}>Show</.link>
+    </div>
+    <.link patch={~p"/layered_summarizers/#{layered_summarizer}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, layered_summarizer}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: layered_summarizer.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="layered_summarizer-modal"
+  show
+  on_cancel={JS.patch(~p"/layered_summarizers")}
+>
+  <.live_component
+    module={DiscussitWeb.LayeredSummarizerLive.FormComponent}
+    id={@layered_summarizer.id || :new}
+    title={@page_title}
+    action={@live_action}
+    layered_summarizer={@layered_summarizer}
+    patch={~p"/layered_summarizers"}
+    account_id={@current_user.selected_account_id}
+  />
+</.modal>
