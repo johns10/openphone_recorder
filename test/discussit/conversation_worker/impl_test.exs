@@ -730,7 +730,7 @@ defmodule Discussit.ConversationWorker.ImplTest do
       tingbot =
         model_fixture(%{
           account_id: account_id,
-          external_id: "ft:gpt-3.5-turbo-0125:personal:tingbot-longform-1:97NiFVBZ"
+          external_id: "ft:gpt-3.5-turbo-0125:personal:tingbot-longform:9FKi2PP3"
         })
 
       contact_one = contact_fixture(%{first_name: "John", last_name: "Doe"})
