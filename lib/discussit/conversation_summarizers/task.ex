@@ -38,7 +38,7 @@ defmodule Discussit.ConversationSummarizers.Task do
   defp get_conversation_summarizer!(id),
     do:
       ConversationSummarizers.get_conversation_summarizer!(id,
-        preloads: [:conversation, [summarizer: :model]]
+        preloads: [:conversation, [summarizer: [:model, :reducer_model, :rewriter_model]]]
       )
 
   defp create_custom_summary(cs, account_id),

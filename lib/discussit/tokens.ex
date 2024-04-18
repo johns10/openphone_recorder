@@ -10,11 +10,8 @@ defmodule Discussit.Tokens do
     fixed_reduction = Keyword.get(opts, :fixed_reduction, nil)
     model = Keyword.get(opts, :model, default_model())
     max_token_count = Keyword.get(opts, :max_tokens, max_input_count(model))
-    prompt_count = Keyword.get(opts, :prompt) |> count()
+    prompt_count = Keyword.get(opts, :prompt, "") |> count()
     reduction_mode = Keyword.get(opts, :reduction_mode)
-
-    # IO.puts("max_text_output_count")
-    # IO.inspect(max_token_count, label: :max_token_count)
 
     result =
       case reduction_mode do
@@ -40,7 +37,7 @@ defmodule Discussit.Tokens do
 
   def max_context_count(opts \\ []) do
     max_token_count = opts |> Keyword.get(:model, default_model()) |> max_input_count()
-    prompt = Keyword.get(opts, :prompt)
+    prompt = Keyword.get(opts, :prompt, "")
     prompt_count = count(prompt)
     result = max_token_count - prompt_count - max_text_output_count(opts)
     Keyword.get(opts, :max_context_count, result)

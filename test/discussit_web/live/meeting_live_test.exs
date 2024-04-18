@@ -300,7 +300,12 @@ defmodule DiscussitWeb.MeetingLiveTest do
 
       :timer.sleep(1000)
 
-      refute show_live |> element("#create-conversation") |> render_click =~ "unassigned"
+      show_live |> element("#create-conversation") |> render_click()
+      [conversation] = Discussit.Conversations.list_conversations()
+
+      refute show_live |> element("#assign-conversation-#{conversation.id}") |> render_click =~
+               "unassigned"
+
       [%{id: conversation_id}] = Conversations.list_conversations()
       assert %{conversation_id: ^conversation_id} = Meetings.get_meeting!(meeting.id)
     end

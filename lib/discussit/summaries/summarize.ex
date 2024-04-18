@@ -19,6 +19,7 @@ defmodule Discussit.Summaries.Summarize do
     item
     |> handle_reduce(opts)
     |> summarize(opts)
+    |> rewrite(opts)
     |> summary_attrs(item, opts)
     |> Summaries.create_summary()
     |> case do
@@ -38,13 +39,18 @@ defmodule Discussit.Summaries.Summarize do
           id: conversation_summarizer_id,
           summarizer:
             %Summarizer{
+              rewriter_prompt: rewriter_prompt,
               reducer_prompt: reducer_prompt,
               prompt: prompt,
               percentage_reduction: percentage_reduction,
               fixed_reduction: fixed_reduction,
               chunker: chunker,
               model: model,
-              model_id: model_id
+              model_id: model_id,
+              rewriter_model: rewriter_model,
+              rewriter_model_id: rewriter_model_id,
+              reducer_model: reducer_model,
+              reducer_model_id: reducer_model_id
             } = summarizer
         }
       ) do
@@ -52,11 +58,14 @@ defmodule Discussit.Summaries.Summarize do
     |> Keyword.merge(
       prompt: prompt,
       reducer_prompt: reducer_prompt,
+      rewriter_prompt: rewriter_prompt,
       percentage_reduction: percentage_reduction,
       conversation_summarizer_id: conversation_summarizer_id,
       chunkers: [chunker],
       fixed_reduction: fixed_reduction,
-      model: model_id(model_id, model)
+      model: model_id(model_id, model),
+      rewriter_model: rewriter_model_id && model_id(rewriter_model_id, rewriter_model),
+      reducer_model: reducer_model_id && model_id(reducer_model_id, reducer_model)
     )
     |> Keyword.merge(opts)
   end
@@ -115,9 +124,10 @@ defmodule Discussit.Summaries.Summarize do
 
   def reduce(chunk, opts) do
     total_tokens = Tokens.count(chunk)
-    prompt = opts[:reducer_prompt]
+    prompt = opts[:prompt]
+    reducer_prompt = opts[:reducer_prompt]
     percentage_reduction = opts[:max_context_count] / total_tokens
-    model = opts[:model] || Discussit.Models.Model.default_llm_id()
+    model = opts[:reducer_model] || opts[:model] || Discussit.Models.Model.default_llm_id()
 
     total_output_count =
       Tokens.max_context_count(
@@ -143,7 +153,7 @@ defmodule Discussit.Summaries.Summarize do
       |> Chunker.apply(
         chunkers: [:token_count],
         max_tokens: chunk_count,
-        prompt: prompt
+        prompt: reducer_prompt
       )
       |> Enum.reduce(%{previous_summary: "", summaries: []}, fn chunk, acc ->
         max_output_count = floor(Tokens.count(chunk) * percentage_reduction)
@@ -156,7 +166,9 @@ defmodule Discussit.Summaries.Summarize do
         ]
 
         prompt = EEx.eval_string(prompt, assigns)
-        {:ok, text} = create_completion(prompt, max_output_count, opts)
+
+        {:ok, text} =
+          create_completion(prompt, max_output_count, Keyword.put(opts, :model, model))
 
         previous_summary =
           text
@@ -188,6 +200,30 @@ defmodule Discussit.Summaries.Summarize do
     {:ok, text} = create_completion(prompt, max_output, opts)
 
     text
+  end
+
+  def rewrite(text, opts) do
+    case opts[:rewriter_model] do
+      nil ->
+        text
+
+      _ ->
+        prompt_template = Keyword.get(opts, :rewriter_prompt)
+        percentage_reduction = Keyword.get(opts, :percentage_reduction)
+        max_output = Tokens.max_text_output_count(opts)
+        model = opts[:rewriter_model] || opts[:model] || Discussit.Models.Model.default_llm_id()
+
+        assigns = [
+          max_output_count: max_output,
+          context: text,
+          percentage_reduction: percentage_reduction
+        ]
+
+        prompt = EEx.eval_string(prompt_template, assigns)
+        {:ok, text} = create_completion(prompt, max_output, Keyword.put(opts, :model, model))
+
+        text
+    end
   end
 
   defp summary_attrs(summary, [%Statement{} | _] = statements, opts) do
