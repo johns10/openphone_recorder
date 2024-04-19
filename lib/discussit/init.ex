@@ -10,7 +10,6 @@ defmodule Discussit.Init do
         \"\"\"\<%= context %>\"\"\"
         Be sure to capture any recurring events or topics and provide their respective counts.
         Your summary should be concise yet comprehensive, focusing on the most relevant information.
-        Summarize the content to approximately <%= percentage_reduction * 100 %>% of its original length.
       ],
       reducer_prompt: ~s[
         <%= if previous_summary == "" do %>

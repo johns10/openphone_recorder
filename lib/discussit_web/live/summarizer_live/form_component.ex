@@ -24,10 +24,34 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         <.input field={@form[:name]} type="text" label="Name" />
         <.input phx-hook="MaintainAttrs" field={@form[:prompt]} type="textarea" label="Prompt" />
         <.input
+          field={@form[:model_id]}
+          type="select"
+          label="Model"
+          options={select_options(@models)}
+        />
+        <.input
           phx-hook="MaintainAttrs"
           field={@form[:reducer_prompt]}
           type="textarea"
           label="Reducer Prompt"
+        />
+        <.input
+          field={@form[:reducer_model_id]}
+          type="select"
+          label="Reducer Model"
+          options={select_options(@models)}
+        />
+        <.input
+          phx-hook="MaintainAttrs"
+          field={@form[:rewriter_prompt]}
+          type="textarea"
+          label="Rewriter Prompt"
+        />
+        <.input
+          field={@form[:rewriter_model_id]}
+          type="select"
+          label="Rewriter Model"
+          options={select_options(@models)}
         />
         <.input
           field={@form[:chunker]}
@@ -78,12 +102,6 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
             type="number"
           />
         </div>
-        <.input
-          field={@form[:model_id]}
-          type="select"
-          label="Model"
-          options={select_options(@models)}
-        />
         <:actions>
           <.button phx-disable-with="Saving...">Save Summarizer</.button>
         </:actions>
@@ -108,6 +126,7 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         filters: [account_id: user.selected_account_id, type: :llm],
         order_by: [account_id: :desc]
       )
+      |> IO.inspect()
 
     {:ok,
      socket
