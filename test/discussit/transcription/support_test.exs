@@ -67,10 +67,13 @@ defmodule Discussit.Transcription.SupportTest do
 
       url =
         use_cassette("256_to_623_aws_call") do
-          "./test/support/fixtures/256_to_623.mp3"
-          |> ExAws.S3.Upload.stream_file()
-          |> ExAws.S3.upload("discussit", "256_to_623")
-          |> ExAws.request()
+          bucket = "discussit"
+          key = "256_to_623"
+          path = "./test/support/fixtures/256_to_623.mp3"
+          file = Elixir.File.read!(path)
+
+          ExAws.S3.put_object(bucket, key, file)
+          |> ExAws.request!()
 
           {:ok, url} =
             ExAws.Config.new(:s3)

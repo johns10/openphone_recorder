@@ -3,27 +3,10 @@ defmodule Discussit.Embeddings.Impl do
   alias Discussit.Embeddings.Embedding
   alias Discussit.Tokens
   alias Discussit.Embeddings
-  alias Discussit.HTTP
   alias Discussit.Statements
   alias Discussit.Usages
   alias Discussit.Statements.Statement
   require Logger
-
-  def start_model() do
-    case get_embedding("") do
-      {:ok, %Pgvector{}} ->
-        Logger.info("Model started")
-        :ok
-
-      {:ok, %{status_code: 200}} ->
-        Logger.info("Model started")
-        :ok
-
-      {:error, error} ->
-        Logger.info("Model not started because #{inspect(error)}")
-        :error
-    end
-  end
 
   def embed_statements(limit \\ 500) do
     Logger.info("#{__MODULE__}.embed_statements")
@@ -46,19 +29,11 @@ defmodule Discussit.Embeddings.Impl do
     |> Flow.from_enumerable(max_demand: 1)
     |> Flow.flat_map(& &1)
     |> Flow.map(&%{status: :ok, source: &1})
-    |> Flow.map(&check_model/1)
     |> Flow.map(&filter_unprocessable/1)
     |> Flow.map(&filter_all_stopwords/1)
     |> Flow.map(&create_embedding/1)
     |> Flow.map(&put_vector/1)
     |> Enum.map(& &1)
-  end
-
-  defp check_model(state) do
-    case Discussit.Embeddings.ModelStatus.get() do
-      :started -> state
-      :not_started -> Map.put(state, :status, :model_not_started)
-    end
   end
 
   defp filter_unprocessable(%{status: :ok, source: %Statement{content: nil}} = state),
@@ -161,31 +136,13 @@ defmodule Discussit.Embeddings.Impl do
   defp put_vector(state), do: state
 
   def get_embedding(text) do
-    api_token = System.get_env("HUGGINGFACE_API_KEY")
-    url = "https://api-inference.huggingface.co/models/#{@model_id}"
-
-    headers = [{"Authorization", "Bearer #{api_token}"}]
-
-    with {:ok, %{status_code: 200, body: body}} <- HTTP.post(url, text, headers),
-         {:ok, list} <- Jason.decode(body),
-         vector <- Pgvector.new(list) do
-      {:ok, vector}
-    else
-      {:ok, %{status_code: 503, body: json}} ->
-        with {:ok, %{"error" => error, "estimated_time" => eta}} <- Jason.decode(json) do
-          Discussit.Embeddings.ModelStatus.set(:not_started)
-          Logger.warning("#{error}, eta: #{eta}")
-          {:error, :not_started}
-        end
-
-      {:ok, %{status_code: status_code, body: json}} ->
-        with {:ok, %{"error" => error}} <- Jason.decode(json) do
-          Logger.warning(
-            "#{__MODULE__}.get_embedding failed with status code #{status_code}: #{error}"
-          )
-
-          {:error, error}
-        end
-    end
+    repo = {:hf, "BAAI/bge-large-en-v1.5"}
+    {:ok, model_info} = Bumblebee.load_model(repo, architecture: :base)
+    {:ok, tokenizer} = Bumblebee.load_tokenizer(repo)
+    serving = Bumblebee.Text.TextEmbedding.text_embedding(model_info, tokenizer)
+    %{embedding: embedding} = Nx.Serving.run(serving, text)
+    list = Nx.to_list(embedding)
+    vector = Pgvector.new(list)
+    {:ok, vector}
   end
 end

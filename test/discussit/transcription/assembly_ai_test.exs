@@ -15,10 +15,11 @@ defmodule Discussit.AssemblyAITest do
 
       url =
         use_cassette("256_to_623_aws_call") do
-          "./test/support/fixtures/256_to_623.mp3"
-          |> ExAws.S3.Upload.stream_file()
-          |> ExAws.S3.upload(bucket, key)
-          |> ExAws.request()
+          path = "./test/support/fixtures/256_to_623.mp3"
+          file = File.read!(path)
+
+          ExAws.S3.put_object(bucket, key, file)
+          |> ExAws.request!()
 
           {:ok, url} =
             ExAws.Config.new(:s3)

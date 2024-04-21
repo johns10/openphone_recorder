@@ -12,6 +12,10 @@ processes = []
   PHX_HOST = "openphone-recorder.fly.dev"
   PORT = "8080"
 
+[mounts]
+  source="discussit_models"
+  destination="/models"
+
 [experimental]
   auto_rollback = true
 

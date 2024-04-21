@@ -12,10 +12,11 @@ defmodule Discussit.TranscriptionTest do
       ExVCR.Config.filter_request_headers("Authorization")
 
       use_cassette("single_file_upload") do
-        "./test/support/fixtures/256_to_623.mp3"
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
+        path = "./test/support/fixtures/256_to_623.mp3"
+        file = File.read!(path)
+
+        ExAws.S3.put_object(bucket, key, file)
+        |> ExAws.request!()
       end
 
       %{id: id} =

@@ -3,7 +3,7 @@ defmodule DiscussitWeb.EventController do
 
   alias Discussit.Accounts
   alias Discussit.Events
-  alias Discussit.Events.Consumer
+  alias Discussit.Events.Worker
   alias Discussit.Events.Event
   alias Discussit.Events.Signature
 
@@ -25,7 +25,8 @@ defmodule DiscussitWeb.EventController do
              skipped: false,
              processed: false
            }) do
-      Consumer.start()
+      Worker.new(%{})
+      |> Oban.insert()
 
       conn
       |> put_status(:created)

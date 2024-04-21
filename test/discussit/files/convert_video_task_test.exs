@@ -21,10 +21,11 @@ defmodule Discussit.Files.ConvertVideoTaskTest do
         })
 
       use_cassette("put_short_video") do
-        "./test/support/fixtures/short_video.mp4"
-        |> ExAws.S3.Upload.stream_file()
-        |> ExAws.S3.upload(bucket, key)
-        |> ExAws.request()
+        path = "./test/support/fixtures/short_video.mp4"
+        file = File.read!(path)
+
+        ExAws.S3.put_object(bucket, key, file)
+        |> ExAws.request!()
       end
 
       %{meeting: meeting, account: account}

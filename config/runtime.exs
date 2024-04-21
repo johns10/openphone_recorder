@@ -48,4 +48,7 @@ if config_env() == :prod do
   config :discussit, Discussit.Mailer,
     adapter: Swoosh.Adapters.Brevo,
     api_key: System.get_env("BREVO_API_KEY")
+
+  config :flame, :backend, FLAME.FlyBackend
+  config :flame, FLAME.FlyBackend, token: System.fetch_env!("FLY_API_TOKEN")
 end

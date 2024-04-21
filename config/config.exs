@@ -89,9 +89,11 @@ config :discussit, stripe_public_key: System.get_env("STRIPE_PUBLIC_KEY")
 config :stripity_stripe, api_key: System.get_env("STRIPE_SECRET")
 
 config :discussit, Oban,
-  queues: [conversation_summarizer: 100, media: 1],
+  queues: [conversation_summarizer: 100, media: 1, embeddings: 1, events: 1],
   repo: Discussit.Repo,
   plugins: [{Oban.Plugins.Pruner, max_age: 300}]
+
+config :nx, default_backend: EXLA.Backend
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

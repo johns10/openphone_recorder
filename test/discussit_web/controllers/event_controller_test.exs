@@ -4,7 +4,6 @@ defmodule DiscussitWeb.EventControllerTest do
   import Discussit.AccountsFixtures
 
   alias Discussit.OpenphoneFixtures
-  alias Discussit.Events.Consumer
 
   defp sign_request(conn, attrs) do
     timestamp = DateTime.now!("Etc/UTC") |> DateTime.to_unix()
@@ -31,9 +30,6 @@ defmodule DiscussitWeb.EventControllerTest do
 
   describe "create event" do
     setup %{conn: conn} do
-      Consumer.set_subscriber(self())
-      pid = Process.whereis(Consumer)
-      Ecto.Adapters.SQL.Sandbox.allow(Discussit.Repo, self(), pid)
       {:ok, conn: put_req_header(conn, "accept", "application/json")}
     end
 
@@ -58,8 +54,6 @@ defmodule DiscussitWeb.EventControllerTest do
                "payload" => %{},
                "account_id" => ^account_id
              } = json_response(conn, 200)["data"]
-
-      assert_receive({:consumed, _}, 2000)
     end
 
     # test "renders errors when data is invalid", %{conn: conn} do

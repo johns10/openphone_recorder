@@ -126,7 +126,6 @@ defmodule DiscussitWeb.SummarizerLive.FormComponent do
         filters: [account_id: user.selected_account_id, type: :llm],
         order_by: [account_id: :desc]
       )
-      |> IO.inspect()
 
     {:ok,
      socket

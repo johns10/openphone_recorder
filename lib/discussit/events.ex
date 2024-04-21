@@ -17,11 +17,11 @@ defmodule Discussit.Events do
     do:
       where(query, [e], fragment("? -> 'data' -> 'object' ->> 'id' = ?", e.payload, ^external_id))
 
-  def list_unprocessed_events do
+  def list_top_unprocessed_event do
     Repo.all(
       from e in Event,
         where: e.processed == false and e.skipped == false,
-        limit: 2,
+        limit: 1,
         order_by: [asc: e.id]
     )
   end

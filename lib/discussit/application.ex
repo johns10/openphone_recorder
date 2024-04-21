@@ -15,11 +15,15 @@ defmodule Discussit.Application do
         {Finch, name: Discussit.Finch},
         DiscussitWeb.Endpoint,
         {Oban, Application.fetch_env!(:discussit, Oban)},
-        {Discussit.Events.Consumer, %{count: :inf}},
-        # {Discussit.Embeddings.Server, %{}},
-        # {Discussit.Embeddings.ModelStatus, %{}},
         {DynamicSupervisor, strategy: :one_for_one, name: Discussit.StatusSupervisor},
-        {Registry, keys: :unique, name: Discussit.StatusRegistry}
+        {Registry, keys: :unique, name: Discussit.StatusRegistry},
+        {FLAME.Pool,
+         name: EmbeddingsRunner,
+         min: 0,
+         max: 1,
+         max_concurrency: 1,
+         idle_shutdown_after: 5_000,
+         timeout: :infinity}
       ]
       |> minio()
 
