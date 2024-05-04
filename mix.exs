@@ -5,7 +5,7 @@ defmodule Discussit.MixProject do
     [
       app: :discussit,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.16",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -78,6 +78,7 @@ defmodule Discussit.MixProject do
       {:bumblebee, "~> 0.5.3"},
       {:exla, ">= 0.0.0"},
       {:flame, "~> 0.1"},
+      {:ex_oauth2_provider, "~> 0.5.7"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
       {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},

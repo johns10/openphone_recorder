@@ -91,6 +91,7 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/discussit ./
 
 USER nobody
 
+RUN mkdir config
 CMD ["/app/bin/server"]
 
 # Appended by flyctl

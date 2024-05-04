@@ -41,6 +41,7 @@ defmodule DiscussitWeb.Router do
     # put "/events/:account_id/:id", EventController, :update
     # delete "/events/:id", EventController, :delete
     post("/transcription/complete", TranscriptionController, :finish)
+    post("/oauth/token", OAuthTokenController, :create)
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
@@ -99,6 +100,7 @@ defmodule DiscussitWeb.Router do
 
   scope "/", DiscussitWeb do
     pipe_through([:browser, :require_authenticated_user])
+    resources("/oauth/authorize", OAuthController)
 
     live_session :require_authenticated_user,
       on_mount: [

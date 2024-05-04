@@ -1,0 +1,37 @@
+<div class="flex items-center justify-center px-4">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold">
+        Authorize Application
+      </h2>
+      <p class="mt-2 text-center text-sm">
+        The application wants to access your account.
+      </p>
+    </div>
+    <div class="rounded bg-white p-8 shadow space-y-6">
+      <div class="text-sm text-gray-500">
+        <p>
+          Application <strong><%= @client.name %></strong>
+          is requesting permission to access your account.
+        </p>
+      </div>
+      <div class="flex justify-between">
+        <.form for={%{}} action={~p"/oauth/authorize"}>
+          <input type="hidden" name="client_id" value={@client.uid} />
+          <input type="hidden" name="scopes" value={@scopes} />
+          <input type="hidden" name="state" value={@params["state"]} />
+          <input type="hidden" name="approve" value="true" />
+          <button type="submit" class="btn btn-success">
+            Approve
+          </button>
+        </.form>
+        <form action="/oauth/authorize" method="POST">
+          <input type="hidden" name="client_id" value="your_client_id_here" />
+          <button type="submit" name="deny" value="false" class="btn btn-outline">
+            Deny
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
