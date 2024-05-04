@@ -60,7 +60,9 @@
         <%= conversation.name %>
       </span>
       <span :for={participant <- conversation.participants} :if={conversation.name == nil}>
-        <%= participant.contact.first_name %> <%= participant.contact.last_name %>
+        <div :if={participant.contact}>
+          <%= participant.contact.first_name %> <%= participant.contact.last_name %>
+        </div>
       </span>
     </div>
     <div :if={@meeting.projector_status in [:done] && !@meeting.conversation_id}>
