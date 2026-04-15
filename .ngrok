@@ -1,10 +1,7 @@
 authtoken: 2Gro47oGzqJl4nsEXp0XdNicADt_7yS758gxGGg67LaJrCdQf
 version: 2
 tunnels:
-  first:
-    addr: 9000 
-    labels: 
-      -  edge=edghts_2byimXORPDCGmgNfcy6OhkHlvZ3
+
   second:
     addr: 4000
     labels: 

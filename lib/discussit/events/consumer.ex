@@ -28,9 +28,10 @@ defmodule Discussit.Events.Consumer do
     |> Events.cast_event()
     |> Projector.apply(event.account_id)
     |> case do
-      {:ok, _} ->
-        Discussit.Embeddings.Job.new(%{})
-        |> Oban.insert()
+      {:ok, result} ->
+        # Discussit.Embeddings.Job.new(%{})
+        # |> Oban.insert()
+        IO.inspect(result)
 
         Discussit.Events.update_event(event, %{processed: true})
 
